@@ -15,7 +15,8 @@ import { createTutorial } from './tutorial.js';
 import { createTitle } from './title.js';
 import { createScope } from './scope.js';
 import { $, show, celebrate } from './ui.js';
-import { play, setSound, setMusic, music, wake } from './sound.js';
+import { play, music, wake } from './sound.js';
+import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
 import { showGuide, hideGuide } from './guide.js';
 import { createData, inIosSafariTab, ask } from './data.js';
@@ -56,45 +57,12 @@ async function boot() {
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
   setScope(data.run.scope);
 
-  // 효과음 켜고 끄기 (처음 화면과 메뉴에 같은 버튼이 있습니다)
-  setSound(data.sound !== false);
-  function renderSound() {
-    document.querySelectorAll('.sound-toggle').forEach((btn) => {
-      btn.textContent = t(data.sound !== false ? 'ui.soundOn' : 'ui.soundOff');
-      btn.setAttribute('aria-pressed', String(data.sound !== false));
-    });
-  }
-  document.querySelectorAll('.sound-toggle').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      data.sound = data.sound === false;
-      setSound(data.sound);
-      store(data);
-      renderSound();
-      play('right');
-    });
-  });
-  // 배경 음악 켜고 끄기 (효과음과 따로 켜고 끕니다)
-  setMusic(data.music !== false);
-  function renderMusic() {
-    document.querySelectorAll('.music-toggle').forEach((btn) => {
-      btn.textContent = t(data.music !== false ? 'ui.musicOn' : 'ui.musicOff');
-      btn.setAttribute('aria-pressed', String(data.music !== false));
-    });
-  }
-  document.querySelectorAll('.music-toggle').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      data.music = data.music === false;
-      setMusic(data.music);
-      store(data);
-      renderMusic();
-    });
-  });
   document.addEventListener('pointerdown', wake, { passive: true }); // 브라우저는 화면을 누른 뒤에야 소리를 허락합니다.
   // 버튼을 누를 때의 짧은 소리 (답 버튼은 정답·오답 소리가 따로 납니다)
   document.addEventListener('click', (event) => {
     const btn = event.target.closest && event.target.closest('button');
     wake();
-    if (btn && !btn.closest('#answers, #evAnswers') && !btn.classList.contains('sound-toggle')) play('tap');
+    if (btn && !btn.closest('#answers, #evAnswers')) play('tap');
   });
 
   const getRun = () => data.run;
@@ -244,7 +212,8 @@ async function boot() {
   });
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
-    if (!$('menu').hidden) closeMenu();
+    if (settings.isOpen()) settings.close();
+    else if (!$('menu').hidden) closeMenu();
     else openMenu();
   });
 
@@ -257,10 +226,11 @@ async function boot() {
   }
   window.addEventListener('popstate', () => {
     armed = false;
-    if (screen === 'screenTitle') return; // 처음 화면에서는 그대로 나갑니다.
+    if (screen === 'screenTitle' && !settings.isOpen()) return; // 처음 화면에서는 그대로 나갑니다.
     armBack();
     if (screen === 'screenScope' || screen === 'screenData') goTitle();
     else if (screen === 'screenCodex') $('codexClose').click();
+    else if (settings.isOpen()) settings.close();
     else if (!$('menu').hidden) closeMenu();
     else openMenu();
   });
@@ -305,7 +275,7 @@ async function boot() {
       data.lastScope = keys;
       const level = Math.min(data.ascend || 0, data.ascendMax || 0);
       // 격려는 보통 난이도에서만 붙습니다. (도전 단계는 스스로 고른 어려움이므로)
-      data.run = newRun(keys, level, level ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0));
+      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0)); // 설정에서 격려를 꺼 두면 붙지 않습니다
       setScope(keys);
       // 재도전 선물: 한 판이라도 끝낸 적이 있으면, 지난 판의 성적에 맞는 선물을 고르고 출발합니다.
       if (CONFIG.bless.on && data.last && !tutorial.active()) {
@@ -460,34 +430,37 @@ async function boot() {
     }
   }
 
-  // 언어 바꾸기 (처음 화면과 메뉴에 같은 선택 상자가 있습니다)
-  const selects = [...document.querySelectorAll('.lang-select')];
-  selects.forEach((select) => {
-    select.value = data.lang;
-    select.addEventListener('change', async () => {
-      data.lang = select.value;
-      selects.forEach((other) => {
-        other.value = data.lang;
-      });
-      persist();
-      await loadLang(data.lang);
-      applyStatic();
-      if (screen === 'screenTitle') title.render();
-      if (screen === 'screenScope') scope.render();
-      if (screen === 'screenMap') map.render();
-      if (screen === 'screenBattle') battle.refresh();
-      if (screen === 'screenEvent') events.refresh();
-      if (screen === 'screenCodex') codex.render();
-      if (screen === 'screenData') dataScreen.render();
-      if (!$('menu').hidden) $('menuText').textContent = t($('menu').dataset.key);
-      renderSound();
-      renderMusic();
-      onChange();
-    });
+  // 언어 바꾸기 (설정 창의 선택 상자)
+  async function changeLang(lang) {
+    data.lang = lang;
+    persist();
+    await loadLang(data.lang);
+    applyStatic();
+    if (screen === 'screenTitle') title.render();
+    if (screen === 'screenScope') scope.render();
+    if (screen === 'screenMap') map.render();
+    if (screen === 'screenBattle') battle.refresh();
+    if (screen === 'screenEvent') events.refresh();
+    if (screen === 'screenCodex') codex.render();
+    if (screen === 'screenData') dataScreen.render();
+    if (!$('menu').hidden) $('menuText').textContent = t($('menu').dataset.key);
+    settings.render();
+    onChange();
+  }
+  // 설정: 음량, 언어, 큰 글씨, 연출 줄이기, 격려, 데이터 관리
+  const settings = createSettings({
+    data,
+    save: () => store(data),
+    onCalm: (calm) => stage.setCalm(calm),
+    onLang: changeLang,
+    onData: () => {
+      closeMenu();
+      goData();
+    },
   });
+  $('titleSettings').addEventListener('click', settings.open);
+  $('menuSettings').addEventListener('click', settings.open);
 
-  renderSound();
-  renderMusic();
   watchFit();
   goTitle();
   document.body.classList.add('ready'); // 불러오기 끝: 진행 막대를 치우고 버튼을 보여 줍니다.

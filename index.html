@@ -33,6 +33,7 @@
 <link rel="modulepreload" href="./js/run.js">
 <link rel="modulepreload" href="./js/save.js">
 <link rel="modulepreload" href="./js/scope.js">
+<link rel="modulepreload" href="./js/settings.js">
 <link rel="modulepreload" href="./js/sound.js">
 <link rel="modulepreload" href="./js/stage.js">
 <link rel="modulepreload" href="./js/title.js">
@@ -99,19 +100,8 @@
         <!-- 작은 버튼 줄: 그림과 이름만 보입니다. (설명은 화면 낭독기용으로 남겨 둡니다) -->
         <button type="button" class="tile" id="titleCodex"><i data-ico="book"></i><b data-i18n="ui.codex"></b><small class="sr" data-i18n="title.codexSub"></small></button>
         <button type="button" class="tile" id="titleTutorial" hidden><i data-ico="replay"></i><b data-i18n="title.tutorialShort"></b><small class="sr" data-i18n="title.tutorialSub"></small></button>
-        <button type="button" class="tile" id="titleData"><i data-ico="box"></i><b data-i18n="data.title"></b><small class="sr" data-i18n="title.dataSub"></small></button>
-      </div>
-      <div class="settings">
-        <button type="button" class="hint sound-toggle"></button>
-        <button type="button" class="hint music-toggle"></button>
-        <label class="lang">
-          <span class="sr" data-i18n="ui.language"></span>
-          <select id="langSelect" class="lang-select">
-            <option value="ja">日本語</option>
-            <option value="ko">한국어</option>
-            <option value="en">English</option>
-          </select>
-        </label>
+        <button type="button" class="tile" id="titleSettings"><i data-ico="gear"></i><b data-i18n="set.title"></b><small class="sr" data-i18n="title.setSub"></small></button>
+        <button type="button" id="titleData" hidden></button>
       </div>
       <!-- 아이폰 사파리로 열었을 때만: 기록이 지워질 수 있다는 안내 -->
       <button type="button" class="ios-hint" id="iosHint" hidden><b data-i18n="title.iosHint"></b><small data-i18n="title.iosHintSub"></small></button>
@@ -333,6 +323,34 @@
     </div>
   </div>
 
+  <!-- 설정: 처음 화면과 메뉴에서 엽니다 -->
+  <div class="menu-overlay" id="settings" role="dialog" aria-modal="true" aria-labelledby="setTitle" hidden>
+    <div class="menu-box set-box">
+      <h2 id="setTitle" data-i18n="set.title"></h2>
+
+      <h3 data-i18n="set.sound"></h3>
+      <label class="set-row"><span data-i18n="set.music"></span><input type="range" id="setMusic" min="0" max="100" step="5"><b id="setMusicNum"></b></label>
+      <label class="set-row"><span data-i18n="set.sfx"></span><input type="range" id="setSfx" min="0" max="100" step="5"><b id="setSfxNum"></b></label>
+
+      <h3 data-i18n="set.screen"></h3>
+      <label class="set-row"><span data-i18n="ui.language"></span>
+        <select id="langSelect" class="lang-select">
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <button type="button" class="set-row switch" id="setBig" role="switch"><span><b data-i18n="set.big"></b><small data-i18n="set.bigSub"></small></span><i></i></button>
+      <button type="button" class="set-row switch" id="setCalm" role="switch"><span><b data-i18n="set.calm"></b><small data-i18n="set.calmSub"></small></span><i></i></button>
+
+      <h3 data-i18n="set.game"></h3>
+      <button type="button" class="set-row switch" id="setCheer" role="switch"><span><b data-i18n="set.cheer"></b><small data-i18n="set.cheerSub"></small></span><i></i></button>
+      <button type="button" class="set-row link" id="setData"><span><b data-i18n="data.title"></b><small data-i18n="title.dataSub"></small></span><em>›</em></button>
+
+      <button type="button" class="primary" id="setClose" data-i18n="set.close"></button>
+    </div>
+  </div>
+
   <!-- 잠깐 떴다 사라지는 알림 (강화를 얻었을 때 등) -->
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
@@ -360,18 +378,7 @@
       <h2 id="menuTitle" data-i18n="menu.title"></h2>
       <p id="menuText"></p>
       <button type="button" class="primary" id="menuResume" data-i18n="menu.resume"></button>
-      <div class="settings">
-        <button type="button" class="hint sound-toggle"></button>
-        <button type="button" class="hint music-toggle"></button>
-        <label class="lang">
-          <span class="sr" data-i18n="ui.language"></span>
-          <select id="langSelectMenu" class="lang-select">
-            <option value="ja">日本語</option>
-            <option value="ko">한국어</option>
-            <option value="en">English</option>
-          </select>
-        </label>
-      </div>
+      <button type="button" class="hint" id="menuSettings" data-i18n="set.title"></button>
       <button type="button" class="hint" id="menuQuit" data-i18n="menu.quit"></button>
     </div>
   </div>

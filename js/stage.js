@@ -910,6 +910,10 @@ export function createStage(canvas) {
       }
       after(big ? 1.35 : 0.95, done);
     },
+    // 설정의 "연출 줄이기": 가만히 있을 때의 흔들림을 끕니다.
+    setCalm(value) {
+      S.idle = !(value || calm);
+    },
     // 도감용 얼굴 그림: 그 몬스터만 그려서 작은 그림(data URL)으로 돌려줍니다.
     portrait(kind) {
       try {

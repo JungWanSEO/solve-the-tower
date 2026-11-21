@@ -12,6 +12,7 @@ export function blank() {
     tut: 'start',              // 튜토리얼 진행 단계 ('done' 이면 끝)
     sound: true,               // 효과음 켜기
     music: true,               // 배경 음악 켜기
+    opt: null,                 // 설정 { music, sfx, calm, big, cheer } (js/settings.js)
     run: null,                 // 진행 중인 지도 한 장 (js/run.js)
     last: null,                // 지난 판의 결과 { floor, clear } (재도전 선물이 봅니다)
     falls: 0,                  // 탑을 깨지 못하고 연달아 쓰러진 횟수 (격려 단계)
@@ -66,6 +67,10 @@ export function decodeSave(code) {
     if (typeof raw.tut === 'string' && raw.tut.length < 20) out.tut = raw.tut;
     if (typeof raw.sound === 'boolean') out.sound = raw.sound;
     if (typeof raw.music === 'boolean') out.music = raw.music;
+    if (raw.opt && typeof raw.opt === 'object') {
+      const vol = (v) => (typeof v === 'number' && v >= 0 && v <= 1 ? v : undefined);
+      out.opt = { music: vol(raw.opt.music), sfx: vol(raw.opt.sfx), calm: raw.opt.calm === true, big: raw.opt.big === true, cheer: raw.opt.cheer !== false };
+    }
     if (typeof raw.seenChain === 'boolean') out.seenChain = raw.seenChain;
     if (isNum(raw.falls)) out.falls = Math.floor(raw.falls);
     if (isNum(raw.ascendMax)) out.ascendMax = Math.min(CONFIG.ascend.max, Math.floor(raw.ascendMax));

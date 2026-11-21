@@ -815,3 +815,36 @@ button.stat.tag { min-height: 0; line-height: 1.5; cursor: pointer; text-decorat
 .unit { min-width: 0; }
 .unit span, .unit strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .top-btn { flex: 0 0 auto; white-space: nowrap; }
+
+/* ================= settings ================= */
+.set-box { max-height: min(88vh, 720px); overflow-y: auto; gap: 8px; }
+.set-box h3 { margin: 8px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+.set-row { display: flex; align-items: center; gap: 12px; min-height: 50px; padding: 6px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--deep); text-align: left; font-size: 14px; font-weight: 600; color: var(--ink); }
+.set-row > span { flex: 0 0 auto; min-width: 64px; }
+.set-row > b { flex: 0 0 44px; text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--teal); }
+.set-row select { flex: 1 1 auto; min-height: 38px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font-size: 14px; }
+.set-row input[type="range"] { flex: 1 1 auto; min-width: 0; height: 32px; margin: 0; background: transparent; accent-color: var(--teal); -webkit-appearance: none; appearance: none; }
+.set-row input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--line); }
+.set-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 50%; background: var(--teal); border: 3px solid #eafff9; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
+.set-row input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--line); }
+.set-row input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--teal); border: 3px solid #eafff9; }
+button.set-row { width: 100%; }
+button.set-row > span { flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+button.set-row small { font-size: 11px; font-weight: 400; line-height: 1.45; color: var(--muted); }
+/* on/off switch */
+.switch > i { flex: 0 0 46px; height: 28px; border-radius: 14px; background: var(--line); position: relative; transition: background 0.15s; }
+.switch > i::after { content: ""; position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #eef6ff; transition: transform 0.15s; }
+.switch[aria-checked="true"] > i { background: var(--teal); }
+.switch[aria-checked="true"] > i::after { transform: translateX(18px); }
+.set-row.link em { font-style: normal; font-size: 22px; color: var(--muted); }
+#settings { z-index: 55; }
+
+/* "큰 글씨": bigger questions and answers */
+body.bigtext .question p { font-size: 19px; line-height: 1.55; }
+body.bigtext .answers button { font-size: 19px; min-height: 58px; }
+body.bigtext .review b { font-size: 17px; }
+body.bigtext .review p, body.bigtext .q-note, body.bigtext .chain-intro { font-size: 15px; }
+body.bigtext .notice { font-size: 15px; }
+/* "연출 줄이기": the same as the device's reduce-motion setting */
+body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+.set-box > * { flex-shrink: 0; } /* 줄이 눌리지 않고, 길면 창 안에서 스크롤합니다 */
