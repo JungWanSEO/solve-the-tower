@@ -1971,4 +1971,66 @@ export const CHAINS = {
       ],
     };
   },
+
+  // 대칭식: x + y 와 xy 로 x² + y² → (x − y)² → x³ + y³
+  sym() {
+    let x;
+    let y;
+    do {
+      [x, y] = [nonzero(-4, 6), nonzero(-4, 6)];
+    } while (x <= y || x + y === 0 || x * y === 1 || x + y === 1);
+    const [sm, p] = [x + y, x * y];
+    const sq = sm * sm - 2 * p;
+    const diff = sm * sm - 4 * p;
+    const cube = sm ** 3 - 3 * sm * p;
+    return {
+      s: numStr(sm), p: numStr(p), x, y,
+      steps: [
+        step(int(sq), [int(sm * sm), int(sm * sm + 2 * p), int(sm * sm - p)], [int(sq + 2), int(sq - 2), int(sq + 4)]),
+        step(int(diff), [int(sq), int(sm * sm + 4 * p), int(sq - p)], [int(diff + 4), int(diff + 1), int(diff + 2)]),
+        step(int(cube), [int(sm ** 3), int(sm ** 3 - 3 * p), int(sm ** 3 + 3 * sm * p)], [int(cube + sm), int(cube + 3), int(cube - 3)]),
+      ],
+    };
+  },
+
+  // 정수: 나눗셈의 나머지 → 호제법으로 최대공약수 → 약분했을 때의 분모
+  euclid() {
+    let g;
+    let m;
+    let n;
+    do {
+      [g, m, n] = [pickOne(range(2, 12)), 3 + rand(9), 2 + rand(7)];
+    } while (m <= n || gcd(m, n) !== 1 || g * m > 150);
+    const [a, b] = [g * m, g * n];
+    const r = a % b;
+    return {
+      a, b,
+      steps: [
+        step(int(r), [int(Math.floor(a / b)), int(a - b), int(b - r)], [int(r + 1), int(r + g), int(r + 2)]),
+        step(int(g), [int(r), int(b), int(1)], [int(g * 2), int(g + 1), int(g + 2)]),
+        step(int(n), [int(m), int(b), int(g)], [int(n + 1), int(n * 2), int(n + 2)]),
+      ],
+    };
+  },
+
+  // 데이터: 중앙값 → 사분위범위 → 이상값의 기준
+  box() {
+    let v;
+    let iqr;
+    do {
+      const set = new Set();
+      while (set.size < 7) set.add(1 + rand(30));
+      v = [...set].sort((p, q) => p - q);
+      iqr = v[5] - v[1];
+    } while (iqr % 2 !== 0 || iqr < 4);
+    const fence = v[5] + 1.5 * iqr;
+    return {
+      list: v.join(', '),
+      steps: [
+        step(int(v[3]), [int(v[2]), int(v[4]), dec((v[0] + v[6]) / 2)], [int(v[3] + 1), int(v[3] - 1), int(v[3] + 2)]),
+        step(int(iqr), [int(v[6] - v[0]), int(v[4] - v[2]), int(v[5] - v[3])], [int(iqr + 1), int(iqr + 2), int(iqr - 1)]),
+        step(int(fence), [int(v[5] + iqr), int(v[3] + 1.5 * iqr), int(v[6] + 1.5 * iqr)], [int(fence + 1), int(fence + 3), int(fence - 2)]),
+      ],
+    };
+  },
 };

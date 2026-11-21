@@ -375,6 +375,74 @@
           }
         }
       ]
+    },
+    {
+      "id": "chain-euclid",
+      "gen": "euclid",
+      "intro": {
+        "ja": "2つの自然数 {a} と {b} について答えよ。",
+        "ko": "두 자연수 {a}와 {b}에 대하여 답하시오.",
+        "en": "Answer about the two natural numbers {a} and {b}."
+      },
+      "steps": [
+        {
+          "type": "remainder",
+          "level": 1,
+          "sum": {
+            "ja": "余り",
+            "ko": "나머지",
+            "en": "Remainder"
+          },
+          "text": {
+            "ja": "{a} を {b} で割った余りは?",
+            "ko": "{a}를 {b}로 나눈 나머지는?",
+            "en": "What is the remainder when {a} is divided by {b}?"
+          },
+          "explain": {
+            "ja": "{a} = {b} × (商) + (余り)。余りは {answer}",
+            "ko": "{a} = {b} × (몫) + (나머지). 나머지는 {answer}",
+            "en": "{a} = {b} × quotient + remainder. The remainder is {answer}"
+          }
+        },
+        {
+          "type": "euclid",
+          "level": 2,
+          "sum": {
+            "ja": "最大公約数",
+            "ko": "최대공약수",
+            "en": "GCD"
+          },
+          "text": {
+            "ja": "互除法を続けて、{a} と {b} の最大公約数を求めると?",
+            "ko": "호제법을 이어서, {a}와 {b}의 최대공약수를 구하면?",
+            "en": "Continuing the Euclidean algorithm, what is the GCD of {a} and {b}?"
+          },
+          "explain": {
+            "ja": "{a} と {b} の最大公約数は、{b} と余り {a1} の最大公約数に等しい。余りが 0 になるまで続けると {answer}",
+            "ko": "{a}와 {b}의 최대공약수는 {b}와 나머지 {a1}의 최대공약수와 같습니다. 나머지가 0이 될 때까지 계속하면 {answer}",
+            "en": "gcd({a}, {b}) = gcd({b}, {a1}). Continuing until the remainder is 0 gives {answer}"
+          }
+        },
+        {
+          "type": "gcdlcm",
+          "level": 2,
+          "sum": {
+            "ja": "既約分数の分母",
+            "ko": "기약분수의 분모",
+            "en": "Denominator"
+          },
+          "text": {
+            "ja": "分数 {a}/{b} を約分して既約分数にしたとき、分母は?",
+            "ko": "분수 {a}/{b}를 약분하여 기약분수로 나타낼 때, 분모는?",
+            "en": "When {a}/{b} is reduced to lowest terms, what is the denominator?"
+          },
+          "explain": {
+            "ja": "分母と分子を最大公約数 {a2} で割る。{b} ÷ {a2} = {answer}",
+            "ko": "분모와 분자를 최대공약수 {a2}로 나눕니다. {b} ÷ {a2} = {answer}",
+            "en": "Divide both by the GCD {a2}: {b} ÷ {a2} = {answer}"
+          }
+        }
+      ]
     }
   ]
 }

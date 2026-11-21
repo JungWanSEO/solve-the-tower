@@ -613,6 +613,74 @@
           }
         }
       ]
+    },
+    {
+      "id": "chain-box",
+      "gen": "box",
+      "intro": {
+        "ja": "小さい順に並べたデータ {list} について答えよ。",
+        "ko": "작은 것부터 늘어놓은 자료 {list}에 대하여 답하시오.",
+        "en": "Answer about the data {list}, listed from smallest."
+      },
+      "steps": [
+        {
+          "type": "median",
+          "level": 1,
+          "sum": {
+            "ja": "中央値",
+            "ko": "중앙값",
+            "en": "Median"
+          },
+          "text": {
+            "ja": "中央値は?",
+            "ko": "중앙값은?",
+            "en": "What is the median?"
+          },
+          "explain": {
+            "ja": "7個のデータの真ん中(4番目)の値。{answer}",
+            "ko": "자료 7개의 한가운데(4번째) 값. {answer}",
+            "en": "The middle (4th) of the 7 values: {answer}"
+          }
+        },
+        {
+          "type": "iqr",
+          "level": 2,
+          "sum": {
+            "ja": "四分位範囲",
+            "ko": "사분위범위",
+            "en": "IQR"
+          },
+          "text": {
+            "ja": "四分位範囲は?",
+            "ko": "사분위범위는?",
+            "en": "What is the interquartile range?"
+          },
+          "explain": {
+            "ja": "中央値 {a1} を除いた下半分の中央値が第1四分位数、上半分の中央値が第3四分位数。その差は {answer}",
+            "ko": "중앙값 {a1}을 뺀 아래쪽 절반의 중앙값이 제1사분위수, 위쪽 절반의 중앙값이 제3사분위수. 그 차는 {answer}",
+            "en": "Q1 and Q3 are the medians of the lower and upper halves (without the median {a1}). Their difference is {answer}"
+          }
+        },
+        {
+          "type": "outlier",
+          "level": 3,
+          "sum": {
+            "ja": "外れ値の基準",
+            "ko": "이상값의 기준",
+            "en": "Outlier fence"
+          },
+          "text": {
+            "ja": "「第3四分位数 + 1.5 × 四分位範囲」より大きい値を外れ値とするとき、その基準の値は?",
+            "ko": "\"제3사분위수 + 1.5 × 사분위범위\"보다 큰 값을 이상값이라 할 때, 그 기준이 되는 값은?",
+            "en": "If values above \"Q3 + 1.5 × IQR\" are outliers, what is that boundary value?"
+          },
+          "explain": {
+            "ja": "第3四分位数 + 1.5 × {a2} を計算すると {answer}",
+            "ko": "제3사분위수 + 1.5 × {a2}를 계산하면 {answer}",
+            "en": "Q3 + 1.5 × {a2} = {answer}"
+          }
+        }
+      ]
     }
   ]
 }

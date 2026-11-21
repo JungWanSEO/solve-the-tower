@@ -59,6 +59,22 @@ const OK = {
       (d, o) => N(o) === triples(d.n).filter((t) => t[0] < t[1] && t[1] < t[2]).length,
       (d, o) => N(o) === triples(d.n).filter((t) => t[0] < t[1] && t[1] < t[2] && t.includes(0)).length,
     ]; })(),
+  // 숨겨 둔 x, y 로 직접 계산해 봅니다. (주어진 합과 곱이 그 x, y 의 것인지도 확인)
+  sym: (() => { const ok = (d) => { if (N(d.s) !== d.x + d.y || N(d.p) !== d.x * d.y) throw new Error('sum or product'); return true; }; return [
+    (d, o) => ok(d) && N(o) === d.x ** 2 + d.y ** 2,
+    (d, o) => ok(d) && N(o) === (d.x - d.y) ** 2,
+    (d, o) => ok(d) && N(o) === d.x ** 3 + d.y ** 3,
+  ]; })(),
+  euclid: [
+    (d, o) => { let r = d.a; while (r >= d.b) r -= d.b; return N(o) === r && r !== 0; },
+    (d, o) => { let best = 1; for (let k = 1; k <= d.b; k++) if (d.a % k === 0 && d.b % k === 0) best = k; return N(o) === best; },
+    (d, o) => { let best = 1; for (let k = 1; k <= d.b; k++) if (d.a % k === 0 && d.b % k === 0) best = k; return N(o) === d.b / best; },
+  ],
+  box: (() => { const q = (d) => { const v = d.list.split(', ').map(Number); if (v.length !== 7 || !v.every((x, k) => !k || x > v[k - 1])) throw new Error('list'); const med = (a) => (a.length % 2 ? a[(a.length - 1) / 2] : (a[a.length / 2 - 1] + a[a.length / 2]) / 2); return { m: med(v), q1: med(v.slice(0, 3)), q3: med(v.slice(4)) }; }; return [
+    (d, o) => N(o) === q(d).m,
+    (d, o) => N(o) === q(d).q3 - q(d).q1,
+    (d, o) => near(N(o), q(d).q3 + 1.5 * (q(d).q3 - q(d).q1)),
+  ]; })(),
   int: [
     (d, o) => N(o) === G(d.a, d.b),
     (d, o) => N(o) === (d.a * d.b) / G(d.a, d.b),
