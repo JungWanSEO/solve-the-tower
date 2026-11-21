@@ -14,7 +14,7 @@ import { createCodex } from './codex.js';
 import { createTutorial } from './tutorial.js';
 import { createTitle } from './title.js';
 import { createScope } from './scope.js';
-import { $, show, celebrate } from './ui.js';
+import { $, show, celebrate, toast } from './ui.js';
 import { play, music, wake } from './sound.js';
 import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
@@ -362,6 +362,13 @@ async function boot() {
     if (!node.weak || !run.scope.includes(node.weak)) node.weak = chooseWeak(monster);
     run.lastFoe = monster.id;
     music(kind === 'midboss' || kind === 'boss' ? 'boss' : 'battle');
+    // 중간 보스 방 앞에는 작은 샘이 있습니다. 들어갈 때 한 번, 체력을 조금 회복합니다.
+    if (kind === 'midboss' && CONFIG.midboss.healBefore > 0 && !node.sipped) {
+      node.sipped = true;
+      const before = run.hp;
+      run.hp = Math.min(run.maxHp, run.hp + CONFIG.midboss.healBefore);
+      if (run.hp > before) toast(t('msg.midSpring', { n: run.hp - before }), icon('heal'));
+    }
     data.seen[monster.id] = true;
     persist();
 

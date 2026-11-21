@@ -33,7 +33,7 @@ export const CONFIG = {
 
   early: { floors: 2, hpMul: 0.75 },   // 처음 몇 층의 보통 전투는 적의 체력이 낮습니다 (몸풀기)
   elite: { hpMul: 1.3, attackAdd: 1 }, // 강적: 체력 배수, 공격 추가
-  midboss: { attackAdd: 0 },           // 중간 보스: 공격 추가 (체력은 monsters.json)
+  midboss: { attackAdd: 0, healBefore: 8 }, // healBefore: 중간 보스 방 앞의 샘에서 회복하는 체력 (한 번만)           // 중간 보스: 공격 추가 (체력은 monsters.json)
   boss: { attackAdd: 1 },              // 보스: 공격 추가 (체력은 monsters.json)
 
   map: {

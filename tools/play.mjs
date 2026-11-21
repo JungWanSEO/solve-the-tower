@@ -88,7 +88,8 @@ function act() {
     if ($('codexBtn') && !$('codexBtn').hidden && stats.codexOpened === 0 && Math.random() < 0.3) { $('codexBtn').click(); return; }
     if (!stats.backed && Math.random() < 0.05 && stats.clicks > 20) { stats.backed = 1; $('menuBtn').click(); $('menuQuit').click(); return; }
     const nodes = enabled('#mapRows .node');
-    if (nodes.length) { const n = rnd(nodes); const type = [...n.classList].find((c) => c.startsWith('type-')); stats.nodes[type] = (stats.nodes[type] || 0) + 1; if (/battle|elite|boss/.test(type)) stats.battles++; shopClicks = 0; n.click(); stats.clicks++; }
+    // SMART=1: 사람처럼 길을 고릅니다. 체력이 60% 아래면 휴식 칸을, 넉넉하면 강적을 피하지 않고 아무 칸이나 고릅니다.
+    if (nodes.length) { const r0 = save().run || {}; const low = process.env.SMART && r0.maxHp && r0.hp / r0.maxHp < 0.6; const rest = nodes.filter((x) => x.classList.contains('type-rest')); const safe = nodes.filter((x) => !x.classList.contains('type-elite')); const n = low && rest.length ? rnd(rest) : low && safe.length ? rnd(safe) : rnd(nodes); const type = [...n.classList].find((c) => c.startsWith('type-')); stats.nodes[type] = (stats.nodes[type] || 0) + 1; if (/battle|elite|boss/.test(type)) stats.battles++; shopClicks = 0; n.click(); stats.clicks++; }
     return;
   }
   if (vis('screenBattle')) {

@@ -64,7 +64,8 @@
     "bigHit": "Your attack landed, but the heavy attack hit you. Only Defend can block a heavy attack. ({d} damage)",
     "solveChain": "Answer the parts in order. A wrong answer ends the chain.",
     "chainNext": "Correct! {d} damage. On to the next part.",
-    "chainDone": "Chain complete! Final hit: {d} damage"
+    "chainDone": "Chain complete! Final hit: {d} damage",
+    "midSpring": "You drank from the spring before the mid-boss room. HP +{n}"
   },
   "map": {
     "title": "Crossroads map",

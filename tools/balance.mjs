@@ -2,6 +2,7 @@
 //   node balance.mjs [판 수=30] [정답률들=0.5,0.6,0.7,0.8,0.9]
 //   TUNE='{"config":{"player":{"hp":34}}}' node balance.mjs   ← 숫자를 바꿔 보고 싶을 때 (저장소는 건드리지 않습니다)
 //   SAVE='{"ascend":2}' node balance.mjs                      ← 저장 기록에 값을 넣고 시작할 때
+//   SMART= node balance.mjs                                  ← 길을 완전히 무작위로 고르게 할 때 (기본은 체력이 낮으면 휴식 칸을 찾아감)
 import { spawn } from 'node:child_process';
 
 const RUNS = Number(process.argv[2] || 30);
@@ -13,7 +14,7 @@ const seed = JSON.stringify({ v: 1, lang: 'ja', tut: 'done', seenChain: true, so
 
 function one(acc, runs) {
   return new Promise((resolve) => {
-    const child = spawn(process.execPath, [here, String(acc), '9999', seed], { env: { ...process.env, RUNS: String(runs), JSONOUT: '1', CAP: '4000000' } });
+    const child = spawn(process.execPath, [here, String(acc), '9999', seed], { env: { SMART: '1', ...process.env, RUNS: String(runs), JSONOUT: '1', CAP: '4000000' } });
     let out = '';
     child.stdout.on('data', (d) => { out += d; });
     child.on('close', () => {

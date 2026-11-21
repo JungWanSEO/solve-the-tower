@@ -726,5 +726,75 @@
         "en": "Swap \"and\" with \"or\" and negate each part: {answer}"
       }
     }
+  ],
+  "chains": [
+    {
+      "id": "chain-sym",
+      "gen": "sym",
+      "intro": {
+        "ja": "x + y = {s}, xy = {p} のとき、次の値を求めよ。",
+        "ko": "x + y = {s}, xy = {p}일 때, 다음 값을 구하시오.",
+        "en": "Given x + y = {s} and xy = {p}, find each value."
+      },
+      "steps": [
+        {
+          "type": "symmetric",
+          "level": 1,
+          "sum": {
+            "ja": "x² + y²",
+            "ko": "x² + y²",
+            "en": "x² + y²"
+          },
+          "text": {
+            "ja": "x² + y² の値は?",
+            "ko": "x² + y²의 값은?",
+            "en": "What is x² + y²?"
+          },
+          "explain": {
+            "ja": "x² + y² = (x + y)² − 2xy より {answer}",
+            "ko": "x² + y² = (x + y)² − 2xy에서 {answer}",
+            "en": "x² + y² = (x + y)² − 2xy, so {answer}"
+          }
+        },
+        {
+          "type": "symmetric",
+          "level": 2,
+          "sum": {
+            "ja": "(x − y)²",
+            "ko": "(x − y)²",
+            "en": "(x − y)²"
+          },
+          "text": {
+            "ja": "(x − y)² の値は?",
+            "ko": "(x − y)²의 값은?",
+            "en": "What is (x − y)²?"
+          },
+          "explain": {
+            "ja": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
+            "ko": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
+            "en": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}"
+          }
+        },
+        {
+          "type": "symmetric",
+          "level": 2,
+          "sum": {
+            "ja": "x³ + y³",
+            "ko": "x³ + y³",
+            "en": "x³ + y³"
+          },
+          "text": {
+            "ja": "x³ + y³ の値は?",
+            "ko": "x³ + y³의 값은?",
+            "en": "What is x³ + y³?"
+          },
+          "explain": {
+            "ja": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
+            "ko": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
+            "en": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}"
+          }
+        }
+      ]
+    }
   ]
 }
