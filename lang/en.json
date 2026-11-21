@@ -246,7 +246,8 @@
     "iosHint": "On iPhone your records can be erased",
     "iosHintSub": "Safari clears them after about a week away. See how to keep them →",
     "record": "Battles won {wins} · Towers cleared {clears}",
-    "tutorialShort": "Tutorial"
+    "tutorialShort": "Tutorial",
+    "setSub": "Volume, language, display, data"
   },
   "scope": {
     "title": "Choose your range",
@@ -384,5 +385,21 @@
     "short": "Cheer {n}",
     "text": "Cheer level {n}: until you clear the tower you also get Max HP +{hp} and take {pct}% less damage.",
     "name": "Cheer"
+  },
+  "set": {
+    "title": "Settings",
+    "close": "Close",
+    "sound": "Sound",
+    "music": "Music",
+    "sfx": "Sound effects",
+    "off": "Off",
+    "screen": "Display",
+    "big": "Large text",
+    "bigSub": "Makes questions and answers bigger.",
+    "calm": "Reduce effects",
+    "calmSub": "Turns off shaking, flashing and screen transitions.",
+    "game": "Game",
+    "cheer": "Accept cheer",
+    "cheerSub": "If you keep falling before clearing the tower, you get more HP and take less damage. Turn it off to always play on the same terms."
   }
 }

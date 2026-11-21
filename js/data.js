@@ -150,7 +150,7 @@ export function createData({ data, onBack }) {
   }
   // 기록 초기화: 진행 기록과 도감만 지웁니다. 언어와 소리 설정은 남깁니다.
   $('dataReset').addEventListener('click', () => confirmErase('data.resetTitle', 'data.resetText', 'data.resetOk', () => {
-    store({ ...blank(), lang: data.lang, sound: data.sound });
+    store({ ...blank(), lang: data.lang, sound: data.sound, music: data.music, opt: data.opt });
     window.location.reload();
   }));
   // 모두 지우기: 기록, 오프라인용 파일, 서비스 워커 등록까지 지웁니다. 이 기기에 아무것도 남지 않습니다.

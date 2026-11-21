@@ -45,7 +45,7 @@ export function toast(text, ico = '') {
 
 // 색종이가 쏟아지는 축하 연출 (탑 클리어 때)
 export function celebrate(count = 70) {
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (document.body.classList.contains('calm') || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
   const layer = document.createElement('div');
   layer.className = 'confetti';
   const colors = ['#2fd9b9', '#ffc857', '#ff7d8f', '#8fb4ff', '#c9a0ff', '#eef6ff'];

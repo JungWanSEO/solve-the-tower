@@ -2,6 +2,7 @@
 // 새 소리를 넣으려면 SOUNDS 에 한 줄을 추가하고, 원하는 곳에서 play('이름') 을 부릅니다.
 let ctx = null;
 let on = true;
+let level = 1; // 효과음 음량 (0 ~ 1, 설정 창에서 바꿉니다)
 
 // 음 하나: [주파수(Hz), 시작(초), 길이(초), 파형, 끝 주파수(선택)]
 const SOUNDS = {
@@ -17,10 +18,12 @@ const SOUNDS = {
   lose: [[392, 0, 0.2, 'triangle'], [330, 0.2, 0.2, 'triangle'], [262, 0.4, 0.45, 'triangle']],
   clear: [[523, 0, 0.14, 'triangle'], [659, 0.13, 0.14, 'triangle'], [784, 0.26, 0.14, 'triangle'], [1047, 0.39, 0.14, 'triangle'], [784, 0.52, 0.1, 'triangle'], [1047, 0.62, 0.5, 'triangle']],
 };
-const VOLUME = 0.12;
+const VOLUME = 0.17; // 설정의 효과음 음량 100% 일 때의 크기 (기본 70% 에서 0.12)
 
+// value: 음량 0 ~ 1 (true 는 1, false 는 0 으로 봅니다)
 export function setSound(value) {
-  on = Boolean(value);
+  level = value === true ? 1 : Math.max(0, Math.min(1, Number(value) || 0));
+  on = level > 0;
 }
 export function soundOn() {
   return on;
@@ -54,7 +57,7 @@ export function play(name) {
       osc.frequency.setValueAtTime(freq, now + at);
       if (endFreq) osc.frequency.exponentialRampToValueAtTime(endFreq, now + at + len);
       gain.gain.setValueAtTime(0.0001, now + at);
-      gain.gain.exponentialRampToValueAtTime(VOLUME, now + at + 0.01);
+      gain.gain.exponentialRampToValueAtTime(Math.max(0.0002, VOLUME * level), now + at + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + at + len);
       osc.connect(gain).connect(ctx.destination);
       osc.start(now + at);
@@ -73,9 +76,10 @@ const TRACKS = {
   battle: { bpm: 116, wave: 'triangle', chords: [[50, 53, 57], [46, 50, 53], [48, 52, 55], [45, 49, 52]], lead: [0, 1, 2, 1, 0, 2, 1, 2], bass: [0, 2, 4, 6] },
   boss: { bpm: 128, wave: 'square', chords: [[45, 48, 52], [45, 48, 52], [41, 45, 48], [43, 47, 50]], lead: [0, 2, 1, 2, 0, 2, 1, 2], bass: [0, 1, 2, 4, 5, 6] },
 };
-const MUSIC_VOLUME = 0.03;
+const MUSIC_VOLUME = 0.06; // 설정의 음악 음량 100% 일 때의 크기 (기본 50% 에서 0.03)
 const hz = (midi) => 440 * 2 ** ((midi - 69) / 12);
 let musicOn = true;
+let musicLevel = 1; // 음악 음량 (0 ~ 1)
 let wanted = 'calm'; // 지금 나와야 하는 곡
 let step = 0;
 let nextAt = 0;
@@ -87,7 +91,7 @@ function tone(freq, at, len, wave, volume) {
   osc.type = wave;
   osc.frequency.setValueAtTime(freq, at);
   gain.gain.setValueAtTime(0.0001, at);
-  gain.gain.exponentialRampToValueAtTime(volume, at + 0.02);
+  gain.gain.exponentialRampToValueAtTime(Math.max(0.0002, volume * musicLevel), at + 0.02);
   gain.gain.exponentialRampToValueAtTime(0.0001, at + len);
   osc.connect(gain).connect(ctx.destination);
   osc.start(at);
@@ -111,8 +115,10 @@ function tick() {
   }
 }
 
+// value: 음량 0 ~ 1 (true 는 1, false 는 0 으로 봅니다)
 export function setMusic(value) {
-  musicOn = Boolean(value);
+  musicLevel = value === true ? 1 : Math.max(0, Math.min(1, Number(value) || 0));
+  musicOn = musicLevel > 0;
   if (musicOn && !timer && typeof setInterval === 'function' && (window.AudioContext || window.webkitAudioContext)) timer = setInterval(tick, 100);
 }
 // 곡을 바꿉니다: 'calm'(지도·상점 등), 'battle'(전투), 'boss'(중간 보스·보스)

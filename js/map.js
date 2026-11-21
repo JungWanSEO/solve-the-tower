@@ -35,7 +35,7 @@ function wobble(id, salt) {
 }
 
 // 움직임을 줄이도록 설정한 기기에서는 말의 이동을 생략합니다.
-const still = () => !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const still = () => document.body.classList.contains('calm') || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function createMap({ getRun, onPick, getWins = () => 0 }) {
   let moving = false;
