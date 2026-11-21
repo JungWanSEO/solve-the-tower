@@ -218,6 +218,9 @@ export function noteText(raw) {
 // 묶음에 든 유형이 모두 이번 범위에 들어 있어야 그 묶음이 나옵니다.
 const chainPool = () => chains.filter((entry) => entry.gen && entry.types.every((key) => !scope || scope.has(key)));
 export const hasChain = () => chainPool().length > 0;
+// 범위(유형 목록)를 주면, 그 범위에서 나올 수 있는 연속기 묶음이 몇 개인지 셉니다. (범위 고르기 화면용)
+export const chainCount = (keys) => { const set = new Set(keys); return chains.filter((entry) => entry.gen && entry.types.every((key) => set.has(key))).length; };
+export const chainTotal = () => chains.filter((entry) => entry.gen).length;
 
 // 연속기 하나를 만듭니다. 돌려주는 것: { intro(), steps: [물음, …] }
 // 물음 하나는 보통 문제와 같은 모양이라, 화면과 도감이 그대로 다룰 수 있습니다.

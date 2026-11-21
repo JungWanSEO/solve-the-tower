@@ -138,6 +138,6 @@ if (process.env.BRIEF) { console.log(`acc ${ACC}: clears ${s.clears || 0}, death
 console.log(JSON.stringify({ acc: ACC, frames: i, minutesOfAnimation: +(i * 16 / 60000).toFixed(1), clears: s.clears, wins: s.wins, tut: s.tut, stats: { ...stats, coach: [...stats.coach].length, guides: stats.guides ? stats.guides.size : 0 }, answeredRate: +(stats.right / Math.max(1, stats.answers)).toFixed(2), seen: Object.keys(s.seen || {}), codexTypes: Object.keys(s.codex || {}).length, errors: errors.slice(0, 3) }));
 // language switch smoke test on whatever screen is showing
 for (const l of ['ko', 'en', 'ja']) { const sel = $('langSelect'); sel.value = l; sel.dispatchEvent(new window.Event('change')); await new Promise((r) => setTimeout(r, 30)); for (let k = 0; k < 5; k++) { ts += 16; const q = frames; frames = []; for (const f of q) f(ts); } }
-const leftovers = [...window.document.querySelectorAll('#app *')].filter((e) => !e.children.length && /\b(ui|msg|ev|map|node|up|tut|codex|bless|ascend|cheer|data|title|scope)\.[a-zA-Z0-9.]+$/.test(e.textContent.trim())).map((e) => e.textContent.trim());
+const leftovers = [...window.document.querySelectorAll('#app *')].filter((e) => !e.children.length && /\b(ui|msg|ev|map|node|up|tut|codex|bless|ascend|cheer|tip|set|data|title|scope)\.[a-zA-Z0-9.]+$/.test(e.textContent.trim())).map((e) => e.textContent.trim());
 console.log('lang switch errors:', errors.length, '| untranslated keys on screen:', [...new Set(leftovers)].slice(0, 5));
 process.exit(errors.length ? 1 : 0);

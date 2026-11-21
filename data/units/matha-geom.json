@@ -432,5 +432,89 @@
         "en": "By Euler's formula, vertices − edges + faces = 2: {answer}"
       }
     }
+  ],
+  "chains": [
+    {
+      "id": "chain-circle",
+      "gen": "circle",
+      "figure": {
+        "kind": "cyclic",
+        "angleA": "{A}°",
+        "angleC": ""
+      },
+      "intro": {
+        "ja": "四角形 ABCD は中心 O の円に内接し、∠A = {A}° である。",
+        "ko": "사각형 ABCD는 중심이 O인 원에 내접하고, ∠A = {A}°이다.",
+        "en": "Quadrilateral ABCD is inscribed in a circle with centre O, and ∠A = {A}°."
+      },
+      "steps": [
+        {
+          "type": "circle",
+          "level": 1,
+          "sum": {
+            "ja": "∠C",
+            "ko": "∠C",
+            "en": "∠C"
+          },
+          "figure": {
+            "angleC": "C = ?"
+          },
+          "text": {
+            "ja": "∠C の大きさは?",
+            "ko": "∠C의 크기는?",
+            "en": "What is ∠C?"
+          },
+          "explain": {
+            "ja": "円に内接する四角形の向かい合う角の和は 180°。∠C = 180° − {A}° = {answer}",
+            "ko": "원에 내접하는 사각형에서 마주 보는 각의 합은 180°. ∠C = 180° − {A}° = {answer}",
+            "en": "Opposite angles of a cyclic quadrilateral add to 180°: ∠C = 180° − {A}° = {answer}"
+          }
+        },
+        {
+          "type": "circle",
+          "level": 2,
+          "sum": {
+            "ja": "∠BOD",
+            "ko": "∠BOD",
+            "en": "∠BOD"
+          },
+          "figure": {
+            "angleC": "{a1}"
+          },
+          "text": {
+            "ja": "点 C を含む弧 BD に対する中心角 ∠BOD の大きさは?",
+            "ko": "점 C를 포함하는 호 BD에 대한 중심각 ∠BOD의 크기는?",
+            "en": "What is the central angle ∠BOD standing on the arc BD that contains C?"
+          },
+          "explain": {
+            "ja": "この弧に対する円周角は ∠A = {A}°。中心角は円周角の2倍なので {answer}",
+            "ko": "이 호에 대한 원주각은 ∠A = {A}°. 중심각은 원주각의 2배이므로 {answer}",
+            "en": "The inscribed angle on this arc is ∠A = {A}°. The central angle is twice it: {answer}"
+          }
+        },
+        {
+          "type": "tangent",
+          "level": 2,
+          "sum": {
+            "ja": "接線と弦の角",
+            "ko": "접선과 현의 각",
+            "en": "Tangent–chord angle"
+          },
+          "figure": {
+            "angleC": "{a1}"
+          },
+          "text": {
+            "ja": "点 B における接線と弦 BD がつくる鋭角の大きさは?",
+            "ko": "점 B에서의 접선과 현 BD가 이루는 예각의 크기는?",
+            "en": "What is the acute angle between the tangent at B and the chord BD?"
+          },
+          "explain": {
+            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)。{answer}",
+            "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각 ∠A와 같습니다(접현 정리). {answer}",
+            "en": "The tangent–chord angle equals the inscribed angle ∠A on that chord: {answer}"
+          }
+        }
+      ]
+    }
   ]
 }

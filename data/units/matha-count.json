@@ -663,6 +663,74 @@
           }
         }
       ]
+    },
+    {
+      "id": "chain-count",
+      "gen": "count",
+      "intro": {
+        "ja": "{n}人の生徒の中から3人を選ぶ。",
+        "ko": "{n}명의 학생 중에서 3명을 고른다.",
+        "en": "Three students are chosen from {n}."
+      },
+      "steps": [
+        {
+          "type": "perm",
+          "level": 1,
+          "sum": {
+            "ja": "選んで並べる",
+            "ko": "뽑아서 세우기",
+            "en": "Choose and line up"
+          },
+          "text": {
+            "ja": "3人を選んで1列に並べる方法は何通り?",
+            "ko": "3명을 뽑아 한 줄로 세우는 방법은 몇 가지?",
+            "en": "In how many ways can 3 be chosen and lined up?"
+          },
+          "explain": {
+            "ja": "順番を区別するので順列。{n}P3 = {answer}",
+            "ko": "순서를 구별하므로 순열. {n}P3 = {answer}",
+            "en": "Order matters, so it is a permutation: {n}P3 = {answer}"
+          }
+        },
+        {
+          "type": "comb",
+          "level": 1,
+          "sum": {
+            "ja": "選ぶだけ",
+            "ko": "뽑기만",
+            "en": "Choose only"
+          },
+          "text": {
+            "ja": "3人を選ぶだけの方法は何通り?",
+            "ko": "3명을 뽑기만 하는 방법은 몇 가지?",
+            "en": "In how many ways can 3 be chosen (no order)?"
+          },
+          "explain": {
+            "ja": "並べ方 3! = 6 通りを同じとみるので {a1} ÷ 6 = {answer}",
+            "ko": "세우는 방법 3! = 6가지를 같은 것으로 보므로 {a1} ÷ 6 = {answer}",
+            "en": "The 3! = 6 orders count as one: {a1} ÷ 6 = {answer}"
+          }
+        },
+        {
+          "type": "comb",
+          "level": 2,
+          "sum": {
+            "ja": "A を必ず含む",
+            "ko": "A가 반드시 포함",
+            "en": "Must include A"
+          },
+          "text": {
+            "ja": "特定の1人 A が必ず入るように3人を選ぶ方法は何通り?",
+            "ko": "특정한 한 명 A가 반드시 들어가도록 3명을 뽑는 방법은 몇 가지?",
+            "en": "In how many ways can 3 be chosen so that one particular student A is included?"
+          },
+          "explain": {
+            "ja": "A は決まっているので、残り {n} − 1 人から2人を選ぶ。{answer}",
+            "ko": "A는 정해졌으므로 나머지 {n} − 1명에서 2명을 뽑습니다. {answer}",
+            "en": "A is fixed, so choose 2 from the other {n} − 1: {answer}"
+          }
+        }
+      ]
     }
   ]
 }

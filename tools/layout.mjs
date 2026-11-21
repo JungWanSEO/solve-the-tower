@@ -1,5 +1,6 @@
 // 여러 화면 크기에서 "문제를 푸는 화면"이 한 화면에 들어오는지, 옆으로 넘치지 않는지 잽니다.
 // node layout.mjs [shots]   (shots 를 주면 스크린샷도 저장)
+// OPT='{"big":true}' node layout.mjs   ← 설정(큰 글씨 등)을 켠 상태로 잴 때
 import puppeteer from 'puppeteer-core';
 const DEVICES = [
   ['SE1 Safari', 320, 454], ['SE1 full', 320, 568], ['SE3 Safari', 375, 553], ['SE3 full', 375, 667], ['13mini Safari', 375, 629],
@@ -15,7 +16,7 @@ for (const [name, w, h] of DEVICES) {
   for (const type of TYPES) {
     const p = await b.newPage(); const errs = []; p.on('pageerror', (e) => errs.push(String(e)));
     await p.setViewport({ width: w, height: h, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
-    await p.evaluateOnNewDocument((lang) => { localStorage.setItem('mathrpg_save_v1', JSON.stringify({ v: 1, lang, tut: 'done', codex: {}, sound: false })); }, process.env.LANG2 || 'ko');
+    await p.evaluateOnNewDocument((lang, opt) => { localStorage.setItem('mathrpg_save_v1', JSON.stringify({ v: 1, lang, tut: 'done', codex: {}, sound: false, opt: JSON.parse(opt) })); }, process.env.LANG2 || 'ko', process.env.OPT || '{}');
     await p.goto('http://localhost:8765/', { waitUntil: 'networkidle0' }); await wait(150);
     const title = await p.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: innerWidth, sh: document.documentElement.scrollHeight, ih: innerHeight }));
     await p.click('#titleNew'); await wait(100);

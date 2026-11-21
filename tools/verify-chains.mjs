@@ -33,6 +33,32 @@ const OK = {
     (d, o) => near(num(o), pairs(d).filter((x) => x === 2).length / pairs(d).length),
     (d, o) => near(num(o), pairs(d).reduce((a, b) => a + b, 0) / pairs(d).length),
   ]; })(),
+  right: [
+    (d, o) => near(num(o), Math.hypot(d.a, d.b)),
+    (d, o) => near(num(o), d.a / Math.hypot(d.a, d.b)),
+    (d, o) => near(num(o), (d.a * d.b) / (d.a + d.b + Math.hypot(d.a, d.b))),
+  ],
+  roots: (() => { const f = (d) => (x) => ev(d.f, x); const nums = (o) => (clean(o).match(/-?\d+(\.\d+)?/g) || []).map(Number); return [
+    (d, o) => { const c = f(d)(0), b = f(d)(1) - 1 - c; return N(o) === b * b - 4 * c; },
+    (d, o) => { const r = nums(o); return /^x = /.test(o) && r.length === 2 && r[0] !== r[1] && r.every((x) => near(f(d)(x), 0)); },
+    (d, o) => { const r = nums(o); if (!/^-?[\d.]+ < x < -?[\d.]+$/.test(clean(o))) return false; return near(f(d)(r[0]), 0) && near(f(d)(r[1]), 0) && f(d)((r[0] + r[1]) / 2) < 0; },
+  ]; })(),
+  // 원 위에 실제로 점을 놓고 각을 재서 맞춰 봅니다. B 는 0°, D 는 2A°(중심각), A 는 큰 호 위, C 는 작은 호 위.
+  circle: (() => { const rad = (x) => x * Math.PI / 180; const P = (t) => [Math.cos(rad(t)), Math.sin(rad(t))]; const ang = (v, p, q) => { const a = [p[0] - v[0], p[1] - v[1]], b = [q[0] - v[0], q[1] - v[1]]; return Math.acos((a[0] * b[0] + a[1] * b[1]) / (Math.hypot(...a) * Math.hypot(...b))) * 180 / Math.PI; };
+    const pts = (d) => ({ B: P(0), D: P(2 * d.A), A: P(2 * d.A + (360 - 2 * d.A) / 2), C: P(d.A * 0.7), O: [0, 0] });
+    const isDeg = (o) => /^\d+°$/.test(o);
+    return [
+      (d, o) => { if (!isDeg(o)) return false; const q = pts(d); if (!near(ang(q.A, q.B, q.D), d.A)) throw new Error('setup'); return Math.abs(parseFloat(o) - ang(q.C, q.B, q.D)) < 1e-6; },
+      (d, o) => { const q = pts(d); return Math.abs(parseFloat(o) - ang(q.O, q.B, q.D)) < 1e-6; },
+      (d, o) => { const q = pts(d); const t = ang(q.B, [q.B[0], q.B[1] + 1], q.D); return Math.abs(parseFloat(o) - Math.min(t, 180 - t)) < 1e-6; },
+    ]; })(),
+  // 사람을 하나하나 세워 보며 셉니다.
+  count: (() => { const triples = (n) => { const out = []; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) for (let k = 0; k < n; k++) if (i !== j && j !== k && i !== k) out.push([i, j, k]); return out; };
+    return [
+      (d, o) => N(o) === triples(d.n).length,
+      (d, o) => N(o) === triples(d.n).filter((t) => t[0] < t[1] && t[1] < t[2]).length,
+      (d, o) => N(o) === triples(d.n).filter((t) => t[0] < t[1] && t[1] < t[2] && t.includes(0)).length,
+    ]; })(),
   int: [
     (d, o) => N(o) === G(d.a, d.b),
     (d, o) => N(o) === (d.a * d.b) / G(d.a, d.b),

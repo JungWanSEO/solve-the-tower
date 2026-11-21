@@ -352,6 +352,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
         B.combo = 0;
         say('msg.wrong', { explain: explainText(B.cur.raw) });
         render();
+        B.owed = Math.ceil(intentDamage()); // 틀린 값은 이미 치른 것으로 적어 둡니다 (연출 중에 나가도 피해는 받습니다)
         stage.heroMiss(t('msg.miss'), live(() => foeTurn(1)));
       }
       return;
@@ -371,6 +372,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       B.combo = 0;
       say('msg.wrong', { explain: explainText(B.cur.raw) });
       render();
+      B.owed = Math.ceil(intentDamage());
       stage.heroMiss(t('msg.miss'), live(() => foeTurn(1)));
     }
   }
@@ -404,9 +406,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
   // mult: 받는 피해 비율 (1 = 그대로, 0.5 = 방어 실패, 0 = 완벽 방어)
   function foeTurn(mult, then) {
     const dmg = Math.ceil(intentDamage() * mult);
+    B.owed = dmg;
     stage.foeAttack(dmg > 0 ? `-${dmg}` : t('msg.blocked'), mult < 1, live(() => {
       const run = getRun();
       play(dmg > 0 ? 'hurt' : 'block');
+      B.owed = 0;
       run.hp -= dmg;
       if (B.safe && run.hp < 1) run.hp = 1;
       if (run.hp <= 0) {
@@ -442,7 +446,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
   }
 
   // 전투 시작. monster 는 monsters.json 의 항목입니다.
-  function start({ monster, kind, weak, safe }, onEnd) {
+  // floor: 지도에서 몇 번째 층인지 (0 부터). 처음 몇 층의 보통 전투는 적의 체력이 낮습니다.
+  function start({ monster, kind, weak, safe, floor = 99 }, onEnd) {
     B.gen += 1;
     B.foe = monster;
     B.weak = weak;
@@ -452,7 +457,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     const level = run.ascend || 0;
     // 도전 단계: 1단계부터 모든 적, 5단계에서는 중간 보스와 보스의 체력이 더 늘어납니다.
     const tough = 1 + (level >= 1 ? CONFIG.ascend.foeHp : 0) + (level >= 5 && (kind === 'midboss' || kind === 'boss') ? CONFIG.ascend.bossHp : 0);
-    B.foeMax = Math.round(monster.hp * (kind === 'elite' ? CONFIG.elite.hpMul : 1) * tough);
+    const warmup = kind === 'battle' && floor < CONFIG.early.floors ? CONFIG.early.hpMul : 1;
+    B.foeMax = Math.round(monster.hp * (kind === 'elite' ? CONFIG.elite.hpMul : 1) * tough * warmup);
     // 재도전 선물 "약해진 적": 남은 횟수 동안 전투·강적의 체력이 1 입니다. (횟수는 이겼을 때 js/main.js 가 줄입니다)
     if (run.frail > 0 && (kind === 'battle' || kind === 'elite')) B.foeMax = 1;
     B.foeHp = B.foeMax;
@@ -462,6 +468,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.onEnd = onEnd;
     B.chain = null;
     B.chainUsed = false;
+    B.owed = 0;
     B.shownHp = null;
     B.shownFoeHp = null;
     stage.heroUp();
@@ -481,6 +488,12 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
   // 전투 도중에 나갑니다. 남아 있던 연출의 뒷일은 모두 버립니다.
   function abort() {
+    // 맞기 직전에 나가서 피해를 피하는 것을 막습니다. 받기로 되어 있던 피해는 받고 나갑니다. (체력은 1 아래로 내려가지 않습니다)
+    if (B.owed > 0) {
+      const run = getRun();
+      run.hp = Math.max(1, run.hp - B.owed);
+      B.owed = 0;
+    }
     B.gen += 1;
     B.phase = 'busy';
     B.onEnd = null;

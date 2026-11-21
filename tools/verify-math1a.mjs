@@ -28,7 +28,7 @@ const ineq = (text) => { const m = clean(text).match(/^(.+?) (>|<|≦|≧|=) (-?
 const setOf = (s) => new Set(s.replace(/[{}]/g, '').split(', ').filter(Boolean).map(Number));
 const eqSet = (a, b) => a.size === b.size && [...a].every((x) => b.has(x));
 const trig = { sin: (d) => Math.sin(d * Math.PI / 180), cos: (d) => Math.cos(d * Math.PI / 180), tan: (d) => Math.tan(d * Math.PI / 180) };
-const trigExpr = (s, th) => Function('sin', 'cos', 'tan', 't', `return (${clean(s).replace(/°/g, '').replace(/θ/g, 't').replace(/(sin|cos|tan) t/g, '$1(t)').replace(/(sin|cos|tan)\(([^)]*)\)/g, '$1($2)')});`)(trig.sin, trig.cos, trig.tan, th);
+const trigExpr = (s, th) => Function('sin', 'cos', 'tan', 't', `return (${clean(s).replace(/°/g, '').replace(/θ/g, 't').replace(/(sin|cos|tan) t/g, '$1(t)').replace(/(sin|cos|tan) (\d+)/g, '$1($2)').replace(/(sin|cos|tan)\(([^)]*)\)/g, '$1($2)')});`)(trig.sin, trig.cos, trig.tan, th);
 const corr = (pts) => { const n = pts.length, mx = pts.reduce((a, p) => a + p[0], 0) / n, my = pts.reduce((a, p) => a + p[1], 0) / n; const sxy = pts.reduce((a, p) => a + (p[0] - mx) * (p[1] - my), 0); return sxy / Math.sqrt(pts.reduce((a, p) => a + (p[0] - mx) ** 2, 0) * pts.reduce((a, p) => a + (p[1] - my) ** 2, 0)); };
 const heron = (a, b, c) => { const s = (a + b + c) / 2; return Math.sqrt(s * (s - a) * (s - b) * (s - c)); };
 const OK = {

@@ -117,7 +117,9 @@
     "newRun": "Choose range",
     "overTitle": "Game over",
     "overText": "You fell on floor {n} of {total}. Your gold and upgrades are gone, but your codex record stays. Pick your range again and start on a new map.",
-    "restart": "Choose range"
+    "restart": "Choose range",
+    "restUsed": "You have already used this rest stop.",
+    "treasureUsed": "You already tried this chest. Its lock is now shut tight."
   },
   "up": {
     "maxhp": {
@@ -261,7 +263,9 @@
     "start": "Set out with this range",
     "back": "Back to title",
     "unitAll": "Select all",
-    "unitNone": "Clear"
+    "unitNone": "Clear",
+    "chainOn": "Linked questions: {n} / {total} sets available",
+    "chainOff": "No linked questions in this range (choose every type of one set to get them)"
   },
   "menu": {
     "title": "Paused",
@@ -401,5 +405,12 @@
     "game": "Game",
     "cheer": "Accept cheer",
     "cheerSub": "If you keep falling before clearing the tower, you get more HP and take less damage. Turn it off to always play on the same terms."
+  },
+  "tip": {
+    "label": "First visit ",
+    "shop": "In the shop you buy upgrades with the gold you earned in battle. Buy several, or leave without buying.",
+    "rest": "At a rest stop you choose one of the two. Resting heals a lot; a correct review question gives a hint and a little HP.",
+    "treasure": "A treasure chest gives gold and a hint for a correct answer. A wrong answer does no damage and still gives a little gold. A chest you have seen cannot be opened again.",
+    "event": "On a ? space something good or bad happens. You only find out by going in."
   }
 }

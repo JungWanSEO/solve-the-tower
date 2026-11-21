@@ -367,7 +367,7 @@ async function boot() {
 
     tutorial.emit('fight');
     go('screenBattle');
-    battle.start({ monster, kind, weak: node.weak, safe: tutorial.active() }, (result) => {
+    battle.start({ monster, kind, weak: node.weak, safe: tutorial.active(), floor: node.floor }, (result) => {
       if (result === 'lose') {
         // 게임 오버: 지도 한 장의 진행은 사라지고, 도감 기록은 남습니다.
         data.deaths = (data.deaths || 0) + 1;
@@ -426,7 +426,7 @@ async function boot() {
       // ? 칸: 좋은 일, 나쁜 일, 선택, 기습 중 하나
       events.mystery(node, () => complete(node), () => fight(node, 'battle'));
     } else {
-      events[node.type](() => complete(node)); // shop, rest, treasure
+      events[node.type](() => complete(node), node); // shop, rest, treasure
     }
   }
 

@@ -86,6 +86,9 @@ function assignTypes(nodes, boost) {
     if ((type === 'rest' || type === 'shop' || type === 'elite') && above.some((p) => p.type === type)) type = 'battle';
     n.type = type;
   }
+  // 중간 보스 바로 아래 층에는 쉴 곳(휴식)이 적어도 하나 있게 합니다. 가장 큰 고비 앞에서 숨을 고를 수 있습니다.
+  const before = nodes.filter((n) => n.floor === half - 1);
+  if (before.length && !before.some((n) => n.type === 'rest')) before[rand(before.length)].type = 'rest';
 }
 
 // ascend: 도전 단계 (2 이상이면 강적 칸이 늘어납니다)

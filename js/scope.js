@@ -2,7 +2,7 @@
 // 유형마다 내 기록(정답률, 정복 여부)이 보여서 부족한 곳을 골라 연습할 수 있습니다.
 import { CONFIG } from './config.js';
 import { t, pick } from './i18n.js';
-import { scopeTree, allTypeKeys, typeLabel, hasType } from './questions.js';
+import { scopeTree, allTypeKeys, typeLabel, hasType, chainCount, chainTotal } from './questions.js';
 import { $ } from './ui.js';
 
 // 유형의 상태: new 아직 안 풂 | open 미정복 | progress 진행 중 | done 정복
@@ -103,6 +103,11 @@ export function createScope({ data, onStart, onBack }) {
       ? t('scope.summary', { n: count, bonus: Math.round(goldBonus(count) * 100) })
       : t('scope.empty');
     $('scopeStart').disabled = count === 0;
+    // 연속기는 묶음에 든 유형이 모두 범위에 있어야 나옵니다. 지금 범위에서 몇 묶음이 나오는지 알려 줍니다.
+    const linked = chainCount([...chosen]);
+    $('scopeChain').hidden = count === 0;
+    $('scopeChain').textContent = linked ? t('scope.chainOn', { n: linked, total: chainTotal() }) : t('scope.chainOff');
+    $('scopeChain').classList.toggle('off', !linked);
     // 도전 단계: 열린 단계 안에서 고릅니다. 설명에는 그 단계에서 새로 붙는 규칙을 적습니다.
     const top = data.ascendMax || 0;
     const level = Math.min(data.ascend || 0, top);
