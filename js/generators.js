@@ -963,6 +963,19 @@ Object.assign(GENERATORS, {
       ['sin(180° − θ)', 'sin θ'], ['cos(180° − θ)', `${MINUS}cos θ`], ['tan(180° − θ)', `${MINUS}tan θ`],
       ['sin(90° − θ)', 'cos θ'], ['cos(90° − θ)', 'sin θ'], ['tan(90° − θ)', '1/tan θ'],
     ];
+    // 절반은 구체적인 각으로 묻습니다. 예: sin 160° = sin 20°, cos 70° = sin 20°
+    if (Math.random() < 0.5) {
+      const d = pickOne([10, 15, 20, 25, 35, 40]);
+      const numeric = [
+        [`sin ${180 - d}°`, `sin ${d}°`], [`cos ${180 - d}°`, `${MINUS}cos ${d}°`], [`tan ${180 - d}°`, `${MINUS}tan ${d}°`],
+        [`sin ${90 - d}°`, `cos ${d}°`], [`cos ${90 - d}°`, `sin ${d}°`],
+      ];
+      const [expr, answer] = pickOne(numeric);
+      const pool = expr.startsWith('tan')
+        ? [`tan ${d}°`, `${MINUS}tan ${d}°`, `1/tan ${d}°`, `${MINUS}1/tan ${d}°`]
+        : [`sin ${d}°`, `${MINUS}sin ${d}°`, `cos ${d}°`, `${MINUS}cos ${d}°`];
+      return fixed({ expr }, answer, pool);
+    }
     const [expr, answer] = pickOne(forms);
     const pool = expr.startsWith('tan')
       ? ['tan θ', `${MINUS}tan θ`, '1/tan θ', `${MINUS}1/tan θ`]
@@ -1525,7 +1538,7 @@ Object.assign(GENERATORS, {
 
   // 정사면체의 높이와 부피. params.ask 는 'height' 또는 'volume'
   tetra(params) {
-    const a = pickOne([2, 3, 4, 6, 9, 12]);
+    const a = pickOne([2, 3, 4, 5, 6, 8, 9, 10, 12, 15]);
     if (params.ask === 'height') {
       return item({ a }, surd(a, 6, 3), [surd(a, 3, 2), surd(a, 6, 2), surd(a, 2, 3), surd(a, 3, 3)], [surd(a, 6, 6), surd(a, 2, 2)]);
     }
@@ -1569,8 +1582,8 @@ Object.assign(GENERATORS, {
   // 가설검정의 생각: 30번 중 k 번 이상이 "우연히" 일어날 확률과 기준 0.05 를 비교합니다.
   // 확률은 동전을 30번 던져 앞면이 k 번 이상 나올 확률(이항분포)입니다.
   hypothesis() {
-    const table = { 18: '0.181', 19: '0.100', 20: '0.049', 21: '0.021', 22: '0.008' };
-    const k = pickOne([18, 19, 20, 21, 22]);
+    const table = { 16: '0.428', 17: '0.292', 18: '0.181', 19: '0.100', 20: '0.049', 21: '0.021', 22: '0.008', 23: '0.003' };
+    const k = pickOne([16, 17, 18, 19, 20, 21, 22, 23]);
     return fixed({ k, p: table[k] }, Number(table[k]) < 0.05 ? '@reject' : '@keep', ['@reject', '@keep', '@surely', '@never']);
   },
 
@@ -1643,7 +1656,7 @@ Object.assign(GENERATORS, {
 
   // 조건이 붙은 순열. params.ask 는 'adjacent' (두 사람이 이웃) 또는 'ends' (두 사람이 양 끝)
   permcond(params) {
-    const n = pickOne(range(4, 7));
+    const n = pickOne(range(4, 8));
     const answer = params.ask === 'adjacent' ? 2 * fact(n - 1) : 2 * fact(n - 2);
     return item({ n }, int(answer), [int(answer / 2), int(fact(n)), int(params.ask === 'adjacent' ? 2 * fact(n - 2) : 2 * fact(n - 1))],
       [int(fact(n) / 2), int(answer * 2), int(fact(n - 1) + 2)]);
@@ -1798,6 +1811,13 @@ Object.assign(GENERATORS, {
 // 앞 물음의 정답은 뒤 물음의 문장에서 {a1}, {a2} 로 쓸 수 있습니다.
 // =====================================================================
 const step = (answer, candidates, pads) => item({}, answer, candidates, pads);
+// 연속기용 삼각형 [a, b, c, A]: 각 A 가 60° 또는 120° 이고 세 변이 모두 정수인 것
+const CHAIN_TRIANGLES = [
+  [7, 3, 8, 60], [7, 5, 8, 60], [13, 7, 15, 60], [13, 8, 15, 60], [14, 6, 16, 60], [14, 10, 16, 60], [19, 5, 21, 60], [19, 16, 21, 60], [21, 9, 24, 60], [21, 15, 24, 60], [31, 11, 35, 60], [31, 24, 35, 60],
+  [7, 3, 5, 120], [13, 7, 8, 120], [19, 5, 16, 120], [14, 6, 10, 120], [21, 9, 15, 120], [26, 14, 16, 120], [31, 11, 24, 120], [37, 7, 33, 120],
+];
+// 연속기용 직각삼각형 [a, b, c] (c 가 빗변)
+const CHAIN_RIGHT = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [6, 8, 10], [9, 12, 15], [20, 21, 29], [12, 16, 20], [9, 40, 41], [15, 20, 25]];
 
 export const CHAINS = {
   // 이차함수: 완전제곱식 → 꼭짓점 → 정해진 범위에서의 최댓값
@@ -1823,8 +1843,7 @@ export const CHAINS = {
 
   // 삼각형: 코사인 법칙으로 변 → 넓이 → 내접원의 반지름
   tri() {
-    const rows = INT_TRIANGLES.filter((row) => row[3] !== 90);
-    let [a, b, c, A] = pickOne(rows);
+    let [a, b, c, A] = pickOne(CHAIN_TRIANGLES);
     if (Math.random() < 0.5) [b, c] = [c, b];
     const bc = b * c;
     const sum = a + b + c;
@@ -1860,8 +1879,8 @@ export const CHAINS = {
 
   // 확률: 전체 경우의 수 → 확률 → 기댓값 (빨간 공의 개수)
   prob() {
-    const r = pickOne(range(2, 5));
-    const w = pickOne(range(2, 5));
+    const r = pickOne(range(2, 6));
+    const w = pickOne(range(2, 6));
     const n = r + w;
     const all = nCr(n, 2);
     return {
@@ -1890,6 +1909,65 @@ export const CHAINS = {
         step(int(g), [int(l), int(Math.abs(a - b)), int(g * 2)], [int(g + 1), int(1), int(Math.min(a, b))]),
         step(int(l), [int(a * b), int(g), int(a + b)], [int(l * 2), int(l + g), int(Math.max(a, b))]),
         step(int(a * b), [int(g * l + g), int(a + b), int(l)], [int(a * b + g), int(a * b * 2), int(g + l)]),
+      ],
+    };
+  },
+
+  // 직각삼각형: 빗변 → sin A → 내접원의 반지름
+  right() {
+    let [a, b, c] = pickOne(CHAIN_RIGHT);
+    if (Math.random() < 0.5) [a, b] = [b, a];
+    const r = (a + b - c) / 2;
+    return {
+      a, b,
+      steps: [
+        step(int(c), [int(a + b), dec(Math.sqrt(Math.abs(a * a - b * b))), int(c + 1)], [int(c - 1), int(c + 2), int(c + 3)]),
+        step(frac(a, c), [frac(b, c), frac(a, b), frac(c, a)], [frac(b, a), frac(1, c), frac(a, a + b)]),
+        step(int(r), [int(a + b - c), dec(c / 2), int(r + 1)], [int(r + 2), frac(a * b, a + b + c + 1), int(r + 3)]),
+      ],
+    };
+  },
+
+  // 이차식: 판별식 → 방정식의 해 → 부등식의 해
+  roots() {
+    let p;
+    let q;
+    do {
+      [p, q] = [nonzero(-5, 6), nonzero(-5, 6)];
+    } while (p >= q || p + q === 0);
+    const D = (p - q) ** 2;
+    return {
+      f: polyStr(1, -(p + q), p * q),
+      steps: [
+        step(int(D), [int((p + q) ** 2), int((p + q) ** 2 + 4 * p * q), int(q - p)], [int(D + 4), int(D + 1), int(D + 8)]),
+        step(roots(p, q), [roots(-p, -q), roots(p, -q), roots(-p, q)], [roots(p + 1, q + 1), roots(p - 1, q), roots(p, q + 1)]),
+        step(interval(p, q, true), [interval(p, q, false), interval(-q, -p, true), interval(-q, -p, false)], [interval(p, q + 1, true), interval(p - 1, q, true)]),
+      ],
+    };
+  },
+
+  // 원에 내접하는 사각형: 마주 보는 각 → 중심각 → 접선과 현이 이루는 각
+  circle() {
+    const A = pickOne(range(10, 17)) * 5; // 50° ~ 85°
+    return {
+      A,
+      steps: [
+        step(degree(180 - A), [degree(A), degree(90 - A), degree(2 * A)], [degree(190 - A), degree(170 - A), degree(90 + A)]),
+        step(degree(2 * A), [degree(A), degree(180 - A), degree(360 - 2 * A)], [degree(2 * A + 10), degree(90 + A), degree(2 * A - 10)]),
+        step(degree(A), [degree(90 - A), degree(180 - A), degree(2 * A)], [degree(A + 5), degree(A - 5), degree(A + 10)]),
+      ],
+    };
+  },
+
+  // 뽑기: 뽑아서 세우기 → 뽑기만 하기 → 한 명이 반드시 들어가게 뽑기
+  count() {
+    const n = pickOne(range(5, 10));
+    return {
+      n,
+      steps: [
+        step(int(nPr(n, 3)), [int(nCr(n, 3)), int(n ** 3), int(n * 3)], [int(nPr(n, 2)), int(nPr(n, 3) + n), int(nPr(n, 3) * 2)]),
+        step(int(nCr(n, 3)), [int(nPr(n, 3)), int(nCr(n, 2)), int(n * (n - 1))], [int(nCr(n, 3) + 1), int(nCr(n, 3) + n), int(nCr(n, 3) * 2)]),
+        step(int(nCr(n - 1, 2)), [int(nCr(n, 3)), int(nCr(n - 1, 3)), int(nCr(n, 2))], [int(nCr(n - 1, 2) + 1), int(n - 1), int(nCr(n - 1, 2) * 2)]),
       ],
     };
   },

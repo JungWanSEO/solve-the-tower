@@ -645,12 +645,62 @@ export function createStage(canvas) {
       glyph((dir < 0) !== swapped ? 'q' : 'r', dir * 34, y + 4, 12, '#6b4a2b');
     }
   }
+  // 약수 자물쇠 (중간 보스, 数学A 整数): 고유 동작은 고리를 철컥 들어 올렸다가 다시 잠그기
+  function drawLock(f) {
+    const sp = f.spec > 0 ? 1 - f.spec : 0;
+    const lift = Math.sin(sp * Math.PI) * 16;
+    const bob = S.idle ? Math.sin(S.t * 2.4) * 2 : 0;
+    ctx.strokeStyle = C('#b9c4dd');
+    ctx.lineWidth = 10;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-21, -14 + bob);
+    ctx.lineTo(-21, -34 + bob - lift);
+    ctx.arc(0, -34 + bob - lift, 21, Math.PI, 0);
+    ctx.lineTo(21, -14 + bob - lift * 0.9);
+    ctx.stroke();
+    rrect(-36, -18 + bob, 72, 66, 12, '#e0a93f');
+    rrect(-36, 34 + bob, 72, 14, 8, '#b9852a');
+    rrect(-36, -18 + bob, 72, 10, 8, '#f3c865');
+    eye(-13, 2 + bob, 5.5, true, '#1c2740', 0.3);
+    eye(13, 2 + bob, 5.5, true, '#1c2740', 0.3);
+    circ(0, 22 + bob, 6, '#1c2740');
+    poly([-3.5, 24 + bob, 3.5, 24 + bob, 6, 36 + bob, -6, 36 + bob], '#1c2740');
+    glyph('÷', -25, 26 + bob, 15, '#7a5a1c');
+    glyph('÷', 25, 26 + bob, 15, '#7a5a1c');
+  }
+  // 톱니바퀴 하나 (teeth 개의 이가 달린 원)
+  function cog(x, y, r, teeth, angle, color, dark) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    for (let i = 0; i < teeth; i++) {
+      ctx.rotate((Math.PI * 2) / teeth);
+      rrect(-r * 0.17, -r * 1.2, r * 0.34, r * 0.42, 2, color);
+    }
+    circ(0, 0, r, color);
+    circ(0, 0, r * 0.66, dark);
+    ctx.restore();
+  }
+  // 호제법 톱니바퀴 (보스, 数学A 整数): 큰 바퀴와 작은 바퀴가 맞물려 돕니다. 고유 동작은 빠르게 반 바퀴 돌기
+  function drawGear(f) {
+    const sp = f.spec > 0 ? 1 - f.spec : 0;
+    const turn = (S.idle ? S.t * 0.5 : 0) + ease(sp) * Math.PI;
+    cog(42, 34, 20, 8, -turn * 2.3 + 0.2, '#ffc857', '#b9852a');
+    cog(0, -6, 46, 12, turn, '#9db1d6', '#3a4d85');
+    circ(0, -6, 24, '#22336a');
+    eye(-9, -10, 5.5, true, '#1c2740', 0.5);
+    eye(9, -10, 5.5, true, '#1c2740', 0.5);
+    line(-8, 4, 8, 4, '#eef6ff', 2.5);
+    glyph('r', 42, 34, 15, '#5a3f10');
+  }
   const FOE_DRAW = {
     twins: drawTwins, bat: drawBat, golem: drawGolem, thief: drawThief, tower: drawTower,
     crab: drawCrab, slime: drawSlime, ghost: drawGhost, bars: drawBars,
     magician: drawMagician, giant: drawGiant, dragon: drawDragon,
     dice: drawDice, compass: drawCompass,
     scales: drawScales, warden: drawWarden, mouse: drawMouse,
+    lock: drawLock, gear: drawGear,
   };
 
   // 대기·공격·피격을 위치와 크기로 바꾼 값

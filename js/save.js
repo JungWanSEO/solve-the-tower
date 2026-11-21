@@ -72,6 +72,7 @@ export function decodeSave(code) {
       out.opt = { music: vol(raw.opt.music), sfx: vol(raw.opt.sfx), calm: raw.opt.calm === true, big: raw.opt.big === true, cheer: raw.opt.cheer !== false };
     }
     if (typeof raw.seenChain === 'boolean') out.seenChain = raw.seenChain;
+    if (raw.tips && typeof raw.tips === 'object') { out.tips = {}; for (const key of Object.keys(raw.tips)) if (key.length < 20 && raw.tips[key]) out.tips[key] = true; }
     if (isNum(raw.falls)) out.falls = Math.floor(raw.falls);
     if (isNum(raw.ascendMax)) out.ascendMax = Math.min(CONFIG.ascend.max, Math.floor(raw.ascendMax));
     if (isNum(raw.ascend)) out.ascend = Math.min(out.ascendMax, Math.floor(raw.ascend));

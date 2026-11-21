@@ -848,3 +848,11 @@ body.bigtext .notice { font-size: 15px; }
 /* "연출 줄이기": the same as the device's reduce-motion setting */
 body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 .set-box > * { flex-shrink: 0; } /* 줄이 눌리지 않고, 길면 창 안에서 스크롤합니다 */
+
+/* first-visit tip on event screens, and the linked-question note on the range screen */
+.ev-tip { margin: 0; padding: 9px 12px; border-radius: 12px; border: 1px dashed var(--amber); background: rgba(255, 200, 87, 0.08); font-size: 13px; line-height: 1.55; color: var(--ink) !important; }
+.ev-tip[hidden] { display: none; }
+.ev-tip b { color: var(--amber); }
+.scope-chain { font-size: 12px !important; color: #c9a0ff !important; }
+.scope-chain.off { color: var(--muted) !important; }
+.scope-chain[hidden] { display: none; }

@@ -294,5 +294,41 @@
     "weak": "matha-geom/power",
     "basicLevel": 2,
     "skillLevel": 3
+  },
+  {
+    "id": "lock",
+    "midboss": true,
+    "name": {
+      "ja": "約数の南京錠",
+      "ko": "약수 자물쇠",
+      "en": "Divisor Lock"
+    },
+    "mistake": {
+      "ja": "約数を数えるとき、1やその数自身、ペアの片方を数え忘れる",
+      "ko": "약수를 셀 때 1이나 자기 자신, 짝이 되는 수를 빠뜨리기",
+      "en": "Missing 1, the number itself or one of a pair when counting divisors"
+    },
+    "hp": 22,
+    "weak": "matha-int/divis",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "gear",
+    "boss": true,
+    "name": {
+      "ja": "互除法の歯車",
+      "ko": "호제법 톱니바퀴",
+      "en": "Euclid's Gear"
+    },
+    "mistake": {
+      "ja": "互除法を、余りが0になる前に途中でやめてしまう",
+      "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
+      "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
+    },
+    "hp": 28,
+    "weak": "matha-int/euclid",
+    "basicLevel": 2,
+    "skillLevel": 3
   }
 ]

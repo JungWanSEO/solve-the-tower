@@ -39,7 +39,9 @@ export function fitBattle() {
   // 그림은 모자란 만큼만 줄입니다. (너무 작아지지 않게 아래 한계를 둡니다)
   if (figure) {
     const box = figure.getBoundingClientRect();
-    const height = Math.max(Math.min(box.height, 104), box.height - over());
+    // "큰 글씨"를 켠 사람에게는 그림도 작아지면 안 되므로, 덜 줄이고 모자라면 스크롤하게 둡니다.
+    const floor = document.body.classList.contains('bigtext') ? 150 : 104;
+    const height = Math.max(Math.min(box.height, floor), box.height - over());
     figure.style.maxWidth = `${Math.floor((box.width * height) / box.height)}px`;
     if (over() <= 0) return;
   }

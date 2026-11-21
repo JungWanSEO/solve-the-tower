@@ -518,6 +518,74 @@
           }
         }
       ]
+    },
+    {
+      "id": "chain-roots",
+      "gen": "roots",
+      "intro": {
+        "ja": "2次式 {f} について答えよ。",
+        "ko": "이차식 {f}에 대하여 답하시오.",
+        "en": "Answer about the quadratic {f}."
+      },
+      "steps": [
+        {
+          "type": "discriminant",
+          "level": 1,
+          "sum": {
+            "ja": "判別式 D",
+            "ko": "판별식 D",
+            "en": "Discriminant D"
+          },
+          "text": {
+            "ja": "2次方程式 {f} = 0 の判別式 D の値は?",
+            "ko": "이차방정식 {f} = 0의 판별식 D의 값은?",
+            "en": "What is the discriminant D of {f} = 0?"
+          },
+          "explain": {
+            "ja": "D = b² − 4ac を計算すると {answer}",
+            "ko": "D = b² − 4ac를 계산하면 {answer}",
+            "en": "Computing D = b² − 4ac gives {answer}"
+          }
+        },
+        {
+          "type": "quadeq",
+          "level": 1,
+          "sum": {
+            "ja": "解",
+            "ko": "해",
+            "en": "Roots"
+          },
+          "text": {
+            "ja": "2次方程式 {f} = 0 の解は?",
+            "ko": "이차방정식 {f} = 0의 해는?",
+            "en": "What are the roots of {f} = 0?"
+          },
+          "explain": {
+            "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ。因数分解して {answer}",
+            "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다. 인수분해하면 {answer}",
+            "en": "Since D = {a1} > 0 there are two different real roots. Factorising gives {answer}"
+          }
+        },
+        {
+          "type": "quadineq",
+          "level": 2,
+          "sum": {
+            "ja": "不等式の解",
+            "ko": "부등식의 해",
+            "en": "Inequality"
+          },
+          "text": {
+            "ja": "2次不等式 {f} < 0 の解は?",
+            "ko": "이차부등식 {f} < 0의 해는?",
+            "en": "What is the solution of {f} < 0?"
+          },
+          "explain": {
+            "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})。x 軸より下にあるのは2つの解の間なので {answer}",
+            "ko": "그래프는 아래로 볼록하고 x축과 만나는 점은 ({a2}). x축보다 아래에 있는 것은 두 해 사이이므로 {answer}",
+            "en": "The graph opens upward and meets the x-axis at ({a2}). It is below the axis between the roots: {answer}"
+          }
+        }
+      ]
     }
   ]
 }

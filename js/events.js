@@ -41,6 +41,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       box.innerHTML = scene(art);
     }
     $('evQuiz').hidden = true;
+    $('evTip').hidden = true;
     $('evOptions').innerHTML = '';
     $('evLeave').hidden = true;
   }
@@ -63,12 +64,27 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     btn.addEventListener('click', onClick);
     $('evOptions').appendChild(btn);
   }
+  // 처음 들어온 칸에는 그 칸이 무엇인지 한 번만 알려 줍니다. (다 본 것은 기록의 tips 에 적습니다)
+  function tip(kind) {
+    if (!data.tips) data.tips = {};
+    if (data.tips[kind] === true) return;
+    data.tips[kind] = 'showing'; // 이 화면을 나갈 때까지 계속 보여 줍니다
+  }
+  function showTip(kind) {
+    if (!data.tips || data.tips[kind] !== 'showing') return;
+    $('evTip').hidden = false;
+    $('evTipText').textContent = t(`tip.${kind}`);
+  }
+  function closeTips() {
+    for (const kind of Object.keys(data.tips || {})) if (data.tips[kind] === 'showing') data.tips[kind] = true;
+  }
   function leave(labelKey, onClick) {
     const btn = $('evLeave');
     btn.hidden = false;
     btn.textContent = t(labelKey);
     btn.onclick = () => {
       draw = null;
+      closeTips();
       onClick();
     };
   }
@@ -94,10 +110,11 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
 
   // 문제 하나를 풀고 결과를 보여주는 화면.
   // onResult(ok, q) 는 보상을 한 번 적용하고, "결과 문장을 만드는 함수"를 돌려줍니다.
-  function quizScreen({ titleKey, intro, question, onResult, done }) {
+  function quizScreen({ titleKey, intro, question, onResult, done, tipKind = '' }) {
     const state = { q: question, picked: -1, result: null };
     open(() => {
       base(titleKey, state.picked < 0 ? intro() : state.result());
+      if (tipKind && state.picked < 0) showTip(tipKind);
       drawQuiz(state, (i) => {
         if (state.picked >= 0) return;
         state.picked = i;
@@ -145,9 +162,11 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
 
     // 상점: 골드로 강화를 삽니다. 여러 개 살 수 있습니다.
     shop(done) {
+      tip('shop');
       open(() => {
         const run = getRun();
         base('ev.shopTitle', t('ev.shopText', { gold: run.gold }));
+        showTip('shop');
         SHOP.forEach(({ id, price }) => {
           option(t(`up.${id}.name`), t(`up.${id}.desc`), run.gold < price, () => {
             if (run.gold < price) return;
@@ -163,10 +182,19 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     },
 
     // 휴식: 쉬어서 체력을 회복하거나, 틀렸던 유형을 복습합니다.
-    rest(done) {
+    // node: 지도의 그 칸. 이미 쉬었거나 복습을 시작한 칸은 다시 들어와도 한 번 더 할 수 없습니다.
+    rest(done, node = {}) {
       const run = getRun();
       const heal = Math.ceil(run.maxHp * CONFIG.rest.healRatio);
       let slept = false;
+      tip('rest');
+      if (node.used) {
+        open(() => {
+          base('ev.restTitle', t('ev.restUsed'));
+          leave('ev.continue', done);
+        });
+        return;
+      }
       const menu = () => {
         if (slept) {
           base('ev.restTitle', t('ev.restSlept', { n: heal }));
@@ -174,12 +202,17 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
           return;
         }
         base('ev.restTitle', t('ev.restText'));
+        showTip('rest');
         option(t('ev.restSleep'), t('ev.restSleepSub', { n: heal }), false, () => {
           run.hp = Math.min(run.maxHp, run.hp + heal);
           slept = true;
+          node.used = true;
+          persist();
           redraw();
         }, 'heal');
         option(t('ev.restReview'), t('ev.restReviewSub'), false, () => {
+          node.used = true;
+          persist();
           quizScreen({
             titleKey: 'ev.restTitle',
             intro: () => t('ev.reviewText', { n: CONFIG.rest.reviewHeal }),
@@ -200,9 +233,21 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     },
 
     // 보물: 문제를 맞히면 상자가 열립니다.
-    treasure(done) {
+    // 문제를 본 뒤에 나갔다가 다시 들어와 문제를 바꾸는 것을 막습니다. 한 번 본 상자는 잠깁니다.
+    treasure(done, node = {}) {
       const run = getRun();
+      tip('treasure');
+      if (node.used) {
+        open(() => {
+          base('ev.treasureTitle', t('ev.treasureUsed'));
+          leave('ev.continue', done);
+        });
+        return;
+      }
+      node.used = true;
+      persist();
       quizScreen({
+        tipKind: 'treasure',
         titleKey: 'ev.treasureTitle',
         intro: () => t('ev.treasureText'),
         question: next(2),
@@ -231,10 +276,12 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         persist();
       }
       const kind = node.mystery;
+      tip('event');
 
       if (kind === 'ambush') {
         open(() => {
           base('mystery.ambush.title', t('mystery.ambush.text'));
+          showTip('event');
           leave('mystery.ambush.go', ambush);
         });
         return;
@@ -244,7 +291,10 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         // 선택: 문제에 도전하면 강화를 얻지만, 틀리면 체력을 잃습니다.
         open(() => {
           base('mystery.statue.title', t('mystery.statue.text', { n: M.statueLoss }));
-          option(t('mystery.statue.try'), t('mystery.statue.trySub', { n: M.statueLoss }), false, () => {
+          showTip('event');
+          option(t('mystery.statue.try'), t('mystery.statue.trySub', { n: M.statueLoss }), Boolean(node.used), () => {
+            node.used = true; // 문제를 본 뒤 나갔다가 다시 와도 한 번 더 도전할 수 없습니다
+            persist();
             quizScreen({
               titleKey: 'mystery.statue.title',
               intro: () => t('mystery.statue.quiz'),
@@ -291,6 +341,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       persist();
       open(() => {
         base(`mystery.${kind}.title`, t(`mystery.${kind}.text`, { n }));
+        showTip('event');
         leave('ev.continue', done);
       });
     },

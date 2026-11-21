@@ -953,6 +953,90 @@
           }
         }
       ]
+    },
+    {
+      "id": "chain-right",
+      "gen": "right",
+      "figure": {
+        "kind": "triangle",
+        "angle": "A",
+        "opp": "{a}",
+        "adj": "{b}",
+        "hyp": ""
+      },
+      "intro": {
+        "ja": "∠C = 90° の直角三角形 ABC で BC = {a}, CA = {b} である。",
+        "ko": "∠C = 90°인 직각삼각형 ABC에서 BC = {a}, CA = {b}이다.",
+        "en": "In right triangle ABC with ∠C = 90°, BC = {a} and CA = {b}."
+      },
+      "steps": [
+        {
+          "type": "length",
+          "level": 1,
+          "sum": {
+            "ja": "斜辺 AB",
+            "ko": "빗변 AB",
+            "en": "Hypotenuse AB"
+          },
+          "figure": {
+            "hyp": "AB = ?"
+          },
+          "text": {
+            "ja": "斜辺 AB の長さは?",
+            "ko": "빗변 AB의 길이는?",
+            "en": "How long is the hypotenuse AB?"
+          },
+          "explain": {
+            "ja": "三平方の定理 AB² = {a}² + {b}² より AB = {answer}",
+            "ko": "피타고라스 정리 AB² = {a}² + {b}²에서 AB = {answer}",
+            "en": "By the Pythagorean theorem AB² = {a}² + {b}², AB = {answer}"
+          }
+        },
+        {
+          "type": "ratio",
+          "level": 1,
+          "sum": {
+            "ja": "sin A",
+            "ko": "sin A",
+            "en": "sin A"
+          },
+          "figure": {
+            "hyp": "{a1}"
+          },
+          "text": {
+            "ja": "sin A の値は?",
+            "ko": "sin A의 값은?",
+            "en": "What is sin A?"
+          },
+          "explain": {
+            "ja": "sin A = (向かい合う辺 BC) ÷ (斜辺 AB) = {a} ÷ {a1} = {answer}",
+            "ko": "sin A = (마주 보는 변 BC) ÷ (빗변 AB) = {a} ÷ {a1} = {answer}",
+            "en": "sin A = opposite BC ÷ hypotenuse AB = {a} ÷ {a1} = {answer}"
+          }
+        },
+        {
+          "type": "inradius",
+          "level": 2,
+          "sum": {
+            "ja": "内接円の半径 r",
+            "ko": "내접원의 반지름 r",
+            "en": "Inradius r"
+          },
+          "figure": {
+            "hyp": "{a1}"
+          },
+          "text": {
+            "ja": "内接円の半径 r は?",
+            "ko": "내접원의 반지름 r은?",
+            "en": "What is the inradius r?"
+          },
+          "explain": {
+            "ja": "面積 S = ½ × {a} × {b}。S = ½ r (BC + CA + AB) より r = {answer}",
+            "ko": "넓이 S = ½ × {a} × {b}. S = ½ r (BC + CA + AB)에서 r = {answer}",
+            "en": "Area S = ½ × {a} × {b}. From S = ½ r (BC + CA + AB), r = {answer}"
+          }
+        }
+      ]
     }
   ]
 }

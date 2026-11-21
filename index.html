@@ -133,6 +133,7 @@
           <small id="ascendDesc" aria-live="polite"></small>
         </div>
         <p class="scope-summary" id="scopeSummary" aria-live="polite"></p>
+        <p class="scope-chain" id="scopeChain" hidden></p>
         <div class="scope-foot-row">
           <button type="button" class="hint" id="scopeBack" data-i18n="scope.back"></button>
           <button type="button" class="primary" id="scopeStart" data-i18n="scope.start"></button>
@@ -229,6 +230,8 @@
       <div class="scene" id="evArt" hidden></div>
       <h2 id="evTitle"></h2>
       <p id="evText"></p>
+      <!-- 처음 온 칸에만 나오는 한 줄 안내 -->
+      <p class="ev-tip" id="evTip" hidden><b data-i18n="tip.label"></b><span id="evTipText"></span></p>
       <div id="evQuiz" hidden>
         <div class="question">
           <span class="meta" id="evQMeta"></span>

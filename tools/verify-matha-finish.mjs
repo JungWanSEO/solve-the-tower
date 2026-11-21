@@ -44,13 +44,15 @@ const binomTail = (n, k) => { let c = 1, sum = 0; const C = [1]; for (let i = 1;
 const perms = (arr) => (arr.length <= 1 ? [arr] : arr.flatMap((x, k) => perms([...arr.slice(0, k), ...arr.slice(k + 1)]).map((p) => [x, ...p])));
 const C2 = (n, r) => { let v = 1; for (let k = 0; k < r; k++) v = (v * (n - k)) / (k + 1); return Math.round(v); };
 const fr = (s) => { const [a, b] = String(s).split('/').map(Number); return a / b; };
+const permMemo = {};
 const OK = {
   grouping: (i, o, par) => { // count by brute force: assign people to groups in order, canonical form for unlabelled
     const { n, size, groups } = i; if (size * groups !== n) throw new Error('sizes'); const seen = new Set(); let named = 0;
     const rec = (left, acc) => { if (!left.length) { named++; seen.add(acc.map((g) => g.join('')).sort().join('|')); return; } const pick = (start, cur) => { if (cur.length === size) { rec(left.filter((x) => !cur.includes(x)), [...acc, cur]); return; } for (let k = start; k < left.length; k++) pick(k + 1, [...cur, left[k]]); }; pick(0, []); };
     if (n > 8) return N(o) === (par.labelled ? 1680 : 280) && n === 9 || (n === 10 && N(o) === (par.labelled ? 252 : 126));
     rec([...Array(n).keys()].map((x) => String.fromCharCode(97 + x)), []); return N(o) === (par.labelled ? named : seen.size); },
-  permcond: (i, o, par) => { const all = perms([...Array(i.n).keys()]); const c = all.filter((p) => (par.ask === 'adjacent' ? Math.abs(p.indexOf(0) - p.indexOf(1)) === 1 : (p[0] === 0 && p[i.n - 1] === 1) || (p[0] === 1 && p[i.n - 1] === 0))).length; return N(o) === c; },
+  // 모든 줄 세우기를 하나하나 세어 봅니다. 같은 (n, 조건)은 한 번만 셉니다.
+  permcond: (i, o, par) => { const key = `${i.n}/${par.ask}`; permMemo[key] ??= perms([...Array(i.n).keys()]).filter((p) => (par.ask === 'adjacent' ? Math.abs(p.indexOf(0) - p.indexOf(1)) === 1 : (p[0] === 0 && p[i.n - 1] === 1) || (p[0] === 1 && p[i.n - 1] === 0))).length; return N(o) === permMemo[key]; },
   combcond: (i, o) => N(o) === C2(i.a, i.p) * C2(i.b, i.q) && i.p < i.a && i.q < i.b,
   homogeneous: (i, o) => { let c = 0; const rec = (kind, left) => { if (kind === i.n - 1) { c++; return; } for (let k = 0; k <= left; k++) rec(kind + 1, left - k); }; rec(0, i.r); return N(o) === c; },
   indep: (i, o, par) => { const p = fr(i.p1), q = fr(i.p2); return near(num(o), par.ask === 'both' ? p * q : 1 - (1 - p) * (1 - q)); },
