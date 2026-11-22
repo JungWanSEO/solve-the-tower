@@ -52,7 +52,8 @@
     "finish": "Correct = defeated",
     "finishCounter": "Block = defeated",
     "finishChain": "All correct = defeated",
-    "finishUlt": "Damage {d} · defeats it"
+    "finishUlt": "Damage {d} · defeats it",
+    "act": "Act {n} / {total}"
   },
   "msg": {
     "choose": "Choose an action.",
@@ -420,5 +421,13 @@
     "rest": "At a rest stop you choose one of the two. Resting heals a lot; a correct review question gives a hint and a little HP.",
     "treasure": "A treasure chest gives gold and a hint for a correct answer. A wrong answer does no damage and still gives a little gold. A chest you have seen cannot be opened again.",
     "event": "On a ? space something good or bad happens. You only find out by going in."
+  },
+  "act": {
+    "askTitle": "Tower length",
+    "askText": "You picked {n} subjects. The long tower climbs one act per subject, in the order {list} ({floors} floors in all). The short tower has 10 floors with the problems mixed.",
+    "long": "Long tower ({n} acts)",
+    "short": "Short tower (10 floors)",
+    "nextTitle": "Act {n}: {name}",
+    "nextText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. {left} act(s) remain. Your gold and upgrades carry over."
   }
 }

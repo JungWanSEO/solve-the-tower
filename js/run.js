@@ -108,10 +108,13 @@ export function makeMap(ascend = 0) {
 
 // scope: 이번 판에 나올 문제 유형의 목록 ("단원/유형")
 // ascend: 이번 판의 도전 단계 (0 이면 보통), cheer: 격려 단계 (연달아 쓰러진 횟수에서 나옵니다)
-export function newRun(scope, ascend = 0, cheer = 0) {
+// acts: 긴 탑일 때 막의 목록 [{ id: 과목, keys: 그 막의 유형 }]. 없거나 하나뿐이면 지금까지처럼 지도 한 장으로 끝납니다.
+export function newRun(scope, ascend = 0, cheer = 0, acts = null) {
   const { bonusPerType, bonusMax } = CONFIG.scope;
+  const long = Array.isArray(acts) && acts.length > 1;
   return {
-    scope: [...scope],
+    scope: long ? [...acts[0].keys] : [...scope], // 지금 막에서 나오는 유형
+    ...(long ? { full: [...scope], acts: acts.map((a) => ({ id: a.id, keys: [...a.keys] })), act: 0 } : {}),
     goldMul: 1 + Math.min(bonusMax, bonusPerType * Math.max(0, scope.length - 1)), // 범위가 넓을수록 골드를 더 받습니다
     nodes: makeMap(ascend),
     ascend,          // 도전 단계
@@ -128,6 +131,21 @@ export function newRun(scope, ascend = 0, cheer = 0) {
     up: { basic: 0, skill: 0, counter: 0, weak: 0 }, // 강화로 더해진 값
     lastFoe: null,
   };
+}
+
+// 긴 탑에서 다음 막으로 넘어갑니다: 새 지도, 그 막의 유형, 체력 회복. 골드·강화·힌트는 그대로 가져갑니다.
+export const isLastAct = (run) => !run.acts || run.act >= run.acts.length - 1;
+export function nextAct(run) {
+  run.act += 1;
+  run.scope = [...run.acts[run.act].keys];
+  run.nodes = makeMap(run.ascend || 0);
+  run.at = null;
+  run.pending = null;
+  run.visited = [];
+  run.lastFoe = null;
+  const before = run.hp;
+  run.hp = Math.min(run.maxHp, run.hp + CONFIG.act.heal);
+  return run.hp - before;
 }
 
 export const nodeOf = (run, id) => run.nodes.find((n) => n.id === id);
