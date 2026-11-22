@@ -744,10 +744,10 @@ body:not(.ready) .ios-hint { visibility: hidden; }
 .review { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--teal); border-left-width: 5px; background: rgba(47, 217, 185, 0.08); animation: screenIn 0.25s ease-out; }
 .review[hidden] { display: none; }
 .review b { font-size: 15px; color: var(--teal); }
-.review p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
-html[lang="ko"] .review p { word-break: keep-all; overflow-wrap: anywhere; }
+.review p, .review-text { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
+html[lang="ko"] .review p, html[lang="ko"] .review-text { word-break: keep-all; overflow-wrap: anywhere; }
 .tight .review { padding: 7px 10px; }
-.tight .review p { font-size: 12px; line-height: 1.45; }
+.tight .review p, .tight .review-text { font-size: 12px; line-height: 1.45; }
 
 /* range screen: units fold */
 .scope-head { display: flex; align-items: stretch; gap: 8px; margin-top: 4px; }
@@ -881,3 +881,9 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 /* 맞힌 문제의 풀이 카드: 틀렸을 때와 같은 자리, 색만 다르게 (맞힘 = 노랑) */
 .review.right { border-color: var(--amber); background: rgba(255, 200, 87, 0.08); }
 .review.right b { color: var(--amber); }
+
+/* 단계별 풀이: ①②③ 번호가 붙은 목록 */
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 4px; }
+.steps li { counter-increment: step; display: flex; gap: 8px; align-items: flex-start; }
+.steps li::before { content: counter(step); flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); color: var(--ink); font-size: 11px; font-weight: 800; line-height: 18px; text-align: center; }
+.tight .steps { gap: 2px; }

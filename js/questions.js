@@ -212,9 +212,14 @@ export function questionText(raw) {
   return fill(pick(raw.tpl.text), shown(raw.item));
 }
 
+// 풀이 글. 단원 파일에서 줄바꿈으로 단계를 나눠 적으면 화면에 ①②③ 단계로 나옵니다.
 export function explainText(raw) {
   return fill(pick(raw.tpl.explain), shown(raw.item));
 }
+// 풀이의 단계들 (한 줄짜리 풀이는 한 단계)
+export const explainSteps = (raw) => explainText(raw).split('\n').map((line) => line.trim()).filter(Boolean);
+// 알림 줄처럼 좁은 곳에 쓰는 한 줄: 마지막 단계 (답이 들어 있는 줄)
+export const explainBrief = (raw) => explainSteps(raw).at(-1) || '';
 
 // 보기가 말로 된 문제: 보기에 "@이름" 을 적으면 lang 파일의 opt.<이름> 문구가 지금 언어로 나옵니다.
 export function optionText(text) {

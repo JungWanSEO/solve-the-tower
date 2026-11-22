@@ -3,7 +3,7 @@
 // 체력, 힌트, 강화는 "지도 한 장"의 상태(run)에서 가져옵니다.
 import { CONFIG } from './config.js';
 import { t, pick } from './i18n.js';
-import { next, explainText, typeLabel, optionText, hasChain, nextChain, stepSummary, questionText, setDebugLast } from './questions.js';
+import { next, explainText, explainSteps, explainBrief, typeLabel, optionText, hasChain, nextChain, stepSummary, questionText, setDebugLast } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { $ } from './ui.js';
 import { icon } from './art.js';
@@ -92,7 +92,17 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     $('reviewBox').classList.toggle('right', missed && B.picked === B.cur.correct);
     if (missed) {
       $('reviewAnswer').textContent = t(B.picked === B.cur.correct ? 'ui.reviewRight' : 'ui.reviewAnswer', { answer: optionText(B.cur.options[B.cur.correct]) });
-      $('reviewText').textContent = explainText(B.cur.raw);
+      // 풀이: 한 단계면 글 한 줄, 여러 단계면 번호 붙은 목록
+      const steps = explainSteps(B.cur.raw);
+      const box = $('reviewText');
+      box.textContent = '';
+      if (steps.length <= 1) box.textContent = steps[0] || '';
+      else {
+        const list = document.createElement('ol');
+        list.className = 'steps';
+        for (const line of steps) { const li = document.createElement('li'); li.textContent = line; list.appendChild(li); }
+        box.appendChild(list);
+      }
     }
     if (!showing) return;
 
@@ -456,7 +466,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
         foeTurn(0, counter);
       } else {
         B.combo = 0;
-        say('msg.guardFail', { explain: explainText(B.cur.raw) });
+        say('msg.guardFail', { explain: explainBrief(B.cur.raw) });
         render();
         foeTurn(CONFIG.defendReduce);
       }
@@ -475,7 +485,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       } else {
         // 틀리면 연속기는 거기서 끝납니다. 정답과 해설을 보여 주고 적의 공격을 받습니다.
         B.combo = 0;
-        say('msg.wrong', { explain: explainText(B.cur.raw) });
+        say('msg.wrong', { explain: explainBrief(B.cur.raw) });
         render();
         B.owed = Math.ceil(intentDamage()); // 틀린 값은 이미 치른 것으로 적어 둡니다 (연출 중에 나가도 피해는 받습니다)
         stage.heroMiss(t('msg.miss'), live(() => foeTurn(1)));
@@ -495,7 +505,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       stage.heroAttack(`-${dmg}`, weak, live(() => afterHit(dmg)), weak ? t('ui.weakHit') : '');
     } else {
       B.combo = 0;
-      say('msg.wrong', { explain: explainText(B.cur.raw) });
+      say('msg.wrong', { explain: explainBrief(B.cur.raw) });
       render();
       B.owed = Math.ceil(intentDamage());
       stage.heroMiss(t('msg.miss'), live(() => foeTurn(1)));
