@@ -48,7 +48,11 @@
     "ok": "OK",
     "musicOn": "音楽: オン",
     "musicOff": "音楽: オフ",
-    "fillOk": "この答えで攻撃"
+    "fillOk": "この答えで攻撃",
+    "finish": "正解すれば倒せる",
+    "finishCounter": "防げば反撃で倒せる",
+    "finishChain": "全部正解で倒せる",
+    "finishUlt": "ダメージ {d} · 倒せる"
   },
   "msg": {
     "choose": "行動を選んでください。",

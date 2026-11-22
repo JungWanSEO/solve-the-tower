@@ -242,8 +242,17 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     $('defendDmg').textContent = t('ui.counterDmg', { d: CONFIG.damage.counter + run.up.counter });
     $('foeIntent').classList.toggle('big', B.intent === 'big');
     // 강한 공격 턴에는 공격 버튼에도 "맞혀도 피해를 받는다"는 것을 적어 둡니다.
-    $('basicSub').textContent = t(B.intent === 'big' ? 'ui.attackBigSub' : 'ui.basicSub');
-    $('skillSub').textContent = t(B.intent === 'big' ? 'ui.attackBigSub' : 'ui.skillSub');
+    // 맞히면 적이 쓰러지는 행동은 그렇게 적고 강조합니다. 쓰러뜨리면 적의 공격(강한 공격 포함)은 오지 않습니다.
+    // 약점 보너스는 어떤 문제가 나올지 몰라 셈에 넣지 않습니다. (확실히 쓰러뜨리는 경우만 표시)
+    const basicDmg = CONFIG.damage.basic + run.up.basic;
+    const skillDmg = CONFIG.damage.skill + run.up.skill;
+    const counterDmg = CONFIG.damage.counter + run.up.counter;
+    const chainDmg = CONFIG.damage.chain.reduce((sum, d) => sum + d, 0);
+    const ends = { basic: basicDmg >= B.foeHp, skill: skillDmg >= B.foeHp, defend: counterDmg >= B.foeHp, chain: !B.chainUsed && chainDmg >= B.foeHp, ult: B.combo >= CONFIG.ultNeed && CONFIG.damage.ult >= B.foeHp }; // 쓸 수 없는 행동은 표시하지 않습니다
+    const alive = B.foeHp > 0;
+    $('basicSub').textContent = t(alive && ends.basic ? 'ui.finish' : B.intent === 'big' ? 'ui.attackBigSub' : 'ui.basicSub');
+    $('skillSub').textContent = t(alive && ends.skill ? 'ui.finish' : B.intent === 'big' ? 'ui.attackBigSub' : 'ui.skillSub');
+    for (const btn of document.querySelectorAll('#actions button, #chainBtn, #ultBtn')) btn.classList.toggle('finish', alive && B.phase === 'choose' && Boolean(ends[btn.dataset.action]));
     // 체력이 줄어든 순간: 체력 줄이 흔들리며 번쩍이고, 화면 가장자리가 붉어집니다.
     if (B.shownHp !== null && run.hp < B.shownHp) pulse($('meBox'), 'hurt');
     if (B.shownHp !== null && run.hp < B.shownHp) pulse($('screenBattle'), 'flash');
@@ -272,20 +281,20 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       btn.disabled = !choosing || (only && only !== action) || (action === 'defend' && cooling);
       btn.classList.toggle('picked', B.phase === 'answer' && B.cur && B.cur.action === action);
     });
-    $('defendSub').textContent = t(cooling ? 'ui.defendWait' : 'ui.defendSub');
+    $('defendSub').textContent = t(cooling ? 'ui.defendWait' : alive && ends.defend ? 'ui.finishCounter' : 'ui.defendSub');
 
     // 연속기 버튼: 이번 범위에 풀 수 있는 묶음이 있을 때만 보입니다.
     const chainBtn = $('chainBtn');
     chainBtn.hidden = !hasChain(B.kind === 'boss');
     chainBtn.disabled = !choosing || Boolean(only) || B.chainUsed;
-    $('chainSub').textContent = t(B.chainUsed ? 'ui.chainUsed' : 'ui.chainSub');
+    $('chainSub').textContent = t(B.chainUsed ? 'ui.chainUsed' : alive && ends.chain ? 'ui.finishChain' : 'ui.chainSub');
 
     const ready = B.combo >= CONFIG.ultNeed;
     const ult = $('ultBtn');
     ult.disabled = !(choosing && ready) || Boolean(only);
     ult.classList.toggle('ready', ready);
     $('ultText').textContent = ready ? t('ui.ultReady') : t('ui.ultCharge', { n: B.combo, need: CONFIG.ultNeed });
-    $('ultSub').textContent = t('ui.dmg', { d: CONFIG.damage.ult });
+    $('ultSub').textContent = alive && ends.ult ? t('ui.finishUlt', { d: CONFIG.damage.ult }) : t('ui.dmg', { d: CONFIG.damage.ult });
     $('ultFill').style.width = `${Math.min(1, B.combo / CONFIG.ultNeed) * 100}%`; // 연속 정답만큼 차오릅니다.
 
     $('notice').textContent = t(B.notice.key, B.notice.vars);

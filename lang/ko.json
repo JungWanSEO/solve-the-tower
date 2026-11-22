@@ -48,7 +48,11 @@
     "ok": "확인",
     "musicOn": "음악: 켜짐",
     "musicOff": "음악: 꺼짐",
-    "fillOk": "이 답으로 공격"
+    "fillOk": "이 답으로 공격",
+    "finish": "맞히면 쓰러뜨림",
+    "finishCounter": "막으면 반격으로 쓰러뜨림",
+    "finishChain": "모두 맞히면 쓰러뜨림",
+    "finishUlt": "피해 {d} · 쓰러뜨림"
   },
   "msg": {
     "choose": "행동을 고르세요.",

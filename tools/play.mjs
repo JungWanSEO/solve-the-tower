@@ -116,6 +116,7 @@ function act() {
     if (!acts.length) return;
     const big = /強い|강한|heavy/.test($('foeIntent').textContent);
     const def = acts.find((b) => b.dataset.action === 'defend');
+    { const fin = acts.find((b) => b.classList.contains('finish') && b.dataset.action !== 'defend'); if (fin) { fin.click(); stats.clicks++; stats.finishes = (stats.finishes || 0) + 1; return; } } // 맞히면 끝나는 행동이 있으면 그것을 고릅니다
     if (big && def) { def.click(); stats.clicks++; return; }
     const atk = acts.filter((b) => b.dataset.action !== 'defend');
     (atk.length ? rnd(atk) : rnd(acts)).click(); stats.clicks++; return;
