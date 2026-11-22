@@ -105,9 +105,9 @@
         "en": "In how many ways can {r} people chosen from {n} be lined up in a row?"
       },
       "explain": {
-        "ja": "順番を区別するので順列。{n} から {r} 個の数を順にかけて {answer}",
-        "ko": "순서를 구별하므로 순열입니다. {n}부터 차례로 {r}개의 수를 곱하면 {answer}",
-        "en": "Order matters, so it is a permutation. Multiply {r} numbers counting down from {n}: {answer}"
+        "ja": "並べるので順番を区別する → 順列\n1人目は {n} 通り、2人目は残りから…と {r} 人分掛ける\n{n} から1ずつ減らしながら {r} 個の数を掛けて {answer}",
+        "ko": "줄을 세우므로 순서를 구별합니다 → 순열\n첫째는 {n} 가지, 둘째는 남은 사람 중에서… 이렇게 {r} 명만큼 곱합니다\n{n} 부터 1씩 줄이며 {r} 개의 수를 곱하면 {answer}",
+        "en": "Lining up means order matters → permutation\n{n} choices for the first, one fewer for the next, for {r} people\nMultiply {r} numbers going down from {n}: {answer}"
       },
       "note": {
         "ja": "人はすべて区別する。",
@@ -126,9 +126,9 @@
         "en": "In how many ways can {r} people be chosen from {n}?"
       },
       "explain": {
-        "ja": "順番を区別しないので組合せ。順列を {r}! で割って {answer}",
-        "ko": "순서를 구별하지 않으므로 조합입니다. 순열을 {r}!로 나누면 {answer}",
-        "en": "Order does not matter, so it is a combination. Divide the permutation count by {r}!: {answer}"
+        "ja": "選ぶだけなので順番を区別しない → 組合せ\nまず順列(並べ方)を求める\n同じ組が {r}! 回ずつ数えられているので {r}! で割って {answer}",
+        "ko": "고르기만 하므로 순서를 구별하지 않습니다 → 조합\n먼저 순열(줄 세우는 방법)을 구합니다\n같은 조가 {r}! 번씩 세어졌으므로 {r}! 로 나누면 {answer}",
+        "en": "Only choosing, so order does not matter → combination\nFirst count the arrangements\nEach group was counted {r}! times, so divide by {r}!: {answer}"
       },
       "note": {
         "ja": "人はすべて区別する。",
@@ -147,9 +147,9 @@
         "en": "In how many ways can {n} people sit around a round table?"
       },
       "explain": {
-        "ja": "円順列は (n − 1)! 通り。{answer}",
-        "ko": "원순열은 (n − 1)!가지입니다. {answer}",
-        "en": "A circular arrangement has (n − 1)! ways: {answer}"
+        "ja": "円形では、回すと同じになる並びを1つと数える\n1人を固定して、残り ({n} − 1) 人を並べる\n({n} − 1)! = {answer}",
+        "ko": "원형에서는 돌려서 같아지는 배열을 하나로 셉니다\n한 사람을 고정하고 나머지 ({n} − 1)명을 줄 세웁니다\n({n} − 1)! = {answer}",
+        "en": "Around a table, rotations count as the same\nFix one person and arrange the other ({n} − 1)\n({n} − 1)! = {answer}"
       },
       "note": {
         "ja": "回転して一致する並び方は同じものとみなす。",
@@ -168,9 +168,9 @@
         "en": "There are {p} a's and {q} b's. In how many ways can all of them be arranged in a row?"
       },
       "explain": {
-        "ja": "同じものを含む順列。全体の階乗を {p}! と {q}! で割って {answer}",
-        "ko": "같은 것이 있는 순열입니다. 전체의 계승을 {p}!와 {q}!로 나누면 {answer}",
-        "en": "Divide the factorial of the total by {p}! and {q}!: {answer}"
+        "ja": "全部で ({p} + {q}) 個を並べる\n同じ文字どうしは入れかえても同じなので、{p}! と {q}! で割る\n({p} + {q})! ÷ ({p}! × {q}!) = {answer}",
+        "ko": "모두 ({p} + {q})개를 줄 세웁니다\n같은 문자끼리는 바꿔도 같으므로 {p}! 과 {q}! 로 나눕니다\n({p} + {q})! ÷ ({p}! × {q}!) = {answer}",
+        "en": "There are ({p} + {q}) letters in all\nSwapping identical letters changes nothing, so divide by {p}! and {q}!\n({p} + {q})! ÷ ({p}! × {q}!) = {answer}"
       }
     },
     {
@@ -184,9 +184,9 @@
         "en": "Two dice are rolled. What is the probability that the sum is {s}?"
       },
       "explain": {
-        "ja": "全部で 36 通り。和が {s} になる場合を数えて {answer}",
-        "ko": "전체는 36가지입니다. 합이 {s}가 되는 경우를 세면 {answer}",
-        "en": "There are 36 outcomes. Count those with sum {s}: {answer}"
+        "ja": "2個のさいころの目の出方は 6 × 6 = 36 通り\n和が {s} になる組(1個目, 2個目)をすべて書き出して数える\n(その数) ÷ 36 を約分して {answer}",
+        "ko": "주사위 2개의 눈이 나오는 경우는 6 × 6 = 36가지\n합이 {s} 가 되는 짝(첫째, 둘째)을 모두 적어서 셉니다\n(그 수) ÷ 36 을 약분하면 {answer}",
+        "en": "Two dice have 6 × 6 = 36 outcomes\nList every pair (first, second) with sum {s} and count them\n(that count) ÷ 36, reduced: {answer}"
       },
       "note": {
         "ja": "さいころの目の出方は同様に確からしいものとする。",
@@ -205,9 +205,9 @@
         "en": "A coin is tossed {n} times. What is the probability of at least one head?"
       },
       "explain": {
-        "ja": "余事象(すべて裏)の確率を 1 から引いて {answer}",
-        "ko": "여사건(모두 뒷면)의 확률을 1에서 빼면 {answer}",
-        "en": "Subtract the probability of the complement (all tails) from 1: {answer}"
+        "ja": "「少なくとも1回表」の余事象は「{n} 回とも裏」\n{n} 回とも裏の確率は (1/2) を {n} 回掛けたもの\n1 から引いて {answer}",
+        "ko": "\"적어도 한 번 앞면\"의 여사건은 \"{n} 번 모두 뒷면\"\n{n} 번 모두 뒷면일 확률은 (1/2)을 {n} 번 곱한 것\n1에서 빼면 {answer}",
+        "en": "The opposite of \"at least one head\" is \"all {n} tails\"\nAll tails has probability (1/2) multiplied {n} times\nSubtract from 1: {answer}"
       },
       "note": {
         "ja": "表と裏の出方は同様に確からしいものとする。",
@@ -226,9 +226,9 @@
         "en": "A bag holds {r} red and {w} white balls. Two balls are drawn one after another without replacement. Given that the first is red, what is the probability that the second is also red?"
       },
       "explain": {
-        "ja": "1個目が赤なら、残りは赤が1個減っている。{answer}",
-        "ko": "첫 번째가 빨간 공이면 남은 공 중 빨간 공이 하나 줄어 있습니다. {answer}",
-        "en": "After a red ball is drawn, one fewer red ball remains: {answer}"
+        "ja": "1個目が赤だったので、袋には赤 ({r} − 1) 個、白 {w} 個が残っている\n残りは全部で ({r} + {w} − 1) 個\n2個目も赤である確率は ({r} − 1) ÷ ({r} + {w} − 1) = {answer}",
+        "ko": "첫째가 빨간 공이었으므로 주머니에는 빨간 공 ({r} − 1)개, 흰 공 {w} 개가 남아 있습니다\n남은 공은 모두 ({r} + {w} − 1)개\n둘째도 빨간 공일 확률은 ({r} − 1) ÷ ({r} + {w} − 1) = {answer}",
+        "en": "The first was red, so ({r} − 1) red and {w} white remain\nThat is ({r} + {w} − 1) balls in all\nThe second is red with probability ({r} − 1) ÷ ({r} + {w} − 1) = {answer}"
       }
     },
     {
@@ -242,9 +242,9 @@
         "en": "Of 10 tickets, {p} are worth {a} points, {q} are worth {b} points and the rest are worth 0. What is the expected score of one draw?"
       },
       "explain": {
-        "ja": "(得点 × 確率) をすべて足して {answer}",
-        "ko": "(점수 × 확률)을 모두 더하면 {answer}",
-        "en": "Add up (score × probability) for every ticket: {answer}"
+        "ja": "それぞれの得点が出る確率: {a} 点は {p}/10、{b} 点は {q}/10\n期待値 = (得点 × 確率) の合計\n{a} × {p}/10 + {b} × {q}/10 + 0 = {answer}",
+        "ko": "각 점수가 나올 확률: {a} 점은 {p}/10, {b} 점은 {q}/10\n기댓값 = (점수 × 확률)의 합\n{a} × {p}/10 + {b} × {q}/10 + 0 = {answer}",
+        "en": "Probabilities: {a} points has {p}/10, {b} points has {q}/10\nExpected value = sum of (points × probability)\n{a} × {p}/10 + {b} × {q}/10 + 0 = {answer}"
       }
     },
     {
@@ -258,9 +258,9 @@
         "en": "How many positive divisors does {n} have?"
       },
       "explain": {
-        "ja": "素因数分解して、(指数 + 1) をすべてかけると {answer}",
-        "ko": "소인수분해한 뒤 (지수 + 1)을 모두 곱하면 {answer}",
-        "en": "Factor into primes and multiply (exponent + 1) for each: {answer}"
+        "ja": "{n} を素因数分解する\nそれぞれの指数に 1 を足す(その素因数を 0 個から使えるため)\nそれらをすべて掛けて {answer}",
+        "ko": "{n} 을 소인수분해합니다\n각 지수에 1을 더합니다 (그 소인수를 0개부터 쓸 수 있으므로)\n그것들을 모두 곱하면 {answer}",
+        "en": "Factor {n} into primes\nAdd 1 to each exponent (each prime can be used 0 times up to that many)\nMultiply those numbers: {answer}"
       }
     },
     {
@@ -274,9 +274,9 @@
         "en": "In how many ways can {r} letters be arranged in a row from {n} kinds, with repetition allowed?"
       },
       "explain": {
-        "ja": "それぞれの場所に {n} 通りずつ。{n} を {r} 回かけて {answer}",
-        "ko": "자리마다 {n}가지씩입니다. {n}을 {r}번 곱하면 {answer}",
-        "en": "Each position has {n} choices. Multiply {n} by itself {r} times: {answer}"
+        "ja": "同じ文字を何度使ってもよいので、どの場所も {n} 通り\n場所は {r} か所\n{n} を {r} 回掛けて {answer}",
+        "ko": "같은 문자를 여러 번 써도 되므로 어느 자리든 {n} 가지\n자리는 {r} 곳\n{n} 을 {r} 번 곱하면 {answer}",
+        "en": "Repeats are allowed, so every place has {n} choices\nThere are {r} places\nMultiply {n} by itself {r} times: {answer}"
       }
     },
     {
@@ -295,9 +295,9 @@
         "rows": "{b}"
       },
       "explain": {
-        "ja": "右へ {a} 回、上へ {b} 回の並べ方なので {answer}",
-        "ko": "오른쪽으로 {a}번, 위로 {b}번을 늘어놓는 방법이므로 {answer}",
-        "en": "Arrange {a} moves right and {b} moves up: {answer}"
+        "ja": "最短の道は、右へ {a} 回、上へ {b} 回進む\n全部で ({a} + {b}) 回のうち、右へ進む {a} 回を選ぶ組合せ\n({a} + {b})! ÷ ({a}! × {b}!) = {answer}",
+        "ko": "최단 경로는 오른쪽으로 {a} 번, 위로 {b} 번 갑니다\n모두 ({a} + {b})번 중에서 오른쪽으로 가는 {a} 번을 고르는 조합\n({a} + {b})! ÷ ({a}! × {b}!) = {answer}",
+        "en": "A shortest path goes right {a} times and up {b} times\nChoose which {a} of the ({a} + {b}) moves go right\n({a} + {b})! ÷ ({a}! × {b}!) = {answer}"
       }
     },
     {
@@ -316,9 +316,9 @@
         "en": "Heads and tails are equally likely."
       },
       "explain": {
-        "ja": "表が出る回の選び方 × (1/2) を {n} 回かけたもの = {answer}",
-        "ko": "앞면이 나오는 회차를 고르는 방법의 수 × (1/2)을 {n}번 곱한 것 = {answer}",
-        "en": "(Ways to choose which tosses are heads) × (1/2) multiplied {n} times = {answer}"
+        "ja": "{n} 回のうち、表が出る {k} 回の選び方を数える(組合せ)\n1つの出方の確率は (1/2) を {n} 回掛けたもの\n(選び方) × (その確率) = {answer}",
+        "ko": "{n} 번 중에서 앞면이 나오는 {k} 번을 고르는 방법을 셉니다 (조합)\n한 가지 경우의 확률은 (1/2)을 {n} 번 곱한 것\n(고르는 방법) × (그 확률) = {answer}",
+        "en": "Count the ways to choose which {k} of the {n} tosses are heads\nEach single outcome has probability (1/2) multiplied {n} times\n(ways) × (that probability) = {answer}"
       }
     },
     {
@@ -337,9 +337,9 @@
         "en": "Every card is equally likely."
       },
       "explain": {
-        "ja": "それぞれの個数を足して、両方の倍数を1回引く。{answer}",
-        "ko": "각각의 개수를 더하고, 둘 다의 배수를 한 번 뺍니다. {answer}",
-        "en": "Add the two counts and subtract the multiples of both once: {answer}"
+        "ja": "{a} の倍数の個数と、{b} の倍数の個数をそれぞれ数える\n両方の倍数(最小公倍数の倍数)は2回数えているので1回引く\nその個数 ÷ {N} を約分して {answer}",
+        "ko": "{a} 의 배수의 개수와 {b} 의 배수의 개수를 각각 셉니다\n둘 다의 배수(최소공배수의 배수)는 두 번 셌으므로 한 번 뺍니다\n그 개수 ÷ {N} 을 약분하면 {answer}",
+        "en": "Count the multiples of {a} and the multiples of {b}\nMultiples of both (of the LCM) were counted twice, so subtract them once\nThat count ÷ {N}, reduced: {answer}"
       }
     },
     {
@@ -358,9 +358,9 @@
         "en": "The people are distinguishable; the groups are not."
       },
       "explain": {
-        "ja": "組に名前をつけて分けてから、組の並べかえ {groups}! で割ると {answer}",
-        "ko": "조에 이름을 붙여 나눈 뒤, 조끼리 자리를 바꾸는 {groups}!로 나누면 {answer}",
-        "en": "Split into named groups first, then divide by {groups}! for the order of the groups: {answer}"
+        "ja": "まず組に名前があるものとして、{size} 人ずつ順に選ぶ\n実際は組に区別がないので、同じ分け方が {groups}! 回ずつ数えられている\n{groups}! で割って {answer}",
+        "ko": "먼저 조에 이름이 있다고 보고 {size} 명씩 차례로 고릅니다\n실제로는 조를 구별하지 않으므로 같은 나누기가 {groups}! 번씩 세어졌습니다\n{groups}! 로 나누면 {answer}",
+        "en": "First pretend the groups are named and choose {size} at a time\nThe groups are not really named, so each split was counted {groups}! times\nDivide by {groups}!: {answer}"
       }
     },
     {
@@ -382,9 +382,9 @@
         "en": "All the people are distinguishable."
       },
       "explain": {
-        "ja": "部屋ごとに順に選ぶ。部屋は区別するので割らない。{answer}",
-        "ko": "방마다 차례로 뽑습니다. 방은 구별하므로 나누지 않습니다. {answer}",
-        "en": "Choose room by room. The rooms are different, so do not divide: {answer}"
+        "ja": "1つ目の部屋に入る {size} 人を選ぶ\n残りから次の部屋の {size} 人を選ぶ(これをくり返す)\n部屋は区別するので割らずに掛けて {answer}",
+        "ko": "첫째 방에 들어갈 {size} 명을 고릅니다\n남은 사람 중에서 다음 방의 {size} 명을 고릅니다 (이것을 되풀이)\n방은 구별하므로 나누지 않고 곱해서 {answer}",
+        "en": "Choose the {size} people for the first room\nChoose the next {size} from those left, and so on\nRooms are different, so multiply without dividing: {answer}"
       }
     },
     {
@@ -406,9 +406,9 @@
         "en": "All the people are distinguishable."
       },
       "explain": {
-        "ja": "2人を1つにまとめて並べ、2人の入れかえ 2 通りをかけると {answer}",
-        "ko": "두 사람을 하나로 묶어 세운 뒤, 두 사람이 자리를 바꾸는 2가지를 곱하면 {answer}",
-        "en": "Treat the pair as one, arrange, then multiply by 2 for their order: {answer}"
+        "ja": "隣り合う2人を1人とみなすと、({n} − 1) 人の並べ方になる\nまとめた2人の中での入れかえが 2 通り\n({n} − 1)! × 2 = {answer}",
+        "ko": "이웃하는 두 사람을 한 사람으로 보면 ({n} − 1)명을 줄 세우는 것이 됩니다\n묶은 두 사람끼리 자리를 바꾸는 방법이 2가지\n({n} − 1)! × 2 = {answer}",
+        "en": "Treat the pair as one person: ({n} − 1) to arrange\nThe pair can swap in 2 ways\n({n} − 1)! × 2 = {answer}"
       }
     },
     {
@@ -430,9 +430,9 @@
         "en": "All the people are distinguishable."
       },
       "explain": {
-        "ja": "両端の並べ方 2 通り × 残りの人の並べ方 = {answer}",
-        "ko": "양 끝에 서는 방법 2가지 × 나머지 사람이 서는 방법 = {answer}",
-        "en": "2 ways for the ends × the arrangements of the others = {answer}"
+        "ja": "特定の2人を両端に置く方法は 2 通り\n残りの ({n} − 2) 人を間に並べる\n2 × ({n} − 2)! = {answer}",
+        "ko": "특정한 두 사람을 양 끝에 두는 방법은 2가지\n나머지 ({n} − 2)명을 사이에 줄 세웁니다\n2 × ({n} − 2)! = {answer}",
+        "en": "The two people can take the ends in 2 ways\nArrange the other ({n} − 2) in between\n2 × ({n} − 2)! = {answer}"
       }
     },
     {
@@ -451,9 +451,9 @@
         "en": "All the people are distinguishable."
       },
       "explain": {
-        "ja": "男子の選び方 × 女子の選び方 = {answer}",
-        "ko": "남자를 뽑는 방법 × 여자를 뽑는 방법 = {answer}",
-        "en": "(Ways to choose the boys) × (ways to choose the girls) = {answer}"
+        "ja": "男子 {a} 人から {p} 人を選ぶ方法を数える\n女子 {b} 人から {q} 人を選ぶ方法を数える\n両方を同時に行うので掛けて {answer}",
+        "ko": "남학생 {a} 명에서 {p} 명을 고르는 방법을 셉니다\n여학생 {b} 명에서 {q} 명을 고르는 방법을 셉니다\n둘을 함께 하므로 곱해서 {answer}",
+        "en": "Count the ways to choose {p} of the {a} boys\nCount the ways to choose {q} of the {b} girls\nBoth happen together, so multiply: {answer}"
       }
     },
     {
@@ -472,9 +472,9 @@
         "en": "Some kinds may not be chosen at all."
       },
       "explain": {
-        "ja": "{r} 個の ○ と仕切り ({n} − 1) 本を並べる方法と同じ。{answer}",
-        "ko": "○ {r}개와 칸막이 ({n} − 1)개를 늘어놓는 방법과 같습니다. {answer}",
-        "en": "It equals arranging {r} circles and ({n} − 1) dividers: {answer}"
+        "ja": "選んだ {r} 個を ○ で表し、種類の境目に仕切りを ({n} − 1) 本入れる\n○ {r} 個と仕切り ({n} − 1) 本を1列に並べる方法と同じ\n全部の場所から ○ の場所を選んで {answer}",
+        "ko": "고른 {r} 개를 ○ 로 나타내고, 종류의 경계에 칸막이를 ({n} − 1)개 넣습니다\n○ {r} 개와 칸막이 ({n} − 1)개를 한 줄로 놓는 방법과 같습니다\n전체 자리에서 ○ 의 자리를 고르면 {answer}",
+        "en": "Show the {r} items as circles with ({n} − 1) dividers between the kinds\nThis equals arranging {r} circles and ({n} − 1) dividers in a row\nChoose the places for the circles: {answer}"
       }
     },
     {
@@ -496,9 +496,9 @@
         "en": "The two results do not affect each other."
       },
       "explain": {
-        "ja": "独立な試行なので確率をかけて {answer}",
-        "ko": "독립시행이므로 확률을 곱하면 {answer}",
-        "en": "The trials are independent, so multiply: {answer}"
+        "ja": "A と B の結果はたがいに影響しない(独立)\n「2人とも当てる」は両方が起こることなので掛け算\n{p1} × {p2} = {answer}",
+        "ko": "A와 B의 결과는 서로 영향을 주지 않습니다 (독립)\n\"둘 다 맞힌다\"는 둘이 함께 일어나는 것이므로 곱셈\n{p1} × {p2} = {answer}",
+        "en": "A and B do not affect each other (independent)\n\"Both hit\" means both happen, so multiply\n{p1} × {p2} = {answer}"
       }
     },
     {
@@ -520,9 +520,9 @@
         "en": "The two results do not affect each other."
       },
       "explain": {
-        "ja": "1 − (2人とも外す確率) = {answer}",
-        "ko": "1 − (둘 다 못 맞힐 확률) = {answer}",
-        "en": "1 − (probability that both miss) = {answer}"
+        "ja": "「少なくとも1人が当てる」の余事象は「2人とも外す」\n外す確率は 1 − {p1} と 1 − {p2}。この2つを掛ける\n1 から引いて {answer}",
+        "ko": "\"적어도 한 명이 맞힌다\"의 여사건은 \"둘 다 빗나간다\"\n빗나갈 확률은 1 − {p1} 과 1 − {p2}. 이 둘을 곱합니다\n1에서 빼면 {answer}",
+        "en": "The opposite of \"at least one hits\" is \"both miss\"\nThe miss probabilities are 1 − {p1} and 1 − {p2}; multiply them\nSubtract from 1: {answer}"
       }
     },
     {
@@ -544,9 +544,9 @@
         "en": "Drawn balls are not put back."
       },
       "explain": {
-        "ja": "(1個目が赤の確率) × (そのとき2個目も赤の確率) = {answer}",
-        "ko": "(첫 번째가 빨강일 확률) × (그때 두 번째도 빨강일 확률) = {answer}",
-        "en": "P(first red) × P(second red given the first was red) = {answer}"
+        "ja": "1個目が赤である確率は {r} ÷ ({r} + {w})\nそのとき残りは赤 ({r} − 1) 個、全部で ({r} + {w} − 1) 個\n2つの確率を掛けて {answer}",
+        "ko": "첫째가 빨간 공일 확률은 {r} ÷ ({r} + {w})\n그때 남은 것은 빨간 공 ({r} − 1)개, 모두 ({r} + {w} − 1)개\n두 확률을 곱하면 {answer}",
+        "en": "The first is red with probability {r} ÷ ({r} + {w})\nThen ({r} − 1) red remain out of ({r} + {w} − 1)\nMultiply the two: {answer}"
       }
     },
     {
@@ -568,9 +568,9 @@
         "en": "Drawn balls are not put back."
       },
       "explain": {
-        "ja": "(1個目が赤の確率) × (そのとき2個目が白の確率) = {answer}",
-        "ko": "(첫 번째가 빨강일 확률) × (그때 두 번째가 흰색일 확률) = {answer}",
-        "en": "P(first red) × P(second white given the first was red) = {answer}"
+        "ja": "1個目が赤である確率は {r} ÷ ({r} + {w})\nそのとき残りは白 {w} 個、全部で ({r} + {w} − 1) 個\n2つの確率を掛けて {answer}",
+        "ko": "첫째가 빨간 공일 확률은 {r} ÷ ({r} + {w})\n그때 남은 것은 흰 공 {w} 개, 모두 ({r} + {w} − 1)개\n두 확률을 곱하면 {answer}",
+        "en": "The first is red with probability {r} ÷ ({r} + {w})\nThen {w} white remain out of ({r} + {w} − 1)\nMultiply the two: {answer}"
       }
     },
     {
@@ -584,9 +584,9 @@
         "en": "Machine A makes {share}% of a product and machine B makes {rest}%. {a}% of A's and {b}% of B's are defective. Given that an item is defective, what is the probability that A made it?"
       },
       "explain": {
-        "ja": "(A の不良品) ÷ (不良品全体) = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}",
-        "ko": "(A의 불량품) ÷ (불량품 전체) = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}",
-        "en": "(A's defective items) ÷ (all defective items) = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}"
+        "ja": "A の不良品の割合: {share} × {a}、B の不良品の割合: {rest} × {b}(どちらも全体に対する大きさ)\n不良品全体はその和\nA の分 ÷ 全体 = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}",
+        "ko": "A의 불량품 비율: {share} × {a}, B의 불량품 비율: {rest} × {b} (둘 다 전체에 대한 크기)\n불량품 전체는 그 합\nA의 몫 ÷ 전체 = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}",
+        "en": "Defective from A: {share} × {a}; from B: {rest} × {b} (as shares of everything)\nAll defectives are their sum\nA's part ÷ all = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}"
       }
     }
   ],
@@ -619,9 +619,9 @@
             "en": "In how many ways can the two balls be drawn?"
           },
           "explain": {
-            "ja": "順番を区別しないので組合せ。{answer}",
-            "ko": "순서를 구별하지 않으므로 조합입니다. {answer}",
-            "en": "Order does not matter, so it is a combination: {answer}"
+            "ja": "全部で ({r} + {w}) 個から2個を選ぶ\n順番を区別しないので組合せ\n{answer}",
+            "ko": "모두 ({r} + {w})개에서 2개를 고릅니다\n순서를 구별하지 않으므로 조합\n{answer}",
+            "en": "Choose 2 from all ({r} + {w}) balls\nOrder does not matter, so use a combination\n{answer}"
           }
         },
         {
@@ -638,9 +638,9 @@
             "en": "What is the probability that both are red?"
           },
           "explain": {
-            "ja": "(赤玉2個の選び方) ÷ (全部の取り出し方 {a1}) = {answer}",
-            "ko": "(빨간 공 2개를 고르는 방법) ÷ (전체 {a1}가지) = {answer}",
-            "en": "(Ways to choose 2 red) ÷ (all {a1} ways) = {answer}"
+            "ja": "赤玉 {r} 個から2個を選ぶ方法を数える\nそれを全部の取り出し方 {a1} で割る\n{answer}",
+            "ko": "빨간 공 {r} 개에서 2개를 고르는 방법을 셉니다\n그것을 전체 경우의 수 {a1} 로 나눕니다\n{answer}",
+            "en": "Count the ways to choose 2 of the {r} red balls\nDivide by all {a1} ways\n{answer}"
           }
         },
         {
@@ -657,9 +657,9 @@
             "en": "What is the expected number of red balls drawn?"
           },
           "explain": {
-            "ja": "0個、1個、2個の確率にそれぞれ個数をかけて足すと {answer}",
-            "ko": "0개, 1개, 2개일 확률에 각각 개수를 곱해 더하면 {answer}",
-            "en": "Multiply the probabilities of 0, 1 and 2 red by those counts and add: {answer}"
+            "ja": "赤玉が 0 個、1 個、2 個である確率をそれぞれ求める\n(個数 × 確率) を足す\n{answer}",
+            "ko": "빨간 공이 0개, 1개, 2개일 확률을 각각 구합니다\n(개수 × 확률)을 더합니다\n{answer}",
+            "en": "Find the probabilities of 0, 1 and 2 red balls\nAdd (number × probability)\n{answer}"
           }
         }
       ]
@@ -687,9 +687,9 @@
             "en": "In how many ways can 3 be chosen and lined up?"
           },
           "explain": {
-            "ja": "順番を区別するので順列。{n}P3 = {answer}",
-            "ko": "순서를 구별하므로 순열. {n}P3 = {answer}",
-            "en": "Order matters, so it is a permutation: {n}P3 = {answer}"
+            "ja": "並べるので順番を区別する → 順列\n{n} × ({n} − 1) × ({n} − 2) = {answer}",
+            "ko": "줄을 세우므로 순서를 구별합니다 → 순열\n{n} × ({n} − 1) × ({n} − 2) = {answer}",
+            "en": "Order matters → permutation\n{n} × ({n} − 1) × ({n} − 2) = {answer}"
           }
         },
         {
@@ -706,9 +706,9 @@
             "en": "In how many ways can 3 be chosen (no order)?"
           },
           "explain": {
-            "ja": "並べ方 3! = 6 通りを同じとみるので {a1} ÷ 6 = {answer}",
-            "ko": "세우는 방법 3! = 6가지를 같은 것으로 보므로 {a1} ÷ 6 = {answer}",
-            "en": "The 3! = 6 orders count as one: {a1} ÷ 6 = {answer}"
+            "ja": "選ぶだけなら、3人の並べ方 3! = 6 通りは同じ選び方\n{a1} ÷ 6 = {answer}",
+            "ko": "고르기만 하면 3명을 줄 세우는 3! = 6가지는 같은 것\n{a1} ÷ 6 = {answer}",
+            "en": "If only choosing, the 3! = 6 orders are the same choice\n{a1} ÷ 6 = {answer}"
           }
         },
         {
@@ -725,9 +725,9 @@
             "en": "In how many ways can 3 be chosen so that one particular student A is included?"
           },
           "explain": {
-            "ja": "A は決まっているので、残り {n} − 1 人から2人を選ぶ。{answer}",
-            "ko": "A는 정해졌으므로 나머지 {n} − 1명에서 2명을 뽑습니다. {answer}",
-            "en": "A is fixed, so choose 2 from the other {n} − 1: {answer}"
+            "ja": "A は必ず入るので、もう選ばれたものと考える\n残り ({n} − 1) 人から2人を選ぶ\n{answer}",
+            "ko": "A는 반드시 들어가므로 이미 뽑혔다고 생각합니다\n나머지 ({n} − 1)명에서 2명을 고릅니다\n{answer}",
+            "en": "A is certainly in, so treat A as already chosen\nChoose 2 from the other ({n} − 1)\n{answer}"
           }
         }
       ]
