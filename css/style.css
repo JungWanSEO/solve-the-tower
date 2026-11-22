@@ -878,8 +878,6 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 /* tutorial questions: the right answer glows, the others are switched off */
 .answers button.teach { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.55), 0 0 18px rgba(255, 200, 87, 0.5); animation: mapPulse 1.2s ease-in-out infinite; }
 
-/* "풀이 보기" 버튼: 맞힌 문제의 풀이를 보고 싶을 때만 누릅니다. 전투 그림의 왼쪽 위 빈 하늘에 얹어서 화면 배치를 밀지 않습니다. */
-.stage-wrap { position: relative; }
-.stage-wrap canvas { display: block; }
-.solve { position: absolute; left: 6px; top: 6px; min-height: 40px; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--line, #3a4d85); background: rgba(16, 26, 56, 0.86); color: var(--ink, #eef6ff); font-size: 13px; font-weight: 700; white-space: nowrap; }
-#dialogText { max-height: 52vh; overflow-y: auto; }
+/* 맞힌 문제의 풀이 카드: 틀렸을 때와 같은 자리, 색만 다르게 (맞힘 = 노랑) */
+.review.right { border-color: var(--amber); background: rgba(255, 200, 87, 0.08); }
+.review.right b { color: var(--amber); }
