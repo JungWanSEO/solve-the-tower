@@ -664,7 +664,7 @@ git merge --no-ff feature/offline
 
 ```
 git switch -c release/0.1.0 dev
-(버전 확인, 마지막 수정)
+(버전 확인, 마지막 수정, CHANGELOG.md 의 "다음 버전" 을 버전 번호로 바꾸기)
 git switch main
 git merge --no-ff release/0.1.0
 git tag v0.1.0
