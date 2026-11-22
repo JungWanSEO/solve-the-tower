@@ -39,6 +39,7 @@ Solve the Tower 의 버전별 바뀐 점을 적는 문서입니다. 새 버전�
 
 - 数学II 검산 도구 `tools/verify-math2.mjs` (답을 따로 다시 계산해 대조)
 - 패치 노트(이 문서) 추가
+- 일본어 검수용 표 파일 내보내기·다시 넣기 도구 (`tools/script-export.mjs`, `script-xlsx.py`, `script-import.mjs`)
 
 ---
 
