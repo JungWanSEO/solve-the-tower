@@ -168,7 +168,11 @@
         <div class="bar" id="foeBar"><div class="fill ghost" id="foeHpGhost"></div><div class="fill rose" id="foeHpBar"></div></div>
         <span class="num" id="foeHpText"></span>
       </div>
-      <canvas id="stage"></canvas>
+      <!-- 전투 그림. 방금 맞힌 문제가 있으면 그림의 왼쪽 위에 "풀이 보기" 가 나옵니다 (자리를 따로 차지하지 않습니다) -->
+      <div class="stage-wrap">
+        <canvas id="stage"></canvas>
+        <button type="button" class="solve" id="solveBtn" data-i18n="ui.solveBtn" hidden></button>
+      </div>
       <div class="intent" id="foeIntent"><i id="foeIntentIco"></i><span id="foeIntentText"></span></div>
     </div>
 

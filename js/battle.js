@@ -6,6 +6,7 @@ import { t, pick } from './i18n.js';
 import { next, explainText, typeLabel, optionText, hasChain, nextChain, stepSummary, questionText, setDebugLast } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { $ } from './ui.js';
+import { ask } from './data.js';
 import { icon } from './art.js';
 import { play } from './sound.js';
 import { fitBattle } from './fit.js';
@@ -61,6 +62,14 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     return dmg;
   }
 
+  $('solveBtn').addEventListener('click', () => {
+    if (!B.solved || !B.solved.length) return;
+    ask({
+      title: t('ui.solveTitle'),
+      text: B.solved.map((s) => `${s.q}\n${t('ui.reviewAnswer', { answer: s.answer })}\n${s.explain}`).join('\n\n'),
+      buttons: [{ label: t('ui.ok'), kind: 'primary' }],
+    });
+  });
   function say(key, vars) {
     B.notice = { key, vars: vars || null };
     $('notice').textContent = t(key, B.notice.vars);
@@ -88,6 +97,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     // 틀린 순간부터 정답과 해설을 답 아래에 보여 줍니다. (배우는 순간이라 가장 잘 보이는 자리에 둡니다)
     const missed = Boolean(showing) && B.picked >= 0 && B.picked !== B.cur.correct;
     $('reviewBox').hidden = !missed;
+    // 맞힌 뒤에는 풀이가 자동으로 나오지 않으므로, 행동을 고르는 동안 "풀이 보기" 버튼을 보여 줍니다.
+    $('solveBtn').hidden = Boolean(showing) || !(B.solved && B.solved.length);
     if (missed) {
       $('reviewAnswer').textContent = t('ui.reviewAnswer', { answer: optionText(B.cur.options[B.cur.correct]) });
       $('reviewText').textContent = explainText(B.cur.raw);
@@ -368,6 +379,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     let level = CONFIG.guardLevel;
     if (action === 'basic') level = B.foe.basicLevel || 1;
     if (action === 'skill') level = B.foe.skillLevel || 2;
+    B.solved = []; // 새 행동을 시작하면 앞 문제의 "풀이 보기" 는 사라집니다
     B.cur = next(level);
     B.cur.action = action;
     B.cur.removed = -1;
@@ -381,6 +393,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
   // 연속기의 지금 물음을 문제로 올립니다.
   function askStep() {
+    if (B.chain.index === 0) B.solved = [];
     B.cur = B.chain.data.steps[B.chain.index];
     B.cur.fill = fillOn() ? makeFill(B.cur) : null;
     B.cur.action = 'chain';
@@ -439,6 +452,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.phase = 'busy';
     B.picked = i;
     const ok = i === B.cur.correct;
+    // 맞힌 문제는 풀이를 따로 볼 수 있게 적어 둡니다. (연속기는 맞힌 물음을 모두 모읍니다)
+    if (ok) (B.solved ||= []).push({ q: questionText(B.cur.raw), answer: optionText(B.cur.options[B.cur.correct]), explain: explainText(B.cur.raw) });
     record(B.cur.type, ok);
     play(ok ? 'right' : 'wrong');
     tutorial.emit('answered');
@@ -621,6 +636,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.onEnd = null;
     B.chain = null;
     B.cur = null;
+    B.solved = [];
     B.picked = -1;
     render();
     document.body.classList.remove('is-answering');
