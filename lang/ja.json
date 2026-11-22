@@ -54,7 +54,9 @@
     "finishChain": "全部正解で倒せる",
     "finishUlt": "ダメージ {d} · 倒せる",
     "actWhere": "{a}/{at}幕 · {n}/{total}階",
-    "actStart": "{a}/{at}幕 · 入口"
+    "actStart": "{a}/{at}幕 · 入口",
+    "solveBtn": "解説を見る",
+    "solveTitle": "いま正解した問題の解説"
   },
   "msg": {
     "choose": "行動を選んでください。",
