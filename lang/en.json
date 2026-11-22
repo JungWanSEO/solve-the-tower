@@ -47,7 +47,8 @@
     "whereStart": "Tower gate · {total} floors",
     "ok": "OK",
     "musicOn": "Music: on",
-    "musicOff": "Music: off"
+    "musicOff": "Music: off",
+    "fillOk": "Attack with this answer"
   },
   "msg": {
     "choose": "Choose an action.",
@@ -384,7 +385,8 @@
     "l2": "Level 2: more elite spaces",
     "l3": "Level 3: normal enemy attacks deal +1",
     "l4": "Level 4: start with no hints, half healing after a win",
-    "l5": "Level 5: mid-boss and boss have +25% HP, heavy attacks deal +2"
+    "l5": "Level 5: mid-boss and boss have +25% HP, heavy attacks deal +2",
+    "l6": "Level 6: in the boss fight you fill in the digits yourself instead of choosing (numeric answers only)"
   },
   "cheer": {
     "short": "Cheer {n}",

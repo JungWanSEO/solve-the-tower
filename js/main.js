@@ -20,7 +20,7 @@ import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
 import { showGuide, hideGuide } from './guide.js';
 import { createData, inIosSafariTab, ask } from './data.js';
-import { fillIcons, icon } from './art.js';
+import { fillIcons, icon, setSceneArt } from './art.js';
 
 const FIGHTS = ['battle', 'elite', 'midboss', 'boss'];
 
@@ -162,6 +162,13 @@ async function boot() {
   }
 
   const stage = createStage($('stage'));
+  // 직접 그린 그림이 있으면 불러옵니다. (art/art.json 이 없거나 비어 있으면 원래의 도형 그림을 씁니다)
+  fetch('./art/art.json').then((res) => (res.ok ? res.json() : null)).then((manifest) => {
+    if (!manifest) return;
+    stage.setArt(manifest);
+    setSceneArt(manifest.scenes);
+    if (manifest.scenes && manifest.scenes.title) title.render();
+  }).catch(() => {});
   const battle = createBattle({ stage, getRun, record, tutorial, onChange });
   const events = createEvents({ getRun, data, record, onChange, persist });
   const map = createMap({ getRun, onPick, getWins: () => data.wins });

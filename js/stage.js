@@ -703,6 +703,37 @@ export function createStage(canvas) {
     lock: drawLock, gear: drawGear,
   };
 
+  // ---- 그림 파일로 바꾸기 ----
+  // 직접 그린 그림(PNG 등)이 있으면 도형 대신 그 그림을 씁니다. 목록은 art/art.json 에 적습니다. (방법은 art/README.md)
+  // 움직임(흔들림, 돌진, 맞았을 때의 떨림, 쓰러짐)은 그림에도 똑같이 적용됩니다.
+  const ART = { hero: null, foes: {} };
+  function load(entry) {
+    if (!entry) return null;
+    const spec = typeof entry === 'string' ? { file: entry } : entry;
+    if (!spec.file) return null;
+    const art = { img: new Image(), ready: false, scale: spec.scale || 1, dy: spec.dy || 0 };
+    art.img.onload = () => { art.ready = true; };
+    art.img.src = `./art/${spec.file}`;
+    return art;
+  }
+  // 그림을 발밑(base) 기준으로 높이 size 에 맞춰 그립니다. 그림이 아직 없거나 못 불러왔으면 false (도형으로 그립니다)
+  function sprite(art, base, size) {
+    if (!art || !art.ready || !art.img.naturalWidth) return false;
+    const h = size * art.scale;
+    const w = (h * art.img.naturalWidth) / art.img.naturalHeight;
+    ctx.drawImage(art.img, -w / 2, base - h + art.dy, w, h);
+    if (flash) { // 맞은 순간: 그림 위에 같은 그림을 밝게 한 번 더 얹어 번쩍이게 합니다
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.drawImage(art.img, -w / 2, base - h + art.dy, w, h);
+      ctx.restore();
+    }
+    return true;
+  }
+  function drawFoe(kind, f) {
+    if (!sprite(ART.foes[kind], 62, 124)) (FOE_DRAW[kind] || drawTwins)(f);
+  }
+
   // 대기·공격·피격을 위치와 크기로 바꾼 값
   function pose(actor, dirX, dirY, amp, phase) {
     const p = { ox: 0, oy: 0, sx: 1, sy: 1, a: 1 };
@@ -766,7 +797,7 @@ export function createStage(canvas) {
     ctx.scale(ph.sx, ph.sy);
     ctx.translate(0, -46);
     flash = h.hit > 0.6;
-    drawHero();
+    if (!sprite(ART.hero, 50, 124)) drawHero();
     flash = false;
     ctx.restore();
 
@@ -798,7 +829,7 @@ export function createStage(canvas) {
       ctx.scale(pf.sx, pf.sy);
       ctx.translate(0, -45);
       flash = f.hit > 0.6;
-      (FOE_DRAW[S.kind] || drawTwins)(f);
+      drawFoe(S.kind, f);
       flash = false;
       ctx.restore();
     }
@@ -960,23 +991,37 @@ export function createStage(canvas) {
       }
       after(big ? 1.35 : 0.95, done);
     },
+    // 그림 파일 목록을 받습니다. { hero: 파일, monsters: { 몬스터 id: 파일 } } (art/art.json)
+    setArt(manifest) {
+      ART.hero = load(manifest && manifest.hero);
+      ART.foes = {};
+      for (const [id, entry] of Object.entries((manifest && manifest.monsters) || {})) ART.foes[id] = load(entry);
+    },
     // 설정의 "연출 줄이기": 가만히 있을 때의 흔들림을 끕니다.
     setCalm(value) {
       S.idle = !(value || calm);
     },
     // 도감용 얼굴 그림: 그 몬스터만 그려서 작은 그림(data URL)으로 돌려줍니다.
-    portrait(kind) {
+    // plain 이면 배경과 그림자 없이(투명 배경) 그립니다. 그림 그리는 사람에게 줄 참고 그림을 뽑을 때 씁니다.
+    portrait(kind, plain = false) {
       try {
         const dpr = canvas.width / W;
         ctx.save();
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = '#14224a';
-        ctx.fillRect(0, 0, W, H);
-        ell(264, 176, 40, 6, '#0b1430');
+        if (!plain) {
+          ctx.fillStyle = '#14224a';
+          ctx.fillRect(0, 0, W, H);
+        }
+        if (!plain) ell(264, 176, 40, 6, '#0b1430');
         const calm = { x: 264, y: 112, lunge: 0, hit: 0, dead: 0, gone: false, spawn: 0, spec: 0, flag: false };
         ctx.translate(calm.x, calm.y);
-        (FOE_DRAW[kind] || drawTwins)(calm);
+        if (kind === 'hero') {
+          ctx.translate(0, 8);
+          if (!sprite(ART.hero, 50, 124)) drawHero();
+        } else {
+          drawFoe(kind, calm);
+        }
         ctx.restore();
         const size = 120;
         const off = document.createElement('canvas');

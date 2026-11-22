@@ -45,7 +45,7 @@ export async function loadAll(onStep = () => {}) {
       types.set(key, { key, unit, names });
     }
     for (const tpl of unit.chains || []) {
-      chains.push({ id: `${unit.id}/${tpl.id}`, tpl, gen: CHAINS[tpl.gen], types: tpl.steps.map((s) => `${unit.id}/${s.type}`) });
+      chains.push({ id: `${unit.id}/${tpl.id}`, tpl, gen: CHAINS[tpl.gen], types: tpl.steps.map((s) => `${unit.id}/${s.type}`), boss: tpl.boss === true, draft: tpl.draft === true });
     }
     for (const tpl of unit.templates) {
       templates.push({
@@ -216,17 +216,30 @@ export function noteText(raw) {
 
 // ---- 연속기: 한 상황에서 물음 (1)(2)(3) 을 이어 풉니다 ----
 // 묶음에 든 유형이 모두 이번 범위에 들어 있어야 그 묶음이 나옵니다.
-const chainPool = () => chains.filter((entry) => entry.gen && entry.types.every((key) => !scope || scope.has(key)));
-export const hasChain = () => chainPool().length > 0;
-// 범위(유형 목록)를 주면, 그 범위에서 나올 수 있는 연속기 묶음이 몇 개인지 셉니다. (범위 고르기 화면용)
-export const chainCount = (keys) => { const set = new Set(keys); return chains.filter((entry) => entry.gen && entry.types.every((key) => set.has(key))).length; };
-export const chainTotal = () => chains.filter((entry) => entry.gen).length;
+// 묶음에 "boss": true 를 적으면 보스전에서만 나오는 어려운 묶음(킬러 묶음)이 됩니다.
+// "draft": true 는 아직 검수 중인 묶음입니다. 평소에는 나오지 않고, 주소 끝에 ?draft=1 을 붙여 열었을 때만
+// (어느 전투에서든, 다른 묶음보다 먼저) 나와서 검수하는 사람이 바로 풀어 볼 수 있습니다.
+export const DRAFT = typeof window !== 'undefined' && window.location && /[?&]draft\b/.test(window.location.search || '');
+const chainFits = (entry) => entry.gen && entry.types.every((key) => !scope || scope.has(key));
+function chainPool(boss = false) {
+  const all = chains.filter(chainFits);
+  if (DRAFT && all.some((entry) => entry.draft)) return all.filter((entry) => entry.draft);
+  const ready = all.filter((entry) => !entry.draft);
+  const killers = ready.filter((entry) => entry.boss);
+  if (boss && killers.length) return killers; // 보스전에는 킬러 묶음이 먼저
+  return ready.filter((entry) => !entry.boss);
+}
+// boss: 보스전인지
+export const hasChain = (boss = false) => chainPool(boss).length > 0;
+// 범위(유형 목록)를 주면, 그 범위에서 나올 수 있는 연속기 묶음이 몇 개인지 셉니다. (범위 고르기 화면용. 검수 중인 묶음은 세지 않습니다)
+export const chainCount = (keys) => { const set = new Set(keys); return chains.filter((entry) => entry.gen && !entry.draft && entry.types.every((key) => set.has(key))).length; };
+export const chainTotal = () => chains.filter((entry) => entry.gen && !entry.draft).length;
 
 // 연속기 하나를 만듭니다. 돌려주는 것: { intro(), steps: [물음, …] }
 // 물음 하나는 보통 문제와 같은 모양이라, 화면과 도감이 그대로 다룰 수 있습니다.
 // 물음에 figure 를 적으면 묶음의 그림에 그 이름표만 덮어씁니다. (구할 것은 "?", 구한 뒤에는 "{a1}")
-export function nextChain() {
-  const pool = chainPool();
+export function nextChain(boss = false) {
+  const pool = chainPool(boss);
   if (!pool.length) return null;
   const entry = pool[rand(pool.length)];
   const data = entry.gen();

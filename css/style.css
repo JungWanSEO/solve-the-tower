@@ -856,3 +856,17 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 .scope-chain { font-size: 12px !important; color: #c9a0ff !important; }
 .scope-chain.off { color: var(--muted) !important; }
 .scope-chain[hidden] { display: none; }
+
+/* ================= fill-in answers (challenge level 6 boss) ================= */
+.answers.fill { display: flex; flex-direction: column; gap: 8px; }
+.fill-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; min-height: 52px; padding: 6px 8px; border-radius: 12px; border: 1px solid var(--line); background: var(--deep); font-size: 20px; font-weight: 700; }
+.fill-row span { white-space: pre; }
+.answers button.fill-cell { min-height: 0; width: 38px; height: 44px; padding: 0; border-radius: 8px; border: 2px solid #47638d; background: #253e69; font-size: 22px; font-weight: 800; color: var(--ink); }
+.answers button.fill-cell.on { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.3); }
+.answers button.fill-cell.locked { border-color: var(--teal); color: var(--teal); background: #12564d; opacity: 1; }
+.answers button.fill-cell.right { border-color: var(--teal); background: #12564d; opacity: 1; animation: none; box-shadow: none; }
+.answers button.fill-cell.wrong { border-color: var(--rose); background: #5a2333; opacity: 1; animation: none; }
+.fill-pad { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.answers button.fill-key { min-height: 46px; padding: 0; font-size: 19px; }
+.answers button.fill-ok { min-height: 50px; background: #12564d; border-color: var(--teal); }
+.tight .answers button.fill-key { min-height: 42px; }
