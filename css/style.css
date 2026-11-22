@@ -874,3 +874,6 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 /* an action that ends the fight if you get it right */
 .actions button.act.finish, .special .chain.finish, .special .ult.finish { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(255, 200, 87, 0.55), 0 0 14px rgba(255, 200, 87, 0.35); }
 .act.finish small, .chain.finish small, .ult.finish small { color: var(--amber); font-weight: 700; }
+
+/* tutorial questions: the right answer glows, the others are switched off */
+.answers button.teach { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.55), 0 0 18px rgba(255, 200, 87, 0.5); animation: mapPulse 1.2s ease-in-out infinite; }

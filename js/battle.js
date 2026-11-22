@@ -113,6 +113,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       $('qChainDone').textContent = data.steps.slice(0, index).map((q, i) => stepSummary(q, i)).join('\n');
       $('qText').textContent = `(${index + 1}) ${questionText(B.cur.raw)}`;
     }
+    const teach = tutorial.teach();
     box.innerHTML = '';
     box.classList.toggle('fill', Boolean(B.cur.fill));
     if (B.cur.fill) {
@@ -125,6 +126,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       btn.textContent = optionText(text);
       btn.disabled = B.phase !== 'answer' || i === B.cur.removed;
       if (i === B.cur.removed) btn.classList.add('gone');
+      // 튜토리얼의 문제: 정답을 밝게 표시하고, 다른 답은 누를 수 없게 합니다.
+      if (teach && B.phase === 'answer') {
+        if (i === B.cur.correct) btn.classList.add('teach');
+        else btn.disabled = true;
+      }
       if (B.picked >= 0) {
         if (i === B.cur.correct) btn.classList.add('right');
         else if (i === B.picked) btn.classList.add('wrong');
