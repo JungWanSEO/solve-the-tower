@@ -381,7 +381,7 @@ Object.assign(GENERATORS, {
     const a = pickOne([1, 2, 3, -1, -2]);
     const p = nonzero(-6, 6);
     const q = nonzero(-6, 6);
-    return item({ f: vertexForm(a, p, q) }, point(p, q), [point(-p, q), point(p, -q), point(q, p)], [point(-p, -q), point(p + 1, q), point(p, q + 1)]);
+    return item({ f: vertexForm(a, p, q), ps: numStr(p), qs: numStr(q) }, point(p, q), [point(-p, q), point(p, -q), point(q, p)], [point(-p, -q), point(p + 1, q), point(p, q + 1)]);
   },
 
   // 완전제곱식으로 고쳐 꼭짓점 구하기: y = ax² + bx + c
@@ -390,7 +390,7 @@ Object.assign(GENERATORS, {
     const p = nonzero(-5, 5);
     const q = nonzero(-5, 5);
     const c0 = a * p * p + q;
-    return item({ f: `y = ${polyStr(a, -2 * a * p, c0)}` }, point(p, q),
+    return item({ f: `y = ${polyStr(a, -2 * a * p, c0)}`, form: vertexForm(a, p, q) }, point(p, q),
       [point(-p, q), point(p, c0), point(p, -q)],
       [point(-p, c0), point(2 * p, q), point(p + 1, q)]);
   },
@@ -416,7 +416,7 @@ Object.assign(GENERATORS, {
     const high = Math.max(f(s), f(t));
     const answer = int(params.ask === 'min' ? low : high);
     const other = int(params.ask === 'min' ? high : low);
-    return item({ f: vertexForm(1, p, q), s: numStr(s), t: numStr(t) }, answer,
+    return item({ f: vertexForm(1, p, q), s: numStr(s), t: numStr(t), axis: numStr(p), vq: numStr(q), vs: numStr(f(s)), vt: numStr(f(t)) }, answer,
       [other, int(q), int(Math.min(f(s), f(t))), int(p)],
       [int(answer.v + 1), int(answer.v - 1), int(f(s) + f(t))]);
   },
@@ -425,7 +425,7 @@ Object.assign(GENERATORS, {
   quadeq() {
     const a = nonzero(-9, 9);
     const b = pickOne(range(-9, 9).filter((n) => n !== 0 && n !== a));
-    return item({ f: `${polyStr(1, -(a + b), a * b)} = 0` }, roots(a, b),
+    return item({ f: `${polyStr(1, -(a + b), a * b)} = 0`, fac: product(1, -Math.min(a, b), 1, -Math.max(a, b)).s, prod: numStr(a * b), lin: numStr(-(a + b)) }, roots(a, b),
       [roots(-a, -b), roots(a, -b), roots(-a, b)],
       [roots(a, b + 1), roots(a - 1, b), roots(a + 1, b + 1)]);
   },
@@ -436,7 +436,7 @@ Object.assign(GENERATORS, {
     const b = pickOne(range(-8, 8));
     const c = nonzero(-6, 6);
     const D = b * b - 4 * a * c;
-    return item({ f: `${polyStr(a, b, c)} = 0`, a, b, c }, int(D),
+    return item({ f: `${polyStr(a, b, c)} = 0`, a, b, c, b2: b * b, ac4: numStr(4 * a * c) }, int(D),
       [int(b * b + 4 * a * c), int(b * b - a * c), int(b - 4 * a * c)],
       [int(4 * a * c - b * b), int(D + 4), int(D - 1)]);
   },
@@ -447,7 +447,7 @@ Object.assign(GENERATORS, {
     const b = pickOne(range(-8, 8).filter((n) => n !== 0 && n !== a));
     const op = pickOne(['<', '>']);
     const inside = op === '<';
-    return item({ f: polyStr(1, -(a + b), a * b), op }, interval(a, b, inside),
+    return item({ f: polyStr(1, -(a + b), a * b), op, fac: product(1, -Math.min(a, b), 1, -Math.max(a, b)).s, r1: numStr(Math.min(a, b)), r2: numStr(Math.max(a, b)) }, interval(a, b, inside),
       [interval(a, b, !inside), interval(-a, -b, inside), interval(-a, -b, !inside)],
       [interval(a, b + 1, inside), interval(a - 1, b, inside), interval(a + 1, b + 2, !inside)]);
   },
@@ -924,19 +924,21 @@ Object.assign(GENERATORS, {
     const k = pickOne([0, 1, 2]);
     const a = pickOne([1, 2, -1]);
     let f;
+    let co; // [a, b, c]
     if (k === 1) {
       const r = nonzero(-5, 5);
-      f = polyStr(a, -2 * a * r, a * r * r);
+      co = [a, -2 * a * r, a * r * r];
     } else if (k === 2) {
       const r1 = nonzero(-5, 5);
       const r2 = pickOne(range(-5, 5).filter((n) => n !== r1));
-      f = polyStr(a, -a * (r1 + r2), a * r1 * r2);
+      co = [a, -a * (r1 + r2), a * r1 * r2];
     } else {
       const p = pickOne(range(-4, 4));
       const q = pickOne(range(1, 6));
-      f = polyStr(a, -2 * a * p, a * p * p + a * q); // 꼭짓점이 x 축과 같은 쪽으로 떨어져 있음
+      co = [a, -2 * a * p, a * p * p + a * q]; // 꼭짓점이 x 축과 같은 쪽으로 떨어져 있음
     }
-    return item({ f: `y = ${f}` }, int(k), [0, 1, 2, 3].filter((n) => n !== k).map(int));
+    f = polyStr(...co);
+    return item({ f: `y = ${f}`, a: numStr(co[0]), b: numStr(co[1]), c: numStr(co[2]), D: numStr(co[1] * co[1] - 4 * co[0] * co[2]) }, int(k), [0, 1, 2, 3].filter((n) => n !== k).map(int));
   },
 
   // 해가 "모든 실수" 이거나 "없음" 이 되는 이차부등식
@@ -1396,7 +1398,7 @@ Object.assign(GENERATORS, {
     const c = pickOne(range(-6, 6));
     const k = nonzero(-4, 4);
     const f = (x) => a * x * x + b * x + c;
-    return item({ f: polyStr(a, b, c), k: numStr(k) }, int(f(k)), [int(f(-k)), int(-a * k * k + b * k + c), int(a * k * 2 + b * k + c)],
+    return item({ f: polyStr(a, b, c), k: numStr(k), sub: `${numStr(a)} × (${numStr(k)})² ${b < 0 ? MINUS : '+'} ${Math.abs(b)} × (${numStr(k)}) ${c < 0 ? MINUS : '+'} ${Math.abs(c)}`, t1: numStr(a * k * k), t2: numStr(b * k), t3: numStr(c) }, int(f(k)), [int(f(-k)), int(-a * k * k + b * k + c), int(a * k * 2 + b * k + c)],
       [int(f(k) + 1), int(f(k) - 1), int(f(k) + 2)]);
   },
 
@@ -1474,7 +1476,7 @@ Object.assign(GENERATORS, {
       return { s: `x = ${numStr(-bb)} ± ${q.n === 1 ? '' : q.n}√${q.r}`, v: -bb + Math.sqrt(dd) + 0.001 };
     };
     const wrongD = b * b + 4 * c;
-    return item({ f: `${polyStr(1, b, c)} = 0` }, form(b, D), [form(-b, D), plain(b, D), wrongD > 0 && surd(1, wrongD).r !== 1 ? form(b, wrongD) : null],
+    return item({ f: `${polyStr(1, b, c)} = 0`, bs: numStr(b), cs: numStr(c), nb: numStr(-b), D }, form(b, D), [form(-b, D), plain(b, D), wrongD > 0 && surd(1, wrongD).r !== 1 ? form(b, wrongD) : null],
       [plain(-b, D), form(b, D + 4), form(b + 2, D + 4)]);
   },
 

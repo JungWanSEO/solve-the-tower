@@ -2,7 +2,7 @@
 // 모두 같은 화면(#screenEvent)을 씁니다. 제목, 설명, 고를 것 목록, 나가기 버튼으로 이루어집니다.
 import { CONFIG } from './config.js';
 import { t } from './i18n.js';
-import { next, nextByType, explainText, typeLabel, optionText } from './questions.js';
+import { next, nextByType, explainText, explainBrief, typeLabel, optionText } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { UPGRADES, SHOP, rollUpgrades } from './run.js';
 import { $, twoLineButton, toast } from './ui.js';
@@ -223,7 +223,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                 run.hp = Math.min(run.maxHp, run.hp + CONFIG.rest.reviewHeal);
                 return () => t('ev.reviewOk', { n: CONFIG.rest.reviewHeal });
               }
-              return () => t('ev.reviewFail', { explain: explainText(q.raw) });
+              return () => t('ev.reviewFail', { explain: explainBrief(q.raw) });
             },
             done,
           });
@@ -258,7 +258,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
             return () => t('ev.treasureOk', { gold: CONFIG.gold.treasureWin });
           }
           run.gold += CONFIG.gold.treasureLose;
-          return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: explainText(q.raw) });
+          return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: explainBrief(q.raw) });
         },
         done,
       });
@@ -306,7 +306,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                   return () => t('mystery.statue.ok', { name: t(`up.${id}.name`), desc: t(`up.${id}.desc`) });
                 }
                 run.hp = Math.max(1, run.hp - M.statueLoss);
-                return () => t('mystery.statue.fail', { n: M.statueLoss, explain: explainText(q.raw) });
+                return () => t('mystery.statue.fail', { n: M.statueLoss, explain: explainBrief(q.raw) });
               },
               done,
             });
