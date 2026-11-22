@@ -84,9 +84,9 @@
         "en": "What is the greatest common divisor of {a} and {b}?"
       },
       "explain": {
-        "ja": "両方を割り切る最大の数は {answer}",
-        "ko": "둘을 모두 나누어떨어지게 하는 가장 큰 수는 {answer}",
-        "en": "The largest number dividing both is {answer}"
+        "ja": "{a} と {b} をそれぞれ素因数分解する\n共通する素因数を、指数の小さい方で掛け合わせる\n{answer}",
+        "ko": "{a} 와 {b} 를 각각 소인수분해합니다\n공통인 소인수를 지수가 작은 쪽으로 곱합니다\n{answer}",
+        "en": "Factor {a} and {b} into primes\nMultiply the common primes with the smaller exponents\n{answer}"
       }
     },
     {
@@ -103,9 +103,9 @@
         "en": "What is the least common multiple of {a} and {b}?"
       },
       "explain": {
-        "ja": "2数の積 ÷ 最大公約数 = {answer}",
-        "ko": "두 수의 곱 ÷ 최대공약수 = {answer}",
-        "en": "Product ÷ GCD = {answer}"
+        "ja": "{a} と {b} の最大公約数を求める\n最小公倍数 = 2数の積 ÷ 最大公約数\n{a} × {b} ÷ (最大公約数) = {answer}",
+        "ko": "{a} 와 {b} 의 최대공약수를 구합니다\n최소공배수 = 두 수의 곱 ÷ 최대공약수\n{a} × {b} ÷ (최대공약수) = {answer}",
+        "en": "Find the GCD of {a} and {b}\nLCM = product ÷ GCD\n{a} × {b} ÷ GCD = {answer}"
       }
     },
     {
@@ -123,9 +123,9 @@
         "en": "Use the Euclidean algorithm to find the GCD of {a} and {b}."
       },
       "explain": {
-        "ja": "大きい方を小さい方で割った余りで、割り切れるまで割り続けると {answer}",
-        "ko": "큰 수를 작은 수로 나눈 나머지로, 나누어떨어질 때까지 계속 나누면 {answer}",
-        "en": "Keep dividing by the remainder until it divides evenly: {answer}"
+        "ja": "{a} を {b} で割った余りを求める\n割る数をその余りで割る。これを余りが 0 になるまでくり返す\n最後に割った数が最大公約数: {answer}",
+        "ko": "{a} 를 {b} 로 나눈 나머지를 구합니다\n나누는 수를 그 나머지로 나눕니다. 나머지가 0이 될 때까지 되풀이합니다\n마지막에 나눈 수가 최대공약수: {answer}",
+        "en": "Divide {a} by {b} and take the remainder\nDivide the divisor by that remainder; repeat until the remainder is 0\nThe last divisor is the GCD: {answer}"
       }
     },
     {
@@ -142,9 +142,9 @@
         "en": "Integers a and b leave remainders {r1} and {r2} when divided by {m}. What is the remainder of a + b divided by {m}?"
       },
       "explain": {
-        "ja": "余りどうしを足して、{m} で割った余りを求めると {answer}",
-        "ko": "나머지끼리 더한 뒤 {m}으로 나눈 나머지를 구하면 {answer}",
-        "en": "Add the remainders, then take the remainder on division by {m}: {answer}"
+        "ja": "a + b の余りは、余りどうしの和で考えられる\n{r1} + {r2} を計算する\nそれを {m} で割った余りは {answer}",
+        "ko": "a + b 의 나머지는 나머지끼리의 합으로 생각할 수 있습니다\n{r1} + {r2} 를 계산합니다\n그것을 {m} 으로 나눈 나머지는 {answer}",
+        "en": "The remainder of a + b comes from the sum of the remainders\nWork out {r1} + {r2}\nIts remainder on division by {m} is {answer}"
       }
     },
     {
@@ -161,9 +161,9 @@
         "en": "Integers a and b leave remainders {r1} and {r2} when divided by {m}. What is the remainder of ab divided by {m}?"
       },
       "explain": {
-        "ja": "余りどうしをかけて、{m} で割った余りを求めると {answer}",
-        "ko": "나머지끼리 곱한 뒤 {m}으로 나눈 나머지를 구하면 {answer}",
-        "en": "Multiply the remainders, then take the remainder on division by {m}: {answer}"
+        "ja": "ab の余りは、余りどうしの積で考えられる\n{r1} × {r2} を計算する\nそれを {m} で割った余りは {answer}",
+        "ko": "ab 의 나머지는 나머지끼리의 곱으로 생각할 수 있습니다\n{r1} × {r2} 를 계산합니다\n그것을 {m} 으로 나눈 나머지는 {answer}",
+        "en": "The remainder of ab comes from the product of the remainders\nWork out {r1} × {r2}\nIts remainder on division by {m} is {answer}"
       }
     },
     {
@@ -177,9 +177,9 @@
         "en": "Which integer pair (x, y) satisfies {eq}?"
       },
       "explain": {
-        "ja": "代入して左辺が 1 になる組を探すと {answer}",
-        "ko": "대입해서 좌변이 1이 되는 순서쌍을 찾으면 {answer}",
-        "en": "Substitute and look for the pair that makes the left side 1: {answer}"
+        "ja": "それぞれの組 (x, y) を {eq} の左辺に代入する\n左辺が 1 になるものを探す\n{answer}",
+        "ko": "각 짝 (x, y)를 {eq} 의 좌변에 대입합니다\n좌변이 1이 되는 것을 찾습니다\n{answer}",
+        "en": "Substitute each pair (x, y) into the left side of {eq}\nLook for the one that gives 1\n{answer}"
       }
     },
     {
@@ -196,9 +196,9 @@
         "en": "The number {num} is written in base {base}. What is it in base 10?"
       },
       "explain": {
-        "ja": "各位の数に {base} の累乗をかけて足すと {answer}",
-        "ko": "각 자리의 수에 {base}의 거듭제곱을 곱해 더하면 {answer}",
-        "en": "Multiply each digit by the matching power of {base} and add: {answer}"
+        "ja": "右の位から順に、{base} の 0 乗、1 乗、2 乗…の重みをもつ\n各位の数字にその重みを掛ける\nすべて足して {answer}",
+        "ko": "오른쪽 자리부터 차례로 {base} 의 0제곱, 1제곱, 2제곱…의 자릿값을 가집니다\n각 자리의 숫자에 그 자릿값을 곱합니다\n모두 더하면 {answer}",
+        "en": "From the right the places are worth {base} to the power 0, 1, 2, …\nMultiply each digit by its place value\nAdd them all: {answer}"
       }
     },
     {
@@ -215,9 +215,9 @@
         "en": "Write the base-10 number {n} in base {base}."
       },
       "explain": {
-        "ja": "{base} で割り続けて、余りを下から順に並べると {answer}",
-        "ko": "{base}로 계속 나누어 나머지를 아래에서부터 차례로 늘어놓으면 {answer}",
-        "en": "Keep dividing by {base} and read the remainders from the bottom: {answer}"
+        "ja": "{n} を {base} で割り、商と余りを書く\n商をまた {base} で割る。商が 0 になるまでくり返す\n余りを最後のものから順に並べて {answer}",
+        "ko": "{n} 을 {base} 로 나누고 몫과 나머지를 적습니다\n몫을 다시 {base} 로 나눕니다. 몫이 0이 될 때까지 되풀이합니다\n나머지를 마지막 것부터 차례로 늘어놓으면 {answer}",
+        "en": "Divide {n} by {base} and note quotient and remainder\nDivide the quotient by {base} again until it reaches 0\nRead the remainders from last to first: {answer}"
       }
     },
     {
@@ -231,9 +231,9 @@
         "en": "Write {n} as a product of primes."
       },
       "explain": {
-        "ja": "小さい素数から順に割っていくと {answer}",
-        "ko": "작은 소수부터 차례로 나누어 가면 {answer}",
-        "en": "Divide by the smallest primes in turn: {answer}"
+        "ja": "いちばん小さい素数 2 で割れるだけ割る\n次に 3、5、7…と小さい素数から順に割っていく\n同じ素数は指数でまとめて {answer}",
+        "ko": "가장 작은 소수 2로 나눌 수 있는 만큼 나눕니다\n다음으로 3, 5, 7… 작은 소수부터 차례로 나눕니다\n같은 소수는 지수로 모아서 {answer}",
+        "en": "Divide by 2 as many times as possible\nThen by 3, 5, 7, … in order\nCollect equal primes as powers: {answer}"
       }
     },
     {
@@ -247,9 +247,9 @@
         "en": "The four-digit number {num} is a multiple of 9. Which digit goes in □?"
       },
       "explain": {
-        "ja": "各位の数の和が 9 の倍数になればよい。{answer}",
-        "ko": "각 자리 숫자의 합이 9의 배수가 되면 됩니다. {answer}",
-        "en": "The digit sum must be a multiple of 9: {answer}"
+        "ja": "9 の倍数は、各位の数の和が 9 の倍数\nわかっている位の数を足す\n和が 9 の倍数になるように □ を決めて {answer}",
+        "ko": "9의 배수는 각 자리 숫자의 합이 9의 배수\n알고 있는 자리의 숫자를 더합니다\n합이 9의 배수가 되도록 □ 를 정하면 {answer}",
+        "en": "A multiple of 9 has a digit sum that is a multiple of 9\nAdd the digits you know\nChoose □ so the sum is a multiple of 9: {answer}"
       }
     },
     {
@@ -263,9 +263,9 @@
         "en": "Which of these fractions is a terminating decimal?"
       },
       "explain": {
-        "ja": "分母の素因数が 2 と 5 だけのものを探すと {answer}",
-        "ko": "분모의 소인수가 2와 5뿐인 것을 찾으면 {answer}",
-        "en": "Look for a denominator whose only prime factors are 2 and 5: {answer}"
+        "ja": "それぞれの分数を既約分数にする\n分母を素因数分解する\n分母の素因数が 2 と 5 だけのものは {answer}",
+        "ko": "각 분수를 기약분수로 만듭니다\n분모를 소인수분해합니다\n분모의 소인수가 2와 5뿐인 것은 {answer}",
+        "en": "Reduce each fraction to lowest terms\nFactor each denominator into primes\nThe one whose denominator has only 2 and 5: {answer}"
       }
     },
     {
@@ -282,9 +282,9 @@
         "en": "In coordinate space, what is the distance from the origin O to P{P}?"
       },
       "explain": {
-        "ja": "OP = √(x² + y² + z²) = {answer}",
-        "ko": "OP = √(x² + y² + z²) = {answer}",
-        "en": "OP = √(x² + y² + z²) = {answer}"
+        "ja": "原点からの距離は OP = √(x² + y² + z²)\n3つの座標をそれぞれ2乗して足す\n平方根をとって {answer}",
+        "ko": "원점에서의 거리는 OP = √(x² + y² + z²)\n세 좌표를 각각 제곱해서 더합니다\n제곱근을 구하면 {answer}",
+        "en": "Distance from the origin: OP = √(x² + y² + z²)\nSquare the three coordinates and add\nTake the root: {answer}"
       }
     },
     {
@@ -301,9 +301,9 @@
         "en": "In coordinate space, which point is the mirror image of P{P} in the {plane}-plane?"
       },
       "explain": {
-        "ja": "{plane} 平面に関して対称な点は、残りの1つの座標の符号だけが変わる。{answer}",
-        "ko": "{plane}평면에 대하여 대칭인 점은 나머지 한 좌표의 부호만 바뀝니다. {answer}",
-        "en": "Only the coordinate not named in the {plane}-plane changes sign: {answer}"
+        "ja": "{plane} 平面に含まれる2つの座標はそのまま\n残りの1つの座標だけ符号を逆にする\n{answer}",
+        "ko": "{plane} 평면에 포함되는 두 좌표는 그대로 둡니다\n나머지 한 좌표만 부호를 반대로 합니다\n{answer}",
+        "en": "The two coordinates named by the {plane} plane stay the same\nOnly the remaining coordinate changes sign\n{answer}"
       }
     }
   ],

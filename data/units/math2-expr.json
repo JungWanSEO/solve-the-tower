@@ -75,9 +75,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ を使うと {answer}",
-        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 을 쓰면 {answer}",
-        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³: {answer}"
+        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ にあてはめる(引き算のときは b を負の数と考える)\n3a²b と 3ab² の係数の 3 を忘れない\n{answer}",
+        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 대입합니다 (뺄셈일 때는 b를 음수로 생각)\n3a²b 와 3ab² 의 계수 3을 잊지 않습니다\n{answer}",
+        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a minus, treat b as negative)\nDo not forget the 3 in 3a²b and 3ab²\n{answer}"
       }
     },
     {
@@ -94,9 +94,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "2x をひとまとまりと見て (a + b)³ の公式を使うと {answer}",
-        "ko": "2x를 한 덩어리로 보고 (a + b)³ 공식을 쓰면 {answer}",
-        "en": "Treat 2x as one term in (a + b)³: {answer}"
+        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ にあてはめる(引き算のときは b を負の数と考える)\n3a²b と 3ab² の係数の 3 を忘れない\n{answer}",
+        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 대입합니다 (뺄셈일 때는 b를 음수로 생각)\n3a²b 와 3ab² 의 계수 3을 잊지 않습니다\n{answer}",
+        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a minus, treat b as negative)\nDo not forget the 3 in 3a²b and 3ab²\n{answer}"
       }
     },
     {
@@ -110,9 +110,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "a³ ± b³ = (a ± b)(a² ∓ ab + b²)。まん中の符号は逆になる。{answer}",
-        "ko": "a³ ± b³ = (a ± b)(a² ∓ ab + b²). 가운데 부호는 반대가 됩니다. {answer}",
-        "en": "a³ ± b³ = (a ± b)(a² ∓ ab + b²); the middle sign flips. {answer}"
+        "ja": "a³ + b³ = (a + b)(a² − ab + b²)、a³ − b³ = (a − b)(a² + ab + b²)\n{expr} の定数項が何の3乗かを考える\n2つ目のかっこのまん中の符号は逆になる。{answer}",
+        "ko": "a³ + b³ = (a + b)(a² − ab + b²), a³ − b³ = (a − b)(a² + ab + b²)\n{expr} 의 상수항이 무엇의 세제곱인지 생각합니다\n둘째 괄호의 가운데 부호는 반대가 됩니다. {answer}",
+        "en": "a³ + b³ = (a + b)(a² − ab + b²) and a³ − b³ = (a − b)(a² + ab + b²)\nAsk which number cubed gives the constant in {expr}\nThe middle sign of the second bracket flips: {answer}"
       }
     },
     {
@@ -126,9 +126,9 @@
         "en": "In the expansion of {expr}, what is the coefficient of {term}?"
       },
       "explain": {
-        "ja": "{term} の係数は {comb} × ({a}) の {rest} 乗 = {answer}",
-        "ko": "{term}의 계수는 {comb} × ({a})의 {rest}제곱 = {answer}",
-        "en": "The coefficient of {term} is {comb} × ({a}) to the power {rest} = {answer}"
+        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める\n2つを掛けて {answer}",
+        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다\n둘을 곱하면 {answer}",
+        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest}\nMultiply them: {answer}"
       }
     },
     {
@@ -145,9 +145,9 @@
         "en": "In the expansion of {expr}, what is the coefficient of {term}?"
       },
       "explain": {
-        "ja": "{comb} に ({a}) の {rest} 乗を掛けるのを忘れない。係数は {answer}",
-        "ko": "{comb}에 ({a})의 {rest}제곱을 곱하는 것을 잊지 않습니다. 계수는 {answer}",
-        "en": "Do not forget to multiply {comb} by ({a}) to the power {rest}: {answer}"
+        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める\n2つを掛けて {answer}",
+        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다\n둘을 곱하면 {answer}",
+        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest}\nMultiply them: {answer}"
       }
     },
     {
@@ -164,9 +164,9 @@
         "en": "What is the quotient when {expr} is divided by {div}?"
       },
       "explain": {
-        "ja": "筆算で割ると、商は {answer}",
-        "ko": "세로셈으로 나누면 몫은 {answer}",
-        "en": "Long division gives the quotient {answer}"
+        "ja": "割られる式の最高次の項を、割る式の最高次の項 x で割る → 商の最初の項\nその項に {div} を掛けて引く\n残りに同じことをくり返して、商は {answer}",
+        "ko": "나누어지는 식의 최고차항을 나누는 식의 최고차항 x로 나눕니다 → 몫의 첫 항\n그 항에 {div} 를 곱해서 뺍니다\n남은 식에 같은 일을 되풀이하면 몫은 {answer}",
+        "en": "Divide the leading term by x to get the first term of the quotient\nMultiply it by {div} and subtract\nRepeat on what is left; the quotient is {answer}"
       }
     },
     {
@@ -183,9 +183,9 @@
         "en": "What is the remainder when {expr} is divided by {div}?"
       },
       "explain": {
-        "ja": "筆算で割ると、余りは {answer}",
-        "ko": "세로셈으로 나누면 나머지는 {answer}",
-        "en": "Long division leaves the remainder {answer}"
+        "ja": "筆算で {expr} を {div} で割る\n商の各項に {div} を掛けて、上の式から引いていく\nx がなくなったときに残る数が余り: {answer}",
+        "ko": "세로셈으로 {expr} 을 {div} 로 나눕니다\n몫의 각 항에 {div} 를 곱해서 위의 식에서 빼 나갑니다\nx가 없어졌을 때 남는 수가 나머지: {answer}",
+        "en": "Divide {expr} by {div} by long division\nMultiply each quotient term by {div} and subtract\nThe number left when no x remains is the remainder: {answer}"
       }
     },
     {
@@ -203,9 +203,9 @@
         "en": "What is the quotient when {expr} is divided by {div}?"
       },
       "explain": {
-        "ja": "最高次の係数に注意して筆算すると、商は {answer}",
-        "ko": "최고차항의 계수에 주의해서 세로셈을 하면 몫은 {answer}",
-        "en": "Mind the leading coefficient; the quotient is {answer}"
+        "ja": "割られる式の最高次の項を、割る式の最高次の項 x で割る → 商の最初の項\nその項に {div} を掛けて引く\n残りに同じことをくり返して、商は {answer}",
+        "ko": "나누어지는 식의 최고차항을 나누는 식의 최고차항 x로 나눕니다 → 몫의 첫 항\n그 항에 {div} 를 곱해서 뺍니다\n남은 식에 같은 일을 되풀이하면 몫은 {answer}",
+        "en": "Divide the leading term by x to get the first term of the quotient\nMultiply it by {div} and subtract\nRepeat on what is left; the quotient is {answer}"
       }
     },
     {
@@ -223,9 +223,9 @@
         "en": "What is the remainder when {expr} is divided by {div}?"
       },
       "explain": {
-        "ja": "最高次の係数に注意して筆算すると、余りは {answer}",
-        "ko": "최고차항의 계수에 주의해서 세로셈을 하면 나머지는 {answer}",
-        "en": "Mind the leading coefficient; the remainder is {answer}"
+        "ja": "筆算で {expr} を {div} で割る\n商の各項に {div} を掛けて、上の式から引いていく\nx がなくなったときに残る数が余り: {answer}",
+        "ko": "세로셈으로 {expr} 을 {div} 로 나눕니다\n몫의 각 항에 {div} 를 곱해서 위의 식에서 빼 나갑니다\nx가 없어졌을 때 남는 수가 나머지: {answer}",
+        "en": "Divide {expr} by {div} by long division\nMultiply each quotient term by {div} and subtract\nThe number left when no x remains is the remainder: {answer}"
       }
     },
     {
@@ -239,9 +239,9 @@
         "en": "Simplify ({top})/({bottom})."
       },
       "explain": {
-        "ja": "分子と分母をそれぞれ因数分解し、共通の因数で約分すると {answer}",
-        "ko": "분자와 분모를 각각 인수분해하고 공통인 인수로 약분하면 {answer}",
-        "en": "Factor the top and bottom and cancel the common factor: {answer}"
+        "ja": "分子 {top} を因数分解する\n分母 {bottom} を因数分解する\n共通の因数で約分して {answer}",
+        "ko": "분자 {top} 을 인수분해합니다\n분모 {bottom} 을 인수분해합니다\n공통인 인수로 약분하면 {answer}",
+        "en": "Factor the top {top}\nFactor the bottom {bottom}\nCancel the common factor: {answer}"
       }
     },
     {
@@ -258,9 +258,9 @@
         "en": "If {left} = {right} is an identity in x, what is a?"
       },
       "explain": {
-        "ja": "右辺を展開して x の係数と定数項を比べると a = {answer}",
-        "ko": "우변을 전개해서 x의 계수와 상수항을 비교하면 a = {answer}",
-        "en": "Expand the right side and compare coefficients: a = {answer}"
+        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る\n解いて a = {answer}",
+        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다\n풀면 a = {answer}",
+        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b\nSolve: a = {answer}"
       }
     },
     {
@@ -277,9 +277,9 @@
         "en": "If {left} = {right} is an identity in x, what is b?"
       },
       "explain": {
-        "ja": "右辺を展開して x の係数と定数項を比べると b = {answer}",
-        "ko": "우변을 전개해서 x의 계수와 상수항을 비교하면 b = {answer}",
-        "en": "Expand the right side and compare coefficients: b = {answer}"
+        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る\n解いて b = {answer}",
+        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다\n풀면 b = {answer}",
+        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b\nSolve: b = {answer}"
       }
     },
     {
@@ -293,9 +293,9 @@
         "en": "For x > 0, what is the minimum of {expr}?"
       },
       "explain": {
-        "ja": "相加平均 ≧ 相乗平均 より、2数の和 ≧ 2√(2数の積)。最小値は {answer}",
-        "ko": "산술평균 ≧ 기하평균이므로 두 수의 합 ≧ 2√(두 수의 곱). 최솟값은 {answer}",
-        "en": "By AM–GM, the sum ≥ 2√(product). The minimum is {answer}"
+        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積)\n積は x が消えて定数になる。最小値は {answer}",
+        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱)\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
+        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product)\nThe product is a constant because x cancels; the minimum is {answer}"
       }
     },
     {
@@ -312,9 +312,9 @@
         "en": "For x > 0, what is the minimum of {expr}?"
       },
       "explain": {
-        "ja": "2数の積は x が消えて定数になる。和 ≧ 2√(積) より最小値は {answer}",
-        "ko": "두 수의 곱은 x가 사라져 상수가 됩니다. 합 ≧ 2√(곱)이므로 최솟값은 {answer}",
-        "en": "The product is a constant, so the sum ≥ 2√(product): {answer}"
+        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積)\n積は x が消えて定数になる。最小値は {answer}",
+        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱)\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
+        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product)\nThe product is a constant because x cancels; the minimum is {answer}"
       }
     }
   ],

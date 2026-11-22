@@ -100,9 +100,9 @@
         "en": "What is the distance between A{A} and B{B}?"
       },
       "explain": {
-        "ja": "x 座標の差と y 座標の差をそれぞれ2乗して足し、その平方根をとると {answer}",
-        "ko": "x좌표의 차와 y좌표의 차를 각각 제곱해서 더하고 제곱근을 구하면 {answer}",
-        "en": "Square the differences in x and in y, add them and take the root: {answer}"
+        "ja": "x 座標の差と y 座標の差を求める\nそれぞれを2乗して足す\nその平方根が距離: {answer}",
+        "ko": "x좌표의 차와 y좌표의 차를 구합니다\n각각 제곱해서 더합니다\n그 제곱근이 거리: {answer}",
+        "en": "Find the differences in x and in y\nSquare each and add\nThe root of that is the distance: {answer}"
       }
     },
     {
@@ -123,9 +123,9 @@
         "en": "What is the distance between A{A} and B{B}?"
       },
       "explain": {
-        "ja": "√((x の差)² + (y の差)²) = {answer}",
-        "ko": "√((x의 차)² + (y의 차)²) = {answer}",
-        "en": "√((difference in x)² + (difference in y)²) = {answer}"
+        "ja": "x 座標の差と y 座標の差を求める\nそれぞれを2乗して足す\nその平方根が距離: {answer}",
+        "ko": "x좌표의 차와 y좌표의 차를 구합니다\n각각 제곱해서 더합니다\n그 제곱근이 거리: {answer}",
+        "en": "Find the differences in x and in y\nSquare each and add\nThe root of that is the distance: {answer}"
       }
     },
     {
@@ -142,9 +142,9 @@
         "en": "Which point divides segment AB internally in the ratio {m} : {n}, where A{A} and B{B}?"
       },
       "explain": {
-        "ja": "内分点は ((n×A + m×B) ÷ (m + n))。A に n、B に m を掛ける。{answer}",
-        "ko": "내분점은 (n×A + m×B) ÷ (m + n). A에 n, B에 m을 곱합니다. {answer}",
-        "en": "The point is (n·A + m·B) ÷ (m + n); A gets n and B gets m: {answer}"
+        "ja": "内分点は (n × A + m × B) ÷ (m + n)(A に n、B に m を掛ける)\nx 座標と y 座標を別々に計算する(m = {m}, n = {n})\n{answer}",
+        "ko": "내분점은 (n × A + m × B) ÷ (m + n) (A에 n, B에 m을 곱합니다)\nx좌표와 y좌표를 따로 계산합니다 (m = {m}, n = {n})\n{answer}",
+        "en": "The point is (n × A + m × B) ÷ (m + n) (A gets n, B gets m)\nWork out x and y separately (m = {m}, n = {n})\n{answer}"
       }
     },
     {
@@ -161,9 +161,9 @@
         "en": "Which point divides segment AB externally in the ratio {m} : {n}, where A{A} and B{B}?"
       },
       "explain": {
-        "ja": "外分点は (−n×A + m×B) ÷ (m − n)。{answer}",
-        "ko": "외분점은 (−n×A + m×B) ÷ (m − n). {answer}",
-        "en": "The point is (−n·A + m·B) ÷ (m − n): {answer}"
+        "ja": "外分点は (−n × A + m × B) ÷ (m − n)\nx 座標と y 座標を別々に計算する(m = {m}, n = {n})\n{answer}",
+        "ko": "외분점은 (−n × A + m × B) ÷ (m − n)\nx좌표와 y좌표를 따로 계산합니다 (m = {m}, n = {n})\n{answer}",
+        "en": "The point is (−n × A + m × B) ÷ (m − n)\nWork out x and y separately (m = {m}, n = {n})\n{answer}"
       }
     },
     {
@@ -184,9 +184,9 @@
         "en": "What is the centroid of the triangle with vertices A{A}, B{B}, C{C}?"
       },
       "explain": {
-        "ja": "3つの頂点の座標を足して 3 で割ると {answer}",
-        "ko": "세 꼭짓점의 좌표를 더해서 3으로 나누면 {answer}",
-        "en": "Add the three vertices and divide by 3: {answer}"
+        "ja": "重心の座標は、3つの頂点の座標の平均\nx 座標3つを足して 3 で割る。y 座標も同じ\n{answer}",
+        "ko": "무게중심의 좌표는 세 꼭짓점 좌표의 평균\nx좌표 3개를 더해 3으로 나눕니다. y좌표도 같습니다\n{answer}",
+        "en": "The centroid is the average of the three vertices\nAdd the three x-coordinates and divide by 3; the same for y\n{answer}"
       }
     },
     {
@@ -200,9 +200,9 @@
         "en": "What is the equation of the line through {A} with slope {m}?"
       },
       "explain": {
-        "ja": "y − y₁ = m(x − x₁) に代入して整理すると {answer}",
-        "ko": "y − y₁ = m(x − x₁) 에 대입해서 정리하면 {answer}",
-        "en": "Substitute into y − y₁ = m(x − x₁) and simplify: {answer}"
+        "ja": "点 (x₁, y₁) を通り傾き m の直線は y − y₁ = m(x − x₁)\n点 {A} と m = {m} を代入する\ny = … の形に整理して {answer}",
+        "ko": "점 (x₁, y₁)을 지나고 기울기가 m인 직선은 y − y₁ = m(x − x₁)\n점 {A} 와 m = {m} 을 대입합니다\ny = … 꼴로 정리하면 {answer}",
+        "en": "A line through (x₁, y₁) with slope m is y − y₁ = m(x − x₁)\nPut in the point {A} and m = {m}\nRearrange to y = …: {answer}"
       }
     },
     {
@@ -223,9 +223,9 @@
         "en": "What is the equation of the line through A{A} and B{B}?"
       },
       "explain": {
-        "ja": "傾きは (y の増加量) ÷ (x の増加量)。1点を代入して {answer}",
-        "ko": "기울기는 (y의 증가량) ÷ (x의 증가량). 한 점을 대입하면 {answer}",
-        "en": "Slope = (change in y) ÷ (change in x); substitute one point: {answer}"
+        "ja": "傾き = (y の増加量) ÷ (x の増加量) を2点から求める\ny − y₁ = m(x − x₁) に、傾きと点 A{A} を代入する\ny = … の形に整理して {answer}",
+        "ko": "기울기 = (y의 증가량) ÷ (x의 증가량)을 두 점에서 구합니다\ny − y₁ = m(x − x₁) 에 기울기와 점 A{A} 를 대입합니다\ny = … 꼴로 정리하면 {answer}",
+        "en": "Slope = (change in y) ÷ (change in x) from the two points\nPut the slope and A{A} into y − y₁ = m(x − x₁)\nRearrange to y = …: {answer}"
       }
     },
     {
@@ -242,9 +242,9 @@
         "en": "What is the slope of a line parallel to {line}?"
       },
       "explain": {
-        "ja": "y = … の形に直すと傾きがわかる。平行な直線は傾きが等しいので {answer}",
-        "ko": "y = … 꼴로 고치면 기울기를 알 수 있습니다. 평행한 직선은 기울기가 같으므로 {answer}",
-        "en": "Rewrite as y = …; parallel lines have equal slopes: {answer}"
+        "ja": "{line} を y = … の形に直して傾きを読みとる\n平行な2直線は傾きが等しい\n{answer}",
+        "ko": "{line} 을 y = … 꼴로 고쳐서 기울기를 읽습니다\n평행한 두 직선은 기울기가 같습니다\n{answer}",
+        "en": "Rewrite {line} as y = … and read off the slope\nParallel lines have equal slopes\n{answer}"
       }
     },
     {
@@ -261,9 +261,9 @@
         "en": "What is the slope of a line perpendicular to {line}?"
       },
       "explain": {
-        "ja": "垂直な2直線の傾きの積は −1。{answer}",
-        "ko": "수직인 두 직선의 기울기의 곱은 −1. {answer}",
-        "en": "Perpendicular slopes multiply to −1: {answer}"
+        "ja": "{line} を y = … の形に直して傾き m を読みとる\n垂直な2直線の傾きの積は −1\n求める傾きは −1 ÷ m = {answer}",
+        "ko": "{line} 을 y = … 꼴로 고쳐서 기울기 m을 읽습니다\n수직인 두 직선의 기울기의 곱은 −1\n구하는 기울기는 −1 ÷ m = {answer}",
+        "en": "Rewrite {line} as y = … and read off its slope m\nPerpendicular slopes multiply to −1\nThe slope is −1 ÷ m = {answer}"
       }
     },
     {
@@ -277,9 +277,9 @@
         "en": "What is the distance from the point {P} to the line {line}?"
       },
       "explain": {
-        "ja": "|ax₁ + by₁ + c| ÷ √(a² + b²) に代入して {answer}",
-        "ko": "|ax₁ + by₁ + c| ÷ √(a² + b²) 에 대입하면 {answer}",
-        "en": "Use |ax₁ + by₁ + c| ÷ √(a² + b²): {answer}"
+        "ja": "点 (x₁, y₁) と直線 ax + by + c = 0 の距離は |ax₁ + by₁ + c| ÷ √(a² + b²)\n分子: 点 {P} を {line} の左辺に代入して絶対値をとる\n分母 √(a² + b²) で割って {answer}",
+        "ko": "점 (x₁, y₁)과 직선 ax + by + c = 0 사이의 거리는 |ax₁ + by₁ + c| ÷ √(a² + b²)\n분자: 점 {P} 를 {line} 의 좌변에 대입하고 절댓값을 구합니다\n분모 √(a² + b²) 로 나누면 {answer}",
+        "en": "Distance from (x₁, y₁) to ax + by + c = 0 is |ax₁ + by₁ + c| ÷ √(a² + b²)\nTop: put {P} into the left side of {line} and take the absolute value\nDivide by √(a² + b²): {answer}"
       }
     },
     {
@@ -296,9 +296,9 @@
         "en": "What is the centre of the circle {eq}?"
       },
       "explain": {
-        "ja": "x と y についてそれぞれ平方完成すると、中心は {answer}",
-        "ko": "x와 y에 대해 각각 완전제곱식으로 고치면 중심은 {answer}",
-        "en": "Complete the square in x and in y; the centre is {answer}"
+        "ja": "x の項と y の項を、それぞれ平方完成する\n(x − a)² + (y − b)² = r² の形にする\n中心は (a, b) なので {answer}",
+        "ko": "x의 항과 y의 항을 각각 완전제곱식으로 고칩니다\n(x − a)² + (y − b)² = r² 꼴로 만듭니다\n중심은 (a, b)이므로 {answer}",
+        "en": "Complete the square in x and in y\nWrite it as (x − a)² + (y − b)² = r²\nThe centre is (a, b) = {answer}"
       }
     },
     {
@@ -315,9 +315,9 @@
         "en": "What is the radius of the circle {eq}?"
       },
       "explain": {
-        "ja": "平方完成して (x − a)² + (y − b)² = r² の形にすると、半径は {answer}",
-        "ko": "완전제곱식으로 고쳐 (x − a)² + (y − b)² = r² 꼴로 만들면 반지름은 {answer}",
-        "en": "Complete the square to get (x − a)² + (y − b)² = r²; the radius is {answer}"
+        "ja": "x の項と y の項を、それぞれ平方完成する\n(x − a)² + (y − b)² = r² の形にして、右辺 r² を求める\nr > 0 なので平方根をとって {answer}",
+        "ko": "x의 항과 y의 항을 각각 완전제곱식으로 고칩니다\n(x − a)² + (y − b)² = r² 꼴로 만들어 우변 r² 을 구합니다\nr > 0 이므로 제곱근을 구하면 {answer}",
+        "en": "Complete the square in x and in y\nWrite it as (x − a)² + (y − b)² = r² and read r²\nSince r > 0, take the root: {answer}"
       }
     },
     {
@@ -335,9 +335,9 @@
         "en": "What is the length of the chord cut from the circle {circle} by the line {line}?"
       },
       "explain": {
-        "ja": "中心から直線までの距離 d を求め、弦の長さ = 2√(r² − d²) = {answer}",
-        "ko": "중심에서 직선까지의 거리 d를 구하고, 현의 길이 = 2√(r² − d²) = {answer}",
-        "en": "Find the distance d from the centre to the line; chord = 2√(r² − d²) = {answer}"
+        "ja": "{circle} から半径 r を求める\n中心(原点)から直線までの距離 d を求める\n弦の長さ = 2√(r² − d²) = {answer}",
+        "ko": "{circle} 에서 반지름 r을 구합니다\n중심(원점)에서 직선까지의 거리 d를 구합니다\n현의 길이 = 2√(r² − d²) = {answer}",
+        "en": "Read the radius r from {circle}\nFind the distance d from the centre (the origin) to the line\nChord = 2√(r² − d²) = {answer}"
       }
     },
     {
@@ -351,9 +351,9 @@
         "en": "Which of these points lies in the region {ineq}?"
       },
       "explain": {
-        "ja": "座標を代入して不等式が成り立つか確かめる。境界線上の点は含まれない。{answer}",
-        "ko": "좌표를 대입해서 부등식이 성립하는지 확인합니다. 경계선 위의 점은 포함되지 않습니다. {answer}",
-        "en": "Substitute each point; points on the boundary are not included: {answer}"
+        "ja": "それぞれの点の x 座標を右辺に代入して、境界線の y を求める\nその点の y 座標と比べて、不等式 {ineq} が成り立つか調べる\n等しいとき(境界線上)は含まれない。成り立つのは {answer}",
+        "ko": "각 점의 x좌표를 우변에 대입해 경계선의 y를 구합니다\n그 점의 y좌표와 비교해서 부등식 {ineq} 이 성립하는지 봅니다\n같을 때(경계선 위)는 포함되지 않습니다. 성립하는 것은 {answer}",
+        "en": "Put each point's x into the right side to get the boundary y\nCompare with the point's y to test {ineq}\nEqual (on the boundary) does not count. It holds for {answer}"
       }
     }
   ],

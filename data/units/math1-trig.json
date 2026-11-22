@@ -147,9 +147,9 @@
         "en": "What is the exact value of {fn} {deg}°?"
       },
       "explain": {
-        "ja": "{fn} {deg}° = {answer}",
-        "ko": "{fn} {deg}° = {answer}",
-        "en": "{fn} {deg}° = {answer}"
+        "ja": "30°・45°・60° は三角定規の直角三角形で考える(辺の比 1 : 2 : √3 と 1 : 1 : √2)\nsin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺\n{fn} {deg}° = {answer}",
+        "ko": "30°·45°·60°는 삼각자 모양의 직각삼각형으로 생각합니다 (변의 비 1 : 2 : √3 과 1 : 1 : √2)\nsin = 대변/빗변, cos = 이웃변/빗변, tan = 대변/이웃변\n{fn} {deg}° = {answer}",
+        "en": "For 30°, 45°, 60° use the set-square triangles (sides 1 : 2 : √3 and 1 : 1 : √2)\nsin = opposite/hypotenuse, cos = adjacent/hypotenuse, tan = opposite/adjacent\n{fn} {deg}° = {answer}"
       },
       "items": [
         {
@@ -254,9 +254,9 @@
         "en": "What is the exact value of {fn} {deg}°?"
       },
       "explain": {
-        "ja": "{fn} {deg}° = {answer} (鈍角では cos と tan が負になる)",
-        "ko": "{fn} {deg}° = {answer} (둔각에서는 cos과 tan이 음수)",
-        "en": "{fn} {deg}° = {answer} (cos and tan are negative for obtuse angles)"
+        "ja": "180° − {deg}° の鋭角の値を使う\n鈍角では sin は正のまま、cos と tan は負になる\n{fn} {deg}° = {answer}",
+        "ko": "180° − {deg}° 인 예각의 값을 씁니다\n둔각에서는 sin은 그대로 양수, cos과 tan은 음수가 됩니다\n{fn} {deg}° = {answer}",
+        "en": "Use the acute angle 180° − {deg}°\nFor an obtuse angle sin stays positive; cos and tan become negative\n{fn} {deg}° = {answer}"
       },
       "items": [
         {
@@ -409,9 +409,9 @@
         "en": "In the right triangle shown, what is {fn} θ?"
       },
       "explain": {
-        "ja": "sin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺 なので {fn} θ = {answer}",
-        "ko": "sin=맞은편/빗변, cos=이웃/빗변, tan=맞은편/이웃이므로 {fn} θ = {answer}",
-        "en": "sin = opposite/hypotenuse, cos = adjacent/hypotenuse, tan = opposite/adjacent, so {fn} θ = {answer}"
+        "ja": "θ から見て、向かい合う辺が対辺、θ をはさむ短い辺が隣辺、いちばん長い辺が斜辺\nsin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺\n{fn} θ = {answer}",
+        "ko": "θ에서 볼 때 마주 보는 변이 대변, θ를 끼고 있는 짧은 변이 이웃변, 가장 긴 변이 빗변\nsin = 대변/빗변, cos = 이웃변/빗변, tan = 대변/이웃변\n{fn} θ = {answer}",
+        "en": "From θ: the side across is opposite, the short side next to it is adjacent, the longest is the hypotenuse\nsin = opposite/hypotenuse, cos = adjacent/hypotenuse, tan = opposite/adjacent\n{fn} θ = {answer}"
       }
     },
     {
@@ -425,9 +425,9 @@
         "en": "θ is acute and {given} θ = {gv}. What is {ask} θ?"
       },
       "explain": {
-        "ja": "sin²θ + cos²θ = 1、tan θ = sin θ / cos θ より {ask} θ = {answer}",
-        "ko": "sin²θ + cos²θ = 1, tan θ = sin θ / cos θ이므로 {ask} θ = {answer}",
-        "en": "From sin²θ + cos²θ = 1 and tan θ = sin θ / cos θ, {ask} θ = {answer}"
+        "ja": "sin²θ + cos²θ = 1 に {given} θ = {gv} を代入して、もう一方の2乗を求める\nθ は鋭角なので、sin θ も cos θ も正\n必要なら tan θ = sin θ ÷ cos θ を使って {ask} θ = {answer}",
+        "ko": "sin²θ + cos²θ = 1 에 {given} θ = {gv} 를 대입해 다른 쪽의 제곱을 구합니다\nθ는 예각이므로 sin θ도 cos θ도 양수\n필요하면 tan θ = sin θ ÷ cos θ 를 써서 {ask} θ = {answer}",
+        "en": "Put {given} θ = {gv} into sin²θ + cos²θ = 1 to get the other square\nθ is acute, so sin θ and cos θ are both positive\nIf needed use tan θ = sin θ ÷ cos θ: {ask} θ = {answer}"
       }
     },
     {
@@ -444,9 +444,9 @@
         "en": "θ is obtuse and {given} θ = {gv}. What is {ask} θ?"
       },
       "explain": {
-        "ja": "鈍角では cos θ と tan θ は負。sin²θ + cos²θ = 1 より {ask} θ = {answer}",
-        "ko": "둔각에서는 cos θ와 tan θ가 음수입니다. sin²θ + cos²θ = 1이므로 {ask} θ = {answer}",
-        "en": "For an obtuse angle cos θ and tan θ are negative. From sin²θ + cos²θ = 1, {ask} θ = {answer}"
+        "ja": "sin²θ + cos²θ = 1 に {given} θ = {gv} を代入して、もう一方の2乗を求める\nθ は鈍角なので、cos θ と tan θ は負(sin θ は正)\n符号をつけて {ask} θ = {answer}",
+        "ko": "sin²θ + cos²θ = 1 에 {given} θ = {gv} 를 대입해 다른 쪽의 제곱을 구합니다\nθ는 둔각이므로 cos θ와 tan θ는 음수 (sin θ는 양수)\n부호를 붙이면 {ask} θ = {answer}",
+        "en": "Put {given} θ = {gv} into sin²θ + cos²θ = 1 to get the other square\nθ is obtuse, so cos θ and tan θ are negative (sin θ is positive)\nWith the sign: {ask} θ = {answer}"
       }
     },
     {
@@ -467,9 +467,9 @@
         "en": "In the right triangle shown, how long is side x? (sin 30° = 1/2)"
       },
       "explain": {
-        "ja": "対辺 = 斜辺 × sin 30° = {c} × 1/2 = {answer}",
-        "ko": "맞은편 변 = 빗변 × sin 30° = {c} × 1/2 = {answer}",
-        "en": "Opposite = hypotenuse × sin 30° = {c} × 1/2 = {answer}"
+        "ja": "x は 30° の角の対辺、{c} は斜辺\nsin 30° = 対辺 ÷ 斜辺 なので、対辺 = 斜辺 × sin 30°\n{c} × 1/2 = {answer}",
+        "ko": "x는 30°인 각의 대변, {c} 는 빗변\nsin 30° = 대변 ÷ 빗변이므로 대변 = 빗변 × sin 30°\n{c} × 1/2 = {answer}",
+        "en": "x is opposite the 30° angle and {c} is the hypotenuse\nsin 30° = opposite ÷ hypotenuse, so opposite = hypotenuse × sin 30°\n{c} × 1/2 = {answer}"
       }
     },
     {
@@ -490,9 +490,9 @@
         "en": "In the right triangle shown, how long is side x? (cos 60° = 1/2)"
       },
       "explain": {
-        "ja": "隣辺 = 斜辺 × cos 60° = {c} × 1/2 = {answer}",
-        "ko": "이웃 변 = 빗변 × cos 60° = {c} × 1/2 = {answer}",
-        "en": "Adjacent = hypotenuse × cos 60° = {c} × 1/2 = {answer}"
+        "ja": "x は 60° の角の隣辺、{c} は斜辺\ncos 60° = 隣辺 ÷ 斜辺 なので、隣辺 = 斜辺 × cos 60°\n{c} × 1/2 = {answer}",
+        "ko": "x는 60°인 각의 이웃변, {c} 는 빗변\ncos 60° = 이웃변 ÷ 빗변이므로 이웃변 = 빗변 × cos 60°\n{c} × 1/2 = {answer}",
+        "en": "x is adjacent to the 60° angle and {c} is the hypotenuse\ncos 60° = adjacent ÷ hypotenuse, so adjacent = hypotenuse × cos 60°\n{c} × 1/2 = {answer}"
       }
     },
     {
@@ -512,9 +512,9 @@
         "en": "As shown, from a point {d} m away the angle of elevation to the top of the tower is {deg}°. What is the height h of the tower?"
       },
       "explain": {
-        "ja": "高さ = {d} × tan {deg}° = {answer}",
-        "ko": "높이 = {d} × tan {deg}° = {answer}",
-        "en": "Height = {d} × tan {deg}° = {answer}"
+        "ja": "水平距離 {d} m が隣辺、高さ h が対辺の直角三角形\ntan {deg}° = h ÷ {d} なので h = {d} × tan {deg}°\n{answer}",
+        "ko": "수평거리 {d} m가 이웃변, 높이 h가 대변인 직각삼각형\ntan {deg}° = h ÷ {d} 이므로 h = {d} × tan {deg}°\n{answer}",
+        "en": "A right triangle with the distance {d} m adjacent and the height h opposite\ntan {deg}° = h ÷ {d}, so h = {d} × tan {deg}°\n{answer}"
       },
       "note": {
         "ja": "目の高さは考えないものとする。",
@@ -540,9 +540,9 @@
         "en": "As shown, from two points {g} m apart the angles of elevation to the top of the tower are {a}° and {b}°. What is the height h of the tower?"
       },
       "explain": {
-        "ja": "高さ = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}",
-        "ko": "높이 = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}",
-        "en": "Height = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}"
+        "ja": "塔までの距離を、遠い地点から h ÷ tan {a}°、近い地点から h ÷ tan {b}° と表す\nその差が {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nh について解くと {answer}",
+        "ko": "탑까지의 거리를 먼 지점에서는 h ÷ tan {a}°, 가까운 지점에서는 h ÷ tan {b}° 로 나타냅니다\n그 차가 {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nh에 대해 풀면 {answer}",
+        "en": "Write the distances to the tower as h ÷ tan {a}° (far point) and h ÷ tan {b}° (near point)\nTheir difference is {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nSolve for h: {answer}"
       },
       "note": {
         "ja": "目の高さは考えないものとする。",
@@ -570,9 +570,9 @@
         "en": "In △ABC, a = {a}, A = {A}° and B = {B}°. What is b?"
       },
       "explain": {
-        "ja": "正弦定理 a/sin A = b/sin B より b = {a} × sin {B}° ÷ sin {A}° = {answer}",
-        "ko": "사인 법칙 a/sin A = b/sin B에서 b = {a} × sin {B}° ÷ sin {A}° = {answer}",
-        "en": "By the law of sines a/sin A = b/sin B, so b = {a} × sin {B}° ÷ sin {A}° = {answer}"
+        "ja": "正弦定理 a ÷ sin A = b ÷ sin B を使う\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}",
+        "ko": "사인법칙 a ÷ sin A = b ÷ sin B 를 씁니다\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}",
+        "en": "Use the sine rule a ÷ sin A = b ÷ sin B\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}"
       }
     },
     {
@@ -586,9 +586,9 @@
         "en": "In △ABC, a = {a} and A = {A}°. What is the circumradius R?"
       },
       "explain": {
-        "ja": "正弦定理 a/sin A = 2R より R = {answer}",
-        "ko": "사인 법칙 a/sin A = 2R에서 R = {answer}",
-        "en": "By the law of sines a/sin A = 2R, so R = {answer}"
+        "ja": "正弦定理 a ÷ sin A = 2R を使う\n2R = {a} ÷ sin {A}°\n2 で割って R = {answer}",
+        "ko": "사인법칙 a ÷ sin A = 2R 을 씁니다\n2R = {a} ÷ sin {A}°\n2로 나누면 R = {answer}",
+        "en": "Use the sine rule a ÷ sin A = 2R\n2R = {a} ÷ sin {A}°\nHalve it: R = {answer}"
       }
     },
     {
@@ -611,9 +611,9 @@
         "en": "In △ABC, b = {b}, c = {c} and A = {A}°. What is a?"
       },
       "explain": {
-        "ja": "余弦定理 a² = b² + c² − 2bc cos A より a = {answer}",
-        "ko": "코사인 법칙 a² = b² + c² − 2bc cos A에서 a = {answer}",
-        "en": "By the law of cosines a² = b² + c² − 2bc cos A, so a = {answer}"
+        "ja": "余弦定理 a² = b² + c² − 2bc cos A を使う\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\na > 0 なので平方根をとって a = {answer}",
+        "ko": "코사인법칙 a² = b² + c² − 2bc cos A 를 씁니다\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\na > 0 이므로 제곱근을 구하면 a = {answer}",
+        "en": "Use the cosine rule a² = b² + c² − 2bc cos A\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\nSince a > 0, take the root: a = {answer}"
       }
     },
     {
@@ -636,9 +636,9 @@
         "en": "In △ABC, a = {a}, b = {b} and c = {c}. What is A?"
       },
       "explain": {
-        "ja": "余弦定理 cos A = (b² + c² − a²) / 2bc を計算すると A = {answer}",
-        "ko": "코사인 법칙 cos A = (b² + c² − a²) / 2bc를 계산하면 A = {answer}",
-        "en": "Using the law of cosines cos A = (b² + c² − a²) / 2bc gives A = {answer}"
+        "ja": "余弦定理を cos A について解いた形 cos A = (b² + c² − a²) ÷ 2bc を使う\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c})\nその値になる角は A = {answer}",
+        "ko": "코사인법칙을 cos A에 대해 푼 꼴 cos A = (b² + c² − a²) ÷ 2bc 를 씁니다\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c})\n그 값이 되는 각은 A = {answer}",
+        "en": "Use cos A = (b² + c² − a²) ÷ 2bc\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c})\nThe angle with that value is A = {answer}"
       }
     },
     {
@@ -661,9 +661,9 @@
         "en": "In △ABC, b = {b}, c = {c} and A = {A}°. What is the area S?"
       },
       "explain": {
-        "ja": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}",
-        "ko": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}",
-        "en": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}"
+        "ja": "2辺とその間の角から S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}°\n{answer}",
+        "ko": "두 변과 그 끼인각에서 S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}°\n{answer}",
+        "en": "From two sides and the included angle: S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}°\n{answer}"
       }
     },
     {
@@ -677,9 +677,9 @@
         "en": "In cuboid ABCD-EFGH, AB = {a}, AD = {b} and AE = {c}. How long is the diagonal AG?"
       },
       "explain": {
-        "ja": "AG = √(AB² + AD² + AE²) = {answer}",
-        "ko": "AG = √(AB² + AD² + AE²) = {answer}",
-        "en": "AG = √(AB² + AD² + AE²) = {answer}"
+        "ja": "底面の対角線 AC² = AB² + AD² = {a}² + {b}²\n直角三角形 ACG で AG² = AC² + AE² = {a}² + {b}² + {c}²\n平方根をとって AG = {answer}",
+        "ko": "밑면의 대각선 AC² = AB² + AD² = {a}² + {b}²\n직각삼각형 ACG에서 AG² = AC² + AE² = {a}² + {b}² + {c}²\n제곱근을 구하면 AG = {answer}",
+        "en": "Base diagonal: AC² = AB² + AD² = {a}² + {b}²\nIn right triangle ACG: AG² = AC² + AE² = {a}² + {b}² + {c}²\nTake the root: AG = {answer}"
       },
       "figure": {
         "kind": "cuboid",
@@ -700,9 +700,9 @@
         "en": "Tower PH stands vertically on the ground. From ground points A and B the angles of elevation to the top P are {al}° and {be}°. If ∠AHB = 90° and AB = {d} m, how tall is PH?"
       },
       "explain": {
-        "ja": "PH = h とすると AH = h ÷ tan {al}°、BH = h ÷ tan {be}°。AB² = AH² + BH² より h = {answer}",
-        "ko": "PH = h라 하면 AH = h ÷ tan {al}°, BH = h ÷ tan {be}°입니다. AB² = AH² + BH²에서 h = {answer}",
-        "en": "Let PH = h. Then AH = h ÷ tan {al}° and BH = h ÷ tan {be}°. From AB² = AH² + BH², h = {answer}"
+        "ja": "PH = h とおくと、AH = h ÷ tan {al}°、BH = h ÷ tan {be}°\n地面の三角形 ABH は直角三角形なので AB² = AH² + BH²\n{d}² = AH² + BH² を h について解くと {answer}",
+        "ko": "PH = h 로 놓으면 AH = h ÷ tan {al}°, BH = h ÷ tan {be}°\n땅 위의 삼각형 ABH는 직각삼각형이므로 AB² = AH² + BH²\n{d}² = AH² + BH² 을 h에 대해 풀면 {answer}",
+        "en": "Let PH = h; then AH = h ÷ tan {al}° and BH = h ÷ tan {be}°\nTriangle ABH on the ground is right-angled, so AB² = AH² + BH²\nSolve {d}² = AH² + BH² for h: {answer}"
       },
       "figure": {
         "kind": "space",
@@ -728,9 +728,9 @@
         "en": "Which is equal to {expr}?"
       },
       "explain": {
-        "ja": "単位円(または直角三角形)で考えると {expr} = {answer}",
-        "ko": "단위원(또는 직각삼각형)에서 생각하면 {expr} = {answer}",
-        "en": "Using the unit circle (or a right triangle), {expr} = {answer}"
+        "ja": "sin(90° − θ) = cos θ、cos(90° − θ) = sin θ\nsin(180° − θ) = sin θ、cos(180° − θ) = −cos θ\nあてはまるものを使って {expr} = {answer}",
+        "ko": "sin(90° − θ) = cos θ, cos(90° − θ) = sin θ\nsin(180° − θ) = sin θ, cos(180° − θ) = −cos θ\n맞는 것을 쓰면 {expr} = {answer}",
+        "en": "sin(90° − θ) = cos θ and cos(90° − θ) = sin θ\nsin(180° − θ) = sin θ and cos(180° − θ) = −cos θ\nApply the one that fits: {expr} = {answer}"
       }
     },
     {
@@ -749,9 +749,9 @@
         "en": "0° ≦ θ ≦ 180°."
       },
       "explain": {
-        "ja": "単位円で {fn} θ = {val} となる角を探すと θ = {answer}",
-        "ko": "단위원에서 {fn} θ = {val}이 되는 각을 찾으면 θ = {answer}",
-        "en": "On the unit circle, {fn} θ = {val} when θ = {answer}"
+        "ja": "0° ≦ θ ≦ 180° の範囲で、半径 1 の半円をかく\nsin は y 座標、cos は x 座標。値が {val} になる点を探す\nその点の角は θ = {answer}",
+        "ko": "0° ≦ θ ≦ 180° 범위에서 반지름 1인 반원을 그립니다\nsin은 y좌표, cos은 x좌표. 값이 {val} 이 되는 점을 찾습니다\n그 점의 각은 θ = {answer}",
+        "en": "Draw the unit semicircle for 0° ≤ θ ≤ 180°\nsin is the y-coordinate and cos the x-coordinate; find the point with value {val}\nIts angle is θ = {answer}"
       }
     },
     {
@@ -772,9 +772,9 @@
         "r": "r = ?"
       },
       "explain": {
-        "ja": "S = r(a + b + c) ÷ 2 より r = 2S ÷ (a + b + c) = {answer}",
-        "ko": "S = r(a + b + c) ÷ 2에서 r = 2S ÷ (a + b + c) = {answer}",
-        "en": "From S = r(a + b + c) ÷ 2, r = 2S ÷ (a + b + c) = {answer}"
+        "ja": "内心と3つの頂点を結ぶと、高さ r の三角形3つに分かれる\n面積 S = r(a + b + c) ÷ 2 なので r = 2S ÷ (a + b + c)\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}",
+        "ko": "내심과 세 꼭짓점을 이으면 높이가 r인 삼각형 3개로 나뉩니다\n넓이 S = r(a + b + c) ÷ 2 이므로 r = 2S ÷ (a + b + c)\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}",
+        "en": "Joining the incentre to the vertices gives three triangles of height r\nS = r(a + b + c) ÷ 2, so r = 2S ÷ (a + b + c)\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}"
       }
     },
     {
@@ -788,9 +788,9 @@
         "en": "What kind of triangle has sides {a}, {b} and {c}?"
       },
       "explain": {
-        "ja": "まず最大の辺が他の2辺の和より小さいか確かめ、次に最大の辺の2乗と他の2辺の2乗の和を比べる。{answer}",
-        "ko": "먼저 가장 긴 변이 나머지 두 변의 합보다 작은지 확인하고, 가장 긴 변의 제곱과 나머지 두 변의 제곱의 합을 비교합니다. {answer}",
-        "en": "First check the longest side is shorter than the other two together, then compare its square with the sum of the other two squares: {answer}"
+        "ja": "いちばん長い辺を見つける\nその2乗と、ほかの2辺の2乗の和を比べる\n等しければ直角、小さければ鋭角、大きければ鈍角三角形。{answer}",
+        "ko": "가장 긴 변을 찾습니다\n그 제곱과 나머지 두 변의 제곱의 합을 비교합니다\n같으면 직각, 작으면 예각, 크면 둔각삼각형. {answer}",
+        "en": "Find the longest side\nCompare its square with the sum of the squares of the other two\nEqual: right; smaller: acute; larger: obtuse. {answer}"
       }
     },
     {
@@ -813,9 +813,9 @@
         "sideC": "{c}"
       },
       "explain": {
-        "ja": "s = (a + b + c) ÷ 2 として、ヘロンの公式 S = √(s(s − a)(s − b)(s − c)) より {answer}",
-        "ko": "s = (a + b + c) ÷ 2로 놓고 헤론의 공식 S = √(s(s − a)(s − b)(s − c))에서 {answer}",
-        "en": "With s = (a + b + c) ÷ 2, Heron's formula S = √(s(s − a)(s − b)(s − c)) gives {answer}"
+        "ja": "s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 を求める\ns − a、s − b、s − c をそれぞれ計算する\nS = √(s(s − a)(s − b)(s − c)) = {answer}",
+        "ko": "s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 를 구합니다\ns − a, s − b, s − c 를 각각 계산합니다\nS = √(s(s − a)(s − b)(s − c)) = {answer}",
+        "en": "Find s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2\nWork out s − a, s − b and s − c\nS = √(s(s − a)(s − b)(s − c)) = {answer}"
       }
     },
     {
@@ -837,9 +837,9 @@
         "h": "h = ?"
       },
       "explain": {
-        "ja": "頂点から底面に下ろした垂線の足は底面の重心。h = (√6 ÷ 3) × {a} = {answer}",
-        "ko": "꼭짓점에서 밑면에 내린 수선의 발은 밑면의 무게중심입니다. h = (√6 ÷ 3) × {a} = {answer}",
-        "en": "The foot of the height is the centroid of the base. h = (√6 ÷ 3) × {a} = {answer}"
+        "ja": "頂点から底面に下ろした垂線の足は、底面(正三角形)の重心\n重心から底面の頂点までの距離は {a} ÷ √3\n三平方の定理 h² = {a}² − ({a} ÷ √3)² より h = {answer}",
+        "ko": "꼭짓점에서 밑면에 내린 수선의 발은 밑면(정삼각형)의 무게중심\n무게중심에서 밑면의 꼭짓점까지의 거리는 {a} ÷ √3\n피타고라스 정리 h² = {a}² − ({a} ÷ √3)² 에서 h = {answer}",
+        "en": "The foot of the height is the centroid of the base triangle\nThe centroid is {a} ÷ √3 from each base vertex\nBy Pythagoras h² = {a}² − ({a} ÷ √3)², so h = {answer}"
       }
     },
     {
@@ -861,9 +861,9 @@
         "h": ""
       },
       "explain": {
-        "ja": "体積 = 底面積 × 高さ ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}",
-        "ko": "부피 = 밑넓이 × 높이 ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}",
-        "en": "Volume = base area × height ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}"
+        "ja": "底面積(1辺 {a} の正三角形)= (√3 ÷ 4) × {a}²\n高さ = (√6 ÷ 3) × {a}\n体積 = 底面積 × 高さ ÷ 3 = {answer}",
+        "ko": "밑넓이(한 변이 {a} 인 정삼각형) = (√3 ÷ 4) × {a}²\n높이 = (√6 ÷ 3) × {a}\n부피 = 밑넓이 × 높이 ÷ 3 = {answer}",
+        "en": "Base area (equilateral, side {a}) = (√3 ÷ 4) × {a}²\nHeight = (√6 ÷ 3) × {a}\nVolume = base × height ÷ 3 = {answer}"
       }
     }
   ],
@@ -900,9 +900,9 @@
             "en": "How long is side a?"
           },
           "explain": {
-            "ja": "余弦定理 a² = b² + c² − 2bc cos A より a = {answer}",
-            "ko": "코사인 법칙 a² = b² + c² − 2bc cos A에서 a = {answer}",
-            "en": "By the cosine rule a² = b² + c² − 2bc cos A, a = {answer}"
+            "ja": "余弦定理 a² = b² + c² − 2bc cos A\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\n平方根をとって a = {answer}",
+            "ko": "코사인법칙 a² = b² + c² − 2bc cos A\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\n제곱근을 구하면 a = {answer}",
+            "en": "Cosine rule: a² = b² + c² − 2bc cos A\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\nTake the root: a = {answer}"
           },
           "figure": {
             "sideA": "?"
@@ -922,9 +922,9 @@
             "en": "What is the area S of △ABC?"
           },
           "explain": {
-            "ja": "S = (1/2) × b × c × sin A = {answer}",
-            "ko": "S = (1/2) × b × c × sin A = {answer}",
-            "en": "S = (1/2) × b × c × sin A = {answer}"
+            "ja": "S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}° = {answer}",
+            "ko": "S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}° = {answer}",
+            "en": "S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}° = {answer}"
           },
           "figure": {
             "sideA": "{a1}"
@@ -944,9 +944,9 @@
             "en": "What is the inradius r?"
           },
           "explain": {
-            "ja": "S = r(a + b + c) ÷ 2 に a = {a1}、S = {a2} を代入すると r = {answer}",
-            "ko": "S = r(a + b + c) ÷ 2에 a = {a1}, S = {a2}를 대입하면 r = {answer}",
-            "en": "Substitute a = {a1} and S = {a2} into S = r(a + b + c) ÷ 2: r = {answer}"
+            "ja": "S = r(a + b + c) ÷ 2 を r について解く\na = {a1}、S = {a2} を代入: r = 2S ÷ (a + b + c)\nr = {answer}",
+            "ko": "S = r(a + b + c) ÷ 2 를 r에 대해 풉니다\na = {a1}, S = {a2} 를 대입: r = 2S ÷ (a + b + c)\nr = {answer}",
+            "en": "Solve S = r(a + b + c) ÷ 2 for r\nPut a = {a1} and S = {a2}: r = 2S ÷ (a + b + c)\nr = {answer}"
           },
           "figure": {
             "sideA": "{a1}"
@@ -987,9 +987,9 @@
             "en": "How long is the hypotenuse AB?"
           },
           "explain": {
-            "ja": "三平方の定理 AB² = {a}² + {b}² より AB = {answer}",
-            "ko": "피타고라스 정리 AB² = {a}² + {b}²에서 AB = {answer}",
-            "en": "By the Pythagorean theorem AB² = {a}² + {b}², AB = {answer}"
+            "ja": "三平方の定理 AB² = BC² + CA²\nAB² = {a}² + {b}²\nAB = {answer}",
+            "ko": "피타고라스 정리 AB² = BC² + CA²\nAB² = {a}² + {b}²\nAB = {answer}",
+            "en": "Pythagoras: AB² = BC² + CA²\nAB² = {a}² + {b}²\nAB = {answer}"
           }
         },
         {
@@ -1009,9 +1009,9 @@
             "en": "What is sin A?"
           },
           "explain": {
-            "ja": "sin A = (向かい合う辺 BC) ÷ (斜辺 AB) = {a} ÷ {a1} = {answer}",
-            "ko": "sin A = (마주 보는 변 BC) ÷ (빗변 AB) = {a} ÷ {a1} = {answer}",
-            "en": "sin A = opposite BC ÷ hypotenuse AB = {a} ÷ {a1} = {answer}"
+            "ja": "sin A = (A と向かい合う辺 BC) ÷ (斜辺 AB)\n{a} ÷ {a1} = {answer}",
+            "ko": "sin A = (A와 마주 보는 변 BC) ÷ (빗변 AB)\n{a} ÷ {a1} = {answer}",
+            "en": "sin A = (side BC opposite A) ÷ (hypotenuse AB)\n{a} ÷ {a1} = {answer}"
           }
         },
         {
@@ -1031,9 +1031,9 @@
             "en": "What is the inradius r?"
           },
           "explain": {
-            "ja": "面積 S = ½ × {a} × {b}。S = ½ r (BC + CA + AB) より r = {answer}",
-            "ko": "넓이 S = ½ × {a} × {b}. S = ½ r (BC + CA + AB)에서 r = {answer}",
-            "en": "Area S = ½ × {a} × {b}. From S = ½ r (BC + CA + AB), r = {answer}"
+            "ja": "面積 S = (1/2) × {a} × {b}\nS = (1/2) × r × (BC + CA + AB) とも表せる\n2つを等しいとおいて r = {answer}",
+            "ko": "넓이 S = (1/2) × {a} × {b}\nS = (1/2) × r × (BC + CA + AB) 로도 나타낼 수 있습니다\n둘을 같다고 놓으면 r = {answer}",
+            "en": "Area S = (1/2) × {a} × {b}\nAlso S = (1/2) × r × (BC + CA + AB)\nSet them equal: r = {answer}"
           }
         }
       ]

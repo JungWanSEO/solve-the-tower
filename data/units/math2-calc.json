@@ -90,9 +90,9 @@
         "en": "For f(x) = {expr}, what is the average rate of change from x = {p} to x = {q}?"
       },
       "explain": {
-        "ja": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
-        "ko": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
-        "en": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}"
+        "ja": "平均変化率 = (y の変化量) ÷ (x の変化量)\nf({q}) と f({p}) をそれぞれ計算する\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
+        "ko": "평균변화율 = (y의 변화량) ÷ (x의 변화량)\nf({q}) 와 f({p}) 를 각각 계산합니다\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
+        "en": "Average rate of change = (change in y) ÷ (change in x)\nWork out f({q}) and f({p})\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}"
       }
     },
     {
@@ -109,9 +109,9 @@
         "en": "Differentiate f(x) = {expr}."
       },
       "explain": {
-        "ja": "xⁿ の微分は n xⁿ⁻¹、定数の微分は 0。{answer}",
-        "ko": "xⁿ 의 미분은 n xⁿ⁻¹, 상수의 미분은 0. {answer}",
-        "en": "The derivative of xⁿ is n xⁿ⁻¹ and of a constant is 0: {answer}"
+        "ja": "xⁿ の微分は n xⁿ⁻¹(指数を前に出して、指数を 1 減らす)\n各項を別々に微分する。定数項は 0 になる\n{answer}",
+        "ko": "xⁿ 의 미분은 n xⁿ⁻¹ (지수를 앞으로 꺼내고 지수를 1 줄입니다)\n각 항을 따로 미분합니다. 상수항은 0이 됩니다\n{answer}",
+        "en": "The derivative of xⁿ is n xⁿ⁻¹ (bring the power down, lower it by 1)\nDifferentiate each term; the constant becomes 0\n{answer}"
       }
     },
     {
@@ -128,9 +128,9 @@
         "en": "For f(x) = {expr}, what is f′({k})?"
       },
       "explain": {
-        "ja": "先に f′(x) を求めてから x = {k} を代入して {answer}",
-        "ko": "먼저 f′(x)를 구한 뒤 x = {k} 를 대입하면 {answer}",
-        "en": "Find f′(x) first, then put x = {k}: {answer}"
+        "ja": "先に導関数 f′(x) を求める(各項を n xⁿ⁻¹ に)\nf′(x) に x = {k} を代入する\n{answer}",
+        "ko": "먼저 도함수 f′(x)를 구합니다 (각 항을 n xⁿ⁻¹ 으로)\nf′(x)에 x = {k} 를 대입합니다\n{answer}",
+        "en": "First find f′(x) (each term becomes n xⁿ⁻¹)\nPut x = {k} into f′(x)\n{answer}"
       }
     },
     {
@@ -148,9 +148,9 @@
         "en": "What is the tangent to the parabola {expr} at the point where x = {t}?"
       },
       "explain": {
-        "ja": "傾きは微分係数。接点を通る直線の式を作ると {answer}",
-        "ko": "기울기는 미분계수입니다. 접점을 지나는 직선의 식을 만들면 {answer}",
-        "en": "The slope is the derivative there; the line through the point is {answer}"
+        "ja": "y′ を求めて x = {t} を代入 → 接線の傾き\nもとの式に x = {t} を代入 → 接点の y 座標\ny − y₁ = m(x − x₁) に代入して整理すると {answer}",
+        "ko": "y′ 을 구해 x = {t} 를 대입 → 접선의 기울기\n원래 식에 x = {t} 를 대입 → 접점의 y좌표\ny − y₁ = m(x − x₁) 에 대입해 정리하면 {answer}",
+        "en": "Find y′ and put x = {t} → the slope of the tangent\nPut x = {t} into the original → the y of the point\nUse y − y₁ = m(x − x₁) and simplify: {answer}"
       }
     },
     {
@@ -171,9 +171,9 @@
         "en": "What is the local maximum value of f(x) = {expr}?"
       },
       "explain": {
-        "ja": "f′(x) = 0 の解を求めて増減表を作る。増加から減少に変わる点の値が極大値 {answer}",
-        "ko": "f′(x) = 0 의 해를 구해 증감표를 만듭니다. 증가에서 감소로 바뀌는 점의 값이 극댓값 {answer}",
-        "en": "Solve f′(x) = 0 and make a sign table; where f changes from rising to falling the value is {answer}"
+        "ja": "f′(x) を求めて、f′(x) = 0 を解く\nその前後で f′(x) の符号を調べ、増減表を作る\n増加(+)から減少(−)に変わる x での値が極大値: {answer}",
+        "ko": "f′(x)를 구해서 f′(x) = 0 을 풉니다\n그 앞뒤에서 f′(x)의 부호를 조사해 증감표를 만듭니다\n증가(+)에서 감소(−)로 바뀌는 x에서의 값이 극댓값: {answer}",
+        "en": "Find f′(x) and solve f′(x) = 0\nCheck the sign of f′(x) on each side and make a table\nWhere f changes from rising (+) to falling (−), the value is the local maximum: {answer}"
       }
     },
     {
@@ -194,9 +194,9 @@
         "en": "What is the local minimum value of f(x) = {expr}?"
       },
       "explain": {
-        "ja": "f′(x) = 0 の解を求めて増減表を作る。減少から増加に変わる点の値が極小値 {answer}",
-        "ko": "f′(x) = 0 의 해를 구해 증감표를 만듭니다. 감소에서 증가로 바뀌는 점의 값이 극솟값 {answer}",
-        "en": "Solve f′(x) = 0 and make a sign table; where f changes from falling to rising the value is {answer}"
+        "ja": "f′(x) を求めて、f′(x) = 0 を解く\nその前後で f′(x) の符号を調べ、増減表を作る\n減少(−)から増加(+)に変わる x での値が極小値: {answer}",
+        "ko": "f′(x)를 구해서 f′(x) = 0 을 풉니다\n그 앞뒤에서 f′(x)의 부호를 조사해 증감표를 만듭니다\n감소(−)에서 증가(+)로 바뀌는 x에서의 값이 극솟값: {answer}",
+        "en": "Find f′(x) and solve f′(x) = 0\nCheck the sign of f′(x) on each side and make a table\nWhere f changes from falling (−) to rising (+), the value is the local minimum: {answer}"
       }
     },
     {
@@ -213,9 +213,9 @@
         "en": "What is the maximum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
       },
       "explain": {
-        "ja": "極値と区間の両端の値をすべて比べて、最も大きいものは {answer}",
-        "ko": "극값과 구간 양 끝의 값을 모두 비교해서 가장 큰 것은 {answer}",
-        "en": "Compare the local extrema with the values at both ends; the largest is {answer}"
+        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する\nそれらのうち、いちばん大きいものが最大値: {answer}",
+        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다\n그중 가장 큰 것이 최댓값: {answer}",
+        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b}\nThe largest of those is the maximum: {answer}"
       }
     },
     {
@@ -232,9 +232,9 @@
         "en": "What is the minimum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
       },
       "explain": {
-        "ja": "極値と区間の両端の値をすべて比べて、最も小さいものは {answer}",
-        "ko": "극값과 구간 양 끝의 값을 모두 비교해서 가장 작은 것은 {answer}",
-        "en": "Compare the local extrema with the values at both ends; the smallest is {answer}"
+        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する\nそれらのうち、いちばん小さいものが最小値: {answer}",
+        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다\n그중 가장 작은 것이 최솟값: {answer}",
+        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b}\nThe smallest of those is the minimum: {answer}"
       }
     },
     {
@@ -251,9 +251,9 @@
         "en": "Find ∫({expr}) dx. (C is the constant of integration)"
       },
       "explain": {
-        "ja": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)。{answer}",
-        "ko": "xⁿ 의 적분은 xⁿ⁺¹ ÷ (n + 1). {answer}",
-        "en": "The integral of xⁿ is xⁿ⁺¹ ÷ (n + 1): {answer}"
+        "ja": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)(指数を 1 増やして、その数で割る)\n各項を別々に積分する。定数 c は cx になる\n最後に積分定数 C をつけて {answer}",
+        "ko": "xⁿ 의 적분은 xⁿ⁺¹ ÷ (n + 1) (지수를 1 늘리고 그 수로 나눕니다)\n각 항을 따로 적분합니다. 상수 c는 cx가 됩니다\n마지막에 적분상수 C를 붙여 {answer}",
+        "en": "The integral of xⁿ is xⁿ⁺¹ ÷ (n + 1)\nIntegrate each term; a constant c becomes cx\nAdd the constant C: {answer}"
       }
     },
     {
@@ -270,9 +270,9 @@
         "en": "What is the definite integral of f(x) = {expr} from x = {p} to x = {q}?"
       },
       "explain": {
-        "ja": "原始関数 F(x) を求めて F({q}) − F({p}) = {answer}",
-        "ko": "원시함수 F(x)를 구해서 F({q}) − F({p}) = {answer}",
-        "en": "Find an antiderivative F and compute F({q}) − F({p}) = {answer}"
+        "ja": "原始関数 F(x) を求める(各項を xⁿ⁺¹ ÷ (n + 1) に)\nF({q}) と F({p}) をそれぞれ計算する\nF({q}) − F({p}) = {answer}",
+        "ko": "원시함수 F(x)를 구합니다 (각 항을 xⁿ⁺¹ ÷ (n + 1) 으로)\nF({q}) 와 F({p}) 를 각각 계산합니다\nF({q}) − F({p}) = {answer}",
+        "en": "Find an antiderivative F(x) (each term becomes xⁿ⁺¹ ÷ (n + 1))\nWork out F({q}) and F({p})\nF({q}) − F({p}) = {answer}"
       }
     },
     {
@@ -290,9 +290,9 @@
         "en": "What is the area enclosed by the parabola {expr} and the x-axis?"
       },
       "explain": {
-        "ja": "x 軸との交点を求めて定積分する。面積は必ず正で {answer}",
-        "ko": "x축과의 교점을 구해서 정적분합니다. 넓이는 반드시 양수이고 {answer}",
-        "en": "Find where it meets the x-axis and integrate; an area is always positive: {answer}"
+        "ja": "y = 0 とおいて因数分解し、x 軸との交点 x = α, β を求める\nα から β まで定積分する。グラフが x 軸より下なら符号を逆にする\n面積は必ず正で {answer}",
+        "ko": "y = 0 으로 놓고 인수분해해서 x축과의 교점 x = α, β 를 구합니다\nα 부터 β 까지 정적분합니다. 그래프가 x축보다 아래이면 부호를 바꿉니다\n넓이는 반드시 양수이고 {answer}",
+        "en": "Set y = 0 and factor to find the crossings x = α, β\nIntegrate from α to β; flip the sign if the graph is below the axis\nAn area is always positive: {answer}"
       }
     }
   ],
