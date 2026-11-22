@@ -1,0 +1,485 @@
+{
+  "id": "math2-complex",
+  "name": {
+    "ja": "複素数と方程式",
+    "ko": "복소수와 방정식",
+    "en": "Complex numbers and equations"
+  },
+  "types": {
+    "cplx": {
+      "ja": "複素数の計算",
+      "ko": "복소수의 계산",
+      "en": "Complex arithmetic"
+    },
+    "negsqrt": {
+      "ja": "負の数の平方根",
+      "ko": "음수의 제곱근",
+      "en": "Square roots of negatives"
+    },
+    "cplxroot": {
+      "ja": "2次方程式の解と判別式",
+      "ko": "이차방정식의 해와 판별식",
+      "en": "Quadratic roots and the discriminant"
+    },
+    "vieta": {
+      "ja": "解と係数の関係",
+      "ko": "근과 계수의 관계",
+      "en": "Roots and coefficients"
+    },
+    "remthm": {
+      "ja": "剰余の定理・因数定理",
+      "ko": "나머지정리·인수정리",
+      "en": "Remainder and factor theorems"
+    },
+    "higheq": {
+      "ja": "高次方程式",
+      "ko": "고차방정식",
+      "en": "Higher-degree equations"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "複素数",
+        "ko": "복소수",
+        "en": "Complex numbers"
+      },
+      "types": [
+        "cplx",
+        "negsqrt"
+      ]
+    },
+    {
+      "name": {
+        "ja": "2次方程式",
+        "ko": "이차방정식",
+        "en": "Quadratic equations"
+      },
+      "types": [
+        "cplxroot",
+        "vieta"
+      ]
+    },
+    {
+      "name": {
+        "ja": "高次方程式",
+        "ko": "고차방정식",
+        "en": "Higher-degree equations"
+      },
+      "types": [
+        "remthm",
+        "higheq"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "cplxadd",
+      "level": 1,
+      "type": "cplx",
+      "gen": "cplxcalc",
+      "params": {
+        "op": "add"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr}을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "実部どうし、虚部どうしを足すと {answer}",
+        "ko": "실수부분끼리, 허수부분끼리 더하면 {answer}",
+        "en": "Add real parts and imaginary parts separately: {answer}"
+      }
+    },
+    {
+      "id": "cplxsub",
+      "level": 1,
+      "type": "cplx",
+      "gen": "cplxcalc",
+      "params": {
+        "op": "sub"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr}을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "かっこを外すとき、引く方の符号がすべて変わる。{answer}",
+        "ko": "괄호를 풀 때 빼는 쪽의 부호가 모두 바뀝니다. {answer}",
+        "en": "Every sign in the subtracted number flips: {answer}"
+      }
+    },
+    {
+      "id": "cplxmul",
+      "level": 1,
+      "type": "cplx",
+      "gen": "cplxcalc",
+      "params": {
+        "op": "mul"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr}을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "展開して i² = −1 でおきかえると {answer}",
+        "ko": "전개한 뒤 i² = −1 로 바꾸면 {answer}",
+        "en": "Expand and replace i² with −1: {answer}"
+      }
+    },
+    {
+      "id": "cplxdiv",
+      "level": 2,
+      "type": "cplx",
+      "gen": "cplxcalc",
+      "params": {
+        "op": "div"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr}을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "分母の共役な複素数を分母と分子に掛けて、分母を実数にすると {answer}",
+        "ko": "분모의 켤레복소수를 분모와 분자에 곱해서 분모를 실수로 만들면 {answer}",
+        "en": "Multiply top and bottom by the conjugate of the denominator: {answer}"
+      }
+    },
+    {
+      "id": "negsqrt",
+      "level": 1,
+      "type": "negsqrt",
+      "gen": "negsqrt",
+      "text": {
+        "ja": "{expr} を i を用いて表すと?",
+        "ko": "{expr}을 i를 써서 나타내면?",
+        "en": "Write {expr} using i."
+      },
+      "explain": {
+        "ja": "a > 0 のとき √(−a) = √a i。{answer}",
+        "ko": "a > 0 일 때 √(−a) = √a i. {answer}",
+        "en": "For a > 0, √(−a) = √a · i: {answer}"
+      }
+    },
+    {
+      "id": "negprod",
+      "level": 2,
+      "type": "negsqrt",
+      "gen": "negsqrt",
+      "params": {
+        "ask": "prod"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr}을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "先にそれぞれを i で表してから掛ける。i × i = −1 なので {answer}",
+        "ko": "먼저 각각을 i로 나타낸 뒤 곱합니다. i × i = −1 이므로 {answer}",
+        "en": "Write each with i first, then multiply; i × i = −1, so {answer}"
+      }
+    },
+    {
+      "id": "cplxroot",
+      "level": 2,
+      "type": "cplxroot",
+      "gen": "cplxroot",
+      "text": {
+        "ja": "2次方程式 {eq} の解は?",
+        "ko": "이차방정식 {eq} 의 해는?",
+        "en": "Solve {eq}."
+      },
+      "explain": {
+        "ja": "解の公式を使うと根号の中が負になる。√(負の数) を i で表して {answer}",
+        "ko": "근의 공식을 쓰면 근호 안이 음수가 됩니다. √(음수)를 i로 나타내면 {answer}",
+        "en": "The quadratic formula gives a negative under the root; write it with i: {answer}"
+      }
+    },
+    {
+      "id": "imagk",
+      "level": 2,
+      "type": "cplxroot",
+      "gen": "imagk",
+      "params": {
+        "ask": "imag"
+      },
+      "text": {
+        "ja": "2次方程式 {eq} が異なる2つの虚数解をもつような k の値の範囲は?",
+        "ko": "이차방정식 {eq} 이 서로 다른 두 허근을 갖도록 하는 k의 값의 범위는?",
+        "en": "For which k does {eq} have two distinct imaginary roots?"
+      },
+      "explain": {
+        "ja": "判別式 D < 0 となる範囲を求めると {answer}",
+        "ko": "판별식 D < 0 이 되는 범위를 구하면 {answer}",
+        "en": "Solve D < 0: {answer}"
+      }
+    },
+    {
+      "id": "realk",
+      "level": 2,
+      "type": "cplxroot",
+      "gen": "imagk",
+      "params": {
+        "ask": "real"
+      },
+      "text": {
+        "ja": "2次方程式 {eq} が異なる2つの実数解をもつような k の値の範囲は?",
+        "ko": "이차방정식 {eq} 이 서로 다른 두 실근을 갖도록 하는 k의 값의 범위는?",
+        "en": "For which k does {eq} have two distinct real roots?"
+      },
+      "explain": {
+        "ja": "判別式 D > 0 となる範囲を求めると {answer}",
+        "ko": "판별식 D > 0 이 되는 범위를 구하면 {answer}",
+        "en": "Solve D > 0: {answer}"
+      }
+    },
+    {
+      "id": "vietasum",
+      "level": 1,
+      "type": "vieta",
+      "gen": "vieta",
+      "params": {
+        "ask": "sum"
+      },
+      "text": {
+        "ja": "2次方程式 {eq} の2つの解を α, β とするとき、α + β の値は?",
+        "ko": "이차방정식 {eq} 의 두 해를 α, β라 할 때, α + β의 값은?",
+        "en": "If α and β are the roots of {eq}, what is α + β?"
+      },
+      "explain": {
+        "ja": "ax² + bx + c = 0 のとき α + β = −b/a。符号に注意して {answer}",
+        "ko": "ax² + bx + c = 0 일 때 α + β = −b/a. 부호에 주의하면 {answer}",
+        "en": "For ax² + bx + c = 0, α + β = −b/a: {answer}"
+      }
+    },
+    {
+      "id": "vietaprod",
+      "level": 1,
+      "type": "vieta",
+      "gen": "vieta",
+      "params": {
+        "ask": "prod"
+      },
+      "text": {
+        "ja": "2次方程式 {eq} の2つの解を α, β とするとき、αβ の値は?",
+        "ko": "이차방정식 {eq} 의 두 해를 α, β라 할 때, αβ의 값은?",
+        "en": "If α and β are the roots of {eq}, what is αβ?"
+      },
+      "explain": {
+        "ja": "ax² + bx + c = 0 のとき αβ = c/a。{answer}",
+        "ko": "ax² + bx + c = 0 일 때 αβ = c/a. {answer}",
+        "en": "For ax² + bx + c = 0, αβ = c/a: {answer}"
+      }
+    },
+    {
+      "id": "vietasq",
+      "level": 2,
+      "type": "vieta",
+      "gen": "vieta",
+      "params": {
+        "ask": "sq"
+      },
+      "text": {
+        "ja": "2次方程式 {eq} の2つの解を α, β とするとき、α² + β² の値は?",
+        "ko": "이차방정식 {eq} 의 두 해를 α, β라 할 때, α² + β²의 값은?",
+        "en": "If α and β are the roots of {eq}, what is α² + β²?"
+      },
+      "explain": {
+        "ja": "α² + β² = (α + β)² − 2αβ に代入して {answer}",
+        "ko": "α² + β² = (α + β)² − 2αβ 에 대입하면 {answer}",
+        "en": "Use α² + β² = (α + β)² − 2αβ: {answer}"
+      }
+    },
+    {
+      "id": "remthm",
+      "level": 1,
+      "type": "remthm",
+      "gen": "remthm",
+      "text": {
+        "ja": "P(x) = {expr} を {div} で割ったときの余りは?",
+        "ko": "P(x) = {expr} 을 {div} 로 나눈 나머지는?",
+        "en": "What is the remainder when P(x) = {expr} is divided by {div}?"
+      },
+      "explain": {
+        "ja": "剰余の定理より、x − k で割った余りは P(k)。代入して {answer}",
+        "ko": "나머지정리에 의해 x − k 로 나눈 나머지는 P(k). 대입하면 {answer}",
+        "en": "By the remainder theorem the remainder on dividing by x − k is P(k): {answer}"
+      }
+    },
+    {
+      "id": "factthm",
+      "level": 2,
+      "type": "remthm",
+      "gen": "factthm",
+      "text": {
+        "ja": "{expr} が {div} で割り切れるとき、a の値は?",
+        "ko": "{expr} 이 {div} 로 나누어떨어질 때, a의 값은?",
+        "en": "If {expr} is divisible by {div}, what is a?"
+      },
+      "explain": {
+        "ja": "因数定理より、x − k で割り切れるとき P(k) = 0。これを解いて a = {answer}",
+        "ko": "인수정리에 의해 x − k 로 나누어떨어지면 P(k) = 0. 이것을 풀면 a = {answer}",
+        "en": "By the factor theorem P(k) = 0; solving gives a = {answer}"
+      }
+    },
+    {
+      "id": "higheq",
+      "level": 3,
+      "type": "higheq",
+      "gen": "higheq",
+      "text": {
+        "ja": "3次方程式 {eq} の解は?",
+        "ko": "삼차방정식 {eq} 의 해는?",
+        "en": "Solve the cubic equation {eq}."
+      },
+      "explain": {
+        "ja": "P(k) = 0 となる k を1つ見つけて x − k で割り、残りの2次式を解くと {answer}",
+        "ko": "P(k) = 0 이 되는 k를 하나 찾아 x − k 로 나누고, 남은 이차식을 풀면 {answer}",
+        "en": "Find one k with P(k) = 0, divide by x − k and solve the quadratic: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-vieta",
+      "gen": "vieta",
+      "intro": {
+        "ja": "2次方程式 {eq} の2つの解を α, β とする。",
+        "ko": "이차방정식 {eq} 의 두 해를 α, β라 한다.",
+        "en": "Let α and β be the roots of {eq}."
+      },
+      "steps": [
+        {
+          "type": "vieta",
+          "level": 1,
+          "sum": {
+            "ja": "解の和",
+            "ko": "두 해의 합",
+            "en": "Sum"
+          },
+          "text": {
+            "ja": "α + β の値は?",
+            "ko": "α + β의 값은?",
+            "en": "What is α + β?"
+          },
+          "explain": {
+            "ja": "α + β = −b/a より {answer}",
+            "ko": "α + β = −b/a 이므로 {answer}",
+            "en": "α + β = −b/a = {answer}"
+          }
+        },
+        {
+          "type": "vieta",
+          "level": 1,
+          "sum": {
+            "ja": "解の積",
+            "ko": "두 해의 곱",
+            "en": "Product"
+          },
+          "text": {
+            "ja": "αβ の値は?",
+            "ko": "αβ의 값은?",
+            "en": "What is αβ?"
+          },
+          "explain": {
+            "ja": "αβ = c/a より {answer}",
+            "ko": "αβ = c/a 이므로 {answer}",
+            "en": "αβ = c/a = {answer}"
+          }
+        },
+        {
+          "type": "vieta",
+          "level": 2,
+          "sum": {
+            "ja": "2乗の和",
+            "ko": "제곱의 합",
+            "en": "Sum of squares"
+          },
+          "text": {
+            "ja": "α² + β² の値は?",
+            "ko": "α² + β²의 값은?",
+            "en": "What is α² + β²?"
+          },
+          "explain": {
+            "ja": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}",
+            "ko": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}",
+            "en": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-cubic",
+      "gen": "cubic",
+      "intro": {
+        "ja": "P(x) = {expr} について答えよ。",
+        "ko": "P(x) = {expr} 에 대하여 답하시오.",
+        "en": "Answer about P(x) = {expr}."
+      },
+      "steps": [
+        {
+          "type": "remthm",
+          "level": 1,
+          "sum": {
+            "ja": "余り",
+            "ko": "나머지",
+            "en": "Remainder"
+          },
+          "text": {
+            "ja": "P(x) を {div} で割ったときの余りは?",
+            "ko": "P(x)를 {div} 로 나눈 나머지는?",
+            "en": "What is the remainder when P(x) is divided by {div}?"
+          },
+          "explain": {
+            "ja": "剰余の定理より、代入して {answer}",
+            "ko": "나머지정리에 의해 대입하면 {answer}",
+            "en": "Substitute, by the remainder theorem: {answer}"
+          }
+        },
+        {
+          "type": "higheq",
+          "level": 3,
+          "sum": {
+            "ja": "最小の解",
+            "ko": "가장 작은 해",
+            "en": "Smallest root"
+          },
+          "text": {
+            "ja": "方程式 P(x) = 0 の解のうち、最も小さいものは?",
+            "ko": "방정식 P(x) = 0 의 해 중에서 가장 작은 것은?",
+            "en": "What is the smallest root of P(x) = 0?"
+          },
+          "explain": {
+            "ja": "P(k) = 0 となる k を見つけて因数分解すると、最小の解は {answer}",
+            "ko": "P(k) = 0 이 되는 k를 찾아 인수분해하면 가장 작은 해는 {answer}",
+            "en": "Find k with P(k) = 0 and factor; the smallest root is {answer}"
+          }
+        },
+        {
+          "type": "higheq",
+          "level": 3,
+          "sum": {
+            "ja": "最大の解",
+            "ko": "가장 큰 해",
+            "en": "Largest root"
+          },
+          "text": {
+            "ja": "方程式 P(x) = 0 の解のうち、最も大きいものは?",
+            "ko": "방정식 P(x) = 0 의 해 중에서 가장 큰 것은?",
+            "en": "What is the largest root of P(x) = 0?"
+          },
+          "explain": {
+            "ja": "3つの解のうち最大のものは {answer}",
+            "ko": "세 해 중에서 가장 큰 것은 {answer}",
+            "en": "The largest of the three roots is {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

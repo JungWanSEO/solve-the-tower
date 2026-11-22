@@ -2214,3 +2214,163 @@ Object.assign(CHAINS, {
     };
   },
 });
+
+// ---------- 数学II: 複素数と方程式 ----------
+
+// 복소수 a + bi 를 글로 씁니다. 예: cplxStr(3, -1) → "3 − i"
+function cplxStr(re, im) {
+  if (im === 0) return numStr(re);
+  const body = `${Math.abs(im) === 1 ? '' : Math.abs(im)}i`;
+  if (re === 0) return `${im < 0 ? MINUS : ''}${body}`;
+  return `${numStr(re)} ${im < 0 ? MINUS : '+'} ${body}`;
+}
+const cplx = (re, im) => ({ s: cplxStr(re, im), v: re * 1000.5 + im * 1.0007 });
+// 세 해 "x = a, b, c" (작은 수부터)
+function roots3(list) {
+  const sorted = [...list].sort((p, q) => p - q);
+  return { s: `x = ${sorted.map(numStr).join(', ')}`, v: sorted[0] * 10000.5 + sorted[1] * 100.3 + sorted[2] };
+}
+// ab 가 제곱수가 되는 짝 (√(−a) × √(−b) 계산용)
+const SQUARE_PAIRS = [[2, 8], [3, 12], [2, 18], [3, 27], [5, 20], [2, 32], [6, 24], [3, 48], [5, 45], [7, 28], [2, 50], [8, 18]];
+
+Object.assign(GENERATORS, {
+  // 복소수의 사칙연산. params.op 는 'add', 'sub', 'mul', 'div'
+  cplxcalc(params) {
+    const [a, b, c, d] = [nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5)];
+    const p = cplxStr(a, b);
+    const q = cplxStr(c, d);
+    if (params.op === 'add') {
+      return item({ expr: `(${p}) + (${q})`, p, q }, cplx(a + c, b + d), [cplx(a - c, b - d), cplx(a + c, b - d), cplx(a + d, b + c)],
+        [cplx(a + c + 1, b + d), cplx(a + c, b + d + 1), cplx(a * c, b * d)]);
+    }
+    if (params.op === 'sub') {
+      return item({ expr: `(${p}) ${MINUS} (${q})`, p, q }, cplx(a - c, b - d), [cplx(a - c, b + d), cplx(a + c, b + d), cplx(c - a, d - b)],
+        [cplx(a - c + 1, b - d), cplx(a - c, b - d - 1), cplx(a - d, b - c)]);
+    }
+    if (params.op === 'mul') {
+      return item({ expr: `(${p})(${q})`, p, q }, cplx(a * c - b * d, a * d + b * c),
+        [cplx(a * c + b * d, a * d + b * c), cplx(a * c, b * d), cplx(a * c - b * d, a * d - b * c)],
+        [cplx(a * c - b * d, b * d), cplx(a * c - b * d + 1, a * d + b * c), cplx(-(a * c - b * d), a * d + b * c), cplx(a * c - b * d, a * d + b * c + 1)]);
+    }
+    // 나눗셈: 몫이 정수 복소수가 되도록 (몫 × 나누는 수) 를 분자로 씁니다.
+    const [nr, ni] = [a * c - b * d, a * d + b * c]; // (a + bi)(c + di)
+    if (nr === 0 || ni === 0) return GENERATORS.cplxcalc(params);
+    const num = cplxStr(nr, ni);
+    return item({ expr: `(${num})/(${q})`, p: num, q }, cplx(a, b), [cplx(a, -b), cplx(b, a), cplx(-a, b)],
+      [cplx(a + 1, b), cplx(a, b + 1), cplx(-a, -b), cplx(a - 1, b)]);
+  },
+
+  // 음수의 제곱근. params.ask 가 'prod' 이면 √(−a) × √(−b), 아니면 √(−n) 을 i 로 나타내기
+  negsqrt(params) {
+    if (params.ask === 'prod') {
+      const [a, b] = shuffled(pickOne(SQUARE_PAIRS));
+      const r = Math.round(Math.sqrt(a * b));
+      const imag = (n) => ({ s: `${n < 0 ? MINUS : ''}${Math.abs(n)}i`, v: n * 1.0007 });
+      return item({ expr: `√(${MINUS}${a}) × √(${MINUS}${b})` }, int(-r), [int(r), imag(r), imag(-r)], [int(-a * b), int(a * b), int(-r - 1)]);
+    }
+    const k = pickOne([2, 3, 4, 5, 6]);
+    const m = pickOne([1, 1, 2, 3, 5, 7]);
+    const n = k * k * m;
+    const imag = (x, neg) => ({ s: `${neg ? MINUS : ''}${x.s}i`, v: (neg ? -1 : 1) * x.v * 1.0007 });
+    const real = (x, neg) => ({ s: `${neg ? MINUS : ''}${x.s}`, v: (neg ? -1 : 1) * x.v * 1000.5 });
+    return item({ expr: `√(${MINUS}${n})` }, imag(surd(k, m), false), [real(surd(k, m), true), imag(surd(k, m), true), real(surd(k, m), false)],
+      [imag(surd(1, n === 4 ? 2 : k * m), false), imag(surd(k * k, m), false), imag(surd(k + 1, m), false)]);
+  },
+
+  // 허근을 갖는 이차방정식: x² + 2px + (p² + q²) = 0 의 해 x = −p ± qi
+  cplxroot() {
+    const p = nonzero(-4, 4);
+    const q = 1 + rand(4);
+    const pm = (re, im) => ({ s: `x = ${numStr(re)} ± ${im === 1 ? '' : im}i`, v: re * 1000.5 + im * 1.0007 });
+    const real = (re, d) => ({ s: `x = ${numStr(re)} ± ${d}`, v: re * 77.7 + d * 0.013 + 5e6 });
+    return item({ eq: `${polyStr(1, 2 * p, p * p + q * q)} = 0` }, pm(-p, q), [pm(p, q), pm(-p, 2 * q), real(-p, q)],
+      [pm(-2 * p, q), pm(-p, q + 1), pm(-p, q * q), pm(p, 2 * q)]);
+  },
+
+  // 판별식: x² + 2mx + k = 0 이 허근을 가질 k 의 범위 (params.ask 'imag'), 서로 다른 두 실근 ('real')
+  imagk(params) {
+    const m = nonzero(-6, 6);
+    const sq = m * m;
+    const opt = (op, n) => ({ s: `k ${op} ${numStr(n)}`, v: OPS.indexOf(op) * 1000 + n });
+    const want = params.ask === 'imag' ? '>' : '<';
+    return item({ eq: `${polyStr(1, 2 * m, 0)} + k = 0` }, opt(want, sq), [opt(flipOp(want), sq), opt(want, Math.abs(m)), opt(want, 4 * sq)],
+      [opt(want === '>' ? '≧' : '≦', sq), opt(want, 2 * sq), opt(flipOp(want), 4 * sq), opt(want, -sq)]);
+  },
+
+  // 근과 계수의 관계: ax² + bx + c = 0 의 두 해 α, β. params.ask 는 'sum', 'prod', 'sq' (α² + β²)
+  vieta(params) {
+    const a = params.ask === 'sq' ? 1 : pickOne([1, 1, 2, 3]);
+    const b = nonzero(-7, 7);
+    const c = nonzero(-7, 7);
+    const fields = { eq: `${polyStr(a, b, c)} = 0` };
+    if (params.ask === 'sum') return item(fields, frac(-b, a), [frac(b, a), frac(c, a), frac(-c, a)], [frac(-b, 1), frac(-b + 1, a), frac(-b - 1, a), frac(a, b)]);
+    if (params.ask === 'prod') return item(fields, frac(c, a), [frac(-c, a), frac(-b, a), frac(b, a)], [frac(c, 1), frac(c + 1, a), frac(c - 1, a), frac(a, c)]);
+    const sq = b * b - 2 * c;
+    return item(fields, int(sq), [int(b * b), int(b * b + 2 * c), int(b * b - c)], [int(-b - 2 * c), int(sq + 1), int(sq - 1), int(b * b - 4 * c), int(sq + 2)]);
+  },
+
+  // 나머지정리: P(x) = x³ + ax² + bx + c 를 x − k 로 나눈 나머지
+  remthm() {
+    const [a, b, c] = [nonzero(-4, 4), nonzero(-6, 6), nonzero(-9, 9)];
+    const k = pickOne([1, -1, 2, -2, 3]);
+    const P = (x) => x ** 3 + a * x * x + b * x + c;
+    return item({ expr: polyN([1, a, b, c]), div: polyStr(0, 1, -k) }, int(P(k)), [int(P(-k)), int(c), int(-P(k))],
+      [int(P(k) + 1), int(P(k) - 1), int(P(k) + k), int(1 + a + b + c), int(P(k) + 2), int(P(k) - 2)]);
+  },
+
+  // 인수정리: x³ + ax² + bx + c 가 x − k 로 나누어떨어질 때 a 의 값
+  factthm() {
+    const k = pickOne([1, -1, 2, -2]);
+    const m = nonzero(-5, 5);
+    const b = nonzero(-6, 6);
+    const c = -(k ** 3 + m * k * k + b * k);
+    if (c === 0) return GENERATORS.factthm();
+    const tail = polyStr(0, b, c);
+    const expr = `x³ + ax² ${tail.startsWith(MINUS) ? `${MINUS} ${tail.slice(1)}` : `+ ${tail}`}`;
+    const other = -((-k) ** 3 + b * -k + c) / (k * k); // 부호를 거꾸로 넣었을 때
+    return item({ expr, div: polyStr(0, 1, -k) }, int(m), [int(-m), ...(Number.isInteger(other) ? [int(other)] : []), int(m + b)],
+      [int(m + 1), int(m - 1), int(m + 2), int(m - 2), int(c)]);
+  },
+
+  // 고차방정식: (x − r1)(x − r2)(x − r3) = 0 을 전개한 식의 해
+  higheq() {
+    const [r1, r2, r3] = shuffled(range(-4, 4)).slice(0, 3);
+    const co = [1, -(r1 + r2 + r3), r1 * r2 + r1 * r3 + r2 * r3, -r1 * r2 * r3];
+    return item({ eq: `${polyN(co)} = 0` }, roots3([r1, r2, r3]),
+      [roots3([-r1, -r2, -r3]), roots3([r1, r2, -r3]), roots3([r1, -r2, r3])].filter((o) => new Set(o.s.replace('x = ', '').split(', ')).size === 3),
+      [[r1, r2, r3 + 1], [r1, r2 + 1, r3], [r1 - 1, r2, r3], [r1, r2, r3 + 2], [r1 + 2, r2, r3], [-r1, r2, r3]].filter((l) => new Set(l).size === 3).map(roots3));
+  },
+});
+
+Object.assign(CHAINS, {
+  // 근과 계수의 관계: α + β → αβ → α² + β²
+  vieta() {
+    const b = nonzero(-7, 7);
+    const c = nonzero(-7, 7);
+    const sq = b * b - 2 * c;
+    return {
+      eq: `${polyStr(1, b, c)} = 0`,
+      steps: [
+        step(int(-b), [int(b), int(c), int(-c)], [int(-b + 1), int(-b - 1), int(-b + 2)]),
+        step(int(c), [int(-c), int(-b), int(b)], [int(c + 1), int(c - 1), int(c + 2)]),
+        step(int(sq), [int(b * b), int(b * b + 2 * c), int(b * b - c)], [int(sq + 1), int(sq - 1), int(b * b - 4 * c), int(sq + 2)]),
+      ],
+    };
+  },
+
+  // 인수정리와 고차방정식: 나머지 → 가장 작은 해 → 가장 큰 해
+  cubic() {
+    const [r1, r2, r3] = shuffled(range(-4, 4)).slice(0, 3).sort((p, q) => p - q);
+    const co = [1, -(r1 + r2 + r3), r1 * r2 + r1 * r3 + r2 * r3, -r1 * r2 * r3];
+    const P = (x) => co.reduce((acc, k) => acc * x + k, 0);
+    const t = pickOne(range(-5, 5).filter((x) => ![r1, r2, r3].includes(x) && x !== 0));
+    return {
+      expr: polyN(co), div: polyStr(0, 1, -t),
+      steps: [
+        step(int(P(t)), [int(P(-t)), int(co[3]), int(-P(t))], [int(P(t) + 1), int(P(t) - 1), int(P(t) + 2), int(P(t) - 2)]),
+        step(int(r1), [int(-r3), int(r2), int(r3)], [int(r1 - 1), int(r1 + 1), int(r1 - 2), int(r1 + 2)]),
+        step(int(r3), [int(-r1), int(r2), int(r1)], [int(r3 + 1), int(r3 - 1), int(r3 + 2), int(r3 - 2)]),
+      ],
+    };
+  },
+});

@@ -39,7 +39,8 @@
         "en": "Math II"
       },
       "units": [
-        "math2-expr"
+        "math2-expr",
+        "math2-complex"
       ]
     }
   ]

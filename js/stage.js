@@ -731,7 +731,42 @@ export function createStage(canvas) {
     ctx.restore();
     glyph('−', -44, 40, 14, '#ff9a8a');
   }
+  // 허수 도깨비 (複素数と方程式): 고유 동작은 들고 있는 팻말이 i² = 1 에서 −1 로 뒤집히기
+  function drawImp(f) {
+    const sp = f.spec > 0 ? 1 - f.spec : 0;
+    const flipped = f.flag !== sp > 0.5;
+    poly([-20, -34, -28, -58, -8, -40], '#8a3fb0');
+    poly([20, -34, 28, -58, 8, -40], '#8a3fb0');
+    ell(0, 24, 26, 22, '#a55bd0');
+    circ(0, -12, 26, '#b970e0');
+    eye(-9, -16, 5.5, true, '#1c2740', 1.7);
+    eye(9, -16, 5.5, true, '#1c2740', 1.7);
+    line(-7, -1, 7, -1, '#3a1650', 2.5);
+    glyph('i', 0, 24, 22, '#f6e7ff');
+    ctx.save();
+    ctx.translate(44, 6);
+    ctx.scale(Math.max(0.08, Math.abs(Math.cos(sp * Math.PI))), 1);
+    rrect(-20, -14, 40, 24, 5, '#fff3c4');
+    glyph(flipped ? 'i²=−1' : 'i²=1', 0, -1, 11, '#6b4a10');
+    ctx.restore();
+    line(44, 16, 44, 44, '#7a5a2a', 3);
+  }
+  // 근과 계수의 거울 (複素数と方程式): 고유 동작은 거울 속 부호가 + 와 − 로 바뀌기
+  function drawMirror(f) {
+    const sp = f.spec > 0 ? 1 - f.spec : 0;
+    const swapped = f.flag !== sp > 0.5;
+    const glow = Math.sin(sp * Math.PI);
+    rrect(-10, 36, 20, 12, 3, '#8a6a2c');
+    rrect(-24, 44, 48, 8, 4, '#a9843a');
+    ell(0, -6, 40, 48, '#c9a04a');
+    ell(0, -6, 33, 41, glow > 0.2 ? '#e8fbff' : '#bfe6f5');
+    ell(-12, -24, 8, 14, '#e8fbff');
+    eye(-10, -14, 5, true, '#1c2740', 0.9);
+    eye(10, -14, 5, true, '#1c2740', 0.9);
+    glyph(swapped ? 'α−β' : 'α+β', 0, 12, 15, '#1f5d78');
+  }
   const FOE_DRAW = {
+    imp: drawImp, mirror: drawMirror,
     pascal: drawPascal, saw: drawSaw,
     twins: drawTwins, bat: drawBat, golem: drawGolem, thief: drawThief, tower: drawTower,
     crab: drawCrab, slime: drawSlime, ghost: drawGhost, bars: drawBars,

@@ -364,5 +364,39 @@
     "weak": "math2-expr/polydiv",
     "basicLevel": 1,
     "skillLevel": 2
+  },
+  {
+    "id": "imp",
+    "name": {
+      "ja": "虚数の小鬼",
+      "ko": "허수 도깨비",
+      "en": "Imaginary Imp"
+    },
+    "mistake": {
+      "ja": "i² を −1 ではなく 1 として計算する",
+      "ko": "i² 을 −1 이 아니라 1 로 계산하기",
+      "en": "Treating i² as 1 instead of −1"
+    },
+    "hp": 16,
+    "weak": "math2-complex/cplx",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "mirror",
+    "name": {
+      "ja": "解と係数のかがみ",
+      "ko": "근과 계수의 거울",
+      "en": "Vieta's Mirror"
+    },
+    "mistake": {
+      "ja": "解と係数の関係で、α + β の符号を逆にする",
+      "ko": "근과 계수의 관계에서 α + β의 부호를 반대로 쓰기",
+      "en": "Flipping the sign of α + β in the root–coefficient relations"
+    },
+    "hp": 18,
+    "weak": "math2-complex/vieta",
+    "basicLevel": 1,
+    "skillLevel": 2
   }
 ]
