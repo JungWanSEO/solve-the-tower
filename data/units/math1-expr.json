@@ -1,0 +1,800 @@
+{
+  "id": "math1-expr",
+  "name": {
+    "ja": "数と式",
+    "ko": "수와 식",
+    "en": "Numbers and expressions"
+  },
+  "types": {
+    "expand": {
+      "ja": "式の展開",
+      "ko": "식의 전개",
+      "en": "Expanding"
+    },
+    "factor": {
+      "ja": "因数分解",
+      "ko": "인수분해",
+      "en": "Factoring"
+    },
+    "surd": {
+      "ja": "根号を含む式",
+      "ko": "제곱근 계산",
+      "en": "Square roots"
+    },
+    "inequality": {
+      "ja": "一次不等式",
+      "ko": "일차부등식",
+      "en": "Linear inequalities"
+    },
+    "sets": {
+      "ja": "集合の要素の個数",
+      "ko": "집합의 원소의 개수",
+      "en": "Counting set elements"
+    },
+    "proposition": {
+      "ja": "命題(逆・裏・対偶)",
+      "ko": "명제 (역·이·대우)",
+      "en": "Propositions (converse, inverse, contrapositive)"
+    },
+    "condition": {
+      "ja": "必要条件・十分条件",
+      "ko": "필요조건·충분조건",
+      "en": "Necessary and sufficient conditions"
+    },
+    "absolute": {
+      "ja": "絶対値を含む方程式・不等式",
+      "ko": "절댓값이 있는 방정식·부등식",
+      "en": "Absolute value equations and inequalities"
+    },
+    "symmetric": {
+      "ja": "式の値(対称式)",
+      "ko": "식의 값 (대칭식)",
+      "en": "Values of symmetric expressions"
+    },
+    "polynomial": {
+      "ja": "整式の計算",
+      "ko": "다항식의 계산",
+      "en": "Polynomial arithmetic"
+    },
+    "real": {
+      "ja": "実数(循環小数・絶対値)",
+      "ko": "실수 (순환소수·절댓값)",
+      "en": "Real numbers (repeating decimals, absolute value)"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "式",
+        "ko": "식",
+        "en": "Expressions"
+      },
+      "types": [
+        "polynomial",
+        "expand",
+        "factor",
+        "symmetric"
+      ]
+    },
+    {
+      "name": {
+        "ja": "実数",
+        "ko": "실수",
+        "en": "Real numbers"
+      },
+      "types": [
+        "real",
+        "surd",
+        "absolute"
+      ]
+    },
+    {
+      "name": {
+        "ja": "不等式・集合と命題",
+        "ko": "부등식·집합과 명제",
+        "en": "Inequalities, sets and logic"
+      },
+      "types": [
+        "inequality",
+        "sets",
+        "proposition",
+        "condition"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "expand",
+      "level": 1,
+      "type": "expand",
+      "gen": "expand",
+      "text": {
+        "ja": "{expr} を展開すると?",
+        "ko": "{expr}을(를) 전개하면?",
+        "en": "Expand {expr}."
+      },
+      "explain": {
+        "ja": "(x + a)(x + b) = x² + (a + b)x + ab より {answer}",
+        "ko": "(x + a)(x + b) = x² + (a + b)x + ab이므로 {answer}",
+        "en": "(x + a)(x + b) = x² + (a + b)x + ab, so the answer is {answer}"
+      }
+    },
+    {
+      "id": "expand-hard",
+      "level": 2,
+      "type": "expand",
+      "gen": "expand",
+      "params": {
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} を展開すると?",
+        "ko": "{expr}을(를) 전개하면?",
+        "en": "Expand {expr}."
+      },
+      "explain": {
+        "ja": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd より {answer}",
+        "ko": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd이므로 {answer}",
+        "en": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd, so the answer is {answer}"
+      }
+    },
+    {
+      "id": "factor",
+      "level": 2,
+      "type": "factor",
+      "gen": "factor",
+      "text": {
+        "ja": "{expr} を因数分解すると?",
+        "ko": "{expr}을(를) 인수분해하면?",
+        "en": "Factor {expr}."
+      },
+      "explain": {
+        "ja": "足して x の係数、かけて定数項になる2数を探すと {answer}",
+        "ko": "더해서 x의 계수, 곱해서 상수항이 되는 두 수를 찾으면 {answer}",
+        "en": "Find two numbers that add to the x coefficient and multiply to the constant: {answer}"
+      }
+    },
+    {
+      "id": "factor-hard",
+      "level": 3,
+      "type": "factor",
+      "gen": "factor",
+      "params": {
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} を因数分解すると?",
+        "ko": "{expr}을(를) 인수분해하면?",
+        "en": "Factor {expr}."
+      },
+      "explain": {
+        "ja": "たすき掛けを使うと {answer}",
+        "ko": "대각선으로 곱해 맞추는 방법을 쓰면 {answer}",
+        "en": "Using the cross method gives {answer}"
+      }
+    },
+    {
+      "id": "surd-simplify",
+      "level": 1,
+      "type": "surd",
+      "gen": "surdSimplify",
+      "text": {
+        "ja": "√{n} を簡単にすると?",
+        "ko": "√{n}을(를) 간단히 하면?",
+        "en": "Simplify √{n}."
+      },
+      "explain": {
+        "ja": "根号の中の平方数を外に出すと √{n} = {answer}",
+        "ko": "근호 안의 제곱수를 밖으로 꺼내면 √{n} = {answer}",
+        "en": "Take the square factor out of the root: √{n} = {answer}"
+      }
+    },
+    {
+      "id": "rationalize",
+      "level": 2,
+      "type": "surd",
+      "gen": "rationalize",
+      "text": {
+        "ja": "{c}/√{m} の分母を有理化すると?",
+        "ko": "{c}/√{m}의 분모를 유리화하면?",
+        "en": "Rationalize the denominator of {c}/√{m}."
+      },
+      "explain": {
+        "ja": "分母と分子に √{m} をかけると {answer}",
+        "ko": "분모와 분자에 √{m}을 곱하면 {answer}",
+        "en": "Multiply top and bottom by √{m}: {answer}"
+      }
+    },
+    {
+      "id": "inequality",
+      "level": 2,
+      "type": "inequality",
+      "gen": "inequality",
+      "text": {
+        "ja": "不等式 {lhs} {op} {c} を解くと?",
+        "ko": "부등식 {lhs} {op} {c}의 해는?",
+        "en": "Solve {lhs} {op} {c}."
+      },
+      "explain": {
+        "ja": "負の数で割ると不等号の向きが変わることに注意して {answer}",
+        "ko": "음수로 나누면 부등호의 방향이 바뀌는 것에 주의하면 {answer}",
+        "en": "Remember the sign flips when you divide by a negative number: {answer}"
+      }
+    },
+    {
+      "id": "sets",
+      "level": 2,
+      "type": "sets",
+      "gen": "sets",
+      "text": {
+        "ja": "n(A) = {p}、n(B) = {q}、n(A∩B) = {r} のとき、n(A∪B) は?",
+        "ko": "n(A) = {p}, n(B) = {q}, n(A∩B) = {r}일 때, n(A∪B)는?",
+        "en": "If n(A) = {p}, n(B) = {q} and n(A∩B) = {r}, what is n(A∪B)?"
+      },
+      "explain": {
+        "ja": "n(A∪B) = n(A) + n(B) − n(A∩B) = {answer}",
+        "ko": "n(A∪B) = n(A) + n(B) − n(A∩B) = {answer}",
+        "en": "n(A∪B) = n(A) + n(B) − n(A∩B) = {answer}"
+      }
+    },
+    {
+      "id": "prop-converse",
+      "level": 1,
+      "type": "proposition",
+      "gen": "proposition",
+      "params": {
+        "ask": "converse"
+      },
+      "text": {
+        "ja": "命題「{stmt}」の逆は?",
+        "ko": "명제 「{stmt}」의 역은?",
+        "en": "What is the converse of \"{stmt}\"?"
+      },
+      "explain": {
+        "ja": "逆は仮定と結論を入れかえたもの。{answer}",
+        "ko": "역은 가정과 결론을 서로 바꾼 것입니다. {answer}",
+        "en": "The converse swaps the hypothesis and the conclusion: {answer}"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      }
+    },
+    {
+      "id": "prop-inverse",
+      "level": 2,
+      "type": "proposition",
+      "gen": "proposition",
+      "params": {
+        "ask": "inverse"
+      },
+      "text": {
+        "ja": "命題「{stmt}」の裏は?",
+        "ko": "명제 「{stmt}」의 이는?",
+        "en": "What is the inverse of \"{stmt}\"?"
+      },
+      "explain": {
+        "ja": "裏は仮定と結論をそれぞれ否定したもの。{answer}",
+        "ko": "이는 가정과 결론을 각각 부정한 것입니다. {answer}",
+        "en": "The inverse negates both the hypothesis and the conclusion: {answer}"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      }
+    },
+    {
+      "id": "prop-contra",
+      "level": 2,
+      "type": "proposition",
+      "gen": "proposition",
+      "params": {
+        "ask": "contra"
+      },
+      "text": {
+        "ja": "命題「{stmt}」の対偶は?",
+        "ko": "명제 「{stmt}」의 대우는?",
+        "en": "What is the contrapositive of \"{stmt}\"?"
+      },
+      "explain": {
+        "ja": "対偶は仮定と結論を入れかえて、それぞれ否定したもの。{answer}",
+        "ko": "대우는 가정과 결론을 서로 바꾸고 각각 부정한 것입니다. {answer}",
+        "en": "The contrapositive swaps and negates both parts: {answer}"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      }
+    },
+    {
+      "id": "condition",
+      "level": 3,
+      "type": "condition",
+      "gen": "condition",
+      "text": {
+        "ja": "p: {p}、q: {q} とする。p は q であるための何条件?",
+        "ko": "p: {p}, q: {q}라 하자. p는 q이기 위한 무슨 조건인가?",
+        "en": "Let p: {p} and q: {q}. What kind of condition is p for q?"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      },
+      "explain": {
+        "ja": "「p ⟹ q」は{pq}、「q ⟹ p」は{qp}。よって p は q であるための {answer}",
+        "ko": "'p ⟹ q'는 {pq}, 'q ⟹ p'는 {qp}입니다. 따라서 p는 q이기 위한: {answer}",
+        "en": "\"p ⟹ q\" is {pq} and \"q ⟹ p\" is {qp}. So p is: {answer}"
+      }
+    },
+    {
+      "id": "abs-eq",
+      "level": 1,
+      "type": "absolute",
+      "gen": "abseq",
+      "text": {
+        "ja": "方程式 {lhs} = {b} を解くと?",
+        "ko": "방정식 {lhs} = {b}의 해는?",
+        "en": "Solve {lhs} = {b}."
+      },
+      "explain": {
+        "ja": "絶対値の中身が {b} または −{b} になる。{answer}",
+        "ko": "절댓값 안이 {b} 또는 −{b}가 됩니다. {answer}",
+        "en": "The inside of the absolute value is {b} or −{b}: {answer}"
+      }
+    },
+    {
+      "id": "abs-ineq",
+      "level": 2,
+      "type": "absolute",
+      "gen": "absineq",
+      "text": {
+        "ja": "不等式 {lhs} {op} {b} を解くと?",
+        "ko": "부등식 {lhs} {op} {b}의 해는?",
+        "en": "Solve {lhs} {op} {b}."
+      },
+      "explain": {
+        "ja": "|X| < b は −b < X < b、|X| > b は X < −b, b < X。{answer}",
+        "ko": "|X| < b는 −b < X < b, |X| > b는 X < −b, b < X입니다. {answer}",
+        "en": "|X| < b means −b < X < b, and |X| > b means X < −b or b < X: {answer}"
+      }
+    },
+    {
+      "id": "system",
+      "level": 2,
+      "type": "inequality",
+      "gen": "system",
+      "text": {
+        "ja": "連立不等式 {i1}、{i2} を解くと?",
+        "ko": "연립부등식 {i1}, {i2}의 해는?",
+        "en": "Solve the system {i1} and {i2}."
+      },
+      "explain": {
+        "ja": "それぞれを解いて、共通する範囲を求めると {answer}",
+        "ko": "각각을 풀어 공통 범위를 구하면 {answer}",
+        "en": "Solve each one and take the overlap: {answer}"
+      }
+    },
+    {
+      "id": "symmetric",
+      "level": 2,
+      "type": "symmetric",
+      "gen": "symmetric",
+      "text": {
+        "ja": "x + y = {s}、xy = {p} のとき、x² + y² の値は?",
+        "ko": "x + y = {s}, xy = {p}일 때, x² + y²의 값은?",
+        "en": "If x + y = {s} and xy = {p}, what is x² + y²?"
+      },
+      "explain": {
+        "ja": "x² + y² = (x + y)² − 2xy = {answer}",
+        "ko": "x² + y² = (x + y)² − 2xy = {answer}",
+        "en": "x² + y² = (x + y)² − 2xy = {answer}"
+      }
+    },
+    {
+      "id": "set-cap",
+      "level": 1,
+      "type": "sets",
+      "gen": "setop",
+      "params": {
+        "ask": "cap"
+      },
+      "text": {
+        "ja": "A = {A}、B = {B} のとき、A ∩ B は?",
+        "ko": "A = {A}, B = {B}일 때, A ∩ B는?",
+        "en": "If A = {A} and B = {B}, what is A ∩ B?"
+      },
+      "explain": {
+        "ja": "A ∩ B は両方に入っている要素の集合。{answer}",
+        "ko": "A ∩ B는 양쪽에 모두 들어 있는 원소의 집합입니다. {answer}",
+        "en": "A ∩ B holds the elements that are in both sets: {answer}"
+      }
+    },
+    {
+      "id": "set-cup",
+      "level": 1,
+      "type": "sets",
+      "gen": "setop",
+      "params": {
+        "ask": "cup"
+      },
+      "text": {
+        "ja": "A = {A}、B = {B} のとき、A ∪ B は?",
+        "ko": "A = {A}, B = {B}일 때, A ∪ B는?",
+        "en": "If A = {A} and B = {B}, what is A ∪ B?"
+      },
+      "explain": {
+        "ja": "A ∪ B は少なくとも一方に入っている要素の集合。{answer}",
+        "ko": "A ∪ B는 적어도 한쪽에 들어 있는 원소의 집합입니다. {answer}",
+        "en": "A ∪ B holds the elements that are in at least one set: {answer}"
+      }
+    },
+    {
+      "id": "counterexample",
+      "level": 2,
+      "type": "proposition",
+      "gen": "counter",
+      "text": {
+        "ja": "命題「{stmt}」が偽であることを示す反例は?",
+        "ko": "명제 「{stmt}」가 거짓임을 보이는 반례는?",
+        "en": "Which value is a counterexample showing \"{stmt}\" is false?"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      },
+      "explain": {
+        "ja": "仮定は成り立つが結論が成り立たない値が反例。{answer}",
+        "ko": "가정은 성립하지만 결론이 성립하지 않는 값이 반례입니다. {answer}",
+        "en": "A counterexample satisfies the hypothesis but not the conclusion: {answer}"
+      }
+    },
+    {
+      "id": "poly-add",
+      "level": 1,
+      "type": "polynomial",
+      "gen": "polyadd",
+      "params": {
+        "op": "+"
+      },
+      "text": {
+        "ja": "{A} + {B} を計算すると?",
+        "ko": "{A} + {B}를 계산하면?",
+        "en": "Calculate {A} + {B}."
+      },
+      "explain": {
+        "ja": "同類項どうしをまとめると {answer}",
+        "ko": "동류항끼리 모으면 {answer}",
+        "en": "Combine like terms: {answer}"
+      }
+    },
+    {
+      "id": "poly-sub",
+      "level": 1,
+      "type": "polynomial",
+      "gen": "polyadd",
+      "params": {
+        "op": "−"
+      },
+      "text": {
+        "ja": "{A} − {B} を計算すると?",
+        "ko": "{A} − {B}를 계산하면?",
+        "en": "Calculate {A} − {B}."
+      },
+      "explain": {
+        "ja": "引く式の符号をすべて変えてから同類項をまとめると {answer}",
+        "ko": "빼는 식의 부호를 모두 바꾼 뒤 동류항끼리 모으면 {answer}",
+        "en": "Change every sign of the subtracted expression, then combine like terms: {answer}"
+      }
+    },
+    {
+      "id": "coef",
+      "level": 2,
+      "type": "polynomial",
+      "gen": "coef",
+      "text": {
+        "ja": "{expr} を展開したとき、{which} の係数は?",
+        "ko": "{expr}을(를) 전개했을 때, {which}의 계수는?",
+        "en": "When {expr} is expanded, what is the coefficient of {which}?"
+      },
+      "explain": {
+        "ja": "{which} になる組み合わせだけを取り出して足すと {answer}",
+        "ko": "{which}이 되는 조합만 골라 더하면 {answer}",
+        "en": "Add only the products that give {which}: {answer}"
+      }
+    },
+    {
+      "id": "factor-formula",
+      "level": 1,
+      "type": "factor",
+      "gen": "factor2",
+      "text": {
+        "ja": "{expr} を因数分解すると?",
+        "ko": "{expr}을(를) 인수분해하면?",
+        "en": "Factor {expr}."
+      },
+      "explain": {
+        "ja": "a² − b² = (a + b)(a − b)、a² + 2ab + b² = (a + b)² を使うと {answer}",
+        "ko": "a² − b² = (a + b)(a − b), a² + 2ab + b² = (a + b)²을 쓰면 {answer}",
+        "en": "Use a² − b² = (a + b)(a − b) or a² + 2ab + b² = (a + b)²: {answer}"
+      }
+    },
+    {
+      "id": "recurring",
+      "level": 2,
+      "type": "real",
+      "gen": "recurring",
+      "text": {
+        "ja": "循環小数 {dec} を分数で表すと?",
+        "ko": "순환소수 {dec}을(를) 분수로 나타내면?",
+        "en": "Write the repeating decimal {dec} as a fraction."
+      },
+      "explain": {
+        "ja": "x とおいて 10倍(または100倍)したものから引くと {answer}",
+        "ko": "x로 놓고 10배(또는 100배)한 것에서 빼면 {answer}",
+        "en": "Let it be x, multiply by 10 (or 100) and subtract: {answer}"
+      }
+    },
+    {
+      "id": "abs-value",
+      "level": 1,
+      "type": "real",
+      "gen": "absval",
+      "text": {
+        "ja": "{expr} の値は?",
+        "ko": "{expr}의 값은?",
+        "en": "What is the value of {expr}?"
+      },
+      "explain": {
+        "ja": "絶対値は 0 からの距離なので必ず 0 以上。{answer}",
+        "ko": "절댓값은 0에서의 거리이므로 항상 0 이상입니다. {answer}",
+        "en": "An absolute value is a distance from 0, so it is never negative: {answer}"
+      }
+    },
+    {
+      "id": "surd-add",
+      "level": 1,
+      "type": "surd",
+      "gen": "surdadd",
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr}을(를) 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "それぞれの根号を簡単にしてからまとめると {answer}",
+        "ko": "각각의 근호를 간단히 한 뒤 모으면 {answer}",
+        "en": "Simplify each root, then combine: {answer}"
+      }
+    },
+    {
+      "id": "surd-binom",
+      "level": 3,
+      "type": "surd",
+      "gen": "surdbinom",
+      "text": {
+        "ja": "{c}/(√{a} + {b}) の分母を有理化すると?",
+        "ko": "{c}/(√{a} + {b})의 분모를 유리화하면?",
+        "en": "Rationalize the denominator of {c}/(√{a} + {b})."
+      },
+      "explain": {
+        "ja": "分母と分子に (√{a} − {b}) をかけると {answer}",
+        "ko": "분모와 분자에 (√{a} − {b})를 곱하면 {answer}",
+        "en": "Multiply top and bottom by (√{a} − {b}): {answer}"
+      }
+    },
+    {
+      "id": "nested-root",
+      "level": 3,
+      "type": "surd",
+      "gen": "nested",
+      "text": {
+        "ja": "{expr} の二重根号をはずすと?",
+        "ko": "{expr}의 이중근호를 풀면?",
+        "en": "Remove the nested root in {expr}."
+      },
+      "explain": {
+        "ja": "足して根号の外の数、かけて根号の中の数になる2数を探すと {answer}",
+        "ko": "더해서 바깥의 수, 곱해서 근호 안의 수가 되는 두 수를 찾으면 {answer}",
+        "en": "Find two numbers that add to the outer number and multiply to the inner one: {answer}"
+      }
+    },
+    {
+      "id": "ineq-word",
+      "level": 2,
+      "type": "inequality",
+      "gen": "ineqword",
+      "text": {
+        "ja": "1個 {price} 円の品物を何個か買って、{box} 円の箱に入れてもらう。代金の合計を {budget} 円以下にするとき、品物は最大何個買える?",
+        "ko": "한 개에 {price}엔인 물건을 몇 개 사서 {box}엔짜리 상자에 담는다. 합계를 {budget}엔 이하로 하려면 물건은 최대 몇 개 살 수 있는가?",
+        "en": "Items cost {price} yen each and the box costs {box} yen. If the total must be at most {budget} yen, what is the largest number of items you can buy?"
+      },
+      "note": {
+        "ja": "消費税は考えないものとする。",
+        "ko": "소비세는 생각하지 않는다.",
+        "en": "Ignore sales tax."
+      },
+      "explain": {
+        "ja": "{price}x + {box} ≦ {budget} を解いて、整数の最大値を求めると {answer}",
+        "ko": "{price}x + {box} ≦ {budget}을 풀어 가장 큰 정수를 구하면 {answer}",
+        "en": "Solve {price}x + {box} ≦ {budget} and take the largest integer: {answer}"
+      }
+    },
+    {
+      "id": "set-notcup",
+      "level": 2,
+      "type": "sets",
+      "gen": "setop",
+      "params": {
+        "ask": "notcup",
+        "options": [
+          "notcup",
+          "notcap",
+          "cup",
+          "cap"
+        ]
+      },
+      "text": {
+        "ja": "A = {A}、B = {B} のとき、A ∪ B の補集合は?",
+        "ko": "A = {A}, B = {B}일 때, A ∪ B의 여집합은?",
+        "en": "If A = {A} and B = {B}, what is the complement of A ∪ B?"
+      },
+      "note": {
+        "ja": "全体集合を U = {1, 2, 3, 4, 5, 6, 7, 8, 9} とする。",
+        "ko": "전체집합은 U = {1, 2, 3, 4, 5, 6, 7, 8, 9}이다.",
+        "en": "The universal set is U = {1, 2, 3, 4, 5, 6, 7, 8, 9}."
+      },
+      "explain": {
+        "ja": "全体集合のうち、A にも B にも入っていない要素。{answer}",
+        "ko": "전체집합 중 A에도 B에도 들어 있지 않은 원소입니다. {answer}",
+        "en": "The elements of U that are in neither A nor B: {answer}"
+      }
+    },
+    {
+      "id": "set-notA",
+      "level": 1,
+      "type": "sets",
+      "gen": "setop",
+      "params": {
+        "ask": "notA",
+        "options": [
+          "notA",
+          "onlyB",
+          "notcup",
+          "cup"
+        ]
+      },
+      "text": {
+        "ja": "A = {A}、B = {B} のとき、A の補集合は?",
+        "ko": "A = {A}, B = {B}일 때, A의 여집합은?",
+        "en": "If A = {A} and B = {B}, what is the complement of A?"
+      },
+      "note": {
+        "ja": "全体集合を U = {1, 2, 3, 4, 5, 6, 7, 8, 9} とする。",
+        "ko": "전체집합은 U = {1, 2, 3, 4, 5, 6, 7, 8, 9}이다.",
+        "en": "The universal set is U = {1, 2, 3, 4, 5, 6, 7, 8, 9}."
+      },
+      "explain": {
+        "ja": "全体集合のうち、A に入っていない要素。{answer}",
+        "ko": "전체집합 중 A에 들어 있지 않은 원소입니다. {answer}",
+        "en": "The elements of U that are not in A: {answer}"
+      }
+    },
+    {
+      "id": "truth",
+      "level": 2,
+      "type": "proposition",
+      "gen": "truth",
+      "text": {
+        "ja": "次のうち、真である命題は?",
+        "ko": "다음 중 참인 명제는?",
+        "en": "Which of these statements is true?"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      },
+      "explain": {
+        "ja": "反例がないものを探すと {answer}",
+        "ko": "반례가 없는 것을 찾으면 {answer}",
+        "en": "Look for the one with no counterexample: {answer}"
+      }
+    },
+    {
+      "id": "negation",
+      "level": 2,
+      "type": "proposition",
+      "gen": "negation",
+      "text": {
+        "ja": "条件「{stmt}」の否定は?",
+        "ko": "조건 「{stmt}」의 부정은?",
+        "en": "What is the negation of \"{stmt}\"?"
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      },
+      "explain": {
+        "ja": "「かつ」と「または」を入れかえ、それぞれの条件を否定すると {answer}",
+        "ko": "'그리고'와 '또는'을 서로 바꾸고 각각의 조건을 부정하면 {answer}",
+        "en": "Swap \"and\" with \"or\" and negate each part: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-sym",
+      "gen": "sym",
+      "intro": {
+        "ja": "x + y = {s}, xy = {p} のとき、次の値を求めよ。",
+        "ko": "x + y = {s}, xy = {p}일 때, 다음 값을 구하시오.",
+        "en": "Given x + y = {s} and xy = {p}, find each value."
+      },
+      "steps": [
+        {
+          "type": "symmetric",
+          "level": 1,
+          "sum": {
+            "ja": "x² + y²",
+            "ko": "x² + y²",
+            "en": "x² + y²"
+          },
+          "text": {
+            "ja": "x² + y² の値は?",
+            "ko": "x² + y²의 값은?",
+            "en": "What is x² + y²?"
+          },
+          "explain": {
+            "ja": "x² + y² = (x + y)² − 2xy より {answer}",
+            "ko": "x² + y² = (x + y)² − 2xy에서 {answer}",
+            "en": "x² + y² = (x + y)² − 2xy, so {answer}"
+          }
+        },
+        {
+          "type": "symmetric",
+          "level": 2,
+          "sum": {
+            "ja": "(x − y)²",
+            "ko": "(x − y)²",
+            "en": "(x − y)²"
+          },
+          "text": {
+            "ja": "(x − y)² の値は?",
+            "ko": "(x − y)²의 값은?",
+            "en": "What is (x − y)²?"
+          },
+          "explain": {
+            "ja": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
+            "ko": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
+            "en": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}"
+          }
+        },
+        {
+          "type": "symmetric",
+          "level": 2,
+          "sum": {
+            "ja": "x³ + y³",
+            "ko": "x³ + y³",
+            "en": "x³ + y³"
+          },
+          "text": {
+            "ja": "x³ + y³ の値は?",
+            "ko": "x³ + y³의 값은?",
+            "en": "What is x³ + y³?"
+          },
+          "explain": {
+            "ja": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
+            "ko": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
+            "en": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

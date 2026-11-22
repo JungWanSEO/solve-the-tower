@@ -1,0 +1,334 @@
+[
+  {
+    "id": "twins",
+    "name": {
+      "ja": "サインコス双子",
+      "ko": "사코 쌍둥이",
+      "en": "Sico Twins"
+    },
+    "mistake": {
+      "ja": "sin と cos の取り違え",
+      "ko": "사인과 코사인을 바꿔 쓰기",
+      "en": "Mixing up sin and cos"
+    },
+    "hp": 14,
+    "weak": "math1-trig/relation",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "bat",
+    "name": {
+      "ja": "符号コウモリ",
+      "ko": "부호 박쥐",
+      "en": "Sign Bat"
+    },
+    "mistake": {
+      "ja": "プラスとマイナスの間違い",
+      "ko": "플러스와 마이너스를 틀리기",
+      "en": "Getting the sign wrong"
+    },
+    "hp": 16,
+    "weak": "math1-trig/obtuse",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "golem",
+    "name": {
+      "ja": "約分わすれゴーレム",
+      "ko": "덜약분 골렘",
+      "en": "Unreduced Golem"
+    },
+    "mistake": {
+      "ja": "約分していない答え",
+      "ko": "약분하지 않은 답",
+      "en": "Leaving an answer unreduced"
+    },
+    "hp": 20,
+    "weak": "math1-trig/height",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "slime",
+    "name": {
+      "ja": "かっこスライム",
+      "ko": "괄호 슬라임",
+      "en": "Bracket Slime"
+    },
+    "mistake": {
+      "ja": "(a + b)² を a² + b² と展開してしまう(真ん中の項 2ab を忘れる)",
+      "ko": "(a + b)²을 a² + b²으로 전개하기 (가운데 항 2ab 빠뜨리기)",
+      "en": "Expanding (a + b)² as a² + b² (dropping the middle term 2ab)"
+    },
+    "hp": 14,
+    "weak": "math1-expr/expand",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "crab",
+    "name": {
+      "ja": "不等号ガニ",
+      "ko": "부등호 게",
+      "en": "Flip Crab"
+    },
+    "mistake": {
+      "ja": "負の数で割るとき不等号の向きを変え忘れる",
+      "ko": "음수로 나눌 때 부등호 방향을 바꾸지 않기",
+      "en": "Forgetting to flip the inequality when dividing by a negative"
+    },
+    "hp": 16,
+    "weak": "math1-expr/inequality",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "ghost",
+    "name": {
+      "ja": "放物線おばけ",
+      "ko": "포물선 유령",
+      "en": "Parabola Ghost"
+    },
+    "mistake": {
+      "ja": "y = a(x − p)² + q の頂点の符号を逆に読む",
+      "ko": "y = a(x − p)² + q에서 꼭짓점의 부호를 반대로 읽기",
+      "en": "Reading the vertex of y = a(x − p)² + q with the wrong sign"
+    },
+    "hp": 18,
+    "weak": "math1-quad/vertex",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "bars",
+    "name": {
+      "ja": "ばらばら棒グラフ",
+      "ko": "뒤죽박죽 막대",
+      "en": "Jumble Bars"
+    },
+    "mistake": {
+      "ja": "データを小さい順に並べずに中央値を求める",
+      "ko": "자료를 크기 순서로 늘어놓지 않고 중앙값 구하기",
+      "en": "Finding the median without sorting the data first"
+    },
+    "hp": 16,
+    "weak": "math1-data/median",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "dice",
+    "name": {
+      "ja": "ダブりサイコロ",
+      "ko": "중복 주사위",
+      "en": "Double-count Dice"
+    },
+    "mistake": {
+      "ja": "同じ場合を2回数えてしまう(順番を区別するかどうかの取り違え)",
+      "ko": "같은 경우를 두 번 세기 (순서를 구별하는지 헷갈리기)",
+      "en": "Counting the same case twice (mixing up whether order matters)"
+    },
+    "hp": 16,
+    "weak": "matha-count/comb",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "compass",
+    "name": {
+      "ja": "補助線コンパス",
+      "ko": "보조선 컴퍼스",
+      "en": "Auxiliary Compass"
+    },
+    "mistake": {
+      "ja": "補助線を引かずに解こうとする",
+      "ko": "보조선을 긋지 않고 풀려는 것",
+      "en": "Trying to solve without drawing an auxiliary line"
+    },
+    "hp": 18,
+    "weak": "matha-geom/circle",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "mouse",
+    "name": {
+      "ja": "あまりネズミ",
+      "ko": "나머지 생쥐",
+      "en": "Remainder Mouse"
+    },
+    "mistake": {
+      "ja": "割り算で商と余りを取り違える",
+      "ko": "나눗셈에서 몫과 나머지를 바꿔 쓰기",
+      "en": "Mixing up the quotient and the remainder"
+    },
+    "hp": 16,
+    "weak": "matha-int/remainder",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "thief",
+    "midboss": true,
+    "name": {
+      "ja": "単位どろぼう",
+      "ko": "단위 도둑",
+      "en": "Unit Thief"
+    },
+    "mistake": {
+      "ja": "単位のつけ忘れ・つけ間違い",
+      "ko": "단위를 빠뜨리거나 틀리기",
+      "en": "Dropping or mixing up units"
+    },
+    "hp": 22,
+    "weak": "math1-trig/length",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "magician",
+    "midboss": true,
+    "name": {
+      "ja": "移項マジシャン",
+      "ko": "이항 마술사",
+      "en": "Transposer"
+    },
+    "mistake": {
+      "ja": "移項するときに符号を変え忘れる",
+      "ko": "이항할 때 부호를 바꾸지 않기",
+      "en": "Moving a term across the equals sign without changing its sign"
+    },
+    "hp": 22,
+    "weak": "math1-expr/factor",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "giant",
+    "midboss": true,
+    "name": {
+      "ja": "外れ値ジャイアント",
+      "ko": "이상값 거인",
+      "en": "Outlier Giant"
+    },
+    "mistake": {
+      "ja": "外れ値に引っぱられた平均値をそのまま信じる",
+      "ko": "이상값 하나에 끌려간 평균을 그대로 믿기",
+      "en": "Trusting a mean that one outlier has dragged away"
+    },
+    "hp": 22,
+    "weak": "math1-data/variance",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "scales",
+    "midboss": true,
+    "name": {
+      "ja": "法則てんびん",
+      "ko": "법칙 저울",
+      "en": "Rule Scales"
+    },
+    "mistake": {
+      "ja": "和の法則と積の法則を取り違える(足すのか、かけるのか)",
+      "ko": "합의 법칙과 곱의 법칙을 바꿔 쓰기 (더할지 곱할지)",
+      "en": "Mixing up the addition rule and the multiplication rule"
+    },
+    "hp": 22,
+    "weak": "matha-count/perm",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "tower",
+    "boss": true,
+    "name": {
+      "ja": "霧の塔",
+      "ko": "안개 탑",
+      "en": "Fog Tower"
+    },
+    "mistake": {
+      "ja": "図をかかずに解こうとすること",
+      "ko": "그림을 그리지 않고 풀려는 것",
+      "en": "Solving without drawing the figure"
+    },
+    "hp": 28,
+    "weak": "math1-trig/twopoint",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "dragon",
+    "boss": true,
+    "name": {
+      "ja": "判別式ドラゴン",
+      "ko": "판별식 용",
+      "en": "Discriminant Dragon"
+    },
+    "mistake": {
+      "ja": "解があるかどうか(D の符号)を確かめずに解く",
+      "ko": "해가 있는지(D의 부호)를 확인하지 않고 풀기",
+      "en": "Solving without checking whether solutions exist (the sign of D)"
+    },
+    "hp": 28,
+    "weak": "math1-quad/discriminant",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "warden",
+    "boss": true,
+    "name": {
+      "ja": "円の番人",
+      "ko": "원의 문지기",
+      "en": "Circle Warden"
+    },
+    "mistake": {
+      "ja": "定理が使える条件(円に内接しているか など)を確かめない",
+      "ko": "정리를 쓸 수 있는 조건(원에 내접하는지 등)을 확인하지 않기",
+      "en": "Using a theorem without checking that its conditions hold"
+    },
+    "hp": 28,
+    "weak": "matha-geom/power",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "lock",
+    "midboss": true,
+    "name": {
+      "ja": "約数の南京錠",
+      "ko": "약수 자물쇠",
+      "en": "Divisor Lock"
+    },
+    "mistake": {
+      "ja": "約数を数えるとき、1やその数自身、ペアの片方を数え忘れる",
+      "ko": "약수를 셀 때 1이나 자기 자신, 짝이 되는 수를 빠뜨리기",
+      "en": "Missing 1, the number itself or one of a pair when counting divisors"
+    },
+    "hp": 22,
+    "weak": "matha-int/divis",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "gear",
+    "boss": true,
+    "name": {
+      "ja": "互除法の歯車",
+      "ko": "호제법 톱니바퀴",
+      "en": "Euclid's Gear"
+    },
+    "mistake": {
+      "ja": "互除法を、余りが0になる前に途中でやめてしまう",
+      "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
+      "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
+    },
+    "hp": 28,
+    "weak": "matha-int/euclid",
+    "basicLevel": 2,
+    "skillLevel": 3
+  }
+]

@@ -1,0 +1,448 @@
+{
+  "id": "matha-int",
+  "name": {
+    "ja": "数学と人間の活動(整数)",
+    "ko": "수학과 인간의 활동 (정수)",
+    "en": "Integers"
+  },
+  "types": {
+    "gcdlcm": {
+      "ja": "最大公約数・最小公倍数",
+      "ko": "최대공약수·최소공배수",
+      "en": "GCD and LCM"
+    },
+    "euclid": {
+      "ja": "ユークリッドの互除法",
+      "ko": "유클리드 호제법",
+      "en": "Euclidean algorithm"
+    },
+    "remainder": {
+      "ja": "余りの計算",
+      "ko": "나머지의 계산",
+      "en": "Remainders"
+    },
+    "dioph": {
+      "ja": "一次不定方程式",
+      "ko": "일차부정방정식",
+      "en": "Linear Diophantine equations"
+    },
+    "nbase": {
+      "ja": "n 進法",
+      "ko": "n진법",
+      "en": "Number bases"
+    },
+    "divis": {
+      "ja": "素因数分解・倍数の判定・有限小数",
+      "ko": "소인수분해·배수의 판정·유한소수",
+      "en": "Prime factors, divisibility, terminating decimals"
+    },
+    "coord": {
+      "ja": "座標の考え方",
+      "ko": "좌표의 생각",
+      "en": "Coordinates in space"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "約数と倍数",
+        "ko": "약수와 배수",
+        "en": "Divisors and multiples"
+      },
+      "types": [
+        "divis",
+        "gcdlcm",
+        "euclid",
+        "remainder"
+      ]
+    },
+    {
+      "name": {
+        "ja": "整数の応用",
+        "ko": "정수의 응용",
+        "en": "Applications"
+      },
+      "types": [
+        "dioph",
+        "nbase",
+        "coord"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "gcd",
+      "level": 1,
+      "type": "gcdlcm",
+      "gen": "gcdlcm",
+      "params": {
+        "ask": "gcd"
+      },
+      "text": {
+        "ja": "{a} と {b} の最大公約数は?",
+        "ko": "{a}와 {b}의 최대공약수는?",
+        "en": "What is the greatest common divisor of {a} and {b}?"
+      },
+      "explain": {
+        "ja": "両方を割り切る最大の数は {answer}",
+        "ko": "둘을 모두 나누어떨어지게 하는 가장 큰 수는 {answer}",
+        "en": "The largest number dividing both is {answer}"
+      }
+    },
+    {
+      "id": "lcm",
+      "level": 1,
+      "type": "gcdlcm",
+      "gen": "gcdlcm",
+      "params": {
+        "ask": "lcm"
+      },
+      "text": {
+        "ja": "{a} と {b} の最小公倍数は?",
+        "ko": "{a}와 {b}의 최소공배수는?",
+        "en": "What is the least common multiple of {a} and {b}?"
+      },
+      "explain": {
+        "ja": "2数の積 ÷ 最大公約数 = {answer}",
+        "ko": "두 수의 곱 ÷ 최대공약수 = {answer}",
+        "en": "Product ÷ GCD = {answer}"
+      }
+    },
+    {
+      "id": "euclid",
+      "level": 2,
+      "type": "euclid",
+      "gen": "gcdlcm",
+      "params": {
+        "ask": "gcd",
+        "big": true
+      },
+      "text": {
+        "ja": "互除法を使って、{a} と {b} の最大公約数を求めると?",
+        "ko": "호제법을 써서 {a}와 {b}의 최대공약수를 구하면?",
+        "en": "Use the Euclidean algorithm to find the GCD of {a} and {b}."
+      },
+      "explain": {
+        "ja": "大きい方を小さい方で割った余りで、割り切れるまで割り続けると {answer}",
+        "ko": "큰 수를 작은 수로 나눈 나머지로, 나누어떨어질 때까지 계속 나누면 {answer}",
+        "en": "Keep dividing by the remainder until it divides evenly: {answer}"
+      }
+    },
+    {
+      "id": "rem-sum",
+      "level": 2,
+      "type": "remainder",
+      "gen": "remainder",
+      "params": {
+        "ask": "sum"
+      },
+      "text": {
+        "ja": "{m} で割ると {r1} 余る整数 a と、{r2} 余る整数 b がある。a + b を {m} で割った余りは?",
+        "ko": "{m}으로 나누면 {r1}이 남는 정수 a와 {r2}가 남는 정수 b가 있다. a + b를 {m}으로 나눈 나머지는?",
+        "en": "Integers a and b leave remainders {r1} and {r2} when divided by {m}. What is the remainder of a + b divided by {m}?"
+      },
+      "explain": {
+        "ja": "余りどうしを足して、{m} で割った余りを求めると {answer}",
+        "ko": "나머지끼리 더한 뒤 {m}으로 나눈 나머지를 구하면 {answer}",
+        "en": "Add the remainders, then take the remainder on division by {m}: {answer}"
+      }
+    },
+    {
+      "id": "rem-prod",
+      "level": 2,
+      "type": "remainder",
+      "gen": "remainder",
+      "params": {
+        "ask": "prod"
+      },
+      "text": {
+        "ja": "{m} で割ると {r1} 余る整数 a と、{r2} 余る整数 b がある。ab を {m} で割った余りは?",
+        "ko": "{m}으로 나누면 {r1}이 남는 정수 a와 {r2}가 남는 정수 b가 있다. ab를 {m}으로 나눈 나머지는?",
+        "en": "Integers a and b leave remainders {r1} and {r2} when divided by {m}. What is the remainder of ab divided by {m}?"
+      },
+      "explain": {
+        "ja": "余りどうしをかけて、{m} で割った余りを求めると {answer}",
+        "ko": "나머지끼리 곱한 뒤 {m}으로 나눈 나머지를 구하면 {answer}",
+        "en": "Multiply the remainders, then take the remainder on division by {m}: {answer}"
+      }
+    },
+    {
+      "id": "dioph",
+      "level": 3,
+      "type": "dioph",
+      "gen": "dioph",
+      "text": {
+        "ja": "方程式 {eq} を満たす整数の組 (x, y) は?",
+        "ko": "방정식 {eq}을 만족하는 정수의 순서쌍 (x, y)는?",
+        "en": "Which integer pair (x, y) satisfies {eq}?"
+      },
+      "explain": {
+        "ja": "代入して左辺が 1 になる組を探すと {answer}",
+        "ko": "대입해서 좌변이 1이 되는 순서쌍을 찾으면 {answer}",
+        "en": "Substitute and look for the pair that makes the left side 1: {answer}"
+      }
+    },
+    {
+      "id": "base-to10",
+      "level": 1,
+      "type": "nbase",
+      "gen": "nbase",
+      "params": {
+        "dir": "to10"
+      },
+      "text": {
+        "ja": "{base} 進法で表された数 {num} を 10 進法で表すと?",
+        "ko": "{base}진법으로 나타낸 수 {num}을 10진법으로 나타내면?",
+        "en": "The number {num} is written in base {base}. What is it in base 10?"
+      },
+      "explain": {
+        "ja": "各位の数に {base} の累乗をかけて足すと {answer}",
+        "ko": "각 자리의 수에 {base}의 거듭제곱을 곱해 더하면 {answer}",
+        "en": "Multiply each digit by the matching power of {base} and add: {answer}"
+      }
+    },
+    {
+      "id": "base-from10",
+      "level": 2,
+      "type": "nbase",
+      "gen": "nbase",
+      "params": {
+        "dir": "from10"
+      },
+      "text": {
+        "ja": "10 進法の {n} を {base} 進法で表すと?",
+        "ko": "10진법의 수 {n}을 {base}진법으로 나타내면?",
+        "en": "Write the base-10 number {n} in base {base}."
+      },
+      "explain": {
+        "ja": "{base} で割り続けて、余りを下から順に並べると {answer}",
+        "ko": "{base}로 계속 나누어 나머지를 아래에서부터 차례로 늘어놓으면 {answer}",
+        "en": "Keep dividing by {base} and read the remainders from the bottom: {answer}"
+      }
+    },
+    {
+      "id": "prime-factor",
+      "level": 1,
+      "type": "divis",
+      "gen": "primefactor",
+      "text": {
+        "ja": "{n} を素因数分解すると?",
+        "ko": "{n}을 소인수분해하면?",
+        "en": "Write {n} as a product of primes."
+      },
+      "explain": {
+        "ja": "小さい素数から順に割っていくと {answer}",
+        "ko": "작은 소수부터 차례로 나누어 가면 {answer}",
+        "en": "Divide by the smallest primes in turn: {answer}"
+      }
+    },
+    {
+      "id": "divisible-9",
+      "level": 2,
+      "type": "divis",
+      "gen": "divisible",
+      "text": {
+        "ja": "4桁の数 {num} が 9 の倍数になるとき、□ に入る数字は?",
+        "ko": "네 자리 수 {num}이 9의 배수가 될 때, □에 들어갈 숫자는?",
+        "en": "The four-digit number {num} is a multiple of 9. Which digit goes in □?"
+      },
+      "explain": {
+        "ja": "各位の数の和が 9 の倍数になればよい。{answer}",
+        "ko": "각 자리 숫자의 합이 9의 배수가 되면 됩니다. {answer}",
+        "en": "The digit sum must be a multiple of 9: {answer}"
+      }
+    },
+    {
+      "id": "finite-decimal",
+      "level": 2,
+      "type": "divis",
+      "gen": "finitedec",
+      "text": {
+        "ja": "次の分数のうち、有限小数で表せるものは?",
+        "ko": "다음 분수 중 유한소수로 나타낼 수 있는 것은?",
+        "en": "Which of these fractions is a terminating decimal?"
+      },
+      "explain": {
+        "ja": "分母の素因数が 2 と 5 だけのものを探すと {answer}",
+        "ko": "분모의 소인수가 2와 5뿐인 것을 찾으면 {answer}",
+        "en": "Look for a denominator whose only prime factors are 2 and 5: {answer}"
+      }
+    },
+    {
+      "id": "coord-dist",
+      "level": 2,
+      "type": "coord",
+      "gen": "coord3d",
+      "params": {
+        "ask": "dist"
+      },
+      "text": {
+        "ja": "座標空間で、原点 O と点 P{P} の距離は?",
+        "ko": "좌표공간에서 원점 O와 점 P{P} 사이의 거리는?",
+        "en": "In coordinate space, what is the distance from the origin O to P{P}?"
+      },
+      "explain": {
+        "ja": "OP = √(x² + y² + z²) = {answer}",
+        "ko": "OP = √(x² + y² + z²) = {answer}",
+        "en": "OP = √(x² + y² + z²) = {answer}"
+      }
+    },
+    {
+      "id": "coord-mirror",
+      "level": 1,
+      "type": "coord",
+      "gen": "coord3d",
+      "params": {
+        "ask": "mirror"
+      },
+      "text": {
+        "ja": "座標空間で、点 P{P} と {plane} 平面に関して対称な点の座標は?",
+        "ko": "좌표공간에서 점 P{P}와 {plane}평면에 대하여 대칭인 점의 좌표는?",
+        "en": "In coordinate space, which point is the mirror image of P{P} in the {plane}-plane?"
+      },
+      "explain": {
+        "ja": "{plane} 平面に関して対称な点は、残りの1つの座標の符号だけが変わる。{answer}",
+        "ko": "{plane}평면에 대하여 대칭인 점은 나머지 한 좌표의 부호만 바뀝니다. {answer}",
+        "en": "Only the coordinate not named in the {plane}-plane changes sign: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-int",
+      "gen": "int",
+      "intro": {
+        "ja": "2つの自然数 {a} と {b} について答えよ。",
+        "ko": "두 자연수 {a}와 {b}에 대하여 답하시오.",
+        "en": "Answer about the two natural numbers {a} and {b}."
+      },
+      "steps": [
+        {
+          "type": "gcdlcm",
+          "level": 1,
+          "sum": {
+            "ja": "最大公約数",
+            "ko": "최대공약수",
+            "en": "GCD"
+          },
+          "text": {
+            "ja": "最大公約数は?",
+            "ko": "최대공약수는?",
+            "en": "What is the greatest common divisor?"
+          },
+          "explain": {
+            "ja": "両方を割り切る最大の数は {answer}",
+            "ko": "둘을 모두 나누어떨어지게 하는 가장 큰 수는 {answer}",
+            "en": "The largest number dividing both is {answer}"
+          }
+        },
+        {
+          "type": "gcdlcm",
+          "level": 1,
+          "sum": {
+            "ja": "最小公倍数",
+            "ko": "최소공배수",
+            "en": "LCM"
+          },
+          "text": {
+            "ja": "最小公倍数は?",
+            "ko": "최소공배수는?",
+            "en": "What is the least common multiple?"
+          },
+          "explain": {
+            "ja": "{a} × {b} ÷ (最大公約数 {a1}) = {answer}",
+            "ko": "{a} × {b} ÷ (최대공약수 {a1}) = {answer}",
+            "en": "{a} × {b} ÷ (GCD {a1}) = {answer}"
+          }
+        },
+        {
+          "type": "gcdlcm",
+          "level": 2,
+          "sum": {
+            "ja": "積",
+            "ko": "곱",
+            "en": "Product"
+          },
+          "text": {
+            "ja": "最大公約数と最小公倍数の積は?",
+            "ko": "최대공약수와 최소공배수의 곱은?",
+            "en": "What is the product of the GCD and the LCM?"
+          },
+          "explain": {
+            "ja": "(最大公約数) × (最小公倍数) は2数の積 {a} × {b} に等しい。{answer}",
+            "ko": "(최대공약수) × (최소공배수)는 두 수의 곱 {a} × {b}와 같습니다. {answer}",
+            "en": "GCD × LCM equals the product {a} × {b}: {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-euclid",
+      "gen": "euclid",
+      "intro": {
+        "ja": "2つの自然数 {a} と {b} について答えよ。",
+        "ko": "두 자연수 {a}와 {b}에 대하여 답하시오.",
+        "en": "Answer about the two natural numbers {a} and {b}."
+      },
+      "steps": [
+        {
+          "type": "remainder",
+          "level": 1,
+          "sum": {
+            "ja": "余り",
+            "ko": "나머지",
+            "en": "Remainder"
+          },
+          "text": {
+            "ja": "{a} を {b} で割った余りは?",
+            "ko": "{a}를 {b}로 나눈 나머지는?",
+            "en": "What is the remainder when {a} is divided by {b}?"
+          },
+          "explain": {
+            "ja": "{a} = {b} × (商) + (余り)。余りは {answer}",
+            "ko": "{a} = {b} × (몫) + (나머지). 나머지는 {answer}",
+            "en": "{a} = {b} × quotient + remainder. The remainder is {answer}"
+          }
+        },
+        {
+          "type": "euclid",
+          "level": 2,
+          "sum": {
+            "ja": "最大公約数",
+            "ko": "최대공약수",
+            "en": "GCD"
+          },
+          "text": {
+            "ja": "互除法を続けて、{a} と {b} の最大公約数を求めると?",
+            "ko": "호제법을 이어서, {a}와 {b}의 최대공약수를 구하면?",
+            "en": "Continuing the Euclidean algorithm, what is the GCD of {a} and {b}?"
+          },
+          "explain": {
+            "ja": "{a} と {b} の最大公約数は、{b} と余り {a1} の最大公約数に等しい。余りが 0 になるまで続けると {answer}",
+            "ko": "{a}와 {b}의 최대공약수는 {b}와 나머지 {a1}의 최대공약수와 같습니다. 나머지가 0이 될 때까지 계속하면 {answer}",
+            "en": "gcd({a}, {b}) = gcd({b}, {a1}). Continuing until the remainder is 0 gives {answer}"
+          }
+        },
+        {
+          "type": "gcdlcm",
+          "level": 2,
+          "sum": {
+            "ja": "既約分数の分母",
+            "ko": "기약분수의 분모",
+            "en": "Denominator"
+          },
+          "text": {
+            "ja": "分数 {a}/{b} を約分して既約分数にしたとき、分母は?",
+            "ko": "분수 {a}/{b}를 약분하여 기약분수로 나타낼 때, 분모는?",
+            "en": "When {a}/{b} is reduced to lowest terms, what is the denominator?"
+          },
+          "explain": {
+            "ja": "分母と分子を最大公約数 {a2} で割る。{b} ÷ {a2} = {answer}",
+            "ko": "분모와 분자를 최대공약수 {a2}로 나눕니다. {b} ÷ {a2} = {answer}",
+            "en": "Divide both by the GCD {a2}: {b} ÷ {a2} = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

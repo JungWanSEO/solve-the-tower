@@ -1,0 +1,1042 @@
+{
+  "id": "math1-trig",
+  "subject": {
+    "ja": "数学I",
+    "ko": "수학I",
+    "en": "Math I"
+  },
+  "name": {
+    "ja": "三角比",
+    "ko": "삼각비",
+    "en": "Trigonometric ratios"
+  },
+  "area": {
+    "ja": "測量の高原",
+    "ko": "측량 고원",
+    "en": "Survey Highlands"
+  },
+  "types": {
+    "value": {
+      "ja": "鋭角の三角比の値",
+      "ko": "예각의 삼각비 값",
+      "en": "Values for acute angles"
+    },
+    "obtuse": {
+      "ja": "鈍角の三角比の値",
+      "ko": "둔각의 삼각비 값",
+      "en": "Values for obtuse angles"
+    },
+    "ratio": {
+      "ja": "辺の比",
+      "ko": "변의 비",
+      "en": "Side ratios"
+    },
+    "relation": {
+      "ja": "三角比の相互関係",
+      "ko": "삼각비의 상호 관계",
+      "en": "Relations between ratios"
+    },
+    "length": {
+      "ja": "辺の長さ",
+      "ko": "변의 길이",
+      "en": "Side lengths"
+    },
+    "height": {
+      "ja": "高さ",
+      "ko": "높이 구하기",
+      "en": "Heights"
+    },
+    "twopoint": {
+      "ja": "2地点からの観測",
+      "ko": "두 지점 관측",
+      "en": "Two observation points"
+    },
+    "sinerule": {
+      "ja": "正弦定理",
+      "ko": "사인 법칙",
+      "en": "Law of sines"
+    },
+    "cosrule": {
+      "ja": "余弦定理",
+      "ko": "코사인 법칙",
+      "en": "Law of cosines"
+    },
+    "area": {
+      "ja": "三角形の面積",
+      "ko": "삼각형의 넓이",
+      "en": "Area of a triangle"
+    },
+    "space": {
+      "ja": "空間図形への応用",
+      "ko": "공간도형 응용",
+      "en": "Solid figures"
+    },
+    "convert": {
+      "ja": "90° − θ・180° − θ の三角比",
+      "ko": "90° − θ·180° − θ의 삼각비",
+      "en": "Ratios of 90° − θ and 180° − θ"
+    },
+    "trigeq": {
+      "ja": "三角比から角を求める",
+      "ko": "삼각비에서 각 구하기",
+      "en": "Finding the angle from a ratio"
+    },
+    "inradius": {
+      "ja": "内接円の半径",
+      "ko": "내접원의 반지름",
+      "en": "Inradius"
+    },
+    "tritype": {
+      "ja": "三角形の形の判定",
+      "ko": "삼각형의 모양 판정",
+      "en": "Classifying triangles"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "三角比",
+        "ko": "삼각비",
+        "en": "Trigonometric ratios"
+      },
+      "types": [
+        "value",
+        "obtuse",
+        "ratio",
+        "relation",
+        "length",
+        "convert",
+        "trigeq"
+      ]
+    },
+    {
+      "name": {
+        "ja": "三角比と図形",
+        "ko": "삼각비와 도형",
+        "en": "Trigonometry and figures"
+      },
+      "types": [
+        "height",
+        "twopoint",
+        "sinerule",
+        "cosrule",
+        "area",
+        "inradius",
+        "tritype"
+      ]
+    },
+    {
+      "name": {
+        "ja": "空間図形",
+        "ko": "공간도형",
+        "en": "Solid figures"
+      },
+      "types": [
+        "space"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "exact-value",
+      "level": 1,
+      "type": "value",
+      "text": {
+        "ja": "{fn} {deg}° の値は?",
+        "ko": "{fn} {deg}°의 값은?",
+        "en": "What is the exact value of {fn} {deg}°?"
+      },
+      "explain": {
+        "ja": "{fn} {deg}° = {answer}",
+        "ko": "{fn} {deg}° = {answer}",
+        "en": "{fn} {deg}° = {answer}"
+      },
+      "items": [
+        {
+          "fn": "sin",
+          "deg": 30,
+          "answer": "1/2",
+          "wrong": [
+            "√2/2",
+            "√3/2",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "sin",
+          "deg": 45,
+          "answer": "√2/2",
+          "wrong": [
+            "1/2",
+            "√3/2",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "sin",
+          "deg": 60,
+          "answer": "√3/2",
+          "wrong": [
+            "1/2",
+            "√2/2",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 30,
+          "answer": "√3/2",
+          "wrong": [
+            "1/2",
+            "√2/2",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 45,
+          "answer": "√2/2",
+          "wrong": [
+            "1/2",
+            "√3/2",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 60,
+          "answer": "1/2",
+          "wrong": [
+            "√2/2",
+            "√3/2",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "tan",
+          "deg": 30,
+          "answer": "√3/3",
+          "wrong": [
+            "1/2",
+            "√2/2",
+            "√3/2"
+          ]
+        },
+        {
+          "fn": "tan",
+          "deg": 45,
+          "answer": "1",
+          "wrong": [
+            "1/2",
+            "√2/2",
+            "√3/2"
+          ]
+        },
+        {
+          "fn": "tan",
+          "deg": 60,
+          "answer": "√3",
+          "wrong": [
+            "1/2",
+            "√2/2",
+            "√3/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "obtuse-value",
+      "level": 1,
+      "type": "obtuse",
+      "text": {
+        "ja": "{fn} {deg}° の値は?",
+        "ko": "{fn} {deg}°의 값은?",
+        "en": "What is the exact value of {fn} {deg}°?"
+      },
+      "explain": {
+        "ja": "{fn} {deg}° = {answer} (鈍角では cos と tan が負になる)",
+        "ko": "{fn} {deg}° = {answer} (둔각에서는 cos과 tan이 음수)",
+        "en": "{fn} {deg}° = {answer} (cos and tan are negative for obtuse angles)"
+      },
+      "items": [
+        {
+          "fn": "sin",
+          "deg": 120,
+          "answer": "√3/2",
+          "wrong": [
+            "−√3/2",
+            "1/2",
+            "−1/2"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 120,
+          "answer": "−1/2",
+          "wrong": [
+            "1/2",
+            "−√3/2",
+            "√3/2"
+          ]
+        },
+        {
+          "fn": "tan",
+          "deg": 120,
+          "answer": "−√3",
+          "wrong": [
+            "√3",
+            "−√3/3",
+            "√3/3"
+          ]
+        },
+        {
+          "fn": "sin",
+          "deg": 135,
+          "answer": "√2/2",
+          "wrong": [
+            "−√2/2",
+            "1/2",
+            "−1/2"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 135,
+          "answer": "−√2/2",
+          "wrong": [
+            "√2/2",
+            "−1/2",
+            "−√3/2"
+          ]
+        },
+        {
+          "fn": "tan",
+          "deg": 135,
+          "answer": "−1",
+          "wrong": [
+            "1",
+            "−√2/2",
+            "√2/2"
+          ]
+        },
+        {
+          "fn": "sin",
+          "deg": 150,
+          "answer": "1/2",
+          "wrong": [
+            "−1/2",
+            "√3/2",
+            "−√3/2"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 150,
+          "answer": "−√3/2",
+          "wrong": [
+            "√3/2",
+            "−1/2",
+            "1/2"
+          ]
+        },
+        {
+          "fn": "tan",
+          "deg": 150,
+          "answer": "−√3/3",
+          "wrong": [
+            "√3/3",
+            "−√3",
+            "√3"
+          ]
+        },
+        {
+          "fn": "sin",
+          "deg": 90,
+          "answer": "1",
+          "wrong": [
+            "0",
+            "−1",
+            "1/2"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 90,
+          "answer": "0",
+          "wrong": [
+            "1",
+            "−1",
+            "1/2"
+          ]
+        },
+        {
+          "fn": "cos",
+          "deg": 180,
+          "answer": "−1",
+          "wrong": [
+            "1",
+            "0",
+            "−1/2"
+          ]
+        },
+        {
+          "fn": "sin",
+          "deg": 180,
+          "answer": "0",
+          "wrong": [
+            "1",
+            "−1",
+            "1/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ratio-from-sides",
+      "level": 1,
+      "type": "ratio",
+      "gen": "ratio",
+      "figure": {
+        "kind": "triangle",
+        "angle": "θ",
+        "opp": "{a}",
+        "adj": "{b}",
+        "hyp": "{c}"
+      },
+      "text": {
+        "ja": "図の直角三角形で、{fn} θ は?",
+        "ko": "그림의 직각삼각형에서 {fn} θ는?",
+        "en": "In the right triangle shown, what is {fn} θ?"
+      },
+      "explain": {
+        "ja": "sin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺 なので {fn} θ = {answer}",
+        "ko": "sin=맞은편/빗변, cos=이웃/빗변, tan=맞은편/이웃이므로 {fn} θ = {answer}",
+        "en": "sin = opposite/hypotenuse, cos = adjacent/hypotenuse, tan = opposite/adjacent, so {fn} θ = {answer}"
+      }
+    },
+    {
+      "id": "relation",
+      "level": 2,
+      "type": "relation",
+      "gen": "relation",
+      "text": {
+        "ja": "θ が鋭角で {given} θ = {gv} のとき、{ask} θ は?",
+        "ko": "θ가 예각이고 {given} θ = {gv}일 때, {ask} θ는?",
+        "en": "θ is acute and {given} θ = {gv}. What is {ask} θ?"
+      },
+      "explain": {
+        "ja": "sin²θ + cos²θ = 1、tan θ = sin θ / cos θ より {ask} θ = {answer}",
+        "ko": "sin²θ + cos²θ = 1, tan θ = sin θ / cos θ이므로 {ask} θ = {answer}",
+        "en": "From sin²θ + cos²θ = 1 and tan θ = sin θ / cos θ, {ask} θ = {answer}"
+      }
+    },
+    {
+      "id": "relation-obtuse",
+      "level": 3,
+      "type": "relation",
+      "gen": "relation",
+      "params": {
+        "obtuse": true
+      },
+      "text": {
+        "ja": "θ が鈍角で {given} θ = {gv} のとき、{ask} θ は?",
+        "ko": "θ가 둔각이고 {given} θ = {gv}일 때, {ask} θ는?",
+        "en": "θ is obtuse and {given} θ = {gv}. What is {ask} θ?"
+      },
+      "explain": {
+        "ja": "鈍角では cos θ と tan θ は負。sin²θ + cos²θ = 1 より {ask} θ = {answer}",
+        "ko": "둔각에서는 cos θ와 tan θ가 음수입니다. sin²θ + cos²θ = 1이므로 {ask} θ = {answer}",
+        "en": "For an obtuse angle cos θ and tan θ are negative. From sin²θ + cos²θ = 1, {ask} θ = {answer}"
+      }
+    },
+    {
+      "id": "length-sin30",
+      "level": 2,
+      "type": "length",
+      "gen": "length",
+      "figure": {
+        "kind": "triangle",
+        "angle": "30°",
+        "opp": "x = ?",
+        "adj": "",
+        "hyp": "{c} m"
+      },
+      "text": {
+        "ja": "図の直角三角形で、辺 x の長さは? (sin 30° = 1/2)",
+        "ko": "그림의 직각삼각형에서 변 x의 길이는? (sin 30° = 1/2)",
+        "en": "In the right triangle shown, how long is side x? (sin 30° = 1/2)"
+      },
+      "explain": {
+        "ja": "対辺 = 斜辺 × sin 30° = {c} × 1/2 = {answer}",
+        "ko": "맞은편 변 = 빗변 × sin 30° = {c} × 1/2 = {answer}",
+        "en": "Opposite = hypotenuse × sin 30° = {c} × 1/2 = {answer}"
+      }
+    },
+    {
+      "id": "length-cos60",
+      "level": 2,
+      "type": "length",
+      "gen": "length",
+      "figure": {
+        "kind": "triangle",
+        "angle": "60°",
+        "opp": "",
+        "adj": "x = ?",
+        "hyp": "{c} m"
+      },
+      "text": {
+        "ja": "図の直角三角形で、辺 x の長さは? (cos 60° = 1/2)",
+        "ko": "그림의 직각삼각형에서 변 x의 길이는? (cos 60° = 1/2)",
+        "en": "In the right triangle shown, how long is side x? (cos 60° = 1/2)"
+      },
+      "explain": {
+        "ja": "隣辺 = 斜辺 × cos 60° = {c} × 1/2 = {answer}",
+        "ko": "이웃 변 = 빗변 × cos 60° = {c} × 1/2 = {answer}",
+        "en": "Adjacent = hypotenuse × cos 60° = {c} × 1/2 = {answer}"
+      }
+    },
+    {
+      "id": "tower-height",
+      "level": 2,
+      "type": "height",
+      "gen": "height",
+      "figure": {
+        "kind": "tower",
+        "angle": "{deg}°",
+        "dist": "{d} m",
+        "height": "h = ?"
+      },
+      "text": {
+        "ja": "図のように、{d}m 離れた地点から塔の先端を見上げた角が {deg}° である。塔の高さ h は?",
+        "ko": "그림처럼 {d}m 떨어진 지점에서 탑 꼭대기를 올려본 각이 {deg}°이다. 탑의 높이 h는?",
+        "en": "As shown, from a point {d} m away the angle of elevation to the top of the tower is {deg}°. What is the height h of the tower?"
+      },
+      "explain": {
+        "ja": "高さ = {d} × tan {deg}° = {answer}",
+        "ko": "높이 = {d} × tan {deg}° = {answer}",
+        "en": "Height = {d} × tan {deg}° = {answer}"
+      },
+      "note": {
+        "ja": "目の高さは考えないものとする。",
+        "ko": "눈높이는 생각하지 않는다.",
+        "en": "Ignore the height of the observer's eyes."
+      }
+    },
+    {
+      "id": "two-points",
+      "level": 3,
+      "type": "twopoint",
+      "gen": "twopoint",
+      "figure": {
+        "kind": "twopoint",
+        "far": "{a}°",
+        "near": "{b}°",
+        "gap": "{g} m",
+        "height": "h = ?"
+      },
+      "text": {
+        "ja": "図のように、{g}m 離れた2地点から塔の先端を見上げた角が {a}° と {b}° である。塔の高さ h は?",
+        "ko": "그림처럼 {g}m 떨어진 두 지점에서 탑 꼭대기를 올려본 각이 {a}°와 {b}°이다. 탑의 높이 h는?",
+        "en": "As shown, from two points {g} m apart the angles of elevation to the top of the tower are {a}° and {b}°. What is the height h of the tower?"
+      },
+      "explain": {
+        "ja": "高さ = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}",
+        "ko": "높이 = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}",
+        "en": "Height = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}"
+      },
+      "note": {
+        "ja": "目の高さは考えないものとする。",
+        "ko": "눈높이는 생각하지 않는다.",
+        "en": "Ignore the height of the observer's eyes."
+      }
+    },
+    {
+      "id": "sine-rule",
+      "level": 2,
+      "type": "sinerule",
+      "gen": "sinerule",
+      "figure": {
+        "kind": "anytri",
+        "angleA": "{A}°",
+        "angleB": "{B}°",
+        "angleC": "",
+        "sideA": "{a}",
+        "sideB": "?",
+        "sideC": ""
+      },
+      "text": {
+        "ja": "△ABC で、a = {a}、A = {A}°、B = {B}° のとき、b は?",
+        "ko": "△ABC에서 a = {a}, A = {A}°, B = {B}°일 때, b는?",
+        "en": "In △ABC, a = {a}, A = {A}° and B = {B}°. What is b?"
+      },
+      "explain": {
+        "ja": "正弦定理 a/sin A = b/sin B より b = {a} × sin {B}° ÷ sin {A}° = {answer}",
+        "ko": "사인 법칙 a/sin A = b/sin B에서 b = {a} × sin {B}° ÷ sin {A}° = {answer}",
+        "en": "By the law of sines a/sin A = b/sin B, so b = {a} × sin {B}° ÷ sin {A}° = {answer}"
+      }
+    },
+    {
+      "id": "sine-radius",
+      "level": 2,
+      "type": "sinerule",
+      "gen": "sineR",
+      "text": {
+        "ja": "△ABC で、a = {a}、A = {A}° のとき、外接円の半径 R は?",
+        "ko": "△ABC에서 a = {a}, A = {A}°일 때, 외접원의 반지름 R은?",
+        "en": "In △ABC, a = {a} and A = {A}°. What is the circumradius R?"
+      },
+      "explain": {
+        "ja": "正弦定理 a/sin A = 2R より R = {answer}",
+        "ko": "사인 법칙 a/sin A = 2R에서 R = {answer}",
+        "en": "By the law of sines a/sin A = 2R, so R = {answer}"
+      }
+    },
+    {
+      "id": "cosine-rule",
+      "level": 2,
+      "type": "cosrule",
+      "gen": "cosrule",
+      "figure": {
+        "kind": "anytri",
+        "angleA": "{A}°",
+        "angleB": "",
+        "angleC": "",
+        "sideA": "?",
+        "sideB": "{b}",
+        "sideC": "{c}"
+      },
+      "text": {
+        "ja": "△ABC で、b = {b}、c = {c}、A = {A}° のとき、a は?",
+        "ko": "△ABC에서 b = {b}, c = {c}, A = {A}°일 때, a는?",
+        "en": "In △ABC, b = {b}, c = {c} and A = {A}°. What is a?"
+      },
+      "explain": {
+        "ja": "余弦定理 a² = b² + c² − 2bc cos A より a = {answer}",
+        "ko": "코사인 법칙 a² = b² + c² − 2bc cos A에서 a = {answer}",
+        "en": "By the law of cosines a² = b² + c² − 2bc cos A, so a = {answer}"
+      }
+    },
+    {
+      "id": "cosine-angle",
+      "level": 3,
+      "type": "cosrule",
+      "gen": "cosangle",
+      "figure": {
+        "kind": "anytri",
+        "angleA": "?",
+        "angleB": "",
+        "angleC": "",
+        "sideA": "{a}",
+        "sideB": "{b}",
+        "sideC": "{c}"
+      },
+      "text": {
+        "ja": "△ABC で、a = {a}、b = {b}、c = {c} のとき、A は?",
+        "ko": "△ABC에서 a = {a}, b = {b}, c = {c}일 때, A는?",
+        "en": "In △ABC, a = {a}, b = {b} and c = {c}. What is A?"
+      },
+      "explain": {
+        "ja": "余弦定理 cos A = (b² + c² − a²) / 2bc を計算すると A = {answer}",
+        "ko": "코사인 법칙 cos A = (b² + c² − a²) / 2bc를 계산하면 A = {answer}",
+        "en": "Using the law of cosines cos A = (b² + c² − a²) / 2bc gives A = {answer}"
+      }
+    },
+    {
+      "id": "triangle-area",
+      "level": 2,
+      "type": "area",
+      "gen": "area",
+      "figure": {
+        "kind": "anytri",
+        "angleA": "{A}°",
+        "angleB": "",
+        "angleC": "",
+        "sideA": "",
+        "sideB": "{b}",
+        "sideC": "{c}"
+      },
+      "text": {
+        "ja": "△ABC で、b = {b}、c = {c}、A = {A}° のとき、面積 S は?",
+        "ko": "△ABC에서 b = {b}, c = {c}, A = {A}°일 때, 넓이 S는?",
+        "en": "In △ABC, b = {b}, c = {c} and A = {A}°. What is the area S?"
+      },
+      "explain": {
+        "ja": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}",
+        "ko": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}",
+        "en": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}"
+      }
+    },
+    {
+      "id": "cuboid-diagonal",
+      "level": 2,
+      "type": "space",
+      "gen": "cuboid",
+      "text": {
+        "ja": "直方体 ABCD-EFGH で AB = {a}、AD = {b}、AE = {c} のとき、対角線 AG の長さは?",
+        "ko": "직육면체 ABCD-EFGH에서 AB = {a}, AD = {b}, AE = {c}일 때, 대각선 AG의 길이는?",
+        "en": "In cuboid ABCD-EFGH, AB = {a}, AD = {b} and AE = {c}. How long is the diagonal AG?"
+      },
+      "explain": {
+        "ja": "AG = √(AB² + AD² + AE²) = {answer}",
+        "ko": "AG = √(AB² + AD² + AE²) = {answer}",
+        "en": "AG = √(AB² + AD² + AE²) = {answer}"
+      },
+      "figure": {
+        "kind": "cuboid",
+        "ab": "{a}",
+        "ad": "{b}",
+        "ae": "{c}",
+        "ag": "AG = ?"
+      }
+    },
+    {
+      "id": "space-height",
+      "level": 3,
+      "type": "space",
+      "gen": "spaceheight",
+      "text": {
+        "ja": "塔 PH は地面に垂直に立っている。地面上の2地点 A, B から先端 P を見上げた角がそれぞれ {al}°, {be}° で、∠AHB = 90°、AB = {d} m のとき、塔の高さ PH は?",
+        "ko": "탑 PH가 지면에 수직으로 서 있다. 지면 위의 두 지점 A, B에서 꼭대기 P를 올려본 각이 각각 {al}°, {be}°이고, ∠AHB = 90°, AB = {d} m일 때, 탑의 높이 PH는?",
+        "en": "Tower PH stands vertically on the ground. From ground points A and B the angles of elevation to the top P are {al}° and {be}°. If ∠AHB = 90° and AB = {d} m, how tall is PH?"
+      },
+      "explain": {
+        "ja": "PH = h とすると AH = h ÷ tan {al}°、BH = h ÷ tan {be}°。AB² = AH² + BH² より h = {answer}",
+        "ko": "PH = h라 하면 AH = h ÷ tan {al}°, BH = h ÷ tan {be}°입니다. AB² = AH² + BH²에서 h = {answer}",
+        "en": "Let PH = h. Then AH = h ÷ tan {al}° and BH = h ÷ tan {be}°. From AB² = AH² + BH², h = {answer}"
+      },
+      "figure": {
+        "kind": "space",
+        "angleA": "{al}°",
+        "angleB": "{be}°",
+        "ab": "{d} m",
+        "ph": "PH = ?"
+      },
+      "note": {
+        "ja": "目の高さは考えないものとする。",
+        "ko": "눈높이는 생각하지 않는다.",
+        "en": "Ignore the height of the observer's eyes."
+      }
+    },
+    {
+      "id": "cofunction",
+      "level": 2,
+      "type": "convert",
+      "gen": "cofunction",
+      "text": {
+        "ja": "{expr} と等しいものは?",
+        "ko": "{expr}와 같은 것은?",
+        "en": "Which is equal to {expr}?"
+      },
+      "explain": {
+        "ja": "単位円(または直角三角形)で考えると {expr} = {answer}",
+        "ko": "단위원(또는 직각삼각형)에서 생각하면 {expr} = {answer}",
+        "en": "Using the unit circle (or a right triangle), {expr} = {answer}"
+      }
+    },
+    {
+      "id": "trig-eq",
+      "level": 2,
+      "type": "trigeq",
+      "gen": "trigeq",
+      "text": {
+        "ja": "{fn} θ = {val} を満たす θ は?",
+        "ko": "{fn} θ = {val}을 만족하는 θ는?",
+        "en": "Find θ such that {fn} θ = {val}."
+      },
+      "note": {
+        "ja": "0° ≦ θ ≦ 180° とする。",
+        "ko": "0° ≦ θ ≦ 180°이다.",
+        "en": "0° ≦ θ ≦ 180°."
+      },
+      "explain": {
+        "ja": "単位円で {fn} θ = {val} となる角を探すと θ = {answer}",
+        "ko": "단위원에서 {fn} θ = {val}이 되는 각을 찾으면 θ = {answer}",
+        "en": "On the unit circle, {fn} θ = {val} when θ = {answer}"
+      }
+    },
+    {
+      "id": "inradius",
+      "level": 2,
+      "type": "inradius",
+      "gen": "inradius",
+      "text": {
+        "ja": "3辺の長さが {a}, {b}, {c} で、面積が {S} の三角形の内接円の半径 r は?",
+        "ko": "세 변의 길이가 {a}, {b}, {c}이고 넓이가 {S}인 삼각형의 내접원의 반지름 r은?",
+        "en": "A triangle has sides {a}, {b}, {c} and area {S}. What is the radius r of its inscribed circle?"
+      },
+      "figure": {
+        "kind": "incircle",
+        "ab": "{c}",
+        "bc": "{a}",
+        "ca": "{b}",
+        "r": "r = ?"
+      },
+      "explain": {
+        "ja": "S = r(a + b + c) ÷ 2 より r = 2S ÷ (a + b + c) = {answer}",
+        "ko": "S = r(a + b + c) ÷ 2에서 r = 2S ÷ (a + b + c) = {answer}",
+        "en": "From S = r(a + b + c) ÷ 2, r = 2S ÷ (a + b + c) = {answer}"
+      }
+    },
+    {
+      "id": "tri-type",
+      "level": 2,
+      "type": "tritype",
+      "gen": "tritype",
+      "text": {
+        "ja": "3辺の長さが {a}, {b}, {c} の三角形はどんな三角形?",
+        "ko": "세 변의 길이가 {a}, {b}, {c}인 삼각형은 어떤 삼각형인가?",
+        "en": "What kind of triangle has sides {a}, {b} and {c}?"
+      },
+      "explain": {
+        "ja": "まず最大の辺が他の2辺の和より小さいか確かめ、次に最大の辺の2乗と他の2辺の2乗の和を比べる。{answer}",
+        "ko": "먼저 가장 긴 변이 나머지 두 변의 합보다 작은지 확인하고, 가장 긴 변의 제곱과 나머지 두 변의 제곱의 합을 비교합니다. {answer}",
+        "en": "First check the longest side is shorter than the other two together, then compare its square with the sum of the other two squares: {answer}"
+      }
+    },
+    {
+      "id": "heron",
+      "level": 3,
+      "type": "area",
+      "gen": "heron",
+      "text": {
+        "ja": "3辺の長さが {a}, {b}, {c} の三角形の面積は?",
+        "ko": "세 변의 길이가 {a}, {b}, {c}인 삼각형의 넓이는?",
+        "en": "What is the area of a triangle with sides {a}, {b} and {c}?"
+      },
+      "figure": {
+        "kind": "anytri",
+        "angleA": "",
+        "angleB": "",
+        "angleC": "",
+        "sideA": "{a}",
+        "sideB": "{b}",
+        "sideC": "{c}"
+      },
+      "explain": {
+        "ja": "s = (a + b + c) ÷ 2 として、ヘロンの公式 S = √(s(s − a)(s − b)(s − c)) より {answer}",
+        "ko": "s = (a + b + c) ÷ 2로 놓고 헤론의 공식 S = √(s(s − a)(s − b)(s − c))에서 {answer}",
+        "en": "With s = (a + b + c) ÷ 2, Heron's formula S = √(s(s − a)(s − b)(s − c)) gives {answer}"
+      }
+    },
+    {
+      "id": "tetra-height",
+      "level": 3,
+      "type": "space",
+      "gen": "tetra",
+      "params": {
+        "ask": "height"
+      },
+      "text": {
+        "ja": "1辺の長さが {a} の正四面体の高さ h は?",
+        "ko": "한 모서리의 길이가 {a}인 정사면체의 높이 h는?",
+        "en": "What is the height h of a regular tetrahedron with edge {a}?"
+      },
+      "figure": {
+        "kind": "tetra",
+        "edge": "{a}",
+        "h": "h = ?"
+      },
+      "explain": {
+        "ja": "頂点から底面に下ろした垂線の足は底面の重心。h = (√6 ÷ 3) × {a} = {answer}",
+        "ko": "꼭짓점에서 밑면에 내린 수선의 발은 밑면의 무게중심입니다. h = (√6 ÷ 3) × {a} = {answer}",
+        "en": "The foot of the height is the centroid of the base. h = (√6 ÷ 3) × {a} = {answer}"
+      }
+    },
+    {
+      "id": "tetra-volume",
+      "level": 3,
+      "type": "space",
+      "gen": "tetra",
+      "params": {
+        "ask": "volume"
+      },
+      "text": {
+        "ja": "1辺の長さが {a} の正四面体の体積は?",
+        "ko": "한 모서리의 길이가 {a}인 정사면체의 부피는?",
+        "en": "What is the volume of a regular tetrahedron with edge {a}?"
+      },
+      "figure": {
+        "kind": "tetra",
+        "edge": "{a}",
+        "h": ""
+      },
+      "explain": {
+        "ja": "体積 = 底面積 × 高さ ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}",
+        "ko": "부피 = 밑넓이 × 높이 ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}",
+        "en": "Volume = base area × height ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-tri",
+      "gen": "tri",
+      "intro": {
+        "ja": "△ABC で b = {b}、c = {c}、A = {A}° とする。",
+        "ko": "△ABC에서 b = {b}, c = {c}, A = {A}°이다.",
+        "en": "In △ABC, b = {b}, c = {c} and A = {A}°."
+      },
+      "figure": {
+        "kind": "anytri",
+        "angleA": "{A}°",
+        "angleB": "",
+        "angleC": "",
+        "sideA": "",
+        "sideB": "{b}",
+        "sideC": "{c}"
+      },
+      "steps": [
+        {
+          "type": "cosrule",
+          "level": 2,
+          "sum": {
+            "ja": "a",
+            "ko": "a",
+            "en": "a"
+          },
+          "text": {
+            "ja": "辺 a の長さは?",
+            "ko": "변 a의 길이는?",
+            "en": "How long is side a?"
+          },
+          "explain": {
+            "ja": "余弦定理 a² = b² + c² − 2bc cos A より a = {answer}",
+            "ko": "코사인 법칙 a² = b² + c² − 2bc cos A에서 a = {answer}",
+            "en": "By the cosine rule a² = b² + c² − 2bc cos A, a = {answer}"
+          },
+          "figure": {
+            "sideA": "?"
+          }
+        },
+        {
+          "type": "area",
+          "level": 2,
+          "sum": {
+            "ja": "面積",
+            "ko": "넓이",
+            "en": "Area"
+          },
+          "text": {
+            "ja": "△ABC の面積 S は?",
+            "ko": "△ABC의 넓이 S는?",
+            "en": "What is the area S of △ABC?"
+          },
+          "explain": {
+            "ja": "S = (1/2) × b × c × sin A = {answer}",
+            "ko": "S = (1/2) × b × c × sin A = {answer}",
+            "en": "S = (1/2) × b × c × sin A = {answer}"
+          },
+          "figure": {
+            "sideA": "{a1}"
+          }
+        },
+        {
+          "type": "inradius",
+          "level": 3,
+          "sum": {
+            "ja": "内接円の半径",
+            "ko": "내접원의 반지름",
+            "en": "Inradius"
+          },
+          "text": {
+            "ja": "内接円の半径 r は?",
+            "ko": "내접원의 반지름 r은?",
+            "en": "What is the inradius r?"
+          },
+          "explain": {
+            "ja": "S = r(a + b + c) ÷ 2 に a = {a1}、S = {a2} を代入すると r = {answer}",
+            "ko": "S = r(a + b + c) ÷ 2에 a = {a1}, S = {a2}를 대입하면 r = {answer}",
+            "en": "Substitute a = {a1} and S = {a2} into S = r(a + b + c) ÷ 2: r = {answer}"
+          },
+          "figure": {
+            "sideA": "{a1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-right",
+      "gen": "right",
+      "figure": {
+        "kind": "triangle",
+        "angle": "A",
+        "opp": "{a}",
+        "adj": "{b}",
+        "hyp": ""
+      },
+      "intro": {
+        "ja": "∠C = 90° の直角三角形 ABC で BC = {a}, CA = {b} である。",
+        "ko": "∠C = 90°인 직각삼각형 ABC에서 BC = {a}, CA = {b}이다.",
+        "en": "In right triangle ABC with ∠C = 90°, BC = {a} and CA = {b}."
+      },
+      "steps": [
+        {
+          "type": "length",
+          "level": 1,
+          "sum": {
+            "ja": "斜辺 AB",
+            "ko": "빗변 AB",
+            "en": "Hypotenuse AB"
+          },
+          "figure": {
+            "hyp": "AB = ?"
+          },
+          "text": {
+            "ja": "斜辺 AB の長さは?",
+            "ko": "빗변 AB의 길이는?",
+            "en": "How long is the hypotenuse AB?"
+          },
+          "explain": {
+            "ja": "三平方の定理 AB² = {a}² + {b}² より AB = {answer}",
+            "ko": "피타고라스 정리 AB² = {a}² + {b}²에서 AB = {answer}",
+            "en": "By the Pythagorean theorem AB² = {a}² + {b}², AB = {answer}"
+          }
+        },
+        {
+          "type": "ratio",
+          "level": 1,
+          "sum": {
+            "ja": "sin A",
+            "ko": "sin A",
+            "en": "sin A"
+          },
+          "figure": {
+            "hyp": "{a1}"
+          },
+          "text": {
+            "ja": "sin A の値は?",
+            "ko": "sin A의 값은?",
+            "en": "What is sin A?"
+          },
+          "explain": {
+            "ja": "sin A = (向かい合う辺 BC) ÷ (斜辺 AB) = {a} ÷ {a1} = {answer}",
+            "ko": "sin A = (마주 보는 변 BC) ÷ (빗변 AB) = {a} ÷ {a1} = {answer}",
+            "en": "sin A = opposite BC ÷ hypotenuse AB = {a} ÷ {a1} = {answer}"
+          }
+        },
+        {
+          "type": "inradius",
+          "level": 2,
+          "sum": {
+            "ja": "内接円の半径 r",
+            "ko": "내접원의 반지름 r",
+            "en": "Inradius r"
+          },
+          "figure": {
+            "hyp": "{a1}"
+          },
+          "text": {
+            "ja": "内接円の半径 r は?",
+            "ko": "내접원의 반지름 r은?",
+            "en": "What is the inradius r?"
+          },
+          "explain": {
+            "ja": "面積 S = ½ × {a} × {b}。S = ½ r (BC + CA + AB) より r = {answer}",
+            "ko": "넓이 S = ½ × {a} × {b}. S = ½ r (BC + CA + AB)에서 r = {answer}",
+            "en": "Area S = ½ × {a} × {b}. From S = ½ r (BC + CA + AB), r = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

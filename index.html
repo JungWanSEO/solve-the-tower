@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1a3a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Solve the Tower">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-180.png">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<title>Solve the Tower</title>
+<link rel="stylesheet" href="./css/style.css">
+<!-- 코드 파일을 차례로 기다리지 않고 한꺼번에 받게 합니다. js 파일을 추가하면 여기에도 한 줄 추가합니다. -->
+<link rel="modulepreload" href="./js/battle.js">
+<link rel="modulepreload" href="./js/codex.js">
+<link rel="modulepreload" href="./js/art.js">
+<link rel="modulepreload" href="./js/config.js">
+<link rel="modulepreload" href="./js/data.js">
+<link rel="modulepreload" href="./js/events.js">
+<link rel="modulepreload" href="./js/figures.js">
+<link rel="modulepreload" href="./js/fit.js">
+<link rel="modulepreload" href="./js/generators.js">
+<link rel="modulepreload" href="./js/guide.js">
+<link rel="modulepreload" href="./js/i18n.js">
+<link rel="modulepreload" href="./js/main.js">
+<link rel="modulepreload" href="./js/map.js">
+<link rel="modulepreload" href="./js/questions.js">
+<link rel="modulepreload" href="./js/qview.js">
+<link rel="modulepreload" href="./js/run.js">
+<link rel="modulepreload" href="./js/save.js">
+<link rel="modulepreload" href="./js/scope.js">
+<link rel="modulepreload" href="./js/settings.js">
+<link rel="modulepreload" href="./js/sound.js">
+<link rel="modulepreload" href="./js/stage.js">
+<link rel="modulepreload" href="./js/title.js">
+<link rel="modulepreload" href="./js/tutorial.js">
+<link rel="modulepreload" href="./js/ui.js">
+</head>
+<body>
+<main id="app">
+
+  <!-- 새 버전이 준비됐을 때 -->
+  <div class="update-bar" id="updateBar" hidden>
+    <span data-i18n="ui.update"></span>
+    <button type="button" id="updateBtn" data-i18n="ui.updateBtn"></button>
+  </div>
+
+  <header class="top" id="topBar">
+    <div class="unit" id="unitBox">
+      <span id="subjectName"></span>
+      <strong id="unitName"></strong>
+    </div>
+    <button type="button" class="top-btn" id="codexBtn" data-i18n="ui.codex"></button>
+    <button type="button" class="top-btn" id="menuBtn" data-i18n="ui.menu" hidden></button>
+  </header>
+  <div class="statusbar" id="runStatus" role="status"></div>
+  <div class="coach" id="coach" hidden>
+    <span id="coachText" aria-live="polite"></span>
+    <button type="button" id="coachSkip" data-i18n="tut.skip"></button>
+  </div>
+
+  <!-- 처음 화면 -->
+  <section class="screen" id="screenTitle">
+    <div class="title">
+      <div class="title-art" id="titleArt"></div>
+      <h1><span>SOLVE THE</span>TOWER</h1>
+      <p id="titleUnit"></p>
+      <p class="title-record" id="titleRecord" hidden></p>
+      <!-- 불러오는 동안 보이는 진행 막대. 다 불러오면 사라집니다. -->
+      <div class="loading" id="loading" role="status" aria-live="polite">
+        <div class="loading-track"><div class="loading-bar" id="loadingBar"></div></div>
+        <p id="loadingText">Loading…</p>
+        <p class="loading-detail" id="loadingDetail"></p>
+        <button type="button" class="primary" id="loadingRetry" hidden onclick="location.reload()">↻</button>
+      </div>
+      <script>
+        // 코드가 다 오기 전에도 바로 보이도록, 여기서 저장된 언어로 안내 글을 넣습니다.
+        (function () {
+          var T = {
+            ja: { load: '読み込み中…', slow: '通信に時間がかかっています。もう少しお待ちください。', fail: '読み込めませんでした。通信を確かめて、もう一度お試しください。', retry: 'もう一度' },
+            ko: { load: '불러오는 중…', slow: '통신이 느립니다. 조금만 더 기다려 주세요.', fail: '불러오지 못했습니다. 통신 상태를 확인하고 다시 시도해 주세요.', retry: '다시 시도' },
+            en: { load: 'Loading…', slow: 'This is taking a while. Please wait a little longer.', fail: 'Could not load. Check your connection and try again.', retry: 'Try again' }
+          };
+          var lang = 'ja';
+          try { lang = (JSON.parse(localStorage.getItem('mathrpg_save_v1') || '{}').lang) || 'ja'; } catch (e) {}
+          var t = T[lang] || T.ja;
+          window.sttText = t;
+          document.getElementById('loadingText').textContent = t.load;
+          document.getElementById('loadingRetry').textContent = t.retry;
+          window.sttSlow = setTimeout(function () { document.getElementById('loadingText').textContent = t.slow; }, 6000);
+        })();
+      </script>
+      <div class="options">
+        <button type="button" id="titleContinue" hidden><b></b><small></small></button>
+        <button type="button" id="titleNew"><b></b><small></small></button>
+        <!-- 작은 버튼 줄: 그림과 이름만 보입니다. (설명은 화면 낭독기용으로 남겨 둡니다) -->
+        <button type="button" class="tile" id="titleCodex"><i data-ico="book"></i><b data-i18n="ui.codex"></b><small class="sr" data-i18n="title.codexSub"></small></button>
+        <button type="button" class="tile" id="titleTutorial" hidden><i data-ico="replay"></i><b data-i18n="title.tutorialShort"></b><small class="sr" data-i18n="title.tutorialSub"></small></button>
+        <button type="button" class="tile" id="titleSettings"><i data-ico="gear"></i><b data-i18n="set.title"></b><small class="sr" data-i18n="title.setSub"></small></button>
+        <button type="button" id="titleData" hidden></button>
+      </div>
+      <!-- 아이폰 사파리로 열었을 때만: 기록이 지워질 수 있다는 안내 -->
+      <button type="button" class="ios-hint" id="iosHint" hidden><b data-i18n="title.iosHint"></b><small data-i18n="title.iosHintSub"></small></button>
+      <p class="title-note" data-i18n="title.note"></p>
+      <p class="title-note version" id="versionText"></p>
+    </div>
+  </section>
+
+  <!-- 범위 고르기 -->
+  <section class="screen" id="screenScope" hidden>
+    <div class="event">
+      <h2 data-i18n="scope.title"></h2>
+      <p data-i18n="scope.text"></p>
+      <div class="quick">
+        <button type="button" id="scopeAll" data-i18n="scope.all"></button>
+        <button type="button" id="scopeWeak" data-i18n="scope.weak"></button>
+        <button type="button" id="scopeSame" data-i18n="scope.same"></button>
+      </div>
+      <div class="scope-list" id="scopeList"></div>
+      <div class="scope-foot">
+        <!-- 도전 단계: 탑을 한 번 깬 뒤에만 보입니다 -->
+        <div class="ascend" id="ascendRow" hidden>
+          <span class="ascend-pick">
+            <b data-i18n="ascend.name"></b>
+            <button type="button" class="hint" id="ascendDown" aria-label="-">−</button>
+            <strong id="ascendNum"></strong>
+            <button type="button" class="hint" id="ascendUp" aria-label="+">+</button>
+          </span>
+          <small id="ascendDesc" aria-live="polite"></small>
+        </div>
+        <p class="scope-summary" id="scopeSummary" aria-live="polite"></p>
+        <p class="scope-chain" id="scopeChain" hidden></p>
+        <div class="scope-foot-row">
+          <button type="button" class="hint" id="scopeBack" data-i18n="scope.back"></button>
+          <button type="button" class="primary" id="scopeStart" data-i18n="scope.start"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 갈림길 지도 -->
+  <section class="screen" id="screenMap" hidden>
+    <div class="screen-head">
+      <h2 data-i18n="map.title"></h2>
+      <span id="mapProgress"></span>
+    </div>
+    <div class="map-bar"><i id="mapBar"></i></div>
+    <p class="map-tip" data-i18n="map.tip"></p>
+    <div class="map" id="mapRows"></div>
+    <details class="legend-box" id="mapLegendBox">
+      <summary data-i18n="map.legend"></summary>
+      <div class="legend" id="mapLegend"></div>
+    </details>
+  </section>
+
+  <!-- 전투 -->
+  <section class="screen" id="screenBattle" hidden>
+    <div class="foe">
+      <div class="row">
+        <strong id="foeName"></strong>
+        <span class="chip" id="foeWeak"></span>
+      </div>
+      <div class="row">
+        <div class="bar" id="foeBar"><div class="fill ghost" id="foeHpGhost"></div><div class="fill rose" id="foeHpBar"></div></div>
+        <span class="num" id="foeHpText"></span>
+      </div>
+      <canvas id="stage"></canvas>
+      <div class="intent" id="foeIntent"><i id="foeIntentIco"></i><span id="foeIntentText"></span></div>
+    </div>
+
+    <div class="me" id="meBox">
+      <div class="row">
+        <span class="label" data-i18n="ui.hp"></span>
+        <div class="bar"><div class="fill ghost" id="hpGhost"></div><div class="fill teal" id="hpBar"></div></div>
+        <span class="num" id="hpText"></span>
+      </div>
+      <div class="row">
+        <span class="label" data-i18n="ui.ult"></span>
+        <div class="pips" id="ultPips"></div>
+        <span class="num" id="comboText"></span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="actions" id="actions">
+        <button type="button" class="act act-basic" data-action="basic"><span class="act-top"><i data-ico="sword"></i><b data-i18n="ui.basic"></b></span><em id="basicDmg"></em><small id="basicSub"></small></button>
+        <button type="button" class="act act-skill" data-action="skill"><span class="act-top"><i data-ico="spark"></i><b data-i18n="ui.skill"></b></span><em id="skillDmg"></em><small id="skillSub"></small></button>
+        <button type="button" class="act act-defend" data-action="defend"><span class="act-top"><i data-ico="shield"></i><b data-i18n="ui.defend"></b></span><em id="defendDmg"></em><small id="defendSub"></small></button>
+      </div>
+      <div class="special" id="specialRow">
+        <button type="button" class="chain" id="chainBtn" data-action="chain" disabled><span class="act-top"><i data-ico="chain"></i><b data-i18n="ui.chain"></b></span><small id="chainSub"></small></button>
+        <button type="button" class="ult" id="ultBtn" data-action="ult" disabled><span class="ult-fill" id="ultFill"></span><span class="act-top"><i data-ico="star"></i><b id="ultText"></b></span><small id="ultSub"></small></button>
+      </div>
+
+      <div class="question" id="question" hidden>
+        <div class="q-head">
+          <span class="meta" id="qMeta"></span>
+          <button type="button" class="hint" id="hintBtn" hidden></button>
+        </div>
+        <!-- 연속기: 공통 지문과 이미 푼 물음 -->
+        <div class="chain-box" id="qChain" hidden>
+          <span class="chain-dots" id="qChainDots"></span>
+          <span class="chain-intro" id="qChainIntro"></span>
+          <span class="chain-done" id="qChainDone"></span>
+        </div>
+        <div class="figure" id="qFigure" hidden></div>
+        <p id="qText"></p>
+        <span class="q-cap" id="qCap" hidden></span>
+        <span class="q-note" id="qNote" hidden></span>
+      </div>
+      <div class="answers" id="answers" hidden></div>
+      <!-- 틀렸을 때: 정답과 해설을 답 바로 아래, "다음" 버튼 위에 보여 줍니다 -->
+      <div class="review" id="reviewBox" hidden>
+        <b id="reviewAnswer"></b>
+        <p id="reviewText"></p>
+      </div>
+      <button type="button" class="primary" id="nextBtn" data-i18n="ui.next" hidden></button>
+
+      <p class="notice" id="notice" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- 상점, 휴식, 보물, 보상, 결과가 함께 쓰는 화면 -->
+  <section class="screen" id="screenEvent" hidden>
+    <div class="event">
+      <div class="scene" id="evArt" hidden></div>
+      <h2 id="evTitle"></h2>
+      <p id="evText"></p>
+      <!-- 처음 온 칸에만 나오는 한 줄 안내 -->
+      <p class="ev-tip" id="evTip" hidden><b data-i18n="tip.label"></b><span id="evTipText"></span></p>
+      <div id="evQuiz" hidden>
+        <div class="question">
+          <span class="meta" id="evQMeta"></span>
+          <div class="figure" id="evQFigure" hidden></div>
+          <p id="evQText"></p>
+          <span class="q-cap" id="evQCap" hidden></span>
+          <span class="q-note" id="evQNote" hidden></span>
+        </div>
+        <div class="answers" id="evAnswers"></div>
+      </div>
+      <div class="options" id="evOptions"></div>
+      <button type="button" class="primary" id="evLeave" hidden></button>
+    </div>
+  </section>
+
+  <!-- 데이터 관리 -->
+  <section class="screen" id="screenData" hidden>
+    <div class="event">
+      <h2 data-i18n="data.title"></h2>
+      <p data-i18n="data.intro"></p>
+
+      <h3 data-i18n="data.usageTitle"></h3>
+      <div class="codex-card">
+        <b id="dataUsage"></b>
+        <small id="dataSummary"></small>
+      </div>
+
+      <h3 data-i18n="data.backupTitle"></h3>
+      <p data-i18n="data.backupText"></p>
+      <div class="data-row">
+        <button type="button" id="dataExport" data-i18n="data.export"></button>
+        <button type="button" id="dataImport" data-i18n="data.import"></button>
+      </div>
+      <div class="data-box" id="dataCodeBox" hidden>
+        <textarea id="dataCode" readonly rows="4" aria-label="backup code"></textarea>
+        <div class="data-row">
+          <button type="button" class="primary" id="dataCopy" data-i18n="data.copy"></button>
+          <button type="button" id="dataFile" data-i18n="data.file"></button>
+        </div>
+      </div>
+      <div class="data-box" id="dataImportBox" hidden>
+        <textarea id="dataPaste" rows="4" aria-label="backup code" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+        <div class="data-row">
+          <label class="file-pick"><span data-i18n="data.pick"></span><input type="file" id="dataPick" accept=".txt,text/plain"></label>
+          <button type="button" class="primary" id="dataApply" data-i18n="data.apply"></button>
+        </div>
+      </div>
+      <p class="data-note" id="dataNote" aria-live="polite"></p>
+
+      <h3 data-i18n="data.homeTitle"></h3>
+      <div class="codex-card" id="dataIos" hidden>
+        <b data-i18n="data.iosTitle"></b>
+        <small data-i18n="data.iosText"></small>
+        <small data-i18n="data.iosSteps"></small>
+        <small data-i18n="data.iosMove"></small>
+      </div>
+      <div class="codex-card" id="dataOther">
+        <small data-i18n="data.otherText"></small>
+      </div>
+
+      <h3 data-i18n="data.eraseTitle"></h3>
+      <p data-i18n="data.eraseText"></p>
+      <button type="button" class="hint" id="dataReset"><b data-i18n="data.reset"></b> · <small data-i18n="data.resetSub"></small></button>
+      <button type="button" class="hint danger" id="dataWipe"><b data-i18n="data.wipe"></b> · <small data-i18n="data.wipeSub"></small></button>
+
+      <button type="button" class="primary" id="dataBack" data-i18n="data.back"></button>
+    </div>
+  </section>
+
+  <!-- 도감 -->
+  <section class="screen" id="screenCodex" hidden>
+    <div class="event">
+      <h2 data-i18n="codex.title"></h2>
+      <p id="codexSummary"></p>
+      <div class="tabs" role="tablist">
+        <button type="button" id="codexTabTypes" role="tab" data-i18n="codex.types"></button>
+        <button type="button" id="codexTabMonsters" role="tab" data-i18n="codex.monsters"></button>
+      </div>
+      <div class="cards" id="codexTypes"></div>
+      <div class="cards" id="codexMonsters" hidden></div>
+      <button type="button" class="primary sticky-foot" id="codexClose" data-i18n="codex.close"></button>
+    </div>
+  </section>
+
+  <!-- "처음부터 다시" 확인 창 -->
+  <div class="menu-overlay" id="confirm" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
+    <div class="menu-box">
+      <h2 id="confirmTitle" data-i18n="title.confirmTitle"></h2>
+      <p id="confirmText"></p>
+      <button type="button" class="primary" id="confirmCancel" data-i18n="title.confirmCancel"></button>
+      <button type="button" class="hint danger" id="confirmOk" data-i18n="title.confirmOk"></button>
+    </div>
+  </div>
+
+  <!-- 설정: 처음 화면과 메뉴에서 엽니다 -->
+  <div class="menu-overlay" id="settings" role="dialog" aria-modal="true" aria-labelledby="setTitle" hidden>
+    <div class="menu-box set-box">
+      <h2 id="setTitle" data-i18n="set.title"></h2>
+
+      <h3 data-i18n="set.sound"></h3>
+      <label class="set-row"><span data-i18n="set.music"></span><input type="range" id="setMusic" min="0" max="100" step="5"><b id="setMusicNum"></b></label>
+      <label class="set-row"><span data-i18n="set.sfx"></span><input type="range" id="setSfx" min="0" max="100" step="5"><b id="setSfxNum"></b></label>
+
+      <h3 data-i18n="set.screen"></h3>
+      <label class="set-row"><span data-i18n="ui.language"></span>
+        <select id="langSelect" class="lang-select">
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <button type="button" class="set-row switch" id="setBig" role="switch"><span><b data-i18n="set.big"></b><small data-i18n="set.bigSub"></small></span><i></i></button>
+      <button type="button" class="set-row switch" id="setCalm" role="switch"><span><b data-i18n="set.calm"></b><small data-i18n="set.calmSub"></small></span><i></i></button>
+
+      <h3 data-i18n="set.game"></h3>
+      <button type="button" class="set-row switch" id="setCheer" role="switch"><span><b data-i18n="set.cheer"></b><small data-i18n="set.cheerSub"></small></span><i></i></button>
+      <button type="button" class="set-row link" id="setData"><span><b data-i18n="data.title"></b><small data-i18n="title.dataSub"></small></span><em>›</em></button>
+
+      <button type="button" class="primary" id="setClose" data-i18n="set.close"></button>
+    </div>
+  </div>
+
+  <!-- 잠깐 떴다 사라지는 알림 (강화를 얻었을 때 등) -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- 여러 버튼이 달린 확인 창 (데이터 관리에서 씁니다) -->
+  <div class="menu-overlay" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" hidden>
+    <div class="menu-box">
+      <h2 id="dialogTitle"></h2>
+      <p id="dialogText"></p>
+      <div class="dialog-buttons" id="dialogButtons"></div>
+    </div>
+  </div>
+
+  <!-- 모두 지운 뒤의 끝 화면 -->
+  <div class="menu-overlay wiped" id="wiped" hidden>
+    <div class="menu-box">
+      <h2 id="wipedTitle"></h2>
+      <p id="wipedText"></p>
+      <button type="button" class="hint" id="wipedAgain"></button>
+    </div>
+  </div>
+
+  <!-- 메뉴 (일시 정지). 게임 중 어느 화면에서나 엽니다. -->
+  <div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-labelledby="menuTitle" hidden>
+    <div class="menu-box">
+      <h2 id="menuTitle" data-i18n="menu.title"></h2>
+      <p id="menuText"></p>
+      <button type="button" class="primary" id="menuResume" data-i18n="menu.resume"></button>
+      <button type="button" class="hint" id="menuSettings" data-i18n="set.title"></button>
+      <button type="button" class="hint" id="menuQuit" data-i18n="menu.quit"></button>
+    </div>
+  </div>
+
+  <!-- 강조 안내 (튜토리얼): 어두운 가림막 네 장, 강조 테두리, 말풍선 -->
+  <div class="guide" id="guide" hidden>
+    <div class="guide-shade" id="guideTop"></div>
+    <div class="guide-shade" id="guideBottom"></div>
+    <div class="guide-shade" id="guideLeft"></div>
+    <div class="guide-shade" id="guideRight"></div>
+    <div class="guide-block" id="guideBlock" hidden></div>
+    <div class="guide-ring" id="guideRing"></div>
+    <div class="guide-bubble" id="guideBubble" role="dialog" aria-live="polite">
+      <span class="guide-arrow" id="guideArrow"></span>
+      <p id="guideText"></p>
+      <div class="guide-foot">
+        <button type="button" class="guide-skip" id="guideSkip"></button>
+        <span id="guideStep"></span>
+        <button type="button" class="guide-next" id="guideNext" hidden></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스마트폰을 가로로 눕혔을 때 -->
+  <div class="rotate" id="rotate" aria-hidden="true"><p data-i18n="ui.rotate"></p></div>
+
+</main>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

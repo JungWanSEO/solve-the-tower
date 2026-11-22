@@ -1,0 +1,661 @@
+{
+  "id": "math1-quad",
+  "name": {
+    "ja": "二次関数",
+    "ko": "이차함수",
+    "en": "Quadratic functions"
+  },
+  "types": {
+    "vertex": {
+      "ja": "グラフの頂点",
+      "ko": "그래프의 꼭짓점",
+      "en": "Vertex of the graph"
+    },
+    "complete": {
+      "ja": "平方完成",
+      "ko": "완전제곱식으로 고치기",
+      "en": "Completing the square"
+    },
+    "maxmin": {
+      "ja": "最大・最小",
+      "ko": "최대·최소",
+      "en": "Maximum and minimum"
+    },
+    "quadeq": {
+      "ja": "二次方程式",
+      "ko": "이차방정식",
+      "en": "Quadratic equations"
+    },
+    "discriminant": {
+      "ja": "判別式",
+      "ko": "판별식",
+      "en": "Discriminant"
+    },
+    "quadineq": {
+      "ja": "二次不等式",
+      "ko": "이차부등식",
+      "en": "Quadratic inequalities"
+    },
+    "graphmove": {
+      "ja": "グラフの平行移動",
+      "ko": "그래프의 평행이동",
+      "en": "Translating graphs"
+    },
+    "determine": {
+      "ja": "二次関数の決定",
+      "ko": "이차함수의 결정",
+      "en": "Finding a quadratic function"
+    },
+    "function": {
+      "ja": "関数の値と値域",
+      "ko": "함숫값과 치역",
+      "en": "Function values and range"
+    },
+    "application": {
+      "ja": "二次関数・不等式の応用",
+      "ko": "이차함수·부등식의 응용",
+      "en": "Applications"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "二次関数とグラフ",
+        "ko": "이차함수와 그래프",
+        "en": "Functions and graphs"
+      },
+      "types": [
+        "function",
+        "vertex",
+        "complete",
+        "maxmin",
+        "graphmove",
+        "determine"
+      ]
+    },
+    {
+      "name": {
+        "ja": "二次方程式と二次不等式",
+        "ko": "이차방정식과 이차부등식",
+        "en": "Equations and inequalities"
+      },
+      "types": [
+        "quadeq",
+        "discriminant",
+        "quadineq"
+      ]
+    },
+    {
+      "name": {
+        "ja": "応用",
+        "ko": "응용",
+        "en": "Applications"
+      },
+      "types": [
+        "application"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "vertex",
+      "level": 1,
+      "type": "vertex",
+      "gen": "vertex",
+      "text": {
+        "ja": "{f} のグラフの頂点は?",
+        "ko": "{f}의 그래프의 꼭짓점은?",
+        "en": "What is the vertex of the graph of {f}?"
+      },
+      "explain": {
+        "ja": "y = a(x − p)² + q の頂点は (p, q) なので {answer}",
+        "ko": "y = a(x − p)² + q의 꼭짓점은 (p, q)이므로 {answer}",
+        "en": "The vertex of y = a(x − p)² + q is (p, q), so {answer}"
+      }
+    },
+    {
+      "id": "complete",
+      "level": 2,
+      "type": "complete",
+      "gen": "complete",
+      "text": {
+        "ja": "{f} のグラフの頂点は?",
+        "ko": "{f}의 그래프의 꼭짓점은?",
+        "en": "What is the vertex of the graph of {f}?"
+      },
+      "explain": {
+        "ja": "平方完成して y = a(x − p)² + q の形にすると頂点は {answer}",
+        "ko": "완전제곱식으로 고쳐 y = a(x − p)² + q 꼴로 만들면 꼭짓점은 {answer}",
+        "en": "Complete the square to get y = a(x − p)² + q; the vertex is {answer}"
+      }
+    },
+    {
+      "id": "min-on-range",
+      "level": 2,
+      "type": "maxmin",
+      "gen": "maxmin",
+      "params": {
+        "ask": "min"
+      },
+      "text": {
+        "ja": "関数 {f} ({s} ≦ x ≦ {t}) の最小値は?",
+        "ko": "함수 {f} ({s} ≦ x ≦ {t})의 최솟값은?",
+        "en": "What is the minimum of {f} for {s} ≦ x ≦ {t}?"
+      },
+      "explain": {
+        "ja": "頂点が範囲に入っているかを確かめる。最小値は {answer}",
+        "ko": "꼭짓점이 범위 안에 있는지 먼저 확인합니다. 최솟값은 {answer}",
+        "en": "Check whether the vertex is inside the range. The minimum is {answer}"
+      }
+    },
+    {
+      "id": "max-on-range",
+      "level": 3,
+      "type": "maxmin",
+      "gen": "maxmin",
+      "params": {
+        "ask": "max"
+      },
+      "text": {
+        "ja": "関数 {f} ({s} ≦ x ≦ {t}) の最大値は?",
+        "ko": "함수 {f} ({s} ≦ x ≦ {t})의 최댓값은?",
+        "en": "What is the maximum of {f} for {s} ≦ x ≦ {t}?"
+      },
+      "explain": {
+        "ja": "下に凸のグラフでは、軸から遠い方の端で最大になる。最大値は {answer}",
+        "ko": "아래로 볼록한 그래프는 축에서 먼 쪽 끝에서 최대가 됩니다. 최댓값은 {answer}",
+        "en": "For an upward-opening graph the maximum is at the end farther from the axis: {answer}"
+      }
+    },
+    {
+      "id": "quadeq",
+      "level": 1,
+      "type": "quadeq",
+      "gen": "quadeq",
+      "text": {
+        "ja": "{f} を解くと?",
+        "ko": "{f}의 해는?",
+        "en": "Solve {f}."
+      },
+      "explain": {
+        "ja": "左辺を因数分解して解くと {answer}",
+        "ko": "좌변을 인수분해해서 풀면 {answer}",
+        "en": "Factor the left side: {answer}"
+      }
+    },
+    {
+      "id": "discriminant",
+      "level": 2,
+      "type": "discriminant",
+      "gen": "discriminant",
+      "text": {
+        "ja": "{f} の判別式 D の値は?",
+        "ko": "{f}의 판별식 D의 값은?",
+        "en": "What is the discriminant D of {f}?"
+      },
+      "explain": {
+        "ja": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}",
+        "ko": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}",
+        "en": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}"
+      }
+    },
+    {
+      "id": "quadineq",
+      "level": 3,
+      "type": "quadineq",
+      "gen": "quadineq",
+      "text": {
+        "ja": "不等式 {f} {op} 0 を解くと?",
+        "ko": "부등식 {f} {op} 0의 해는?",
+        "en": "Solve {f} {op} 0."
+      },
+      "explain": {
+        "ja": "左辺を因数分解し、グラフが x 軸より下か上かを考えると {answer}",
+        "ko": "좌변을 인수분해하고, 그래프가 x축보다 아래인지 위인지 생각하면 {answer}",
+        "en": "Factor the left side and think about where the graph is below or above the x-axis: {answer}"
+      }
+    },
+    {
+      "id": "shift",
+      "level": 1,
+      "type": "graphmove",
+      "gen": "shift",
+      "text": {
+        "ja": "{f} のグラフを x 軸方向に {p}、y 軸方向に {q} だけ平行移動した放物線の式は?",
+        "ko": "{f}의 그래프를 x축 방향으로 {p}, y축 방향으로 {q}만큼 평행이동한 포물선의 식은?",
+        "en": "The graph of {f} is shifted {p} in the x-direction and {q} in the y-direction. What is the new equation?"
+      },
+      "explain": {
+        "ja": "x を x − p に、y に q を加える。{answer}",
+        "ko": "x를 x − p로 바꾸고, y에 q를 더합니다. {answer}",
+        "en": "Replace x with x − p and add q: {answer}"
+      }
+    },
+    {
+      "id": "determine",
+      "level": 2,
+      "type": "determine",
+      "gen": "determine",
+      "text": {
+        "ja": "頂点が ({p}, {q}) で、点 ({x0}, {y0}) を通る放物線 y = a(x − p)² + q の a の値は?",
+        "ko": "꼭짓점이 ({p}, {q})이고 점 ({x0}, {y0})을 지나는 포물선 y = a(x − p)² + q에서 a의 값은?",
+        "en": "A parabola y = a(x − p)² + q has vertex ({p}, {q}) and passes through ({x0}, {y0}). What is a?"
+      },
+      "explain": {
+        "ja": "通る点の座標を代入して a を求めると {answer}",
+        "ko": "지나는 점의 좌표를 대입해 a를 구하면 {answer}",
+        "en": "Substitute the point to find a: {answer}"
+      }
+    },
+    {
+      "id": "x-count",
+      "level": 2,
+      "type": "discriminant",
+      "gen": "xcount",
+      "text": {
+        "ja": "{f} のグラフと x 軸の共有点の個数は?",
+        "ko": "{f}의 그래프와 x축이 만나는 점의 개수는?",
+        "en": "How many points does the graph of {f} share with the x-axis?"
+      },
+      "explain": {
+        "ja": "判別式 D の符号を調べる。D > 0 なら 2 個、D = 0 なら 1 個、D < 0 なら 0 個。答えは {answer}",
+        "ko": "판별식 D의 부호를 봅니다. D > 0이면 2개, D = 0이면 1개, D < 0이면 0개. 답은 {answer}",
+        "en": "Check the sign of D: two points if D > 0, one if D = 0, none if D < 0. Answer: {answer}"
+      }
+    },
+    {
+      "id": "quad-special",
+      "level": 3,
+      "type": "quadineq",
+      "gen": "quadspecial",
+      "text": {
+        "ja": "不等式 {f} {op} 0 を解くと?",
+        "ko": "부등식 {f} {op} 0의 해는?",
+        "en": "Solve {f} {op} 0."
+      },
+      "note": {
+        "ja": "x は実数とする。",
+        "ko": "x는 실수이다.",
+        "en": "x is a real number."
+      },
+      "explain": {
+        "ja": "左辺を平方完成して、グラフと x 軸の位置関係を考える。{answer}",
+        "ko": "좌변을 완전제곱식으로 고쳐 그래프와 x축의 위치를 생각합니다. {answer}",
+        "en": "Complete the square and compare the graph with the x-axis: {answer}"
+      }
+    },
+    {
+      "id": "f-value",
+      "level": 1,
+      "type": "function",
+      "gen": "fvalue",
+      "text": {
+        "ja": "f(x) = {f} のとき、f({k}) の値は?",
+        "ko": "f(x) = {f}일 때, f({k})의 값은?",
+        "en": "If f(x) = {f}, what is f({k})?"
+      },
+      "explain": {
+        "ja": "x に {k} を代入すると {answer}",
+        "ko": "x에 {k}를 대입하면 {answer}",
+        "en": "Substitute {k} for x: {answer}"
+      }
+    },
+    {
+      "id": "range-linear",
+      "level": 1,
+      "type": "function",
+      "gen": "range1",
+      "text": {
+        "ja": "関数 {f} ({s} ≦ x ≦ {t}) の値域は?",
+        "ko": "함수 {f} ({s} ≦ x ≦ {t})의 치역은?",
+        "en": "What is the range of {f} for {s} ≦ x ≦ {t}?"
+      },
+      "explain": {
+        "ja": "両端の x の値を代入して、小さい方から大きい方まで。{answer}",
+        "ko": "양 끝의 x 값을 대입해 작은 쪽부터 큰 쪽까지입니다. {answer}",
+        "en": "Substitute both ends of x and order the results: {answer}"
+      }
+    },
+    {
+      "id": "reflect",
+      "level": 2,
+      "type": "graphmove",
+      "gen": "reflect",
+      "text": {
+        "ja": "{f} のグラフを {axis} に関して対称移動した放物線の式は?",
+        "ko": "{f}의 그래프를 {axis}에 대하여 대칭이동한 포물선의 식은?",
+        "en": "The graph of {f} is reflected in {axis}. What is the new equation?"
+      },
+      "explain": {
+        "ja": "x 軸なら y を −y に、y 軸なら x を −x に、原点なら両方を変える。{answer}",
+        "ko": "x축이면 y를 −y로, y축이면 x를 −x로, 원점이면 둘 다 바꿉니다. {answer}",
+        "en": "x-axis: replace y with −y. y-axis: replace x with −x. Origin: do both. {answer}"
+      }
+    },
+    {
+      "id": "three-points",
+      "level": 3,
+      "type": "determine",
+      "gen": "threepoints",
+      "text": {
+        "ja": "3点 (0, {y0}), (1, {y1}), (−1, {y2}) を通る放物線の式は?",
+        "ko": "세 점 (0, {y0}), (1, {y1}), (−1, {y2})를 지나는 포물선의 식은?",
+        "en": "Which parabola passes through (0, {y0}), (1, {y1}) and (−1, {y2})?"
+      },
+      "explain": {
+        "ja": "y = ax² + bx + c に3点を代入して a, b, c を求めると {answer}",
+        "ko": "y = ax² + bx + c에 세 점을 대입해 a, b, c를 구하면 {answer}",
+        "en": "Substitute the three points into y = ax² + bx + c: {answer}"
+      }
+    },
+    {
+      "id": "max-const",
+      "level": 3,
+      "type": "maxmin",
+      "gen": "maxminconst",
+      "text": {
+        "ja": "関数 {f} ({s} ≦ x ≦ {t}) の最大値が {M} であるとき、定数 c の値は?",
+        "ko": "함수 {f} ({s} ≦ x ≦ {t})의 최댓값이 {M}일 때, 상수 c의 값은?",
+        "en": "The maximum of {f} for {s} ≦ x ≦ {t} is {M}. What is the constant c?"
+      },
+      "explain": {
+        "ja": "軸から遠い方の端で最大になる。その x を代入して c を求めると {answer}",
+        "ko": "축에서 먼 쪽 끝에서 최대가 됩니다. 그 x를 대입해 c를 구하면 {answer}",
+        "en": "The maximum is at the end farther from the axis. Substitute that x to find c: {answer}"
+      }
+    },
+    {
+      "id": "quad-formula",
+      "level": 2,
+      "type": "quadeq",
+      "gen": "formula",
+      "text": {
+        "ja": "{f} を解くと?",
+        "ko": "{f}의 해는?",
+        "en": "Solve {f}."
+      },
+      "explain": {
+        "ja": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a を使うと {answer}",
+        "ko": "근의 공식 x = (−b ± √(b² − 4ac)) ÷ 2a를 쓰면 {answer}",
+        "en": "Use the quadratic formula x = (−b ± √(b² − 4ac)) ÷ 2a: {answer}"
+      }
+    },
+    {
+      "id": "real-cond",
+      "level": 3,
+      "type": "discriminant",
+      "gen": "realcond",
+      "text": {
+        "ja": "2次方程式 {f} が{cond}ような定数 k の値の範囲は?",
+        "ko": "이차방정식 {f}이 {cond} 상수 k의 값의 범위는?",
+        "en": "For which values of k does {f} {cond}?"
+      },
+      "explain": {
+        "ja": "判別式 D の符号の条件から {answer}",
+        "ko": "판별식 D의 부호 조건에서 {answer}",
+        "en": "From the condition on the sign of D: {answer}"
+      }
+    },
+    {
+      "id": "always-positive",
+      "level": 3,
+      "type": "application",
+      "gen": "alwayspos",
+      "text": {
+        "ja": "すべての実数 x に対して {f} > 0 が成り立つような定数 k の値の範囲は?",
+        "ko": "모든 실수 x에 대하여 {f} > 0이 성립하는 상수 k의 값의 범위는?",
+        "en": "For which values of k is {f} > 0 for every real x?"
+      },
+      "explain": {
+        "ja": "グラフが x 軸と共有点をもたなければよいので D < 0。{answer}",
+        "ko": "그래프가 x축과 만나지 않으면 되므로 D < 0입니다. {answer}",
+        "en": "The graph must not meet the x-axis, so D < 0: {answer}"
+      }
+    },
+    {
+      "id": "quad-system",
+      "level": 3,
+      "type": "quadineq",
+      "gen": "quadsystem",
+      "text": {
+        "ja": "連立不等式 {f} < 0、{g} を解くと?",
+        "ko": "연립부등식 {f} < 0, {g}의 해는?",
+        "en": "Solve the system {f} < 0 and {g}."
+      },
+      "explain": {
+        "ja": "2次不等式を解いてから、もう一方との共通範囲を求めると {answer}",
+        "ko": "이차부등식을 푼 뒤 다른 부등식과의 공통 범위를 구하면 {answer}",
+        "en": "Solve the quadratic inequality, then take the overlap: {answer}"
+      }
+    },
+    {
+      "id": "rect-max",
+      "level": 2,
+      "type": "application",
+      "gen": "rectmax",
+      "text": {
+        "ja": "長さ {P} cm のひもで長方形を作るとき、面積の最大値は?",
+        "ko": "길이 {P} cm인 끈으로 직사각형을 만들 때, 넓이의 최댓값은?",
+        "en": "A rectangle is made from a string {P} cm long. What is its largest possible area?"
+      },
+      "note": {
+        "ja": "ひもはすべて使い、太さは考えないものとする。",
+        "ko": "끈은 모두 쓰고, 굵기는 생각하지 않는다.",
+        "en": "All of the string is used; ignore its thickness."
+      },
+      "explain": {
+        "ja": "縦を x とすると面積は x({P} ÷ 2 − x)。平方完成すると最大値は {answer}",
+        "ko": "세로를 x라 하면 넓이는 x({P} ÷ 2 − x)입니다. 완전제곱식으로 고치면 최댓값은 {answer}",
+        "en": "With height x the area is x({P} ÷ 2 − x). Completing the square gives the maximum {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-quad",
+      "gen": "quad",
+      "intro": {
+        "ja": "関数 {f} について答えよ。",
+        "ko": "함수 {f}에 대하여 답하시오.",
+        "en": "Answer about the function {f}."
+      },
+      "steps": [
+        {
+          "type": "complete",
+          "level": 2,
+          "sum": {
+            "ja": "平方完成",
+            "ko": "완전제곱식",
+            "en": "Completed square"
+          },
+          "text": {
+            "ja": "平方完成した式は?",
+            "ko": "완전제곱식으로 고친 식은?",
+            "en": "What is the completed-square form?"
+          },
+          "explain": {
+            "ja": "x の係数の半分を2乗して足し引きすると {answer}",
+            "ko": "x의 계수의 절반을 제곱해 더하고 빼면 {answer}",
+            "en": "Add and subtract the square of half the x coefficient: {answer}"
+          }
+        },
+        {
+          "type": "vertex",
+          "level": 1,
+          "sum": {
+            "ja": "頂点",
+            "ko": "꼭짓점",
+            "en": "Vertex"
+          },
+          "text": {
+            "ja": "グラフの頂点は?",
+            "ko": "그래프의 꼭짓점은?",
+            "en": "What is the vertex of the graph?"
+          },
+          "explain": {
+            "ja": "{a1} より、頂点は {answer}",
+            "ko": "{a1}에서 꼭짓점은 {answer}",
+            "en": "From {a1}, the vertex is {answer}"
+          }
+        },
+        {
+          "type": "maxmin",
+          "level": 3,
+          "sum": {
+            "ja": "最大値",
+            "ko": "최댓값",
+            "en": "Maximum"
+          },
+          "text": {
+            "ja": "{s} ≦ x ≦ {t} における最大値は?",
+            "ko": "{s} ≦ x ≦ {t}에서의 최댓값은?",
+            "en": "What is the maximum for {s} ≦ x ≦ {t}?"
+          },
+          "explain": {
+            "ja": "頂点 {a2} から遠い方の端で最大になる。{answer}",
+            "ko": "꼭짓점 {a2}에서 먼 쪽 끝에서 최대가 됩니다. {answer}",
+            "en": "The maximum is at the end farther from the vertex {a2}: {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-roots",
+      "gen": "roots",
+      "intro": {
+        "ja": "2次式 {f} について答えよ。",
+        "ko": "이차식 {f}에 대하여 답하시오.",
+        "en": "Answer about the quadratic {f}."
+      },
+      "steps": [
+        {
+          "type": "discriminant",
+          "level": 1,
+          "sum": {
+            "ja": "判別式 D",
+            "ko": "판별식 D",
+            "en": "Discriminant D"
+          },
+          "text": {
+            "ja": "2次方程式 {f} = 0 の判別式 D の値は?",
+            "ko": "이차방정식 {f} = 0의 판별식 D의 값은?",
+            "en": "What is the discriminant D of {f} = 0?"
+          },
+          "explain": {
+            "ja": "D = b² − 4ac を計算すると {answer}",
+            "ko": "D = b² − 4ac를 계산하면 {answer}",
+            "en": "Computing D = b² − 4ac gives {answer}"
+          }
+        },
+        {
+          "type": "quadeq",
+          "level": 1,
+          "sum": {
+            "ja": "解",
+            "ko": "해",
+            "en": "Roots"
+          },
+          "text": {
+            "ja": "2次方程式 {f} = 0 の解は?",
+            "ko": "이차방정식 {f} = 0의 해는?",
+            "en": "What are the roots of {f} = 0?"
+          },
+          "explain": {
+            "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ。因数分解して {answer}",
+            "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다. 인수분해하면 {answer}",
+            "en": "Since D = {a1} > 0 there are two different real roots. Factorising gives {answer}"
+          }
+        },
+        {
+          "type": "quadineq",
+          "level": 2,
+          "sum": {
+            "ja": "不等式の解",
+            "ko": "부등식의 해",
+            "en": "Inequality"
+          },
+          "text": {
+            "ja": "2次不等式 {f} < 0 の解は?",
+            "ko": "이차부등식 {f} < 0의 해는?",
+            "en": "What is the solution of {f} < 0?"
+          },
+          "explain": {
+            "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})。x 軸より下にあるのは2つの解の間なので {answer}",
+            "ko": "그래프는 아래로 볼록하고 x축과 만나는 점은 ({a2}). x축보다 아래에 있는 것은 두 해 사이이므로 {answer}",
+            "en": "The graph opens upward and meets the x-axis at ({a2}). It is below the axis between the roots: {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-killer",
+      "gen": "killer",
+      "boss": true,
+      "draft": true,
+      "intro": {
+        "ja": "a を定数とする。2次関数 f(x) = {f} (0 ≦ x ≦ {c}) について答えよ。",
+        "ko": "a는 상수이다. 이차함수 f(x) = {f} (0 ≦ x ≦ {c})에 대하여 답하시오.",
+        "en": "Let a be a constant. Answer about the quadratic function f(x) = {f} (0 ≦ x ≦ {c})."
+      },
+      "steps": [
+        {
+          "type": "vertex",
+          "level": 3,
+          "sum": {
+            "ja": "頂点",
+            "ko": "꼭짓점",
+            "en": "Vertex"
+          },
+          "text": {
+            "ja": "放物線 y = {f} の頂点の座標は?",
+            "ko": "포물선 y = {f}의 꼭짓점의 좌표는?",
+            "en": "What is the vertex of the parabola y = {f}?"
+          },
+          "explain": {
+            "ja": "平方完成すると y = (x − a)² + ({m})。頂点は {answer}",
+            "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m}). 꼭짓점은 {answer}",
+            "en": "Completing the square gives y = (x − a)² + ({m}). The vertex is {answer}"
+          }
+        },
+        {
+          "type": "maxmin",
+          "level": 3,
+          "sum": {
+            "ja": "m の最大値",
+            "ko": "m의 최댓값",
+            "en": "Max of m"
+          },
+          "text": {
+            "ja": "0 < a < {c} のとき、f(x) の最小値を m とする。a が動くとき、m の最大値は?",
+            "ko": "0 < a < {c}일 때, f(x)의 최솟값을 m이라 하자. a가 변할 때, m의 최댓값은?",
+            "en": "For 0 < a < {c}, let m be the minimum of f(x). As a varies, what is the largest value of m?"
+          },
+          "explain": {
+            "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}。a = {t} のとき最大値 {answer}",
+            "ko": "0 < a < {c}에서는 축 x = a가 정의역 안에 있으므로 m = {m} = {comp}. a = {t}일 때 최댓값 {answer}",
+            "en": "For 0 < a < {c} the axis x = a lies inside the domain, so m = {m} = {comp}. It is largest at a = {t}: {answer}"
+          }
+        },
+        {
+          "type": "maxmin",
+          "level": 3,
+          "sum": {
+            "ja": "a の値",
+            "ko": "a의 값",
+            "en": "Value of a"
+          },
+          "text": {
+            "ja": "a > {c} のとき、f(x) の最小値が {T} となる a の値は?",
+            "ko": "a > {c}이고 f(x)의 최솟값이 {T}일 때, a의 값은?",
+            "en": "For a > {c}, for which a is the minimum of f(x) equal to {T}?"
+          },
+          "explain": {
+            "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}。これが {T} に等しいので a = {answer}",
+            "ko": "a > {c}에서는 축이 정의역의 오른쪽에 있으므로 최솟값은 f({c}) = {fc}. 이 값이 {T}이므로 a = {answer}",
+            "en": "For a > {c} the axis is to the right of the domain, so the minimum is f({c}) = {fc}. Setting it equal to {T} gives a = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

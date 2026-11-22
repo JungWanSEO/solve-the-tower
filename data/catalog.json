@@ -1,0 +1,35 @@
+{
+  "_": "off 에 적은 단원은 게임에 나오지 않습니다. (파일과 문제는 그대로 두고 검증도 계속합니다. 다시 넣으려면 off 에서 지우면 됩니다)",
+  "off": [
+    "math1-data"
+  ],
+  "subjects": [
+    {
+      "id": "math1",
+      "name": {
+        "ja": "数学I",
+        "ko": "수학I",
+        "en": "Math I"
+      },
+      "units": [
+        "math1-expr",
+        "math1-trig",
+        "math1-quad",
+        "math1-data"
+      ]
+    },
+    {
+      "id": "matha",
+      "name": {
+        "ja": "数学A",
+        "ko": "수학A",
+        "en": "Math A"
+      },
+      "units": [
+        "matha-count",
+        "matha-geom",
+        "matha-int"
+      ]
+    }
+  ]
+}

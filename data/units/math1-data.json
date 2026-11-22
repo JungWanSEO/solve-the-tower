@@ -1,0 +1,686 @@
+{
+  "id": "math1-data",
+  "name": {
+    "ja": "データの分析",
+    "ko": "데이터의 분석",
+    "en": "Data analysis"
+  },
+  "types": {
+    "mean": {
+      "ja": "平均値",
+      "ko": "평균",
+      "en": "Mean"
+    },
+    "median": {
+      "ja": "中央値",
+      "ko": "중앙값",
+      "en": "Median"
+    },
+    "iqr": {
+      "ja": "四分位範囲",
+      "ko": "사분위범위",
+      "en": "Interquartile range"
+    },
+    "variance": {
+      "ja": "分散",
+      "ko": "분산",
+      "en": "Variance"
+    },
+    "sd": {
+      "ja": "標準偏差",
+      "ko": "표준편차",
+      "en": "Standard deviation"
+    },
+    "correlation": {
+      "ja": "共分散と相関係数",
+      "ko": "공분산과 상관계수",
+      "en": "Covariance and correlation"
+    },
+    "read": {
+      "ja": "グラフの読み取り",
+      "ko": "그래프 읽기",
+      "en": "Reading graphs"
+    },
+    "outlier": {
+      "ja": "外れ値",
+      "ko": "이상값",
+      "en": "Outliers"
+    },
+    "transform": {
+      "ja": "変量の変換",
+      "ko": "변량의 변환",
+      "en": "Transforming data"
+    },
+    "mode": {
+      "ja": "最頻値",
+      "ko": "최빈값",
+      "en": "Mode"
+    },
+    "hypothesis": {
+      "ja": "仮説検定の考え方",
+      "ko": "가설검정의 생각",
+      "en": "The idea of hypothesis testing"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "データの代表値",
+        "ko": "자료의 대푯값",
+        "en": "Averages"
+      },
+      "types": [
+        "mean",
+        "median",
+        "read",
+        "mode"
+      ]
+    },
+    {
+      "name": {
+        "ja": "データの散らばり",
+        "ko": "자료의 흩어진 정도",
+        "en": "Spread"
+      },
+      "types": [
+        "iqr",
+        "variance",
+        "sd",
+        "outlier",
+        "transform"
+      ]
+    },
+    {
+      "name": {
+        "ja": "データの相関",
+        "ko": "자료의 상관",
+        "en": "Correlation"
+      },
+      "types": [
+        "correlation"
+      ]
+    },
+    {
+      "name": {
+        "ja": "仮説検定",
+        "ko": "가설검정",
+        "en": "Hypothesis testing"
+      },
+      "types": [
+        "hypothesis"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "mean",
+      "level": 1,
+      "type": "mean",
+      "gen": "mean",
+      "text": {
+        "ja": "データ {list} の平均値は?",
+        "ko": "자료 {list}의 평균은?",
+        "en": "What is the mean of {list}?"
+      },
+      "explain": {
+        "ja": "すべての値を足して個数で割ると {answer}",
+        "ko": "모든 값을 더해 개수로 나누면 {answer}",
+        "en": "Add all the values and divide by how many there are: {answer}"
+      }
+    },
+    {
+      "id": "median",
+      "level": 1,
+      "type": "median",
+      "gen": "median",
+      "text": {
+        "ja": "データ {list} の中央値は?",
+        "ko": "자료 {list}의 중앙값은?",
+        "en": "What is the median of {list}?"
+      },
+      "explain": {
+        "ja": "小さい順に並べてから中央の値を見る。中央値は {answer}",
+        "ko": "작은 순서로 늘어놓은 뒤 가운데 값을 봅니다. 중앙값은 {answer}",
+        "en": "Sort the values first, then take the middle one: {answer}"
+      }
+    },
+    {
+      "id": "iqr",
+      "level": 2,
+      "type": "iqr",
+      "gen": "iqr",
+      "text": {
+        "ja": "小さい順に並べたデータ {list} の四分位範囲は?",
+        "ko": "작은 순서로 늘어놓은 자료 {list}의 사분위범위는?",
+        "en": "The data {list} are in order. What is the interquartile range?"
+      },
+      "explain": {
+        "ja": "第3四分位数 − 第1四分位数 = {answer}",
+        "ko": "제3사분위수 − 제1사분위수 = {answer}",
+        "en": "Third quartile − first quartile = {answer}"
+      }
+    },
+    {
+      "id": "variance",
+      "level": 2,
+      "type": "variance",
+      "gen": "variance",
+      "text": {
+        "ja": "データ {list} の分散は?",
+        "ko": "자료 {list}의 분산은?",
+        "en": "What is the variance of {list}?"
+      },
+      "explain": {
+        "ja": "偏差(平均との差)の2乗の平均を求めると {answer}",
+        "ko": "편차(평균과의 차)의 제곱의 평균을 구하면 {answer}",
+        "en": "Take the mean of the squared deviations from the mean: {answer}"
+      },
+      "note": {
+        "ja": "分散は「偏差の2乗の平均」(データの個数 n で割る)で求める。",
+        "ko": "분산은 '편차 제곱의 평균'(자료의 개수 n으로 나눔)으로 구한다.",
+        "en": "Variance means the mean of the squared deviations (divide by the number of data n)."
+      }
+    },
+    {
+      "id": "sd",
+      "level": 3,
+      "type": "sd",
+      "gen": "sd",
+      "text": {
+        "ja": "データ {list} の標準偏差は?",
+        "ko": "자료 {list}의 표준편차는?",
+        "en": "What is the standard deviation of {list}?"
+      },
+      "explain": {
+        "ja": "分散の正の平方根なので {answer}",
+        "ko": "분산의 양의 제곱근이므로 {answer}",
+        "en": "It is the positive square root of the variance: {answer}"
+      },
+      "note": {
+        "ja": "分散は「偏差の2乗の平均」(データの個数 n で割る)で求める。",
+        "ko": "분산은 '편차 제곱의 평균'(자료의 개수 n으로 나눔)으로 구한다.",
+        "en": "Variance means the mean of the squared deviations (divide by the number of data n)."
+      }
+    },
+    {
+      "id": "correlation",
+      "level": 2,
+      "type": "correlation",
+      "gen": "correlation",
+      "text": {
+        "ja": "x, y の標準偏差がそれぞれ {sx}, {sy}、共分散が {sxy} のとき、相関係数は?",
+        "ko": "x, y의 표준편차가 각각 {sx}, {sy}이고 공분산이 {sxy}일 때, 상관계수는?",
+        "en": "The standard deviations of x and y are {sx} and {sy}, and their covariance is {sxy}. What is the correlation coefficient?"
+      },
+      "explain": {
+        "ja": "相関係数 = 共分散 ÷ (x の標準偏差 × y の標準偏差) = {answer}",
+        "ko": "상관계수 = 공분산 ÷ (x의 표준편차 × y의 표준편차) = {answer}",
+        "en": "Correlation = covariance ÷ (SD of x × SD of y) = {answer}"
+      }
+    },
+    {
+      "id": "covariance",
+      "level": 3,
+      "type": "correlation",
+      "gen": "covariance",
+      "text": {
+        "ja": "データ (x, y): {pairs} の共分散は? (x の平均は {mx}、y の平均は {my})",
+        "ko": "자료 (x, y): {pairs}의 공분산은? (x의 평균은 {mx}, y의 평균은 {my})",
+        "en": "Find the covariance of the data (x, y): {pairs}. (The mean of x is {mx} and the mean of y is {my}.)"
+      },
+      "explain": {
+        "ja": "x の偏差 × y の偏差 の平均を求めると {answer}",
+        "ko": "(x의 편차) × (y의 편차)의 평균을 구하면 {answer}",
+        "en": "Take the mean of (deviation of x) × (deviation of y): {answer}"
+      },
+      "note": {
+        "ja": "共分散は「x の偏差 × y の偏差」の平均(データの個数 n で割る)で求める。",
+        "ko": "공분산은 '(x의 편차) × (y의 편차)'의 평균(자료의 개수 n으로 나눔)으로 구한다.",
+        "en": "Covariance means the mean of (deviation of x) × (deviation of y), dividing by the number of data n."
+      }
+    },
+    {
+      "id": "hist-mode",
+      "level": 1,
+      "type": "read",
+      "gen": "histogram",
+      "params": {
+        "ask": "mode"
+      },
+      "text": {
+        "ja": "図のヒストグラムで、度数が最も大きい階級の階級値は?",
+        "ko": "그림의 히스토그램에서 도수가 가장 큰 계급의 계급값은?",
+        "en": "In the histogram, what is the class mark of the class with the highest frequency?"
+      },
+      "note": {
+        "ja": "各階級は「左端の値以上、右端の値未満」とする。棒の上の数は度数。",
+        "ko": "각 계급은 '왼쪽 끝 값 이상, 오른쪽 끝 값 미만'이다. 막대 위의 수는 도수.",
+        "en": "Each class includes its left end and excludes its right end. The number on each bar is the frequency."
+      },
+      "figure": {
+        "kind": "histogram",
+        "freq": "{freq}",
+        "from": "{from}",
+        "step": "{step}"
+      },
+      "explain": {
+        "ja": "階級値は階級の真ん中の値。{answer}",
+        "ko": "계급값은 계급의 한가운데 값입니다. {answer}",
+        "en": "The class mark is the midpoint of the class: {answer}"
+      }
+    },
+    {
+      "id": "hist-count",
+      "level": 1,
+      "type": "read",
+      "gen": "histogram",
+      "params": {
+        "ask": "count"
+      },
+      "text": {
+        "ja": "図のヒストグラムで、{th} 以上の人数は?",
+        "ko": "그림의 히스토그램에서 {th} 이상인 사람 수는?",
+        "en": "In the histogram, how many people are at {th} or above?"
+      },
+      "note": {
+        "ja": "各階級は「左端の値以上、右端の値未満」とする。棒の上の数は度数。",
+        "ko": "각 계급은 '왼쪽 끝 값 이상, 오른쪽 끝 값 미만'이다. 막대 위의 수는 도수.",
+        "en": "Each class includes its left end and excludes its right end. The number on each bar is the frequency."
+      },
+      "figure": {
+        "kind": "histogram",
+        "freq": "{freq}",
+        "from": "{from}",
+        "step": "{step}"
+      },
+      "explain": {
+        "ja": "{th} 以上の階級の度数をすべて足すと {answer}",
+        "ko": "{th} 이상인 계급의 도수를 모두 더하면 {answer}",
+        "en": "Add the frequencies of the classes from {th} up: {answer}"
+      }
+    },
+    {
+      "id": "box-iqr",
+      "level": 1,
+      "type": "read",
+      "gen": "boxplot",
+      "params": {
+        "ask": "iqr"
+      },
+      "text": {
+        "ja": "図の箱ひげ図から読み取れる四分位範囲は?",
+        "ko": "그림의 상자그림에서 읽을 수 있는 사분위범위는?",
+        "en": "What interquartile range does the box plot show?"
+      },
+      "figure": {
+        "kind": "boxplot",
+        "five": "{five}"
+      },
+      "explain": {
+        "ja": "箱の右端(第3四分位数) − 箱の左端(第1四分位数) = {answer}",
+        "ko": "상자의 오른쪽 끝(제3사분위수) − 왼쪽 끝(제1사분위수) = {answer}",
+        "en": "Right end of the box (Q3) − left end (Q1) = {answer}"
+      }
+    },
+    {
+      "id": "box-range",
+      "level": 1,
+      "type": "read",
+      "gen": "boxplot",
+      "params": {
+        "ask": "range"
+      },
+      "text": {
+        "ja": "図の箱ひげ図から読み取れる範囲は?",
+        "ko": "그림의 상자그림에서 읽을 수 있는 범위는?",
+        "en": "What range does the box plot show?"
+      },
+      "figure": {
+        "kind": "boxplot",
+        "five": "{five}"
+      },
+      "explain": {
+        "ja": "最大値 − 最小値 = {answer}",
+        "ko": "최댓값 − 최솟값 = {answer}",
+        "en": "Maximum − minimum = {answer}"
+      }
+    },
+    {
+      "id": "scatter",
+      "level": 2,
+      "type": "correlation",
+      "gen": "scatter",
+      "text": {
+        "ja": "図の散布図で、x と y の相関係数に最も近いものは?",
+        "ko": "그림의 산포도에서 x와 y의 상관계수에 가장 가까운 것은?",
+        "en": "Which value is closest to the correlation coefficient of x and y in the scatter plot?"
+      },
+      "figure": {
+        "kind": "scatter",
+        "pts": "{pts}"
+      },
+      "explain": {
+        "ja": "点が右上がりに並べば正、右下がりなら負、ばらばらなら 0 に近い。相関係数は −1 以上 1 以下。答えは {answer}",
+        "ko": "점이 오른쪽 위로 늘어서면 양, 오른쪽 아래면 음, 흩어져 있으면 0에 가깝습니다. 상관계수는 −1 이상 1 이하. 답은 {answer}",
+        "en": "Points rising to the right mean positive, falling mean negative, scattered mean near 0. It is always between −1 and 1. Answer: {answer}"
+      }
+    },
+    {
+      "id": "outlier",
+      "level": 2,
+      "type": "outlier",
+      "gen": "outlier",
+      "text": {
+        "ja": "第1四分位数が {q1}、第3四分位数が {q3} のデータで、外れ値となるものは?",
+        "ko": "제1사분위수가 {q1}, 제3사분위수가 {q3}인 자료에서 이상값이 되는 것은?",
+        "en": "For data with first quartile {q1} and third quartile {q3}, which value is an outlier?"
+      },
+      "note": {
+        "ja": "外れ値は「第1四分位数 − 1.5 × 四分位範囲」以下、または「第3四分位数 + 1.5 × 四分位範囲」以上の値とする。",
+        "ko": "이상값은 '제1사분위수 − 1.5 × 사분위범위' 이하, 또는 '제3사분위수 + 1.5 × 사분위범위' 이상인 값이다.",
+        "en": "An outlier is at most Q1 − 1.5 × IQR or at least Q3 + 1.5 × IQR."
+      },
+      "explain": {
+        "ja": "四分位範囲の 1.5 倍を箱の外側に取った範囲から出ている値を探すと {answer}",
+        "ko": "사분위범위의 1.5배를 상자 바깥으로 잡은 범위를 벗어난 값을 찾으면 {answer}",
+        "en": "Look for the value beyond 1.5 × IQR outside the box: {answer}"
+      }
+    },
+    {
+      "id": "transform-mean",
+      "level": 2,
+      "type": "transform",
+      "gen": "transform",
+      "params": {
+        "ask": "mean"
+      },
+      "text": {
+        "ja": "変量 x の平均値が {m} である。y = {expr} で新しい変量 y を作るとき、y の平均値は?",
+        "ko": "변량 x의 평균이 {m}이다. y = {expr}로 새 변량 y를 만들 때, y의 평균은?",
+        "en": "The mean of x is {m}. If y = {expr}, what is the mean of y?"
+      },
+      "explain": {
+        "ja": "平均値も同じ式で変わる。{answer}",
+        "ko": "평균도 같은 식으로 바뀝니다. {answer}",
+        "en": "The mean changes by the same formula: {answer}"
+      }
+    },
+    {
+      "id": "transform-sd",
+      "level": 3,
+      "type": "transform",
+      "gen": "transform",
+      "params": {
+        "ask": "sd"
+      },
+      "text": {
+        "ja": "変量 x の標準偏差が {s} である。y = {expr} で新しい変量 y を作るとき、y の標準偏差は?",
+        "ko": "변량 x의 표준편차가 {s}이다. y = {expr}로 새 변량 y를 만들 때, y의 표준편차는?",
+        "en": "The standard deviation of x is {s}. If y = {expr}, what is the standard deviation of y?"
+      },
+      "explain": {
+        "ja": "標準偏差は x の係数の絶対値倍になり、足した数は関係しない。{answer}",
+        "ko": "표준편차는 x의 계수의 절댓값 배가 되고, 더한 수는 관계없습니다. {answer}",
+        "en": "The SD is multiplied by the absolute value of the coefficient of x; the added constant has no effect: {answer}"
+      }
+    },
+    {
+      "id": "transform-var",
+      "level": 3,
+      "type": "transform",
+      "gen": "transform",
+      "params": {
+        "ask": "var"
+      },
+      "text": {
+        "ja": "変量 x の分散が {v} である。y = {expr} で新しい変量 y を作るとき、y の分散は?",
+        "ko": "변량 x의 분산이 {v}이다. y = {expr}로 새 변량 y를 만들 때, y의 분산은?",
+        "en": "The variance of x is {v}. If y = {expr}, what is the variance of y?"
+      },
+      "explain": {
+        "ja": "分散は x の係数の2乗倍になる。{answer}",
+        "ko": "분산은 x의 계수의 제곱 배가 됩니다. {answer}",
+        "en": "The variance is multiplied by the square of the coefficient of x: {answer}"
+      }
+    },
+    {
+      "id": "mode",
+      "level": 1,
+      "type": "mode",
+      "gen": "mode",
+      "text": {
+        "ja": "データ {list} の最頻値は?",
+        "ko": "자료 {list}의 최빈값은?",
+        "en": "What is the mode of {list}?"
+      },
+      "explain": {
+        "ja": "最も多く現れる値は {answer}",
+        "ko": "가장 많이 나오는 값은 {answer}",
+        "en": "The value that appears most often is {answer}"
+      }
+    },
+    {
+      "id": "merge-mean",
+      "level": 2,
+      "type": "mean",
+      "gen": "mergemean",
+      "text": {
+        "ja": "{n1} 人の平均点が {m1} 点、別の {n2} 人の平均点が {m2} 点のとき、全員の平均点は?",
+        "ko": "{n1}명의 평균이 {m1}점, 다른 {n2}명의 평균이 {m2}점일 때, 전체의 평균은?",
+        "en": "{n1} people average {m1} points and another {n2} people average {m2} points. What is the overall average?"
+      },
+      "explain": {
+        "ja": "合計点を求めてから全体の人数で割ると {answer}",
+        "ko": "총점을 구한 뒤 전체 인원으로 나누면 {answer}",
+        "en": "Find the total score, then divide by everyone: {answer}"
+      }
+    },
+    {
+      "id": "hist-mean",
+      "level": 2,
+      "type": "read",
+      "gen": "histmean",
+      "text": {
+        "ja": "図のヒストグラムから求めた平均値は?",
+        "ko": "그림의 히스토그램에서 구한 평균은?",
+        "en": "What is the mean found from the histogram?"
+      },
+      "note": {
+        "ja": "各階級は「左端の値以上、右端の値未満」とする。棒の上の数は度数。平均値は階級値を使って求める。",
+        "ko": "각 계급은 '왼쪽 끝 값 이상, 오른쪽 끝 값 미만'이다. 막대 위의 수는 도수. 평균은 계급값을 써서 구한다.",
+        "en": "Each class includes its left end and excludes its right end. The number on each bar is the frequency. Use class marks to find the mean."
+      },
+      "figure": {
+        "kind": "histogram",
+        "freq": "{freq}",
+        "from": "{from}",
+        "step": "{step}"
+      },
+      "explain": {
+        "ja": "(階級値 × 度数) の合計 ÷ 度数の合計 = {answer}",
+        "ko": "(계급값 × 도수)의 합 ÷ 도수의 합 = {answer}",
+        "en": "Sum of (class mark × frequency) ÷ total frequency = {answer}"
+      }
+    },
+    {
+      "id": "variance-formula",
+      "level": 2,
+      "type": "variance",
+      "gen": "var2",
+      "text": {
+        "ja": "データ x の平均値が {m}、x² の平均値が {q} のとき、x の分散は?",
+        "ko": "자료 x의 평균이 {m}, x²의 평균이 {q}일 때, x의 분산은?",
+        "en": "The mean of x is {m} and the mean of x² is {q}. What is the variance of x?"
+      },
+      "explain": {
+        "ja": "分散 = (x² の平均値) − (平均値)² = {answer}",
+        "ko": "분산 = (x²의 평균) − (평균)² = {answer}",
+        "en": "Variance = (mean of x²) − (mean)² = {answer}"
+      }
+    },
+    {
+      "id": "hypothesis",
+      "level": 2,
+      "type": "hypothesis",
+      "gen": "hypothesis",
+      "text": {
+        "ja": "新しい勉強法を 30 人が試し、{k} 人が「成績が上がった」と答えた。「勉強法に効果はなく、上がるか上がらないかは半々」と仮定すると、30 人中 {k} 人以上が上がる確率は {p} である。正しい判断は?",
+        "ko": "새 공부법을 30명이 써 보고 {k}명이 '성적이 올랐다'고 답했다. '공부법에 효과는 없고, 오를지 말지는 반반'이라고 가정하면, 30명 중 {k}명 이상이 오를 확률은 {p}이다. 올바른 판단은?",
+        "en": "Thirty people tried a new study method and {k} said their grades rose. If the method had no effect (a 50-50 chance each), the probability that {k} or more of 30 improve is {p}. Which judgment is correct?"
+      },
+      "note": {
+        "ja": "基準となる確率を 0.05 とする。",
+        "ko": "기준이 되는 확률은 0.05로 한다.",
+        "en": "Use 0.05 as the threshold probability."
+      },
+      "explain": {
+        "ja": "確率 {p} を基準の 0.05 と比べる。0.05 より小さければ「偶然とは考えにくい」と判断する。{answer}",
+        "ko": "확률 {p}를 기준 0.05와 비교합니다. 0.05보다 작으면 '우연이라고 보기 어렵다'고 판단합니다. {answer}",
+        "en": "Compare {p} with the threshold 0.05. If it is smaller, chance is an unlikely explanation: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-data",
+      "gen": "data",
+      "intro": {
+        "ja": "データ {list} について答えよ。",
+        "ko": "자료 {list}에 대하여 답하시오.",
+        "en": "Answer about the data {list}."
+      },
+      "note": {
+        "ja": "分散は「偏差の2乗の平均」(データの個数 n で割る)で求める。",
+        "ko": "분산은 '편차 제곱의 평균'(자료의 개수 n으로 나눔)으로 구한다.",
+        "en": "Variance means the mean of the squared deviations (divide by the number of data n)."
+      },
+      "steps": [
+        {
+          "type": "mean",
+          "level": 1,
+          "sum": {
+            "ja": "平均値",
+            "ko": "평균",
+            "en": "Mean"
+          },
+          "text": {
+            "ja": "平均値は?",
+            "ko": "평균은?",
+            "en": "What is the mean?"
+          },
+          "explain": {
+            "ja": "すべての値を足して個数で割ると {answer}",
+            "ko": "모든 값을 더해 개수로 나누면 {answer}",
+            "en": "Add the values and divide by how many there are: {answer}"
+          }
+        },
+        {
+          "type": "variance",
+          "level": 2,
+          "sum": {
+            "ja": "分散",
+            "ko": "분산",
+            "en": "Variance"
+          },
+          "text": {
+            "ja": "分散は?",
+            "ko": "분산은?",
+            "en": "What is the variance?"
+          },
+          "explain": {
+            "ja": "平均値 {a1} との差の2乗の平均を求めると {answer}",
+            "ko": "평균 {a1}과의 차의 제곱의 평균을 구하면 {answer}",
+            "en": "Take the mean of the squared differences from the mean {a1}: {answer}"
+          }
+        },
+        {
+          "type": "sd",
+          "level": 3,
+          "sum": {
+            "ja": "標準偏差",
+            "ko": "표준편차",
+            "en": "Standard deviation"
+          },
+          "text": {
+            "ja": "標準偏差は?",
+            "ko": "표준편차는?",
+            "en": "What is the standard deviation?"
+          },
+          "explain": {
+            "ja": "分散 {a2} の正の平方根なので {answer}",
+            "ko": "분산 {a2}의 양의 제곱근이므로 {answer}",
+            "en": "It is the positive square root of the variance {a2}: {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-box",
+      "gen": "box",
+      "intro": {
+        "ja": "小さい順に並べたデータ {list} について答えよ。",
+        "ko": "작은 것부터 늘어놓은 자료 {list}에 대하여 답하시오.",
+        "en": "Answer about the data {list}, listed from smallest."
+      },
+      "steps": [
+        {
+          "type": "median",
+          "level": 1,
+          "sum": {
+            "ja": "中央値",
+            "ko": "중앙값",
+            "en": "Median"
+          },
+          "text": {
+            "ja": "中央値は?",
+            "ko": "중앙값은?",
+            "en": "What is the median?"
+          },
+          "explain": {
+            "ja": "7個のデータの真ん中(4番目)の値。{answer}",
+            "ko": "자료 7개의 한가운데(4번째) 값. {answer}",
+            "en": "The middle (4th) of the 7 values: {answer}"
+          }
+        },
+        {
+          "type": "iqr",
+          "level": 2,
+          "sum": {
+            "ja": "四分位範囲",
+            "ko": "사분위범위",
+            "en": "IQR"
+          },
+          "text": {
+            "ja": "四分位範囲は?",
+            "ko": "사분위범위는?",
+            "en": "What is the interquartile range?"
+          },
+          "explain": {
+            "ja": "中央値 {a1} を除いた下半分の中央値が第1四分位数、上半分の中央値が第3四分位数。その差は {answer}",
+            "ko": "중앙값 {a1}을 뺀 아래쪽 절반의 중앙값이 제1사분위수, 위쪽 절반의 중앙값이 제3사분위수. 그 차는 {answer}",
+            "en": "Q1 and Q3 are the medians of the lower and upper halves (without the median {a1}). Their difference is {answer}"
+          }
+        },
+        {
+          "type": "outlier",
+          "level": 3,
+          "sum": {
+            "ja": "外れ値の基準",
+            "ko": "이상값의 기준",
+            "en": "Outlier fence"
+          },
+          "text": {
+            "ja": "「第3四分位数 + 1.5 × 四分位範囲」より大きい値を外れ値とするとき、その基準の値は?",
+            "ko": "\"제3사분위수 + 1.5 × 사분위범위\"보다 큰 값을 이상값이라 할 때, 그 기준이 되는 값은?",
+            "en": "If values above \"Q3 + 1.5 × IQR\" are outliers, what is that boundary value?"
+          },
+          "explain": {
+            "ja": "第3四分位数 + 1.5 × {a2} を計算すると {answer}",
+            "ko": "제3사분위수 + 1.5 × {a2}를 계산하면 {answer}",
+            "en": "Q3 + 1.5 × {a2} = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

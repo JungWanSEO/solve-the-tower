@@ -1,0 +1,520 @@
+{
+  "id": "matha-geom",
+  "name": {
+    "ja": "図形の性質",
+    "ko": "도형의 성질",
+    "en": "Properties of figures"
+  },
+  "types": {
+    "bisector": {
+      "ja": "角の二等分線と比",
+      "ko": "각의 이등분선과 비",
+      "en": "Angle bisector ratio"
+    },
+    "centers": {
+      "ja": "三角形の重心・内心・外心",
+      "ko": "삼각형의 무게중심·내심·외심",
+      "en": "Centroid, incenter, circumcenter"
+    },
+    "circle": {
+      "ja": "円周角・円に内接する四角形",
+      "ko": "원주각·원에 내접하는 사각형",
+      "en": "Inscribed angles and cyclic quadrilaterals"
+    },
+    "power": {
+      "ja": "方べきの定理",
+      "ko": "방멱 정리",
+      "en": "Power of a point"
+    },
+    "ceva": {
+      "ja": "チェバの定理",
+      "ko": "체바의 정리",
+      "en": "Ceva's theorem"
+    },
+    "tangent": {
+      "ja": "接線の性質",
+      "ko": "접선의 성질",
+      "en": "Tangents"
+    },
+    "twocircles": {
+      "ja": "2つの円の位置関係",
+      "ko": "두 원의 위치 관계",
+      "en": "Two circles"
+    },
+    "menelaus": {
+      "ja": "メネラウスの定理",
+      "ko": "메넬라우스의 정리",
+      "en": "Menelaus's theorem"
+    },
+    "sides": {
+      "ja": "辺と角の大小・多面体",
+      "ko": "변과 각의 크기·다면체",
+      "en": "Sides, angles and polyhedra"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "三角形の性質",
+        "ko": "삼각형의 성질",
+        "en": "Triangles"
+      },
+      "types": [
+        "bisector",
+        "centers",
+        "ceva",
+        "sides",
+        "menelaus"
+      ]
+    },
+    {
+      "name": {
+        "ja": "円の性質",
+        "ko": "원의 성질",
+        "en": "Circles"
+      },
+      "types": [
+        "circle",
+        "power",
+        "tangent",
+        "twocircles"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "bisector",
+      "level": 2,
+      "type": "bisector",
+      "gen": "bisector",
+      "text": {
+        "ja": "△ABC で AB = {c}、AC = {b}、BC = {a}。∠A の二等分線と辺 BC の交点を D とするとき、BD の長さは?",
+        "ko": "△ABC에서 AB = {c}, AC = {b}, BC = {a}이다. ∠A의 이등분선과 변 BC의 교점을 D라 할 때, BD의 길이는?",
+        "en": "In △ABC, AB = {c}, AC = {b} and BC = {a}. The bisector of ∠A meets BC at D. How long is BD?"
+      },
+      "explain": {
+        "ja": "BD : DC = AB : AC = {c} : {b} より BD = {answer}",
+        "ko": "BD : DC = AB : AC = {c} : {b}이므로 BD = {answer}",
+        "en": "BD : DC = AB : AC = {c} : {b}, so BD = {answer}"
+      },
+      "figure": {
+        "kind": "bisect",
+        "ab": "{c}",
+        "ac": "{b}",
+        "bc": "BC = {a}",
+        "bd": "BD = ?"
+      }
+    },
+    {
+      "id": "centroid",
+      "level": 1,
+      "type": "centers",
+      "gen": "centroid",
+      "text": {
+        "ja": "△ABC の辺 BC の中点を M、重心を G とする。AM = {m} のとき、AG の長さは?",
+        "ko": "△ABC에서 변 BC의 중점을 M, 무게중심을 G라 한다. AM = {m}일 때, AG의 길이는?",
+        "en": "In △ABC, M is the midpoint of BC and G is the centroid. If AM = {m}, how long is AG?"
+      },
+      "explain": {
+        "ja": "重心は中線を 2 : 1 に分けるので AG = {answer}",
+        "ko": "무게중심은 중선을 2 : 1로 나누므로 AG = {answer}",
+        "en": "The centroid divides a median 2 : 1, so AG = {answer}"
+      },
+      "figure": {
+        "kind": "median",
+        "am": "AM = {m}",
+        "ag": "AG = ?"
+      }
+    },
+    {
+      "id": "circumcenter",
+      "level": 1,
+      "type": "centers",
+      "gen": "circumcenter",
+      "text": {
+        "ja": "鋭角三角形 ABC の外心を O とする。∠A = {A}° のとき、∠BOC は?",
+        "ko": "예각삼각형 ABC의 외심을 O라 한다. ∠A = {A}°일 때, ∠BOC는?",
+        "en": "O is the circumcenter of acute triangle ABC. If ∠A = {A}°, what is ∠BOC?"
+      },
+      "explain": {
+        "ja": "中心角は円周角の 2 倍なので ∠BOC = {answer}",
+        "ko": "중심각은 원주각의 2배이므로 ∠BOC = {answer}",
+        "en": "A central angle is twice the inscribed angle, so ∠BOC = {answer}"
+      },
+      "figure": {
+        "kind": "circleangle",
+        "names": "A,B,C",
+        "chord": "1",
+        "central": "?",
+        "insc": "{A}°"
+      }
+    },
+    {
+      "id": "incenter",
+      "level": 2,
+      "type": "centers",
+      "gen": "incenter",
+      "text": {
+        "ja": "△ABC の内心を I とする。∠A = {A}° のとき、∠BIC は?",
+        "ko": "△ABC의 내심을 I라 한다. ∠A = {A}°일 때, ∠BIC는?",
+        "en": "I is the incenter of △ABC. If ∠A = {A}°, what is ∠BIC?"
+      },
+      "explain": {
+        "ja": "∠BIC = 90° + ∠A ÷ 2 = {answer}",
+        "ko": "∠BIC = 90° + ∠A ÷ 2 = {answer}",
+        "en": "∠BIC = 90° + ∠A ÷ 2 = {answer}"
+      },
+      "figure": {
+        "kind": "incenter",
+        "angleA": "{A}°",
+        "bic": "?"
+      }
+    },
+    {
+      "id": "inscribed",
+      "level": 1,
+      "type": "circle",
+      "gen": "inscribed",
+      "params": {
+        "ask": "inscribed"
+      },
+      "text": {
+        "ja": "図で、弧 AB に対する中心角が {x}° のとき、円周角 ∠APB は?",
+        "ko": "그림에서 호 AB에 대한 중심각이 {x}°일 때, 원주각 ∠APB는?",
+        "en": "In the figure, the central angle on arc AB is {x}°. What is the inscribed angle ∠APB?"
+      },
+      "explain": {
+        "ja": "円周角は中心角の半分なので {answer}",
+        "ko": "원주각은 중심각의 절반이므로 {answer}",
+        "en": "An inscribed angle is half the central angle: {answer}"
+      },
+      "figure": {
+        "kind": "circleangle",
+        "central": "{x}°",
+        "insc": "?"
+      }
+    },
+    {
+      "id": "central",
+      "level": 1,
+      "type": "circle",
+      "gen": "inscribed",
+      "params": {
+        "ask": "central"
+      },
+      "text": {
+        "ja": "図で、弧 AB に対する円周角 ∠APB が {x}° のとき、中心角 ∠AOB は?",
+        "ko": "그림에서 호 AB에 대한 원주각 ∠APB가 {x}°일 때, 중심각 ∠AOB는?",
+        "en": "In the figure, the inscribed angle ∠APB on arc AB is {x}°. What is the central angle ∠AOB?"
+      },
+      "explain": {
+        "ja": "中心角は円周角の 2 倍なので {answer}",
+        "ko": "중심각은 원주각의 2배이므로 {answer}",
+        "en": "A central angle is twice the inscribed angle: {answer}"
+      },
+      "figure": {
+        "kind": "circleangle",
+        "central": "?",
+        "insc": "{x}°"
+      }
+    },
+    {
+      "id": "cyclic",
+      "level": 1,
+      "type": "circle",
+      "gen": "cyclic",
+      "text": {
+        "ja": "四角形 ABCD が円に内接している。∠A = {A}° のとき、∠C は?",
+        "ko": "사각형 ABCD가 원에 내접한다. ∠A = {A}°일 때, ∠C는?",
+        "en": "Quadrilateral ABCD is inscribed in a circle. If ∠A = {A}°, what is ∠C?"
+      },
+      "explain": {
+        "ja": "円に内接する四角形の対角の和は 180° なので {answer}",
+        "ko": "원에 내접하는 사각형은 마주 보는 각의 합이 180°이므로 {answer}",
+        "en": "Opposite angles of a cyclic quadrilateral add to 180°: {answer}"
+      },
+      "figure": {
+        "kind": "cyclic",
+        "angleA": "{A}°",
+        "angleC": "?"
+      }
+    },
+    {
+      "id": "power",
+      "level": 2,
+      "type": "power",
+      "gen": "power",
+      "text": {
+        "ja": "円の2つの弦 AB, CD が点 P で交わっている。PA = {a}、PB = {b}、PC = {c} のとき、PD の長さは?",
+        "ko": "원의 두 현 AB, CD가 점 P에서 만난다. PA = {a}, PB = {b}, PC = {c}일 때, PD의 길이는?",
+        "en": "Chords AB and CD of a circle meet at P. If PA = {a}, PB = {b} and PC = {c}, how long is PD?"
+      },
+      "explain": {
+        "ja": "方べきの定理 PA × PB = PC × PD より PD = {answer}",
+        "ko": "방멱 정리 PA × PB = PC × PD에서 PD = {answer}",
+        "en": "By the power of a point, PA × PB = PC × PD, so PD = {answer}"
+      },
+      "figure": {
+        "kind": "chords",
+        "pa": "{a}",
+        "pb": "{b}",
+        "pc": "{c}",
+        "pd": "?"
+      }
+    },
+    {
+      "id": "tangent",
+      "level": 3,
+      "type": "power",
+      "gen": "tangent",
+      "text": {
+        "ja": "円の外部の点 P から引いた直線が円と2点 A, B で交わり、P から引いた接線の接点を T とする。PA = {a}、PB = {b} のとき、PT の長さは?",
+        "ko": "원 밖의 점 P에서 그은 직선이 원과 두 점 A, B에서 만나고, P에서 그은 접선의 접점을 T라 한다. PA = {a}, PB = {b}일 때, PT의 길이는?",
+        "en": "A line through an outside point P meets a circle at A and B, and a tangent from P touches the circle at T. If PA = {a} and PB = {b}, how long is PT?"
+      },
+      "explain": {
+        "ja": "方べきの定理 PT² = PA × PB より PT = {answer}",
+        "ko": "방멱 정리 PT² = PA × PB에서 PT = {answer}",
+        "en": "By the power of a point, PT² = PA × PB, so PT = {answer}"
+      },
+      "figure": {
+        "kind": "tangent",
+        "pa": "PA = {a}",
+        "pb": "PB = {b}",
+        "pt": "PT = ?"
+      }
+    },
+    {
+      "id": "ceva",
+      "level": 3,
+      "type": "ceva",
+      "gen": "ceva",
+      "text": {
+        "ja": "△ABC の辺 BC, CA, AB 上に点 D, E, F があり、AD, BE, CF が1点で交わる。AF : FB = {p} : {q}、BD : DC = {r} : {s} のとき、CE : EA は?",
+        "ko": "△ABC의 변 BC, CA, AB 위에 점 D, E, F가 있고, AD, BE, CF가 한 점에서 만난다. AF : FB = {p} : {q}, BD : DC = {r} : {s}일 때, CE : EA는?",
+        "en": "Points D, E, F lie on sides BC, CA, AB of △ABC, and AD, BE, CF meet at one point. If AF : FB = {p} : {q} and BD : DC = {r} : {s}, what is CE : EA?"
+      },
+      "figure": {
+        "kind": "ceva",
+        "af": "{p}",
+        "fb": "{q}",
+        "bd": "{r}",
+        "dc": "{s}",
+        "ce": "?"
+      },
+      "explain": {
+        "ja": "チェバの定理 (AF/FB) × (BD/DC) × (CE/EA) = 1 より CE : EA = {answer}",
+        "ko": "체바의 정리 (AF/FB) × (BD/DC) × (CE/EA) = 1에서 CE : EA = {answer}",
+        "en": "By Ceva's theorem, (AF/FB) × (BD/DC) × (CE/EA) = 1, so CE : EA = {answer}"
+      }
+    },
+    {
+      "id": "tangent-chord",
+      "level": 2,
+      "type": "tangent",
+      "gen": "tanchord",
+      "text": {
+        "ja": "直線 AT は点 A で円に接している。∠ACB = {x}° のとき、∠BAT は?",
+        "ko": "직선 AT는 점 A에서 원에 접한다. ∠ACB = {x}°일 때, ∠BAT는?",
+        "en": "Line AT touches the circle at A. If ∠ACB = {x}°, what is ∠BAT?"
+      },
+      "figure": {
+        "kind": "tanchord",
+        "acb": "{x}°",
+        "bat": "?"
+      },
+      "explain": {
+        "ja": "接線と弦のつくる角は、その弦に対する円周角に等しい。{answer}",
+        "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각과 같습니다. {answer}",
+        "en": "The angle between a tangent and a chord equals the inscribed angle on that chord: {answer}"
+      }
+    },
+    {
+      "id": "tangent-length",
+      "level": 2,
+      "type": "tangent",
+      "gen": "tangentlen",
+      "text": {
+        "ja": "△ABC の内接円が辺 AB と点 F で接している。BC = {a}、CA = {b}、AB = {c} のとき、AF の長さは?",
+        "ko": "△ABC의 내접원이 변 AB와 점 F에서 접한다. BC = {a}, CA = {b}, AB = {c}일 때, AF의 길이는?",
+        "en": "The inscribed circle of △ABC touches AB at F. If BC = {a}, CA = {b} and AB = {c}, how long is AF?"
+      },
+      "figure": {
+        "kind": "incircle",
+        "ab": "{c}",
+        "bc": "{a}",
+        "ca": "{b}",
+        "af": "AF = ?"
+      },
+      "explain": {
+        "ja": "1点から引いた2本の接線の長さは等しいので AF = (AB + CA − BC) ÷ 2 = {answer}",
+        "ko": "한 점에서 그은 두 접선의 길이는 같으므로 AF = (AB + CA − BC) ÷ 2 = {answer}",
+        "en": "Tangents from one point are equal, so AF = (AB + CA − BC) ÷ 2 = {answer}"
+      }
+    },
+    {
+      "id": "two-circles",
+      "level": 2,
+      "type": "twocircles",
+      "gen": "twocircles",
+      "text": {
+        "ja": "半径 {r1} と半径 {r2} の2つの円がある。中心間の距離が {d} のとき、共通接線は何本?",
+        "ko": "반지름이 {r1}, {r2}인 두 원이 있다. 중심 사이의 거리가 {d}일 때, 공통접선은 몇 개?",
+        "en": "Two circles have radii {r1} and {r2}, and their centers are {d} apart. How many common tangents do they have?"
+      },
+      "explain": {
+        "ja": "中心間の距離を、半径の和 {r1} + {r2} と差 {r1} − {r2} と比べると {answer} 本",
+        "ko": "중심 사이의 거리를 반지름의 합 {r1} + {r2}, 차 {r1} − {r2}와 비교하면 {answer}개",
+        "en": "Compare the distance with the sum {r1} + {r2} and the difference {r1} − {r2} of the radii: {answer}"
+      }
+    },
+    {
+      "id": "menelaus",
+      "level": 3,
+      "type": "menelaus",
+      "gen": "menelaus",
+      "text": {
+        "ja": "△ABC の辺 AB 上に点 R、辺 CA 上に点 Q、辺 BC の延長上に点 P があり、3点 P, Q, R は一直線上にある。AR : RB = {p} : {q}、BP : PC = {r} : {s} のとき、CQ : QA は?",
+        "ko": "△ABC의 변 AB 위에 점 R, 변 CA 위에 점 Q, 변 BC의 연장선 위에 점 P가 있고, 세 점 P, Q, R은 한 직선 위에 있다. AR : RB = {p} : {q}, BP : PC = {r} : {s}일 때, CQ : QA는?",
+        "en": "R lies on side AB, Q on side CA and P on the extension of side BC of △ABC, and P, Q, R are on one line. If AR : RB = {p} : {q} and BP : PC = {r} : {s}, what is CQ : QA?"
+      },
+      "figure": {
+        "kind": "menelaus",
+        "ar": "{p}",
+        "rb": "{q}",
+        "bp": "BP : PC = {r} : {s}",
+        "cq": "?"
+      },
+      "explain": {
+        "ja": "メネラウスの定理 (AR/RB) × (BP/PC) × (CQ/QA) = 1 より CQ : QA = {answer}",
+        "ko": "메넬라우스의 정리 (AR/RB) × (BP/PC) × (CQ/QA) = 1에서 CQ : QA = {answer}",
+        "en": "By Menelaus's theorem, (AR/RB) × (BP/PC) × (CQ/QA) = 1, so CQ : QA = {answer}"
+      }
+    },
+    {
+      "id": "largest-angle",
+      "level": 1,
+      "type": "sides",
+      "gen": "largestangle",
+      "text": {
+        "ja": "△ABC で BC = {a}、CA = {b}、AB = {c} のとき、最も大きい角は?",
+        "ko": "△ABC에서 BC = {a}, CA = {b}, AB = {c}일 때, 가장 큰 각은?",
+        "en": "In △ABC, BC = {a}, CA = {b} and AB = {c}. Which angle is the largest?"
+      },
+      "figure": {
+        "kind": "anytri",
+        "angleA": "",
+        "angleB": "",
+        "angleC": "",
+        "sideA": "{a}",
+        "sideB": "{b}",
+        "sideC": "{c}"
+      },
+      "explain": {
+        "ja": "最も長い辺に向かい合う角が最も大きい。{answer}",
+        "ko": "가장 긴 변과 마주 보는 각이 가장 큽니다. {answer}",
+        "en": "The largest angle is opposite the longest side: {answer}"
+      }
+    },
+    {
+      "id": "euler",
+      "level": 1,
+      "type": "sides",
+      "gen": "euler",
+      "text": {
+        "ja": "ある凸多面体は {given} である。{ask} は?",
+        "ko": "어떤 볼록다면체가 {given}이다. {ask}는?",
+        "en": "A convex polyhedron has {given}. What is its {ask}?"
+      },
+      "explain": {
+        "ja": "オイラーの多面体定理 (頂点の数) − (辺の数) + (面の数) = 2 より {answer}",
+        "ko": "오일러의 다면체 정리 (꼭짓점의 수) − (모서리의 수) + (면의 수) = 2에서 {answer}",
+        "en": "By Euler's formula, vertices − edges + faces = 2: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-circle",
+      "gen": "circle",
+      "figure": {
+        "kind": "cyclic",
+        "angleA": "{A}°",
+        "angleC": ""
+      },
+      "intro": {
+        "ja": "四角形 ABCD は中心 O の円に内接し、∠A = {A}° である。",
+        "ko": "사각형 ABCD는 중심이 O인 원에 내접하고, ∠A = {A}°이다.",
+        "en": "Quadrilateral ABCD is inscribed in a circle with centre O, and ∠A = {A}°."
+      },
+      "steps": [
+        {
+          "type": "circle",
+          "level": 1,
+          "sum": {
+            "ja": "∠C",
+            "ko": "∠C",
+            "en": "∠C"
+          },
+          "figure": {
+            "angleC": "C = ?"
+          },
+          "text": {
+            "ja": "∠C の大きさは?",
+            "ko": "∠C의 크기는?",
+            "en": "What is ∠C?"
+          },
+          "explain": {
+            "ja": "円に内接する四角形の向かい合う角の和は 180°。∠C = 180° − {A}° = {answer}",
+            "ko": "원에 내접하는 사각형에서 마주 보는 각의 합은 180°. ∠C = 180° − {A}° = {answer}",
+            "en": "Opposite angles of a cyclic quadrilateral add to 180°: ∠C = 180° − {A}° = {answer}"
+          }
+        },
+        {
+          "type": "circle",
+          "level": 2,
+          "sum": {
+            "ja": "∠BOD",
+            "ko": "∠BOD",
+            "en": "∠BOD"
+          },
+          "figure": {
+            "angleC": "{a1}"
+          },
+          "text": {
+            "ja": "点 C を含む弧 BD に対する中心角 ∠BOD の大きさは?",
+            "ko": "점 C를 포함하는 호 BD에 대한 중심각 ∠BOD의 크기는?",
+            "en": "What is the central angle ∠BOD standing on the arc BD that contains C?"
+          },
+          "explain": {
+            "ja": "この弧に対する円周角は ∠A = {A}°。中心角は円周角の2倍なので {answer}",
+            "ko": "이 호에 대한 원주각은 ∠A = {A}°. 중심각은 원주각의 2배이므로 {answer}",
+            "en": "The inscribed angle on this arc is ∠A = {A}°. The central angle is twice it: {answer}"
+          }
+        },
+        {
+          "type": "tangent",
+          "level": 2,
+          "sum": {
+            "ja": "接線と弦の角",
+            "ko": "접선과 현의 각",
+            "en": "Tangent–chord angle"
+          },
+          "figure": {
+            "angleC": "{a1}"
+          },
+          "text": {
+            "ja": "点 B における接線と弦 BD がつくる鋭角の大きさは?",
+            "ko": "점 B에서의 접선과 현 BD가 이루는 예각의 크기는?",
+            "en": "What is the acute angle between the tangent at B and the chord BD?"
+          },
+          "explain": {
+            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)。{answer}",
+            "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각 ∠A와 같습니다(접현 정리). {answer}",
+            "en": "The tangent–chord angle equals the inscribed angle ∠A on that chord: {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}
