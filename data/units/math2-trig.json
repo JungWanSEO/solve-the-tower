@@ -96,9 +96,9 @@
         "en": "Write {deg}° in radians."
       },
       "explain": {
-        "ja": "180° = π なので、π/180 を掛けて {answer}",
-        "ko": "180° = π 이므로 π/180 을 곱하면 {answer}",
-        "en": "Since 180° = π, multiply by π/180: {answer}"
+        "ja": "180° = π(ラジアン)\n{deg}° に π/180 を掛ける\n約分して {answer}",
+        "ko": "180° = π (라디안)\n{deg}° 에 π/180 을 곱합니다\n약분하면 {answer}",
+        "en": "180° = π radians\nMultiply {deg}° by π/180\nReduce: {answer}"
       }
     },
     {
@@ -115,9 +115,9 @@
         "en": "Write {rad} in degrees."
       },
       "explain": {
-        "ja": "π = 180° とおきかえて {answer}",
-        "ko": "π = 180° 로 바꾸면 {answer}",
-        "en": "Replace π with 180°: {answer}"
+        "ja": "π(ラジアン)= 180°\n{rad} の π を 180° におきかえる\n計算して {answer}",
+        "ko": "π (라디안) = 180°\n{rad} 의 π 를 180° 로 바꿉니다\n계산하면 {answer}",
+        "en": "π radians = 180°\nReplace π in {rad} with 180°\nCalculate: {answer}"
       }
     },
     {
@@ -142,9 +142,9 @@
         "en": "What is the arc length of a sector with radius {r} and angle {theta}?"
       },
       "explain": {
-        "ja": "弧の長さ l = rθ = {answer}",
-        "ko": "호의 길이 l = rθ = {answer}",
-        "en": "Arc length l = rθ = {answer}"
+        "ja": "中心角が弧度法で表されているので、弧の長さ l = rθ\n{r} × {theta}\n{answer}",
+        "ko": "중심각이 호도법으로 나타나 있으므로 호의 길이 l = rθ\n{r} × {theta}\n{answer}",
+        "en": "With the angle in radians, arc length l = rθ\n{r} × {theta}\n{answer}"
       }
     },
     {
@@ -169,9 +169,9 @@
         "en": "What is the area of a sector with radius {r} and angle {theta}?"
       },
       "explain": {
-        "ja": "面積 S = r²θ ÷ 2 = {answer}",
-        "ko": "넓이 S = r²θ ÷ 2 = {answer}",
-        "en": "Area S = r²θ ÷ 2 = {answer}"
+        "ja": "中心角が弧度法で表されているので、面積 S = r²θ ÷ 2\n{r}² × {theta} ÷ 2\n{answer}",
+        "ko": "중심각이 호도법으로 나타나 있으므로 넓이 S = r²θ ÷ 2\n{r}² × {theta} ÷ 2\n{answer}",
+        "en": "With the angle in radians, area S = r²θ ÷ 2\n{r}² × {theta} ÷ 2\n{answer}"
       }
     },
     {
@@ -190,9 +190,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "単位円で角 {label} の点 P をとり、座標の符号に注意すると {answer}",
-        "ko": "단위원에서 각 {label} 의 점 P를 잡고 좌표의 부호에 주의하면 {answer}",
-        "en": "Mark the point P for angle {label} on the unit circle and mind the signs: {answer}"
+        "ja": "単位円に角 {label} の動径をかき、円との交点を P とする\nsin は P の y 座標、cos は x 座標、tan は y ÷ x\nP がどの象限にあるかで符号を決めて {answer}",
+        "ko": "단위원에 각 {label} 의 동경을 그리고 원과의 교점을 P라 합니다\nsin은 P의 y좌표, cos은 x좌표, tan은 y ÷ x\nP가 어느 사분면에 있는지로 부호를 정하면 {answer}",
+        "en": "Draw the angle {label} on the unit circle and call the point P\nsin is P's y-coordinate, cos its x-coordinate, tan is y ÷ x\nThe quadrant of P fixes the sign: {answer}"
       }
     },
     {
@@ -209,9 +209,9 @@
         "en": "What is the period of {expr}?"
       },
       "explain": {
-        "ja": "y = sin kx, y = cos kx の周期は 2π ÷ k。{answer}",
-        "ko": "y = sin kx, y = cos kx 의 주기는 2π ÷ k. {answer}",
-        "en": "The period of sin kx and cos kx is 2π ÷ k: {answer}"
+        "ja": "y = sin x, y = cos x の周期は 2π\nx に掛かっている数を k とすると、周期は 2π ÷ k\n{answer}",
+        "ko": "y = sin x, y = cos x 의 주기는 2π\nx에 곱해진 수를 k라 하면 주기는 2π ÷ k\n{answer}",
+        "en": "y = sin x and y = cos x have period 2π\nIf x is multiplied by k, the period is 2π ÷ k\n{answer}"
       }
     },
     {
@@ -228,9 +228,9 @@
         "en": "What is the maximum of {expr}?"
       },
       "explain": {
-        "ja": "sin, cos は −1 から 1 まで動く。係数の絶対値に定数を足して {answer}",
-        "ko": "sin, cos 은 −1 부터 1 까지 움직입니다. 계수의 절댓값에 상수를 더하면 {answer}",
-        "en": "sin and cos range over −1 to 1; add the constant to the size of the coefficient: {answer}"
+        "ja": "sin, cos の値は −1 から 1 まで動く\n前の係数を掛けると、その絶対値の分だけ上下に動く\nそれに定数を足して、最大値は {answer}",
+        "ko": "sin, cos 의 값은 −1 부터 1 까지 움직입니다\n앞의 계수를 곱하면 그 절댓값만큼 위아래로 움직입니다\n거기에 상수를 더해서 최댓값은 {answer}",
+        "en": "sin and cos range from −1 to 1\nThe coefficient stretches that range by its absolute value\nAdd the constant: the maximum is {answer}"
       }
     },
     {
@@ -244,9 +244,9 @@
         "en": "Solve {eq} for 0 ≤ θ < 2π."
       },
       "explain": {
-        "ja": "単位円で、その値になる点を2つ見つけると {answer}",
-        "ko": "단위원에서 그 값이 되는 점을 두 개 찾으면 {answer}",
-        "en": "Find the two points on the unit circle with that value: {answer}"
+        "ja": "単位円をかく。sin は y 座標、cos は x 座標\n{eq} となる点を円周上で探す(2つある)\n0 ≦ θ < 2π の範囲で、その角は {answer}",
+        "ko": "단위원을 그립니다. sin은 y좌표, cos은 x좌표\n{eq} 이 되는 점을 원 위에서 찾습니다 (두 개 있습니다)\n0 ≦ θ < 2π 범위에서 그 각은 {answer}",
+        "en": "Draw the unit circle: sin is the y-coordinate, cos the x-coordinate\nFind the points where {eq} (there are two)\nIn 0 ≤ θ < 2π the angles are {answer}"
       }
     },
     {
@@ -263,9 +263,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "cos α と sin β を求めてから sin α cos β + cos α sin β = {answer}",
-        "ko": "cos α 와 sin β 를 구한 뒤 sin α cos β + cos α sin β = {answer}",
-        "en": "Find cos α and sin β, then sin α cos β + cos α sin β = {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: sin(α + β) = sin α cos β + cos α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: sin(α + β) = sin α cos β + cos α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: sin(α + β) = sin α cos β + cos α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -282,9 +282,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "sin α cos β − cos α sin β = {answer}",
-        "ko": "sin α cos β − cos α sin β = {answer}",
-        "en": "sin α cos β − cos α sin β = {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: sin(α − β) = sin α cos β − cos α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: sin(α − β) = sin α cos β − cos α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: sin(α − β) = sin α cos β − cos α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -301,9 +301,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "cos α cos β − sin α sin β = {answer}(符号が逆になることに注意)",
-        "ko": "cos α cos β − sin α sin β = {answer} (부호가 반대가 되는 것에 주의)",
-        "en": "cos α cos β − sin α sin β = {answer} (note the flipped sign)"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: cos(α + β) = cos α cos β − sin α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: cos(α + β) = cos α cos β − sin α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: cos(α + β) = cos α cos β − sin α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -320,9 +320,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "cos α cos β + sin α sin β = {answer}",
-        "ko": "cos α cos β + sin α sin β = {answer}",
-        "en": "cos α cos β + sin α sin β = {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: cos(α − β) = cos α cos β + sin α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: cos(α − β) = cos α cos β + sin α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: cos(α − β) = cos α cos β + sin α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -339,9 +339,9 @@
         "en": "Given {range} and sin θ = {sin}, what is sin 2θ?"
       },
       "explain": {
-        "ja": "範囲から cos θ の符号を決め、sin 2θ = 2 sin θ cos θ = {answer}",
-        "ko": "범위에서 cos θ 의 부호를 정하고, sin 2θ = 2 sin θ cos θ = {answer}",
-        "en": "Fix the sign of cos θ from the range; sin 2θ = 2 sin θ cos θ = {answer}"
+        "ja": "sin² θ + cos² θ = 1 から cos θ の大きさを求める\n範囲 {range} から cos θ の符号を決める\nsin 2θ = 2 sin θ cos θ に代入して {answer}",
+        "ko": "sin² θ + cos² θ = 1 에서 cos θ 의 크기를 구합니다\n범위 {range} 에서 cos θ 의 부호를 정합니다\nsin 2θ = 2 sin θ cos θ 에 대입하면 {answer}",
+        "en": "Find the size of cos θ from sin² θ + cos² θ = 1\nThe range {range} fixes the sign of cos θ\nPut into sin 2θ = 2 sin θ cos θ: {answer}"
       }
     },
     {
@@ -358,9 +358,9 @@
         "en": "Given {range} and sin θ = {sin}, what is cos 2θ?"
       },
       "explain": {
-        "ja": "cos 2θ = 1 − 2 sin² θ = {answer}",
-        "ko": "cos 2θ = 1 − 2 sin² θ = {answer}",
-        "en": "cos 2θ = 1 − 2 sin² θ = {answer}"
+        "ja": "2倍角の公式 cos 2θ = 1 − 2 sin² θ を使う(sin θ だけで計算できる)\n1 − 2 × ({sin})²\n{answer}",
+        "ko": "2배각 공식 cos 2θ = 1 − 2 sin² θ 를 씁니다 (sin θ 만으로 계산됩니다)\n1 − 2 × ({sin})²\n{answer}",
+        "en": "Use cos 2θ = 1 − 2 sin² θ (it needs only sin θ)\n1 − 2 × ({sin})²\n{answer}"
       }
     },
     {
@@ -374,9 +374,9 @@
         "en": "What is the maximum of {expr}?"
       },
       "explain": {
-        "ja": "r sin(θ + α) の形に合成すると r = √(a² + b²)。最大値は {answer}",
-        "ko": "r sin(θ + α) 꼴로 합성하면 r = √(a² + b²). 최댓값은 {answer}",
-        "en": "Combine into r sin(θ + α) with r = √(a² + b²); the maximum is {answer}"
+        "ja": "a sin θ + b cos θ = r sin(θ + α) の形にまとめる\nr = √(a² + b²)\nsin(θ + α) の最大値は 1 なので、最大値は r = {answer}",
+        "ko": "a sin θ + b cos θ = r sin(θ + α) 꼴로 합칩니다\nr = √(a² + b²)\nsin(θ + α) 의 최댓값은 1이므로 최댓값은 r = {answer}",
+        "en": "Combine a sin θ + b cos θ into r sin(θ + α)\nr = √(a² + b²)\nsin(θ + α) is at most 1, so the maximum is r = {answer}"
       }
     }
   ],

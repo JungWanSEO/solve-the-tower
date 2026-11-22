@@ -81,9 +81,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "底が同じなら、掛け算は指数を足し、割り算は指数を引く。{answer}",
-        "ko": "밑이 같으면 곱셈은 지수를 더하고 나눗셈은 지수를 뺍니다. {answer}",
-        "en": "With the same base, multiplying adds exponents and dividing subtracts them: {answer}"
+        "ja": "底が同じなので、指数だけを計算する\n掛け算は指数を足し、割り算は指数を引く\n残った指数で値を求めて {answer}",
+        "ko": "밑이 같으므로 지수만 계산합니다\n곱셈은 지수를 더하고 나눗셈은 지수를 뺍니다\n남은 지수로 값을 구하면 {answer}",
+        "en": "The base is the same, so work only with the exponents\nMultiplying adds exponents; dividing subtracts them\nEvaluate with the final exponent: {answer}"
       }
     },
     {
@@ -97,9 +97,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "何乗するとその数になるかを考えて {answer}",
-        "ko": "몇 제곱하면 그 수가 되는지 생각하면 {answer}",
-        "en": "Ask which number raised to that power gives it: {answer}"
+        "ja": "根号の左上の数を n とすると、「n 乗するとその数になる正の数」を探す\n中の数を素因数分解して、同じ数の n 個の積にする\n{answer}",
+        "ko": "근호 왼쪽 위의 수를 n이라 하면 \"n제곱하면 그 수가 되는 양수\"를 찾습니다\n안의 수를 소인수분해해서 같은 수 n개의 곱으로 만듭니다\n{answer}",
+        "en": "If the index of the root is n, find the positive number whose n-th power gives it\nFactor the number into n equal factors\n{answer}"
       }
     },
     {
@@ -116,9 +116,9 @@
         "en": "What is {base} to the power {exp}?"
       },
       "explain": {
-        "ja": "{base} を素数の累乗で表してから指数を掛けると {answer}",
-        "ko": "{base} 를 소수의 거듭제곱으로 나타낸 뒤 지수를 곱하면 {answer}",
-        "en": "Write {base} as a prime power, then multiply the exponents: {answer}"
+        "ja": "{base} を素数の累乗で表す\n(aᵐ)ⁿ = aᵐⁿ を使って、指数 {exp} を掛ける\n指数が負のときは逆数にして {answer}",
+        "ko": "{base} 를 소수의 거듭제곱으로 나타냅니다\n(aᵐ)ⁿ = aᵐⁿ 을 써서 지수 {exp} 를 곱합니다\n지수가 음수이면 역수로 만들어 {answer}",
+        "en": "Write {base} as a power of a prime\nUse (aᵐ)ⁿ = aᵐⁿ to multiply by the exponent {exp}\nA negative exponent means the reciprocal: {answer}"
       }
     },
     {
@@ -135,9 +135,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "右辺を同じ底の累乗で表し、指数どうしを比べると {answer}",
-        "ko": "우변을 같은 밑의 거듭제곱으로 나타내고 지수끼리 비교하면 {answer}",
-        "en": "Write the right side with the same base and compare exponents: {answer}"
+        "ja": "右辺を、左辺と同じ底の累乗で表す\n底が同じなので、指数どうしが等しい\nその1次方程式を解いて {answer}",
+        "ko": "우변을 좌변과 같은 밑의 거듭제곱으로 나타냅니다\n밑이 같으므로 지수끼리 같습니다\n그 일차방정식을 풀면 {answer}",
+        "en": "Write the right side as a power of the same base\nEqual bases mean equal exponents\nSolve that linear equation: {answer}"
       }
     },
     {
@@ -154,9 +154,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "底が 1 より小さいときは不等号の向きが逆になる。{answer}",
-        "ko": "밑이 1보다 작으면 부등호의 방향이 반대가 됩니다. {answer}",
-        "en": "When the base is less than 1 the inequality flips: {answer}"
+        "ja": "右辺を、左辺と同じ底の累乗で表す\n底が 1 より大きければ不等号の向きはそのまま、1 より小さければ逆になる\n指数を比べて {answer}",
+        "ko": "우변을 좌변과 같은 밑의 거듭제곱으로 나타냅니다\n밑이 1보다 크면 부등호 방향은 그대로, 1보다 작으면 반대가 됩니다\n지수를 비교하면 {answer}",
+        "en": "Write the right side as a power of the same base\nBase above 1 keeps the inequality; base below 1 flips it\nCompare exponents: {answer}"
       }
     },
     {
@@ -170,9 +170,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "底を何乗すると真数になるかを考えて {answer}",
-        "ko": "밑을 몇 제곱하면 진수가 되는지 생각하면 {answer}",
-        "en": "Ask what power of the base gives the number: {answer}"
+        "ja": "log の値は「底を何乗すると真数になるか」\n真数を底の累乗で表す(分数なら負の指数)\nその指数が答え: {answer}",
+        "ko": "로그의 값은 \"밑을 몇 제곱하면 진수가 되는가\"\n진수를 밑의 거듭제곱으로 나타냅니다 (분수이면 음의 지수)\n그 지수가 답: {answer}",
+        "en": "A log asks: what power of the base gives the number?\nWrite the number as a power of the base (a fraction means a negative power)\nThat exponent is the answer: {answer}"
       }
     },
     {
@@ -189,9 +189,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "底と真数を同じ数の累乗で表し、底の変換公式を使うと {answer}",
-        "ko": "밑과 진수를 같은 수의 거듭제곱으로 나타내고 밑의 변환 공식을 쓰면 {answer}",
-        "en": "Write both as powers of the same number and change the base: {answer}"
+        "ja": "底と真数を、同じ数の累乗で表す\n底の変換公式で、(真数の指数) ÷ (底の指数) になる\n{answer}",
+        "ko": "밑과 진수를 같은 수의 거듭제곱으로 나타냅니다\n밑의 변환 공식으로 (진수의 지수) ÷ (밑의 지수)가 됩니다\n{answer}",
+        "en": "Write the base and the number as powers of the same number\nChanging base gives (exponent of the number) ÷ (exponent of the base)\n{answer}"
       }
     },
     {
@@ -208,9 +208,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "対数の和は真数の積の対数。log M + log N = log MN より {answer}",
-        "ko": "로그의 합은 진수의 곱의 로그. log M + log N = log MN 이므로 {answer}",
-        "en": "A sum of logs is the log of the product: {answer}"
+        "ja": "底が同じ対数の和は、真数の積の対数: log M + log N = log MN\n真数どうしを掛ける\nその数が底の何乗かを考えて {answer}",
+        "ko": "밑이 같은 로그의 합은 진수의 곱의 로그: log M + log N = log MN\n진수끼리 곱합니다\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
+        "en": "A sum of logs with one base is the log of the product: log M + log N = log MN\nMultiply the two numbers\nAsk what power of the base that is: {answer}"
       }
     },
     {
@@ -227,9 +227,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "対数の差は真数の商の対数。log M − log N = log (M/N) より {answer}",
-        "ko": "로그의 차는 진수의 몫의 로그. log M − log N = log (M/N) 이므로 {answer}",
-        "en": "A difference of logs is the log of the quotient: {answer}"
+        "ja": "底が同じ対数の差は、真数の商の対数: log M − log N = log (M/N)\n真数どうしを割る\nその数が底の何乗かを考えて {answer}",
+        "ko": "밑이 같은 로그의 차는 진수의 몫의 로그: log M − log N = log (M/N)\n진수끼리 나눕니다\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
+        "en": "A difference of logs with one base is the log of the quotient: log M − log N = log (M/N)\nDivide the two numbers\nAsk what power of the base that is: {answer}"
       }
     },
     {
@@ -246,9 +246,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "log の定義から、真数 = 底の累乗。これを解いて {answer}",
-        "ko": "로그의 정의에서 진수 = 밑의 거듭제곱. 이것을 풀면 {answer}",
-        "en": "By definition the argument equals the base to that power; solving gives {answer}"
+        "ja": "log の定義から、(真数) = (底) の (右辺) 乗\nその値を計算して、x の1次方程式にする\n解いて {answer}(真数が正になることも確かめる)",
+        "ko": "로그의 정의에서 (진수) = (밑)의 (우변)제곱\n그 값을 계산해서 x의 일차방정식으로 만듭니다\n풀면 {answer} (진수가 양수가 되는지도 확인)",
+        "en": "By definition, (argument) = (base) to the power (right side)\nEvaluate it to get a linear equation in x\nSolve: {answer} (and check the argument is positive)"
       }
     },
     {
@@ -265,9 +265,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "真数は正(x > 0)という条件を忘れない。{answer}",
-        "ko": "진수는 양수(x > 0)라는 조건을 잊지 않습니다. {answer}",
-        "en": "Do not forget that the argument must be positive (x > 0): {answer}"
+        "ja": "まず真数の条件: x > 0\n右辺を同じ底の対数で表して、真数どうしを比べる(底が 1 より大きいので向きはそのまま)\n真数の条件と合わせて {answer}",
+        "ko": "먼저 진수의 조건: x > 0\n우변을 같은 밑의 로그로 나타내고 진수끼리 비교합니다 (밑이 1보다 크므로 방향은 그대로)\n진수의 조건과 합치면 {answer}",
+        "en": "First the condition on the argument: x > 0\nWrite the right side as a log with the same base and compare arguments (base above 1 keeps the direction)\nTogether with x > 0: {answer}"
       }
     },
     {
@@ -281,9 +281,9 @@
         "en": "Taking {log}, how many digits does {power} have?"
       },
       "explain": {
-        "ja": "常用対数は {n} × {log} の右辺の値。その整数部分に 1 を足して {answer} 桁",
-        "ko": "상용로그는 {n} × (위의 값). 그 정수 부분에 1을 더해서 {answer} 자리",
-        "en": "Multiply the given value by {n}; the whole part plus 1 gives {answer} digits"
+        "ja": "{power} の常用対数は {n} × log₁₀ {base}({log} を使う)\nその値の整数部分を k とすると、10ᵏ ≦ {power} < 10ᵏ⁺¹\n桁数は k + 1 なので {answer}",
+        "ko": "{power} 의 상용로그는 {n} × log₁₀ {base} ({log} 를 씁니다)\n그 값의 정수 부분을 k라 하면 10ᵏ ≦ {power} < 10ᵏ⁺¹\n자릿수는 k + 1 이므로 {answer}",
+        "en": "The common log of {power} is {n} × log₁₀ {base} (use {log})\nIf its whole part is k, then 10ᵏ ≤ {power} < 10ᵏ⁺¹\nThe number of digits is k + 1 = {answer}"
       }
     }
   ],
