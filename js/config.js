@@ -34,7 +34,7 @@ export const CONFIG = {
   early: { floors: 2, hpMul: 0.75 },   // 처음 몇 층의 보통 전투는 적의 체력이 낮습니다 (몸풀기)
   elite: { hpMul: 1.3, attackAdd: 1 }, // 강적: 체력 배수, 공격 추가
   midboss: { attackAdd: 0, healBefore: 8 }, // healBefore: 중간 보스 방 앞의 샘에서 회복하는 체력 (한 번만)           // 중간 보스: 공격 추가 (체력은 monsters.json)
-  boss: { attackAdd: 1 },              // 보스: 공격 추가 (체력은 monsters.json)
+  boss: { attackAdd: 0 },              // 보스: 공격 추가 (체력은 monsters.json). 보스는 체력과 문제 단계로 어렵게 하고, 공격은 중간 보스와 같습니다
 
   map: {
     half: 4,         // 중간 보스 앞뒤로 갈라지는 길이 몇 층씩인지 (전체 층수 = half × 2 + 2)
