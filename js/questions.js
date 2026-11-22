@@ -31,7 +31,9 @@ export async function loadAll(onStep = () => {}) {
   catalog = await getJson('./data/catalog.json');
   onStep();
   // 단원 파일은 하나씩 기다리지 않고 한꺼번에 받습니다. (통신이 느릴 때 차이가 큽니다)
-  const wanted = catalog.subjects.flatMap((subject) => subject.units.map((id) => ({ subject, id })));
+  // 목록의 off 에 적힌 단원은 건너뜁니다. (학교 범위가 아닌 단원을 지우지 않고 꺼 둘 때 씁니다)
+  const off = new Set(catalog.off || []);
+  const wanted = catalog.subjects.flatMap((subject) => subject.units.filter((id) => !off.has(id)).map((id) => ({ subject, id })));
   const loaded = await Promise.all(wanted.map(({ id }) => getJson(`./data/units/${id}.json`).then((unit) => {
     onStep();
     return unit;
@@ -230,6 +232,8 @@ function chainPool(boss = false) {
   return ready.filter((entry) => !entry.boss);
 }
 // boss: 보스전인지
+// 그 단원이 지금 게임에 들어 있는지 (꺼 둔 단원의 몬스터를 빼는 데 씁니다)
+export const hasUnit = (id) => units.some((unit) => unit.id === id);
 export const hasChain = (boss = false) => chainPool(boss).length > 0;
 // 범위(유형 목록)를 주면, 그 범위에서 나올 수 있는 연속기 묶음이 몇 개인지 셉니다. (범위 고르기 화면용. 검수 중인 묶음은 세지 않습니다)
 export const chainCount = (keys) => { const set = new Set(keys); return chains.filter((entry) => entry.gen && !entry.draft && entry.types.every((key) => set.has(key))).length; };

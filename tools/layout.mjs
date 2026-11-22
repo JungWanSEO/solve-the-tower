@@ -7,7 +7,7 @@ const DEVICES = [
   ['iPhone15 Safari', 390, 664], ['iPhone15 full', 390, 844], ['16Pro Safari', 402, 690], ['ProMax Safari', 430, 746],
   ['Galaxy S', 360, 680], ['Galaxy A', 412, 780], ['Fold cover', 344, 740], ['iPad', 768, 950], ['Landscape', 844, 340],
 ];
-const TYPES = (process.env.TYPES || '방멱 정리|필요조건·충분조건|명제 (역·이·대우)|공분산과 상관계수|공간도형 응용|두 지점 관측|이차부등식').split('|');
+const TYPES = (process.env.TYPES || '방멱 정리|필요조건·충분조건|명제 (역·이·대우)|원주각·원에 내접하는 사각형|공간도형 응용|두 지점 관측|이차부등식').split('|');
 const SHOTS = process.argv[2] === 'shots';
 const b = await puppeteer.launch({ executablePath: process.env.CHROME || '/usr/bin/google-chrome', headless: 'new', args: ['--no-sandbox', '--disable-gpu'] });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
