@@ -55,8 +55,7 @@
     "finishUlt": "피해 {d} · 쓰러뜨림",
     "actWhere": "{a}/{at}막 · {n}/{total}층",
     "actStart": "{a}/{at}막 · 입구",
-    "solveBtn": "풀이 보기",
-    "solveTitle": "방금 맞힌 문제의 풀이"
+    "reviewRight": "정답! {answer}"
   },
   "msg": {
     "choose": "행동을 고르세요.",

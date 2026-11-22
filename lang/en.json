@@ -55,8 +55,7 @@
     "finishUlt": "Damage {d} · defeats it",
     "actWhere": "Act {a}/{at} · F{n}/{total}",
     "actStart": "Act {a}/{at} · Gate",
-    "solveBtn": "Solution",
-    "solveTitle": "Solution to what you just solved"
+    "reviewRight": "Correct! {answer}"
   },
   "msg": {
     "choose": "Choose an action.",

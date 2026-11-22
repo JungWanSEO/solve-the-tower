@@ -6,7 +6,6 @@ import { t, pick } from './i18n.js';
 import { next, explainText, typeLabel, optionText, hasChain, nextChain, stepSummary, questionText, setDebugLast } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { $ } from './ui.js';
-import { ask } from './data.js';
 import { icon } from './art.js';
 import { play } from './sound.js';
 import { fitBattle } from './fit.js';
@@ -62,14 +61,6 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     return dmg;
   }
 
-  $('solveBtn').addEventListener('click', () => {
-    if (!B.solved || !B.solved.length) return;
-    ask({
-      title: t('ui.solveTitle'),
-      text: B.solved.map((s) => `${s.q}\n${t('ui.reviewAnswer', { answer: s.answer })}\n${s.explain}`).join('\n\n'),
-      buttons: [{ label: t('ui.ok'), kind: 'primary' }],
-    });
-  });
   function say(key, vars) {
     B.notice = { key, vars: vars || null };
     $('notice').textContent = t(key, B.notice.vars);
@@ -94,13 +85,13 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     const hint = $('hintBtn');
     hint.hidden = B.phase !== 'answer';
     $('nextBtn').hidden = B.phase !== 'review';
-    // 틀린 순간부터 정답과 해설을 답 아래에 보여 줍니다. (배우는 순간이라 가장 잘 보이는 자리에 둡니다)
-    const missed = Boolean(showing) && B.picked >= 0 && B.picked !== B.cur.correct;
+    // 답을 고른 순간부터 정답과 해설을 답 아래에 보여 줍니다. 맞혔을 때도 보여 줍니다.
+    // (찍어서 맞힌 문제도 풀이를 보며 복습하도록. 틀렸을 때는 배우는 순간이라 가장 잘 보이는 자리에 둡니다)
+    const missed = Boolean(showing) && B.picked >= 0;
     $('reviewBox').hidden = !missed;
-    // 맞힌 뒤에는 풀이가 자동으로 나오지 않으므로, 행동을 고르는 동안 "풀이 보기" 버튼을 보여 줍니다.
-    $('solveBtn').hidden = Boolean(showing) || !(B.solved && B.solved.length);
+    $('reviewBox').classList.toggle('right', missed && B.picked === B.cur.correct);
     if (missed) {
-      $('reviewAnswer').textContent = t('ui.reviewAnswer', { answer: optionText(B.cur.options[B.cur.correct]) });
+      $('reviewAnswer').textContent = t(B.picked === B.cur.correct ? 'ui.reviewRight' : 'ui.reviewAnswer', { answer: optionText(B.cur.options[B.cur.correct]) });
       $('reviewText').textContent = explainText(B.cur.raw);
     }
     if (!showing) return;
@@ -379,7 +370,6 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     let level = CONFIG.guardLevel;
     if (action === 'basic') level = B.foe.basicLevel || 1;
     if (action === 'skill') level = B.foe.skillLevel || 2;
-    B.solved = []; // 새 행동을 시작하면 앞 문제의 "풀이 보기" 는 사라집니다
     B.cur = next(level);
     B.cur.action = action;
     B.cur.removed = -1;
@@ -393,7 +383,6 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
   // 연속기의 지금 물음을 문제로 올립니다.
   function askStep() {
-    if (B.chain.index === 0) B.solved = [];
     B.cur = B.chain.data.steps[B.chain.index];
     B.cur.fill = fillOn() ? makeFill(B.cur) : null;
     B.cur.action = 'chain';
@@ -409,16 +398,18 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.foeHp -= dmg;
     render();
     if (B.foeHp <= 0) {
-      win();
+      reviewThen(win);
     } else if (B.chain.index + 1 < B.chain.data.steps.length) {
-      B.chain.index += 1;
-      askStep();
-      render();
+      reviewThen(() => {
+        B.chain.index += 1;
+        askStep();
+        render();
+      });
     } else if (B.intent === 'big') {
       say('msg.bigHit', { d: intentDamage() });
       foeTurn(1);
     } else {
-      backToChoose();
+      reviewThen(backToChoose);
     }
   }
 
@@ -452,8 +443,6 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.phase = 'busy';
     B.picked = i;
     const ok = i === B.cur.correct;
-    // 맞힌 문제는 풀이를 따로 볼 수 있게 적어 둡니다. (연속기는 맞힌 물음을 모두 모읍니다)
-    if (ok) (B.solved ||= []).push({ q: questionText(B.cur.raw), answer: optionText(B.cur.options[B.cur.correct]), explain: explainText(B.cur.raw) });
     record(B.cur.type, ok);
     play(ok ? 'right' : 'wrong');
     tutorial.emit('answered');
@@ -518,14 +507,26 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.foeHp -= dmg;
     render();
     if (B.foeHp <= 0) {
-      win();
+      reviewThen(win);
     } else if (B.intent === 'big' || CONFIG.foeAttack.hitOnCorrect) {
       // 강한 공격은 방어로만 막을 수 있습니다. 맞혔는데 왜 맞았는지 알려 줍니다.
       if (B.intent === 'big') say('msg.bigHit', { d: intentDamage() });
       foeTurn(1);
     } else {
-      backToChoose(); // 공격 문제를 맞히면 적의 보통 공격은 오지 않습니다.
+      reviewThen(backToChoose); // 공격 문제를 맞히면 적의 보통 공격은 오지 않습니다.
     }
+  }
+
+  // 맞힌 문제도 풀이를 읽을 시간을 줍니다: "다음" 을 눌러야 go 가 실행됩니다. (문제마다 한 번만. 틀린 문제는 foeTurn 이 따로 멈춥니다)
+  function reviewThen(go) {
+    if (B.cur && B.picked === B.cur.correct && !B.cur.reviewed) {
+      B.cur.reviewed = true;
+      B.after = go;
+      B.phase = 'review';
+      render();
+      return;
+    }
+    go();
   }
 
   // 방어에 성공한 뒤의 반격
@@ -534,8 +535,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     stage.heroAttack(`-${dmg}`, false, live(() => {
       B.foeHp -= dmg;
       render();
-      if (B.foeHp <= 0) win();
-      else backToChoose();
+      if (B.foeHp <= 0) reviewThen(win);
+      else reviewThen(backToChoose);
     }));
   }
 
@@ -561,7 +562,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
         B.phase = 'review';
         render();
       } else {
-        backToChoose();
+        reviewThen(backToChoose);
       }
     }));
   }
@@ -620,7 +621,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
   });
   $('hintBtn').addEventListener('click', useHint);
   $('nextBtn').addEventListener('click', () => {
-    if (B.phase === 'review') backToChoose();
+    if (B.phase !== 'review') return;
+    const go = B.after; // 맞힌 문제의 풀이를 읽고 넘어갈 때 이어서 할 일
+    B.after = null;
+    if (go) go();
+    else backToChoose();
   });
 
   // 전투 도중에 나갑니다. 남아 있던 연출의 뒷일은 모두 버립니다.
@@ -635,8 +640,9 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.phase = 'busy';
     B.onEnd = null;
     B.chain = null;
+    B.after = null;
     B.cur = null;
-    B.solved = [];
+    B.after = null;
     B.picked = -1;
     render();
     document.body.classList.remove('is-answering');

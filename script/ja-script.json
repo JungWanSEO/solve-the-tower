@@ -440,19 +440,11 @@
   "sample": ""
  },
  {
-  "key": "ui:ui.solveBtn",
+  "key": "ui:ui.reviewRight",
   "area": "画面 / 共通",
   "kind": "画面の文",
-  "ko": "풀이 보기",
-  "ja": "解説を見る",
-  "sample": ""
- },
- {
-  "key": "ui:ui.solveTitle",
-  "area": "画面 / 共通",
-  "kind": "画面の文",
-  "ko": "방금 맞힌 문제의 풀이",
-  "ja": "いま正解した問題の解説",
+  "ko": "정답! {answer}",
+  "ja": "正解! {answer}",
   "sample": ""
  },
  {
@@ -3053,7 +3045,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 전개하면?",
   "ja": "{expr} を展開すると?",
-  "sample": "(x − 9)(x + 2) を展開すると?"
+  "sample": "(x + 4)(x + 3) を展開すると?"
  },
  {
   "key": "unit:math1-expr:tpl:expand:explain",
@@ -3061,7 +3053,7 @@
   "kind": "解説",
   "ko": "(x + a)(x + b) = x² + (a + b)x + ab이므로 {answer}",
   "ja": "(x + a)(x + b) = x² + (a + b)x + ab より {answer}",
-  "sample": "(x + a)(x + b) = x² + (a + b)x + ab より x² − 7x − 18"
+  "sample": "(x + a)(x + b) = x² + (a + b)x + ab より x² + 7x + 12"
  },
  {
   "key": "unit:math1-expr:tpl:expand-hard:text",
@@ -3069,7 +3061,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 전개하면?",
   "ja": "{expr} を展開すると?",
-  "sample": "(3x − 5)(x − 5) を展開すると?"
+  "sample": "(3x − 4)(2x − 1) を展開すると?"
  },
  {
   "key": "unit:math1-expr:tpl:expand-hard:explain",
@@ -3077,7 +3069,7 @@
   "kind": "解説",
   "ko": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd이므로 {answer}",
   "ja": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd より {answer}",
-  "sample": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd より 3x² − 20x + 25"
+  "sample": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd より 6x² − 11x + 4"
  },
  {
   "key": "unit:math1-expr:tpl:factor:text",
@@ -3085,7 +3077,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 인수분해하면?",
   "ja": "{expr} を因数分解すると?",
-  "sample": "x² + 16x + 63 を因数分解すると?"
+  "sample": "x² + 6x − 16 を因数分解すると?"
  },
  {
   "key": "unit:math1-expr:tpl:factor:explain",
@@ -3093,7 +3085,7 @@
   "kind": "解説",
   "ko": "더해서 x의 계수, 곱해서 상수항이 되는 두 수를 찾으면 {answer}",
   "ja": "足して x の係数、かけて定数項になる2数を探すと {answer}",
-  "sample": "足して x の係数、かけて定数項になる2数を探すと (x + 7)(x + 9)"
+  "sample": "足して x の係数、かけて定数項になる2数を探すと (x − 2)(x + 8)"
  },
  {
   "key": "unit:math1-expr:tpl:factor-hard:text",
@@ -3101,7 +3093,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 인수분해하면?",
   "ja": "{expr} を因数分解すると?",
-  "sample": "3x² − 11x − 4 を因数分解すると?"
+  "sample": "5x² − 16x − 16 を因数分解すると?"
  },
  {
   "key": "unit:math1-expr:tpl:factor-hard:explain",
@@ -3109,7 +3101,7 @@
   "kind": "解説",
   "ko": "대각선으로 곱해 맞추는 방법을 쓰면 {answer}",
   "ja": "たすき掛けを使うと {answer}",
-  "sample": "たすき掛けを使うと (3x + 1)(x − 4)"
+  "sample": "たすき掛けを使うと (5x + 4)(x − 4)"
  },
  {
   "key": "unit:math1-expr:tpl:surd-simplify:text",
@@ -3117,7 +3109,7 @@
   "kind": "問題文",
   "ko": "√{n}을(를) 간단히 하면?",
   "ja": "√{n} を簡単にすると?",
-  "sample": "√75 を簡単にすると?"
+  "sample": "√216 を簡単にすると?"
  },
  {
   "key": "unit:math1-expr:tpl:surd-simplify:explain",
@@ -3125,7 +3117,7 @@
   "kind": "解説",
   "ko": "근호 안의 제곱수를 밖으로 꺼내면 √{n} = {answer}",
   "ja": "根号の中の平方数を外に出すと √{n} = {answer}",
-  "sample": "根号の中の平方数を外に出すと √75 = 5√3"
+  "sample": "根号の中の平方数を外に出すと √216 = 6√6"
  },
  {
   "key": "unit:math1-expr:tpl:rationalize:text",
@@ -3133,7 +3125,7 @@
   "kind": "問題文",
   "ko": "{c}/√{m}의 분모를 유리화하면?",
   "ja": "{c}/√{m} の分母を有理化すると?",
-  "sample": "3/√2 の分母を有理化すると?"
+  "sample": "1/√6 の分母を有理化すると?"
  },
  {
   "key": "unit:math1-expr:tpl:rationalize:explain",
@@ -3141,7 +3133,7 @@
   "kind": "解説",
   "ko": "분모와 분자에 √{m}을 곱하면 {answer}",
   "ja": "分母と分子に √{m} をかけると {answer}",
-  "sample": "分母と分子に √2 をかけると 3√2/2"
+  "sample": "分母と分子に √6 をかけると √6/6"
  },
  {
   "key": "unit:math1-expr:tpl:inequality:text",
@@ -3149,7 +3141,7 @@
   "kind": "問題文",
   "ko": "부등식 {lhs} {op} {c}의 해는?",
   "ja": "不等式 {lhs} {op} {c} を解くと?",
-  "sample": "不等式 −3x − 8 ≧ −23 を解くと?"
+  "sample": "不等式 4x + 9 ≧ 33 を解くと?"
  },
  {
   "key": "unit:math1-expr:tpl:inequality:explain",
@@ -3157,7 +3149,7 @@
   "kind": "解説",
   "ko": "음수로 나누면 부등호의 방향이 바뀌는 것에 주의하면 {answer}",
   "ja": "負の数で割ると不等号の向きが変わることに注意して {answer}",
-  "sample": "負の数で割ると不等号の向きが変わることに注意して x ≦ 5"
+  "sample": "負の数で割ると不等号の向きが変わることに注意して x ≧ 6"
  },
  {
   "key": "unit:math1-expr:tpl:sets:text",
@@ -3165,7 +3157,7 @@
   "kind": "問題文",
   "ko": "n(A) = {p}, n(B) = {q}, n(A∩B) = {r}일 때, n(A∪B)는?",
   "ja": "n(A) = {p}、n(B) = {q}、n(A∩B) = {r} のとき、n(A∪B) は?",
-  "sample": "n(A) = 24、n(B) = 18、n(A∩B) = 13 のとき、n(A∪B) は?"
+  "sample": "n(A) = 24、n(B) = 15、n(A∩B) = 10 のとき、n(A∪B) は?"
  },
  {
   "key": "unit:math1-expr:tpl:sets:explain",
@@ -3181,7 +3173,7 @@
   "kind": "問題文",
   "ko": "명제 「{stmt}」의 역은?",
   "ja": "命題「{stmt}」の逆は?",
-  "sample": "命題「x ≧ 7 ⟹ x > 4」の逆は?"
+  "sample": "命題「x = 4 ⟹ x > 3」の逆は?"
  },
  {
   "key": "unit:math1-expr:tpl:prop-converse:explain",
@@ -3189,7 +3181,7 @@
   "kind": "解説",
   "ko": "역은 가정과 결론을 서로 바꾼 것입니다. {answer}",
   "ja": "逆は仮定と結論を入れかえたもの。{answer}",
-  "sample": "逆は仮定と結論を入れかえたもの。x > 4 ⟹ x ≧ 7"
+  "sample": "逆は仮定と結論を入れかえたもの。x > 3 ⟹ x = 4"
  },
  {
   "key": "unit:math1-expr:tpl:prop-converse:note",
@@ -3205,7 +3197,7 @@
   "kind": "問題文",
   "ko": "명제 「{stmt}」의 이는?",
   "ja": "命題「{stmt}」の裏は?",
-  "sample": "命題「x ≧ 6 ⟹ x > 3」の裏は?"
+  "sample": "命題「x > 2 ⟹ x > −1」の裏は?"
  },
  {
   "key": "unit:math1-expr:tpl:prop-inverse:explain",
@@ -3213,7 +3205,7 @@
   "kind": "解説",
   "ko": "이는 가정과 결론을 각각 부정한 것입니다. {answer}",
   "ja": "裏は仮定と結論をそれぞれ否定したもの。{answer}",
-  "sample": "裏は仮定と結論をそれぞれ否定したもの。x < 6 ⟹ x ≦ 3"
+  "sample": "裏は仮定と結論をそれぞれ否定したもの。x ≦ 2 ⟹ x ≦ −1"
  },
  {
   "key": "unit:math1-expr:tpl:prop-inverse:note",
@@ -3229,7 +3221,7 @@
   "kind": "問題文",
   "ko": "명제 「{stmt}」의 대우는?",
   "ja": "命題「{stmt}」の対偶は?",
-  "sample": "命題「x ≧ 5 ⟹ x > 4」の対偶は?"
+  "sample": "命題「x = 5 ⟹ x² = 25」の対偶は?"
  },
  {
   "key": "unit:math1-expr:tpl:prop-contra:explain",
@@ -3237,7 +3229,7 @@
   "kind": "解説",
   "ko": "대우는 가정과 결론을 서로 바꾸고 각각 부정한 것입니다. {answer}",
   "ja": "対偶は仮定と結論を入れかえて、それぞれ否定したもの。{answer}",
-  "sample": "対偶は仮定と結論を入れかえて、それぞれ否定したもの。x ≦ 4 ⟹ x < 5"
+  "sample": "対偶は仮定と結論を入れかえて、それぞれ否定したもの。x² ≠ 25 ⟹ x ≠ 5"
  },
  {
   "key": "unit:math1-expr:tpl:prop-contra:note",
@@ -3253,7 +3245,7 @@
   "kind": "問題文",
   "ko": "p: {p}, q: {q}라 하자. p는 q이기 위한 무슨 조건인가?",
   "ja": "p: {p}、q: {q} とする。p は q であるための何条件?",
-  "sample": "p: x² = 16、q: x = 4 とする。p は q であるための何条件?"
+  "sample": "p: x > 7、q: x > 8 とする。p は q であるための何条件?"
  },
  {
   "key": "unit:math1-expr:tpl:condition:explain",
@@ -3277,7 +3269,7 @@
   "kind": "問題文",
   "ko": "방정식 {lhs} = {b}의 해는?",
   "ja": "方程式 {lhs} = {b} を解くと?",
-  "sample": "方程式 |x − 3| = 1 を解くと?"
+  "sample": "方程式 |x + 6| = 3 を解くと?"
  },
  {
   "key": "unit:math1-expr:tpl:abs-eq:explain",
@@ -3285,7 +3277,7 @@
   "kind": "解説",
   "ko": "절댓값 안이 {b} 또는 −{b}가 됩니다. {answer}",
   "ja": "絶対値の中身が {b} または −{b} になる。{answer}",
-  "sample": "絶対値の中身が 1 または −1 になる。x = 2, 4"
+  "sample": "絶対値の中身が 3 または −3 になる。x = −9, −3"
  },
  {
   "key": "unit:math1-expr:tpl:abs-ineq:text",
@@ -3293,7 +3285,7 @@
   "kind": "問題文",
   "ko": "부등식 {lhs} {op} {b}의 해는?",
   "ja": "不等式 {lhs} {op} {b} を解くと?",
-  "sample": "不等式 |x + 4| > 7 を解くと?"
+  "sample": "不等式 |x − 3| < 6 を解くと?"
  },
  {
   "key": "unit:math1-expr:tpl:abs-ineq:explain",
@@ -3301,7 +3293,7 @@
   "kind": "解説",
   "ko": "|X| < b는 −b < X < b, |X| > b는 X < −b, b < X입니다. {answer}",
   "ja": "|X| < b は −b < X < b、|X| > b は X < −b, b < X。{answer}",
-  "sample": "|X| < b は −b < X < b、|X| > b は X < −b, b < X。x < −11, 3 < x"
+  "sample": "|X| < b は −b < X < b、|X| > b は X < −b, b < X。−3 < x < 9"
  },
  {
   "key": "unit:math1-expr:tpl:system:text",
@@ -3309,7 +3301,7 @@
   "kind": "問題文",
   "ko": "연립부등식 {i1}, {i2}의 해는?",
   "ja": "連立不等式 {i1}、{i2} を解くと?",
-  "sample": "連立不等式 4x − 7 > 5、x + 2 ≦ 7 を解くと?"
+  "sample": "連立不等式 4x − 5 > −9、x − 1 ≦ 3 を解くと?"
  },
  {
   "key": "unit:math1-expr:tpl:system:explain",
@@ -3317,7 +3309,7 @@
   "kind": "解説",
   "ko": "각각을 풀어 공통 범위를 구하면 {answer}",
   "ja": "それぞれを解いて、共通する範囲を求めると {answer}",
-  "sample": "それぞれを解いて、共通する範囲を求めると 3 < x ≦ 5"
+  "sample": "それぞれを解いて、共通する範囲を求めると −1 < x ≦ 4"
  },
  {
   "key": "unit:math1-expr:tpl:symmetric:text",
@@ -3325,7 +3317,7 @@
   "kind": "問題文",
   "ko": "x + y = {s}, xy = {p}일 때, x² + y²의 값은?",
   "ja": "x + y = {s}、xy = {p} のとき、x² + y² の値は?",
-  "sample": "x + y = −2、xy = −2 のとき、x² + y² の値は?"
+  "sample": "x + y = 3、xy = 1 のとき、x² + y² の値は?"
  },
  {
   "key": "unit:math1-expr:tpl:symmetric:explain",
@@ -3333,7 +3325,7 @@
   "kind": "解説",
   "ko": "x² + y² = (x + y)² − 2xy = {answer}",
   "ja": "x² + y² = (x + y)² − 2xy = {answer}",
-  "sample": "x² + y² = (x + y)² − 2xy = 8"
+  "sample": "x² + y² = (x + y)² − 2xy = 7"
  },
  {
   "key": "unit:math1-expr:tpl:set-cap:text",
@@ -3341,7 +3333,7 @@
   "kind": "問題文",
   "ko": "A = {A}, B = {B}일 때, A ∩ B는?",
   "ja": "A = {A}、B = {B} のとき、A ∩ B は?",
-  "sample": "A = {3, 4, 8, 9}、B = {1, 2, 6, 8} のとき、A ∩ B は?"
+  "sample": "A = {2, 3, 5, 8}、B = {1, 3, 4, 5} のとき、A ∩ B は?"
  },
  {
   "key": "unit:math1-expr:tpl:set-cap:explain",
@@ -3349,7 +3341,7 @@
   "kind": "解説",
   "ko": "A ∩ B는 양쪽에 모두 들어 있는 원소의 집합입니다. {answer}",
   "ja": "A ∩ B は両方に入っている要素の集合。{answer}",
-  "sample": "A ∩ B は両方に入っている要素の集合。{8}"
+  "sample": "A ∩ B は両方に入っている要素の集合。{3, 5}"
  },
  {
   "key": "unit:math1-expr:tpl:set-cup:text",
@@ -3357,7 +3349,7 @@
   "kind": "問題文",
   "ko": "A = {A}, B = {B}일 때, A ∪ B는?",
   "ja": "A = {A}、B = {B} のとき、A ∪ B は?",
-  "sample": "A = {1, 2, 3, 8}、B = {1, 2, 3, 7} のとき、A ∪ B は?"
+  "sample": "A = {2, 5, 6, 8}、B = {4, 5, 6, 8} のとき、A ∪ B は?"
  },
  {
   "key": "unit:math1-expr:tpl:set-cup:explain",
@@ -3365,7 +3357,7 @@
   "kind": "解説",
   "ko": "A ∪ B는 적어도 한쪽에 들어 있는 원소의 집합입니다. {answer}",
   "ja": "A ∪ B は少なくとも一方に入っている要素の集合。{answer}",
-  "sample": "A ∪ B は少なくとも一方に入っている要素の集合。{1, 2, 3, 7, 8}"
+  "sample": "A ∪ B は少なくとも一方に入っている要素の集合。{2, 4, 5, 6, 8}"
  },
  {
   "key": "unit:math1-expr:tpl:counterexample:text",
@@ -3373,7 +3365,7 @@
   "kind": "問題文",
   "ko": "명제 「{stmt}」가 거짓임을 보이는 반례는?",
   "ja": "命題「{stmt}」が偽であることを示す反例は?",
-  "sample": "命題「x² = 36 ⟹ x = 6」が偽であることを示す反例は?"
+  "sample": "命題「|x| > 4 ⟹ x > 4」が偽であることを示す反例は?"
  },
  {
   "key": "unit:math1-expr:tpl:counterexample:explain",
@@ -3381,7 +3373,7 @@
   "kind": "解説",
   "ko": "가정은 성립하지만 결론이 성립하지 않는 값이 반례입니다. {answer}",
   "ja": "仮定は成り立つが結論が成り立たない値が反例。{answer}",
-  "sample": "仮定は成り立つが結論が成り立たない値が反例。x = −6"
+  "sample": "仮定は成り立つが結論が成り立たない値が反例。x = −5"
  },
  {
   "key": "unit:math1-expr:tpl:counterexample:note",
@@ -3397,7 +3389,7 @@
   "kind": "問題文",
   "ko": "{A} + {B}를 계산하면?",
   "ja": "{A} + {B} を計算すると?",
-  "sample": "(−2x² − 4x − 3) + (−x² − 6x − 1) を計算すると?"
+  "sample": "(x² + 4x + 5) + (−4x² + 3x + 2) を計算すると?"
  },
  {
   "key": "unit:math1-expr:tpl:poly-add:explain",
@@ -3405,7 +3397,7 @@
   "kind": "解説",
   "ko": "동류항끼리 모으면 {answer}",
   "ja": "同類項どうしをまとめると {answer}",
-  "sample": "同類項どうしをまとめると −3x² − 10x − 4"
+  "sample": "同類項どうしをまとめると −3x² + 7x + 7"
  },
  {
   "key": "unit:math1-expr:tpl:poly-sub:text",
@@ -3413,7 +3405,7 @@
   "kind": "問題文",
   "ko": "{A} − {B}를 계산하면?",
   "ja": "{A} − {B} を計算すると?",
-  "sample": "(4x² − x − 2) − (−3x² − 6x + 1) を計算すると?"
+  "sample": "(−4x² + 4x − 5) − (4x² − 6x + 3) を計算すると?"
  },
  {
   "key": "unit:math1-expr:tpl:poly-sub:explain",
@@ -3421,7 +3413,7 @@
   "kind": "解説",
   "ko": "빼는 식의 부호를 모두 바꾼 뒤 동류항끼리 모으면 {answer}",
   "ja": "引く式の符号をすべて変えてから同類項をまとめると {answer}",
-  "sample": "引く式の符号をすべて変えてから同類項をまとめると 7x² + 5x − 3"
+  "sample": "引く式の符号をすべて変えてから同類項をまとめると −8x² + 10x − 8"
  },
  {
   "key": "unit:math1-expr:tpl:coef:text",
@@ -3429,7 +3421,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 전개했을 때, {which}의 계수는?",
   "ja": "{expr} を展開したとき、{which} の係数は?",
-  "sample": "(x − 5)(x² + 5x + 3) を展開したとき、x² の係数は?"
+  "sample": "(3x − 3)(x² − 4x + 2) を展開したとき、x の係数は?"
  },
  {
   "key": "unit:math1-expr:tpl:coef:explain",
@@ -3437,7 +3429,7 @@
   "kind": "解説",
   "ko": "{which}이 되는 조합만 골라 더하면 {answer}",
   "ja": "{which} になる組み合わせだけを取り出して足すと {answer}",
-  "sample": "x² になる組み合わせだけを取り出して足すと 0"
+  "sample": "x になる組み合わせだけを取り出して足すと 18"
  },
  {
   "key": "unit:math1-expr:tpl:factor-formula:text",
@@ -3445,7 +3437,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 인수분해하면?",
   "ja": "{expr} を因数分解すると?",
-  "sample": "4x² − 1 を因数分解すると?"
+  "sample": "x² − 8x + 16 を因数分解すると?"
  },
  {
   "key": "unit:math1-expr:tpl:factor-formula:explain",
@@ -3453,7 +3445,7 @@
   "kind": "解説",
   "ko": "a² − b² = (a + b)(a − b), a² + 2ab + b² = (a + b)²을 쓰면 {answer}",
   "ja": "a² − b² = (a + b)(a − b)、a² + 2ab + b² = (a + b)² を使うと {answer}",
-  "sample": "a² − b² = (a + b)(a − b)、a² + 2ab + b² = (a + b)² を使うと (2x + 1)(2x − 1)"
+  "sample": "a² − b² = (a + b)(a − b)、a² + 2ab + b² = (a + b)² を使うと (x − 4)²"
  },
  {
   "key": "unit:math1-expr:tpl:recurring:text",
@@ -3461,7 +3453,7 @@
   "kind": "問題文",
   "ko": "순환소수 {dec}을(를) 분수로 나타내면?",
   "ja": "循環小数 {dec} を分数で表すと?",
-  "sample": "循環小数 0.555… を分数で表すと?"
+  "sample": "循環小数 0.656565… を分数で表すと?"
  },
  {
   "key": "unit:math1-expr:tpl:recurring:explain",
@@ -3469,7 +3461,7 @@
   "kind": "解説",
   "ko": "x로 놓고 10배(또는 100배)한 것에서 빼면 {answer}",
   "ja": "x とおいて 10倍(または100倍)したものから引くと {answer}",
-  "sample": "x とおいて 10倍(または100倍)したものから引くと 5/9"
+  "sample": "x とおいて 10倍(または100倍)したものから引くと 65/99"
  },
  {
   "key": "unit:math1-expr:tpl:abs-value:text",
@@ -3477,7 +3469,7 @@
   "kind": "問題文",
   "ko": "{expr}의 값은?",
   "ja": "{expr} の値は?",
-  "sample": "|−3| + |1 − 6| の値は?"
+  "sample": "|−5| + |4 − 10| の値は?"
  },
  {
   "key": "unit:math1-expr:tpl:abs-value:explain",
@@ -3485,7 +3477,7 @@
   "kind": "解説",
   "ko": "절댓값은 0에서의 거리이므로 항상 0 이상입니다. {answer}",
   "ja": "絶対値は 0 からの距離なので必ず 0 以上。{answer}",
-  "sample": "絶対値は 0 からの距離なので必ず 0 以上。8"
+  "sample": "絶対値は 0 からの距離なので必ず 0 以上。11"
  },
  {
   "key": "unit:math1-expr:tpl:surd-add:text",
@@ -3493,7 +3485,7 @@
   "kind": "問題文",
   "ko": "{expr}을(를) 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "√125 + √5 を計算すると?"
+  "sample": "√63 − √28 を計算すると?"
  },
  {
   "key": "unit:math1-expr:tpl:surd-add:explain",
@@ -3501,7 +3493,7 @@
   "kind": "解説",
   "ko": "각각의 근호를 간단히 한 뒤 모으면 {answer}",
   "ja": "それぞれの根号を簡単にしてからまとめると {answer}",
-  "sample": "それぞれの根号を簡単にしてからまとめると 6√5"
+  "sample": "それぞれの根号を簡単にしてからまとめると √7"
  },
  {
   "key": "unit:math1-expr:tpl:surd-binom:text",
@@ -3509,7 +3501,7 @@
   "kind": "問題文",
   "ko": "{c}/(√{a} + {b})의 분모를 유리화하면?",
   "ja": "{c}/(√{a} + {b}) の分母を有理化すると?",
-  "sample": "1/(√3 + 2) の分母を有理化すると?"
+  "sample": "5/(√6 + 1) の分母を有理化すると?"
  },
  {
   "key": "unit:math1-expr:tpl:surd-binom:explain",
@@ -3517,7 +3509,7 @@
   "kind": "解説",
   "ko": "분모와 분자에 (√{a} − {b})를 곱하면 {answer}",
   "ja": "分母と分子に (√{a} − {b}) をかけると {answer}",
-  "sample": "分母と分子に (√3 − 2) をかけると 2 − √3"
+  "sample": "分母と分子に (√6 − 1) をかけると √6 − 1"
  },
  {
   "key": "unit:math1-expr:tpl:nested-root:text",
@@ -3541,7 +3533,7 @@
   "kind": "問題文",
   "ko": "한 개에 {price}엔인 물건을 몇 개 사서 {box}엔짜리 상자에 담는다. 합계를 {budget}엔 이하로 하려면 물건은 최대 몇 개 살 수 있는가?",
   "ja": "1個 {price} 円の品物を何個か買って、{box} 円の箱に入れてもらう。代金の合計を {budget} 円以下にするとき、品物は最大何個買える?",
-  "sample": "1個 250 円の品物を何個か買って、100 円の箱に入れてもらう。代金の合計を 2300 円以下にするとき、品物は最大何個買える?"
+  "sample": "1個 250 円の品物を何個か買って、100 円の箱に入れてもらう。代金の合計を 1300 円以下にするとき、品物は最大何個買える?"
  },
  {
   "key": "unit:math1-expr:tpl:ineq-word:explain",
@@ -3549,7 +3541,7 @@
   "kind": "解説",
   "ko": "{price}x + {box} ≦ {budget}을 풀어 가장 큰 정수를 구하면 {answer}",
   "ja": "{price}x + {box} ≦ {budget} を解いて、整数の最大値を求めると {answer}",
-  "sample": "250x + 100 ≦ 2300 を解いて、整数の最大値を求めると 8"
+  "sample": "250x + 100 ≦ 1300 を解いて、整数の最大値を求めると 4"
  },
  {
   "key": "unit:math1-expr:tpl:ineq-word:note",
@@ -3565,7 +3557,7 @@
   "kind": "問題文",
   "ko": "A = {A}, B = {B}일 때, A ∪ B의 여집합은?",
   "ja": "A = {A}、B = {B} のとき、A ∪ B の補集合は?",
-  "sample": "A = {1, 2, 6, 7}、B = {2, 3, 5, 8} のとき、A ∪ B の補集合は?"
+  "sample": "A = {1, 2, 5, 7}、B = {1, 4, 5, 6} のとき、A ∪ B の補集合は?"
  },
  {
   "key": "unit:math1-expr:tpl:set-notcup:explain",
@@ -3573,7 +3565,7 @@
   "kind": "解説",
   "ko": "전체집합 중 A에도 B에도 들어 있지 않은 원소입니다. {answer}",
   "ja": "全体集合のうち、A にも B にも入っていない要素。{answer}",
-  "sample": "全体集合のうち、A にも B にも入っていない要素。{4, 9}"
+  "sample": "全体集合のうち、A にも B にも入っていない要素。{3, 8, 9}"
  },
  {
   "key": "unit:math1-expr:tpl:set-notcup:note",
@@ -3589,7 +3581,7 @@
   "kind": "問題文",
   "ko": "A = {A}, B = {B}일 때, A의 여집합은?",
   "ja": "A = {A}、B = {B} のとき、A の補集合は?",
-  "sample": "A = {2, 3, 4, 8}、B = {3, 5, 6, 9} のとき、A の補集合は?"
+  "sample": "A = {1, 3, 4, 7}、B = {1, 2, 7, 9} のとき、A の補集合は?"
  },
  {
   "key": "unit:math1-expr:tpl:set-notA:explain",
@@ -3597,7 +3589,7 @@
   "kind": "解説",
   "ko": "전체집합 중 A에 들어 있지 않은 원소입니다. {answer}",
   "ja": "全体集合のうち、A に入っていない要素。{answer}",
-  "sample": "全体集合のうち、A に入っていない要素。{1, 5, 6, 7, 9}"
+  "sample": "全体集合のうち、A に入っていない要素。{2, 5, 6, 8, 9}"
  },
  {
   "key": "unit:math1-expr:tpl:set-notA:note",
@@ -3621,7 +3613,7 @@
   "kind": "解説",
   "ko": "반례가 없는 것을 찾으면 {answer}",
   "ja": "反例がないものを探すと {answer}",
-  "sample": "反例がないものを探すと x > 5 ⟹ x > 4"
+  "sample": "反例がないものを探すと x > 6 ⟹ x > 5"
  },
  {
   "key": "unit:math1-expr:tpl:truth:note",
@@ -3637,7 +3629,7 @@
   "kind": "問題文",
   "ko": "조건 「{stmt}」의 부정은?",
   "ja": "条件「{stmt}」の否定は?",
-  "sample": "条件「x < −2 @or x > 2」の否定は?"
+  "sample": "条件「x > −3 @and x < 1」の否定は?"
  },
  {
   "key": "unit:math1-expr:tpl:negation:explain",
@@ -3645,7 +3637,7 @@
   "kind": "解説",
   "ko": "'그리고'와 '또는'을 서로 바꾸고 각각의 조건을 부정하면 {answer}",
   "ja": "「かつ」と「または」を入れかえ、それぞれの条件を否定すると {answer}",
-  "sample": "「かつ」と「または」を入れかえ、それぞれの条件を否定すると x ≧ −2 @and x ≦ 2"
+  "sample": "「かつ」と「または」を入れかえ、それぞれの条件を否定すると x ≦ −3 @or x ≧ 1"
  },
  {
   "key": "unit:math1-expr:tpl:negation:note",
@@ -3661,7 +3653,7 @@
   "kind": "連続技の前文",
   "ko": "x + y = {s}, xy = {p}일 때, 다음 값을 구하시오.",
   "ja": "x + y = {s}, xy = {p} のとき、次の値を求めよ。",
-  "sample": "x + y = 7, xy = 6 のとき、次の値を求めよ。"
+  "sample": "x + y = 10, xy = 24 のとき、次の値を求めよ。"
  },
  {
   "key": "unit:math1-expr:chain:chain-sym:step1:sum",
@@ -3685,7 +3677,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "x² + y² = (x + y)² − 2xy에서 {answer}",
   "ja": "x² + y² = (x + y)² − 2xy より {answer}",
-  "sample": "x² + y² = (x + y)² − 2xy より 37"
+  "sample": "x² + y² = (x + y)² − 2xy より 52"
  },
  {
   "key": "unit:math1-expr:chain:chain-sym:step2:sum",
@@ -3709,7 +3701,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
   "ja": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
-  "sample": "(x − y)² = x² + y² − 2xy = 37 − 2 × (6) = 25"
+  "sample": "(x − y)² = x² + y² − 2xy = 52 − 2 × (24) = 4"
  },
  {
   "key": "unit:math1-expr:chain:chain-sym:step3:sum",
@@ -3733,7 +3725,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
   "ja": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
-  "sample": "x³ + y³ = (x + y)(x² − xy + y²) = (7) × (37 − (6)) = 217"
+  "sample": "x³ + y³ = (x + y)(x² − xy + y²) = (10) × (52 − (24)) = 280"
  },
  {
   "key": "unit:math1-trig:name",
@@ -3925,7 +3917,7 @@
   "kind": "問題文",
   "ko": "그림의 직각삼각형에서 {fn} θ는?",
   "ja": "図の直角三角形で、{fn} θ は?",
-  "sample": "図の直角三角形で、sin θ は?"
+  "sample": "図の直角三角形で、tan θ は?"
  },
  {
   "key": "unit:math1-trig:tpl:ratio-from-sides:explain",
@@ -3933,7 +3925,7 @@
   "kind": "解説",
   "ko": "sin=맞은편/빗변, cos=이웃/빗변, tan=맞은편/이웃이므로 {fn} θ = {answer}",
   "ja": "sin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺 なので {fn} θ = {answer}",
-  "sample": "sin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺 なので sin θ = 20/29"
+  "sample": "sin = 対辺/斜辺、cos = 隣辺/斜辺、tan = 対辺/隣辺 なので tan θ = 12/35"
  },
  {
   "key": "unit:math1-trig:tpl:relation:text",
@@ -3941,7 +3933,7 @@
   "kind": "問題文",
   "ko": "θ가 예각이고 {given} θ = {gv}일 때, {ask} θ는?",
   "ja": "θ が鋭角で {given} θ = {gv} のとき、{ask} θ は?",
-  "sample": "θ が鋭角で cos θ = 20/29 のとき、sin θ は?"
+  "sample": "θ が鋭角で sin θ = 5/13 のとき、tan θ は?"
  },
  {
   "key": "unit:math1-trig:tpl:relation:explain",
@@ -3949,7 +3941,7 @@
   "kind": "解説",
   "ko": "sin²θ + cos²θ = 1, tan θ = sin θ / cos θ이므로 {ask} θ = {answer}",
   "ja": "sin²θ + cos²θ = 1、tan θ = sin θ / cos θ より {ask} θ = {answer}",
-  "sample": "sin²θ + cos²θ = 1、tan θ = sin θ / cos θ より sin θ = 21/29"
+  "sample": "sin²θ + cos²θ = 1、tan θ = sin θ / cos θ より tan θ = 5/12"
  },
  {
   "key": "unit:math1-trig:tpl:relation-obtuse:text",
@@ -3957,7 +3949,7 @@
   "kind": "問題文",
   "ko": "θ가 둔각이고 {given} θ = {gv}일 때, {ask} θ는?",
   "ja": "θ が鈍角で {given} θ = {gv} のとき、{ask} θ は?",
-  "sample": "θ が鈍角で sin θ = 35/37 のとき、cos θ は?"
+  "sample": "θ が鈍角で sin θ = 3/5 のとき、cos θ は?"
  },
  {
   "key": "unit:math1-trig:tpl:relation-obtuse:explain",
@@ -3965,7 +3957,7 @@
   "kind": "解説",
   "ko": "둔각에서는 cos θ와 tan θ가 음수입니다. sin²θ + cos²θ = 1이므로 {ask} θ = {answer}",
   "ja": "鈍角では cos θ と tan θ は負。sin²θ + cos²θ = 1 より {ask} θ = {answer}",
-  "sample": "鈍角では cos θ と tan θ は負。sin²θ + cos²θ = 1 より cos θ = −12/37"
+  "sample": "鈍角では cos θ と tan θ は負。sin²θ + cos²θ = 1 より cos θ = −4/5"
  },
  {
   "key": "unit:math1-trig:tpl:length-sin30:text",
@@ -3981,7 +3973,7 @@
   "kind": "解説",
   "ko": "맞은편 변 = 빗변 × sin 30° = {c} × 1/2 = {answer}",
   "ja": "対辺 = 斜辺 × sin 30° = {c} × 1/2 = {answer}",
-  "sample": "対辺 = 斜辺 × sin 30° = 52 × 1/2 = 26 m"
+  "sample": "対辺 = 斜辺 × sin 30° = 54 × 1/2 = 27 m"
  },
  {
   "key": "unit:math1-trig:tpl:length-cos60:text",
@@ -3997,7 +3989,7 @@
   "kind": "解説",
   "ko": "이웃 변 = 빗변 × cos 60° = {c} × 1/2 = {answer}",
   "ja": "隣辺 = 斜辺 × cos 60° = {c} × 1/2 = {answer}",
-  "sample": "隣辺 = 斜辺 × cos 60° = 36 × 1/2 = 18 m"
+  "sample": "隣辺 = 斜辺 × cos 60° = 42 × 1/2 = 21 m"
  },
  {
   "key": "unit:math1-trig:tpl:tower-height:text",
@@ -4005,7 +3997,7 @@
   "kind": "問題文",
   "ko": "그림처럼 {d}m 떨어진 지점에서 탑 꼭대기를 올려본 각이 {deg}°이다. 탑의 높이 h는?",
   "ja": "図のように、{d}m 離れた地点から塔の先端を見上げた角が {deg}° である。塔の高さ h は?",
-  "sample": "図のように、10m 離れた地点から塔の先端を見上げた角が 30° である。塔の高さ h は?"
+  "sample": "図のように、30m 離れた地点から塔の先端を見上げた角が 45° である。塔の高さ h は?"
  },
  {
   "key": "unit:math1-trig:tpl:tower-height:explain",
@@ -4013,7 +4005,7 @@
   "kind": "解説",
   "ko": "높이 = {d} × tan {deg}° = {answer}",
   "ja": "高さ = {d} × tan {deg}° = {answer}",
-  "sample": "高さ = 10 × tan 30° = 10√3/3 m"
+  "sample": "高さ = 30 × tan 45° = 30 m"
  },
  {
   "key": "unit:math1-trig:tpl:tower-height:note",
@@ -4029,7 +4021,7 @@
   "kind": "問題文",
   "ko": "그림처럼 {g}m 떨어진 두 지점에서 탑 꼭대기를 올려본 각이 {a}°와 {b}°이다. 탑의 높이 h는?",
   "ja": "図のように、{g}m 離れた2地点から塔の先端を見上げた角が {a}° と {b}° である。塔の高さ h は?",
-  "sample": "図のように、14m 離れた2地点から塔の先端を見上げた角が 45° と 60° である。塔の高さ h は?"
+  "sample": "図のように、16m 離れた2地点から塔の先端を見上げた角が 30° と 60° である。塔の高さ h は?"
  },
  {
   "key": "unit:math1-trig:tpl:two-points:explain",
@@ -4037,7 +4029,7 @@
   "kind": "解説",
   "ko": "높이 = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}",
   "ja": "高さ = {g} × tan {a}° × tan {b}° ÷ (tan {b}° − tan {a}°) = {answer}",
-  "sample": "高さ = 14 × tan 45° × tan 60° ÷ (tan 60° − tan 45°) = (21 + 7√3) m"
+  "sample": "高さ = 16 × tan 30° × tan 60° ÷ (tan 60° − tan 30°) = 8√3 m"
  },
  {
   "key": "unit:math1-trig:tpl:two-points:note",
@@ -4053,7 +4045,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 a = {a}, A = {A}°, B = {B}°일 때, b는?",
   "ja": "△ABC で、a = {a}、A = {A}°、B = {B}° のとき、b は?",
-  "sample": "△ABC で、a = 8、A = 30°、B = 60° のとき、b は?"
+  "sample": "△ABC で、a = 10、A = 30°、B = 120° のとき、b は?"
  },
  {
   "key": "unit:math1-trig:tpl:sine-rule:explain",
@@ -4061,7 +4053,7 @@
   "kind": "解説",
   "ko": "사인 법칙 a/sin A = b/sin B에서 b = {a} × sin {B}° ÷ sin {A}° = {answer}",
   "ja": "正弦定理 a/sin A = b/sin B より b = {a} × sin {B}° ÷ sin {A}° = {answer}",
-  "sample": "正弦定理 a/sin A = b/sin B より b = 8 × sin 60° ÷ sin 30° = 8√3"
+  "sample": "正弦定理 a/sin A = b/sin B より b = 10 × sin 120° ÷ sin 30° = 10√3"
  },
  {
   "key": "unit:math1-trig:tpl:sine-radius:text",
@@ -4069,7 +4061,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 a = {a}, A = {A}°일 때, 외접원의 반지름 R은?",
   "ja": "△ABC で、a = {a}、A = {A}° のとき、外接円の半径 R は?",
-  "sample": "△ABC で、a = 4、A = 30° のとき、外接円の半径 R は?"
+  "sample": "△ABC で、a = 4、A = 135° のとき、外接円の半径 R は?"
  },
  {
   "key": "unit:math1-trig:tpl:sine-radius:explain",
@@ -4077,7 +4069,7 @@
   "kind": "解説",
   "ko": "사인 법칙 a/sin A = 2R에서 R = {answer}",
   "ja": "正弦定理 a/sin A = 2R より R = {answer}",
-  "sample": "正弦定理 a/sin A = 2R より R = 4"
+  "sample": "正弦定理 a/sin A = 2R より R = 2√2"
  },
  {
   "key": "unit:math1-trig:tpl:cosine-rule:text",
@@ -4085,7 +4077,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 b = {b}, c = {c}, A = {A}°일 때, a는?",
   "ja": "△ABC で、b = {b}、c = {c}、A = {A}° のとき、a は?",
-  "sample": "△ABC で、b = 4、c = 9、A = 120° のとき、a は?"
+  "sample": "△ABC で、b = 3、c = 3、A = 120° のとき、a は?"
  },
  {
   "key": "unit:math1-trig:tpl:cosine-rule:explain",
@@ -4093,7 +4085,7 @@
   "kind": "解説",
   "ko": "코사인 법칙 a² = b² + c² − 2bc cos A에서 a = {answer}",
   "ja": "余弦定理 a² = b² + c² − 2bc cos A より a = {answer}",
-  "sample": "余弦定理 a² = b² + c² − 2bc cos A より a = √133"
+  "sample": "余弦定理 a² = b² + c² − 2bc cos A より a = 3√3"
  },
  {
   "key": "unit:math1-trig:tpl:cosine-angle:text",
@@ -4101,7 +4093,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 a = {a}, b = {b}, c = {c}일 때, A는?",
   "ja": "△ABC で、a = {a}、b = {b}、c = {c} のとき、A は?",
-  "sample": "△ABC で、a = 13、b = 7、c = 15 のとき、A は?"
+  "sample": "△ABC で、a = 21、b = 9、c = 15 のとき、A は?"
  },
  {
   "key": "unit:math1-trig:tpl:cosine-angle:explain",
@@ -4109,7 +4101,7 @@
   "kind": "解説",
   "ko": "코사인 법칙 cos A = (b² + c² − a²) / 2bc를 계산하면 A = {answer}",
   "ja": "余弦定理 cos A = (b² + c² − a²) / 2bc を計算すると A = {answer}",
-  "sample": "余弦定理 cos A = (b² + c² − a²) / 2bc を計算すると A = 60°"
+  "sample": "余弦定理 cos A = (b² + c² − a²) / 2bc を計算すると A = 120°"
  },
  {
   "key": "unit:math1-trig:tpl:triangle-area:text",
@@ -4117,7 +4109,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 b = {b}, c = {c}, A = {A}°일 때, 넓이 S는?",
   "ja": "△ABC で、b = {b}、c = {c}、A = {A}° のとき、面積 S は?",
-  "sample": "△ABC で、b = 12、c = 8、A = 135° のとき、面積 S は?"
+  "sample": "△ABC で、b = 7、c = 7、A = 60° のとき、面積 S は?"
  },
  {
   "key": "unit:math1-trig:tpl:triangle-area:explain",
@@ -4125,7 +4117,7 @@
   "kind": "解説",
   "ko": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}",
   "ja": "S = (1/2) bc sin A = (1/2) × {b} × {c} × sin {A}° = {answer}",
-  "sample": "S = (1/2) bc sin A = (1/2) × 12 × 8 × sin 135° = 24√2"
+  "sample": "S = (1/2) bc sin A = (1/2) × 7 × 7 × sin 60° = 49√3/4"
  },
  {
   "key": "unit:math1-trig:tpl:cuboid-diagonal:text",
@@ -4133,7 +4125,7 @@
   "kind": "問題文",
   "ko": "직육면체 ABCD-EFGH에서 AB = {a}, AD = {b}, AE = {c}일 때, 대각선 AG의 길이는?",
   "ja": "直方体 ABCD-EFGH で AB = {a}、AD = {b}、AE = {c} のとき、対角線 AG の長さは?",
-  "sample": "直方体 ABCD-EFGH で AB = 5、AD = 4、AE = 7 のとき、対角線 AG の長さは?"
+  "sample": "直方体 ABCD-EFGH で AB = 6、AD = 6、AE = 1 のとき、対角線 AG の長さは?"
  },
  {
   "key": "unit:math1-trig:tpl:cuboid-diagonal:explain",
@@ -4141,7 +4133,7 @@
   "kind": "解説",
   "ko": "AG = √(AB² + AD² + AE²) = {answer}",
   "ja": "AG = √(AB² + AD² + AE²) = {answer}",
-  "sample": "AG = √(AB² + AD² + AE²) = 3√10"
+  "sample": "AG = √(AB² + AD² + AE²) = √73"
  },
  {
   "key": "unit:math1-trig:tpl:space-height:text",
@@ -4149,7 +4141,7 @@
   "kind": "問題文",
   "ko": "탑 PH가 지면에 수직으로 서 있다. 지면 위의 두 지점 A, B에서 꼭대기 P를 올려본 각이 각각 {al}°, {be}°이고, ∠AHB = 90°, AB = {d} m일 때, 탑의 높이 PH는?",
   "ja": "塔 PH は地面に垂直に立っている。地面上の2地点 A, B から先端 P を見上げた角がそれぞれ {al}°, {be}° で、∠AHB = 90°、AB = {d} m のとき、塔の高さ PH は?",
-  "sample": "塔 PH は地面に垂直に立っている。地面上の2地点 A, B から先端 P を見上げた角がそれぞれ 30°, 45° で、∠AHB = 90°、AB = 14 m のとき、塔の高さ PH は?"
+  "sample": "塔 PH は地面に垂直に立っている。地面上の2地点 A, B から先端 P を見上げた角がそれぞれ 45°, 60° で、∠AHB = 90°、AB = 7 m のとき、塔の高さ PH は?"
  },
  {
   "key": "unit:math1-trig:tpl:space-height:explain",
@@ -4157,7 +4149,7 @@
   "kind": "解説",
   "ko": "PH = h라 하면 AH = h ÷ tan {al}°, BH = h ÷ tan {be}°입니다. AB² = AH² + BH²에서 h = {answer}",
   "ja": "PH = h とすると AH = h ÷ tan {al}°、BH = h ÷ tan {be}°。AB² = AH² + BH² より h = {answer}",
-  "sample": "PH = h とすると AH = h ÷ tan 30°、BH = h ÷ tan 45°。AB² = AH² + BH² より h = 7 m"
+  "sample": "PH = h とすると AH = h ÷ tan 45°、BH = h ÷ tan 60°。AB² = AH² + BH² より h = 7√3/2 m"
  },
  {
   "key": "unit:math1-trig:tpl:space-height:note",
@@ -4173,7 +4165,7 @@
   "kind": "問題文",
   "ko": "{expr}와 같은 것은?",
   "ja": "{expr} と等しいものは?",
-  "sample": "sin(180° − θ) と等しいものは?"
+  "sample": "tan 170° と等しいものは?"
  },
  {
   "key": "unit:math1-trig:tpl:cofunction:explain",
@@ -4181,7 +4173,7 @@
   "kind": "解説",
   "ko": "단위원(또는 직각삼각형)에서 생각하면 {expr} = {answer}",
   "ja": "単位円(または直角三角形)で考えると {expr} = {answer}",
-  "sample": "単位円(または直角三角形)で考えると sin(180° − θ) = sin θ"
+  "sample": "単位円(または直角三角形)で考えると tan 170° = −tan 10°"
  },
  {
   "key": "unit:math1-trig:tpl:trig-eq:text",
@@ -4189,7 +4181,7 @@
   "kind": "問題文",
   "ko": "{fn} θ = {val}을 만족하는 θ는?",
   "ja": "{fn} θ = {val} を満たす θ は?",
-  "sample": "tan θ = 1 を満たす θ は?"
+  "sample": "cos θ = √3/2 を満たす θ は?"
  },
  {
   "key": "unit:math1-trig:tpl:trig-eq:explain",
@@ -4197,7 +4189,7 @@
   "kind": "解説",
   "ko": "단위원에서 {fn} θ = {val}이 되는 각을 찾으면 θ = {answer}",
   "ja": "単位円で {fn} θ = {val} となる角を探すと θ = {answer}",
-  "sample": "単位円で tan θ = 1 となる角を探すと θ = 45°"
+  "sample": "単位円で cos θ = √3/2 となる角を探すと θ = 30°"
  },
  {
   "key": "unit:math1-trig:tpl:trig-eq:note",
@@ -4229,7 +4221,7 @@
   "kind": "問題文",
   "ko": "세 변의 길이가 {a}, {b}, {c}인 삼각형은 어떤 삼각형인가?",
   "ja": "3辺の長さが {a}, {b}, {c} の三角形はどんな三角形?",
-  "sample": "3辺の長さが 12, 12, 18 の三角形はどんな三角形?"
+  "sample": "3辺の長さが 11, 12, 16 の三角形はどんな三角形?"
  },
  {
   "key": "unit:math1-trig:tpl:tri-type:explain",
@@ -4237,7 +4229,7 @@
   "kind": "解説",
   "ko": "먼저 가장 긴 변이 나머지 두 변의 합보다 작은지 확인하고, 가장 긴 변의 제곱과 나머지 두 변의 제곱의 합을 비교합니다. {answer}",
   "ja": "まず最大の辺が他の2辺の和より小さいか確かめ、次に最大の辺の2乗と他の2辺の2乗の和を比べる。{answer}",
-  "sample": "まず最大の辺が他の2辺の和より小さいか確かめ、次に最大の辺の2乗と他の2辺の2乗の和を比べる。@obtuse"
+  "sample": "まず最大の辺が他の2辺の和より小さいか確かめ、次に最大の辺の2乗と他の2辺の2乗の和を比べる。@acute"
  },
  {
   "key": "unit:math1-trig:tpl:heron:text",
@@ -4245,7 +4237,7 @@
   "kind": "問題文",
   "ko": "세 변의 길이가 {a}, {b}, {c}인 삼각형의 넓이는?",
   "ja": "3辺の長さが {a}, {b}, {c} の三角形の面積は?",
-  "sample": "3辺の長さが 29, 25, 6 の三角形の面積は?"
+  "sample": "3辺の長さが 6, 5, 5 の三角形の面積は?"
  },
  {
   "key": "unit:math1-trig:tpl:heron:explain",
@@ -4253,7 +4245,7 @@
   "kind": "解説",
   "ko": "s = (a + b + c) ÷ 2로 놓고 헤론의 공식 S = √(s(s − a)(s − b)(s − c))에서 {answer}",
   "ja": "s = (a + b + c) ÷ 2 として、ヘロンの公式 S = √(s(s − a)(s − b)(s − c)) より {answer}",
-  "sample": "s = (a + b + c) ÷ 2 として、ヘロンの公式 S = √(s(s − a)(s − b)(s − c)) より 60"
+  "sample": "s = (a + b + c) ÷ 2 として、ヘロンの公式 S = √(s(s − a)(s − b)(s − c)) より 12"
  },
  {
   "key": "unit:math1-trig:tpl:tetra-height:text",
@@ -4261,7 +4253,7 @@
   "kind": "問題文",
   "ko": "한 모서리의 길이가 {a}인 정사면체의 높이 h는?",
   "ja": "1辺の長さが {a} の正四面体の高さ h は?",
-  "sample": "1辺の長さが 15 の正四面体の高さ h は?"
+  "sample": "1辺の長さが 2 の正四面体の高さ h は?"
  },
  {
   "key": "unit:math1-trig:tpl:tetra-height:explain",
@@ -4269,7 +4261,7 @@
   "kind": "解説",
   "ko": "꼭짓점에서 밑면에 내린 수선의 발은 밑면의 무게중심입니다. h = (√6 ÷ 3) × {a} = {answer}",
   "ja": "頂点から底面に下ろした垂線の足は底面の重心。h = (√6 ÷ 3) × {a} = {answer}",
-  "sample": "頂点から底面に下ろした垂線の足は底面の重心。h = (√6 ÷ 3) × 15 = 5√6"
+  "sample": "頂点から底面に下ろした垂線の足は底面の重心。h = (√6 ÷ 3) × 2 = 2√6/3"
  },
  {
   "key": "unit:math1-trig:tpl:tetra-volume:text",
@@ -4277,7 +4269,7 @@
   "kind": "問題文",
   "ko": "한 모서리의 길이가 {a}인 정사면체의 부피는?",
   "ja": "1辺の長さが {a} の正四面体の体積は?",
-  "sample": "1辺の長さが 2 の正四面体の体積は?"
+  "sample": "1辺の長さが 10 の正四面体の体積は?"
  },
  {
   "key": "unit:math1-trig:tpl:tetra-volume:explain",
@@ -4285,7 +4277,7 @@
   "kind": "解説",
   "ko": "부피 = 밑넓이 × 높이 ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}",
   "ja": "体積 = 底面積 × 高さ ÷ 3 = (√2 ÷ 12) × {a}³ = {answer}",
-  "sample": "体積 = 底面積 × 高さ ÷ 3 = (√2 ÷ 12) × 2³ = 2√2/3"
+  "sample": "体積 = 底面積 × 高さ ÷ 3 = (√2 ÷ 12) × 10³ = 250√2/3"
  },
  {
   "key": "unit:math1-trig:chain:chain-tri:intro",
@@ -4293,7 +4285,7 @@
   "kind": "連続技の前文",
   "ko": "△ABC에서 b = {b}, c = {c}, A = {A}°이다.",
   "ja": "△ABC で b = {b}、c = {c}、A = {A}° とする。",
-  "sample": "△ABC で b = 16、c = 6、A = 60° とする。"
+  "sample": "△ABC で b = 35、c = 11、A = 60° とする。"
  },
  {
   "key": "unit:math1-trig:chain:chain-tri:step1:sum",
@@ -4317,7 +4309,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "코사인 법칙 a² = b² + c² − 2bc cos A에서 a = {answer}",
   "ja": "余弦定理 a² = b² + c² − 2bc cos A より a = {answer}",
-  "sample": "余弦定理 a² = b² + c² − 2bc cos A より a = 14"
+  "sample": "余弦定理 a² = b² + c² − 2bc cos A より a = 31"
  },
  {
   "key": "unit:math1-trig:chain:chain-tri:step2:sum",
@@ -4341,7 +4333,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "S = (1/2) × b × c × sin A = {answer}",
   "ja": "S = (1/2) × b × c × sin A = {answer}",
-  "sample": "S = (1/2) × b × c × sin A = 24√3"
+  "sample": "S = (1/2) × b × c × sin A = 385√3/4"
  },
  {
   "key": "unit:math1-trig:chain:chain-tri:step3:sum",
@@ -4365,7 +4357,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "S = r(a + b + c) ÷ 2에 a = {a1}, S = {a2}를 대입하면 r = {answer}",
   "ja": "S = r(a + b + c) ÷ 2 に a = {a1}、S = {a2} を代入すると r = {answer}",
-  "sample": "S = r(a + b + c) ÷ 2 に a = 14、S = 24√3 を代入すると r = 4√3/3"
+  "sample": "S = r(a + b + c) ÷ 2 に a = 31、S = 385√3/4 を代入すると r = 5√3/2"
  },
  {
   "key": "unit:math1-trig:chain:chain-right:intro",
@@ -4373,7 +4365,7 @@
   "kind": "連続技の前文",
   "ko": "∠C = 90°인 직각삼각형 ABC에서 BC = {a}, CA = {b}이다.",
   "ja": "∠C = 90° の直角三角形 ABC で BC = {a}, CA = {b} である。",
-  "sample": "∠C = 90° の直角三角形 ABC で BC = 15, CA = 8 である。"
+  "sample": "∠C = 90° の直角三角形 ABC で BC = 9, CA = 12 である。"
  },
  {
   "key": "unit:math1-trig:chain:chain-right:step1:sum",
@@ -4397,7 +4389,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "피타고라스 정리 AB² = {a}² + {b}²에서 AB = {answer}",
   "ja": "三平方の定理 AB² = {a}² + {b}² より AB = {answer}",
-  "sample": "三平方の定理 AB² = 15² + 8² より AB = 17"
+  "sample": "三平方の定理 AB² = 9² + 12² より AB = 15"
  },
  {
   "key": "unit:math1-trig:chain:chain-right:step2:sum",
@@ -4421,7 +4413,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "sin A = (마주 보는 변 BC) ÷ (빗변 AB) = {a} ÷ {a1} = {answer}",
   "ja": "sin A = (向かい合う辺 BC) ÷ (斜辺 AB) = {a} ÷ {a1} = {answer}",
-  "sample": "sin A = (向かい合う辺 BC) ÷ (斜辺 AB) = 15 ÷ 17 = 15/17"
+  "sample": "sin A = (向かい合う辺 BC) ÷ (斜辺 AB) = 9 ÷ 15 = 3/5"
  },
  {
   "key": "unit:math1-trig:chain:chain-right:step3:sum",
@@ -4445,7 +4437,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "넓이 S = ½ × {a} × {b}. S = ½ r (BC + CA + AB)에서 r = {answer}",
   "ja": "面積 S = ½ × {a} × {b}。S = ½ r (BC + CA + AB) より r = {answer}",
-  "sample": "面積 S = ½ × 15 × 8。S = ½ r (BC + CA + AB) より r = 3"
+  "sample": "面積 S = ½ × 9 × 12。S = ½ r (BC + CA + AB) より r = 3"
  },
  {
   "key": "unit:math1-quad:name",
@@ -4565,7 +4557,7 @@
   "kind": "問題文",
   "ko": "{f}의 그래프의 꼭짓점은?",
   "ja": "{f} のグラフの頂点は?",
-  "sample": "y = 3(x − 4)² + 5 のグラフの頂点は?"
+  "sample": "y = (x + 5)² − 5 のグラフの頂点は?"
  },
  {
   "key": "unit:math1-quad:tpl:vertex:explain",
@@ -4573,7 +4565,7 @@
   "kind": "解説",
   "ko": "y = a(x − p)² + q의 꼭짓점은 (p, q)이므로 {answer}",
   "ja": "y = a(x − p)² + q の頂点は (p, q) なので {answer}",
-  "sample": "y = a(x − p)² + q の頂点は (p, q) なので (4, 5)"
+  "sample": "y = a(x − p)² + q の頂点は (p, q) なので (−5, −5)"
  },
  {
   "key": "unit:math1-quad:tpl:complete:text",
@@ -4581,7 +4573,7 @@
   "kind": "問題文",
   "ko": "{f}의 그래프의 꼭짓점은?",
   "ja": "{f} のグラフの頂点は?",
-  "sample": "y = 2x² − 16x + 30 のグラフの頂点は?"
+  "sample": "y = x² − 2x + 4 のグラフの頂点は?"
  },
  {
   "key": "unit:math1-quad:tpl:complete:explain",
@@ -4589,7 +4581,7 @@
   "kind": "解説",
   "ko": "완전제곱식으로 고쳐 y = a(x − p)² + q 꼴로 만들면 꼭짓점은 {answer}",
   "ja": "平方完成して y = a(x − p)² + q の形にすると頂点は {answer}",
-  "sample": "平方完成して y = a(x − p)² + q の形にすると頂点は (4, −2)"
+  "sample": "平方完成して y = a(x − p)² + q の形にすると頂点は (1, 3)"
  },
  {
   "key": "unit:math1-quad:tpl:min-on-range:text",
@@ -4597,7 +4589,7 @@
   "kind": "問題文",
   "ko": "함수 {f} ({s} ≦ x ≦ {t})의 최솟값은?",
   "ja": "関数 {f} ({s} ≦ x ≦ {t}) の最小値は?",
-  "sample": "関数 y = (x + 1)² + 4 (−3 ≦ x ≦ 0) の最小値は?"
+  "sample": "関数 y = x² + 2 (−2 ≦ x ≦ 1) の最小値は?"
  },
  {
   "key": "unit:math1-quad:tpl:min-on-range:explain",
@@ -4605,7 +4597,7 @@
   "kind": "解説",
   "ko": "꼭짓점이 범위 안에 있는지 먼저 확인합니다. 최솟값은 {answer}",
   "ja": "頂点が範囲に入っているかを確かめる。最小値は {answer}",
-  "sample": "頂点が範囲に入っているかを確かめる。最小値は 4"
+  "sample": "頂点が範囲に入っているかを確かめる。最小値は 2"
  },
  {
   "key": "unit:math1-quad:tpl:max-on-range:text",
@@ -4613,7 +4605,7 @@
   "kind": "問題文",
   "ko": "함수 {f} ({s} ≦ x ≦ {t})의 최댓값은?",
   "ja": "関数 {f} ({s} ≦ x ≦ {t}) の最大値は?",
-  "sample": "関数 y = x² − 4 (1 ≦ x ≦ 4) の最大値は?"
+  "sample": "関数 y = x² − 5 (1 ≦ x ≦ 5) の最大値は?"
  },
  {
   "key": "unit:math1-quad:tpl:max-on-range:explain",
@@ -4621,7 +4613,7 @@
   "kind": "解説",
   "ko": "아래로 볼록한 그래프는 축에서 먼 쪽 끝에서 최대가 됩니다. 최댓값은 {answer}",
   "ja": "下に凸のグラフでは、軸から遠い方の端で最大になる。最大値は {answer}",
-  "sample": "下に凸のグラフでは、軸から遠い方の端で最大になる。最大値は 12"
+  "sample": "下に凸のグラフでは、軸から遠い方の端で最大になる。最大値は 20"
  },
  {
   "key": "unit:math1-quad:tpl:quadeq:text",
@@ -4629,7 +4621,7 @@
   "kind": "問題文",
   "ko": "{f}의 해는?",
   "ja": "{f} を解くと?",
-  "sample": "x² + 6x − 7 = 0 を解くと?"
+  "sample": "x² − 11x + 30 = 0 を解くと?"
  },
  {
   "key": "unit:math1-quad:tpl:quadeq:explain",
@@ -4637,7 +4629,7 @@
   "kind": "解説",
   "ko": "좌변을 인수분해해서 풀면 {answer}",
   "ja": "左辺を因数分解して解くと {answer}",
-  "sample": "左辺を因数分解して解くと x = −7, 1"
+  "sample": "左辺を因数分解して解くと x = 5, 6"
  },
  {
   "key": "unit:math1-quad:tpl:discriminant:text",
@@ -4645,7 +4637,7 @@
   "kind": "問題文",
   "ko": "{f}의 판별식 D의 값은?",
   "ja": "{f} の判別式 D の値は?",
-  "sample": "2x² + 3x − 4 = 0 の判別式 D の値は?"
+  "sample": "3x² + x − 1 = 0 の判別式 D の値は?"
  },
  {
   "key": "unit:math1-quad:tpl:discriminant:explain",
@@ -4653,7 +4645,7 @@
   "kind": "解説",
   "ko": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}",
   "ja": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}",
-  "sample": "D = b² − 4ac = (3)² − 4 × (2) × (-4) = 41"
+  "sample": "D = b² − 4ac = (1)² − 4 × (3) × (-1) = 13"
  },
  {
   "key": "unit:math1-quad:tpl:quadineq:text",
@@ -4661,7 +4653,7 @@
   "kind": "問題文",
   "ko": "부등식 {f} {op} 0의 해는?",
   "ja": "不等式 {f} {op} 0 を解くと?",
-  "sample": "不等式 x² − 9 > 0 を解くと?"
+  "sample": "不等式 x² − 3x − 40 < 0 を解くと?"
  },
  {
   "key": "unit:math1-quad:tpl:quadineq:explain",
@@ -4669,7 +4661,7 @@
   "kind": "解説",
   "ko": "좌변을 인수분해하고, 그래프가 x축보다 아래인지 위인지 생각하면 {answer}",
   "ja": "左辺を因数分解し、グラフが x 軸より下か上かを考えると {answer}",
-  "sample": "左辺を因数分解し、グラフが x 軸より下か上かを考えると x < −3, 3 < x"
+  "sample": "左辺を因数分解し、グラフが x 軸より下か上かを考えると −5 < x < 8"
  },
  {
   "key": "unit:math1-quad:tpl:shift:text",
@@ -4677,7 +4669,7 @@
   "kind": "問題文",
   "ko": "{f}의 그래프를 x축 방향으로 {p}, y축 방향으로 {q}만큼 평행이동한 포물선의 식은?",
   "ja": "{f} のグラフを x 軸方向に {p}、y 軸方向に {q} だけ平行移動した放物線の式は?",
-  "sample": "y = x² のグラフを x 軸方向に −4、y 軸方向に −5 だけ平行移動した放物線の式は?"
+  "sample": "y = −x² のグラフを x 軸方向に 3、y 軸方向に −3 だけ平行移動した放物線の式は?"
  },
  {
   "key": "unit:math1-quad:tpl:shift:explain",
@@ -4685,7 +4677,7 @@
   "kind": "解説",
   "ko": "x를 x − p로 바꾸고, y에 q를 더합니다. {answer}",
   "ja": "x を x − p に、y に q を加える。{answer}",
-  "sample": "x を x − p に、y に q を加える。y = (x + 4)² − 5"
+  "sample": "x を x − p に、y に q を加える。y = −(x − 3)² − 3"
  },
  {
   "key": "unit:math1-quad:tpl:determine:text",
@@ -4693,7 +4685,7 @@
   "kind": "問題文",
   "ko": "꼭짓점이 ({p}, {q})이고 점 ({x0}, {y0})을 지나는 포물선 y = a(x − p)² + q에서 a의 값은?",
   "ja": "頂点が ({p}, {q}) で、点 ({x0}, {y0}) を通る放物線 y = a(x − p)² + q の a の値は?",
-  "sample": "頂点が (3, −3) で、点 (1, 1) を通る放物線 y = a(x − p)² + q の a の値は?"
+  "sample": "頂点が (0, 5) で、点 (−1, 6) を通る放物線 y = a(x − p)² + q の a の値は?"
  },
  {
   "key": "unit:math1-quad:tpl:determine:explain",
@@ -4709,7 +4701,7 @@
   "kind": "問題文",
   "ko": "{f}의 그래프와 x축이 만나는 점의 개수는?",
   "ja": "{f} のグラフと x 軸の共有点の個数は?",
-  "sample": "y = −x² − 2x + 8 のグラフと x 軸の共有点の個数は?"
+  "sample": "y = x² + 8x + 22 のグラフと x 軸の共有点の個数は?"
  },
  {
   "key": "unit:math1-quad:tpl:x-count:explain",
@@ -4717,7 +4709,7 @@
   "kind": "解説",
   "ko": "판별식 D의 부호를 봅니다. D > 0이면 2개, D = 0이면 1개, D < 0이면 0개. 답은 {answer}",
   "ja": "判別式 D の符号を調べる。D > 0 なら 2 個、D = 0 なら 1 個、D < 0 なら 0 個。答えは {answer}",
-  "sample": "判別式 D の符号を調べる。D > 0 なら 2 個、D = 0 なら 1 個、D < 0 なら 0 個。答えは 2"
+  "sample": "判別式 D の符号を調べる。D > 0 なら 2 個、D = 0 なら 1 個、D < 0 なら 0 個。答えは 0"
  },
  {
   "key": "unit:math1-quad:tpl:quad-special:text",
@@ -4725,7 +4717,7 @@
   "kind": "問題文",
   "ko": "부등식 {f} {op} 0의 해는?",
   "ja": "不等式 {f} {op} 0 を解くと?",
-  "sample": "不等式 x² − 8x + 22 < 0 を解くと?"
+  "sample": "不等式 x² − 12x + 36 < 0 を解くと?"
  },
  {
   "key": "unit:math1-quad:tpl:quad-special:explain",
@@ -4749,7 +4741,7 @@
   "kind": "問題文",
   "ko": "f(x) = {f}일 때, f({k})의 값은?",
   "ja": "f(x) = {f} のとき、f({k}) の値は?",
-  "sample": "f(x) = 2x² − 2x − 3 のとき、f(1) の値は?"
+  "sample": "f(x) = 2x² + 3x + 3 のとき、f(3) の値は?"
  },
  {
   "key": "unit:math1-quad:tpl:f-value:explain",
@@ -4757,7 +4749,7 @@
   "kind": "解説",
   "ko": "x에 {k}를 대입하면 {answer}",
   "ja": "x に {k} を代入すると {answer}",
-  "sample": "x に 1 を代入すると −3"
+  "sample": "x に 3 を代入すると 30"
  },
  {
   "key": "unit:math1-quad:tpl:range-linear:text",
@@ -4765,7 +4757,7 @@
   "kind": "問題文",
   "ko": "함수 {f} ({s} ≦ x ≦ {t})의 치역은?",
   "ja": "関数 {f} ({s} ≦ x ≦ {t}) の値域は?",
-  "sample": "関数 y = 4x − 4 (−3 ≦ x ≦ −1) の値域は?"
+  "sample": "関数 y = −3x − 6 (−3 ≦ x ≦ 2) の値域は?"
  },
  {
   "key": "unit:math1-quad:tpl:range-linear:explain",
@@ -4773,7 +4765,7 @@
   "kind": "解説",
   "ko": "양 끝의 x 값을 대입해 작은 쪽부터 큰 쪽까지입니다. {answer}",
   "ja": "両端の x の値を代入して、小さい方から大きい方まで。{answer}",
-  "sample": "両端の x の値を代入して、小さい方から大きい方まで。−16 ≦ y ≦ −8"
+  "sample": "両端の x の値を代入して、小さい方から大きい方まで。−12 ≦ y ≦ 3"
  },
  {
   "key": "unit:math1-quad:tpl:reflect:text",
@@ -4781,7 +4773,7 @@
   "kind": "問題文",
   "ko": "{f}의 그래프를 {axis}에 대하여 대칭이동한 포물선의 식은?",
   "ja": "{f} のグラフを {axis} に関して対称移動した放物線の式は?",
-  "sample": "y = 3x² + 6x + 1 のグラフを @origin に関して対称移動した放物線の式は?"
+  "sample": "y = 3x² − x − 2 のグラフを @xaxis に関して対称移動した放物線の式は?"
  },
  {
   "key": "unit:math1-quad:tpl:reflect:explain",
@@ -4789,7 +4781,7 @@
   "kind": "解説",
   "ko": "x축이면 y를 −y로, y축이면 x를 −x로, 원점이면 둘 다 바꿉니다. {answer}",
   "ja": "x 軸なら y を −y に、y 軸なら x を −x に、原点なら両方を変える。{answer}",
-  "sample": "x 軸なら y を −y に、y 軸なら x を −x に、原点なら両方を変える。y = −3x² + 6x − 1"
+  "sample": "x 軸なら y を −y に、y 軸なら x を −x に、原点なら両方を変える。y = −3x² + x + 2"
  },
  {
   "key": "unit:math1-quad:tpl:three-points:text",
@@ -4797,7 +4789,7 @@
   "kind": "問題文",
   "ko": "세 점 (0, {y0}), (1, {y1}), (−1, {y2})를 지나는 포물선의 식은?",
   "ja": "3点 (0, {y0}), (1, {y1}), (−1, {y2}) を通る放物線の式は?",
-  "sample": "3点 (0, 3), (1, 5), (−1, 3) を通る放物線の式は?"
+  "sample": "3点 (0, 2), (1, −1), (−1, 3) を通る放物線の式は?"
  },
  {
   "key": "unit:math1-quad:tpl:three-points:explain",
@@ -4805,7 +4797,7 @@
   "kind": "解説",
   "ko": "y = ax² + bx + c에 세 점을 대입해 a, b, c를 구하면 {answer}",
   "ja": "y = ax² + bx + c に3点を代入して a, b, c を求めると {answer}",
-  "sample": "y = ax² + bx + c に3点を代入して a, b, c を求めると y = x² + x + 3"
+  "sample": "y = ax² + bx + c に3点を代入して a, b, c を求めると y = −x² − 2x + 2"
  },
  {
   "key": "unit:math1-quad:tpl:max-const:text",
@@ -4813,7 +4805,7 @@
   "kind": "問題文",
   "ko": "함수 {f} ({s} ≦ x ≦ {t})의 최댓값이 {M}일 때, 상수 c의 값은?",
   "ja": "関数 {f} ({s} ≦ x ≦ {t}) の最大値が {M} であるとき、定数 c の値は?",
-  "sample": "関数 y = x² − 6x + c (0 ≦ x ≦ 4) の最大値が 4 であるとき、定数 c の値は?"
+  "sample": "関数 y = x² + 4x + c (−4 ≦ x ≦ 2) の最大値が 16 であるとき、定数 c の値は?"
  },
  {
   "key": "unit:math1-quad:tpl:max-const:explain",
@@ -4829,7 +4821,7 @@
   "kind": "問題文",
   "ko": "{f}의 해는?",
   "ja": "{f} を解くと?",
-  "sample": "x² + 6x − 3 = 0 を解くと?"
+  "sample": "x² − 5x + 2 = 0 を解くと?"
  },
  {
   "key": "unit:math1-quad:tpl:quad-formula:explain",
@@ -4837,7 +4829,7 @@
   "kind": "解説",
   "ko": "근의 공식 x = (−b ± √(b² − 4ac)) ÷ 2a를 쓰면 {answer}",
   "ja": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a を使うと {answer}",
-  "sample": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a を使うと x = −3 ± 2√3"
+  "sample": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a を使うと x = (5 ± √17)/2"
  },
  {
   "key": "unit:math1-quad:tpl:real-cond:text",
@@ -4845,7 +4837,7 @@
   "kind": "問題文",
   "ko": "이차방정식 {f}이 {cond} 상수 k의 값의 범위는?",
   "ja": "2次方程式 {f} が{cond}ような定数 k の値の範囲は?",
-  "sample": "2次方程式 x² + 10x + k = 0 が@norealような定数 k の値の範囲は?"
+  "sample": "2次方程式 x² − 8x + k = 0 が@realような定数 k の値の範囲は?"
  },
  {
   "key": "unit:math1-quad:tpl:real-cond:explain",
@@ -4853,7 +4845,7 @@
   "kind": "解説",
   "ko": "판별식 D의 부호 조건에서 {answer}",
   "ja": "判別式 D の符号の条件から {answer}",
-  "sample": "判別式 D の符号の条件から k > 25"
+  "sample": "判別式 D の符号の条件から k ≦ 16"
  },
  {
   "key": "unit:math1-quad:tpl:always-positive:text",
@@ -4861,7 +4853,7 @@
   "kind": "問題文",
   "ko": "모든 실수 x에 대하여 {f} > 0이 성립하는 상수 k의 값의 범위는?",
   "ja": "すべての実数 x に対して {f} > 0 が成り立つような定数 k の値の範囲は?",
-  "sample": "すべての実数 x に対して x² + kx + 9 > 0 が成り立つような定数 k の値の範囲は?"
+  "sample": "すべての実数 x に対して x² + kx + 36 > 0 が成り立つような定数 k の値の範囲は?"
  },
  {
   "key": "unit:math1-quad:tpl:always-positive:explain",
@@ -4869,7 +4861,7 @@
   "kind": "解説",
   "ko": "그래프가 x축과 만나지 않으면 되므로 D < 0입니다. {answer}",
   "ja": "グラフが x 軸と共有点をもたなければよいので D < 0。{answer}",
-  "sample": "グラフが x 軸と共有点をもたなければよいので D < 0。−6 < k < 6"
+  "sample": "グラフが x 軸と共有点をもたなければよいので D < 0。−12 < k < 12"
  },
  {
   "key": "unit:math1-quad:tpl:quad-system:text",
@@ -4877,7 +4869,7 @@
   "kind": "問題文",
   "ko": "연립부등식 {f} < 0, {g}의 해는?",
   "ja": "連立不等式 {f} < 0、{g} を解くと?",
-  "sample": "連立不等式 x² + 9x + 18 < 0、x > −5 を解くと?"
+  "sample": "連立不等式 x² − 2x − 3 < 0、x > 1 を解くと?"
  },
  {
   "key": "unit:math1-quad:tpl:quad-system:explain",
@@ -4885,7 +4877,7 @@
   "kind": "解説",
   "ko": "이차부등식을 푼 뒤 다른 부등식과의 공통 범위를 구하면 {answer}",
   "ja": "2次不等式を解いてから、もう一方との共通範囲を求めると {answer}",
-  "sample": "2次不等式を解いてから、もう一方との共通範囲を求めると −5 < x < −3"
+  "sample": "2次不等式を解いてから、もう一方との共通範囲を求めると 1 < x < 3"
  },
  {
   "key": "unit:math1-quad:tpl:rect-max:text",
@@ -4893,7 +4885,7 @@
   "kind": "問題文",
   "ko": "길이 {P} cm인 끈으로 직사각형을 만들 때, 넓이의 최댓값은?",
   "ja": "長さ {P} cm のひもで長方形を作るとき、面積の最大値は?",
-  "sample": "長さ 56 cm のひもで長方形を作るとき、面積の最大値は?"
+  "sample": "長さ 20 cm のひもで長方形を作るとき、面積の最大値は?"
  },
  {
   "key": "unit:math1-quad:tpl:rect-max:explain",
@@ -4901,7 +4893,7 @@
   "kind": "解説",
   "ko": "세로를 x라 하면 넓이는 x({P} ÷ 2 − x)입니다. 완전제곱식으로 고치면 최댓값은 {answer}",
   "ja": "縦を x とすると面積は x({P} ÷ 2 − x)。平方完成すると最大値は {answer}",
-  "sample": "縦を x とすると面積は x(56 ÷ 2 − x)。平方完成すると最大値は 196 cm²"
+  "sample": "縦を x とすると面積は x(20 ÷ 2 − x)。平方完成すると最大値は 25 cm²"
  },
  {
   "key": "unit:math1-quad:tpl:rect-max:note",
@@ -4917,7 +4909,7 @@
   "kind": "連続技の前文",
   "ko": "함수 {f}에 대하여 답하시오.",
   "ja": "関数 {f} について答えよ。",
-  "sample": "関数 y = x² + 6x + 11 について答えよ。"
+  "sample": "関数 y = x² + 4x について答えよ。"
  },
  {
   "key": "unit:math1-quad:chain:chain-quad:step1:sum",
@@ -4941,7 +4933,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "x의 계수의 절반을 제곱해 더하고 빼면 {answer}",
   "ja": "x の係数の半分を2乗して足し引きすると {answer}",
-  "sample": "x の係数の半分を2乗して足し引きすると y = (x + 3)² + 2"
+  "sample": "x の係数の半分を2乗して足し引きすると y = (x + 2)² − 4"
  },
  {
   "key": "unit:math1-quad:chain:chain-quad:step2:sum",
@@ -4965,7 +4957,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "{a1}에서 꼭짓점은 {answer}",
   "ja": "{a1} より、頂点は {answer}",
-  "sample": "y = (x + 3)² + 2 より、頂点は (−3, 2)"
+  "sample": "y = (x + 2)² − 4 より、頂点は (−2, −4)"
  },
  {
   "key": "unit:math1-quad:chain:chain-quad:step3:sum",
@@ -4981,7 +4973,7 @@
   "kind": "連続技 3問目",
   "ko": "{s} ≦ x ≦ {t}에서의 최댓값은?",
   "ja": "{s} ≦ x ≦ {t} における最大値は?",
-  "sample": "−6 ≦ x ≦ −1 における最大値は?"
+  "sample": "−3 ≦ x ≦ 1 における最大値は?"
  },
  {
   "key": "unit:math1-quad:chain:chain-quad:step3:explain",
@@ -4989,7 +4981,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "꼭짓점 {a2}에서 먼 쪽 끝에서 최대가 됩니다. {answer}",
   "ja": "頂点 {a2} から遠い方の端で最大になる。{answer}",
-  "sample": "頂点 (−3, 2) から遠い方の端で最大になる。11"
+  "sample": "頂点 (−2, −4) から遠い方の端で最大になる。5"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:intro",
@@ -4997,7 +4989,7 @@
   "kind": "連続技の前文",
   "ko": "이차식 {f}에 대하여 답하시오.",
   "ja": "2次式 {f} について答えよ。",
-  "sample": "2次式 x² − 3x − 4 について答えよ。"
+  "sample": "2次式 x² + 2x − 3 について答えよ。"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:step1:sum",
@@ -5013,7 +5005,7 @@
   "kind": "連続技 1問目",
   "ko": "이차방정식 {f} = 0의 판별식 D의 값은?",
   "ja": "2次方程式 {f} = 0 の判別式 D の値は?",
-  "sample": "2次方程式 x² − 3x − 4 = 0 の判別式 D の値は?"
+  "sample": "2次方程式 x² + 2x − 3 = 0 の判別式 D の値は?"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:step1:explain",
@@ -5021,7 +5013,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "D = b² − 4ac를 계산하면 {answer}",
   "ja": "D = b² − 4ac を計算すると {answer}",
-  "sample": "D = b² − 4ac を計算すると 25"
+  "sample": "D = b² − 4ac を計算すると 16"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:step2:sum",
@@ -5037,7 +5029,7 @@
   "kind": "連続技 2問目",
   "ko": "이차방정식 {f} = 0의 해는?",
   "ja": "2次方程式 {f} = 0 の解は?",
-  "sample": "2次方程式 x² − 3x − 4 = 0 の解は?"
+  "sample": "2次方程式 x² + 2x − 3 = 0 の解は?"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:step2:explain",
@@ -5045,7 +5037,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다. 인수분해하면 {answer}",
   "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ。因数分解して {answer}",
-  "sample": "D = 25 > 0 なので異なる2つの実数解をもつ。因数分解して x = −1, 4"
+  "sample": "D = 16 > 0 なので異なる2つの実数解をもつ。因数分解して x = −3, 1"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:step3:sum",
@@ -5061,7 +5053,7 @@
   "kind": "連続技 3問目",
   "ko": "이차부등식 {f} < 0의 해는?",
   "ja": "2次不等式 {f} < 0 の解は?",
-  "sample": "2次不等式 x² − 3x − 4 < 0 の解は?"
+  "sample": "2次不等式 x² + 2x − 3 < 0 の解は?"
  },
  {
   "key": "unit:math1-quad:chain:chain-roots:step3:explain",
@@ -5069,7 +5061,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "그래프는 아래로 볼록하고 x축과 만나는 점은 ({a2}). x축보다 아래에 있는 것은 두 해 사이이므로 {answer}",
   "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})。x 軸より下にあるのは2つの解の間なので {answer}",
-  "sample": "グラフは下に凸で、x 軸と交わる点は (x = −1, 4)。x 軸より下にあるのは2つの解の間なので −1 < x < 4"
+  "sample": "グラフは下に凸で、x 軸と交わる点は (x = −3, 1)。x 軸より下にあるのは2つの解の間なので −3 < x < 1"
  },
  {
   "key": "unit:math1-quad:chain:chain-killer:intro",
@@ -5077,7 +5069,7 @@
   "kind": "連続技の前文",
   "ko": "a는 상수이다. 이차함수 f(x) = {f} (0 ≦ x ≦ {c})에 대하여 답하시오.",
   "ja": "a を定数とする。2次関数 f(x) = {f} (0 ≦ x ≦ {c}) について答えよ。",
-  "sample": "a を定数とする。2次関数 f(x) = x² − 2ax + 2a + 2 (0 ≦ x ≦ 4) について答えよ。"
+  "sample": "a を定数とする。2次関数 f(x) = x² − 2ax + 2a + 1 (0 ≦ x ≦ 4) について答えよ。"
  },
  {
   "key": "unit:math1-quad:chain:chain-killer:step1:sum",
@@ -5093,7 +5085,7 @@
   "kind": "連続技 1問目",
   "ko": "포물선 y = {f}의 꼭짓점의 좌표는?",
   "ja": "放物線 y = {f} の頂点の座標は?",
-  "sample": "放物線 y = x² − 2ax + 2a + 2 の頂点の座標は?"
+  "sample": "放物線 y = x² − 2ax + 2a + 1 の頂点の座標は?"
  },
  {
   "key": "unit:math1-quad:chain:chain-killer:step1:explain",
@@ -5101,7 +5093,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m}). 꼭짓점은 {answer}",
   "ja": "平方完成すると y = (x − a)² + ({m})。頂点は {answer}",
-  "sample": "平方完成すると y = (x − a)² + (−a² + 2a + 2)。頂点は (a, −a² + 2a + 2)"
+  "sample": "平方完成すると y = (x − a)² + (−a² + 2a + 1)。頂点は (a, −a² + 2a + 1)"
  },
  {
   "key": "unit:math1-quad:chain:chain-killer:step2:sum",
@@ -5125,7 +5117,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "0 < a < {c}에서는 축 x = a가 정의역 안에 있으므로 m = {m} = {comp}. a = {t}일 때 최댓값 {answer}",
   "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}。a = {t} のとき最大値 {answer}",
-  "sample": "0 < a < 4 では軸 x = a が定義域の中にあるので m = −a² + 2a + 2 = −(a − 1)² + 3。a = 1 のとき最大値 3"
+  "sample": "0 < a < 4 では軸 x = a が定義域の中にあるので m = −a² + 2a + 1 = −(a − 1)² + 2。a = 1 のとき最大値 2"
  },
  {
   "key": "unit:math1-quad:chain:chain-killer:step3:sum",
@@ -5141,7 +5133,7 @@
   "kind": "連続技 3問目",
   "ko": "a > {c}이고 f(x)의 최솟값이 {T}일 때, a의 값은?",
   "ja": "a > {c} のとき、f(x) の最小値が {T} となる a の値は?",
-  "sample": "a > 4 のとき、f(x) の最小値が −18 となる a の値は?"
+  "sample": "a > 4 のとき、f(x) の最小値が −13 となる a の値は?"
  },
  {
   "key": "unit:math1-quad:chain:chain-killer:step3:explain",
@@ -5149,7 +5141,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "a > {c}에서는 축이 정의역의 오른쪽에 있으므로 최솟값은 f({c}) = {fc}. 이 값이 {T}이므로 a = {answer}",
   "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}。これが {T} に等しいので a = {answer}",
-  "sample": "a > 4 では軸が定義域の右側にあるので、最小値は f(4) = 18 − 6a。これが −18 に等しいので a = 6"
+  "sample": "a > 4 では軸が定義域の右側にあるので、最小値は f(4) = 17 − 6a。これが −13 に等しいので a = 5"
  },
  {
   "key": "subject:matha",
@@ -5301,7 +5293,7 @@
   "kind": "問題文",
   "ko": "{n}명 중에서 {r}명을 뽑는 방법은 몇 가지?",
   "ja": "{n} 人の中から {r} 人を選ぶ方法は何通り?",
-  "sample": "5 人の中から 2 人を選ぶ方法は何通り?"
+  "sample": "6 人の中から 4 人を選ぶ方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:comb:explain",
@@ -5309,7 +5301,7 @@
   "kind": "解説",
   "ko": "순서를 구별하지 않으므로 조합입니다. 순열을 {r}!로 나누면 {answer}",
   "ja": "順番を区別しないので組合せ。順列を {r}! で割って {answer}",
-  "sample": "順番を区別しないので組合せ。順列を 2! で割って 10"
+  "sample": "順番を区別しないので組合せ。順列を 4! で割って 15"
  },
  {
   "key": "unit:matha-count:tpl:comb:note",
@@ -5325,7 +5317,7 @@
   "kind": "問題文",
   "ko": "{n}명이 원탁에 둘러앉는 방법은 몇 가지?",
   "ja": "{n} 人が円形のテーブルに座る方法は何通り?",
-  "sample": "6 人が円形のテーブルに座る方法は何通り?"
+  "sample": "5 人が円形のテーブルに座る方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:circular:explain",
@@ -5333,7 +5325,7 @@
   "kind": "解説",
   "ko": "원순열은 (n − 1)!가지입니다. {answer}",
   "ja": "円順列は (n − 1)! 通り。{answer}",
-  "sample": "円順列は (n − 1)! 通り。120"
+  "sample": "円順列は (n − 1)! 通り。24"
  },
  {
   "key": "unit:matha-count:tpl:circular:note",
@@ -5349,7 +5341,7 @@
   "kind": "問題文",
   "ko": "a가 {p}개, b가 {q}개 있다. 이것을 모두 한 줄로 늘어놓는 방법은 몇 가지?",
   "ja": "a が {p} 個、b が {q} 個ある。これらすべてを1列に並べる方法は何通り?",
-  "sample": "a が 5 個、b が 2 個ある。これらすべてを1列に並べる方法は何通り?"
+  "sample": "a が 3 個、b が 1 個ある。これらすべてを1列に並べる方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:same-arrange:explain",
@@ -5357,7 +5349,7 @@
   "kind": "解説",
   "ko": "같은 것이 있는 순열입니다. 전체의 계승을 {p}!와 {q}!로 나누면 {answer}",
   "ja": "同じものを含む順列。全体の階乗を {p}! と {q}! で割って {answer}",
-  "sample": "同じものを含む順列。全体の階乗を 5! と 2! で割って 21"
+  "sample": "同じものを含む順列。全体の階乗を 3! と 1! で割って 4"
  },
  {
   "key": "unit:matha-count:tpl:dice-sum:text",
@@ -5365,7 +5357,7 @@
   "kind": "問題文",
   "ko": "주사위 두 개를 동시에 던질 때, 눈의 합이 {s}가 될 확률은?",
   "ja": "2個のさいころを同時に投げるとき、目の和が {s} になる確率は?",
-  "sample": "2個のさいころを同時に投げるとき、目の和が 10 になる確率は?"
+  "sample": "2個のさいころを同時に投げるとき、目の和が 5 になる確率は?"
  },
  {
   "key": "unit:matha-count:tpl:dice-sum:explain",
@@ -5373,7 +5365,7 @@
   "kind": "解説",
   "ko": "전체는 36가지입니다. 합이 {s}가 되는 경우를 세면 {answer}",
   "ja": "全部で 36 通り。和が {s} になる場合を数えて {answer}",
-  "sample": "全部で 36 通り。和が 10 になる場合を数えて 1/12"
+  "sample": "全部で 36 通り。和が 5 になる場合を数えて 1/9"
  },
  {
   "key": "unit:matha-count:tpl:dice-sum:note",
@@ -5389,7 +5381,7 @@
   "kind": "問題文",
   "ko": "동전을 {n}번 던질 때, 적어도 한 번 앞면이 나올 확률은?",
   "ja": "硬貨を {n} 回投げるとき、少なくとも1回表が出る確率は?",
-  "sample": "硬貨を 6 回投げるとき、少なくとも1回表が出る確率は?"
+  "sample": "硬貨を 2 回投げるとき、少なくとも1回表が出る確率は?"
  },
  {
   "key": "unit:matha-count:tpl:complement:explain",
@@ -5397,7 +5389,7 @@
   "kind": "解説",
   "ko": "여사건(모두 뒷면)의 확률을 1에서 빼면 {answer}",
   "ja": "余事象(すべて裏)の確率を 1 から引いて {answer}",
-  "sample": "余事象(すべて裏)の確率を 1 から引いて 63/64"
+  "sample": "余事象(すべて裏)の確率を 1 から引いて 3/4"
  },
  {
   "key": "unit:matha-count:tpl:complement:note",
@@ -5413,7 +5405,7 @@
   "kind": "問題文",
   "ko": "빨간 공 {r}개, 흰 공 {w}개가 든 주머니에서 공을 한 개씩 차례로 두 개 꺼낸다(되돌려 놓지 않음). 첫 번째가 빨간 공이었을 때, 두 번째도 빨간 공일 확률은?",
   "ja": "赤玉 {r} 個、白玉 {w} 個が入った袋から、玉を1個ずつ続けて2個取り出す(もとに戻さない)。1個目が赤玉であったとき、2個目も赤玉である確率は?",
-  "sample": "赤玉 6 個、白玉 2 個が入った袋から、玉を1個ずつ続けて2個取り出す(もとに戻さない)。1個目が赤玉であったとき、2個目も赤玉である確率は?"
+  "sample": "赤玉 4 個、白玉 4 個が入った袋から、玉を1個ずつ続けて2個取り出す(もとに戻さない)。1個目が赤玉であったとき、2個目も赤玉である確率は?"
  },
  {
   "key": "unit:matha-count:tpl:conditional:explain",
@@ -5421,7 +5413,7 @@
   "kind": "解説",
   "ko": "첫 번째가 빨간 공이면 남은 공 중 빨간 공이 하나 줄어 있습니다. {answer}",
   "ja": "1個目が赤なら、残りは赤が1個減っている。{answer}",
-  "sample": "1個目が赤なら、残りは赤が1個減っている。5/7"
+  "sample": "1個目が赤なら、残りは赤が1個減っている。3/7"
  },
  {
   "key": "unit:matha-count:tpl:expectation:text",
@@ -5429,7 +5421,7 @@
   "kind": "問題文",
   "ko": "제비 10개 중에 {a}점짜리가 {p}개, {b}점짜리가 {q}개 있고 나머지는 0점이다. 한 개를 뽑을 때 점수의 기댓값은?",
   "ja": "10本のくじの中に、{a} 点のくじが {p} 本、{b} 点のくじが {q} 本あり、残りは 0 点である。1本引くときの得点の期待値は?",
-  "sample": "10本のくじの中に、50 点のくじが 1 本、20 点のくじが 4 本あり、残りは 0 点である。1本引くときの得点の期待値は?"
+  "sample": "10本のくじの中に、200 点のくじが 1 本、20 点のくじが 4 本あり、残りは 0 点である。1本引くときの得点の期待値は?"
  },
  {
   "key": "unit:matha-count:tpl:expectation:explain",
@@ -5437,7 +5429,7 @@
   "kind": "解説",
   "ko": "(점수 × 확률)을 모두 더하면 {answer}",
   "ja": "(得点 × 確率) をすべて足して {answer}",
-  "sample": "(得点 × 確率) をすべて足して 13"
+  "sample": "(得点 × 確率) をすべて足して 28"
  },
  {
   "key": "unit:matha-count:tpl:divisors:text",
@@ -5445,7 +5437,7 @@
   "kind": "問題文",
   "ko": "{n}의 양의 약수의 개수는?",
   "ja": "{n} の正の約数の個数は?",
-  "sample": "10 の正の約数の個数は?"
+  "sample": "15 の正の約数の個数は?"
  },
  {
   "key": "unit:matha-count:tpl:divisors:explain",
@@ -5461,7 +5453,7 @@
   "kind": "問題文",
   "ko": "{n}종류의 문자에서 중복을 허락하여 {r}개를 뽑아 한 줄로 늘어놓는 방법은 몇 가지?",
   "ja": "{n} 種類の文字から、重複を許して {r} 個取って1列に並べる方法は何通り?",
-  "sample": "2 種類の文字から、重複を許して 4 個取って1列に並べる方法は何通り?"
+  "sample": "3 種類の文字から、重複を許して 2 個取って1列に並べる方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:rep-perm:explain",
@@ -5469,7 +5461,7 @@
   "kind": "解説",
   "ko": "자리마다 {n}가지씩입니다. {n}을 {r}번 곱하면 {answer}",
   "ja": "それぞれの場所に {n} 通りずつ。{n} を {r} 回かけて {answer}",
-  "sample": "それぞれの場所に 2 通りずつ。2 を 4 回かけて 16"
+  "sample": "それぞれの場所に 3 通りずつ。3 を 2 回かけて 9"
  },
  {
   "key": "unit:matha-count:tpl:grid-path:text",
@@ -5485,7 +5477,7 @@
   "kind": "解説",
   "ko": "오른쪽으로 {a}번, 위로 {b}번을 늘어놓는 방법이므로 {answer}",
   "ja": "右へ {a} 回、上へ {b} 回の並べ方なので {answer}",
-  "sample": "右へ 4 回、上へ 2 回の並べ方なので 15"
+  "sample": "右へ 2 回、上へ 3 回の並べ方なので 10"
  },
  {
   "key": "unit:matha-count:tpl:repeated:text",
@@ -5493,7 +5485,7 @@
   "kind": "問題文",
   "ko": "동전을 {n}번 던질 때, 앞면이 정확히 {k}번 나올 확률은?",
   "ja": "硬貨を {n} 回投げるとき、表がちょうど {k} 回出る確率は?",
-  "sample": "硬貨を 3 回投げるとき、表がちょうど 2 回出る確率は?"
+  "sample": "硬貨を 4 回投げるとき、表がちょうど 3 回出る確率は?"
  },
  {
   "key": "unit:matha-count:tpl:repeated:explain",
@@ -5501,7 +5493,7 @@
   "kind": "解説",
   "ko": "앞면이 나오는 회차를 고르는 방법의 수 × (1/2)을 {n}번 곱한 것 = {answer}",
   "ja": "表が出る回の選び方 × (1/2) を {n} 回かけたもの = {answer}",
-  "sample": "表が出る回の選び方 × (1/2) を 3 回かけたもの = 3/8"
+  "sample": "表が出る回の選び方 × (1/2) を 4 回かけたもの = 1/4"
  },
  {
   "key": "unit:matha-count:tpl:repeated:note",
@@ -5517,7 +5509,7 @@
   "kind": "問題文",
   "ko": "1부터 {N}까지의 번호표에서 한 장을 뽑을 때, {a}의 배수 또는 {b}의 배수일 확률은?",
   "ja": "1 から {N} までの番号札から1枚引くとき、{a} の倍数または {b} の倍数である確率は?",
-  "sample": "1 から 60 までの番号札から1枚引くとき、2 の倍数または 7 の倍数である確率は?"
+  "sample": "1 から 20 までの番号札から1枚引くとき、2 の倍数または 3 の倍数である確率は?"
  },
  {
   "key": "unit:matha-count:tpl:union:explain",
@@ -5525,7 +5517,7 @@
   "kind": "解説",
   "ko": "각각의 개수를 더하고, 둘 다의 배수를 한 번 뺍니다. {answer}",
   "ja": "それぞれの個数を足して、両方の倍数を1回引く。{answer}",
-  "sample": "それぞれの個数を足して、両方の倍数を1回引く。17/30"
+  "sample": "それぞれの個数を足して、両方の倍数を1回引く。13/20"
  },
  {
   "key": "unit:matha-count:tpl:union:note",
@@ -5541,7 +5533,7 @@
   "kind": "問題文",
   "ko": "{n}명을 {size}명씩 {groups}개의 조로 나누는 방법은 몇 가지?",
   "ja": "{n} 人を {size} 人ずつ {groups} つの組に分ける方法は何通り?",
-  "sample": "6 人を 2 人ずつ 3 つの組に分ける方法は何通り?"
+  "sample": "4 人を 2 人ずつ 2 つの組に分ける方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:group-plain:explain",
@@ -5549,7 +5541,7 @@
   "kind": "解説",
   "ko": "조에 이름을 붙여 나눈 뒤, 조끼리 자리를 바꾸는 {groups}!로 나누면 {answer}",
   "ja": "組に名前をつけて分けてから、組の並べかえ {groups}! で割ると {answer}",
-  "sample": "組に名前をつけて分けてから、組の並べかえ 3! で割ると 15"
+  "sample": "組に名前をつけて分けてから、組の並べかえ 2! で割ると 3"
  },
  {
   "key": "unit:matha-count:tpl:group-plain:note",
@@ -5565,7 +5557,7 @@
   "kind": "問題文",
   "ko": "{n}명을 {size}명씩, 이름이 붙은 {groups}개의 방에 나누어 넣는 방법은 몇 가지?",
   "ja": "{n} 人を {size} 人ずつ、名前のついた {groups} つの部屋に分ける方法は何通り?",
-  "sample": "8 人を 2 人ずつ、名前のついた 4 つの部屋に分ける方法は何通り?"
+  "sample": "9 人を 3 人ずつ、名前のついた 3 つの部屋に分ける方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:group-named:explain",
@@ -5573,7 +5565,7 @@
   "kind": "解説",
   "ko": "방마다 차례로 뽑습니다. 방은 구별하므로 나누지 않습니다. {answer}",
   "ja": "部屋ごとに順に選ぶ。部屋は区別するので割らない。{answer}",
-  "sample": "部屋ごとに順に選ぶ。部屋は区別するので割らない。2520"
+  "sample": "部屋ごとに順に選ぶ。部屋は区別するので割らない。1680"
  },
  {
   "key": "unit:matha-count:tpl:group-named:note",
@@ -5589,7 +5581,7 @@
   "kind": "問題文",
   "ko": "{n}명이 한 줄로 설 때, 특정한 두 사람이 이웃하는 방법은 몇 가지?",
   "ja": "{n} 人が1列に並ぶとき、特定の2人が隣り合う並び方は何通り?",
-  "sample": "7 人が1列に並ぶとき、特定の2人が隣り合う並び方は何通り?"
+  "sample": "4 人が1列に並ぶとき、特定の2人が隣り合う並び方は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:perm-adjacent:explain",
@@ -5597,7 +5589,7 @@
   "kind": "解説",
   "ko": "두 사람을 하나로 묶어 세운 뒤, 두 사람이 자리를 바꾸는 2가지를 곱하면 {answer}",
   "ja": "2人を1つにまとめて並べ、2人の入れかえ 2 通りをかけると {answer}",
-  "sample": "2人を1つにまとめて並べ、2人の入れかえ 2 通りをかけると 1440"
+  "sample": "2人を1つにまとめて並べ、2人の入れかえ 2 通りをかけると 12"
  },
  {
   "key": "unit:matha-count:tpl:perm-adjacent:note",
@@ -5613,7 +5605,7 @@
   "kind": "問題文",
   "ko": "{n}명이 한 줄로 설 때, 특정한 두 사람이 양 끝에 오는 방법은 몇 가지?",
   "ja": "{n} 人が1列に並ぶとき、特定の2人が両端にくる並び方は何通り?",
-  "sample": "4 人が1列に並ぶとき、特定の2人が両端にくる並び方は何通り?"
+  "sample": "7 人が1列に並ぶとき、特定の2人が両端にくる並び方は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:perm-ends:explain",
@@ -5621,7 +5613,7 @@
   "kind": "解説",
   "ko": "양 끝에 서는 방법 2가지 × 나머지 사람이 서는 방법 = {answer}",
   "ja": "両端の並べ方 2 通り × 残りの人の並べ方 = {answer}",
-  "sample": "両端の並べ方 2 通り × 残りの人の並べ方 = 4"
+  "sample": "両端の並べ方 2 通り × 残りの人の並べ方 = 240"
  },
  {
   "key": "unit:matha-count:tpl:perm-ends:note",
@@ -5637,7 +5629,7 @@
   "kind": "問題文",
   "ko": "남자 {a}명, 여자 {b}명 중에서 남자 {p}명과 여자 {q}명을 뽑는 방법은 몇 가지?",
   "ja": "男子 {a} 人、女子 {b} 人の中から、男子 {p} 人と女子 {q} 人を選ぶ方法は何通り?",
-  "sample": "男子 7 人、女子 6 人の中から、男子 3 人と女子 1 人を選ぶ方法は何通り?"
+  "sample": "男子 5 人、女子 6 人の中から、男子 2 人と女子 2 人を選ぶ方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:comb-cond:explain",
@@ -5645,7 +5637,7 @@
   "kind": "解説",
   "ko": "남자를 뽑는 방법 × 여자를 뽑는 방법 = {answer}",
   "ja": "男子の選び方 × 女子の選び方 = {answer}",
-  "sample": "男子の選び方 × 女子の選び方 = 210"
+  "sample": "男子の選び方 × 女子の選び方 = 150"
  },
  {
   "key": "unit:matha-count:tpl:comb-cond:note",
@@ -5661,7 +5653,7 @@
   "kind": "問題文",
   "ko": "{n}종류의 과일에서 중복을 허락하여 {r}개를 고르는 방법은 몇 가지?",
   "ja": "{n} 種類の果物から、重複を許して {r} 個選ぶ方法は何通り?",
-  "sample": "4 種類の果物から、重複を許して 5 個選ぶ方法は何通り?"
+  "sample": "3 種類の果物から、重複を許して 4 個選ぶ方法は何通り?"
  },
  {
   "key": "unit:matha-count:tpl:homogeneous:explain",
@@ -5669,7 +5661,7 @@
   "kind": "解説",
   "ko": "○ {r}개와 칸막이 ({n} − 1)개를 늘어놓는 방법과 같습니다. {answer}",
   "ja": "{r} 個の ○ と仕切り ({n} − 1) 本を並べる方法と同じ。{answer}",
-  "sample": "5 個の ○ と仕切り (4 − 1) 本を並べる方法と同じ。56"
+  "sample": "4 個の ○ と仕切り (3 − 1) 本を並べる方法と同じ。15"
  },
  {
   "key": "unit:matha-count:tpl:homogeneous:note",
@@ -5685,7 +5677,7 @@
   "kind": "問題文",
   "ko": "A가 과녁을 맞힐 확률은 {p1}, B가 맞힐 확률은 {p2}이다. 두 사람이 한 번씩 던질 때, 둘 다 맞힐 확률은?",
   "ja": "A が的に当てる確率は {p1}、B が当てる確率は {p2} である。2人が1回ずつ投げるとき、2人とも当てる確率は?",
-  "sample": "A が的に当てる確率は 3/5、B が当てる確率は 4/5 である。2人が1回ずつ投げるとき、2人とも当てる確率は?"
+  "sample": "A が的に当てる確率は 1/3、B が当てる確率は 2/3 である。2人が1回ずつ投げるとき、2人とも当てる確率は?"
  },
  {
   "key": "unit:matha-count:tpl:indep-both:explain",
@@ -5693,7 +5685,7 @@
   "kind": "解説",
   "ko": "독립시행이므로 확률을 곱하면 {answer}",
   "ja": "独立な試行なので確率をかけて {answer}",
-  "sample": "独立な試行なので確率をかけて 12/25"
+  "sample": "独立な試行なので確率をかけて 2/9"
  },
  {
   "key": "unit:matha-count:tpl:indep-both:note",
@@ -5709,7 +5701,7 @@
   "kind": "問題文",
   "ko": "A가 과녁을 맞힐 확률은 {p1}, B가 맞힐 확률은 {p2}이다. 두 사람이 한 번씩 던질 때, 적어도 한 사람이 맞힐 확률은?",
   "ja": "A が的に当てる確率は {p1}、B が当てる確率は {p2} である。2人が1回ずつ投げるとき、少なくとも1人が当てる確率は?",
-  "sample": "A が的に当てる確率は 3/5、B が当てる確率は 2/3 である。2人が1回ずつ投げるとき、少なくとも1人が当てる確率は?"
+  "sample": "A が的に当てる確率は 1/4、B が当てる確率は 4/5 である。2人が1回ずつ投げるとき、少なくとも1人が当てる確率は?"
  },
  {
   "key": "unit:matha-count:tpl:indep-atleast:explain",
@@ -5717,7 +5709,7 @@
   "kind": "解説",
   "ko": "1 − (둘 다 못 맞힐 확률) = {answer}",
   "ja": "1 − (2人とも外す確率) = {answer}",
-  "sample": "1 − (2人とも外す確率) = 13/15"
+  "sample": "1 − (2人とも外す確率) = 17/20"
  },
  {
   "key": "unit:matha-count:tpl:indep-atleast:note",
@@ -5733,7 +5725,7 @@
   "kind": "問題文",
   "ko": "빨간 공 {r}개, 흰 공 {w}개가 든 주머니에서 공을 한 개씩 차례로 두 개 꺼낸다. 두 개 모두 빨간 공일 확률은?",
   "ja": "赤玉 {r} 個、白玉 {w} 個が入った袋から、玉を1個ずつ続けて2個取り出す。2個とも赤玉である確率は?",
-  "sample": "赤玉 6 個、白玉 2 個が入った袋から、玉を1個ずつ続けて2個取り出す。2個とも赤玉である確率は?"
+  "sample": "赤玉 4 個、白玉 4 個が入った袋から、玉を1個ずつ続けて2個取り出す。2個とも赤玉である確率は?"
  },
  {
   "key": "unit:matha-count:tpl:multiply-rr:explain",
@@ -5741,7 +5733,7 @@
   "kind": "解説",
   "ko": "(첫 번째가 빨강일 확률) × (그때 두 번째도 빨강일 확률) = {answer}",
   "ja": "(1個目が赤の確率) × (そのとき2個目も赤の確率) = {answer}",
-  "sample": "(1個目が赤の確率) × (そのとき2個目も赤の確率) = 15/28"
+  "sample": "(1個目が赤の確率) × (そのとき2個目も赤の確率) = 3/14"
  },
  {
   "key": "unit:matha-count:tpl:multiply-rr:note",
@@ -5757,7 +5749,7 @@
   "kind": "問題文",
   "ko": "빨간 공 {r}개, 흰 공 {w}개가 든 주머니에서 공을 한 개씩 차례로 두 개 꺼낸다. 첫 번째가 빨간 공, 두 번째가 흰 공일 확률은?",
   "ja": "赤玉 {r} 個、白玉 {w} 個が入った袋から、玉を1個ずつ続けて2個取り出す。1個目が赤玉、2個目が白玉である確率は?",
-  "sample": "赤玉 2 個、白玉 2 個が入った袋から、玉を1個ずつ続けて2個取り出す。1個目が赤玉、2個目が白玉である確率は?"
+  "sample": "赤玉 4 個、白玉 2 個が入った袋から、玉を1個ずつ続けて2個取り出す。1個目が赤玉、2個目が白玉である確率は?"
  },
  {
   "key": "unit:matha-count:tpl:multiply-rw:explain",
@@ -5765,7 +5757,7 @@
   "kind": "解説",
   "ko": "(첫 번째가 빨강일 확률) × (그때 두 번째가 흰색일 확률) = {answer}",
   "ja": "(1個目が赤の確率) × (そのとき2個目が白の確率) = {answer}",
-  "sample": "(1個目が赤の確率) × (そのとき2個目が白の確率) = 1/3"
+  "sample": "(1個目が赤の確率) × (そのとき2個目が白の確率) = 4/15"
  },
  {
   "key": "unit:matha-count:tpl:multiply-rw:note",
@@ -5781,7 +5773,7 @@
   "kind": "問題文",
   "ko": "어떤 제품을 기계 A가 전체의 {share}%, 기계 B가 {rest}% 만든다. 불량품의 비율은 A가 {a}%, B가 {b}%이다. 꺼낸 한 개가 불량품이었을 때, 그것이 A의 제품일 확률은?",
   "ja": "ある製品を、機械 A が全体の {share}%、機械 B が {rest}% 作っている。不良品の割合は A が {a}%、B が {b}% である。取り出した1個が不良品であったとき、それが A の製品である確率は?",
-  "sample": "ある製品を、機械 A が全体の 40%、機械 B が 60% 作っている。不良品の割合は A が 3%、B が 5% である。取り出した1個が不良品であったとき、それが A の製品である確率は?"
+  "sample": "ある製品を、機械 A が全体の 80%、機械 B が 20% 作っている。不良品の割合は A が 2%、B が 1% である。取り出した1個が不良品であったとき、それが A の製品である確率は?"
  },
  {
   "key": "unit:matha-count:tpl:bayes:explain",
@@ -5789,7 +5781,7 @@
   "kind": "解説",
   "ko": "(A의 불량품) ÷ (불량품 전체) = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}",
   "ja": "(A の不良品) ÷ (不良品全体) = {share} × {a} ÷ ({share} × {a} + {rest} × {b}) = {answer}",
-  "sample": "(A の不良品) ÷ (不良品全体) = 40 × 3 ÷ (40 × 3 + 60 × 5) = 2/7"
+  "sample": "(A の不良品) ÷ (不良品全体) = 80 × 2 ÷ (80 × 2 + 20 × 1) = 8/9"
  },
  {
   "key": "unit:matha-count:chain:chain-prob:intro",
@@ -5797,7 +5789,7 @@
   "kind": "連続技の前文",
   "ko": "빨간 공 {r}개, 흰 공 {w}개가 든 주머니에서 동시에 공 두 개를 꺼낸다.",
   "ja": "赤玉 {r} 個、白玉 {w} 個が入った袋から、同時に2個の玉を取り出す。",
-  "sample": "赤玉 5 個、白玉 3 個が入った袋から、同時に2個の玉を取り出す。"
+  "sample": "赤玉 4 個、白玉 5 個が入った袋から、同時に2個の玉を取り出す。"
  },
  {
   "key": "unit:matha-count:chain:chain-prob:step1:sum",
@@ -5821,7 +5813,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "순서를 구별하지 않으므로 조합입니다. {answer}",
   "ja": "順番を区別しないので組合せ。{answer}",
-  "sample": "順番を区別しないので組合せ。28"
+  "sample": "順番を区別しないので組合せ。36"
  },
  {
   "key": "unit:matha-count:chain:chain-prob:step2:sum",
@@ -5845,7 +5837,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "(빨간 공 2개를 고르는 방법) ÷ (전체 {a1}가지) = {answer}",
   "ja": "(赤玉2個の選び方) ÷ (全部の取り出し方 {a1}) = {answer}",
-  "sample": "(赤玉2個の選び方) ÷ (全部の取り出し方 28) = 5/14"
+  "sample": "(赤玉2個の選び方) ÷ (全部の取り出し方 36) = 1/6"
  },
  {
   "key": "unit:matha-count:chain:chain-prob:step3:sum",
@@ -5869,7 +5861,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "0개, 1개, 2개일 확률에 각각 개수를 곱해 더하면 {answer}",
   "ja": "0個、1個、2個の確率にそれぞれ個数をかけて足すと {answer}",
-  "sample": "0個、1個、2個の確率にそれぞれ個数をかけて足すと 5/4"
+  "sample": "0個、1個、2個の確率にそれぞれ個数をかけて足すと 8/9"
  },
  {
   "key": "unit:matha-count:chain:chain-count:intro",
@@ -5877,7 +5869,7 @@
   "kind": "連続技の前文",
   "ko": "{n}명의 학생 중에서 3명을 고른다.",
   "ja": "{n}人の生徒の中から3人を選ぶ。",
-  "sample": "9人の生徒の中から3人を選ぶ。"
+  "sample": "7人の生徒の中から3人を選ぶ。"
  },
  {
   "key": "unit:matha-count:chain:chain-count:step1:sum",
@@ -5901,7 +5893,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "순서를 구별하므로 순열. {n}P3 = {answer}",
   "ja": "順番を区別するので順列。{n}P3 = {answer}",
-  "sample": "順番を区別するので順列。9P3 = 504"
+  "sample": "順番を区別するので順列。7P3 = 210"
  },
  {
   "key": "unit:matha-count:chain:chain-count:step2:sum",
@@ -5925,7 +5917,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "세우는 방법 3! = 6가지를 같은 것으로 보므로 {a1} ÷ 6 = {answer}",
   "ja": "並べ方 3! = 6 通りを同じとみるので {a1} ÷ 6 = {answer}",
-  "sample": "並べ方 3! = 6 通りを同じとみるので 504 ÷ 6 = 84"
+  "sample": "並べ方 3! = 6 通りを同じとみるので 210 ÷ 6 = 35"
  },
  {
   "key": "unit:matha-count:chain:chain-count:step3:sum",
@@ -5949,7 +5941,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "A는 정해졌으므로 나머지 {n} − 1명에서 2명을 뽑습니다. {answer}",
   "ja": "A は決まっているので、残り {n} − 1 人から2人を選ぶ。{answer}",
-  "sample": "A は決まっているので、残り 9 − 1 人から2人を選ぶ。28"
+  "sample": "A は決まっているので、残り 7 − 1 人から2人を選ぶ。15"
  },
  {
   "key": "unit:matha-geom:name",
@@ -6053,7 +6045,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 AB = {c}, AC = {b}, BC = {a}이다. ∠A의 이등분선과 변 BC의 교점을 D라 할 때, BD의 길이는?",
   "ja": "△ABC で AB = {c}、AC = {b}、BC = {a}。∠A の二等分線と辺 BC の交点を D とするとき、BD の長さは?",
-  "sample": "△ABC で AB = 12、AC = 16、BC = 14。∠A の二等分線と辺 BC の交点を D とするとき、BD の長さは?"
+  "sample": "△ABC で AB = 10、AC = 6、BC = 8。∠A の二等分線と辺 BC の交点を D とするとき、BD の長さは?"
  },
  {
   "key": "unit:matha-geom:tpl:bisector:explain",
@@ -6061,7 +6053,7 @@
   "kind": "解説",
   "ko": "BD : DC = AB : AC = {c} : {b}이므로 BD = {answer}",
   "ja": "BD : DC = AB : AC = {c} : {b} より BD = {answer}",
-  "sample": "BD : DC = AB : AC = 12 : 16 より BD = 6"
+  "sample": "BD : DC = AB : AC = 10 : 6 より BD = 5"
  },
  {
   "key": "unit:matha-geom:tpl:centroid:text",
@@ -6085,7 +6077,7 @@
   "kind": "問題文",
   "ko": "예각삼각형 ABC의 외심을 O라 한다. ∠A = {A}°일 때, ∠BOC는?",
   "ja": "鋭角三角形 ABC の外心を O とする。∠A = {A}° のとき、∠BOC は?",
-  "sample": "鋭角三角形 ABC の外心を O とする。∠A = 85° のとき、∠BOC は?"
+  "sample": "鋭角三角形 ABC の外心を O とする。∠A = 83° のとき、∠BOC は?"
  },
  {
   "key": "unit:matha-geom:tpl:circumcenter:explain",
@@ -6093,7 +6085,7 @@
   "kind": "解説",
   "ko": "중심각은 원주각의 2배이므로 ∠BOC = {answer}",
   "ja": "中心角は円周角の 2 倍なので ∠BOC = {answer}",
-  "sample": "中心角は円周角の 2 倍なので ∠BOC = 170°"
+  "sample": "中心角は円周角の 2 倍なので ∠BOC = 166°"
  },
  {
   "key": "unit:matha-geom:tpl:incenter:text",
@@ -6101,7 +6093,7 @@
   "kind": "問題文",
   "ko": "△ABC의 내심을 I라 한다. ∠A = {A}°일 때, ∠BIC는?",
   "ja": "△ABC の内心を I とする。∠A = {A}° のとき、∠BIC は?",
-  "sample": "△ABC の内心を I とする。∠A = 58° のとき、∠BIC は?"
+  "sample": "△ABC の内心を I とする。∠A = 78° のとき、∠BIC は?"
  },
  {
   "key": "unit:matha-geom:tpl:incenter:explain",
@@ -6109,7 +6101,7 @@
   "kind": "解説",
   "ko": "∠BIC = 90° + ∠A ÷ 2 = {answer}",
   "ja": "∠BIC = 90° + ∠A ÷ 2 = {answer}",
-  "sample": "∠BIC = 90° + ∠A ÷ 2 = 119°"
+  "sample": "∠BIC = 90° + ∠A ÷ 2 = 129°"
  },
  {
   "key": "unit:matha-geom:tpl:inscribed:text",
@@ -6117,7 +6109,7 @@
   "kind": "問題文",
   "ko": "그림에서 호 AB에 대한 중심각이 {x}°일 때, 원주각 ∠APB는?",
   "ja": "図で、弧 AB に対する中心角が {x}° のとき、円周角 ∠APB は?",
-  "sample": "図で、弧 AB に対する中心角が 80° のとき、円周角 ∠APB は?"
+  "sample": "図で、弧 AB に対する中心角が 68° のとき、円周角 ∠APB は?"
  },
  {
   "key": "unit:matha-geom:tpl:inscribed:explain",
@@ -6125,7 +6117,7 @@
   "kind": "解説",
   "ko": "원주각은 중심각의 절반이므로 {answer}",
   "ja": "円周角は中心角の半分なので {answer}",
-  "sample": "円周角は中心角の半分なので 40°"
+  "sample": "円周角は中心角の半分なので 34°"
  },
  {
   "key": "unit:matha-geom:tpl:central:text",
@@ -6133,7 +6125,7 @@
   "kind": "問題文",
   "ko": "그림에서 호 AB에 대한 원주각 ∠APB가 {x}°일 때, 중심각 ∠AOB는?",
   "ja": "図で、弧 AB に対する円周角 ∠APB が {x}° のとき、中心角 ∠AOB は?",
-  "sample": "図で、弧 AB に対する円周角 ∠APB が 15° のとき、中心角 ∠AOB は?"
+  "sample": "図で、弧 AB に対する円周角 ∠APB が 51° のとき、中心角 ∠AOB は?"
  },
  {
   "key": "unit:matha-geom:tpl:central:explain",
@@ -6141,7 +6133,7 @@
   "kind": "解説",
   "ko": "중심각은 원주각의 2배이므로 {answer}",
   "ja": "中心角は円周角の 2 倍なので {answer}",
-  "sample": "中心角は円周角の 2 倍なので 30°"
+  "sample": "中心角は円周角の 2 倍なので 102°"
  },
  {
   "key": "unit:matha-geom:tpl:cyclic:text",
@@ -6149,7 +6141,7 @@
   "kind": "問題文",
   "ko": "사각형 ABCD가 원에 내접한다. ∠A = {A}°일 때, ∠C는?",
   "ja": "四角形 ABCD が円に内接している。∠A = {A}° のとき、∠C は?",
-  "sample": "四角形 ABCD が円に内接している。∠A = 85° のとき、∠C は?"
+  "sample": "四角形 ABCD が円に内接している。∠A = 125° のとき、∠C は?"
  },
  {
   "key": "unit:matha-geom:tpl:cyclic:explain",
@@ -6157,7 +6149,7 @@
   "kind": "解説",
   "ko": "원에 내접하는 사각형은 마주 보는 각의 합이 180°이므로 {answer}",
   "ja": "円に内接する四角形の対角の和は 180° なので {answer}",
-  "sample": "円に内接する四角形の対角の和は 180° なので 95°"
+  "sample": "円に内接する四角形の対角の和は 180° なので 55°"
  },
  {
   "key": "unit:matha-geom:tpl:power:text",
@@ -6165,7 +6157,7 @@
   "kind": "問題文",
   "ko": "원의 두 현 AB, CD가 점 P에서 만난다. PA = {a}, PB = {b}, PC = {c}일 때, PD의 길이는?",
   "ja": "円の2つの弦 AB, CD が点 P で交わっている。PA = {a}、PB = {b}、PC = {c} のとき、PD の長さは?",
-  "sample": "円の2つの弦 AB, CD が点 P で交わっている。PA = 9、PB = 16、PC = 4 のとき、PD の長さは?"
+  "sample": "円の2つの弦 AB, CD が点 P で交わっている。PA = 4、PB = 14、PC = 7 のとき、PD の長さは?"
  },
  {
   "key": "unit:matha-geom:tpl:power:explain",
@@ -6173,7 +6165,7 @@
   "kind": "解説",
   "ko": "방멱 정리 PA × PB = PC × PD에서 PD = {answer}",
   "ja": "方べきの定理 PA × PB = PC × PD より PD = {answer}",
-  "sample": "方べきの定理 PA × PB = PC × PD より PD = 36"
+  "sample": "方べきの定理 PA × PB = PC × PD より PD = 8"
  },
  {
   "key": "unit:matha-geom:tpl:tangent:text",
@@ -6181,7 +6173,7 @@
   "kind": "問題文",
   "ko": "원 밖의 점 P에서 그은 직선이 원과 두 점 A, B에서 만나고, P에서 그은 접선의 접점을 T라 한다. PA = {a}, PB = {b}일 때, PT의 길이는?",
   "ja": "円の外部の点 P から引いた直線が円と2点 A, B で交わり、P から引いた接線の接点を T とする。PA = {a}、PB = {b} のとき、PT の長さは?",
-  "sample": "円の外部の点 P から引いた直線が円と2点 A, B で交わり、P から引いた接線の接点を T とする。PA = 1、PB = 49 のとき、PT の長さは?"
+  "sample": "円の外部の点 P から引いた直線が円と2点 A, B で交わり、P から引いた接線の接点を T とする。PA = 1、PB = 121 のとき、PT の長さは?"
  },
  {
   "key": "unit:matha-geom:tpl:tangent:explain",
@@ -6189,7 +6181,7 @@
   "kind": "解説",
   "ko": "방멱 정리 PT² = PA × PB에서 PT = {answer}",
   "ja": "方べきの定理 PT² = PA × PB より PT = {answer}",
-  "sample": "方べきの定理 PT² = PA × PB より PT = 7"
+  "sample": "方べきの定理 PT² = PA × PB より PT = 11"
  },
  {
   "key": "unit:matha-geom:tpl:ceva:text",
@@ -6197,7 +6189,7 @@
   "kind": "問題文",
   "ko": "△ABC의 변 BC, CA, AB 위에 점 D, E, F가 있고, AD, BE, CF가 한 점에서 만난다. AF : FB = {p} : {q}, BD : DC = {r} : {s}일 때, CE : EA는?",
   "ja": "△ABC の辺 BC, CA, AB 上に点 D, E, F があり、AD, BE, CF が1点で交わる。AF : FB = {p} : {q}、BD : DC = {r} : {s} のとき、CE : EA は?",
-  "sample": "△ABC の辺 BC, CA, AB 上に点 D, E, F があり、AD, BE, CF が1点で交わる。AF : FB = 2 : 3、BD : DC = 3 : 1 のとき、CE : EA は?"
+  "sample": "△ABC の辺 BC, CA, AB 上に点 D, E, F があり、AD, BE, CF が1点で交わる。AF : FB = 1 : 5、BD : DC = 4 : 1 のとき、CE : EA は?"
  },
  {
   "key": "unit:matha-geom:tpl:ceva:explain",
@@ -6205,7 +6197,7 @@
   "kind": "解説",
   "ko": "체바의 정리 (AF/FB) × (BD/DC) × (CE/EA) = 1에서 CE : EA = {answer}",
   "ja": "チェバの定理 (AF/FB) × (BD/DC) × (CE/EA) = 1 より CE : EA = {answer}",
-  "sample": "チェバの定理 (AF/FB) × (BD/DC) × (CE/EA) = 1 より CE : EA = 1 : 2"
+  "sample": "チェバの定理 (AF/FB) × (BD/DC) × (CE/EA) = 1 より CE : EA = 5 : 4"
  },
  {
   "key": "unit:matha-geom:tpl:tangent-chord:text",
@@ -6213,7 +6205,7 @@
   "kind": "問題文",
   "ko": "직선 AT는 점 A에서 원에 접한다. ∠ACB = {x}°일 때, ∠BAT는?",
   "ja": "直線 AT は点 A で円に接している。∠ACB = {x}° のとき、∠BAT は?",
-  "sample": "直線 AT は点 A で円に接している。∠ACB = 41° のとき、∠BAT は?"
+  "sample": "直線 AT は点 A で円に接している。∠ACB = 36° のとき、∠BAT は?"
  },
  {
   "key": "unit:matha-geom:tpl:tangent-chord:explain",
@@ -6221,7 +6213,7 @@
   "kind": "解説",
   "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각과 같습니다. {answer}",
   "ja": "接線と弦のつくる角は、その弦に対する円周角に等しい。{answer}",
-  "sample": "接線と弦のつくる角は、その弦に対する円周角に等しい。41°"
+  "sample": "接線と弦のつくる角は、その弦に対する円周角に等しい。36°"
  },
  {
   "key": "unit:matha-geom:tpl:tangent-length:text",
@@ -6229,7 +6221,7 @@
   "kind": "問題文",
   "ko": "△ABC의 내접원이 변 AB와 점 F에서 접한다. BC = {a}, CA = {b}, AB = {c}일 때, AF의 길이는?",
   "ja": "△ABC の内接円が辺 AB と点 F で接している。BC = {a}、CA = {b}、AB = {c} のとき、AF の長さは?",
-  "sample": "△ABC の内接円が辺 AB と点 F で接している。BC = 8、CA = 4、AB = 6 のとき、AF の長さは?"
+  "sample": "△ABC の内接円が辺 AB と点 F で接している。BC = 11、CA = 4、AB = 9 のとき、AF の長さは?"
  },
  {
   "key": "unit:matha-geom:tpl:tangent-length:explain",
@@ -6245,7 +6237,7 @@
   "kind": "問題文",
   "ko": "반지름이 {r1}, {r2}인 두 원이 있다. 중심 사이의 거리가 {d}일 때, 공통접선은 몇 개?",
   "ja": "半径 {r1} と半径 {r2} の2つの円がある。中心間の距離が {d} のとき、共通接線は何本?",
-  "sample": "半径 8 と半径 4 の2つの円がある。中心間の距離が 7 のとき、共通接線は何本?"
+  "sample": "半径 8 と半径 4 の2つの円がある。中心間の距離が 4 のとき、共通接線は何本?"
  },
  {
   "key": "unit:matha-geom:tpl:two-circles:explain",
@@ -6253,7 +6245,7 @@
   "kind": "解説",
   "ko": "중심 사이의 거리를 반지름의 합 {r1} + {r2}, 차 {r1} − {r2}와 비교하면 {answer}개",
   "ja": "中心間の距離を、半径の和 {r1} + {r2} と差 {r1} − {r2} と比べると {answer} 本",
-  "sample": "中心間の距離を、半径の和 8 + 4 と差 8 − 4 と比べると 2 本"
+  "sample": "中心間の距離を、半径の和 8 + 4 と差 8 − 4 と比べると 1 本"
  },
  {
   "key": "unit:matha-geom:tpl:menelaus:text",
@@ -6261,7 +6253,7 @@
   "kind": "問題文",
   "ko": "△ABC의 변 AB 위에 점 R, 변 CA 위에 점 Q, 변 BC의 연장선 위에 점 P가 있고, 세 점 P, Q, R은 한 직선 위에 있다. AR : RB = {p} : {q}, BP : PC = {r} : {s}일 때, CQ : QA는?",
   "ja": "△ABC の辺 AB 上に点 R、辺 CA 上に点 Q、辺 BC の延長上に点 P があり、3点 P, Q, R は一直線上にある。AR : RB = {p} : {q}、BP : PC = {r} : {s} のとき、CQ : QA は?",
-  "sample": "△ABC の辺 AB 上に点 R、辺 CA 上に点 Q、辺 BC の延長上に点 P があり、3点 P, Q, R は一直線上にある。AR : RB = 1 : 2、BP : PC = 3 : 1 のとき、CQ : QA は?"
+  "sample": "△ABC の辺 AB 上に点 R、辺 CA 上に点 Q、辺 BC の延長上に点 P があり、3点 P, Q, R は一直線上にある。AR : RB = 1 : 4、BP : PC = 3 : 1 のとき、CQ : QA は?"
  },
  {
   "key": "unit:matha-geom:tpl:menelaus:explain",
@@ -6269,7 +6261,7 @@
   "kind": "解説",
   "ko": "메넬라우스의 정리 (AR/RB) × (BP/PC) × (CQ/QA) = 1에서 CQ : QA = {answer}",
   "ja": "メネラウスの定理 (AR/RB) × (BP/PC) × (CQ/QA) = 1 より CQ : QA = {answer}",
-  "sample": "メネラウスの定理 (AR/RB) × (BP/PC) × (CQ/QA) = 1 より CQ : QA = 2 : 3"
+  "sample": "メネラウスの定理 (AR/RB) × (BP/PC) × (CQ/QA) = 1 より CQ : QA = 4 : 3"
  },
  {
   "key": "unit:matha-geom:tpl:largest-angle:text",
@@ -6277,7 +6269,7 @@
   "kind": "問題文",
   "ko": "△ABC에서 BC = {a}, CA = {b}, AB = {c}일 때, 가장 큰 각은?",
   "ja": "△ABC で BC = {a}、CA = {b}、AB = {c} のとき、最も大きい角は?",
-  "sample": "△ABC で BC = 9、CA = 6、AB = 7 のとき、最も大きい角は?"
+  "sample": "△ABC で BC = 7、CA = 12、AB = 11 のとき、最も大きい角は?"
  },
  {
   "key": "unit:matha-geom:tpl:largest-angle:explain",
@@ -6285,7 +6277,7 @@
   "kind": "解説",
   "ko": "가장 긴 변과 마주 보는 각이 가장 큽니다. {answer}",
   "ja": "最も長い辺に向かい合う角が最も大きい。{answer}",
-  "sample": "最も長い辺に向かい合う角が最も大きい。∠A"
+  "sample": "最も長い辺に向かい合う角が最も大きい。∠B"
  },
  {
   "key": "unit:matha-geom:tpl:euler:text",
@@ -6293,7 +6285,7 @@
   "kind": "問題文",
   "ko": "어떤 볼록다면체가 {given}이다. {ask}는?",
   "ja": "ある凸多面体は {given} である。{ask} は?",
-  "sample": "ある凸多面体は @vertices 10, @faces 7 である。@edges は?"
+  "sample": "ある凸多面体は @vertices 12, @edges 30 である。@faces は?"
  },
  {
   "key": "unit:matha-geom:tpl:euler:explain",
@@ -6301,7 +6293,7 @@
   "kind": "解説",
   "ko": "오일러의 다면체 정리 (꼭짓점의 수) − (모서리의 수) + (면의 수) = 2에서 {answer}",
   "ja": "オイラーの多面体定理 (頂点の数) − (辺の数) + (面の数) = 2 より {answer}",
-  "sample": "オイラーの多面体定理 (頂点の数) − (辺の数) + (面の数) = 2 より 15"
+  "sample": "オイラーの多面体定理 (頂点の数) − (辺の数) + (面の数) = 2 より 20"
  },
  {
   "key": "unit:matha-geom:chain:chain-circle:intro",
@@ -6469,7 +6461,7 @@
   "kind": "問題文",
   "ko": "{a}와 {b}의 최대공약수는?",
   "ja": "{a} と {b} の最大公約数は?",
-  "sample": "96 と 36 の最大公約数は?"
+  "sample": "45 と 81 の最大公約数は?"
  },
  {
   "key": "unit:matha-int:tpl:gcd:explain",
@@ -6477,7 +6469,7 @@
   "kind": "解説",
   "ko": "둘을 모두 나누어떨어지게 하는 가장 큰 수는 {answer}",
   "ja": "両方を割り切る最大の数は {answer}",
-  "sample": "両方を割り切る最大の数は 12"
+  "sample": "両方を割り切る最大の数は 9"
  },
  {
   "key": "unit:matha-int:tpl:lcm:text",
@@ -6485,7 +6477,7 @@
   "kind": "問題文",
   "ko": "{a}와 {b}의 최소공배수는?",
   "ja": "{a} と {b} の最小公倍数は?",
-  "sample": "36 と 84 の最小公倍数は?"
+  "sample": "22 と 99 の最小公倍数は?"
  },
  {
   "key": "unit:matha-int:tpl:lcm:explain",
@@ -6493,7 +6485,7 @@
   "kind": "解説",
   "ko": "두 수의 곱 ÷ 최대공약수 = {answer}",
   "ja": "2数の積 ÷ 最大公約数 = {answer}",
-  "sample": "2数の積 ÷ 最大公約数 = 252"
+  "sample": "2数の積 ÷ 最大公約数 = 198"
  },
  {
   "key": "unit:matha-int:tpl:euclid:text",
@@ -6501,7 +6493,7 @@
   "kind": "問題文",
   "ko": "호제법을 써서 {a}와 {b}의 최대공약수를 구하면?",
   "ja": "互除法を使って、{a} と {b} の最大公約数を求めると?",
-  "sample": "互除法を使って、153 と 221 の最大公約数を求めると?"
+  "sample": "互除法を使って、238 と 391 の最大公約数を求めると?"
  },
  {
   "key": "unit:matha-int:tpl:euclid:explain",
@@ -6517,7 +6509,7 @@
   "kind": "問題文",
   "ko": "{m}으로 나누면 {r1}이 남는 정수 a와 {r2}가 남는 정수 b가 있다. a + b를 {m}으로 나눈 나머지는?",
   "ja": "{m} で割ると {r1} 余る整数 a と、{r2} 余る整数 b がある。a + b を {m} で割った余りは?",
-  "sample": "9 で割ると 5 余る整数 a と、4 余る整数 b がある。a + b を 9 で割った余りは?"
+  "sample": "9 で割ると 3 余る整数 a と、3 余る整数 b がある。a + b を 9 で割った余りは?"
  },
  {
   "key": "unit:matha-int:tpl:rem-sum:explain",
@@ -6525,7 +6517,7 @@
   "kind": "解説",
   "ko": "나머지끼리 더한 뒤 {m}으로 나눈 나머지를 구하면 {answer}",
   "ja": "余りどうしを足して、{m} で割った余りを求めると {answer}",
-  "sample": "余りどうしを足して、9 で割った余りを求めると 0"
+  "sample": "余りどうしを足して、9 で割った余りを求めると 6"
  },
  {
   "key": "unit:matha-int:tpl:rem-prod:text",
@@ -6533,7 +6525,7 @@
   "kind": "問題文",
   "ko": "{m}으로 나누면 {r1}이 남는 정수 a와 {r2}가 남는 정수 b가 있다. ab를 {m}으로 나눈 나머지는?",
   "ja": "{m} で割ると {r1} 余る整数 a と、{r2} 余る整数 b がある。ab を {m} で割った余りは?",
-  "sample": "9 で割ると 2 余る整数 a と、3 余る整数 b がある。ab を 9 で割った余りは?"
+  "sample": "9 で割ると 2 余る整数 a と、8 余る整数 b がある。ab を 9 で割った余りは?"
  },
  {
   "key": "unit:matha-int:tpl:rem-prod:explain",
@@ -6541,7 +6533,7 @@
   "kind": "解説",
   "ko": "나머지끼리 곱한 뒤 {m}으로 나눈 나머지를 구하면 {answer}",
   "ja": "余りどうしをかけて、{m} で割った余りを求めると {answer}",
-  "sample": "余りどうしをかけて、9 で割った余りを求めると 6"
+  "sample": "余りどうしをかけて、9 で割った余りを求めると 7"
  },
  {
   "key": "unit:matha-int:tpl:dioph:text",
@@ -6549,7 +6541,7 @@
   "kind": "問題文",
   "ko": "방정식 {eq}을 만족하는 정수의 순서쌍 (x, y)는?",
   "ja": "方程式 {eq} を満たす整数の組 (x, y) は?",
-  "sample": "方程式 4x + 7y = 1 を満たす整数の組 (x, y) は?"
+  "sample": "方程式 8x + 5y = 1 を満たす整数の組 (x, y) は?"
  },
  {
   "key": "unit:matha-int:tpl:dioph:explain",
@@ -6557,7 +6549,7 @@
   "kind": "解説",
   "ko": "대입해서 좌변이 1이 되는 순서쌍을 찾으면 {answer}",
   "ja": "代入して左辺が 1 になる組を探すと {answer}",
-  "sample": "代入して左辺が 1 になる組を探すと (2, −1)"
+  "sample": "代入して左辺が 1 になる組を探すと (2, −3)"
  },
  {
   "key": "unit:matha-int:tpl:base-to10:text",
@@ -6565,7 +6557,7 @@
   "kind": "問題文",
   "ko": "{base}진법으로 나타낸 수 {num}을 10진법으로 나타내면?",
   "ja": "{base} 進法で表された数 {num} を 10 進法で表すと?",
-  "sample": "2 進法で表された数 1101 を 10 進法で表すと?"
+  "sample": "3 進法で表された数 222 を 10 進法で表すと?"
  },
  {
   "key": "unit:matha-int:tpl:base-to10:explain",
@@ -6573,7 +6565,7 @@
   "kind": "解説",
   "ko": "각 자리의 수에 {base}의 거듭제곱을 곱해 더하면 {answer}",
   "ja": "各位の数に {base} の累乗をかけて足すと {answer}",
-  "sample": "各位の数に 2 の累乗をかけて足すと 13"
+  "sample": "各位の数に 3 の累乗をかけて足すと 26"
  },
  {
   "key": "unit:matha-int:tpl:base-from10:text",
@@ -6581,7 +6573,7 @@
   "kind": "問題文",
   "ko": "10진법의 수 {n}을 {base}진법으로 나타내면?",
   "ja": "10 進法の {n} を {base} 進法で表すと?",
-  "sample": "10 進法の 17 を 3 進法で表すと?"
+  "sample": "10 進法の 24 を 2 進法で表すと?"
  },
  {
   "key": "unit:matha-int:tpl:base-from10:explain",
@@ -6589,7 +6581,7 @@
   "kind": "解説",
   "ko": "{base}로 계속 나누어 나머지를 아래에서부터 차례로 늘어놓으면 {answer}",
   "ja": "{base} で割り続けて、余りを下から順に並べると {answer}",
-  "sample": "3 で割り続けて、余りを下から順に並べると 122"
+  "sample": "2 で割り続けて、余りを下から順に並べると 11000"
  },
  {
   "key": "unit:matha-int:tpl:prime-factor:text",
@@ -6597,7 +6589,7 @@
   "kind": "問題文",
   "ko": "{n}을 소인수분해하면?",
   "ja": "{n} を素因数分解すると?",
-  "sample": "18 を素因数分解すると?"
+  "sample": "54 を素因数分解すると?"
  },
  {
   "key": "unit:matha-int:tpl:prime-factor:explain",
@@ -6605,7 +6597,7 @@
   "kind": "解説",
   "ko": "작은 소수부터 차례로 나누어 가면 {answer}",
   "ja": "小さい素数から順に割っていくと {answer}",
-  "sample": "小さい素数から順に割っていくと 2 × 3²"
+  "sample": "小さい素数から順に割っていくと 2 × 3³"
  },
  {
   "key": "unit:matha-int:tpl:divisible-9:text",
@@ -6613,7 +6605,7 @@
   "kind": "問題文",
   "ko": "네 자리 수 {num}이 9의 배수가 될 때, □에 들어갈 숫자는?",
   "ja": "4桁の数 {num} が 9 の倍数になるとき、□ に入る数字は?",
-  "sample": "4桁の数 80□8 が 9 の倍数になるとき、□ に入る数字は?"
+  "sample": "4桁の数 48□4 が 9 の倍数になるとき、□ に入る数字は?"
  },
  {
   "key": "unit:matha-int:tpl:divisible-9:explain",
@@ -6637,7 +6629,7 @@
   "kind": "解説",
   "ko": "분모의 소인수가 2와 5뿐인 것을 찾으면 {answer}",
   "ja": "分母の素因数が 2 と 5 だけのものを探すと {answer}",
-  "sample": "分母の素因数が 2 と 5 だけのものを探すと 7/20"
+  "sample": "分母の素因数が 2 と 5 だけのものを探すと 9/25"
  },
  {
   "key": "unit:matha-int:tpl:coord-dist:text",
@@ -6645,7 +6637,7 @@
   "kind": "問題文",
   "ko": "좌표공간에서 원점 O와 점 P{P} 사이의 거리는?",
   "ja": "座標空間で、原点 O と点 P{P} の距離は?",
-  "sample": "座標空間で、原点 O と点 P(2, 3, −3) の距離は?"
+  "sample": "座標空間で、原点 O と点 P(−4, 5, −3) の距離は?"
  },
  {
   "key": "unit:matha-int:tpl:coord-dist:explain",
@@ -6653,7 +6645,7 @@
   "kind": "解説",
   "ko": "OP = √(x² + y² + z²) = {answer}",
   "ja": "OP = √(x² + y² + z²) = {answer}",
-  "sample": "OP = √(x² + y² + z²) = √22"
+  "sample": "OP = √(x² + y² + z²) = 5√2"
  },
  {
   "key": "unit:matha-int:tpl:coord-mirror:text",
@@ -6661,7 +6653,7 @@
   "kind": "問題文",
   "ko": "좌표공간에서 점 P{P}와 {plane}평면에 대하여 대칭인 점의 좌표는?",
   "ja": "座標空間で、点 P{P} と {plane} 平面に関して対称な点の座標は?",
-  "sample": "座標空間で、点 P(6, −2, −5) と xy 平面に関して対称な点の座標は?"
+  "sample": "座標空間で、点 P(−2, −4, 2) と yz 平面に関して対称な点の座標は?"
  },
  {
   "key": "unit:matha-int:tpl:coord-mirror:explain",
@@ -6669,7 +6661,7 @@
   "kind": "解説",
   "ko": "{plane}평면에 대하여 대칭인 점은 나머지 한 좌표의 부호만 바뀝니다. {answer}",
   "ja": "{plane} 平面に関して対称な点は、残りの1つの座標の符号だけが変わる。{answer}",
-  "sample": "xy 平面に関して対称な点は、残りの1つの座標の符号だけが変わる。(6, −2, 5)"
+  "sample": "yz 平面に関して対称な点は、残りの1つの座標の符号だけが変わる。(2, −4, 2)"
  },
  {
   "key": "unit:matha-int:chain:chain-int:intro",
@@ -6677,7 +6669,7 @@
   "kind": "連続技の前文",
   "ko": "두 자연수 {a}와 {b}에 대하여 답하시오.",
   "ja": "2つの自然数 {a} と {b} について答えよ。",
-  "sample": "2つの自然数 24 と 32 について答えよ。"
+  "sample": "2つの自然数 15 と 12 について答えよ。"
  },
  {
   "key": "unit:matha-int:chain:chain-int:step1:sum",
@@ -6701,7 +6693,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "둘을 모두 나누어떨어지게 하는 가장 큰 수는 {answer}",
   "ja": "両方を割り切る最大の数は {answer}",
-  "sample": "両方を割り切る最大の数は 8"
+  "sample": "両方を割り切る最大の数は 3"
  },
  {
   "key": "unit:matha-int:chain:chain-int:step2:sum",
@@ -6725,7 +6717,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "{a} × {b} ÷ (최대공약수 {a1}) = {answer}",
   "ja": "{a} × {b} ÷ (最大公約数 {a1}) = {answer}",
-  "sample": "24 × 32 ÷ (最大公約数 8) = 96"
+  "sample": "15 × 12 ÷ (最大公約数 3) = 60"
  },
  {
   "key": "unit:matha-int:chain:chain-int:step3:sum",
@@ -6749,7 +6741,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "(최대공약수) × (최소공배수)는 두 수의 곱 {a} × {b}와 같습니다. {answer}",
   "ja": "(最大公約数) × (最小公倍数) は2数の積 {a} × {b} に等しい。{answer}",
-  "sample": "(最大公約数) × (最小公倍数) は2数の積 24 × 32 に等しい。768"
+  "sample": "(最大公約数) × (最小公倍数) は2数の積 15 × 12 に等しい。180"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:intro",
@@ -6757,7 +6749,7 @@
   "kind": "連続技の前文",
   "ko": "두 자연수 {a}와 {b}에 대하여 답하시오.",
   "ja": "2つの自然数 {a} と {b} について答えよ。",
-  "sample": "2つの自然数 32 と 24 について答えよ。"
+  "sample": "2つの自然数 132 と 36 について答えよ。"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:step1:sum",
@@ -6773,7 +6765,7 @@
   "kind": "連続技 1問目",
   "ko": "{a}를 {b}로 나눈 나머지는?",
   "ja": "{a} を {b} で割った余りは?",
-  "sample": "32 を 24 で割った余りは?"
+  "sample": "132 を 36 で割った余りは?"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:step1:explain",
@@ -6781,7 +6773,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "{a} = {b} × (몫) + (나머지). 나머지는 {answer}",
   "ja": "{a} = {b} × (商) + (余り)。余りは {answer}",
-  "sample": "32 = 24 × (商) + (余り)。余りは 8"
+  "sample": "132 = 36 × (商) + (余り)。余りは 24"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:step2:sum",
@@ -6797,7 +6789,7 @@
   "kind": "連続技 2問目",
   "ko": "호제법을 이어서, {a}와 {b}의 최대공약수를 구하면?",
   "ja": "互除法を続けて、{a} と {b} の最大公約数を求めると?",
-  "sample": "互除法を続けて、32 と 24 の最大公約数を求めると?"
+  "sample": "互除法を続けて、132 と 36 の最大公約数を求めると?"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:step2:explain",
@@ -6805,7 +6797,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "{a}와 {b}의 최대공약수는 {b}와 나머지 {a1}의 최대공약수와 같습니다. 나머지가 0이 될 때까지 계속하면 {answer}",
   "ja": "{a} と {b} の最大公約数は、{b} と余り {a1} の最大公約数に等しい。余りが 0 になるまで続けると {answer}",
-  "sample": "32 と 24 の最大公約数は、24 と余り 8 の最大公約数に等しい。余りが 0 になるまで続けると 8"
+  "sample": "132 と 36 の最大公約数は、36 と余り 24 の最大公約数に等しい。余りが 0 になるまで続けると 12"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:step3:sum",
@@ -6821,7 +6813,7 @@
   "kind": "連続技 3問目",
   "ko": "분수 {a}/{b}를 약분하여 기약분수로 나타낼 때, 분모는?",
   "ja": "分数 {a}/{b} を約分して既約分数にしたとき、分母は?",
-  "sample": "分数 32/24 を約分して既約分数にしたとき、分母は?"
+  "sample": "分数 132/36 を約分して既約分数にしたとき、分母は?"
  },
  {
   "key": "unit:matha-int:chain:chain-euclid:step3:explain",
@@ -6829,7 +6821,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "분모와 분자를 최대공약수 {a2}로 나눕니다. {b} ÷ {a2} = {answer}",
   "ja": "分母と分子を最大公約数 {a2} で割る。{b} ÷ {a2} = {answer}",
-  "sample": "分母と分子を最大公約数 8 で割る。24 ÷ 8 = 3"
+  "sample": "分母と分子を最大公約数 12 で割る。36 ÷ 12 = 3"
  },
  {
   "key": "subject:math2",
@@ -6917,7 +6909,7 @@
   "kind": "問題文",
   "ko": "{expr}을 전개하면?",
   "ja": "{expr} を展開すると?",
-  "sample": "(x − 2)³ を展開すると?"
+  "sample": "(x − 3)³ を展開すると?"
  },
  {
   "key": "unit:math2-expr:tpl:cubeexpand:explain",
@@ -6925,7 +6917,7 @@
   "kind": "解説",
   "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 을 쓰면 {answer}",
   "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ を使うと {answer}",
-  "sample": "(a + b)³ = a³ + 3a²b + 3ab² + b³ を使うと x³ − 6x² + 12x − 8"
+  "sample": "(a + b)³ = a³ + 3a²b + 3ab² + b³ を使うと x³ − 9x² + 27x − 27"
  },
  {
   "key": "unit:math2-expr:tpl:cubeexpand2:text",
@@ -6933,7 +6925,7 @@
   "kind": "問題文",
   "ko": "{expr}을 전개하면?",
   "ja": "{expr} を展開すると?",
-  "sample": "(3x − 3)³ を展開すると?"
+  "sample": "(2x − 1)³ を展開すると?"
  },
  {
   "key": "unit:math2-expr:tpl:cubeexpand2:explain",
@@ -6941,7 +6933,7 @@
   "kind": "解説",
   "ko": "2x를 한 덩어리로 보고 (a + b)³ 공식을 쓰면 {answer}",
   "ja": "2x をひとまとまりと見て (a + b)³ の公式を使うと {answer}",
-  "sample": "2x をひとまとまりと見て (a + b)³ の公式を使うと 27x³ − 81x² + 81x − 27"
+  "sample": "2x をひとまとまりと見て (a + b)³ の公式を使うと 8x³ − 12x² + 6x − 1"
  },
  {
   "key": "unit:math2-expr:tpl:cubefactor:text",
@@ -6949,7 +6941,7 @@
   "kind": "問題文",
   "ko": "{expr}을 인수분해하면?",
   "ja": "{expr} を因数分解すると?",
-  "sample": "x³ + 8 を因数分解すると?"
+  "sample": "x³ + 1 を因数分解すると?"
  },
  {
   "key": "unit:math2-expr:tpl:cubefactor:explain",
@@ -6957,7 +6949,7 @@
   "kind": "解説",
   "ko": "a³ ± b³ = (a ± b)(a² ∓ ab + b²). 가운데 부호는 반대가 됩니다. {answer}",
   "ja": "a³ ± b³ = (a ± b)(a² ∓ ab + b²)。まん中の符号は逆になる。{answer}",
-  "sample": "a³ ± b³ = (a ± b)(a² ∓ ab + b²)。まん中の符号は逆になる。(x + 2)(x² − 2x + 4)"
+  "sample": "a³ ± b³ = (a ± b)(a² ∓ ab + b²)。まん中の符号は逆になる。(x + 1)(x² − x + 1)"
  },
  {
   "key": "unit:math2-expr:tpl:binom:text",
@@ -6965,7 +6957,7 @@
   "kind": "問題文",
   "ko": "{expr}의 전개식에서 {term}의 계수는?",
   "ja": "{expr} の展開式で、{term} の係数は?",
-  "sample": "(x + 2)⁵ の展開式で、x³ の係数は?"
+  "sample": "(x + 1)⁵ の展開式で、x の係数は?"
  },
  {
   "key": "unit:math2-expr:tpl:binom:explain",
@@ -6973,7 +6965,7 @@
   "kind": "解説",
   "ko": "{term}의 계수는 {comb} × ({a})의 {rest}제곱 = {answer}",
   "ja": "{term} の係数は {comb} × ({a}) の {rest} 乗 = {answer}",
-  "sample": "x³ の係数は ₅C₃ × (2) の 2 乗 = 40"
+  "sample": "x の係数は ₅C₁ × (1) の 4 乗 = 5"
  },
  {
   "key": "unit:math2-expr:tpl:binom2:text",
@@ -6981,7 +6973,7 @@
   "kind": "問題文",
   "ko": "{expr}의 전개식에서 {term}의 계수는?",
   "ja": "{expr} の展開式で、{term} の係数は?",
-  "sample": "(x − 2)⁵ の展開式で、x⁴ の係数は?"
+  "sample": "(x + 2)⁵ の展開式で、x³ の係数は?"
  },
  {
   "key": "unit:math2-expr:tpl:binom2:explain",
@@ -6989,7 +6981,7 @@
   "kind": "解説",
   "ko": "{comb}에 ({a})의 {rest}제곱을 곱하는 것을 잊지 않습니다. 계수는 {answer}",
   "ja": "{comb} に ({a}) の {rest} 乗を掛けるのを忘れない。係数は {answer}",
-  "sample": "₅C₄ に (−2) の 1 乗を掛けるのを忘れない。係数は −10"
+  "sample": "₅C₃ に (2) の 2 乗を掛けるのを忘れない。係数は 40"
  },
  {
   "key": "unit:math2-expr:tpl:polyquot:text",
@@ -6997,7 +6989,7 @@
   "kind": "問題文",
   "ko": "{expr}을 {div}로 나눈 몫은?",
   "ja": "{expr} を {div} で割ったときの商は?",
-  "sample": "x² − x − 18 を x − 4 で割ったときの商は?"
+  "sample": "x² − 4x − 3 を x − 2 で割ったときの商は?"
  },
  {
   "key": "unit:math2-expr:tpl:polyquot:explain",
@@ -7005,7 +6997,7 @@
   "kind": "解説",
   "ko": "세로셈으로 나누면 몫은 {answer}",
   "ja": "筆算で割ると、商は {answer}",
-  "sample": "筆算で割ると、商は x + 3"
+  "sample": "筆算で割ると、商は x − 2"
  },
  {
   "key": "unit:math2-expr:tpl:polyrem:text",
@@ -7013,7 +7005,7 @@
   "kind": "問題文",
   "ko": "{expr}을 {div}로 나눈 나머지는?",
   "ja": "{expr} を {div} で割ったときの余りは?",
-  "sample": "x² − x − 6 を x + 1 で割ったときの余りは?"
+  "sample": "x² + 8x + 18 を x + 4 で割ったときの余りは?"
  },
  {
   "key": "unit:math2-expr:tpl:polyrem:explain",
@@ -7021,7 +7013,7 @@
   "kind": "解説",
   "ko": "세로셈으로 나누면 나머지는 {answer}",
   "ja": "筆算で割ると、余りは {answer}",
-  "sample": "筆算で割ると、余りは −4"
+  "sample": "筆算で割ると、余りは 2"
  },
  {
   "key": "unit:math2-expr:tpl:polyquot2:text",
@@ -7029,7 +7021,7 @@
   "kind": "問題文",
   "ko": "{expr}을 {div}로 나눈 몫은?",
   "ja": "{expr} を {div} で割ったときの商は?",
-  "sample": "2x² − 8x + 15 を x − 1 で割ったときの商は?"
+  "sample": "3x² − 17x + 16 を x − 4 で割ったときの商は?"
  },
  {
   "key": "unit:math2-expr:tpl:polyquot2:explain",
@@ -7037,7 +7029,7 @@
   "kind": "解説",
   "ko": "최고차항의 계수에 주의해서 세로셈을 하면 몫은 {answer}",
   "ja": "最高次の係数に注意して筆算すると、商は {answer}",
-  "sample": "最高次の係数に注意して筆算すると、商は 2x − 6"
+  "sample": "最高次の係数に注意して筆算すると、商は 3x − 5"
  },
  {
   "key": "unit:math2-expr:tpl:polyrem2:text",
@@ -7045,7 +7037,7 @@
   "kind": "問題文",
   "ko": "{expr}을 {div}로 나눈 나머지는?",
   "ja": "{expr} を {div} で割ったときの余りは?",
-  "sample": "2x² + 5x − 19 を x + 4 で割ったときの余りは?"
+  "sample": "3x² − 4x − 11 を x − 3 で割ったときの余りは?"
  },
  {
   "key": "unit:math2-expr:tpl:polyrem2:explain",
@@ -7053,7 +7045,7 @@
   "kind": "解説",
   "ko": "최고차항의 계수에 주의해서 세로셈을 하면 나머지는 {answer}",
   "ja": "最高次の係数に注意して筆算すると、余りは {answer}",
-  "sample": "最高次の係数に注意して筆算すると、余りは −7"
+  "sample": "最高次の係数に注意して筆算すると、余りは 4"
  },
  {
   "key": "unit:math2-expr:tpl:fracexpr:text",
@@ -7061,7 +7053,7 @@
   "kind": "問題文",
   "ko": "분수식 ({top})/({bottom})을 약분하면?",
   "ja": "分数式 ({top})/({bottom}) を約分すると?",
-  "sample": "分数式 (x² − 8x + 12)/(x² + x − 6) を約分すると?"
+  "sample": "分数式 (x² + 11x + 30)/(x² + 8x + 15) を約分すると?"
  },
  {
   "key": "unit:math2-expr:tpl:fracexpr:explain",
@@ -7069,7 +7061,7 @@
   "kind": "解説",
   "ko": "분자와 분모를 각각 인수분해하고 공통인 인수로 약분하면 {answer}",
   "ja": "分子と分母をそれぞれ因数分解し、共通の因数で約分すると {answer}",
-  "sample": "分子と分母をそれぞれ因数分解し、共通の因数で約分すると (x − 6)/(x + 3)"
+  "sample": "分子と分母をそれぞれ因数分解し、共通の因数で約分すると (x + 6)/(x + 3)"
  },
  {
   "key": "unit:math2-expr:tpl:identa:text",
@@ -7077,7 +7069,7 @@
   "kind": "問題文",
   "ko": "{left} = {right} 가 x에 대한 항등식일 때, a의 값은?",
   "ja": "{left} = {right} が x についての恒等式であるとき、a の値は?",
-  "sample": "5x − 14 = a(x + 2) + b(x − 2) が x についての恒等式であるとき、a の値は?"
+  "sample": "6x − 2 = a(x + 1) + b(x − 3) が x についての恒等式であるとき、a の値は?"
  },
  {
   "key": "unit:math2-expr:tpl:identa:explain",
@@ -7085,7 +7077,7 @@
   "kind": "解説",
   "ko": "우변을 전개해서 x의 계수와 상수항을 비교하면 a = {answer}",
   "ja": "右辺を展開して x の係数と定数項を比べると a = {answer}",
-  "sample": "右辺を展開して x の係数と定数項を比べると a = −1"
+  "sample": "右辺を展開して x の係数と定数項を比べると a = 4"
  },
  {
   "key": "unit:math2-expr:tpl:identb:text",
@@ -7093,7 +7085,7 @@
   "kind": "問題文",
   "ko": "{left} = {right} 가 x에 대한 항등식일 때, b의 값은?",
   "ja": "{left} = {right} が x についての恒等式であるとき、b の値は?",
-  "sample": "−2x − 10 = a(x + 3) + b(x − 1) が x についての恒等式であるとき、b の値は?"
+  "sample": "−5x + 9 = a(x + 3) + b(x − 1) が x についての恒等式であるとき、b の値は?"
  },
  {
   "key": "unit:math2-expr:tpl:identb:explain",
@@ -7101,7 +7093,7 @@
   "kind": "解説",
   "ko": "우변을 전개해서 x의 계수와 상수항을 비교하면 b = {answer}",
   "ja": "右辺を展開して x の係数と定数項を比べると b = {answer}",
-  "sample": "右辺を展開して x の係数と定数項を比べると b = 1"
+  "sample": "右辺を展開して x の係数と定数項を比べると b = −6"
  },
  {
   "key": "unit:math2-expr:tpl:amgm:text",
@@ -7125,7 +7117,7 @@
   "kind": "問題文",
   "ko": "x > 0 일 때, {expr}의 최솟값은?",
   "ja": "x > 0 のとき、{expr} の最小値は?",
-  "sample": "x > 0 のとき、5x + 45/x の最小値は?"
+  "sample": "x > 0 のとき、5x + 80/x の最小値は?"
  },
  {
   "key": "unit:math2-expr:tpl:amgm2:explain",
@@ -7133,7 +7125,7 @@
   "kind": "解説",
   "ko": "두 수의 곱은 x가 사라져 상수가 됩니다. 합 ≧ 2√(곱)이므로 최솟값은 {answer}",
   "ja": "2数の積は x が消えて定数になる。和 ≧ 2√(積) より最小値は {answer}",
-  "sample": "2数の積は x が消えて定数になる。和 ≧ 2√(積) より最小値は 30"
+  "sample": "2数の積は x が消えて定数になる。和 ≧ 2√(積) より最小値は 40"
  },
  {
   "key": "unit:math2-expr:chain:chain-binom:intro",
@@ -7141,7 +7133,7 @@
   "kind": "連続技の前文",
   "ko": "{expr}의 전개식에서 {term} 항에 대하여 답하시오.",
   "ja": "{expr} の展開式における {term} の項について答えよ。",
-  "sample": "(x + 2)⁶ の展開式における x⁴ の項について答えよ。"
+  "sample": "(x − 2)⁶ の展開式における x⁴ の項について答えよ。"
  },
  {
   "key": "unit:math2-expr:chain:chain-binom:step1:sum",
@@ -7181,7 +7173,7 @@
   "kind": "連続技 2問目",
   "ko": "같은 항에 곱해지는 ({a})의 {rest}제곱의 값은?",
   "ja": "同じ項に掛かる ({a}) の {rest} 乗の値は?",
-  "sample": "同じ項に掛かる (2) の 2 乗の値は?"
+  "sample": "同じ項に掛かる (−2) の 2 乗の値は?"
  },
  {
   "key": "unit:math2-expr:chain:chain-binom:step2:explain",
@@ -7189,7 +7181,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "({a})를 {rest}번 곱하면 {answer}",
   "ja": "({a}) を {rest} 回掛けると {answer}",
-  "sample": "(2) を 2 回掛けると 4"
+  "sample": "(−2) を 2 回掛けると 4"
  },
  {
   "key": "unit:math2-expr:chain:chain-binom:step3:sum",
@@ -7221,7 +7213,7 @@
   "kind": "連続技の前文",
   "ko": "x > 0 일 때, {expr}에 대하여 답하시오.",
   "ja": "x > 0 のとき、{expr} について答えよ。",
-  "sample": "x > 0 のとき、x + 16/x + 3 について答えよ。"
+  "sample": "x > 0 のとき、x + 16/x + 1 について答えよ。"
  },
  {
   "key": "unit:math2-expr:chain:chain-amgm:step1:sum",
@@ -7261,7 +7253,7 @@
   "kind": "連続技 2問目",
   "ko": "{expr}의 최솟값은?",
   "ja": "{expr} の最小値は?",
-  "sample": "x + 16/x + 3 の最小値は?"
+  "sample": "x + 16/x + 1 の最小値は?"
  },
  {
   "key": "unit:math2-expr:chain:chain-amgm:step2:explain",
@@ -7269,7 +7261,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "x + {c}/x ≧ 2√{a1}. 여기에 상수 {d}를 더해서 {answer}",
   "ja": "x + {c}/x ≧ 2√{a1}。これに定数 {d} を加えて {answer}",
-  "sample": "x + 16/x ≧ 2√16。これに定数 3 を加えて 11"
+  "sample": "x + 16/x ≧ 2√16。これに定数 1 を加えて 9"
  },
  {
   "key": "unit:math2-expr:chain:chain-amgm:step3:sum",
@@ -7381,7 +7373,7 @@
   "kind": "問題文",
   "ko": "{expr}을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "(5 − 5i) + (−4 − 2i) を計算すると?"
+  "sample": "(−4 − 2i) + (1 − i) を計算すると?"
  },
  {
   "key": "unit:math2-complex:tpl:cplxadd:explain",
@@ -7389,7 +7381,7 @@
   "kind": "解説",
   "ko": "실수부분끼리, 허수부분끼리 더하면 {answer}",
   "ja": "実部どうし、虚部どうしを足すと {answer}",
-  "sample": "実部どうし、虚部どうしを足すと 1 − 7i"
+  "sample": "実部どうし、虚部どうしを足すと −3 − 3i"
  },
  {
   "key": "unit:math2-complex:tpl:cplxsub:text",
@@ -7397,7 +7389,7 @@
   "kind": "問題文",
   "ko": "{expr}을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "(1 + 5i) − (5 + i) を計算すると?"
+  "sample": "(2 + 5i) − (−5 + 4i) を計算すると?"
  },
  {
   "key": "unit:math2-complex:tpl:cplxsub:explain",
@@ -7405,7 +7397,7 @@
   "kind": "解説",
   "ko": "괄호를 풀 때 빼는 쪽의 부호가 모두 바뀝니다. {answer}",
   "ja": "かっこを外すとき、引く方の符号がすべて変わる。{answer}",
-  "sample": "かっこを外すとき、引く方の符号がすべて変わる。−4 + 4i"
+  "sample": "かっこを外すとき、引く方の符号がすべて変わる。7 + i"
  },
  {
   "key": "unit:math2-complex:tpl:cplxmul:text",
@@ -7413,7 +7405,7 @@
   "kind": "問題文",
   "ko": "{expr}을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "(−2 − 2i)(−4 − 5i) を計算すると?"
+  "sample": "(1 + i)(5 − 4i) を計算すると?"
  },
  {
   "key": "unit:math2-complex:tpl:cplxmul:explain",
@@ -7421,7 +7413,7 @@
   "kind": "解説",
   "ko": "전개한 뒤 i² = −1 로 바꾸면 {answer}",
   "ja": "展開して i² = −1 でおきかえると {answer}",
-  "sample": "展開して i² = −1 でおきかえると −2 + 18i"
+  "sample": "展開して i² = −1 でおきかえると 9 + i"
  },
  {
   "key": "unit:math2-complex:tpl:cplxdiv:text",
@@ -7429,7 +7421,7 @@
   "kind": "問題文",
   "ko": "{expr}을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "(−10 − 2i)/(2 + 3i) を計算すると?"
+  "sample": "(−19 − 9i)/(−4 − i) を計算すると?"
  },
  {
   "key": "unit:math2-complex:tpl:cplxdiv:explain",
@@ -7437,7 +7429,7 @@
   "kind": "解説",
   "ko": "분모의 켤레복소수를 분모와 분자에 곱해서 분모를 실수로 만들면 {answer}",
   "ja": "分母の共役な複素数を分母と分子に掛けて、分母を実数にすると {answer}",
-  "sample": "分母の共役な複素数を分母と分子に掛けて、分母を実数にすると −2 + 2i"
+  "sample": "分母の共役な複素数を分母と分子に掛けて、分母を実数にすると 5 + i"
  },
  {
   "key": "unit:math2-complex:tpl:negsqrt:text",
@@ -7445,7 +7437,7 @@
   "kind": "問題文",
   "ko": "{expr}을 i를 써서 나타내면?",
   "ja": "{expr} を i を用いて表すと?",
-  "sample": "√(−32) を i を用いて表すと?"
+  "sample": "√(−48) を i を用いて表すと?"
  },
  {
   "key": "unit:math2-complex:tpl:negsqrt:explain",
@@ -7453,7 +7445,7 @@
   "kind": "解説",
   "ko": "a > 0 일 때 √(−a) = √a i. {answer}",
   "ja": "a > 0 のとき √(−a) = √a i。{answer}",
-  "sample": "a > 0 のとき √(−a) = √a i。4√2i"
+  "sample": "a > 0 のとき √(−a) = √a i。4√3i"
  },
  {
   "key": "unit:math2-complex:tpl:negprod:text",
@@ -7461,7 +7453,7 @@
   "kind": "問題文",
   "ko": "{expr}을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "√(−5) × √(−20) を計算すると?"
+  "sample": "√(−20) × √(−5) を計算すると?"
  },
  {
   "key": "unit:math2-complex:tpl:negprod:explain",
@@ -7477,7 +7469,7 @@
   "kind": "問題文",
   "ko": "이차방정식 {eq} 의 해는?",
   "ja": "2次方程式 {eq} の解は?",
-  "sample": "2次方程式 x² + 6x + 13 = 0 の解は?"
+  "sample": "2次方程式 x² + 6x + 18 = 0 の解は?"
  },
  {
   "key": "unit:math2-complex:tpl:cplxroot:explain",
@@ -7485,7 +7477,7 @@
   "kind": "解説",
   "ko": "근의 공식을 쓰면 근호 안이 음수가 됩니다. √(음수)를 i로 나타내면 {answer}",
   "ja": "解の公式を使うと根号の中が負になる。√(負の数) を i で表して {answer}",
-  "sample": "解の公式を使うと根号の中が負になる。√(負の数) を i で表して x = −3 ± 2i"
+  "sample": "解の公式を使うと根号の中が負になる。√(負の数) を i で表して x = −3 ± 3i"
  },
  {
   "key": "unit:math2-complex:tpl:imagk:text",
@@ -7509,7 +7501,7 @@
   "kind": "問題文",
   "ko": "이차방정식 {eq} 이 서로 다른 두 실근을 갖도록 하는 k의 값의 범위는?",
   "ja": "2次方程式 {eq} が異なる2つの実数解をもつような k の値の範囲は?",
-  "sample": "2次方程式 x² − 2x + k = 0 が異なる2つの実数解をもつような k の値の範囲は?"
+  "sample": "2次方程式 x² + 10x + k = 0 が異なる2つの実数解をもつような k の値の範囲は?"
  },
  {
   "key": "unit:math2-complex:tpl:realk:explain",
@@ -7517,7 +7509,7 @@
   "kind": "解説",
   "ko": "판별식 D > 0 이 되는 범위를 구하면 {answer}",
   "ja": "判別式 D > 0 となる範囲を求めると {answer}",
-  "sample": "判別式 D > 0 となる範囲を求めると k < 1"
+  "sample": "判別式 D > 0 となる範囲を求めると k < 25"
  },
  {
   "key": "unit:math2-complex:tpl:vietasum:text",
@@ -7525,7 +7517,7 @@
   "kind": "問題文",
   "ko": "이차방정식 {eq} 의 두 해를 α, β라 할 때, α + β의 값은?",
   "ja": "2次方程式 {eq} の2つの解を α, β とするとき、α + β の値は?",
-  "sample": "2次方程式 x² − 2x − 3 = 0 の2つの解を α, β とするとき、α + β の値は?"
+  "sample": "2次方程式 x² − 5x − 3 = 0 の2つの解を α, β とするとき、α + β の値は?"
  },
  {
   "key": "unit:math2-complex:tpl:vietasum:explain",
@@ -7533,7 +7525,7 @@
   "kind": "解説",
   "ko": "ax² + bx + c = 0 일 때 α + β = −b/a. 부호에 주의하면 {answer}",
   "ja": "ax² + bx + c = 0 のとき α + β = −b/a。符号に注意して {answer}",
-  "sample": "ax² + bx + c = 0 のとき α + β = −b/a。符号に注意して 2"
+  "sample": "ax² + bx + c = 0 のとき α + β = −b/a。符号に注意して 5"
  },
  {
   "key": "unit:math2-complex:tpl:vietaprod:text",
@@ -7541,7 +7533,7 @@
   "kind": "問題文",
   "ko": "이차방정식 {eq} 의 두 해를 α, β라 할 때, αβ의 값은?",
   "ja": "2次方程式 {eq} の2つの解を α, β とするとき、αβ の値は?",
-  "sample": "2次方程式 3x² − 2x − 7 = 0 の2つの解を α, β とするとき、αβ の値は?"
+  "sample": "2次方程式 3x² + 2x + 4 = 0 の2つの解を α, β とするとき、αβ の値は?"
  },
  {
   "key": "unit:math2-complex:tpl:vietaprod:explain",
@@ -7549,7 +7541,7 @@
   "kind": "解説",
   "ko": "ax² + bx + c = 0 일 때 αβ = c/a. {answer}",
   "ja": "ax² + bx + c = 0 のとき αβ = c/a。{answer}",
-  "sample": "ax² + bx + c = 0 のとき αβ = c/a。−7/3"
+  "sample": "ax² + bx + c = 0 のとき αβ = c/a。4/3"
  },
  {
   "key": "unit:math2-complex:tpl:vietasq:text",
@@ -7557,7 +7549,7 @@
   "kind": "問題文",
   "ko": "이차방정식 {eq} 의 두 해를 α, β라 할 때, α² + β²의 값은?",
   "ja": "2次方程式 {eq} の2つの解を α, β とするとき、α² + β² の値は?",
-  "sample": "2次方程式 x² − 2x − 1 = 0 の2つの解を α, β とするとき、α² + β² の値は?"
+  "sample": "2次方程式 x² + 3x + 3 = 0 の2つの解を α, β とするとき、α² + β² の値は?"
  },
  {
   "key": "unit:math2-complex:tpl:vietasq:explain",
@@ -7565,7 +7557,7 @@
   "kind": "解説",
   "ko": "α² + β² = (α + β)² − 2αβ 에 대입하면 {answer}",
   "ja": "α² + β² = (α + β)² − 2αβ に代入して {answer}",
-  "sample": "α² + β² = (α + β)² − 2αβ に代入して 6"
+  "sample": "α² + β² = (α + β)² − 2αβ に代入して 3"
  },
  {
   "key": "unit:math2-complex:tpl:remthm:text",
@@ -7573,7 +7565,7 @@
   "kind": "問題文",
   "ko": "P(x) = {expr} 을 {div} 로 나눈 나머지는?",
   "ja": "P(x) = {expr} を {div} で割ったときの余りは?",
-  "sample": "P(x) = x³ + 2x² − 3x − 2 を x − 2 で割ったときの余りは?"
+  "sample": "P(x) = x³ + x² − 6x + 2 を x + 2 で割ったときの余りは?"
  },
  {
   "key": "unit:math2-complex:tpl:remthm:explain",
@@ -7581,7 +7573,7 @@
   "kind": "解説",
   "ko": "나머지정리에 의해 x − k 로 나눈 나머지는 P(k). 대입하면 {answer}",
   "ja": "剰余の定理より、x − k で割った余りは P(k)。代入して {answer}",
-  "sample": "剰余の定理より、x − k で割った余りは P(k)。代入して 8"
+  "sample": "剰余の定理より、x − k で割った余りは P(k)。代入して 10"
  },
  {
   "key": "unit:math2-complex:tpl:factthm:text",
@@ -7589,7 +7581,7 @@
   "kind": "問題文",
   "ko": "{expr} 이 {div} 로 나누어떨어질 때, a의 값은?",
   "ja": "{expr} が {div} で割り切れるとき、a の値は?",
-  "sample": "x³ + ax² + 2x + 1 が x − 1 で割り切れるとき、a の値は?"
+  "sample": "x³ + ax² + 6x − 24 が x − 2 で割り切れるとき、a の値は?"
  },
  {
   "key": "unit:math2-complex:tpl:factthm:explain",
@@ -7597,7 +7589,7 @@
   "kind": "解説",
   "ko": "인수정리에 의해 x − k 로 나누어떨어지면 P(k) = 0. 이것을 풀면 a = {answer}",
   "ja": "因数定理より、x − k で割り切れるとき P(k) = 0。これを解いて a = {answer}",
-  "sample": "因数定理より、x − k で割り切れるとき P(k) = 0。これを解いて a = −4"
+  "sample": "因数定理より、x − k で割り切れるとき P(k) = 0。これを解いて a = 1"
  },
  {
   "key": "unit:math2-complex:tpl:higheq:text",
@@ -7605,7 +7597,7 @@
   "kind": "問題文",
   "ko": "삼차방정식 {eq} 의 해는?",
   "ja": "3次方程式 {eq} の解は?",
-  "sample": "3次方程式 x³ − 3x² − 10x + 24 = 0 の解は?"
+  "sample": "3次方程式 x³ − 3x² + 2x = 0 の解は?"
  },
  {
   "key": "unit:math2-complex:tpl:higheq:explain",
@@ -7613,7 +7605,7 @@
   "kind": "解説",
   "ko": "P(k) = 0 이 되는 k를 하나 찾아 x − k 로 나누고, 남은 이차식을 풀면 {answer}",
   "ja": "P(k) = 0 となる k を1つ見つけて x − k で割り、残りの2次式を解くと {answer}",
-  "sample": "P(k) = 0 となる k を1つ見つけて x − k で割り、残りの2次式を解くと x = −3, 2, 4"
+  "sample": "P(k) = 0 となる k を1つ見つけて x − k で割り、残りの2次式を解くと x = 0, 1, 2"
  },
  {
   "key": "unit:math2-complex:chain:chain-vieta:intro",
@@ -7621,7 +7613,7 @@
   "kind": "連続技の前文",
   "ko": "이차방정식 {eq} 의 두 해를 α, β라 한다.",
   "ja": "2次方程式 {eq} の2つの解を α, β とする。",
-  "sample": "2次方程式 x² + x − 1 = 0 の2つの解を α, β とする。"
+  "sample": "2次方程式 x² − 5x + 5 = 0 の2つの解を α, β とする。"
  },
  {
   "key": "unit:math2-complex:chain:chain-vieta:step1:sum",
@@ -7645,7 +7637,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "α + β = −b/a 이므로 {answer}",
   "ja": "α + β = −b/a より {answer}",
-  "sample": "α + β = −b/a より −1"
+  "sample": "α + β = −b/a より 5"
  },
  {
   "key": "unit:math2-complex:chain:chain-vieta:step2:sum",
@@ -7669,7 +7661,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "αβ = c/a 이므로 {answer}",
   "ja": "αβ = c/a より {answer}",
-  "sample": "αβ = c/a より −1"
+  "sample": "αβ = c/a より 5"
  },
  {
   "key": "unit:math2-complex:chain:chain-vieta:step3:sum",
@@ -7693,7 +7685,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}",
   "ja": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}",
-  "sample": "(α + β)² − 2αβ = (−1)² − 2 × (−1) = 3"
+  "sample": "(α + β)² − 2αβ = (5)² − 2 × (5) = 15"
  },
  {
   "key": "unit:math2-complex:chain:chain-cubic:intro",
@@ -7701,7 +7693,7 @@
   "kind": "連続技の前文",
   "ko": "P(x) = {expr} 에 대하여 답하시오.",
   "ja": "P(x) = {expr} について答えよ。",
-  "sample": "P(x) = x³ + 8x² + 19x + 12 について答えよ。"
+  "sample": "P(x) = x³ + 5x² − 2x − 24 について答えよ。"
  },
  {
   "key": "unit:math2-complex:chain:chain-cubic:step1:sum",
@@ -7717,7 +7709,7 @@
   "kind": "連続技 1問目",
   "ko": "P(x)를 {div} 로 나눈 나머지는?",
   "ja": "P(x) を {div} で割ったときの余りは?",
-  "sample": "P(x) を x + 2 で割ったときの余りは?"
+  "sample": "P(x) を x − 5 で割ったときの余りは?"
  },
  {
   "key": "unit:math2-complex:chain:chain-cubic:step1:explain",
@@ -7725,7 +7717,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "나머지정리에 의해 대입하면 {answer}",
   "ja": "剰余の定理より、代入して {answer}",
-  "sample": "剰余の定理より、代入して −2"
+  "sample": "剰余の定理より、代入して 216"
  },
  {
   "key": "unit:math2-complex:chain:chain-cubic:step2:sum",
@@ -7773,7 +7765,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "세 해 중에서 가장 큰 것은 {answer}",
   "ja": "3つの解のうち最大のものは {answer}",
-  "sample": "3つの解のうち最大のものは −1"
+  "sample": "3つの解のうち最大のものは 2"
  },
  {
   "key": "unit:math2-coord:name",
@@ -7877,7 +7869,7 @@
   "kind": "問題文",
   "ko": "두 점 A{A}, B{B} 사이의 거리는?",
   "ja": "2点 A{A}, B{B} の間の距離は?",
-  "sample": "2点 A(2, 0), B(−4, 8) の間の距離は?"
+  "sample": "2点 A(−4, −2), B(−7, −6) の間の距離は?"
  },
  {
   "key": "unit:math2-coord:tpl:dist:explain",
@@ -7885,7 +7877,7 @@
   "kind": "解説",
   "ko": "x좌표의 차와 y좌표의 차를 각각 제곱해서 더하고 제곱근을 구하면 {answer}",
   "ja": "x 座標の差と y 座標の差をそれぞれ2乗して足し、その平方根をとると {answer}",
-  "sample": "x 座標の差と y 座標の差をそれぞれ2乗して足し、その平方根をとると 10"
+  "sample": "x 座標の差と y 座標の差をそれぞれ2乗して足し、その平方根をとると 5"
  },
  {
   "key": "unit:math2-coord:tpl:dist2:text",
@@ -7893,7 +7885,7 @@
   "kind": "問題文",
   "ko": "두 점 A{A}, B{B} 사이의 거리는?",
   "ja": "2点 A{A}, B{B} の間の距離は?",
-  "sample": "2点 A(1, 0), B(0, −2) の間の距離は?"
+  "sample": "2点 A(−2, 4), B(−4, 6) の間の距離は?"
  },
  {
   "key": "unit:math2-coord:tpl:dist2:explain",
@@ -7901,7 +7893,7 @@
   "kind": "解説",
   "ko": "√((x의 차)² + (y의 차)²) = {answer}",
   "ja": "√((x の差)² + (y の差)²) = {answer}",
-  "sample": "√((x の差)² + (y の差)²) = √5"
+  "sample": "√((x の差)² + (y の差)²) = 2√2"
  },
  {
   "key": "unit:math2-coord:tpl:divin:text",
@@ -7909,7 +7901,7 @@
   "kind": "問題文",
   "ko": "두 점 A{A}, B{B}를 이은 선분 AB를 {m} : {n}으로 내분하는 점의 좌표는?",
   "ja": "2点 A{A}, B{B} を結ぶ線分 AB を {m} : {n} に内分する点の座標は?",
-  "sample": "2点 A(3, −3), B(−3, −3) を結ぶ線分 AB を 1 : 2 に内分する点の座標は?"
+  "sample": "2点 A(1, −1), B(1, 7) を結ぶ線分 AB を 3 : 1 に内分する点の座標は?"
  },
  {
   "key": "unit:math2-coord:tpl:divin:explain",
@@ -7917,7 +7909,7 @@
   "kind": "解説",
   "ko": "내분점은 (n×A + m×B) ÷ (m + n). A에 n, B에 m을 곱합니다. {answer}",
   "ja": "内分点は ((n×A + m×B) ÷ (m + n))。A に n、B に m を掛ける。{answer}",
-  "sample": "内分点は ((n×A + m×B) ÷ (m + n))。A に n、B に m を掛ける。(1, −3)"
+  "sample": "内分点は ((n×A + m×B) ÷ (m + n))。A に n、B に m を掛ける。(1, 5)"
  },
  {
   "key": "unit:math2-coord:tpl:divout:text",
@@ -7925,7 +7917,7 @@
   "kind": "問題文",
   "ko": "두 점 A{A}, B{B}를 이은 선분 AB를 {m} : {n}으로 외분하는 점의 좌표는?",
   "ja": "2点 A{A}, B{B} を結ぶ線分 AB を {m} : {n} に外分する点の座標は?",
-  "sample": "2点 A(5, −1), B(5, 1) を結ぶ線分 AB を 3 : 1 に外分する点の座標は?"
+  "sample": "2点 A(0, −2), B(1, 0) を結ぶ線分 AB を 2 : 1 に外分する点の座標は?"
  },
  {
   "key": "unit:math2-coord:tpl:divout:explain",
@@ -7933,7 +7925,7 @@
   "kind": "解説",
   "ko": "외분점은 (−n×A + m×B) ÷ (m − n). {answer}",
   "ja": "外分点は (−n×A + m×B) ÷ (m − n)。{answer}",
-  "sample": "外分点は (−n×A + m×B) ÷ (m − n)。(5, 2)"
+  "sample": "外分点は (−n×A + m×B) ÷ (m − n)。(2, 2)"
  },
  {
   "key": "unit:math2-coord:tpl:centroid2:text",
@@ -7941,7 +7933,7 @@
   "kind": "問題文",
   "ko": "세 점 A{A}, B{B}, C{C}를 꼭짓점으로 하는 삼각형의 무게중심의 좌표는?",
   "ja": "3点 A{A}, B{B}, C{C} を頂点とする三角形の重心の座標は?",
-  "sample": "3点 A(4, 6), B(−5, 2), C(−2, 1) を頂点とする三角形の重心の座標は?"
+  "sample": "3点 A(5, −2), B(1, −5), C(3, −2) を頂点とする三角形の重心の座標は?"
  },
  {
   "key": "unit:math2-coord:tpl:centroid2:explain",
@@ -7949,7 +7941,7 @@
   "kind": "解説",
   "ko": "세 꼭짓점의 좌표를 더해서 3으로 나누면 {answer}",
   "ja": "3つの頂点の座標を足して 3 で割ると {answer}",
-  "sample": "3つの頂点の座標を足して 3 で割ると (−1, 3)"
+  "sample": "3つの頂点の座標を足して 3 で割ると (3, −3)"
  },
  {
   "key": "unit:math2-coord:tpl:lineslope:text",
@@ -7957,7 +7949,7 @@
   "kind": "問題文",
   "ko": "점 {A}를 지나고 기울기가 {m}인 직선의 방정식은?",
   "ja": "点 {A} を通り、傾きが {m} の直線の方程式は?",
-  "sample": "点 (−1, 0) を通り、傾きが 3 の直線の方程式は?"
+  "sample": "点 (−4, 5) を通り、傾きが −1 の直線の方程式は?"
  },
  {
   "key": "unit:math2-coord:tpl:lineslope:explain",
@@ -7965,7 +7957,7 @@
   "kind": "解説",
   "ko": "y − y₁ = m(x − x₁) 에 대입해서 정리하면 {answer}",
   "ja": "y − y₁ = m(x − x₁) に代入して整理すると {answer}",
-  "sample": "y − y₁ = m(x − x₁) に代入して整理すると y = 3x + 3"
+  "sample": "y − y₁ = m(x − x₁) に代入して整理すると y = −x + 1"
  },
  {
   "key": "unit:math2-coord:tpl:linetwo:text",
@@ -7973,7 +7965,7 @@
   "kind": "問題文",
   "ko": "두 점 A{A}, B{B}를 지나는 직선의 방정식은?",
   "ja": "2点 A{A}, B{B} を通る直線の方程式は?",
-  "sample": "2点 A(−3, −2), B(−4, −5) を通る直線の方程式は?"
+  "sample": "2点 A(−1, −2), B(1, −6) を通る直線の方程式は?"
  },
  {
   "key": "unit:math2-coord:tpl:linetwo:explain",
@@ -7981,7 +7973,7 @@
   "kind": "解説",
   "ko": "기울기는 (y의 증가량) ÷ (x의 증가량). 한 점을 대입하면 {answer}",
   "ja": "傾きは (y の増加量) ÷ (x の増加量)。1点を代入して {answer}",
-  "sample": "傾きは (y の増加量) ÷ (x の増加量)。1点を代入して y = 3x + 7"
+  "sample": "傾きは (y の増加量) ÷ (x の増加量)。1点を代入して y = −2x − 4"
  },
  {
   "key": "unit:math2-coord:tpl:para:text",
@@ -7989,7 +7981,7 @@
   "kind": "問題文",
   "ko": "직선 {line} 에 평행한 직선의 기울기는?",
   "ja": "直線 {line} に平行な直線の傾きは?",
-  "sample": "直線 4x + 5y − 1 = 0 に平行な直線の傾きは?"
+  "sample": "直線 −4x − 5y − 7 = 0 に平行な直線の傾きは?"
  },
  {
   "key": "unit:math2-coord:tpl:para:explain",
@@ -8005,7 +7997,7 @@
   "kind": "問題文",
   "ko": "직선 {line} 에 수직인 직선의 기울기는?",
   "ja": "直線 {line} に垂直な直線の傾きは?",
-  "sample": "直線 5x − 4y + 2 = 0 に垂直な直線の傾きは?"
+  "sample": "直線 −3x + 5y − 9 = 0 に垂直な直線の傾きは?"
  },
  {
   "key": "unit:math2-coord:tpl:perp:explain",
@@ -8013,7 +8005,7 @@
   "kind": "解説",
   "ko": "수직인 두 직선의 기울기의 곱은 −1. {answer}",
   "ja": "垂直な2直線の傾きの積は −1。{answer}",
-  "sample": "垂直な2直線の傾きの積は −1。−4/5"
+  "sample": "垂直な2直線の傾きの積は −1。−5/3"
  },
  {
   "key": "unit:math2-coord:tpl:pdist:text",
@@ -8021,7 +8013,7 @@
   "kind": "問題文",
   "ko": "점 {P}와 직선 {line} 사이의 거리는?",
   "ja": "点 {P} と直線 {line} の距離は?",
-  "sample": "点 (−2, 2) と直線 −6x + 8y − 9 = 0 の距離は?"
+  "sample": "点 (−2, −2) と直線 −5x − 12y − 4 = 0 の距離は?"
  },
  {
   "key": "unit:math2-coord:tpl:pdist:explain",
@@ -8029,7 +8021,7 @@
   "kind": "解説",
   "ko": "|ax₁ + by₁ + c| ÷ √(a² + b²) 에 대입하면 {answer}",
   "ja": "|ax₁ + by₁ + c| ÷ √(a² + b²) に代入して {answer}",
-  "sample": "|ax₁ + by₁ + c| ÷ √(a² + b²) に代入して 19/10"
+  "sample": "|ax₁ + by₁ + c| ÷ √(a² + b²) に代入して 30/13"
  },
  {
   "key": "unit:math2-coord:tpl:center:text",
@@ -8037,7 +8029,7 @@
   "kind": "問題文",
   "ko": "원 {eq} 의 중심의 좌표는?",
   "ja": "円 {eq} の中心の座標は?",
-  "sample": "円 x² + y² − 2x − 2y + 1 = 0 の中心の座標は?"
+  "sample": "円 x² + y² − 4x − 4y − 8 = 0 の中心の座標は?"
  },
  {
   "key": "unit:math2-coord:tpl:center:explain",
@@ -8045,7 +8037,7 @@
   "kind": "解説",
   "ko": "x와 y에 대해 각각 완전제곱식으로 고치면 중심은 {answer}",
   "ja": "x と y についてそれぞれ平方完成すると、中心は {answer}",
-  "sample": "x と y についてそれぞれ平方完成すると、中心は (1, 1)"
+  "sample": "x と y についてそれぞれ平方完成すると、中心は (2, 2)"
  },
  {
   "key": "unit:math2-coord:tpl:radius:text",
@@ -8053,7 +8045,7 @@
   "kind": "問題文",
   "ko": "원 {eq} 의 반지름은?",
   "ja": "円 {eq} の半径は?",
-  "sample": "円 x² + y² + 6x + 4y + 4 = 0 の半径は?"
+  "sample": "円 x² + y² + 10x − 6y + 9 = 0 の半径は?"
  },
  {
   "key": "unit:math2-coord:tpl:radius:explain",
@@ -8061,7 +8053,7 @@
   "kind": "解説",
   "ko": "완전제곱식으로 고쳐 (x − a)² + (y − b)² = r² 꼴로 만들면 반지름은 {answer}",
   "ja": "平方完成して (x − a)² + (y − b)² = r² の形にすると、半径は {answer}",
-  "sample": "平方完成して (x − a)² + (y − b)² = r² の形にすると、半径は 3"
+  "sample": "平方完成して (x − a)² + (y − b)² = r² の形にすると、半径は 5"
  },
  {
   "key": "unit:math2-coord:tpl:chord:text",
@@ -8069,7 +8061,7 @@
   "kind": "問題文",
   "ko": "원 {circle} 과 직선 {line} 이 만나서 생기는 현의 길이는?",
   "ja": "円 {circle} と直線 {line} が交わってできる弦の長さは?",
-  "sample": "円 x² + y² = 25 と直線 3x + 4y = −15 が交わってできる弦の長さは?"
+  "sample": "円 x² + y² = 100 と直線 4x − 3y = −30 が交わってできる弦の長さは?"
  },
  {
   "key": "unit:math2-coord:tpl:chord:explain",
@@ -8077,7 +8069,7 @@
   "kind": "解説",
   "ko": "중심에서 직선까지의 거리 d를 구하고, 현의 길이 = 2√(r² − d²) = {answer}",
   "ja": "中心から直線までの距離 d を求め、弦の長さ = 2√(r² − d²) = {answer}",
-  "sample": "中心から直線までの距離 d を求め、弦の長さ = 2√(r² − d²) = 8"
+  "sample": "中心から直線までの距離 d を求め、弦の長さ = 2√(r² − d²) = 16"
  },
  {
   "key": "unit:math2-coord:tpl:region:text",
@@ -8085,7 +8077,7 @@
   "kind": "問題文",
   "ko": "다음 점 중에서 부등식 {ineq} 이 나타내는 영역에 있는 점은?",
   "ja": "次の点のうち、不等式 {ineq} の表す領域にある点は?",
-  "sample": "次の点のうち、不等式 y < 2x − 1 の表す領域にある点は?"
+  "sample": "次の点のうち、不等式 y < x − 3 の表す領域にある点は?"
  },
  {
   "key": "unit:math2-coord:tpl:region:explain",
@@ -8093,7 +8085,7 @@
   "kind": "解説",
   "ko": "좌표를 대입해서 부등식이 성립하는지 확인합니다. 경계선 위의 점은 포함되지 않습니다. {answer}",
   "ja": "座標を代入して不等式が成り立つか確かめる。境界線上の点は含まれない。{answer}",
-  "sample": "座標を代入して不等式が成り立つか確かめる。境界線上の点は含まれない。(0, −4)"
+  "sample": "座標を代入して不等式が成り立つか確かめる。境界線上の点は含まれない。(4, 0)"
  },
  {
   "key": "unit:math2-coord:chain:chain-chord:intro",
@@ -8101,7 +8093,7 @@
   "kind": "連続技の前文",
   "ko": "원 {circle} (중심 C)과 직선 {line} 에 대하여 답하시오.",
   "ja": "円 {circle}(中心 C)と直線 {line} について答えよ。",
-  "sample": "円 (x + 2)² + (y + 3)² = 100(中心 C)と直線 4x + 3y + 57 = 0 について答えよ。"
+  "sample": "円 (x − 2)² + (y + 1)² = 169(中心 C)と直線 3x + 4y + 58 = 0 について答えよ。"
  },
  {
   "key": "unit:math2-coord:chain:chain-chord:step1:sum",
@@ -8125,7 +8117,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "우변은 r². 반지름은 {answer}",
   "ja": "右辺は r²。半径は {answer}",
-  "sample": "右辺は r²。半径は 10"
+  "sample": "右辺は r²。半径は 13"
  },
  {
   "key": "unit:math2-coord:chain:chain-chord:step2:sum",
@@ -8149,7 +8141,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "점과 직선 사이의 거리 공식에 중심의 좌표를 대입하면 {answer}",
   "ja": "点と直線の距離の公式に中心の座標を代入して {answer}",
-  "sample": "点と直線の距離の公式に中心の座標を代入して 8"
+  "sample": "点と直線の距離の公式に中心の座標を代入して 12"
  },
  {
   "key": "unit:math2-coord:chain:chain-chord:step3:sum",
@@ -8173,7 +8165,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "2√(r² − d²) = 2√({a1}² − {a2}²) = {answer}",
   "ja": "2√(r² − d²) = 2√({a1}² − {a2}²) = {answer}",
-  "sample": "2√(r² − d²) = 2√(10² − 8²) = 12"
+  "sample": "2√(r² − d²) = 2√(13² − 12²) = 10"
  },
  {
   "key": "unit:math2-coord:chain:chain-line:intro",
@@ -8181,7 +8173,7 @@
   "kind": "連続技の前文",
   "ko": "두 점 A{A}, B{B}를 지나는 직선에 대하여 답하시오.",
   "ja": "2点 A{A}, B{B} を通る直線について答えよ。",
-  "sample": "2点 A(1, −6), B(−3, 6) を通る直線について答えよ。"
+  "sample": "2点 A(2, 3), B(0, −3) を通る直線について答えよ。"
  },
  {
   "key": "unit:math2-coord:chain:chain-line:step1:sum",
@@ -8205,7 +8197,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "(y의 증가량) ÷ (x의 증가량) = {answer}",
   "ja": "(y の増加量) ÷ (x の増加量) = {answer}",
-  "sample": "(y の増加量) ÷ (x の増加量) = −3"
+  "sample": "(y の増加量) ÷ (x の増加量) = 3"
  },
  {
   "key": "unit:math2-coord:chain:chain-line:step2:sum",
@@ -8229,7 +8221,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "y = {a1}x + b 에 점 A를 대입하면 b = {answer}",
   "ja": "y = {a1}x + b に点 A を代入して b = {answer}",
-  "sample": "y = −3x + b に点 A を代入して b = −3"
+  "sample": "y = 3x + b に点 A を代入して b = −3"
  },
  {
   "key": "unit:math2-coord:chain:chain-line:step3:sum",
@@ -8253,7 +8245,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "y = 0 을 대입해서 풀면 x = {answer}",
   "ja": "y = 0 を代入して解くと x = {answer}",
-  "sample": "y = 0 を代入して解くと x = −1"
+  "sample": "y = 0 を代入して解くと x = 1"
  },
  {
   "key": "unit:math2-trig:name",
@@ -8357,7 +8349,7 @@
   "kind": "問題文",
   "ko": "{deg}°를 호도법으로 나타내면?",
   "ja": "{deg}° を弧度法で表すと?",
-  "sample": "15° を弧度法で表すと?"
+  "sample": "90° を弧度法で表すと?"
  },
  {
   "key": "unit:math2-trig:tpl:torad:explain",
@@ -8365,7 +8357,7 @@
   "kind": "解説",
   "ko": "180° = π 이므로 π/180 을 곱하면 {answer}",
   "ja": "180° = π なので、π/180 を掛けて {answer}",
-  "sample": "180° = π なので、π/180 を掛けて π/12"
+  "sample": "180° = π なので、π/180 を掛けて π/2"
  },
  {
   "key": "unit:math2-trig:tpl:todeg:text",
@@ -8373,7 +8365,7 @@
   "kind": "問題文",
   "ko": "{rad} 를 도(°)로 나타내면?",
   "ja": "{rad} を度数法で表すと?",
-  "sample": "π/12 を度数法で表すと?"
+  "sample": "π/2 を度数法で表すと?"
  },
  {
   "key": "unit:math2-trig:tpl:todeg:explain",
@@ -8381,7 +8373,7 @@
   "kind": "解説",
   "ko": "π = 180° 로 바꾸면 {answer}",
   "ja": "π = 180° とおきかえて {answer}",
-  "sample": "π = 180° とおきかえて 15°"
+  "sample": "π = 180° とおきかえて 90°"
  },
  {
   "key": "unit:math2-trig:tpl:arc:text",
@@ -8389,7 +8381,7 @@
   "kind": "問題文",
   "ko": "반지름 {r}, 중심각 {theta} 인 부채꼴의 호의 길이는?",
   "ja": "半径 {r}、中心角 {theta} の扇形の弧の長さは?",
-  "sample": "半径 4、中心角 2π/3 の扇形の弧の長さは?"
+  "sample": "半径 8、中心角 5π/6 の扇形の弧の長さは?"
  },
  {
   "key": "unit:math2-trig:tpl:arc:explain",
@@ -8397,7 +8389,7 @@
   "kind": "解説",
   "ko": "호의 길이 l = rθ = {answer}",
   "ja": "弧の長さ l = rθ = {answer}",
-  "sample": "弧の長さ l = rθ = 8π/3"
+  "sample": "弧の長さ l = rθ = 20π/3"
  },
  {
   "key": "unit:math2-trig:tpl:sarea:text",
@@ -8405,7 +8397,7 @@
   "kind": "問題文",
   "ko": "반지름 {r}, 중심각 {theta} 인 부채꼴의 넓이는?",
   "ja": "半径 {r}、中心角 {theta} の扇形の面積は?",
-  "sample": "半径 6、中心角 π/6 の扇形の面積は?"
+  "sample": "半径 6、中心角 π/2 の扇形の面積は?"
  },
  {
   "key": "unit:math2-trig:tpl:sarea:explain",
@@ -8413,7 +8405,7 @@
   "kind": "解説",
   "ko": "넓이 S = r²θ ÷ 2 = {answer}",
   "ja": "面積 S = r²θ ÷ 2 = {answer}",
-  "sample": "面積 S = r²θ ÷ 2 = 3π"
+  "sample": "面積 S = r²θ ÷ 2 = 9π"
  },
  {
   "key": "unit:math2-trig:tpl:trigval:text",
@@ -8421,7 +8413,7 @@
   "kind": "問題文",
   "ko": "{expr} 의 값은?",
   "ja": "{expr} の値は?",
-  "sample": "tan(3π/4) の値は?"
+  "sample": "cos(7π/3) の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:trigval:explain",
@@ -8429,7 +8421,7 @@
   "kind": "解説",
   "ko": "단위원에서 각 {label} 의 점 P를 잡고 좌표의 부호에 주의하면 {answer}",
   "ja": "単位円で角 {label} の点 P をとり、座標の符号に注意すると {answer}",
-  "sample": "単位円で角 3π/4 の点 P をとり、座標の符号に注意すると −1"
+  "sample": "単位円で角 7π/3 の点 P をとり、座標の符号に注意すると 1/2"
  },
  {
   "key": "unit:math2-trig:tpl:period:text",
@@ -8437,7 +8429,7 @@
   "kind": "問題文",
   "ko": "함수 {expr} 의 주기는?",
   "ja": "関数 {expr} の周期は?",
-  "sample": "関数 y = −3cos(2x/3) の周期は?"
+  "sample": "関数 y = 3cos(x/2) の周期は?"
  },
  {
   "key": "unit:math2-trig:tpl:period:explain",
@@ -8445,7 +8437,7 @@
   "kind": "解説",
   "ko": "y = sin kx, y = cos kx 의 주기는 2π ÷ k. {answer}",
   "ja": "y = sin kx, y = cos kx の周期は 2π ÷ k。{answer}",
-  "sample": "y = sin kx, y = cos kx の周期は 2π ÷ k。3π"
+  "sample": "y = sin kx, y = cos kx の周期は 2π ÷ k。4π"
  },
  {
   "key": "unit:math2-trig:tpl:trigmax:text",
@@ -8453,7 +8445,7 @@
   "kind": "問題文",
   "ko": "함수 {expr} 의 최댓값은?",
   "ja": "関数 {expr} の最大値は?",
-  "sample": "関数 y = −3cos 3x + 4 の最大値は?"
+  "sample": "関数 y = −3sin(2x/3) + 2 の最大値は?"
  },
  {
   "key": "unit:math2-trig:tpl:trigmax:explain",
@@ -8461,7 +8453,7 @@
   "kind": "解説",
   "ko": "sin, cos 은 −1 부터 1 까지 움직입니다. 계수의 절댓값에 상수를 더하면 {answer}",
   "ja": "sin, cos は −1 から 1 まで動く。係数の絶対値に定数を足して {answer}",
-  "sample": "sin, cos は −1 から 1 まで動く。係数の絶対値に定数を足して 7"
+  "sample": "sin, cos は −1 から 1 まで動く。係数の絶対値に定数を足して 5"
  },
  {
   "key": "unit:math2-trig:tpl:trigeq2:text",
@@ -8469,7 +8461,7 @@
   "kind": "問題文",
   "ko": "0 ≦ θ < 2π 일 때, 방정식 {eq} 의 해는?",
   "ja": "0 ≦ θ < 2π のとき、方程式 {eq} の解は?",
-  "sample": "0 ≦ θ < 2π のとき、方程式 sin θ = −√2/2 の解は?"
+  "sample": "0 ≦ θ < 2π のとき、方程式 cos θ = −√2/2 の解は?"
  },
  {
   "key": "unit:math2-trig:tpl:trigeq2:explain",
@@ -8477,7 +8469,7 @@
   "kind": "解説",
   "ko": "단위원에서 그 값이 되는 점을 두 개 찾으면 {answer}",
   "ja": "単位円で、その値になる点を2つ見つけると {answer}",
-  "sample": "単位円で、その値になる点を2つ見つけると θ = 5π/4, 7π/4"
+  "sample": "単位円で、その値になる点を2つ見つけると θ = 3π/4, 5π/4"
  },
  {
   "key": "unit:math2-trig:tpl:addsin:text",
@@ -8485,7 +8477,7 @@
   "kind": "問題文",
   "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
   "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
-  "sample": "α, β は鋭角で sin α = 3/5, cos β = 12/13 のとき、sin(α + β) の値は?"
+  "sample": "α, β は鋭角で sin α = 5/13, cos β = 15/17 のとき、sin(α + β) の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:addsin:explain",
@@ -8493,7 +8485,7 @@
   "kind": "解説",
   "ko": "cos α 와 sin β 를 구한 뒤 sin α cos β + cos α sin β = {answer}",
   "ja": "cos α と sin β を求めてから sin α cos β + cos α sin β = {answer}",
-  "sample": "cos α と sin β を求めてから sin α cos β + cos α sin β = 56/65"
+  "sample": "cos α と sin β を求めてから sin α cos β + cos α sin β = 171/221"
  },
  {
   "key": "unit:math2-trig:tpl:subsin:text",
@@ -8501,7 +8493,7 @@
   "kind": "問題文",
   "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
   "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
-  "sample": "α, β は鋭角で sin α = 15/17, cos β = 4/5 のとき、sin(α − β) の値は?"
+  "sample": "α, β は鋭角で sin α = 8/17, cos β = 5/13 のとき、sin(α − β) の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:subsin:explain",
@@ -8509,7 +8501,7 @@
   "kind": "解説",
   "ko": "sin α cos β − cos α sin β = {answer}",
   "ja": "sin α cos β − cos α sin β = {answer}",
-  "sample": "sin α cos β − cos α sin β = 36/85"
+  "sample": "sin α cos β − cos α sin β = −140/221"
  },
  {
   "key": "unit:math2-trig:tpl:addcos:text",
@@ -8517,7 +8509,7 @@
   "kind": "問題文",
   "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
   "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
-  "sample": "α, β は鋭角で sin α = 4/5, cos β = 8/17 のとき、cos(α + β) の値は?"
+  "sample": "α, β は鋭角で sin α = 5/13, cos β = 3/5 のとき、cos(α + β) の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:addcos:explain",
@@ -8525,7 +8517,7 @@
   "kind": "解説",
   "ko": "cos α cos β − sin α sin β = {answer} (부호가 반대가 되는 것에 주의)",
   "ja": "cos α cos β − sin α sin β = {answer}(符号が逆になることに注意)",
-  "sample": "cos α cos β − sin α sin β = −36/85(符号が逆になることに注意)"
+  "sample": "cos α cos β − sin α sin β = 16/65(符号が逆になることに注意)"
  },
  {
   "key": "unit:math2-trig:tpl:subcos:text",
@@ -8533,7 +8525,7 @@
   "kind": "問題文",
   "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
   "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
-  "sample": "α, β は鋭角で sin α = 4/5, cos β = 12/13 のとき、cos(α − β) の値は?"
+  "sample": "α, β は鋭角で sin α = 12/13, cos β = 8/17 のとき、cos(α − β) の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:subcos:explain",
@@ -8541,7 +8533,7 @@
   "kind": "解説",
   "ko": "cos α cos β + sin α sin β = {answer}",
   "ja": "cos α cos β + sin α sin β = {answer}",
-  "sample": "cos α cos β + sin α sin β = 56/65"
+  "sample": "cos α cos β + sin α sin β = 220/221"
  },
  {
   "key": "unit:math2-trig:tpl:sin2:text",
@@ -8549,7 +8541,7 @@
   "kind": "問題文",
   "ko": "{range} 이고 sin θ = {sin} 일 때, sin 2θ의 값은?",
   "ja": "{range} で sin θ = {sin} のとき、sin 2θ の値は?",
-  "sample": "π/2 < θ < π で sin θ = 5/13 のとき、sin 2θ の値は?"
+  "sample": "π/2 < θ < π で sin θ = 4/5 のとき、sin 2θ の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:sin2:explain",
@@ -8557,7 +8549,7 @@
   "kind": "解説",
   "ko": "범위에서 cos θ 의 부호를 정하고, sin 2θ = 2 sin θ cos θ = {answer}",
   "ja": "範囲から cos θ の符号を決め、sin 2θ = 2 sin θ cos θ = {answer}",
-  "sample": "範囲から cos θ の符号を決め、sin 2θ = 2 sin θ cos θ = −120/169"
+  "sample": "範囲から cos θ の符号を決め、sin 2θ = 2 sin θ cos θ = −24/25"
  },
  {
   "key": "unit:math2-trig:tpl:cos2:text",
@@ -8565,7 +8557,7 @@
   "kind": "問題文",
   "ko": "{range} 이고 sin θ = {sin} 일 때, cos 2θ의 값은?",
   "ja": "{range} で sin θ = {sin} のとき、cos 2θ の値は?",
-  "sample": "0 < θ < π/2 で sin θ = 12/13 のとき、cos 2θ の値は?"
+  "sample": "π/2 < θ < π で sin θ = 5/13 のとき、cos 2θ の値は?"
  },
  {
   "key": "unit:math2-trig:tpl:cos2:explain",
@@ -8573,7 +8565,7 @@
   "kind": "解説",
   "ko": "cos 2θ = 1 − 2 sin² θ = {answer}",
   "ja": "cos 2θ = 1 − 2 sin² θ = {answer}",
-  "sample": "cos 2θ = 1 − 2 sin² θ = −119/169"
+  "sample": "cos 2θ = 1 − 2 sin² θ = 119/169"
  },
  {
   "key": "unit:math2-trig:tpl:compose:text",
@@ -8581,7 +8573,7 @@
   "kind": "問題文",
   "ko": "{expr} 의 최댓값은?",
   "ja": "{expr} の最大値は?",
-  "sample": "2sin θ + 4cos θ の最大値は?"
+  "sample": "5sin θ − 2cos θ の最大値は?"
  },
  {
   "key": "unit:math2-trig:tpl:compose:explain",
@@ -8589,7 +8581,7 @@
   "kind": "解説",
   "ko": "r sin(θ + α) 꼴로 합성하면 r = √(a² + b²). 최댓값은 {answer}",
   "ja": "r sin(θ + α) の形に合成すると r = √(a² + b²)。最大値は {answer}",
-  "sample": "r sin(θ + α) の形に合成すると r = √(a² + b²)。最大値は 2√5"
+  "sample": "r sin(θ + α) の形に合成すると r = √(a² + b²)。最大値は √29"
  },
  {
   "key": "unit:math2-trig:chain:chain-sector:intro",
@@ -8597,7 +8589,7 @@
   "kind": "連続技の前文",
   "ko": "반지름 {r}, 중심각 {deg}° 인 부채꼴에 대하여 답하시오.",
   "ja": "半径 {r}、中心角 {deg}° の扇形について答えよ。",
-  "sample": "半径 6、中心角 60° の扇形について答えよ。"
+  "sample": "半径 3、中心角 135° の扇形について答えよ。"
  },
  {
   "key": "unit:math2-trig:chain:chain-sector:step1:sum",
@@ -8621,7 +8613,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "{deg}° × π/180 = {answer}",
   "ja": "{deg}° × π/180 = {answer}",
-  "sample": "60° × π/180 = π/3"
+  "sample": "135° × π/180 = 3π/4"
  },
  {
   "key": "unit:math2-trig:chain:chain-sector:step2:sum",
@@ -8645,7 +8637,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "l = rθ = {r} × {a1} = {answer}",
   "ja": "l = rθ = {r} × {a1} = {answer}",
-  "sample": "l = rθ = 6 × π/3 = 2π"
+  "sample": "l = rθ = 3 × 3π/4 = 9π/4"
  },
  {
   "key": "unit:math2-trig:chain:chain-sector:step3:sum",
@@ -8669,7 +8661,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}",
   "ja": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}",
-  "sample": "S = rl ÷ 2 = 6 × 2π ÷ 2 = 6π"
+  "sample": "S = rl ÷ 2 = 3 × 9π/4 ÷ 2 = 27π/8"
  },
  {
   "key": "unit:math2-trig:chain:chain-double:intro",
@@ -8677,7 +8669,7 @@
   "kind": "連続技の前文",
   "ko": "π/2 < θ < π 이고 sin θ = {sin} 이라 한다.",
   "ja": "π/2 < θ < π で sin θ = {sin} とする。",
-  "sample": "π/2 < θ < π で sin θ = 15/17 とする。"
+  "sample": "π/2 < θ < π で sin θ = 3/5 とする。"
  },
  {
   "key": "unit:math2-trig:chain:chain-double:step1:sum",
@@ -8701,7 +8693,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "sin² θ + cos² θ = 1 이고 θ는 제2사분면이므로 cos θ < 0. {answer}",
   "ja": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0。{answer}",
-  "sample": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0。−8/17"
+  "sample": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0。−4/5"
  },
  {
   "key": "unit:math2-trig:chain:chain-double:step2:sum",
@@ -8725,7 +8717,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}",
   "ja": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}",
-  "sample": "2 sin θ cos θ = 2 × 15/17 × (−8/17) = −240/289"
+  "sample": "2 sin θ cos θ = 2 × 3/5 × (−4/5) = −24/25"
  },
  {
   "key": "unit:math2-trig:chain:chain-double:step3:sum",
@@ -8749,7 +8741,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "1 − 2 sin² θ = {answer}",
   "ja": "1 − 2 sin² θ = {answer}",
-  "sample": "1 − 2 sin² θ = −161/289"
+  "sample": "1 − 2 sin² θ = 7/25"
  },
  {
   "key": "unit:math2-explog:name",
@@ -8837,7 +8829,7 @@
   "kind": "問題文",
   "ko": "{expr} 을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "2³ × 2² ÷ 2⁵ を計算すると?"
+  "sample": "3² × 3² ÷ 3⁴ を計算すると?"
  },
  {
   "key": "unit:math2-explog:tpl:exprule:explain",
@@ -8853,7 +8845,7 @@
   "kind": "問題文",
   "ko": "{expr} 의 값은?",
   "ja": "{expr} の値は?",
-  "sample": "∛125 の値は?"
+  "sample": "∛8 の値は?"
  },
  {
   "key": "unit:math2-explog:tpl:root:explain",
@@ -8861,7 +8853,7 @@
   "kind": "解説",
   "ko": "몇 제곱하면 그 수가 되는지 생각하면 {answer}",
   "ja": "何乗するとその数になるかを考えて {answer}",
-  "sample": "何乗するとその数になるかを考えて 5"
+  "sample": "何乗するとその数になるかを考えて 2"
  },
  {
   "key": "unit:math2-explog:tpl:fracexp:text",
@@ -8885,7 +8877,7 @@
   "kind": "問題文",
   "ko": "방정식 {eq} 의 해는?",
   "ja": "方程式 {eq} の解は?",
-  "sample": "方程式 5ˣ⁻³ = 25 の解は?"
+  "sample": "方程式 2ˣ⁻¹ = 64 の解は?"
  },
  {
   "key": "unit:math2-explog:tpl:expeq:explain",
@@ -8893,7 +8885,7 @@
   "kind": "解説",
   "ko": "우변을 같은 밑의 거듭제곱으로 나타내고 지수끼리 비교하면 {answer}",
   "ja": "右辺を同じ底の累乗で表し、指数どうしを比べると {answer}",
-  "sample": "右辺を同じ底の累乗で表し、指数どうしを比べると x = 5"
+  "sample": "右辺を同じ底の累乗で表し、指数どうしを比べると x = 7"
  },
  {
   "key": "unit:math2-explog:tpl:expineq:text",
@@ -8901,7 +8893,7 @@
   "kind": "問題文",
   "ko": "부등식 {eq} 의 해는?",
   "ja": "不等式 {eq} の解は?",
-  "sample": "不等式 3ˣ > 81 の解は?"
+  "sample": "不等式 (1/5)ˣ < 1/125 の解は?"
  },
  {
   "key": "unit:math2-explog:tpl:expineq:explain",
@@ -8909,7 +8901,7 @@
   "kind": "解説",
   "ko": "밑이 1보다 작으면 부등호의 방향이 반대가 됩니다. {answer}",
   "ja": "底が 1 より小さいときは不等号の向きが逆になる。{answer}",
-  "sample": "底が 1 より小さいときは不等号の向きが逆になる。x > 4"
+  "sample": "底が 1 より小さいときは不等号の向きが逆になる。x > 3"
  },
  {
   "key": "unit:math2-explog:tpl:logval:text",
@@ -8917,7 +8909,7 @@
   "kind": "問題文",
   "ko": "{expr} 의 값은?",
   "ja": "{expr} の値は?",
-  "sample": "log₂ (1/4) の値は?"
+  "sample": "log₃ 27 の値は?"
  },
  {
   "key": "unit:math2-explog:tpl:logval:explain",
@@ -8925,7 +8917,7 @@
   "kind": "解説",
   "ko": "밑을 몇 제곱하면 진수가 되는지 생각하면 {answer}",
   "ja": "底を何乗すると真数になるかを考えて {answer}",
-  "sample": "底を何乗すると真数になるかを考えて −2"
+  "sample": "底を何乗すると真数になるかを考えて 3"
  },
  {
   "key": "unit:math2-explog:tpl:logbase:text",
@@ -8933,7 +8925,7 @@
   "kind": "問題文",
   "ko": "{expr} 의 값은?",
   "ja": "{expr} の値は?",
-  "sample": "log₈ 4 の値は?"
+  "sample": "log₂₇ 81 の値は?"
  },
  {
   "key": "unit:math2-explog:tpl:logbase:explain",
@@ -8941,7 +8933,7 @@
   "kind": "解説",
   "ko": "밑과 진수를 같은 수의 거듭제곱으로 나타내고 밑의 변환 공식을 쓰면 {answer}",
   "ja": "底と真数を同じ数の累乗で表し、底の変換公式を使うと {answer}",
-  "sample": "底と真数を同じ数の累乗で表し、底の変換公式を使うと 2/3"
+  "sample": "底と真数を同じ数の累乗で表し、底の変換公式を使うと 4/3"
  },
  {
   "key": "unit:math2-explog:tpl:logsum:text",
@@ -8949,7 +8941,7 @@
   "kind": "問題文",
   "ko": "{expr} 을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "log₁₄ 2 + log₁₄ 7 を計算すると?"
+  "sample": "log₁₅ 3 + log₁₅ 5 を計算すると?"
  },
  {
   "key": "unit:math2-explog:tpl:logsum:explain",
@@ -8965,7 +8957,7 @@
   "kind": "問題文",
   "ko": "{expr} 을 계산하면?",
   "ja": "{expr} を計算すると?",
-  "sample": "log₂ 24 − log₂ 3 を計算すると?"
+  "sample": "log₃ 63 − log₃ 7 を計算すると?"
  },
  {
   "key": "unit:math2-explog:tpl:logdiff:explain",
@@ -8973,7 +8965,7 @@
   "kind": "解説",
   "ko": "로그의 차는 진수의 몫의 로그. log M − log N = log (M/N) 이므로 {answer}",
   "ja": "対数の差は真数の商の対数。log M − log N = log (M/N) より {answer}",
-  "sample": "対数の差は真数の商の対数。log M − log N = log (M/N) より 3"
+  "sample": "対数の差は真数の商の対数。log M − log N = log (M/N) より 2"
  },
  {
   "key": "unit:math2-explog:tpl:logeq:text",
@@ -8981,7 +8973,7 @@
   "kind": "問題文",
   "ko": "방정식 {eq} 의 해는?",
   "ja": "方程式 {eq} の解は?",
-  "sample": "方程式 log₂ (x − 2) = 2 の解は?"
+  "sample": "方程式 log₃ (x + 5) = 2 の解は?"
  },
  {
   "key": "unit:math2-explog:tpl:logeq:explain",
@@ -8989,7 +8981,7 @@
   "kind": "解説",
   "ko": "로그의 정의에서 진수 = 밑의 거듭제곱. 이것을 풀면 {answer}",
   "ja": "log の定義から、真数 = 底の累乗。これを解いて {answer}",
-  "sample": "log の定義から、真数 = 底の累乗。これを解いて x = 6"
+  "sample": "log の定義から、真数 = 底の累乗。これを解いて x = 4"
  },
  {
   "key": "unit:math2-explog:tpl:logineq:text",
@@ -8997,7 +8989,7 @@
   "kind": "問題文",
   "ko": "부등식 {eq} 의 해는?",
   "ja": "不等式 {eq} の解は?",
-  "sample": "不等式 log₂ x < 4 の解は?"
+  "sample": "不等式 log₃ x < 3 の解は?"
  },
  {
   "key": "unit:math2-explog:tpl:logineq:explain",
@@ -9005,7 +8997,7 @@
   "kind": "解説",
   "ko": "진수는 양수(x > 0)라는 조건을 잊지 않습니다. {answer}",
   "ja": "真数は正(x > 0)という条件を忘れない。{answer}",
-  "sample": "真数は正(x > 0)という条件を忘れない。0 < x < 16"
+  "sample": "真数は正(x > 0)という条件を忘れない。0 < x < 27"
  },
  {
   "key": "unit:math2-explog:tpl:digits:text",
@@ -9013,7 +9005,7 @@
   "kind": "問題文",
   "ko": "{log} 이라 할 때, {power} 은 몇 자리 수인가?",
   "ja": "{log} とするとき、{power} は何桁の数か?",
-  "sample": "log₁₀ 2 = 0.3010 とするとき、2³³ は何桁の数か?"
+  "sample": "log₁₀ 3 = 0.4771 とするとき、3³⁸ は何桁の数か?"
  },
  {
   "key": "unit:math2-explog:tpl:digits:explain",
@@ -9021,7 +9013,7 @@
   "kind": "解説",
   "ko": "상용로그는 {n} × (위의 값). 그 정수 부분에 1을 더해서 {answer} 자리",
   "ja": "常用対数は {n} × {log} の右辺の値。その整数部分に 1 を足して {answer} 桁",
-  "sample": "常用対数は 33 × log₁₀ 2 = 0.3010 の右辺の値。その整数部分に 1 を足して 10 桁"
+  "sample": "常用対数は 38 × log₁₀ 3 = 0.4771 の右辺の値。その整数部分に 1 を足して 19 桁"
  },
  {
   "key": "unit:math2-explog:chain:chain-digits:intro",
@@ -9029,7 +9021,7 @@
   "kind": "連続技の前文",
   "ko": "{log} 이라 하고, {power} 에 대하여 답하시오.",
   "ja": "{log} として、{power} について答えよ。",
-  "sample": "log₁₀ 2 = 0.3010 として、2⁵⁰ について答えよ。"
+  "sample": "log₁₀ 2 = 0.3010 として、2¹⁰ について答えよ。"
  },
  {
   "key": "unit:math2-explog:chain:chain-digits:step1:sum",
@@ -9045,7 +9037,7 @@
   "kind": "連続技 1問目",
   "ko": "log₁₀ {power} 의 값은?",
   "ja": "log₁₀ {power} の値は?",
-  "sample": "log₁₀ 2⁵⁰ の値は?"
+  "sample": "log₁₀ 2¹⁰ の値は?"
  },
  {
   "key": "unit:math2-explog:chain:chain-digits:step1:explain",
@@ -9053,7 +9045,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "지수를 앞으로 꺼내서 {n} × 0.3010 = {answer}",
   "ja": "指数を前に出して {n} × 0.3010 = {answer}",
-  "sample": "指数を前に出して 50 × 0.3010 = 15.05"
+  "sample": "指数を前に出して 10 × 0.3010 = 3.01"
  },
  {
   "key": "unit:math2-explog:chain:chain-digits:step2:sum",
@@ -9077,7 +9069,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "{a1} 의 정수 부분은 {answer}",
   "ja": "{a1} の整数部分は {answer}",
-  "sample": "15.05 の整数部分は 15"
+  "sample": "3.01 の整数部分は 3"
  },
  {
   "key": "unit:math2-explog:chain:chain-digits:step3:sum",
@@ -9093,7 +9085,7 @@
   "kind": "連続技 3問目",
   "ko": "{power} 은 몇 자리 수인가?",
   "ja": "{power} は何桁の数か?",
-  "sample": "2⁵⁰ は何桁の数か?"
+  "sample": "2¹⁰ は何桁の数か?"
  },
  {
   "key": "unit:math2-explog:chain:chain-digits:step3:explain",
@@ -9101,7 +9093,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "10의 {a2} 제곱 이상, {a2} + 1 제곱 미만이므로 {answer} 자리",
   "ja": "10 の {a2} 乗以上、{a2} + 1 乗未満なので {answer} 桁",
-  "sample": "10 の 15 乗以上、15 + 1 乗未満なので 16 桁"
+  "sample": "10 の 3 乗以上、3 + 1 乗未満なので 4 桁"
  },
  {
   "key": "unit:math2-explog:chain:chain-expquad:intro",
@@ -9109,7 +9101,7 @@
   "kind": "連続技の前文",
   "ko": "방정식 {eq} 을 2ˣ = t 로 놓고 푼다.",
   "ja": "方程式 {eq} を、2ˣ = t とおいて解く。",
-  "sample": "方程式 4ˣ − 6·2ˣ + 8 = 0 を、2ˣ = t とおいて解く。"
+  "sample": "方程式 4ˣ − 18·2ˣ + 32 = 0 を、2ˣ = t とおいて解く。"
  },
  {
   "key": "unit:math2-explog:chain:chain-expquad:step1:sum",
@@ -9157,7 +9149,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "다른 한 해는 {answer}",
   "ja": "もう1つの解は {answer}",
-  "sample": "もう1つの解は 4"
+  "sample": "もう1つの解は 16"
  },
  {
   "key": "unit:math2-explog:chain:chain-expquad:step3:sum",
@@ -9173,7 +9165,7 @@
   "kind": "連続技 3問目",
   "ko": "t = {a2} 일 때의 x의 값은?",
   "ja": "t = {a2} のときの x の値は?",
-  "sample": "t = 4 のときの x の値は?"
+  "sample": "t = 16 のときの x の値は?"
  },
  {
   "key": "unit:math2-explog:chain:chain-expquad:step3:explain",
@@ -9181,7 +9173,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "2ˣ = {a2} 이므로 x = {answer}",
   "ja": "2ˣ = {a2} より x = {answer}",
-  "sample": "2ˣ = 4 より x = 2"
+  "sample": "2ˣ = 16 より x = 4"
  },
  {
   "key": "unit:math2-calc:name",
@@ -9277,7 +9269,7 @@
   "kind": "問題文",
   "ko": "함수 f(x) = {expr} 에 대하여, x가 {p} 에서 {q} 까지 변할 때의 평균변화율은?",
   "ja": "関数 f(x) = {expr} について、x が {p} から {q} まで変わるときの平均変化率は?",
-  "sample": "関数 f(x) = x² + 4x + 3 について、x が −2 から −1 まで変わるときの平均変化率は?"
+  "sample": "関数 f(x) = x² + 3x − 2 について、x が −1 から 1 まで変わるときの平均変化率は?"
  },
  {
   "key": "unit:math2-calc:tpl:avgrate:explain",
@@ -9285,7 +9277,7 @@
   "kind": "解説",
   "ko": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
   "ja": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
-  "sample": "(f(−1) − f(−2)) ÷ (−1 − (−2)) = 1"
+  "sample": "(f(1) − f(−1)) ÷ (1 − (−1)) = 3"
  },
  {
   "key": "unit:math2-calc:tpl:deriv:text",
@@ -9293,7 +9285,7 @@
   "kind": "問題文",
   "ko": "함수 f(x) = {expr} 을 미분하면 f′(x)는?",
   "ja": "関数 f(x) = {expr} を微分すると f′(x) は?",
-  "sample": "関数 f(x) = x³ + x² − 5x − 5 を微分すると f′(x) は?"
+  "sample": "関数 f(x) = 2x³ + 3x² + 3x − 4 を微分すると f′(x) は?"
  },
  {
   "key": "unit:math2-calc:tpl:deriv:explain",
@@ -9301,7 +9293,7 @@
   "kind": "解説",
   "ko": "xⁿ 의 미분은 n xⁿ⁻¹, 상수의 미분은 0. {answer}",
   "ja": "xⁿ の微分は n xⁿ⁻¹、定数の微分は 0。{answer}",
-  "sample": "xⁿ の微分は n xⁿ⁻¹、定数の微分は 0。3x² + 2x − 5"
+  "sample": "xⁿ の微分は n xⁿ⁻¹、定数の微分は 0。6x² + 6x + 3"
  },
  {
   "key": "unit:math2-calc:tpl:derivat:text",
@@ -9309,7 +9301,7 @@
   "kind": "問題文",
   "ko": "함수 f(x) = {expr} 에 대하여, 미분계수 f′({k})의 값은?",
   "ja": "関数 f(x) = {expr} について、微分係数 f′({k}) の値は?",
-  "sample": "関数 f(x) = 2x³ + 3x² − 4x + 2 について、微分係数 f′(−1) の値は?"
+  "sample": "関数 f(x) = x³ + 4x² + 3x + 3 について、微分係数 f′(−2) の値は?"
  },
  {
   "key": "unit:math2-calc:tpl:derivat:explain",
@@ -9317,7 +9309,7 @@
   "kind": "解説",
   "ko": "먼저 f′(x)를 구한 뒤 x = {k} 를 대입하면 {answer}",
   "ja": "先に f′(x) を求めてから x = {k} を代入して {answer}",
-  "sample": "先に f′(x) を求めてから x = −1 を代入して −4"
+  "sample": "先に f′(x) を求めてから x = −2 を代入して −1"
  },
  {
   "key": "unit:math2-calc:tpl:tangent2:text",
@@ -9325,7 +9317,7 @@
   "kind": "問題文",
   "ko": "포물선 {expr} 위의 x좌표가 {t} 인 점에서의 접선의 방정식은?",
   "ja": "放物線 {expr} 上の x 座標が {t} である点における接線の方程式は?",
-  "sample": "放物線 y = x² − 2x − 1 上の x 座標が −1 である点における接線の方程式は?"
+  "sample": "放物線 y = x² − 3x − 3 上の x 座標が 1 である点における接線の方程式は?"
  },
  {
   "key": "unit:math2-calc:tpl:tangent2:explain",
@@ -9333,7 +9325,7 @@
   "kind": "解説",
   "ko": "기울기는 미분계수입니다. 접점을 지나는 직선의 식을 만들면 {answer}",
   "ja": "傾きは微分係数。接点を通る直線の式を作ると {answer}",
-  "sample": "傾きは微分係数。接点を通る直線の式を作ると y = −4x − 2"
+  "sample": "傾きは微分係数。接点を通る直線の式を作ると y = −x − 4"
  },
  {
   "key": "unit:math2-calc:tpl:extmax:text",
@@ -9341,7 +9333,7 @@
   "kind": "問題文",
   "ko": "함수 f(x) = {expr} 의 극댓값은?",
   "ja": "関数 f(x) = {expr} の極大値は?",
-  "sample": "関数 f(x) = x³ − 3x² + 1 の極大値は?"
+  "sample": "関数 f(x) = 2x³ − 3x² − 12x + 2 の極大値は?"
  },
  {
   "key": "unit:math2-calc:tpl:extmax:explain",
@@ -9349,7 +9341,7 @@
   "kind": "解説",
   "ko": "f′(x) = 0 의 해를 구해 증감표를 만듭니다. 증가에서 감소로 바뀌는 점의 값이 극댓값 {answer}",
   "ja": "f′(x) = 0 の解を求めて増減表を作る。増加から減少に変わる点の値が極大値 {answer}",
-  "sample": "f′(x) = 0 の解を求めて増減表を作る。増加から減少に変わる点の値が極大値 1"
+  "sample": "f′(x) = 0 の解を求めて増減表を作る。増加から減少に変わる点の値が極大値 9"
  },
  {
   "key": "unit:math2-calc:tpl:extmin:text",
@@ -9357,7 +9349,7 @@
   "kind": "問題文",
   "ko": "함수 f(x) = {expr} 의 극솟값은?",
   "ja": "関数 f(x) = {expr} の極小値は?",
-  "sample": "関数 f(x) = 2x³ − 3x² − 12x + 3 の極小値は?"
+  "sample": "関数 f(x) = 2x³ + 9x² + 12x + 3 の極小値は?"
  },
  {
   "key": "unit:math2-calc:tpl:extmin:explain",
@@ -9365,7 +9357,7 @@
   "kind": "解説",
   "ko": "f′(x) = 0 의 해를 구해 증감표를 만듭니다. 감소에서 증가로 바뀌는 점의 값이 극솟값 {answer}",
   "ja": "f′(x) = 0 の解を求めて増減表を作る。減少から増加に変わる点の値が極小値 {answer}",
-  "sample": "f′(x) = 0 の解を求めて増減表を作る。減少から増加に変わる点の値が極小値 −17"
+  "sample": "f′(x) = 0 の解を求めて増減表を作る。減少から増加に変わる点の値が極小値 −2"
  },
  {
   "key": "unit:math2-calc:tpl:intmax:text",
@@ -9373,7 +9365,7 @@
   "kind": "問題文",
   "ko": "{a} ≦ x ≦ {b} 에서 함수 f(x) = {expr} 의 최댓값은?",
   "ja": "{a} ≦ x ≦ {b} における関数 f(x) = {expr} の最大値は?",
-  "sample": "−3 ≦ x ≦ 2 における関数 f(x) = x³ + 3x² − 1 の最大値は?"
+  "sample": "−2 ≦ x ≦ 2 における関数 f(x) = x³ − 3x + 3 の最大値は?"
  },
  {
   "key": "unit:math2-calc:tpl:intmax:explain",
@@ -9381,7 +9373,7 @@
   "kind": "解説",
   "ko": "극값과 구간 양 끝의 값을 모두 비교해서 가장 큰 것은 {answer}",
   "ja": "極値と区間の両端の値をすべて比べて、最も大きいものは {answer}",
-  "sample": "極値と区間の両端の値をすべて比べて、最も大きいものは 19"
+  "sample": "極値と区間の両端の値をすべて比べて、最も大きいものは 5"
  },
  {
   "key": "unit:math2-calc:tpl:intmin:text",
@@ -9389,7 +9381,7 @@
   "kind": "問題文",
   "ko": "{a} ≦ x ≦ {b} 에서 함수 f(x) = {expr} 의 최솟값은?",
   "ja": "{a} ≦ x ≦ {b} における関数 f(x) = {expr} の最小値は?",
-  "sample": "−4 ≦ x ≦ 0 における関数 f(x) = 2x³ + 9x² + 12x − 1 の最小値は?"
+  "sample": "−4 ≦ x ≦ 2 における関数 f(x) = x³ + 3x² + 3 の最小値は?"
  },
  {
   "key": "unit:math2-calc:tpl:intmin:explain",
@@ -9397,7 +9389,7 @@
   "kind": "解説",
   "ko": "극값과 구간 양 끝의 값을 모두 비교해서 가장 작은 것은 {answer}",
   "ja": "極値と区間の両端の値をすべて比べて、最も小さいものは {answer}",
-  "sample": "極値と区間の両端の値をすべて比べて、最も小さいものは −33"
+  "sample": "極値と区間の両端の値をすべて比べて、最も小さいものは −13"
  },
  {
   "key": "unit:math2-calc:tpl:indef:text",
@@ -9405,7 +9397,7 @@
   "kind": "問題文",
   "ko": "부정적분 ∫({expr}) dx 는? (C는 적분상수)",
   "ja": "不定積分 ∫({expr}) dx は?(C は積分定数)",
-  "sample": "不定積分 ∫(6x² − 4x − 3) dx は?(C は積分定数)"
+  "sample": "不定積分 ∫(3x² + 6x − 4) dx は?(C は積分定数)"
  },
  {
   "key": "unit:math2-calc:tpl:indef:explain",
@@ -9413,7 +9405,7 @@
   "kind": "解説",
   "ko": "xⁿ 의 적분은 xⁿ⁺¹ ÷ (n + 1). {answer}",
   "ja": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)。{answer}",
-  "sample": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)。2x³ − 2x² − 3x + C"
+  "sample": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)。x³ + 3x² − 4x + C"
  },
  {
   "key": "unit:math2-calc:tpl:defint:text",
@@ -9421,7 +9413,7 @@
   "kind": "問題文",
   "ko": "함수 f(x) = {expr} 을 x = {p} 에서 x = {q} 까지 적분한 정적분의 값은?",
   "ja": "関数 f(x) = {expr} を x = {p} から x = {q} まで積分した定積分の値は?",
-  "sample": "関数 f(x) = 3x² − 2x + 4 を x = 1 から x = 2 まで積分した定積分の値は?"
+  "sample": "関数 f(x) = 3x² − 2x + 4 を x = 0 から x = 2 まで積分した定積分の値は?"
  },
  {
   "key": "unit:math2-calc:tpl:defint:explain",
@@ -9429,7 +9421,7 @@
   "kind": "解説",
   "ko": "원시함수 F(x)를 구해서 F({q}) − F({p}) = {answer}",
   "ja": "原始関数 F(x) を求めて F({q}) − F({p}) = {answer}",
-  "sample": "原始関数 F(x) を求めて F(2) − F(1) = 8"
+  "sample": "原始関数 F(x) を求めて F(2) − F(0) = 12"
  },
  {
   "key": "unit:math2-calc:tpl:area2:text",
@@ -9437,7 +9429,7 @@
   "kind": "問題文",
   "ko": "포물선 {expr} 과 x축으로 둘러싸인 부분의 넓이는?",
   "ja": "放物線 {expr} と x 軸で囲まれた部分の面積は?",
-  "sample": "放物線 y = −x² + 4x と x 軸で囲まれた部分の面積は?"
+  "sample": "放物線 y = −x² + x + 6 と x 軸で囲まれた部分の面積は?"
  },
  {
   "key": "unit:math2-calc:tpl:area2:explain",
@@ -9445,7 +9437,7 @@
   "kind": "解説",
   "ko": "x축과의 교점을 구해서 정적분합니다. 넓이는 반드시 양수이고 {answer}",
   "ja": "x 軸との交点を求めて定積分する。面積は必ず正で {answer}",
-  "sample": "x 軸との交点を求めて定積分する。面積は必ず正で 32/3"
+  "sample": "x 軸との交点を求めて定積分する。面積は必ず正で 125/6"
  },
  {
   "key": "unit:math2-calc:chain:chain-cubicx:intro",
@@ -9453,7 +9445,7 @@
   "kind": "連続技の前文",
   "ko": "함수 f(x) = {expr} 에 대하여 답하시오.",
   "ja": "関数 f(x) = {expr} について答えよ。",
-  "sample": "関数 f(x) = x³ − 3x² − 1 について答えよ。"
+  "sample": "関数 f(x) = x³ − 6x² + 9x + 1 について答えよ。"
  },
  {
   "key": "unit:math2-calc:chain:chain-cubicx:step1:sum",
@@ -9477,7 +9469,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "f′(x)를 구해 인수분해하면 작은 쪽의 해는 {answer}",
   "ja": "f′(x) を求めて因数分解すると、小さい方の解は {answer}",
-  "sample": "f′(x) を求めて因数分解すると、小さい方の解は 0"
+  "sample": "f′(x) を求めて因数分解すると、小さい方の解は 1"
  },
  {
   "key": "unit:math2-calc:chain:chain-cubicx:step2:sum",
@@ -9501,7 +9493,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "x = {a1} 에서 증가에서 감소로 바뀝니다. f({a1}) = {answer}",
   "ja": "x = {a1} で増加から減少に変わる。f({a1}) = {answer}",
-  "sample": "x = 0 で増加から減少に変わる。f(0) = −1"
+  "sample": "x = 1 で増加から減少に変わる。f(1) = 5"
  },
  {
   "key": "unit:math2-calc:chain:chain-cubicx:step3:sum",
@@ -9525,7 +9517,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "다른 한 해에서 감소에서 증가로 바뀝니다. 그 값은 {answer}",
   "ja": "もう1つの解で減少から増加に変わる。その値は {answer}",
-  "sample": "もう1つの解で減少から増加に変わる。その値は −5"
+  "sample": "もう1つの解で減少から増加に変わる。その値は 1"
  },
  {
   "key": "unit:math2-calc:chain:chain-area:intro",
@@ -9533,7 +9525,7 @@
   "kind": "連続技の前文",
   "ko": "포물선 {expr} 과 x축으로 둘러싸인 부분에 대하여 답하시오.",
   "ja": "放物線 {expr} と x 軸で囲まれた部分について答えよ。",
-  "sample": "放物線 y = −x² − x + 2 と x 軸で囲まれた部分について答えよ。"
+  "sample": "放物線 y = −x² + 4x − 3 と x 軸で囲まれた部分について答えよ。"
  },
  {
   "key": "unit:math2-calc:chain:chain-area:step1:sum",
@@ -9557,7 +9549,7 @@
   "kind": "連続技 1問目の解説",
   "ko": "y = 0 으로 놓고 인수분해하면 작은 쪽은 {answer}",
   "ja": "y = 0 とおいて因数分解すると、小さい方は {answer}",
-  "sample": "y = 0 とおいて因数分解すると、小さい方は −2"
+  "sample": "y = 0 とおいて因数分解すると、小さい方は 1"
  },
  {
   "key": "unit:math2-calc:chain:chain-area:step2:sum",
@@ -9581,7 +9573,7 @@
   "kind": "連続技 2問目の解説",
   "ko": "다른 한 교점은 x = {answer}",
   "ja": "もう1つの交点は x = {answer}",
-  "sample": "もう1つの交点は x = 1"
+  "sample": "もう1つの交点は x = 3"
  },
  {
   "key": "unit:math2-calc:chain:chain-area:step3:sum",
@@ -9605,7 +9597,7 @@
   "kind": "連続技 3問目の解説",
   "ko": "x = {a1} 에서 x = {a2} 까지 정적분하면 {answer}",
   "ja": "x = {a1} から x = {a2} まで定積分して {answer}",
-  "sample": "x = −2 から x = 1 まで定積分して 9/2"
+  "sample": "x = 1 から x = 3 まで定積分して 4/3"
  },
  {
   "key": "monster:twins:name",
