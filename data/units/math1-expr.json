@@ -114,9 +114,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "(x + a)(x + b) = x² + (a + b)x + ab より {answer}",
-        "ko": "(x + a)(x + b) = x² + (a + b)x + ab이므로 {answer}",
-        "en": "(x + a)(x + b) = x² + (a + b)x + ab, so the answer is {answer}"
+        "ja": "(x + a)(x + b) = x² + (a + b)x + ab を使う\nx の係数は2つの数の和、定数項は2つの数の積\n{answer}",
+        "ko": "(x + a)(x + b) = x² + (a + b)x + ab 를 씁니다\nx의 계수는 두 수의 합, 상수항은 두 수의 곱\n{answer}",
+        "en": "Use (x + a)(x + b) = x² + (a + b)x + ab\nThe x coefficient is the sum of the two numbers; the constant is their product\n{answer}"
       }
     },
     {
@@ -133,9 +133,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd より {answer}",
-        "ko": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd이므로 {answer}",
-        "en": "(ax + b)(cx + d) = acx² + (ad + bc)x + bd, so the answer is {answer}"
+        "ja": "前のかっこの各項を、後ろのかっこの各項に掛ける(4つの積)\nx² の項、x の項、定数項に分ける\nx の項を1つにまとめて {answer}",
+        "ko": "앞 괄호의 각 항을 뒤 괄호의 각 항에 곱합니다 (곱 4개)\nx²의 항, x의 항, 상수항으로 나눕니다\nx의 항을 하나로 모으면 {answer}",
+        "en": "Multiply each term of the first bracket by each term of the second (four products)\nSort into x², x and constant terms\nCombine the x terms: {answer}"
       }
     },
     {
@@ -149,9 +149,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "足して x の係数、かけて定数項になる2数を探すと {answer}",
-        "ko": "더해서 x의 계수, 곱해서 상수항이 되는 두 수를 찾으면 {answer}",
-        "en": "Find two numbers that add to the x coefficient and multiply to the constant: {answer}"
+        "ja": "掛けて定数項、足して x の係数になる2つの数を探す\nその2つの数を a, b として (x + a)(x + b) の形にする\n{answer}",
+        "ko": "곱해서 상수항, 더해서 x의 계수가 되는 두 수를 찾습니다\n그 두 수를 a, b라 하고 (x + a)(x + b) 꼴로 만듭니다\n{answer}",
+        "en": "Find two numbers whose product is the constant and whose sum is the x coefficient\nCall them a and b and write (x + a)(x + b)\n{answer}"
       }
     },
     {
@@ -168,9 +168,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "たすき掛けを使うと {answer}",
-        "ko": "대각선으로 곱해 맞추는 방법을 쓰면 {answer}",
-        "en": "Using the cross method gives {answer}"
+        "ja": "x² の係数と定数項を、それぞれ2つの数の積に分ける\nたすき掛けで、斜めに掛けて足すと x の係数になる組を選ぶ\n横に並んだ数でかっこを作ると {answer}",
+        "ko": "x²의 계수와 상수항을 각각 두 수의 곱으로 나눕니다\n대각선으로 곱해서 더하면 x의 계수가 되는 짝을 고릅니다\n가로로 놓인 수로 괄호를 만들면 {answer}",
+        "en": "Split the x² coefficient and the constant each into two factors\nChoose the pairing whose cross products add up to the x coefficient\nRead the brackets across: {answer}"
       }
     },
     {
@@ -184,9 +184,9 @@
         "en": "Simplify √{n}."
       },
       "explain": {
-        "ja": "根号の中の平方数を外に出すと √{n} = {answer}",
-        "ko": "근호 안의 제곱수를 밖으로 꺼내면 √{n} = {answer}",
-        "en": "Take the square factor out of the root: √{n} = {answer}"
+        "ja": "{n} を (平方数) × (残り) の形に分ける\n平方数の部分を根号の外に出す\n√{n} = {answer}",
+        "ko": "{n} 을 (제곱수) × (나머지) 꼴로 나눕니다\n제곱수 부분을 근호 밖으로 꺼냅니다\n√{n} = {answer}",
+        "en": "Write {n} as (a square) × (the rest)\nTake the square part out of the root\n√{n} = {answer}"
       }
     },
     {
@@ -200,9 +200,9 @@
         "en": "Rationalize the denominator of {c}/√{m}."
       },
       "explain": {
-        "ja": "分母と分子に √{m} をかけると {answer}",
-        "ko": "분모와 분자에 √{m}을 곱하면 {answer}",
-        "en": "Multiply top and bottom by √{m}: {answer}"
+        "ja": "分母と分子の両方に √{m} を掛ける\n分母は √{m} × √{m} = {m} になる\n約分できれば約分して {answer}",
+        "ko": "분모와 분자에 모두 √{m} 을 곱합니다\n분모는 √{m} × √{m} = {m} 이 됩니다\n약분할 수 있으면 약분해서 {answer}",
+        "en": "Multiply top and bottom by √{m}\nThe bottom becomes √{m} × √{m} = {m}\nReduce if possible: {answer}"
       }
     },
     {
@@ -216,9 +216,9 @@
         "en": "Solve {lhs} {op} {c}."
       },
       "explain": {
-        "ja": "負の数で割ると不等号の向きが変わることに注意して {answer}",
-        "ko": "음수로 나누면 부등호의 방향이 바뀌는 것에 주의하면 {answer}",
-        "en": "Remember the sign flips when you divide by a negative number: {answer}"
+        "ja": "数の項を右辺に移項する\nx の係数で両辺を割る\n負の数で割ったときだけ不等号の向きを逆にして {answer}",
+        "ko": "수의 항을 우변으로 이항합니다\nx의 계수로 양변을 나눕니다\n음수로 나눴을 때만 부등호의 방향을 바꿔서 {answer}",
+        "en": "Move the number to the right side\nDivide both sides by the coefficient of x\nFlip the sign only if you divided by a negative: {answer}"
       }
     },
     {
@@ -232,9 +232,9 @@
         "en": "If n(A) = {p}, n(B) = {q} and n(A∩B) = {r}, what is n(A∪B)?"
       },
       "explain": {
-        "ja": "n(A∪B) = n(A) + n(B) − n(A∩B) = {answer}",
-        "ko": "n(A∪B) = n(A) + n(B) − n(A∩B) = {answer}",
-        "en": "n(A∪B) = n(A) + n(B) − n(A∩B) = {answer}"
+        "ja": "n(A∪B) = n(A) + n(B) − n(A∩B) を使う\n{p} + {q} − {r}(両方に入っている分を1回引く)\n{answer}",
+        "ko": "n(A∪B) = n(A) + n(B) − n(A∩B) 를 씁니다\n{p} + {q} − {r} (둘 다에 들어 있는 만큼을 한 번 뺍니다)\n{answer}",
+        "en": "Use n(A∪B) = n(A) + n(B) − n(A∩B)\n{p} + {q} − {r} (subtract the overlap once)\n{answer}"
       }
     },
     {
@@ -251,9 +251,9 @@
         "en": "What is the converse of \"{stmt}\"?"
       },
       "explain": {
-        "ja": "逆は仮定と結論を入れかえたもの。{answer}",
-        "ko": "역은 가정과 결론을 서로 바꾼 것입니다. {answer}",
-        "en": "The converse swaps the hypothesis and the conclusion: {answer}"
+        "ja": "「p ⟹ q」の p が仮定、q が結論\n逆は仮定と結論を入れかえた「q ⟹ p」\n{answer}",
+        "ko": "\"p ⟹ q\"에서 p가 가정, q가 결론\n역은 가정과 결론을 바꾼 \"q ⟹ p\"\n{answer}",
+        "en": "In \"p ⟹ q\", p is the hypothesis and q the conclusion\nThe converse swaps them: \"q ⟹ p\"\n{answer}"
       },
       "note": {
         "ja": "x は実数とする。",
@@ -275,9 +275,9 @@
         "en": "What is the inverse of \"{stmt}\"?"
       },
       "explain": {
-        "ja": "裏は仮定と結論をそれぞれ否定したもの。{answer}",
-        "ko": "이는 가정과 결론을 각각 부정한 것입니다. {answer}",
-        "en": "The inverse negates both the hypothesis and the conclusion: {answer}"
+        "ja": "裏は、仮定と結論をそれぞれ否定する(順番はそのまま)\n否定: = ↔ ≠、> ↔ ≦、< ↔ ≧\n{answer}",
+        "ko": "이는 가정과 결론을 각각 부정합니다 (순서는 그대로)\n부정: = ↔ ≠, > ↔ ≦, < ↔ ≧\n{answer}",
+        "en": "The inverse negates both parts, keeping their order\nNegations: = ↔ ≠, > ↔ ≤, < ↔ ≥\n{answer}"
       },
       "note": {
         "ja": "x は実数とする。",
@@ -299,9 +299,9 @@
         "en": "What is the contrapositive of \"{stmt}\"?"
       },
       "explain": {
-        "ja": "対偶は仮定と結論を入れかえて、それぞれ否定したもの。{answer}",
-        "ko": "대우는 가정과 결론을 서로 바꾸고 각각 부정한 것입니다. {answer}",
-        "en": "The contrapositive swaps and negates both parts: {answer}"
+        "ja": "対偶は、仮定と結論を入れかえて、さらにそれぞれ否定する\n否定: = ↔ ≠、> ↔ ≦、< ↔ ≧\n{answer}",
+        "ko": "대우는 가정과 결론을 바꾸고, 각각 부정합니다\n부정: = ↔ ≠, > ↔ ≦, < ↔ ≧\n{answer}",
+        "en": "The contrapositive swaps the parts and negates both\nNegations: = ↔ ≠, > ↔ ≤, < ↔ ≥\n{answer}"
       },
       "note": {
         "ja": "x は実数とする。",
@@ -325,9 +325,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "「p ⟹ q」は{pq}、「q ⟹ p」は{qp}。よって p は q であるための {answer}",
-        "ko": "'p ⟹ q'는 {pq}, 'q ⟹ p'는 {qp}입니다. 따라서 p는 q이기 위한: {answer}",
-        "en": "\"p ⟹ q\" is {pq} and \"q ⟹ p\" is {qp}. So p is: {answer}"
+        "ja": "「p ⟹ q」が真かどうか調べる → {pq}\n「q ⟹ p」が真かどうか調べる → {qp}\np ⟹ q が真なら十分、q ⟹ p が真なら必要。よって {answer}",
+        "ko": "\"p ⟹ q\"가 참인지 봅니다 → {pq}\n\"q ⟹ p\"가 참인지 봅니다 → {qp}\np ⟹ q 가 참이면 충분, q ⟹ p 가 참이면 필요. 따라서 {answer}",
+        "en": "Check whether \"p ⟹ q\" is true → {pq}\nCheck whether \"q ⟹ p\" is true → {qp}\np ⟹ q true means sufficient; q ⟹ p true means necessary. So {answer}"
       }
     },
     {
@@ -341,9 +341,9 @@
         "en": "Solve {lhs} = {b}."
       },
       "explain": {
-        "ja": "絶対値の中身が {b} または −{b} になる。{answer}",
-        "ko": "절댓값 안이 {b} 또는 −{b}가 됩니다. {answer}",
-        "en": "The inside of the absolute value is {b} or −{b}: {answer}"
+        "ja": "絶対値の中身が {b} になる場合と −{b} になる場合に分ける\nそれぞれの1次方程式を解く\n{answer}",
+        "ko": "절댓값 안이 {b} 가 되는 경우와 −{b} 가 되는 경우로 나눕니다\n각각의 일차방정식을 풉니다\n{answer}",
+        "en": "Split into two cases: the inside equals {b} or −{b}\nSolve each linear equation\n{answer}"
       }
     },
     {
@@ -357,9 +357,9 @@
         "en": "Solve {lhs} {op} {b}."
       },
       "explain": {
-        "ja": "|X| < b は −b < X < b、|X| > b は X < −b, b < X。{answer}",
-        "ko": "|X| < b는 −b < X < b, |X| > b는 X < −b, b < X입니다. {answer}",
-        "en": "|X| < b means −b < X < b, and |X| > b means X < −b or b < X: {answer}"
+        "ja": "|X| < b は −b < X < b、|X| > b は X < −b または b < X\n絶対値の中身を X として、その形に書きなおす\nx について解くと {answer}",
+        "ko": "|X| < b 는 −b < X < b, |X| > b 는 X < −b 또는 b < X\n절댓값 안을 X로 보고 그 꼴로 고쳐 씁니다\nx에 대해 풀면 {answer}",
+        "en": "|X| < b means −b < X < b; |X| > b means X < −b or b < X\nRewrite with the inside as X\nSolve for x: {answer}"
       }
     },
     {
@@ -373,9 +373,9 @@
         "en": "Solve the system {i1} and {i2}."
       },
       "explain": {
-        "ja": "それぞれを解いて、共通する範囲を求めると {answer}",
-        "ko": "각각을 풀어 공통 범위를 구하면 {answer}",
-        "en": "Solve each one and take the overlap: {answer}"
+        "ja": "1つ目の不等式 {i1} を解く\n2つ目の不等式 {i2} を解く\n数直線に重ねて、共通する範囲は {answer}",
+        "ko": "첫째 부등식 {i1} 을 풉니다\n둘째 부등식 {i2} 를 풉니다\n수직선에 겹쳐서 공통 범위는 {answer}",
+        "en": "Solve the first inequality {i1}\nSolve the second inequality {i2}\nOverlap them on a number line: {answer}"
       }
     },
     {
@@ -389,9 +389,9 @@
         "en": "If x + y = {s} and xy = {p}, what is x² + y²?"
       },
       "explain": {
-        "ja": "x² + y² = (x + y)² − 2xy = {answer}",
-        "ko": "x² + y² = (x + y)² − 2xy = {answer}",
-        "en": "x² + y² = (x + y)² − 2xy = {answer}"
+        "ja": "x² + y² = (x + y)² − 2xy を使う\n({s})² − 2 × ({p})\n{answer}",
+        "ko": "x² + y² = (x + y)² − 2xy 를 씁니다\n({s})² − 2 × ({p})\n{answer}",
+        "en": "Use x² + y² = (x + y)² − 2xy\n({s})² − 2 × ({p})\n{answer}"
       }
     },
     {
@@ -408,9 +408,9 @@
         "en": "If A = {A} and B = {B}, what is A ∩ B?"
       },
       "explain": {
-        "ja": "A ∩ B は両方に入っている要素の集合。{answer}",
-        "ko": "A ∩ B는 양쪽에 모두 들어 있는 원소의 집합입니다. {answer}",
-        "en": "A ∩ B holds the elements that are in both sets: {answer}"
+        "ja": "A ∩ B は、A と B の両方に入っている要素の集合\nA の要素を1つずつ、B にもあるか確かめる\n{answer}",
+        "ko": "A ∩ B 는 A와 B 양쪽에 모두 들어 있는 원소의 집합\nA의 원소를 하나씩 B에도 있는지 확인합니다\n{answer}",
+        "en": "A ∩ B holds the elements that are in both A and B\nCheck each element of A against B\n{answer}"
       }
     },
     {
@@ -427,9 +427,9 @@
         "en": "If A = {A} and B = {B}, what is A ∪ B?"
       },
       "explain": {
-        "ja": "A ∪ B は少なくとも一方に入っている要素の集合。{answer}",
-        "ko": "A ∪ B는 적어도 한쪽에 들어 있는 원소의 집합입니다. {answer}",
-        "en": "A ∪ B holds the elements that are in at least one set: {answer}"
+        "ja": "A ∪ B は、A か B の少なくとも一方に入っている要素の集合\nA の要素に、B だけにある要素を加える(同じ要素は1回だけ)\n{answer}",
+        "ko": "A ∪ B 는 A나 B 중 적어도 한쪽에 들어 있는 원소의 집합\nA의 원소에 B에만 있는 원소를 더합니다 (같은 원소는 한 번만)\n{answer}",
+        "en": "A ∪ B holds the elements that are in at least one of A and B\nTake A and add what is only in B (no repeats)\n{answer}"
       }
     },
     {
@@ -448,9 +448,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "仮定は成り立つが結論が成り立たない値が反例。{answer}",
-        "ko": "가정은 성립하지만 결론이 성립하지 않는 값이 반례입니다. {answer}",
-        "en": "A counterexample satisfies the hypothesis but not the conclusion: {answer}"
+        "ja": "反例は「仮定は成り立つが、結論は成り立たない」値\nそれぞれの選択肢を仮定と結論に代入して確かめる\n{answer}",
+        "ko": "반례는 \"가정은 성립하지만 결론은 성립하지 않는\" 값\n각 보기를 가정과 결론에 대입해 확인합니다\n{answer}",
+        "en": "A counterexample makes the hypothesis true but the conclusion false\nTest each option in both parts\n{answer}"
       }
     },
     {
@@ -467,9 +467,9 @@
         "en": "Calculate {A} + {B}."
       },
       "explain": {
-        "ja": "同類項どうしをまとめると {answer}",
-        "ko": "동류항끼리 모으면 {answer}",
-        "en": "Combine like terms: {answer}"
+        "ja": "かっこをはずす(足し算なので符号はそのまま)\nx² の項、x の項、定数項どうしをそれぞれまとめる\n{answer}",
+        "ko": "괄호를 풉니다 (덧셈이므로 부호는 그대로)\nx²의 항, x의 항, 상수항끼리 각각 모읍니다\n{answer}",
+        "en": "Remove the brackets (signs stay the same when adding)\nCombine the x² terms, the x terms and the constants\n{answer}"
       }
     },
     {
@@ -486,9 +486,9 @@
         "en": "Calculate {A} − {B}."
       },
       "explain": {
-        "ja": "引く式の符号をすべて変えてから同類項をまとめると {answer}",
-        "ko": "빼는 식의 부호를 모두 바꾼 뒤 동류항끼리 모으면 {answer}",
-        "en": "Change every sign of the subtracted expression, then combine like terms: {answer}"
+        "ja": "引く方のかっこをはずすとき、中の符号をすべて逆にする\nx² の項、x の項、定数項どうしをそれぞれまとめる\n{answer}",
+        "ko": "빼는 쪽 괄호를 풀 때 안의 부호를 모두 바꿉니다\nx²의 항, x의 항, 상수항끼리 각각 모읍니다\n{answer}",
+        "en": "When removing the subtracted bracket, flip every sign inside\nCombine the x² terms, the x terms and the constants\n{answer}"
       }
     },
     {
@@ -502,9 +502,9 @@
         "en": "When {expr} is expanded, what is the coefficient of {which}?"
       },
       "explain": {
-        "ja": "{which} になる組み合わせだけを取り出して足すと {answer}",
-        "ko": "{which}이 되는 조합만 골라 더하면 {answer}",
-        "en": "Add only the products that give {which}: {answer}"
+        "ja": "全部を展開せず、{which} になる組み合わせだけを探す\nそれぞれの積の係数を求める\n足して {answer}",
+        "ko": "전부 전개하지 않고 {which} 이 되는 조합만 찾습니다\n각 곱의 계수를 구합니다\n더하면 {answer}",
+        "en": "Do not expand everything; find only the products that give {which}\nWork out the coefficient of each\nAdd them: {answer}"
       }
     },
     {
@@ -518,9 +518,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "a² − b² = (a + b)(a − b)、a² + 2ab + b² = (a + b)² を使うと {answer}",
-        "ko": "a² − b² = (a + b)(a − b), a² + 2ab + b² = (a + b)²을 쓰면 {answer}",
-        "en": "Use a² − b² = (a + b)(a − b) or a² + 2ab + b² = (a + b)²: {answer}"
+        "ja": "項が2つで「2乗 − 2乗」なら a² − b² = (a + b)(a − b)\n項が3つで両端が2乗なら a² ± 2ab + b² = (a ± b)²\nあてはめて {answer}",
+        "ko": "항이 2개이고 \"제곱 − 제곱\"이면 a² − b² = (a + b)(a − b)\n항이 3개이고 양 끝이 제곱이면 a² ± 2ab + b² = (a ± b)²\n대입하면 {answer}",
+        "en": "Two terms, square minus square: a² − b² = (a + b)(a − b)\nThree terms with squares at both ends: a² ± 2ab + b² = (a ± b)²\nApply it: {answer}"
       }
     },
     {
@@ -534,9 +534,9 @@
         "en": "Write the repeating decimal {dec} as a fraction."
       },
       "explain": {
-        "ja": "x とおいて 10倍(または100倍)したものから引くと {answer}",
-        "ko": "x로 놓고 10배(또는 100배)한 것에서 빼면 {answer}",
-        "en": "Let it be x, multiply by 10 (or 100) and subtract: {answer}"
+        "ja": "x = {dec} とおく\nくり返す部分の桁数に合わせて 10倍 または 100倍 し、もとの式を引く\n小数部分が消えるので、x について解いて約分すると {answer}",
+        "ko": "x = {dec} 로 놓습니다\n되풀이되는 부분의 자릿수에 맞춰 10배 또는 100배 하고, 원래 식을 뺍니다\n소수 부분이 사라지므로 x에 대해 풀고 약분하면 {answer}",
+        "en": "Let x = {dec}\nMultiply by 10 or 100 to match the repeating block, then subtract the original\nThe decimals cancel; solve for x and reduce: {answer}"
       }
     },
     {
@@ -550,9 +550,9 @@
         "en": "What is the value of {expr}?"
       },
       "explain": {
-        "ja": "絶対値は 0 からの距離なので必ず 0 以上。{answer}",
-        "ko": "절댓값은 0에서의 거리이므로 항상 0 이상입니다. {answer}",
-        "en": "An absolute value is a distance from 0, so it is never negative: {answer}"
+        "ja": "絶対値の中を先に計算する\n絶対値は 0 からの距離なので、符号を取って 0 以上の数にする\n残りの計算をして {answer}",
+        "ko": "절댓값 안을 먼저 계산합니다\n절댓값은 0에서의 거리이므로 부호를 떼어 0 이상의 수로 만듭니다\n나머지 계산을 하면 {answer}",
+        "en": "Work out the inside of each absolute value first\nAn absolute value is a distance from 0, so drop the sign\nFinish the arithmetic: {answer}"
       }
     },
     {
@@ -566,9 +566,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "それぞれの根号を簡単にしてからまとめると {answer}",
-        "ko": "각각의 근호를 간단히 한 뒤 모으면 {answer}",
-        "en": "Simplify each root, then combine: {answer}"
+        "ja": "それぞれの根号を簡単にする(平方数を外に出す)\n根号の中が同じものどうしを、文字と同じようにまとめる\n{answer}",
+        "ko": "각 근호를 간단히 합니다 (제곱수를 밖으로)\n근호 안이 같은 것끼리 문자처럼 모읍니다\n{answer}",
+        "en": "Simplify each root (take squares outside)\nCombine roots with the same inside, like like terms\n{answer}"
       }
     },
     {
@@ -582,9 +582,9 @@
         "en": "Rationalize the denominator of {c}/(√{a} + {b})."
       },
       "explain": {
-        "ja": "分母と分子に (√{a} − {b}) をかけると {answer}",
-        "ko": "분모와 분자에 (√{a} − {b})를 곱하면 {answer}",
-        "en": "Multiply top and bottom by (√{a} − {b}): {answer}"
+        "ja": "分母と分子に (√{a} − {b}) を掛ける\n分母は (√{a})² − {b}² になって根号が消える\n分子を計算して約分すると {answer}",
+        "ko": "분모와 분자에 (√{a} − {b}) 를 곱합니다\n분모는 (√{a})² − {b}² 이 되어 근호가 사라집니다\n분자를 계산하고 약분하면 {answer}",
+        "en": "Multiply top and bottom by (√{a} − {b})\nThe bottom becomes (√{a})² − {b}² with no root\nWork out the top and reduce: {answer}"
       }
     },
     {
@@ -598,9 +598,9 @@
         "en": "Remove the nested root in {expr}."
       },
       "explain": {
-        "ja": "足して根号の外の数、かけて根号の中の数になる2数を探すと {answer}",
-        "ko": "더해서 바깥의 수, 곱해서 근호 안의 수가 되는 두 수를 찾으면 {answer}",
-        "en": "Find two numbers that add to the outer number and multiply to the inner one: {answer}"
+        "ja": "√(p ± 2√q) の形であることを確かめる\n足して p、掛けて q になる2つの数 a, b (a > b) を探す\n√a ± √b の形にして {answer}",
+        "ko": "√(p ± 2√q) 꼴인지 확인합니다\n더해서 p, 곱해서 q가 되는 두 수 a, b (a > b)를 찾습니다\n√a ± √b 꼴로 만들면 {answer}",
+        "en": "Check that it has the form √(p ± 2√q)\nFind a and b (a > b) with sum p and product q\nWrite it as √a ± √b: {answer}"
       }
     },
     {
@@ -619,9 +619,9 @@
         "en": "Ignore sales tax."
       },
       "explain": {
-        "ja": "{price}x + {box} ≦ {budget} を解いて、整数の最大値を求めると {answer}",
-        "ko": "{price}x + {box} ≦ {budget}을 풀어 가장 큰 정수를 구하면 {answer}",
-        "en": "Solve {price}x + {box} ≦ {budget} and take the largest integer: {answer}"
+        "ja": "個数を x として式を立てる: {price}x + {box} ≦ {budget}\n{box} を移項して {price} で割る\nその範囲で最も大きい整数は {answer}",
+        "ko": "개수를 x로 놓고 식을 세웁니다: {price}x + {box} ≦ {budget}\n{box} 을 이항하고 {price} 로 나눕니다\n그 범위에서 가장 큰 정수는 {answer}",
+        "en": "Let x be the number bought: {price}x + {box} ≤ {budget}\nMove {box} across and divide by {price}\nThe largest whole number in that range is {answer}"
       }
     },
     {
@@ -649,9 +649,9 @@
         "en": "The universal set is U = {1, 2, 3, 4, 5, 6, 7, 8, 9}."
       },
       "explain": {
-        "ja": "全体集合のうち、A にも B にも入っていない要素。{answer}",
-        "ko": "전체집합 중 A에도 B에도 들어 있지 않은 원소입니다. {answer}",
-        "en": "The elements of U that are in neither A nor B: {answer}"
+        "ja": "まず A ∪ B(どちらかに入っている要素)を求める\n全体集合から、その要素をすべて取り除く\n{answer}",
+        "ko": "먼저 A ∪ B (어느 한쪽에 들어 있는 원소)를 구합니다\n전체집합에서 그 원소를 모두 뺍니다\n{answer}",
+        "en": "First find A ∪ B (in at least one of them)\nRemove those elements from the universal set\n{answer}"
       }
     },
     {
@@ -679,9 +679,9 @@
         "en": "The universal set is U = {1, 2, 3, 4, 5, 6, 7, 8, 9}."
       },
       "explain": {
-        "ja": "全体集合のうち、A に入っていない要素。{answer}",
-        "ko": "전체집합 중 A에 들어 있지 않은 원소입니다. {answer}",
-        "en": "The elements of U that are not in A: {answer}"
+        "ja": "補集合は、全体集合のうち A に入っていない要素の集合\n全体集合から A の要素を取り除く(B は関係ない)\n{answer}",
+        "ko": "여집합은 전체집합 중 A에 들어 있지 않은 원소의 집합\n전체집합에서 A의 원소를 뺍니다 (B는 관계없음)\n{answer}",
+        "en": "The complement holds what is in the universal set but not in A\nRemove the elements of A (B does not matter)\n{answer}"
       }
     },
     {
@@ -700,9 +700,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "反例がないものを探すと {answer}",
-        "ko": "반례가 없는 것을 찾으면 {answer}",
-        "en": "Look for the one with no counterexample: {answer}"
+        "ja": "それぞれの命題について、反例(仮定は成り立つが結論が成り立たない値)を探す\n負の数や 0 を入れると反例が見つかりやすい\n反例がないのは {answer}",
+        "ko": "각 명제마다 반례(가정은 성립하지만 결론이 성립하지 않는 값)를 찾습니다\n음수나 0을 넣으면 반례를 찾기 쉽습니다\n반례가 없는 것은 {answer}",
+        "en": "For each statement look for a counterexample\nNegative numbers and 0 often give one\nThe one with no counterexample is {answer}"
       }
     },
     {
@@ -721,9 +721,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "「かつ」と「または」を入れかえ、それぞれの条件を否定すると {answer}",
-        "ko": "'그리고'와 '또는'을 서로 바꾸고 각각의 조건을 부정하면 {answer}",
-        "en": "Swap \"and\" with \"or\" and negate each part: {answer}"
+        "ja": "「かつ」は「または」に、「または」は「かつ」に入れかえる\nそれぞれの条件を否定する(> ↔ ≦、< ↔ ≧、= ↔ ≠)\n{answer}",
+        "ko": "\"그리고\"는 \"또는\"으로, \"또는\"은 \"그리고\"로 바꿉니다\n각 조건을 부정합니다 (> ↔ ≦, < ↔ ≧, = ↔ ≠)\n{answer}",
+        "en": "Swap \"and\" with \"or\"\nNegate each condition (> ↔ ≤, < ↔ ≥, = ↔ ≠)\n{answer}"
       }
     }
   ],
@@ -751,9 +751,9 @@
             "en": "What is x² + y²?"
           },
           "explain": {
-            "ja": "x² + y² = (x + y)² − 2xy より {answer}",
-            "ko": "x² + y² = (x + y)² − 2xy에서 {answer}",
-            "en": "x² + y² = (x + y)² − 2xy, so {answer}"
+            "ja": "x² + y² = (x + y)² − 2xy を使う\n({s})² − 2 × ({p}) = {answer}",
+            "ko": "x² + y² = (x + y)² − 2xy 를 씁니다\n({s})² − 2 × ({p}) = {answer}",
+            "en": "Use x² + y² = (x + y)² − 2xy\n({s})² − 2 × ({p}) = {answer}"
           }
         },
         {
@@ -770,9 +770,9 @@
             "en": "What is (x − y)²?"
           },
           "explain": {
-            "ja": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
-            "ko": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}",
-            "en": "(x − y)² = x² + y² − 2xy = {a1} − 2 × ({p}) = {answer}"
+            "ja": "(x − y)² = x² + y² − 2xy\n前の答えを使って {a1} − 2 × ({p}) = {answer}",
+            "ko": "(x − y)² = x² + y² − 2xy\n앞의 답을 써서 {a1} − 2 × ({p}) = {answer}",
+            "en": "(x − y)² = x² + y² − 2xy\nUsing the previous answer: {a1} − 2 × ({p}) = {answer}"
           }
         },
         {
@@ -789,9 +789,9 @@
             "en": "What is x³ + y³?"
           },
           "explain": {
-            "ja": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
-            "ko": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}",
-            "en": "x³ + y³ = (x + y)(x² − xy + y²) = ({s}) × ({a1} − ({p})) = {answer}"
+            "ja": "x³ + y³ = (x + y)(x² − xy + y²)\n({s}) × ({a1} − ({p})) = {answer}",
+            "ko": "x³ + y³ = (x + y)(x² − xy + y²)\n({s}) × ({a1} − ({p})) = {answer}",
+            "en": "x³ + y³ = (x + y)(x² − xy + y²)\n({s}) × ({a1} − ({p})) = {answer}"
           }
         }
       ]
