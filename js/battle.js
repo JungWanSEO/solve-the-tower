@@ -579,7 +579,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     // 도전 단계: 1단계부터 모든 적, 5단계에서는 중간 보스와 보스의 체력이 더 늘어납니다.
     const tough = 1 + (level >= 1 ? CONFIG.ascend.foeHp : 0) + (level >= 5 && (kind === 'midboss' || kind === 'boss') ? CONFIG.ascend.bossHp : 0);
     const warmup = kind === 'battle' && floor < CONFIG.early.floors ? CONFIG.early.hpMul : 1;
-    B.foeMax = Math.round(monster.hp * (kind === 'elite' ? CONFIG.elite.hpMul : 1) * tough * warmup);
+    const later = 1 + CONFIG.act.hpAdd * (run.act || 0); // 긴 탑: 뒤의 막일수록 적이 조금 단단합니다
+    B.foeMax = Math.round(monster.hp * (kind === 'elite' ? CONFIG.elite.hpMul : 1) * tough * warmup * later);
     // 재도전 선물 "약해진 적": 남은 횟수 동안 전투·강적의 체력이 1 입니다. (횟수는 이겼을 때 js/main.js 가 줄입니다)
     if (run.frail > 0 && (kind === 'battle' || kind === 'elite')) B.foeMax = 1;
     B.foeHp = B.foeMax;

@@ -92,6 +92,17 @@ export function scopeTree() {
 }
 
 // 유형 목록에 걸친 과목 이름들 (화면 위쪽에 보여줍니다)
+// 고른 유형을 과목별로 나눕니다 (목록의 과목 순서대로). 긴 탑에서 과목 하나가 한 막이 됩니다.
+export function actsFor(keys) {
+  const acts = [];
+  for (const subject of catalog.subjects) {
+    const mine = keys.filter((key) => types.get(key)?.unit.subject === subject);
+    if (mine.length) acts.push({ id: subject.id, keys: mine });
+  }
+  return acts;
+}
+export const subjectName = (id) => { const subject = catalog.subjects.find((s) => s.id === id); return subject ? pick(subject.name) : ''; };
+
 export function subjectNames(keys) {
   const seen = [];
   for (const key of keys) {
