@@ -870,3 +870,7 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 .answers button.fill-key { min-height: 46px; padding: 0; font-size: 19px; }
 .answers button.fill-ok { min-height: 50px; background: #12564d; border-color: var(--teal); }
 .tight .answers button.fill-key { min-height: 42px; }
+
+/* an action that ends the fight if you get it right */
+.actions button.act.finish, .special .chain.finish, .special .ult.finish { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(255, 200, 87, 0.55), 0 0 14px rgba(255, 200, 87, 0.35); }
+.act.finish small, .chain.finish small, .ult.finish small { color: var(--amber); font-weight: 700; }

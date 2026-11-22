@@ -48,7 +48,11 @@
     "ok": "OK",
     "musicOn": "Music: on",
     "musicOff": "Music: off",
-    "fillOk": "Attack with this answer"
+    "fillOk": "Attack with this answer",
+    "finish": "Correct = defeated",
+    "finishCounter": "Block = defeated",
+    "finishChain": "All correct = defeated",
+    "finishUlt": "Damage {d} · defeats it"
   },
   "msg": {
     "choose": "Choose an action.",
