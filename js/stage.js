@@ -765,7 +765,165 @@ export function createStage(canvas) {
     eye(10, -14, 5, true, '#1c2740', 0.9);
     glyph(swapped ? 'α−β' : 'α+β', 0, 12, 15, '#1f5d78');
   }
+  // ---- 数学II 의 몬스터 (고유 동작은 f.spec 이 1 → 0 으로 줄어드는 동안 보입니다) ----
+  const specOf = (f) => (f.spec > 0 ? 1 - f.spec : 0);
+  // 거리 자 (図形と方程式): 눈금이 늘어났다 줄어듦
+  function drawRuler(f) {
+    const grow = Math.sin(specOf(f) * Math.PI) * 14;
+    ctx.save();
+    ctx.rotate(-0.5);
+    rrect(-52 - grow, -14, 104 + grow * 2, 30, 5, '#f2c14e');
+    for (let k = -4; k <= 4; k++) line(k * 11, -14, k * 11, k % 2 ? -6 : -1, '#7a5a12', 2);
+    eye(-10, 6, 5, true, '#1c2740', 1.1);
+    eye(10, 6, 5, true, '#1c2740', 1.1);
+    ctx.restore();
+    glyph('√', 34, 38, 20, '#f6e3a1');
+  }
+  // 원 과녁 (図形と方程式): 중심의 표시가 반대쪽으로 튐
+  function drawTarget(f) {
+    const sp = specOf(f);
+    const off = (f.flag !== sp > 0.5 ? -1 : 1) * 9;
+    circ(0, 0, 46, '#e85d5d');
+    circ(0, 0, 34, '#fbeeee');
+    circ(0, 0, 22, '#e85d5d');
+    circ(0, 0, 10, '#fbeeee');
+    circ(off, -off * 0.5, 4, '#1c2740');
+    eye(-12, -26, 4.5, true, '#1c2740', 0.6);
+    eye(12, -26, 4.5, true, '#1c2740', 0.6);
+    rrect(-6, 44, 12, 14, 3, '#8a6a2c');
+  }
+  // 호도법 시계추 (三角関数): 추가 크게 흔들림
+  function drawPendulum(f) {
+    const swing = Math.sin(specOf(f) * Math.PI * 3) * 0.7 + 0.25;
+    rrect(-30, -58, 60, 10, 4, '#7d8bb0');
+    ctx.save();
+    ctx.translate(0, -50);
+    ctx.rotate(swing);
+    line(0, 0, 0, 70, '#cfd8ee', 3);
+    circ(0, 78, 22, '#5aa9e6');
+    eye(-7, 74, 4.5, true, '#1c2740', 2.3);
+    eye(7, 74, 4.5, true, '#1c2740', 2.3);
+    glyph('π', 0, 90, 13, '#103a5c');
+    ctx.restore();
+  }
+  // 덧셈정리 파도 (三角関数): 물결이 옆으로 흐름
+  function drawWave(f) {
+    const shift = specOf(f) * Math.PI * 4;
+    ctx.fillStyle = C('#3fa7d6');
+    ctx.beginPath();
+    ctx.moveTo(-54, 50);
+    for (let x = -54; x <= 54; x += 4) ctx.lineTo(x, -6 + Math.sin(x / 12 + shift) * 16 - Math.max(0, 22 - Math.abs(x) * 0.5));
+    ctx.lineTo(54, 50);
+    ctx.closePath();
+    ctx.fill();
+    ell(0, 34, 50, 16, '#2b7fa8');
+    eye(-10, 8, 5.5, true, '#1c2740', 1.5);
+    eye(10, 8, 5.5, true, '#1c2740', 1.5);
+    glyph('α+β', 0, 32, 13, '#e6f7ff');
+  }
+  // 지수 새싹 (指数・対数): 줄기가 쑥 자람
+  function drawSprout(f) {
+    const tall = Math.sin(specOf(f) * Math.PI) * 18;
+    rrect(-26, 20, 52, 30, 8, '#a8663a');
+    rrect(-30, 14, 60, 12, 5, '#c98450');
+    line(0, 16, 0, -22 - tall, '#3f9d4b', 6);
+    ell(-16, -26 - tall, 16, 9, '#58c267');
+    ell(16, -34 - tall, 16, 9, '#58c267');
+    eye(-8, 34, 4.5, true, '#1c2740', 0.4);
+    eye(8, 34, 4.5, true, '#1c2740', 0.4);
+    glyph('2ˣ', 30, -30 - tall, 14, '#d7ffd9');
+  }
+  // 로그 통나무 (指数・対数): 데굴데굴 구름
+  function drawLogger(f) {
+    const roll = specOf(f) * Math.PI * 2;
+    rrect(-48, -18, 96, 46, 20, '#9c6b3f');
+    ell(-40, 5, 14, 23, '#d9b98c');
+    ctx.save();
+    ctx.translate(-40, 5);
+    ctx.rotate(roll);
+    ell(0, 0, 8, 13, '#b98d5c');
+    line(-4, 0, 4, 0, '#7a5530', 2);
+    ctx.restore();
+    eye(2, -2, 5, true, '#1c2740', 1.9);
+    eye(22, -2, 5, true, '#1c2740', 1.9);
+    glyph('log', 12, 16, 13, '#f5e2c4');
+    rrect(-34, 28, 10, 14, 3, '#7a5530');
+    rrect(24, 28, 10, 14, 3, '#7a5530');
+  }
+  // 기울기 스케이터 (微分・積分): 비탈을 미끄러져 내려감
+  function drawSkater(f) {
+    const sp = specOf(f);
+    const slide = Math.sin(sp * Math.PI) * 18;
+    poly([-56, 50, 56, 50, 56, -6], '#4b5f96');
+    line(-56, 50, 56, -6, '#9db1e6', 3);
+    ctx.save();
+    ctx.translate(-slide, slide * 0.5 - 4);
+    ctx.rotate(-0.46);
+    rrect(-20, -2, 40, 6, 3, '#f2c14e');
+    circ(-12, 7, 4, '#1c2740');
+    circ(12, 7, 4, '#1c2740');
+    circ(0, -22, 20, '#ff8fa3');
+    eye(-7, -25, 4.5, true, '#1c2740', 2.7);
+    eye(7, -25, 4.5, true, '#1c2740', 2.7);
+    line(-6, -13, 6, -13, '#7a2338', 2.5);
+    ctx.restore();
+    glyph('f′', 40, 38, 14, '#dfe8ff');
+  }
+  // 넓이 양동이 (微分・積分): 물이 찼다 빠짐
+  function drawBucket(f) {
+    const level = 0.35 + Math.sin(specOf(f) * Math.PI) * 0.5;
+    poly([-36, -30, 36, -30, 28, 46, -28, 46], '#8f9bb8');
+    const top = 46 - 70 * level;
+    const half = 28 + (46 - top) * (8 / 76);
+    poly([-half, top, half, top, 28, 46, -28, 46], '#4cc2e8');
+    ctx.strokeStyle = C('#5a6788');
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(0, -30, 36, Math.PI, 0);
+    ctx.stroke();
+    eye(-10, 4, 5, true, '#1c2740', 0.2);
+    eye(10, 4, 5, true, '#1c2740', 0.2);
+    glyph('∫', 0, 30, 18, '#0d4960');
+  }
+  // 방정식 스핑크스 (数学II 중간 보스): 물음표가 차례로 떠오름
+  function drawSphinx(f) {
+    const sp = specOf(f);
+    rrect(-52, 14, 104, 36, 10, '#c9a04a');
+    rrect(-60, 34, 30, 16, 6, '#b08a3c');
+    rrect(30, 34, 30, 16, 6, '#b08a3c');
+    poly([-34, 16, -40, -40, 0, -62, 40, -40, 34, 16], '#2f6fb0');
+    poly([-26, 14, -30, -34, 0, -52, 30, -34, 26, 14], '#f0c96a');
+    circ(0, -16, 22, '#e2b072');
+    eye(-9, -19, 5, true, '#1c2740', 0.9);
+    eye(9, -19, 5, true, '#1c2740', 0.9);
+    line(-6, -5, 6, -5, '#7a4a18', 2.5);
+    for (let k = 0; k < 3; k++) if (sp > 0 && sp * 3 > k) glyph('x', -44 + k * 44, -58 - k % 2 * 8, 15, '#ffe9a8');
+    glyph('x³', 0, 34, 15, '#5a3f10');
+  }
+  // 미적분 히드라 (数学II 보스): 세 머리가 번갈아 치켜듦
+  function drawHydra(f) {
+    const sp = specOf(f);
+    ell(0, 30, 50, 24, '#2f8f6b');
+    [-1, 0, 1].forEach((side, k) => {
+      const up = Math.max(0, Math.sin(sp * Math.PI * 3 - k)) * 12;
+      const hx = side * 34;
+      const hy = -30 - (side === 0 ? 14 : 0) - up;
+      ctx.strokeStyle = C('#37a57c');
+      ctx.lineWidth = 14;
+      ctx.beginPath();
+      ctx.moveTo(side * 16, 22);
+      ctx.quadraticCurveTo(side * 44, -4, hx, hy);
+      ctx.stroke();
+      circ(hx, hy, 15, '#45c495');
+      eye(hx - 5, hy - 3, 3.6, true, '#1c2740', 1 + k);
+      eye(hx + 5, hy - 3, 3.6, true, '#1c2740', 1 + k);
+      glyph(['f′', '∫', 'dx'][k], hx, hy + 9, 9, '#0c3d2c');
+    });
+    glyph('0', 0, 32, 16, '#d9ffef');
+  }
   const FOE_DRAW = {
+    ruler: drawRuler, target: drawTarget, pendulum: drawPendulum, wave: drawWave, sprout: drawSprout, logger: drawLogger,
+    skater: drawSkater, bucket: drawBucket, sphinx: drawSphinx, hydra: drawHydra,
     imp: drawImp, mirror: drawMirror,
     pascal: drawPascal, saw: drawSaw,
     twins: drawTwins, bat: drawBat, golem: drawGolem, thief: drawThief, tower: drawTower,

@@ -398,5 +398,177 @@
     "weak": "math2-complex/vieta",
     "basicLevel": 1,
     "skillLevel": 2
+  },
+  {
+    "id": "ruler",
+    "name": {
+      "ja": "距離のものさし",
+      "ko": "거리 자",
+      "en": "Distance Ruler"
+    },
+    "mistake": {
+      "ja": "距離を求めるとき、座標の差を2乗せずにそのまま足す",
+      "ko": "거리를 구할 때 좌표의 차를 제곱하지 않고 그대로 더하기",
+      "en": "Adding coordinate differences without squaring them"
+    },
+    "hp": 16,
+    "weak": "math2-coord/dist",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "target",
+    "name": {
+      "ja": "円のまと",
+      "ko": "원 과녁",
+      "en": "Circle Target"
+    },
+    "mistake": {
+      "ja": "円の方程式から中心を読むとき、符号を逆にする",
+      "ko": "원의 방정식에서 중심을 읽을 때 부호를 반대로 쓰기",
+      "en": "Reading the centre of a circle with the wrong signs"
+    },
+    "hp": 18,
+    "weak": "math2-coord/circle",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "pendulum",
+    "name": {
+      "ja": "弧度法のふりこ",
+      "ko": "호도법 시계추",
+      "en": "Radian Pendulum"
+    },
+    "mistake": {
+      "ja": "度と弧度を混ぜて計算する",
+      "ko": "도(°)와 호도를 섞어서 계산하기",
+      "en": "Mixing degrees and radians in one calculation"
+    },
+    "hp": 16,
+    "weak": "math2-trig/radian",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "wave",
+    "name": {
+      "ja": "加法定理の波",
+      "ko": "덧셈정리 파도",
+      "en": "Addition Wave"
+    },
+    "mistake": {
+      "ja": "sin(α + β) を sin α + sin β と計算する",
+      "ko": "sin(α + β)를 sin α + sin β 로 계산하기",
+      "en": "Computing sin(α + β) as sin α + sin β"
+    },
+    "hp": 18,
+    "weak": "math2-trig/addition",
+    "basicLevel": 2,
+    "skillLevel": 2
+  },
+  {
+    "id": "sprout",
+    "name": {
+      "ja": "指数のめばえ",
+      "ko": "지수 새싹",
+      "en": "Exponent Sprout"
+    },
+    "mistake": {
+      "ja": "同じ底の掛け算で、指数を足さずに掛ける",
+      "ko": "밑이 같은 곱셈에서 지수를 더하지 않고 곱하기",
+      "en": "Multiplying exponents instead of adding them"
+    },
+    "hp": 16,
+    "weak": "math2-explog/exprule",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "logger",
+    "name": {
+      "ja": "対数の丸太",
+      "ko": "로그 통나무",
+      "en": "Log Log"
+    },
+    "mistake": {
+      "ja": "log(M + N) を log M + log N と計算する",
+      "ko": "log(M + N)을 log M + log N 으로 계산하기",
+      "en": "Computing log(M + N) as log M + log N"
+    },
+    "hp": 18,
+    "weak": "math2-explog/logrule",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "skater",
+    "name": {
+      "ja": "傾きスケーター",
+      "ko": "기울기 스케이터",
+      "en": "Slope Skater"
+    },
+    "mistake": {
+      "ja": "微分するとき、指数を前に出すのを忘れる",
+      "ko": "미분할 때 지수를 앞으로 꺼내는 것을 잊기",
+      "en": "Forgetting to bring the exponent down when differentiating"
+    },
+    "hp": 16,
+    "weak": "math2-calc/deriv",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "bucket",
+    "name": {
+      "ja": "面積のバケツ",
+      "ko": "넓이 양동이",
+      "en": "Area Bucket"
+    },
+    "mistake": {
+      "ja": "x 軸の下にある部分の面積を負のまま答える",
+      "ko": "x축 아래에 있는 부분의 넓이를 음수 그대로 답하기",
+      "en": "Leaving an area below the x-axis as a negative number"
+    },
+    "hp": 18,
+    "weak": "math2-calc/area",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "sphinx",
+    "midboss": true,
+    "name": {
+      "ja": "方程式のスフィンクス",
+      "ko": "방정식 스핑크스",
+      "en": "Equation Sphinx"
+    },
+    "mistake": {
+      "ja": "高次方程式で、解を1つ見つけたところでやめてしまう",
+      "ko": "고차방정식에서 해를 하나 찾고 멈추기",
+      "en": "Stopping after finding only one root of a higher-degree equation"
+    },
+    "hp": 22,
+    "weak": "math2-complex/higheq",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "hydra",
+    "boss": true,
+    "name": {
+      "ja": "微積のヒドラ",
+      "ko": "미적분 히드라",
+      "en": "Calculus Hydra"
+    },
+    "mistake": {
+      "ja": "f′(x) = 0 の点を、増減を調べずにすべて極値だと決めつける",
+      "ko": "f′(x) = 0 인 점을 증감을 확인하지 않고 모두 극값이라고 단정하기",
+      "en": "Calling every point with f′(x) = 0 an extremum without checking the sign change"
+    },
+    "hp": 28,
+    "weak": "math2-calc/extrema",
+    "basicLevel": 2,
+    "skillLevel": 3
   }
 ]
