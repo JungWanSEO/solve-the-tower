@@ -1,0 +1,541 @@
+{
+  "id": "math2-trig",
+  "name": {
+    "ja": "三角関数",
+    "ko": "삼각함수",
+    "en": "Trigonometric functions"
+  },
+  "types": {
+    "radian": {
+      "ja": "弧度法",
+      "ko": "호도법",
+      "en": "Radians"
+    },
+    "sector": {
+      "ja": "扇形の弧の長さと面積",
+      "ko": "부채꼴의 호의 길이와 넓이",
+      "en": "Arc length and area of a sector"
+    },
+    "trigval": {
+      "ja": "一般角の三角関数",
+      "ko": "일반각의 삼각함수",
+      "en": "Trig values of general angles"
+    },
+    "period": {
+      "ja": "三角関数のグラフ",
+      "ko": "삼각함수의 그래프",
+      "en": "Graphs of trig functions"
+    },
+    "trigeq": {
+      "ja": "三角方程式",
+      "ko": "삼각방정식",
+      "en": "Trig equations"
+    },
+    "addition": {
+      "ja": "加法定理",
+      "ko": "덧셈정리",
+      "en": "Addition formulas"
+    },
+    "double": {
+      "ja": "2倍角の公式",
+      "ko": "2배각 공식",
+      "en": "Double-angle formulas"
+    },
+    "compose": {
+      "ja": "三角関数の合成",
+      "ko": "삼각함수의 합성",
+      "en": "Combining sine and cosine"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "一般角と弧度法",
+        "ko": "일반각과 호도법",
+        "en": "General angles and radians"
+      },
+      "types": [
+        "radian",
+        "sector",
+        "trigval"
+      ]
+    },
+    {
+      "name": {
+        "ja": "グラフと方程式",
+        "ko": "그래프와 방정식",
+        "en": "Graphs and equations"
+      },
+      "types": [
+        "period",
+        "trigeq"
+      ]
+    },
+    {
+      "name": {
+        "ja": "加法定理",
+        "ko": "덧셈정리",
+        "en": "Addition formulas"
+      },
+      "types": [
+        "addition",
+        "double",
+        "compose"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "torad",
+      "level": 1,
+      "type": "radian",
+      "gen": "radian",
+      "text": {
+        "ja": "{deg}° を弧度法で表すと?",
+        "ko": "{deg}°를 호도법으로 나타내면?",
+        "en": "Write {deg}° in radians."
+      },
+      "explain": {
+        "ja": "180° = π なので、π/180 を掛けて {answer}",
+        "ko": "180° = π 이므로 π/180 을 곱하면 {answer}",
+        "en": "Since 180° = π, multiply by π/180: {answer}"
+      }
+    },
+    {
+      "id": "todeg",
+      "level": 1,
+      "type": "radian",
+      "gen": "radian",
+      "params": {
+        "dir": "from"
+      },
+      "text": {
+        "ja": "{rad} を度数法で表すと?",
+        "ko": "{rad} 를 도(°)로 나타내면?",
+        "en": "Write {rad} in degrees."
+      },
+      "explain": {
+        "ja": "π = 180° とおきかえて {answer}",
+        "ko": "π = 180° 로 바꾸면 {answer}",
+        "en": "Replace π with 180°: {answer}"
+      }
+    },
+    {
+      "id": "arc",
+      "level": 1,
+      "type": "sector",
+      "gen": "sectorq",
+      "params": {
+        "ask": "arc"
+      },
+      "figure": {
+        "kind": "sector",
+        "r": "{r}",
+        "angle": "{theta}",
+        "arc": "l = ?",
+        "area": "",
+        "deg": "{deg}"
+      },
+      "text": {
+        "ja": "半径 {r}、中心角 {theta} の扇形の弧の長さは?",
+        "ko": "반지름 {r}, 중심각 {theta} 인 부채꼴의 호의 길이는?",
+        "en": "What is the arc length of a sector with radius {r} and angle {theta}?"
+      },
+      "explain": {
+        "ja": "弧の長さ l = rθ = {answer}",
+        "ko": "호의 길이 l = rθ = {answer}",
+        "en": "Arc length l = rθ = {answer}"
+      }
+    },
+    {
+      "id": "sarea",
+      "level": 2,
+      "type": "sector",
+      "gen": "sectorq",
+      "params": {
+        "ask": "area"
+      },
+      "figure": {
+        "kind": "sector",
+        "r": "{r}",
+        "angle": "{theta}",
+        "arc": "",
+        "area": "S = ?",
+        "deg": "{deg}"
+      },
+      "text": {
+        "ja": "半径 {r}、中心角 {theta} の扇形の面積は?",
+        "ko": "반지름 {r}, 중심각 {theta} 인 부채꼴의 넓이는?",
+        "en": "What is the area of a sector with radius {r} and angle {theta}?"
+      },
+      "explain": {
+        "ja": "面積 S = r²θ ÷ 2 = {answer}",
+        "ko": "넓이 S = r²θ ÷ 2 = {answer}",
+        "en": "Area S = r²θ ÷ 2 = {answer}"
+      }
+    },
+    {
+      "id": "trigval",
+      "level": 2,
+      "type": "trigval",
+      "gen": "trigval",
+      "figure": {
+        "kind": "unitcircle",
+        "deg": "{deg}",
+        "label": "{label}"
+      },
+      "text": {
+        "ja": "{expr} の値は?",
+        "ko": "{expr} 의 값은?",
+        "en": "What is {expr}?"
+      },
+      "explain": {
+        "ja": "単位円で角 {label} の点 P をとり、座標の符号に注意すると {answer}",
+        "ko": "단위원에서 각 {label} 의 점 P를 잡고 좌표의 부호에 주의하면 {answer}",
+        "en": "Mark the point P for angle {label} on the unit circle and mind the signs: {answer}"
+      }
+    },
+    {
+      "id": "period",
+      "level": 1,
+      "type": "period",
+      "gen": "period",
+      "params": {
+        "ask": "period"
+      },
+      "text": {
+        "ja": "関数 {expr} の周期は?",
+        "ko": "함수 {expr} 의 주기는?",
+        "en": "What is the period of {expr}?"
+      },
+      "explain": {
+        "ja": "y = sin kx, y = cos kx の周期は 2π ÷ k。{answer}",
+        "ko": "y = sin kx, y = cos kx 의 주기는 2π ÷ k. {answer}",
+        "en": "The period of sin kx and cos kx is 2π ÷ k: {answer}"
+      }
+    },
+    {
+      "id": "trigmax",
+      "level": 2,
+      "type": "period",
+      "gen": "period",
+      "params": {
+        "ask": "max"
+      },
+      "text": {
+        "ja": "関数 {expr} の最大値は?",
+        "ko": "함수 {expr} 의 최댓값은?",
+        "en": "What is the maximum of {expr}?"
+      },
+      "explain": {
+        "ja": "sin, cos は −1 から 1 まで動く。係数の絶対値に定数を足して {answer}",
+        "ko": "sin, cos 은 −1 부터 1 까지 움직입니다. 계수의 절댓값에 상수를 더하면 {answer}",
+        "en": "sin and cos range over −1 to 1; add the constant to the size of the coefficient: {answer}"
+      }
+    },
+    {
+      "id": "trigeq2",
+      "level": 2,
+      "type": "trigeq",
+      "gen": "trigeq2",
+      "text": {
+        "ja": "0 ≦ θ < 2π のとき、方程式 {eq} の解は?",
+        "ko": "0 ≦ θ < 2π 일 때, 방정식 {eq} 의 해는?",
+        "en": "Solve {eq} for 0 ≤ θ < 2π."
+      },
+      "explain": {
+        "ja": "単位円で、その値になる点を2つ見つけると {answer}",
+        "ko": "단위원에서 그 값이 되는 점을 두 개 찾으면 {answer}",
+        "en": "Find the two points on the unit circle with that value: {answer}"
+      }
+    },
+    {
+      "id": "addsin",
+      "level": 2,
+      "type": "addition",
+      "gen": "addition",
+      "params": {
+        "ask": "sin+"
+      },
+      "text": {
+        "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
+        "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
+        "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
+      },
+      "explain": {
+        "ja": "cos α と sin β を求めてから sin α cos β + cos α sin β = {answer}",
+        "ko": "cos α 와 sin β 를 구한 뒤 sin α cos β + cos α sin β = {answer}",
+        "en": "Find cos α and sin β, then sin α cos β + cos α sin β = {answer}"
+      }
+    },
+    {
+      "id": "subsin",
+      "level": 2,
+      "type": "addition",
+      "gen": "addition",
+      "params": {
+        "ask": "sin-"
+      },
+      "text": {
+        "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
+        "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
+        "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
+      },
+      "explain": {
+        "ja": "sin α cos β − cos α sin β = {answer}",
+        "ko": "sin α cos β − cos α sin β = {answer}",
+        "en": "sin α cos β − cos α sin β = {answer}"
+      }
+    },
+    {
+      "id": "addcos",
+      "level": 2,
+      "type": "addition",
+      "gen": "addition",
+      "params": {
+        "ask": "cos+"
+      },
+      "text": {
+        "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
+        "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
+        "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
+      },
+      "explain": {
+        "ja": "cos α cos β − sin α sin β = {answer}(符号が逆になることに注意)",
+        "ko": "cos α cos β − sin α sin β = {answer} (부호가 반대가 되는 것에 주의)",
+        "en": "cos α cos β − sin α sin β = {answer} (note the flipped sign)"
+      }
+    },
+    {
+      "id": "subcos",
+      "level": 3,
+      "type": "addition",
+      "gen": "addition",
+      "params": {
+        "ask": "cos-"
+      },
+      "text": {
+        "ja": "α, β は鋭角で sin α = {sa}, cos β = {cb} のとき、{expr} の値は?",
+        "ko": "α, β는 예각이고 sin α = {sa}, cos β = {cb} 일 때, {expr} 의 값은?",
+        "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
+      },
+      "explain": {
+        "ja": "cos α cos β + sin α sin β = {answer}",
+        "ko": "cos α cos β + sin α sin β = {answer}",
+        "en": "cos α cos β + sin α sin β = {answer}"
+      }
+    },
+    {
+      "id": "sin2",
+      "level": 2,
+      "type": "double",
+      "gen": "double",
+      "params": {
+        "ask": "sin2"
+      },
+      "text": {
+        "ja": "{range} で sin θ = {sin} のとき、sin 2θ の値は?",
+        "ko": "{range} 이고 sin θ = {sin} 일 때, sin 2θ의 값은?",
+        "en": "Given {range} and sin θ = {sin}, what is sin 2θ?"
+      },
+      "explain": {
+        "ja": "範囲から cos θ の符号を決め、sin 2θ = 2 sin θ cos θ = {answer}",
+        "ko": "범위에서 cos θ 의 부호를 정하고, sin 2θ = 2 sin θ cos θ = {answer}",
+        "en": "Fix the sign of cos θ from the range; sin 2θ = 2 sin θ cos θ = {answer}"
+      }
+    },
+    {
+      "id": "cos2",
+      "level": 2,
+      "type": "double",
+      "gen": "double",
+      "params": {
+        "ask": "cos2"
+      },
+      "text": {
+        "ja": "{range} で sin θ = {sin} のとき、cos 2θ の値は?",
+        "ko": "{range} 이고 sin θ = {sin} 일 때, cos 2θ의 값은?",
+        "en": "Given {range} and sin θ = {sin}, what is cos 2θ?"
+      },
+      "explain": {
+        "ja": "cos 2θ = 1 − 2 sin² θ = {answer}",
+        "ko": "cos 2θ = 1 − 2 sin² θ = {answer}",
+        "en": "cos 2θ = 1 − 2 sin² θ = {answer}"
+      }
+    },
+    {
+      "id": "compose",
+      "level": 3,
+      "type": "compose",
+      "gen": "compose",
+      "text": {
+        "ja": "{expr} の最大値は?",
+        "ko": "{expr} 의 최댓값은?",
+        "en": "What is the maximum of {expr}?"
+      },
+      "explain": {
+        "ja": "r sin(θ + α) の形に合成すると r = √(a² + b²)。最大値は {answer}",
+        "ko": "r sin(θ + α) 꼴로 합성하면 r = √(a² + b²). 최댓값은 {answer}",
+        "en": "Combine into r sin(θ + α) with r = √(a² + b²); the maximum is {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-sector",
+      "gen": "sector",
+      "figure": {
+        "kind": "sector",
+        "r": "{r}",
+        "angle": "{deg}°",
+        "arc": "",
+        "area": "",
+        "deg": "{deg}"
+      },
+      "intro": {
+        "ja": "半径 {r}、中心角 {deg}° の扇形について答えよ。",
+        "ko": "반지름 {r}, 중심각 {deg}° 인 부채꼴에 대하여 답하시오.",
+        "en": "Answer about a sector with radius {r} and angle {deg}°."
+      },
+      "steps": [
+        {
+          "type": "radian",
+          "level": 1,
+          "sum": {
+            "ja": "弧度法",
+            "ko": "호도법",
+            "en": "Radians"
+          },
+          "text": {
+            "ja": "中心角を弧度法で表すと?",
+            "ko": "중심각을 호도법으로 나타내면?",
+            "en": "What is the angle in radians?"
+          },
+          "explain": {
+            "ja": "{deg}° × π/180 = {answer}",
+            "ko": "{deg}° × π/180 = {answer}",
+            "en": "{deg}° × π/180 = {answer}"
+          },
+          "figure": {
+            "angle": "?"
+          }
+        },
+        {
+          "type": "sector",
+          "level": 1,
+          "sum": {
+            "ja": "弧の長さ",
+            "ko": "호의 길이",
+            "en": "Arc length"
+          },
+          "text": {
+            "ja": "弧の長さは?",
+            "ko": "호의 길이는?",
+            "en": "What is the arc length?"
+          },
+          "explain": {
+            "ja": "l = rθ = {r} × {a1} = {answer}",
+            "ko": "l = rθ = {r} × {a1} = {answer}",
+            "en": "l = rθ = {r} × {a1} = {answer}"
+          },
+          "figure": {
+            "angle": "{a1}",
+            "arc": "l = ?"
+          }
+        },
+        {
+          "type": "sector",
+          "level": 2,
+          "sum": {
+            "ja": "面積",
+            "ko": "넓이",
+            "en": "Area"
+          },
+          "text": {
+            "ja": "面積は?",
+            "ko": "넓이는?",
+            "en": "What is the area?"
+          },
+          "explain": {
+            "ja": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}",
+            "ko": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}",
+            "en": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}"
+          },
+          "figure": {
+            "angle": "{a1}",
+            "arc": "{a2}",
+            "area": "S = ?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-double",
+      "gen": "double",
+      "intro": {
+        "ja": "π/2 < θ < π で sin θ = {sin} とする。",
+        "ko": "π/2 < θ < π 이고 sin θ = {sin} 이라 한다.",
+        "en": "Let π/2 < θ < π and sin θ = {sin}."
+      },
+      "steps": [
+        {
+          "type": "trigval",
+          "level": 1,
+          "sum": {
+            "ja": "cos θ",
+            "ko": "cos θ",
+            "en": "cos θ"
+          },
+          "text": {
+            "ja": "cos θ の値は?",
+            "ko": "cos θ의 값은?",
+            "en": "What is cos θ?"
+          },
+          "explain": {
+            "ja": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0。{answer}",
+            "ko": "sin² θ + cos² θ = 1 이고 θ는 제2사분면이므로 cos θ < 0. {answer}",
+            "en": "sin² θ + cos² θ = 1 and θ is in the second quadrant, so cos θ < 0: {answer}"
+          }
+        },
+        {
+          "type": "double",
+          "level": 2,
+          "sum": {
+            "ja": "sin 2θ",
+            "ko": "sin 2θ",
+            "en": "sin 2θ"
+          },
+          "text": {
+            "ja": "sin 2θ の値は?",
+            "ko": "sin 2θ의 값은?",
+            "en": "What is sin 2θ?"
+          },
+          "explain": {
+            "ja": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}",
+            "ko": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}",
+            "en": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}"
+          }
+        },
+        {
+          "type": "double",
+          "level": 2,
+          "sum": {
+            "ja": "cos 2θ",
+            "ko": "cos 2θ",
+            "en": "cos 2θ"
+          },
+          "text": {
+            "ja": "cos 2θ の値は?",
+            "ko": "cos 2θ의 값은?",
+            "en": "What is cos 2θ?"
+          },
+          "explain": {
+            "ja": "1 − 2 sin² θ = {answer}",
+            "ko": "1 − 2 sin² θ = {answer}",
+            "en": "1 − 2 sin² θ = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -32,6 +32,7 @@ export async function loadAll(onStep = () => {}) {
   onStep();
   // 단원 파일은 하나씩 기다리지 않고 한꺼번에 받습니다. (통신이 느릴 때 차이가 큽니다)
   // 목록의 off 에 적힌 단원은 건너뜁니다. (학교 범위가 아닌 단원을 지우지 않고 꺼 둘 때 씁니다)
+  // "단원/유형" 으로 적으면 그 유형만 끕니다. 예: "math2-trig/compose"
   const off = new Set(catalog.off || []);
   const wanted = catalog.subjects.flatMap((subject) => subject.units.filter((id) => !off.has(id)).map((id) => ({ subject, id })));
   const loaded = await Promise.all(wanted.map(({ id }) => getJson(`./data/units/${id}.json`).then((unit) => {
@@ -41,6 +42,15 @@ export async function loadAll(onStep = () => {}) {
   // 받은 순서와 상관없이 목록에 적힌 순서대로 정리합니다.
   loaded.forEach((unit, n) => {
     unit.subject = wanted[n].subject;
+    // 꺼 둔 유형: 유형 목록, 묶음, 문제 틀, 그 유형이 들어간 연속기에서 모두 뺍니다.
+    const gone = new Set(Object.keys(unit.types).filter((name) => off.has(`${unit.id}/${name}`)));
+    if (gone.size) {
+      for (const name of gone) delete unit.types[name];
+      unit.groups = unit.groups.map((g) => ({ ...g, types: g.types.filter((t) => !gone.has(t)) })).filter((g) => g.types.length);
+      unit.templates = unit.templates.filter((tpl) => !gone.has(tpl.type));
+      unit.chains = (unit.chains || []).filter((ch) => !ch.steps.some((st) => gone.has(st.type)));
+    }
+    if (!Object.keys(unit.types).length) return; // 유형을 모두 껐으면 단원도 나오지 않습니다
     units.push(unit);
     for (const [name, names] of Object.entries(unit.types)) {
       const key = `${unit.id}/${name}`;

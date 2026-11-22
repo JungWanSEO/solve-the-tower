@@ -1,0 +1,445 @@
+{
+  "id": "math2-calc",
+  "name": {
+    "ja": "微分法と積分法",
+    "ko": "미분법과 적분법",
+    "en": "Differentiation and integration"
+  },
+  "types": {
+    "avgrate": {
+      "ja": "平均変化率",
+      "ko": "평균변화율",
+      "en": "Average rate of change"
+    },
+    "deriv": {
+      "ja": "導関数と微分係数",
+      "ko": "도함수와 미분계수",
+      "en": "Derivatives"
+    },
+    "tangent": {
+      "ja": "接線の方程式",
+      "ko": "접선의 방정식",
+      "en": "Tangent lines"
+    },
+    "extrema": {
+      "ja": "関数の増減と極値",
+      "ko": "함수의 증감과 극값",
+      "en": "Increase, decrease and extrema"
+    },
+    "interval": {
+      "ja": "最大値・最小値",
+      "ko": "최댓값·최솟값",
+      "en": "Maximum and minimum"
+    },
+    "integral": {
+      "ja": "不定積分・定積分",
+      "ko": "부정적분·정적분",
+      "en": "Integrals"
+    },
+    "area": {
+      "ja": "面積",
+      "ko": "넓이",
+      "en": "Area"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "微分法",
+        "ko": "미분법",
+        "en": "Differentiation"
+      },
+      "types": [
+        "avgrate",
+        "deriv",
+        "tangent"
+      ]
+    },
+    {
+      "name": {
+        "ja": "微分法の応用",
+        "ko": "미분법의 응용",
+        "en": "Using derivatives"
+      },
+      "types": [
+        "extrema",
+        "interval"
+      ]
+    },
+    {
+      "name": {
+        "ja": "積分法",
+        "ko": "적분법",
+        "en": "Integration"
+      },
+      "types": [
+        "integral",
+        "area"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "avgrate",
+      "level": 1,
+      "type": "avgrate",
+      "gen": "avgrate",
+      "text": {
+        "ja": "関数 f(x) = {expr} について、x が {p} から {q} まで変わるときの平均変化率は?",
+        "ko": "함수 f(x) = {expr} 에 대하여, x가 {p} 에서 {q} 까지 변할 때의 평균변화율은?",
+        "en": "For f(x) = {expr}, what is the average rate of change from x = {p} to x = {q}?"
+      },
+      "explain": {
+        "ja": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
+        "ko": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
+        "en": "(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}"
+      }
+    },
+    {
+      "id": "deriv",
+      "level": 1,
+      "type": "deriv",
+      "gen": "deriv",
+      "params": {
+        "ask": "func"
+      },
+      "text": {
+        "ja": "関数 f(x) = {expr} を微分すると f′(x) は?",
+        "ko": "함수 f(x) = {expr} 을 미분하면 f′(x)는?",
+        "en": "Differentiate f(x) = {expr}."
+      },
+      "explain": {
+        "ja": "xⁿ の微分は n xⁿ⁻¹、定数の微分は 0。{answer}",
+        "ko": "xⁿ 의 미분은 n xⁿ⁻¹, 상수의 미분은 0. {answer}",
+        "en": "The derivative of xⁿ is n xⁿ⁻¹ and of a constant is 0: {answer}"
+      }
+    },
+    {
+      "id": "derivat",
+      "level": 2,
+      "type": "deriv",
+      "gen": "deriv",
+      "params": {
+        "ask": "value"
+      },
+      "text": {
+        "ja": "関数 f(x) = {expr} について、微分係数 f′({k}) の値は?",
+        "ko": "함수 f(x) = {expr} 에 대하여, 미분계수 f′({k})의 값은?",
+        "en": "For f(x) = {expr}, what is f′({k})?"
+      },
+      "explain": {
+        "ja": "先に f′(x) を求めてから x = {k} を代入して {answer}",
+        "ko": "먼저 f′(x)를 구한 뒤 x = {k} 를 대입하면 {answer}",
+        "en": "Find f′(x) first, then put x = {k}: {answer}"
+      }
+    },
+    {
+      "id": "tangent2",
+      "level": 2,
+      "type": "tangent",
+      "gen": "tangent2",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "放物線 {expr} 上の x 座標が {t} である点における接線の方程式は?",
+        "ko": "포물선 {expr} 위의 x좌표가 {t} 인 점에서의 접선의 방정식은?",
+        "en": "What is the tangent to the parabola {expr} at the point where x = {t}?"
+      },
+      "explain": {
+        "ja": "傾きは微分係数。接点を通る直線の式を作ると {answer}",
+        "ko": "기울기는 미분계수입니다. 접점을 지나는 직선의 식을 만들면 {answer}",
+        "en": "The slope is the derivative there; the line through the point is {answer}"
+      }
+    },
+    {
+      "id": "extmax",
+      "level": 2,
+      "type": "extrema",
+      "gen": "extrema",
+      "params": {
+        "ask": "max"
+      },
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "関数 f(x) = {expr} の極大値は?",
+        "ko": "함수 f(x) = {expr} 의 극댓값은?",
+        "en": "What is the local maximum value of f(x) = {expr}?"
+      },
+      "explain": {
+        "ja": "f′(x) = 0 の解を求めて増減表を作る。増加から減少に変わる点の値が極大値 {answer}",
+        "ko": "f′(x) = 0 의 해를 구해 증감표를 만듭니다. 증가에서 감소로 바뀌는 점의 값이 극댓값 {answer}",
+        "en": "Solve f′(x) = 0 and make a sign table; where f changes from rising to falling the value is {answer}"
+      }
+    },
+    {
+      "id": "extmin",
+      "level": 2,
+      "type": "extrema",
+      "gen": "extrema",
+      "params": {
+        "ask": "min"
+      },
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "関数 f(x) = {expr} の極小値は?",
+        "ko": "함수 f(x) = {expr} 의 극솟값은?",
+        "en": "What is the local minimum value of f(x) = {expr}?"
+      },
+      "explain": {
+        "ja": "f′(x) = 0 の解を求めて増減表を作る。減少から増加に変わる点の値が極小値 {answer}",
+        "ko": "f′(x) = 0 의 해를 구해 증감표를 만듭니다. 감소에서 증가로 바뀌는 점의 값이 극솟값 {answer}",
+        "en": "Solve f′(x) = 0 and make a sign table; where f changes from falling to rising the value is {answer}"
+      }
+    },
+    {
+      "id": "intmax",
+      "level": 3,
+      "type": "interval",
+      "gen": "interval2",
+      "params": {
+        "ask": "max"
+      },
+      "text": {
+        "ja": "{a} ≦ x ≦ {b} における関数 f(x) = {expr} の最大値は?",
+        "ko": "{a} ≦ x ≦ {b} 에서 함수 f(x) = {expr} 의 최댓값은?",
+        "en": "What is the maximum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
+      },
+      "explain": {
+        "ja": "極値と区間の両端の値をすべて比べて、最も大きいものは {answer}",
+        "ko": "극값과 구간 양 끝의 값을 모두 비교해서 가장 큰 것은 {answer}",
+        "en": "Compare the local extrema with the values at both ends; the largest is {answer}"
+      }
+    },
+    {
+      "id": "intmin",
+      "level": 3,
+      "type": "interval",
+      "gen": "interval2",
+      "params": {
+        "ask": "min"
+      },
+      "text": {
+        "ja": "{a} ≦ x ≦ {b} における関数 f(x) = {expr} の最小値は?",
+        "ko": "{a} ≦ x ≦ {b} 에서 함수 f(x) = {expr} 의 최솟값은?",
+        "en": "What is the minimum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
+      },
+      "explain": {
+        "ja": "極値と区間の両端の値をすべて比べて、最も小さいものは {answer}",
+        "ko": "극값과 구간 양 끝의 값을 모두 비교해서 가장 작은 것은 {answer}",
+        "en": "Compare the local extrema with the values at both ends; the smallest is {answer}"
+      }
+    },
+    {
+      "id": "indef",
+      "level": 1,
+      "type": "integral",
+      "gen": "integral",
+      "params": {
+        "ask": "indef"
+      },
+      "text": {
+        "ja": "不定積分 ∫({expr}) dx は?(C は積分定数)",
+        "ko": "부정적분 ∫({expr}) dx 는? (C는 적분상수)",
+        "en": "Find ∫({expr}) dx. (C is the constant of integration)"
+      },
+      "explain": {
+        "ja": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)。{answer}",
+        "ko": "xⁿ 의 적분은 xⁿ⁺¹ ÷ (n + 1). {answer}",
+        "en": "The integral of xⁿ is xⁿ⁺¹ ÷ (n + 1): {answer}"
+      }
+    },
+    {
+      "id": "defint",
+      "level": 2,
+      "type": "integral",
+      "gen": "integral",
+      "params": {
+        "ask": "def"
+      },
+      "text": {
+        "ja": "関数 f(x) = {expr} を x = {p} から x = {q} まで積分した定積分の値は?",
+        "ko": "함수 f(x) = {expr} 을 x = {p} 에서 x = {q} 까지 적분한 정적분의 값은?",
+        "en": "What is the definite integral of f(x) = {expr} from x = {p} to x = {q}?"
+      },
+      "explain": {
+        "ja": "原始関数 F(x) を求めて F({q}) − F({p}) = {answer}",
+        "ko": "원시함수 F(x)를 구해서 F({q}) − F({p}) = {answer}",
+        "en": "Find an antiderivative F and compute F({q}) − F({p}) = {answer}"
+      }
+    },
+    {
+      "id": "area2",
+      "level": 3,
+      "type": "area",
+      "gen": "area2",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "放物線 {expr} と x 軸で囲まれた部分の面積は?",
+        "ko": "포물선 {expr} 과 x축으로 둘러싸인 부분의 넓이는?",
+        "en": "What is the area enclosed by the parabola {expr} and the x-axis?"
+      },
+      "explain": {
+        "ja": "x 軸との交点を求めて定積分する。面積は必ず正で {answer}",
+        "ko": "x축과의 교점을 구해서 정적분합니다. 넓이는 반드시 양수이고 {answer}",
+        "en": "Find where it meets the x-axis and integrate; an area is always positive: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-cubicx",
+      "gen": "cubicx",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "intro": {
+        "ja": "関数 f(x) = {expr} について答えよ。",
+        "ko": "함수 f(x) = {expr} 에 대하여 답하시오.",
+        "en": "Answer about f(x) = {expr}."
+      },
+      "steps": [
+        {
+          "type": "deriv",
+          "level": 1,
+          "sum": {
+            "ja": "f′(x) = 0 の解",
+            "ko": "f′(x) = 0 의 해",
+            "en": "Root of f′"
+          },
+          "text": {
+            "ja": "f′(x) = 0 の解のうち、小さい方は?",
+            "ko": "f′(x) = 0 의 해 중에서 작은 쪽은?",
+            "en": "What is the smaller root of f′(x) = 0?"
+          },
+          "explain": {
+            "ja": "f′(x) を求めて因数分解すると、小さい方の解は {answer}",
+            "ko": "f′(x)를 구해 인수분해하면 작은 쪽의 해는 {answer}",
+            "en": "Factor f′(x); the smaller root is {answer}"
+          }
+        },
+        {
+          "type": "extrema",
+          "level": 2,
+          "sum": {
+            "ja": "極大値",
+            "ko": "극댓값",
+            "en": "Local maximum"
+          },
+          "text": {
+            "ja": "極大値は?",
+            "ko": "극댓값은?",
+            "en": "What is the local maximum value?"
+          },
+          "explain": {
+            "ja": "x = {a1} で増加から減少に変わる。f({a1}) = {answer}",
+            "ko": "x = {a1} 에서 증가에서 감소로 바뀝니다. f({a1}) = {answer}",
+            "en": "f changes from rising to falling at x = {a1}: f({a1}) = {answer}"
+          }
+        },
+        {
+          "type": "extrema",
+          "level": 2,
+          "sum": {
+            "ja": "極小値",
+            "ko": "극솟값",
+            "en": "Local minimum"
+          },
+          "text": {
+            "ja": "極小値は?",
+            "ko": "극솟값은?",
+            "en": "What is the local minimum value?"
+          },
+          "explain": {
+            "ja": "もう1つの解で減少から増加に変わる。その値は {answer}",
+            "ko": "다른 한 해에서 감소에서 증가로 바뀝니다. 그 값은 {answer}",
+            "en": "At the other root f changes from falling to rising; the value is {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-area",
+      "gen": "area",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "intro": {
+        "ja": "放物線 {expr} と x 軸で囲まれた部分について答えよ。",
+        "ko": "포물선 {expr} 과 x축으로 둘러싸인 부분에 대하여 답하시오.",
+        "en": "Answer about the region between the parabola {expr} and the x-axis."
+      },
+      "steps": [
+        {
+          "type": "area",
+          "level": 1,
+          "sum": {
+            "ja": "小さい交点",
+            "ko": "작은 교점",
+            "en": "Left crossing"
+          },
+          "text": {
+            "ja": "放物線と x 軸の交点の x 座標のうち、小さい方は?",
+            "ko": "포물선과 x축의 교점의 x좌표 중에서 작은 쪽은?",
+            "en": "What is the smaller x where the parabola meets the x-axis?"
+          },
+          "explain": {
+            "ja": "y = 0 とおいて因数分解すると、小さい方は {answer}",
+            "ko": "y = 0 으로 놓고 인수분해하면 작은 쪽은 {answer}",
+            "en": "Set y = 0 and factor; the smaller one is {answer}"
+          }
+        },
+        {
+          "type": "area",
+          "level": 1,
+          "sum": {
+            "ja": "大きい交点",
+            "ko": "큰 교점",
+            "en": "Right crossing"
+          },
+          "text": {
+            "ja": "大きい方は?",
+            "ko": "큰 쪽은?",
+            "en": "What is the larger one?"
+          },
+          "explain": {
+            "ja": "もう1つの交点は x = {answer}",
+            "ko": "다른 한 교점은 x = {answer}",
+            "en": "The other crossing is x = {answer}"
+          }
+        },
+        {
+          "type": "area",
+          "level": 3,
+          "sum": {
+            "ja": "面積",
+            "ko": "넓이",
+            "en": "Area"
+          },
+          "text": {
+            "ja": "囲まれた部分の面積は?",
+            "ko": "둘러싸인 부분의 넓이는?",
+            "en": "What is the enclosed area?"
+          },
+          "explain": {
+            "ja": "x = {a1} から x = {a2} まで定積分して {answer}",
+            "ko": "x = {a1} 에서 x = {a2} 까지 정적분하면 {answer}",
+            "en": "Integrate from x = {a1} to x = {a2}: {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

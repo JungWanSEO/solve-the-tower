@@ -1,0 +1,506 @@
+{
+  "id": "math2-coord",
+  "name": {
+    "ja": "図形と方程式",
+    "ko": "도형과 방정식",
+    "en": "Figures and equations"
+  },
+  "types": {
+    "dist": {
+      "ja": "2点間の距離",
+      "ko": "두 점 사이의 거리",
+      "en": "Distance between two points"
+    },
+    "divide": {
+      "ja": "内分点・外分点・重心",
+      "ko": "내분점·외분점·무게중심",
+      "en": "Dividing points and centroid"
+    },
+    "lineeq": {
+      "ja": "直線の方程式",
+      "ko": "직선의 방정식",
+      "en": "Equation of a line"
+    },
+    "slope": {
+      "ja": "2直線の平行・垂直",
+      "ko": "두 직선의 평행·수직",
+      "en": "Parallel and perpendicular lines"
+    },
+    "pdist": {
+      "ja": "点と直線の距離",
+      "ko": "점과 직선 사이의 거리",
+      "en": "Distance from a point to a line"
+    },
+    "circle": {
+      "ja": "円の方程式",
+      "ko": "원의 방정식",
+      "en": "Equation of a circle"
+    },
+    "chord": {
+      "ja": "円と直線",
+      "ko": "원과 직선",
+      "en": "A circle and a line"
+    },
+    "region": {
+      "ja": "不等式の表す領域",
+      "ko": "부등식의 영역",
+      "en": "Regions of inequalities"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "点と直線",
+        "ko": "점과 직선",
+        "en": "Points and lines"
+      },
+      "types": [
+        "dist",
+        "divide",
+        "lineeq",
+        "slope",
+        "pdist"
+      ]
+    },
+    {
+      "name": {
+        "ja": "円",
+        "ko": "원",
+        "en": "Circles"
+      },
+      "types": [
+        "circle",
+        "chord"
+      ]
+    },
+    {
+      "name": {
+        "ja": "軌跡と領域",
+        "ko": "자취와 영역",
+        "en": "Loci and regions"
+      },
+      "types": [
+        "region"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "dist",
+      "level": 1,
+      "type": "dist",
+      "gen": "dist",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "2点 A{A}, B{B} の間の距離は?",
+        "ko": "두 점 A{A}, B{B} 사이의 거리는?",
+        "en": "What is the distance between A{A} and B{B}?"
+      },
+      "explain": {
+        "ja": "x 座標の差と y 座標の差をそれぞれ2乗して足し、その平方根をとると {answer}",
+        "ko": "x좌표의 차와 y좌표의 차를 각각 제곱해서 더하고 제곱근을 구하면 {answer}",
+        "en": "Square the differences in x and in y, add them and take the root: {answer}"
+      }
+    },
+    {
+      "id": "dist2",
+      "level": 2,
+      "type": "dist",
+      "gen": "dist",
+      "params": {
+        "hard": true
+      },
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "2点 A{A}, B{B} の間の距離は?",
+        "ko": "두 점 A{A}, B{B} 사이의 거리는?",
+        "en": "What is the distance between A{A} and B{B}?"
+      },
+      "explain": {
+        "ja": "√((x の差)² + (y の差)²) = {answer}",
+        "ko": "√((x의 차)² + (y의 차)²) = {answer}",
+        "en": "√((difference in x)² + (difference in y)²) = {answer}"
+      }
+    },
+    {
+      "id": "divin",
+      "level": 1,
+      "type": "divide",
+      "gen": "divide",
+      "params": {
+        "ask": "in"
+      },
+      "text": {
+        "ja": "2点 A{A}, B{B} を結ぶ線分 AB を {m} : {n} に内分する点の座標は?",
+        "ko": "두 점 A{A}, B{B}를 이은 선분 AB를 {m} : {n}으로 내분하는 점의 좌표는?",
+        "en": "Which point divides segment AB internally in the ratio {m} : {n}, where A{A} and B{B}?"
+      },
+      "explain": {
+        "ja": "内分点は ((n×A + m×B) ÷ (m + n))。A に n、B に m を掛ける。{answer}",
+        "ko": "내분점은 (n×A + m×B) ÷ (m + n). A에 n, B에 m을 곱합니다. {answer}",
+        "en": "The point is (n·A + m·B) ÷ (m + n); A gets n and B gets m: {answer}"
+      }
+    },
+    {
+      "id": "divout",
+      "level": 2,
+      "type": "divide",
+      "gen": "divide",
+      "params": {
+        "ask": "out"
+      },
+      "text": {
+        "ja": "2点 A{A}, B{B} を結ぶ線分 AB を {m} : {n} に外分する点の座標は?",
+        "ko": "두 점 A{A}, B{B}를 이은 선분 AB를 {m} : {n}으로 외분하는 점의 좌표는?",
+        "en": "Which point divides segment AB externally in the ratio {m} : {n}, where A{A} and B{B}?"
+      },
+      "explain": {
+        "ja": "外分点は (−n×A + m×B) ÷ (m − n)。{answer}",
+        "ko": "외분점은 (−n×A + m×B) ÷ (m − n). {answer}",
+        "en": "The point is (−n·A + m·B) ÷ (m − n): {answer}"
+      }
+    },
+    {
+      "id": "centroid2",
+      "level": 1,
+      "type": "divide",
+      "gen": "divide",
+      "params": {
+        "ask": "cent"
+      },
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "3点 A{A}, B{B}, C{C} を頂点とする三角形の重心の座標は?",
+        "ko": "세 점 A{A}, B{B}, C{C}를 꼭짓점으로 하는 삼각형의 무게중심의 좌표는?",
+        "en": "What is the centroid of the triangle with vertices A{A}, B{B}, C{C}?"
+      },
+      "explain": {
+        "ja": "3つの頂点の座標を足して 3 で割ると {answer}",
+        "ko": "세 꼭짓점의 좌표를 더해서 3으로 나누면 {answer}",
+        "en": "Add the three vertices and divide by 3: {answer}"
+      }
+    },
+    {
+      "id": "lineslope",
+      "level": 1,
+      "type": "lineeq",
+      "gen": "lineeq",
+      "text": {
+        "ja": "点 {A} を通り、傾きが {m} の直線の方程式は?",
+        "ko": "점 {A}를 지나고 기울기가 {m}인 직선의 방정식은?",
+        "en": "What is the equation of the line through {A} with slope {m}?"
+      },
+      "explain": {
+        "ja": "y − y₁ = m(x − x₁) に代入して整理すると {answer}",
+        "ko": "y − y₁ = m(x − x₁) 에 대입해서 정리하면 {answer}",
+        "en": "Substitute into y − y₁ = m(x − x₁) and simplify: {answer}"
+      }
+    },
+    {
+      "id": "linetwo",
+      "level": 2,
+      "type": "lineeq",
+      "gen": "lineeq",
+      "params": {
+        "ask": "two"
+      },
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "2点 A{A}, B{B} を通る直線の方程式は?",
+        "ko": "두 점 A{A}, B{B}를 지나는 직선의 방정식은?",
+        "en": "What is the equation of the line through A{A} and B{B}?"
+      },
+      "explain": {
+        "ja": "傾きは (y の増加量) ÷ (x の増加量)。1点を代入して {answer}",
+        "ko": "기울기는 (y의 증가량) ÷ (x의 증가량). 한 점을 대입하면 {answer}",
+        "en": "Slope = (change in y) ÷ (change in x); substitute one point: {answer}"
+      }
+    },
+    {
+      "id": "para",
+      "level": 1,
+      "type": "slope",
+      "gen": "slope",
+      "params": {
+        "ask": "para"
+      },
+      "text": {
+        "ja": "直線 {line} に平行な直線の傾きは?",
+        "ko": "직선 {line} 에 평행한 직선의 기울기는?",
+        "en": "What is the slope of a line parallel to {line}?"
+      },
+      "explain": {
+        "ja": "y = … の形に直すと傾きがわかる。平行な直線は傾きが等しいので {answer}",
+        "ko": "y = … 꼴로 고치면 기울기를 알 수 있습니다. 평행한 직선은 기울기가 같으므로 {answer}",
+        "en": "Rewrite as y = …; parallel lines have equal slopes: {answer}"
+      }
+    },
+    {
+      "id": "perp",
+      "level": 2,
+      "type": "slope",
+      "gen": "slope",
+      "params": {
+        "ask": "perp"
+      },
+      "text": {
+        "ja": "直線 {line} に垂直な直線の傾きは?",
+        "ko": "직선 {line} 에 수직인 직선의 기울기는?",
+        "en": "What is the slope of a line perpendicular to {line}?"
+      },
+      "explain": {
+        "ja": "垂直な2直線の傾きの積は −1。{answer}",
+        "ko": "수직인 두 직선의 기울기의 곱은 −1. {answer}",
+        "en": "Perpendicular slopes multiply to −1: {answer}"
+      }
+    },
+    {
+      "id": "pdist",
+      "level": 2,
+      "type": "pdist",
+      "gen": "pdist",
+      "text": {
+        "ja": "点 {P} と直線 {line} の距離は?",
+        "ko": "점 {P}와 직선 {line} 사이의 거리는?",
+        "en": "What is the distance from the point {P} to the line {line}?"
+      },
+      "explain": {
+        "ja": "|ax₁ + by₁ + c| ÷ √(a² + b²) に代入して {answer}",
+        "ko": "|ax₁ + by₁ + c| ÷ √(a² + b²) 에 대입하면 {answer}",
+        "en": "Use |ax₁ + by₁ + c| ÷ √(a² + b²): {answer}"
+      }
+    },
+    {
+      "id": "center",
+      "level": 2,
+      "type": "circle",
+      "gen": "circleeq",
+      "params": {
+        "ask": "center"
+      },
+      "text": {
+        "ja": "円 {eq} の中心の座標は?",
+        "ko": "원 {eq} 의 중심의 좌표는?",
+        "en": "What is the centre of the circle {eq}?"
+      },
+      "explain": {
+        "ja": "x と y についてそれぞれ平方完成すると、中心は {answer}",
+        "ko": "x와 y에 대해 각각 완전제곱식으로 고치면 중심은 {answer}",
+        "en": "Complete the square in x and in y; the centre is {answer}"
+      }
+    },
+    {
+      "id": "radius",
+      "level": 2,
+      "type": "circle",
+      "gen": "circleeq",
+      "params": {
+        "ask": "radius"
+      },
+      "text": {
+        "ja": "円 {eq} の半径は?",
+        "ko": "원 {eq} 의 반지름은?",
+        "en": "What is the radius of the circle {eq}?"
+      },
+      "explain": {
+        "ja": "平方完成して (x − a)² + (y − b)² = r² の形にすると、半径は {answer}",
+        "ko": "완전제곱식으로 고쳐 (x − a)² + (y − b)² = r² 꼴로 만들면 반지름은 {answer}",
+        "en": "Complete the square to get (x − a)² + (y − b)² = r²; the radius is {answer}"
+      }
+    },
+    {
+      "id": "chord",
+      "level": 3,
+      "type": "chord",
+      "gen": "chord",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "text": {
+        "ja": "円 {circle} と直線 {line} が交わってできる弦の長さは?",
+        "ko": "원 {circle} 과 직선 {line} 이 만나서 생기는 현의 길이는?",
+        "en": "What is the length of the chord cut from the circle {circle} by the line {line}?"
+      },
+      "explain": {
+        "ja": "中心から直線までの距離 d を求め、弦の長さ = 2√(r² − d²) = {answer}",
+        "ko": "중심에서 직선까지의 거리 d를 구하고, 현의 길이 = 2√(r² − d²) = {answer}",
+        "en": "Find the distance d from the centre to the line; chord = 2√(r² − d²) = {answer}"
+      }
+    },
+    {
+      "id": "region",
+      "level": 2,
+      "type": "region",
+      "gen": "region",
+      "text": {
+        "ja": "次の点のうち、不等式 {ineq} の表す領域にある点は?",
+        "ko": "다음 점 중에서 부등식 {ineq} 이 나타내는 영역에 있는 점은?",
+        "en": "Which of these points lies in the region {ineq}?"
+      },
+      "explain": {
+        "ja": "座標を代入して不等式が成り立つか確かめる。境界線上の点は含まれない。{answer}",
+        "ko": "좌표를 대입해서 부등식이 성립하는지 확인합니다. 경계선 위의 점은 포함되지 않습니다. {answer}",
+        "en": "Substitute each point; points on the boundary are not included: {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-chord",
+      "gen": "chord",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "intro": {
+        "ja": "円 {circle}(中心 C)と直線 {line} について答えよ。",
+        "ko": "원 {circle} (중심 C)과 직선 {line} 에 대하여 답하시오.",
+        "en": "Answer about the circle {circle} (centre C) and the line {line}."
+      },
+      "steps": [
+        {
+          "type": "circle",
+          "level": 1,
+          "sum": {
+            "ja": "半径",
+            "ko": "반지름",
+            "en": "Radius"
+          },
+          "text": {
+            "ja": "円の半径は?",
+            "ko": "원의 반지름은?",
+            "en": "What is the radius of the circle?"
+          },
+          "explain": {
+            "ja": "右辺は r²。半径は {answer}",
+            "ko": "우변은 r². 반지름은 {answer}",
+            "en": "The right side is r²; the radius is {answer}"
+          }
+        },
+        {
+          "type": "pdist",
+          "level": 2,
+          "sum": {
+            "ja": "中心と直線の距離",
+            "ko": "중심과 직선의 거리",
+            "en": "Centre to line"
+          },
+          "text": {
+            "ja": "中心 C と直線の距離は?",
+            "ko": "중심 C와 직선 사이의 거리는?",
+            "en": "What is the distance from the centre C to the line?"
+          },
+          "explain": {
+            "ja": "点と直線の距離の公式に中心の座標を代入して {answer}",
+            "ko": "점과 직선 사이의 거리 공식에 중심의 좌표를 대입하면 {answer}",
+            "en": "Put the centre into the point–line distance formula: {answer}"
+          }
+        },
+        {
+          "type": "chord",
+          "level": 3,
+          "sum": {
+            "ja": "弦の長さ",
+            "ko": "현의 길이",
+            "en": "Chord"
+          },
+          "text": {
+            "ja": "円が直線から切り取る弦の長さは?",
+            "ko": "원이 직선에서 잘라 내는 현의 길이는?",
+            "en": "What is the length of the chord?"
+          },
+          "explain": {
+            "ja": "2√(r² − d²) = 2√({a1}² − {a2}²) = {answer}",
+            "ko": "2√(r² − d²) = 2√({a1}² − {a2}²) = {answer}",
+            "en": "2√(r² − d²) = 2√({a1}² − {a2}²) = {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-line",
+      "gen": "line",
+      "figure": {
+        "kind": "plane",
+        "plot": "{plot}"
+      },
+      "intro": {
+        "ja": "2点 A{A}, B{B} を通る直線について答えよ。",
+        "ko": "두 점 A{A}, B{B}를 지나는 직선에 대하여 답하시오.",
+        "en": "Answer about the line through A{A} and B{B}."
+      },
+      "steps": [
+        {
+          "type": "lineeq",
+          "level": 1,
+          "sum": {
+            "ja": "傾き",
+            "ko": "기울기",
+            "en": "Slope"
+          },
+          "text": {
+            "ja": "直線の傾きは?",
+            "ko": "직선의 기울기는?",
+            "en": "What is the slope of the line?"
+          },
+          "explain": {
+            "ja": "(y の増加量) ÷ (x の増加量) = {answer}",
+            "ko": "(y의 증가량) ÷ (x의 증가량) = {answer}",
+            "en": "(change in y) ÷ (change in x) = {answer}"
+          }
+        },
+        {
+          "type": "lineeq",
+          "level": 2,
+          "sum": {
+            "ja": "y 切片",
+            "ko": "y절편",
+            "en": "y-intercept"
+          },
+          "text": {
+            "ja": "直線の y 切片は?",
+            "ko": "직선의 y절편은?",
+            "en": "What is the y-intercept of the line?"
+          },
+          "explain": {
+            "ja": "y = {a1}x + b に点 A を代入して b = {answer}",
+            "ko": "y = {a1}x + b 에 점 A를 대입하면 b = {answer}",
+            "en": "Put A into y = {a1}x + b: b = {answer}"
+          }
+        },
+        {
+          "type": "lineeq",
+          "level": 2,
+          "sum": {
+            "ja": "x 切片",
+            "ko": "x절편",
+            "en": "x-intercept"
+          },
+          "text": {
+            "ja": "直線が x 軸と交わる点の x 座標は?",
+            "ko": "직선이 x축과 만나는 점의 x좌표는?",
+            "en": "At what x does the line cross the x-axis?"
+          },
+          "explain": {
+            "ja": "y = 0 を代入して解くと x = {answer}",
+            "ko": "y = 0 을 대입해서 풀면 x = {answer}",
+            "en": "Set y = 0 and solve: x = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}
