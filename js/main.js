@@ -4,7 +4,7 @@
 import { CONFIG } from './config.js';
 import { loadLang, applyStatic, t } from './i18n.js';
 import { load, store } from './save.js';
-import { loadAll, setScope, allTypeKeys, hasType, subjectNames } from './questions.js';
+import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames } from './questions.js';
 import { newRun } from './run.js';
 import { createStage } from './stage.js';
 import { createBattle } from './battle.js';
@@ -34,7 +34,7 @@ async function boot() {
     const bar = $('loadingBar');
     if (bar) bar.style.width = `${Math.min(100, Math.round((steps / 10) * 100))}%`;
   };
-  const [, , monsters] = await Promise.all([
+  const [, , allMonsters] = await Promise.all([
     loadLang(data.lang).then(step),
     loadAll(step),
     fetch('./data/monsters.json').then((res) => {
@@ -43,6 +43,8 @@ async function boot() {
       return res.json();
     }),
   ]);
+  // 꺼 둔 단원(data/catalog.json 의 off)의 몬스터는 나오지 않습니다.
+  const monsters = allMonsters.filter((m) => hasUnit(m.weak.split('/')[0]));
   applyStatic();
 
   // 예전 기록 맞추기: 유형 이름에 단원이 붙기 전의 기록을 새 이름으로 옮깁니다.
@@ -55,6 +57,7 @@ async function boot() {
   // 저장된 지도가 없거나 예전 형식이면 새로 만듭니다. 범위가 없던 지도는 전체 범위로 봅니다.
   if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(allTypeKeys());
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
+  data.run.scope = data.run.scope.filter(hasType); // 꺼진 단원의 유형이 예전 기록에 남아 있으면 뺍니다
   setScope(data.run.scope);
 
   document.addEventListener('pointerdown', wake, { passive: true }); // 브라우저는 화면을 누른 뒤에야 소리를 허락합니다.
