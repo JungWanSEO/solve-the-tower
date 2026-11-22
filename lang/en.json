@@ -181,10 +181,10 @@
   "tut": {
     "start": "Tap a space in the bottom row to set out. A battle will begin.",
     "basic": "Tap Attack. You will get an easy question.",
-    "answer": "Pick an answer to attack. There is no time limit.",
+    "answer": "In the tutorial the right answer is shown. Tap the glowing answer to attack.",
     "skill": "Now try Skill. The question is harder but the damage is bigger.",
     "defend": "Tap Defend to block the heavy attack.",
-    "guard": "Answer correctly to block the attack completely and counter.",
+    "guard": "Tap the glowing answer to block the heavy attack and counter.",
     "free": "Now fight freely. Three correct answers in a row charge your ultimate.",
     "ult": "The gauge is full. Tap Special for big damage with no question.",
     "reward": "After a win you choose one upgrade. It lasts until this map ends.",
@@ -195,7 +195,8 @@
     "look3": "This is your HP and your special gauge. Three correct answers in a row fill the gauge.",
     "warn": "A red warning means a heavy attack. It hits even if you answer correctly; only Defend blocks it.",
     "chain": "This is Chain. You answer parts (1), (2), (3) about one situation. Each correct answer hits harder, and a wrong answer ends it. You can use it once per battle.",
-    "next": "Next"
+    "next": "Next",
+    "skipped": "Tutorial skipped. Pick a space to start."
   },
   "mystery": {
     "spring": {

@@ -9,7 +9,7 @@
 // 단계 순서
 //   start    지도에서 첫 칸 고르기
 //   look1~3  전투 화면 둘러보기 (적의 체력과 약점 → 다음 턴 예고 → 내 체력과 필살기) : "다음" 으로 넘김
-//   basic    기본 공격 누르기      → basicQ   답 고르기
+//   basic    기본 공격 누르기      → basicQ   답 고르기 (정답을 알려 줍니다. skillQ, defendQ 도 같음)
 //   skill    스킬 누르기           → skillQ   답 고르기
 //   warn     강한 공격 예고 보기 : "다음" 으로 넘김
 //   defend   방어 누르기           → defendQ  답 고르기
@@ -79,6 +79,9 @@ export function createTutorial(data, onStep) {
     active: () => data.tut !== 'done' && data.tut !== 'map',
     done: () => data.tut === 'done',
     only: () => ONLY[data.tut] || null,
+    // 튜토리얼의 세 문제(기본 공격, 스킬, 방어)에서는 정답을 알려 주고 그 답만 누를 수 있게 합니다.
+    // 조작을 배우는 자리라, 틀려서 흐름이 어긋나는 일이 없게 합니다. (자유롭게 싸우는 단계부터는 알려 주지 않습니다)
+    teach: () => ['basicQ', 'skillQ', 'defendQ'].includes(data.tut),
     coach() {
       if (data.tut === 'done') return null;
       return COACH[data.tut] || null;

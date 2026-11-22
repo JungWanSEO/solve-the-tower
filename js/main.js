@@ -88,7 +88,18 @@ async function boot() {
     if (key) $('coachText').textContent = t(key);
   }
   function skipTutorial() {
+    // 튜토리얼 전투 도중에 건너뛰면, 그 연습 전투를 끝내고 지도로 돌아가 처음부터 제대로 시작합니다.
+    const practice = screen === 'screenBattle' && tutorial.active();
     tutorial.skip();
+    if (practice) {
+      battle.abort();
+      const run = getRun();
+      run.hp = run.maxHp;
+      run.pending = null;
+      goMap();
+      toast(t('tut.skipped'));
+      return;
+    }
     if (screen === 'screenBattle') battle.refresh();
   }
   const tutorial = createTutorial(data, () => {
