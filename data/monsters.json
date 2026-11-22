@@ -330,5 +330,39 @@
     "weak": "matha-int/euclid",
     "basicLevel": 2,
     "skillLevel": 3
+  },
+  {
+    "id": "pascal",
+    "name": {
+      "ja": "パスカルの三角岩",
+      "ko": "파스칼 삼각바위",
+      "en": "Pascal's Rock"
+    },
+    "mistake": {
+      "ja": "二項定理で ₙCₖ だけを書き、数の累乗を掛け忘れる",
+      "ko": "이항정리에서 ₙCₖ 만 쓰고 수의 거듭제곱을 곱하지 않기",
+      "en": "Writing only C(n, k) and forgetting the power of the number"
+    },
+    "hp": 16,
+    "weak": "math2-expr/binom",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "saw",
+    "name": {
+      "ja": "筆算のこぎり",
+      "ko": "세로셈 톱",
+      "en": "Division Saw"
+    },
+    "mistake": {
+      "ja": "割り算の筆算で、引くときの符号をまちがえる",
+      "ko": "나눗셈 세로셈에서 뺄 때 부호를 틀리기",
+      "en": "Getting a sign wrong when subtracting in long division"
+    },
+    "hp": 18,
+    "weak": "math2-expr/polydiv",
+    "basicLevel": 1,
+    "skillLevel": 2
   }
 ]

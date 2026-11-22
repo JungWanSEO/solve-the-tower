@@ -30,6 +30,17 @@
         "matha-geom",
         "matha-int"
       ]
+    },
+    {
+      "id": "math2",
+      "name": {
+        "ja": "数学II",
+        "ko": "수학II",
+        "en": "Math II"
+      },
+      "units": [
+        "math2-expr"
+      ]
     }
   ]
 }

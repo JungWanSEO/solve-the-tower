@@ -2057,3 +2057,160 @@ export const CHAINS = {
     };
   },
 };
+
+// =====================================================================
+// 数学II
+// =====================================================================
+
+// 높은 차수부터 적은 계수로 다항식을 글로 씁니다. 예: polyN([1, 0, 0, 27]) → "x³ + 27"
+const SUP = ['', '', '²', '³', '⁴', '⁵', '⁶', '⁷'];
+function polyN(coefs) {
+  const parts = [];
+  coefs.forEach((coef, k) => {
+    if (!coef) return;
+    const deg = coefs.length - 1 - k;
+    const sym = deg === 0 ? '' : `x${SUP[deg]}`;
+    const abs = Math.abs(coef);
+    parts.push([coef < 0, `${abs === 1 && sym ? '' : abs}${sym}`]);
+  });
+  if (!parts.length) return '0';
+  return parts.map(([neg, body], i) => (i === 0 ? `${neg ? MINUS : ''}${body}` : ` ${neg ? MINUS : '+'} ${body}`)).join('');
+}
+// 다항식 보기: x = 1.37 에서의 값으로 서로 구별합니다.
+const AT = 1.37;
+const valN = (coefs) => coefs.reduce((acc, c) => acc * AT + c, 0);
+const polyOpt = (coefs) => ({ s: polyN(coefs), v: valN(coefs) });
+const powerOf = (x, n) => `x${SUP[n]}`.replace('x', x);
+const SUB = '₀₁₂₃₄₅₆₇₈₉';
+const combStr = (n, k) => `${SUB[n]}C${SUB[k]}`; // ₅C₂ 처럼 씁니다 (한 자리 수만)
+
+Object.assign(GENERATORS, {
+  // ---------- 数学II: 式と証明 ----------
+
+  // 세제곱의 전개: (x + a)³. params.hard 이면 (2x + a)³
+  cubeexpand(params) {
+    const k = params.hard ? pickOne([2, 3]) : 1;
+    const a = params.hard ? nonzero(-3, 3) : nonzero(-5, 5);
+    const right = [k ** 3, 3 * k * k * a, 3 * k * a * a, a ** 3];
+    return item({ expr: `${lin(k, a)}³` }, polyOpt(right),
+      [polyOpt([k ** 3, 0, 0, a ** 3]), polyOpt([k ** 3, k * k * a, k * a * a, a ** 3]), polyOpt([k ** 3, 3 * k * k * a, 3 * k * a * a, -(a ** 3)])],
+      [polyOpt([k ** 3, -3 * k * k * a, 3 * k * a * a, -(a ** 3)]), polyOpt([k, 3 * k * k * a, 3 * k * a * a, a ** 3]), polyOpt([k ** 3, 3 * k * a, 3 * k * a * a, a ** 3]), polyOpt([k ** 3, 3 * k * k * a, 3 * k * a * a + 1, a ** 3])]);
+  },
+
+  // 세제곱의 합·차의 인수분해: x³ ± a³ = (x ± a)(x² ∓ ax + a²)
+  cubefactor() {
+    const a = 1 + rand(5);
+    const s = pickOne([1, -1]);
+    const opt = (p, q, r) => ({ s: `${lin(1, p)}${paren(1, q, r)}`, v: (AT + p) * (AT * AT + q * AT + r) });
+    const cube = { s: `${lin(1, s * a)}³`, v: (AT + s * a) ** 3 };
+    return item({ expr: polyN([1, 0, 0, s * a ** 3]) }, opt(s * a, -s * a, a * a),
+      [opt(s * a, s * a, a * a), opt(-s * a, -s * a, a * a), cube],
+      [opt(s * a, -2 * s * a, a * a), opt(-s * a, s * a, a * a), opt(s * a, -s * a, -a * a)]);
+  },
+
+  // 이항정리: (x + a)ⁿ 의 전개식에서 x^k 의 계수. params.hard 이면 a 가 1 이 아님
+  binom(params) {
+    const n = pickOne(params.hard ? [5, 6] : [4, 5, 6]);
+    const a = params.hard ? pickOne([2, 3, -2, -3]) : pickOne([1, 1, -1, 2]);
+    const k = 1 + rand(n - 1);
+    const c = nCr(n, k);
+    const answer = c * a ** (n - k);
+    return item({ expr: `${lin(1, a)}${SUP[n]}`, term: powerOf('x', k), n, k, a: numStr(a), comb: combStr(n, k), rest: n - k }, int(answer),
+      [int(c), int(c * a ** k), int(a ** (n - k))],
+      [int(-answer), int(c * a * (n - k)), int(nCr(n, k - 1) * a ** (n - k)), int(answer + c), int(c + n), int(answer * 2)]);
+  },
+
+  // 다항식의 나눗셈: (ax² + …) ÷ (x − k). params.ask 는 'quot'(몫) 또는 'rem'(나머지). params.hard 이면 x² 의 계수가 2 또는 3
+  polydiv(params) {
+    const a = params.hard ? pickOne([2, 3]) : 1;
+    const k = nonzero(-4, 4);
+    const m = nonzero(-6, 6);
+    const r = nonzero(-9, 9);
+    const p = m - a * k; // (x − k)(ax + m) + r = ax² + (m − ak)x + (r − km)
+    const q = r - k * m;
+    const fields = { expr: polyStr(a, p, q), div: polyStr(0, 1, -k) };
+    const linear = (c1, c0) => ({ s: polyStr(0, c1, c0), v: c1 * AT + c0 });
+    if (params.ask === 'quot') {
+      return item(fields, linear(a, m), [linear(a, p), linear(a, p - a * k), linear(a, -m)],
+        [linear(a, m + 1), linear(a, m - 1), linear(1, m + a), linear(a, m + 2)]);
+    }
+    return item(fields, int(r), [int(a * k * k - p * k + q), int(q), int(-r)], [int(r + 1), int(r - 1), int(k * m), int(r + 2), int(r - 2)]);
+  },
+
+  // 분수식의 약분: (x + a)(x + b) / (x + a)(x + c) = (x + b)/(x + c)
+  fracexpr() {
+    let a;
+    let b;
+    let c;
+    do {
+      [a, b, c] = [nonzero(-6, 6), nonzero(-6, 6), nonzero(-6, 6)];
+    } while (a === b || b === c || a === c || a + b === 0 || a + c === 0);
+    const ratio = (p, q) => ({ s: `${lin(1, p)}/${lin(1, q)}`, v: (AT + p) / (AT + q) });
+    return item({ top: polyStr(1, a + b, a * b), bottom: polyStr(1, a + c, a * c) }, ratio(b, c),
+      [ratio(c, b), ratio(a, c), ratio(b, a), ratio(-b, -c)], [ratio(a + b, a + c), ratio(b + 1, c), ratio(b, c + 1)]);
+  },
+
+  // 항등식의 계수: px + q = a(x + m) + b(x − n) 에서 a 또는 b. params.ask 는 'a' 또는 'b'
+  identity(params) {
+    let a;
+    let b;
+    let m;
+    let n;
+    do {
+      [a, b, m, n] = [nonzero(-6, 6), nonzero(-6, 6), 1 + rand(3), 1 + rand(3)];
+    } while (a === b || a + b === 0 || a * m - b * n === 0);
+    const p = a + b;
+    const q = a * m - b * n;
+    const answer = params.ask === 'a' ? a : b;
+    const other = params.ask === 'a' ? b : a;
+    return item({ left: polyStr(0, p, q), right: `a(x + ${m}) + b(x ${MINUS} ${n})` }, int(answer),
+      [int(other), int(p), int(q)], [int(-answer), int(answer + 1), int(answer - 1), int(answer + 2), int(p - q)]);
+  },
+
+  // 산술평균과 기하평균: x > 0 일 때 x + c/x 의 최솟값. params.hard 이면 ax + b/x
+  amgm(params) {
+    if (params.hard) {
+      const a = pickOne([2, 3, 4, 5]);
+      const t = pickOne([1, 2, 3, 4]);
+      const b = a * t * t; // √(ab) = at
+      return item({ expr: `${a}x + ${b}/x` }, int(2 * a * t), [int(a * t), int(a * b), int(a + b)],
+        [int(4 * a * t), int(2 * a * t + 1), int(a * t * t), int(2 * b), int(2 * a * t + 2)]);
+    }
+    const k = 1 + rand(9);
+    return item({ expr: `x + ${k * k}/x` }, int(2 * k), [int(k), int(k * k), int(k * k + 1)], [int(4 * k), int(2 * k + 1), int(2 * k * k), int(k + 1), int(2 * k - 1)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 이항정리: ₙCₖ → a 의 거듭제곱 → 계수
+  binom() {
+    const n = pickOne([5, 6]);
+    const a = pickOne([2, 3, -2]);
+    const k = pickOne(range(2, n - 2));
+    const c = nCr(n, k);
+    const pw = a ** (n - k);
+    return {
+      expr: `${lin(1, a)}${SUP[n]}`, term: powerOf('x', k), n, k, a: numStr(a), comb: combStr(n, k), rest: n - k,
+      steps: [
+        step(int(c), [int(nPr(n, k)), int(n * k), int(nCr(n, k - 1))], [int(c + n), int(c * 2), int(c - 1)]),
+        step(int(pw), [int(a ** k), int(a * (n - k)), int(-pw)], [int(pw * a), int(pw + a), int(pw * 2)]),
+        step(int(c * pw), [int(c + pw), int(c * a ** k), int(c)], [int(-c * pw), int(c * pw + c), int(c * pw * 2)]),
+      ],
+    };
+  },
+
+  // 산술평균·기하평균: 두 항의 곱 → 최솟값 → 그때의 x
+  amgm() {
+    const k = 2 + rand(6);
+    const d = nonzero(-5, 9);
+    const min = 2 * k + d;
+    return {
+      expr: `x + ${k * k}/x ${d < 0 ? MINUS : '+'} ${Math.abs(d)}`, c: k * k, d: numStr(d),
+      steps: [
+        step(int(k * k), [int(k), int(2 * k), int(k * k + 1)], [int(k * k * 2), int(k * k - 1), int(k * k + d)]),
+        step(int(min), [int(2 * k), int(k * k + d), int(k + d)], [int(min + 1), int(min - 1), int(2 * k * k + d), int(min + 2)]),
+        step(int(k), [int(k * k), int(2 * k), int(min)], [int(k + 1), int(k - 1), int(k + 2)]),
+      ],
+    };
+  },
+});

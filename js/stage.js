@@ -694,7 +694,45 @@ export function createStage(canvas) {
     line(-8, 4, 8, 4, '#eef6ff', 2.5);
     glyph('r', 42, 34, 15, '#5a3f10');
   }
+  // 파스칼 삼각바위 (式と証明, 二項定理): 고유 동작은 꼭대기부터 숫자가 차례로 밝아지기
+  function drawPascal(f) {
+    const sp = f.spec > 0 ? 1 - f.spec : 0;
+    poly([0, -58, 52, 46, -52, 46], '#6d5aa8');
+    poly([0, -46, 40, 38, -40, 38], '#8a76c9');
+    const rows = [['1'], ['1', '1'], ['1', '2', '1']];
+    rows.forEach((row, r) => {
+      const lit = sp > 0 && Math.floor(sp * 3.99) === r;
+      row.forEach((n, k) => {
+        const x = (k - (row.length - 1) / 2) * 22;
+        const y = 2 + r * 16;
+        circ(x, y, 7.5, lit ? '#ffe9a8' : '#efeaff');
+        glyph(n, x, y + 0.5, 10, '#3b2f6b');
+      });
+    });
+    eye(-8, -22, 4.5, true, '#1c2740', 0.8);
+    eye(8, -22, 4.5, true, '#1c2740', 0.8);
+  }
+  // 세로셈 톱 (式と証明, 多項式の割り算): 고유 동작은 톱날이 좌우로 썰기
+  function drawSaw(f) {
+    const sp = f.spec > 0 ? 1 - f.spec : 0;
+    const slide = Math.sin(sp * Math.PI * 4) * 7;
+    rrect(-34, -8, 68, 44, 8, '#c98d4b');
+    rrect(-28, -2, 56, 32, 5, '#e2b072');
+    glyph('÷', 0, 22, 20, '#7a4a18');
+    eye(-10, 6, 5, true, '#1c2740', 1.4);
+    eye(10, 6, 5, true, '#1c2740', 1.4);
+    ctx.save();
+    ctx.translate(slide, 0);
+    rrect(-44, -30, 88, 14, 3, '#cfd8e6');
+    const teeth = [];
+    for (let k = 0; k < 8; k++) teeth.push(-44 + k * 11, -16, -38.5 + k * 11, -8, -33 + k * 11, -16);
+    for (let k = 0; k < teeth.length; k += 6) poly(teeth.slice(k, k + 6), '#aab6c8');
+    rrect(40, -36, 14, 26, 4, '#7a4a18');
+    ctx.restore();
+    glyph('−', -44, 40, 14, '#ff9a8a');
+  }
   const FOE_DRAW = {
+    pascal: drawPascal, saw: drawSaw,
     twins: drawTwins, bat: drawBat, golem: drawGolem, thief: drawThief, tower: drawTower,
     crab: drawCrab, slime: drawSlime, ghost: drawGhost, bars: drawBars,
     magician: drawMagician, giant: drawGiant, dragon: drawDragon,
