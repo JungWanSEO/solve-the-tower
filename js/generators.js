@@ -2033,4 +2033,27 @@ export const CHAINS = {
       ],
     };
   },
+
+  // [보스 전용 · 검수 중] 문자 a 가 든 이차함수: 꼭짓점 → 최솟값 m 의 최댓값 → 최솟값이 정해진 값이 되는 a
+  //   f(x) = x² − 2ax + 2ta + q (0 ≦ x ≦ c).  꼭짓점 (a, −a² + 2ta + q)
+  //   0 < a < c 이면 최솟값 m = −(a − t)² + t² + q,  a > c 이면 최솟값 f(c) = c² + q − 2(c − t)a
+  killer() {
+    const t = pickOne([1, 2]);
+    const c = pickOne([3, 4]);
+    const q = pickOne(range(1, 5));
+    const a0 = c + pickOne([1, 2]);
+    const T = c * c + q - 2 * (c - t) * a0;
+    const lin = `${2 * t}a + ${q}`;
+    const texts = [`(a, ${MINUS}a² + ${lin})`, `(${MINUS}a, ${MINUS}a² + ${lin})`, `(a, a² + ${lin})`, `(2a, ${MINUS}4a² + ${lin})`, `(a, ${MINUS}a² + ${q})`];
+    const [vertexAnswer, ...vertexWrong] = texts.map((text, i) => ({ s: text, v: i + 1 }));
+    return {
+      f: `x² ${MINUS} 2ax + ${lin}`, c, T: numStr(T), t, q,
+      m: `${MINUS}a² + ${lin}`, comp: `${MINUS}(a ${MINUS} ${t})² + ${t * t + q}`, fc: `${c * c + q} ${MINUS} ${2 * (c - t)}a`,
+      steps: [
+        step(vertexAnswer, vertexWrong.slice(0, 3), [vertexWrong[3]]),
+        step(int(t * t + q), [int(q), int(2 * t * t + q), int(t + q)], [int(t * t + q + 1), int(t * t + q + 2), int(t * t + q - 1)]),
+        step(int(a0), [int(a0 + 1), int(c), int(a0 - 1)], [int(a0 + 2), int(a0 + 3), int(2 * a0)]),
+      ],
+    };
+  },
 };

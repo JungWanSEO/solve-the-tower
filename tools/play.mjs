@@ -60,6 +60,15 @@ const stats = { types: {}, clicks: 0, answers: 0, right: 0, nodes: {}, battles: 
 let ts = 0, shopClicks = 0, lastScreen = '';
 
 function solve(textId, boxSel) {
+  // 숫자 칸 채우기: 정답의 숫자를 숫자판으로 넣습니다. 틀릴 차례에는 첫 칸을 다른 숫자로 넣습니다.
+  if (window.document.querySelector(`${boxSel.split(' ')[0]}.fill .fill-ok`)) {
+    const q = Q.debugLast(); const want = [...Q.optionText(q.options[q.correct])].filter((ch) => /[0-9−-]/.test(ch)).map((ch) => (ch === '-' ? '−' : ch));
+    const good = Math.random() < ACC; stats.answers++; stats.fills = (stats.fills || 0) + 1; if (good) stats.right++;
+    const key = (k) => window.document.querySelector(`.fill-key[data-key="${k}"]`).click();
+    const free = [...window.document.querySelectorAll('.fill-cell')].filter((c) => !c.classList.contains('locked')).length;
+    want.slice(want.length - free).forEach((ch, i) => key(!good && i === 0 ? (ch === '7' ? '8' : '7') : ch));
+    const ok = window.document.querySelector('.fill-ok'); if (ok.disabled) { errors.push('fill not complete'); return true; } ok.click(); return true;
+  }
   const btns = enabled(boxSel);
   if (!btns.length) return false;
   const lastQ = Q.debugLast();

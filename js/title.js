@@ -9,7 +9,7 @@ import { scene } from './art.js';
 export const hasProgress = (run) => run.at !== null || run.pending !== null;
 
 export function createTitle({ getRun, getRecord = () => null, onContinue, onNew, onCodex, tutorialDone = () => false, onTutorial = () => {} }) {
-  $('titleArt').innerHTML = scene('title'); // 탑 그림
+  let shownArt = null;
   let pending = null; // 확인 창에서 "지우고 새로 시작" 을 눌렀을 때 할 일
 
   function render() {
@@ -18,6 +18,12 @@ export function createTitle({ getRun, getRecord = () => null, onContinue, onNew,
     const all = allTypeKeys();
     $('titleUnit').textContent = t('title.sub', { subjects: subjectNames(all).join(' · '), n: all.length });
 
+    // 탑 그림 (직접 그린 그림이 있으면 그것으로)
+    const art = scene('title');
+    if (art !== shownArt) {
+      shownArt = art;
+      $('titleArt').innerHTML = art;
+    }
     // 지금까지의 기록 한 줄 (한 번이라도 이긴 뒤에만 보입니다)
     const rec = getRecord();
     $('titleRecord').hidden = !rec || !rec.wins;

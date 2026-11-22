@@ -586,6 +586,76 @@
           }
         }
       ]
+    },
+    {
+      "id": "chain-killer",
+      "gen": "killer",
+      "boss": true,
+      "draft": true,
+      "intro": {
+        "ja": "a を定数とする。2次関数 f(x) = {f} (0 ≦ x ≦ {c}) について答えよ。",
+        "ko": "a는 상수이다. 이차함수 f(x) = {f} (0 ≦ x ≦ {c})에 대하여 답하시오.",
+        "en": "Let a be a constant. Answer about the quadratic function f(x) = {f} (0 ≦ x ≦ {c})."
+      },
+      "steps": [
+        {
+          "type": "vertex",
+          "level": 3,
+          "sum": {
+            "ja": "頂点",
+            "ko": "꼭짓점",
+            "en": "Vertex"
+          },
+          "text": {
+            "ja": "放物線 y = {f} の頂点の座標は?",
+            "ko": "포물선 y = {f}의 꼭짓점의 좌표는?",
+            "en": "What is the vertex of the parabola y = {f}?"
+          },
+          "explain": {
+            "ja": "平方完成すると y = (x − a)² + ({m})。頂点は {answer}",
+            "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m}). 꼭짓점은 {answer}",
+            "en": "Completing the square gives y = (x − a)² + ({m}). The vertex is {answer}"
+          }
+        },
+        {
+          "type": "maxmin",
+          "level": 3,
+          "sum": {
+            "ja": "m の最大値",
+            "ko": "m의 최댓값",
+            "en": "Max of m"
+          },
+          "text": {
+            "ja": "0 < a < {c} のとき、f(x) の最小値を m とする。a が動くとき、m の最大値は?",
+            "ko": "0 < a < {c}일 때, f(x)의 최솟값을 m이라 하자. a가 변할 때, m의 최댓값은?",
+            "en": "For 0 < a < {c}, let m be the minimum of f(x). As a varies, what is the largest value of m?"
+          },
+          "explain": {
+            "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}。a = {t} のとき最大値 {answer}",
+            "ko": "0 < a < {c}에서는 축 x = a가 정의역 안에 있으므로 m = {m} = {comp}. a = {t}일 때 최댓값 {answer}",
+            "en": "For 0 < a < {c} the axis x = a lies inside the domain, so m = {m} = {comp}. It is largest at a = {t}: {answer}"
+          }
+        },
+        {
+          "type": "maxmin",
+          "level": 3,
+          "sum": {
+            "ja": "a の値",
+            "ko": "a의 값",
+            "en": "Value of a"
+          },
+          "text": {
+            "ja": "a > {c} のとき、f(x) の最小値が {T} となる a の値は?",
+            "ko": "a > {c}이고 f(x)의 최솟값이 {T}일 때, a의 값은?",
+            "en": "For a > {c}, for which a is the minimum of f(x) equal to {T}?"
+          },
+          "explain": {
+            "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}。これが {T} に等しいので a = {answer}",
+            "ko": "a > {c}에서는 축이 정의역의 오른쪽에 있으므로 최솟값은 f({c}) = {fc}. 이 값이 {T}이므로 a = {answer}",
+            "en": "For a > {c} the axis is to the right of the domain, so the minimum is f({c}) = {fc}. Setting it equal to {T} gives a = {answer}"
+          }
+        }
+      ]
     }
   ]
 }

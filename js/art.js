@@ -203,8 +203,16 @@ const SCENES = {
     `</svg>`,
 };
 
+// 직접 그린 장면 그림이 있으면 그것을 씁니다. { 장면 이름: 파일 } (art/art.json 의 scenes)
+let sceneFiles = {};
+export function setSceneArt(map) {
+  sceneFiles = map || {};
+}
+const fileOf = (name) => { const entry = sceneFiles[name]; return typeof entry === 'string' ? entry : entry && entry.file; };
+
 // 장면 그림. 모르는 이름이면 빈 글을 돌려줍니다.
 export function scene(name) {
+  if (fileOf(name)) return `<img src="./art/${fileOf(name)}" alt="" style="display:block;width:100%;height:100%;object-fit:cover">`;
   const draw = SCENES[name];
   return draw ? draw() : '';
 }

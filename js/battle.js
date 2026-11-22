@@ -114,6 +114,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       $('qText').textContent = `(${index + 1}) ${questionText(B.cur.raw)}`;
     }
     box.innerHTML = '';
+    box.classList.toggle('fill', Boolean(B.cur.fill));
+    if (B.cur.fill) {
+      renderFill(box);
+      return;
+    }
     B.cur.options.forEach((text, i) => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -127,6 +132,91 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       btn.addEventListener('click', () => answer(i));
       box.appendChild(btn);
     });
+  }
+
+  // ---- 숫자 칸 채우기 (도전 6단계의 보스전) ----
+  // 정답 글에서 숫자와 − 를 칸으로 바꿉니다. 예: "3√2/2" → [ ]√[ ]/[ ],  "x = −2, 5" → x = [ ][ ], [ ]
+  // 칸이 없거나(말로 된 답) 너무 많으면 null 을 돌려주고, 그 문제는 평소처럼 보기에서 고릅니다.
+  function makeFill(q) {
+    const text = optionText(q.options[q.correct]);
+    const parts = [...text].map((ch) => (/[0-9−-]/.test(ch) ? { want: ch === '-' ? '−' : ch, got: '', locked: false } : { text: ch }));
+    const cells = parts.filter((part) => part.want);
+    if (!cells.length || cells.length > 6 || /[가-힣ぁ-んァ-ヶ一-龠]/.test(text)) return null;
+    return { parts, cells, at: 0 };
+  }
+  const fillOn = () => B.kind === 'boss' && (getRun().ascend || 0) >= CONFIG.ascend.fillLevel;
+
+  function renderFill(box) {
+    const F = B.cur.fill;
+    const open = B.phase === 'answer';
+    const row = document.createElement('div');
+    row.className = 'fill-row';
+    F.parts.forEach((part) => {
+      if (!part.want) {
+        const span = document.createElement('span');
+        span.textContent = part.text;
+        row.appendChild(span);
+        return;
+      }
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'fill-cell';
+      cell.textContent = part.got;
+      const index = F.cells.indexOf(part);
+      if (open && index === F.at) cell.classList.add('on');
+      if (part.locked) cell.classList.add('locked');
+      if (!open && B.picked >= 0) cell.classList.add(part.got === part.want ? 'right' : 'wrong');
+      cell.disabled = !open || part.locked;
+      cell.addEventListener('click', () => {
+        F.at = index;
+        render();
+      });
+      row.appendChild(cell);
+    });
+    box.appendChild(row);
+    if (!open) return;
+    const pad = document.createElement('div');
+    pad.className = 'fill-pad';
+    for (const key of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '−', '⌫']) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fill-key';
+      btn.dataset.key = key;
+      btn.textContent = key;
+      btn.addEventListener('click', () => typeFill(key));
+      pad.appendChild(btn);
+    }
+    box.appendChild(pad);
+    const ok = document.createElement('button');
+    ok.type = 'button';
+    ok.className = 'primary fill-ok';
+    ok.textContent = t('ui.fillOk');
+    ok.disabled = F.cells.some((cell) => !cell.got);
+    ok.addEventListener('click', () => {
+      const right = F.cells.every((cell) => cell.got === cell.want);
+      answer(right ? B.cur.correct : (B.cur.correct + 1) % B.cur.options.length);
+    });
+    box.appendChild(ok);
+  }
+  // 숫자판을 눌렀을 때: 지금 칸에 넣고 다음 빈 칸으로 갑니다. ⌫ 는 지금 칸(비어 있으면 앞 칸)을 지웁니다.
+  function typeFill(key) {
+    const F = B.cur.fill;
+    if (B.phase !== 'answer' || !F) return;
+    const free = (i) => F.cells[i] && !F.cells[i].locked;
+    if (key === '⌫') {
+      if (free(F.at) && F.cells[F.at].got) F.cells[F.at].got = '';
+      else {
+        let i = F.at - 1;
+        while (i >= 0 && !free(i)) i -= 1;
+        if (i >= 0) { F.cells[i].got = ''; F.at = i; }
+      }
+    } else if (free(F.at)) {
+      F.cells[F.at].got = key;
+      let i = F.at + 1;
+      while (i < F.cells.length && (!free(i) || F.cells[i].got)) i += 1;
+      if (i < F.cells.length) F.at = i;
+    }
+    render();
   }
 
   function render() {
@@ -186,7 +276,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
     // 연속기 버튼: 이번 범위에 풀 수 있는 묶음이 있을 때만 보입니다.
     const chainBtn = $('chainBtn');
-    chainBtn.hidden = !hasChain();
+    chainBtn.hidden = !hasChain(B.kind === 'boss');
     chainBtn.disabled = !choosing || Boolean(only) || B.chainUsed;
     $('chainSub').textContent = t(B.chainUsed ? 'ui.chainUsed' : 'ui.chainSub');
 
@@ -247,7 +337,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
     if (action === 'chain') {
       if (B.chainUsed) return;
-      const data = nextChain();
+      const data = nextChain(B.kind === 'boss');
       if (!data) return;
       B.chainUsed = true;
       B.lastAction = 'chain';
@@ -266,6 +356,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.cur = next(level);
     B.cur.action = action;
     B.cur.removed = -1;
+    B.cur.fill = fillOn() ? makeFill(B.cur) : null;
     B.picked = -1;
     B.phase = 'answer';
     say(action === 'defend' ? 'msg.solveGuard' : 'msg.solve');
@@ -276,6 +367,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
   // 연속기의 지금 물음을 문제로 올립니다.
   function askStep() {
     B.cur = B.chain.data.steps[B.chain.index];
+    B.cur.fill = fillOn() ? makeFill(B.cur) : null;
     B.cur.action = 'chain';
     B.cur.removed = -1;
     B.picked = -1;
@@ -306,6 +398,20 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
   function useHint() {
     const run = getRun();
     if (B.phase !== 'answer' || run.hints <= 0 || B.cur.removed >= 0) return;
+    if (B.cur.fill) {
+      // 칸 채우기에서는 힌트가 칸 하나를 알려 줍니다.
+      const F = B.cur.fill;
+      const target = F.cells.find((cell) => !cell.locked && cell.got !== cell.want) || F.cells.find((cell) => !cell.locked);
+      if (!target) return;
+      target.got = target.want;
+      target.locked = true;
+      const next = F.cells.findIndex((cell) => !cell.locked && !cell.got);
+      if (next >= 0) F.at = next;
+      B.cur.removed = 99; // 이 문제에서는 힌트를 썼다는 표시 (보기 번호가 아닙니다)
+      run.hints -= 1;
+      render();
+      return;
+    }
     const wrong = B.cur.options.map((_, i) => i).filter((i) => i !== B.cur.correct);
     B.cur.removed = wrong[Math.floor(Math.random() * wrong.length)];
     run.hints -= 1;
@@ -508,7 +614,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     start,
     abort,
     choosing: () => B.phase === 'choose',
-    chainReady: () => B.phase === 'choose' && !B.chainUsed && hasChain(),
+    chainReady: () => B.phase === 'choose' && !B.chainUsed && hasChain(B.kind === 'boss'),
     refresh: render, // 언어를 바꾼 뒤 화면의 글을 다시 씁니다.
   };
 }

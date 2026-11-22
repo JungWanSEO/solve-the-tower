@@ -75,6 +75,18 @@ const OK = {
     (d, o) => N(o) === q(d).q3 - q(d).q1,
     (d, o) => near(N(o), q(d).q3 + 1.5 * (q(d).q3 - q(d).q1)),
   ]; })(),
+  // 문자 a 가 든 식은 a 에 수를 넣어 직접 계산합니다. 최솟값은 정의역을 촘촘히 나누어 찾습니다.
+  killer: (() => {
+    const expr = (s) => clean(s).replace(/a²/g, '(a*a)').replace(/x²/g, '(x*x)').replace(/(\d)a/g, '$1*a').replace(/(\d)\(/g, '$1*(');
+    const f = (d, a, x) => Function('a', 'x', `return (${expr(d.f).replace(/\* ?ax|(\d)\*a x/g, '*a*x').replace(/2\*ax/g, '2*a*x')});`)(a, x);
+    const memo = new Map();
+    const minOn = (d, a) => { const key = `${d.f}|${d.c}|${a}`; if (!memo.has(key)) { let best = Infinity; for (let k = 0; k <= d.c * 200; k++) best = Math.min(best, f(d, a, k / 200)); memo.set(key, best); } return memo.get(key); };
+    const peak = new Map();
+    return [
+      (d, o) => { const m = clean(o).match(/^\((.+), (.+)\)$/); if (!m) return false; return [0.7, 1.9, 3.3].every((a) => { const X = Function('a', `return (${expr(m[1])});`)(a), Y = Function('a', `return (${expr(m[2])});`)(a); return near(f(d, a, X + 0.5), f(d, a, X - 0.5)) && near(f(d, a, X), Y); }); },
+      (d, o) => { const key = `${d.f}|${d.c}`; if (!peak.has(key)) { let best = -Infinity; for (let k = 1; k < d.c * 20; k++) best = Math.max(best, minOn(d, k / 20)); peak.set(key, best); } return Math.abs(N(o) - peak.get(key)) < 1e-6; },
+      (d, o) => N(o) > d.c && Math.abs(minOn(d, N(o)) - N(d.T)) < 1e-6,
+    ]; })(),
   int: [
     (d, o) => N(o) === G(d.a, d.b),
     (d, o) => N(o) === (d.a * d.b) / G(d.a, d.b),
