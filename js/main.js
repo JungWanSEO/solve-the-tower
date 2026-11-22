@@ -137,7 +137,8 @@ async function boot() {
     const spot = run.nodes.find((n) => n.id === (run.pending ?? run.at));
     $('subjectName').textContent = `${subjectNames(run.scope).join(' · ')} · ${t('ui.scopeCount', { n: run.scope.length, total: allTypeKeys().length })}`;
     const where = spot ? t('ui.where', { n: spot.floor + 1, total: run.floors }) : t('ui.whereStart', { total: run.floors });
-    $('unitName').textContent = run.acts ? `${t('ui.act', { n: run.act + 1, total: run.acts.length })} · ${where}` : where;
+    // 긴 탑에서는 막과 층을 짧게 함께 적습니다. (좁은 화면에서 잘리지 않도록)
+    $('unitName').textContent = !run.acts ? where : spot ? t('ui.actWhere', { a: run.act + 1, at: run.acts.length, n: spot.floor + 1, total: run.floors }) : t('ui.actStart', { a: run.act + 1, at: run.acts.length });
     // 체력·골드·힌트는 그림이 붙은 칩으로, 지금 걸려 있는 효과는 색 딱지로 보여 줍니다.
     const chips = [
       ['hp', 'maxhp', `${Math.max(0, run.hp)}/${run.maxHp}`],
@@ -447,7 +448,7 @@ async function boot() {
         goMap();
         ask({
           title: t('act.nextTitle', { n: run.act + 1, name: subjectName(run.acts[run.act].id) }),
-          text: t('act.nextText', { gold, hp: healed, left: run.acts.length - run.act }),
+          text: t(isLastAct(run) ? 'act.lastText' : 'act.nextText', { gold, hp: healed, left: run.acts.length - run.act }),
           buttons: [{ label: t('ui.ok'), kind: 'primary' }],
         });
       } else if (kind === 'boss') {

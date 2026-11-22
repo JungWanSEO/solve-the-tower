@@ -53,7 +53,8 @@
     "finishCounter": "Block = defeated",
     "finishChain": "All correct = defeated",
     "finishUlt": "Damage {d} · defeats it",
-    "act": "Act {n} / {total}"
+    "actWhere": "Act {a}/{at} · F{n}/{total}",
+    "actStart": "Act {a}/{at} · Gate"
   },
   "msg": {
     "choose": "Choose an action.",
@@ -428,6 +429,7 @@
     "long": "Long tower ({n} acts)",
     "short": "Short tower (10 floors)",
     "nextTitle": "Act {n}: {name}",
-    "nextText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. {left} act(s) remain. Your gold and upgrades carry over."
+    "nextText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. {left} acts remain, counting this one. Your gold and upgrades carry over.",
+    "lastText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. This is the final act. Your gold and upgrades carry over."
   }
 }
