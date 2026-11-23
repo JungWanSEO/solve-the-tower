@@ -4,7 +4,27 @@
 //   5) 싸우는 그림의 높이(최소 높이까지)  — 화면에 여유가 있으면 싸우는 그림은 줄이지 않습니다.
 import { $ } from './ui.js';
 
-const viewHeight = () => (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+// 지금 눈에 보이는 높이. 스마트폰 브라우저에서는 주소 줄과 아래쪽 도구 줄이 나왔다 들어갔다 해서 이 값이 계속 바뀝니다.
+const seenHeight = () => (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+
+// 화면을 맞출 때 기준으로 삼는 높이: 주소 줄과 아래쪽 줄이 "모두 나와 있을 때"의 높이 (CSS 의 100svh).
+// 줄이 들어가 있을 때의 큰 높이에 맞추면, 스크롤을 올려 줄이 다시 나오는 순간 아래쪽(답 버튼)이 가려집니다.
+// 가장 작은 높이에 맞춰 두면 줄이 나오든 들어가든 잘리지 않고, 맞춘 뒤에 화면이 다시 출렁일 일도 없습니다.
+let probe = null;   // 높이가 100svh 인 보이지 않는 막대
+let least = { width: 0, height: 0 }; // svh 를 모르는 옛 브라우저용: 이 폭에서 본 가장 작은 높이
+function viewHeight() {
+  if (!probe) {
+    probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;left:0;top:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+    document.body.appendChild(probe);
+  }
+  const small = probe.getBoundingClientRect().height;
+  if (small > 0) return small;
+  const now = seenHeight();
+  if (least.width !== window.innerWidth) least = { width: window.innerWidth, height: now };
+  least.height = Math.min(least.height, now);
+  return least.height;
+}
 
 export function fitBattle() {
   const screen = $('screenBattle');
@@ -62,7 +82,7 @@ export function showReview() {
   const next = $('nextBtn');
   if (next.hidden) return;
   const head = $('topBar').getBoundingClientRect().height;
-  const toNext = next.getBoundingClientRect().bottom + 12 - viewHeight(); // "다음" 버튼이 다 보이려면 내려야 하는 거리
+  const toNext = next.getBoundingClientRect().bottom + 12 - seenHeight(); // "다음" 버튼이 다 보이려면 내려야 하는 거리
   const toTop = (box.hidden ? next : box).getBoundingClientRect().top - head - 8; // 풀이의 첫 줄이 가려지지 않는 한계
   let move = Math.min(toNext, toTop);
   if (move <= 0) return;
@@ -71,23 +91,21 @@ export function showReview() {
   if (stageEnd > move && stageEnd <= toTop) move = stageEnd;
   // 화면 아래에 내릴 자리가 모자라면 그만큼 여백을 둡니다. (다음 문제에서 fitBattle 이 지웁니다)
   const screen = $('screenBattle');
-  const short = window.scrollY + move + viewHeight() - document.documentElement.scrollHeight;
+  const short = window.scrollY + move + seenHeight() - document.documentElement.scrollHeight;
   if (short > 0) screen.style.paddingBottom = `${Math.ceil(short)}px`;
   window.scrollBy({ top: move, behavior: document.body.classList.contains('calm') ? 'auto' : 'smooth' });
 }
 
-// 화면이 돌아가거나 주소 줄이 접히고 펴질 때 다시 맞춥니다.
+// 화면이 돌아가거나 창의 크기가 바뀌면 다시 맞춥니다.
+// 주소 줄이 접히고 펴지는 것만으로는 다시 맞추지 않습니다. (기준 높이가 "줄이 다 나와 있을 때"로 고정이라 달라질 것이 없습니다)
 export function watchFit() {
   let timer = 0;
   let width = window.innerWidth;
   let height = viewHeight();
   const again = () => {
-    // 손가락으로 화면을 내리면 브라우저의 주소 줄이 접히면서 높이가 조금 바뀝니다. 그때마다 다시 맞추면
-    // 스크롤하는 도중에 싸우는 그림의 크기가 바뀌어 화면이 출렁이므로, 내려 둔 상태의 작은 높이 변화는 넘깁니다.
     const w = window.innerWidth;
     const h = viewHeight();
-    const small = w === width && Math.abs(h - height) < 130;
-    if (small && window.scrollY > 0) return;
+    if (w === width && Math.abs(h - height) < 2) return;
     width = w;
     height = h;
     clearTimeout(timer);

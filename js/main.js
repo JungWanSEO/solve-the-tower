@@ -187,12 +187,17 @@ async function boot() {
         strip.type = 'button';
         strip.className = 'relic-strip';
         strip.setAttribute('aria-label', t('relic.barLabel', { n: relics.length }));
-        const room = CONFIG.relic.bar;
-        const few = relics.length > room ? relics.slice(0, room - 1) : relics; // 넘치면 마지막 자리는 "+N" 이 씁니다
-        strip.innerHTML = few.map((id) => `<i class="rarity-${RELICS[id] ? RELICS[id].rarity : 'common'}" data-relic="${id}">${icon(`r-${id}`)}</i>`).join('')
-          + (relics.length > few.length ? `<span>+${relics.length - few.length}</span>` : '');
         strip.addEventListener('click', openBag);
         bar.appendChild(strip);
+        // 좁은 화면에서 줄이 두 줄로 넘어가면 아이콘을 하나씩 줄입니다. (상태 줄의 높이가 늘면 문제 화면이 밀립니다)
+        const first = bar.firstChild;
+        for (let room = CONFIG.relic.bar; room >= 0; room--) {
+          const few = relics.length > room ? relics.slice(0, Math.max(0, room - 1)) : relics; // 넘치면 마지막 자리는 "+N" 이 씁니다
+          strip.innerHTML = few.map((id) => `<i class="rarity-${RELICS[id] ? RELICS[id].rarity : 'common'}" data-relic="${id}">${icon(`r-${id}`)}</i>`).join('')
+            + (relics.length > few.length ? `<span>+${relics.length - few.length}</span>` : '');
+          if (strip.offsetTop <= first.offsetTop + 4) break;
+        }
+        if (bar.offsetParent === null) bar.dataset.shown = ''; // 상태 줄이 숨겨져 있을 때는 잴 수 없으므로, 보일 때 다시 그립니다
       }
     }
     bar.classList.toggle('low', run.hp / run.maxHp <= 0.3);
