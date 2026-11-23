@@ -15,7 +15,7 @@ import { createTutorial } from './tutorial.js';
 import { createTitle } from './title.js';
 import { createScope } from './scope.js';
 import { $, show, celebrate, toast } from './ui.js';
-import { play, music, wake } from './sound.js';
+import { play, music, battleMusic, wake } from './sound.js';
 import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
 import { showGuide, hideGuide } from './guide.js';
@@ -407,7 +407,7 @@ async function boot() {
     const monster = monsters.find((m) => m.id === node.monster) || monsters[0];
     if (!node.weak || !run.scope.includes(node.weak)) node.weak = chooseWeak(monster);
     run.lastFoe = monster.id;
-    music(kind === 'midboss' || kind === 'boss' ? 'boss' : 'battle');
+    battleMusic(kind, monster.weak, monster.id); // 보통 전투는 과목별, 강적·중간 보스·보스는 각자의 곡
     // 중간 보스 방 앞에는 작은 샘이 있습니다. 들어갈 때 한 번, 체력을 조금 회복합니다.
     if (kind === 'midboss' && CONFIG.midboss.healBefore > 0 && !node.sipped) {
       node.sipped = true;
