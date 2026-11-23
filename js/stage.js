@@ -2,6 +2,7 @@
 // 이미지 파일을 쓰지 않습니다. 새 몬스터는 draw 함수 하나를 추가하면 됩니다.
 const W = 360;
 const H = 230;
+const BAND = [40, 198]; // 캐릭터와 적이 서 있는 세로 범위. 칸이 낮아져도 이 범위는 잘리지 않게 그립니다.
 
 export function createStage(canvas) {
   const ctx = canvas.getContext('2d');
@@ -992,6 +993,21 @@ export function createStage(canvas) {
 
     ctx.fillStyle = '#14224a';
     ctx.fillRect(-10, -10, W + 20, H + 20);
+    // 문제가 길면 싸우는 그림의 칸이 낮아져 위아래가 잘립니다 (CSS 의 object-fit: cover).
+    // 캐릭터의 모자나 키 큰 적의 머리가 잘리지 않도록, 보이는 띠 안에 다 들어가게 장면을 줄여서 그립니다.
+    const boxW = canvas.clientWidth;
+    const boxH = canvas.clientHeight;
+    if (boxW > 0 && boxH > 0) {
+      const seen = boxH / (boxW / W); // 보이는 높이 (그림 좌표)
+      const need = BAND[1] - BAND[0];
+      if (seen < need) {
+        const top = (H - seen) * 0.62; // style.css 의 object-position: 50% 62% 와 같은 값
+        const zoom = seen / need;
+        ctx.translate(W / 2, top);
+        ctx.scale(zoom, zoom);
+        ctx.translate(-W / 2, -BAND[0]);
+      }
+    }
     for (let i = 0; i < stars.length; i++) {
       const st = stars[i];
       ctx.fillStyle = `rgba(167,221,255,${0.35 + 0.25 * Math.sin(S.t * 1.5 + i)})`;
@@ -1005,7 +1021,7 @@ export function createStage(canvas) {
     poly([150, 86, 161, 68, 172, 86], '#1b2d5c');
     poly([316, 122, 331, 104, 346, 122], '#1b2d5c');
     ctx.fillStyle = '#0f1a3a';
-    ctx.fillRect(-10, 190, W + 20, 60);
+    ctx.fillRect(-W, 190, W * 3, 60); // 장면을 줄여 그릴 때도 땅이 양옆 끝까지 이어지게 넓게 칠합니다
 
     ell(h.x, h.y + 50, 34, 6, '#0b1430');
     if (!f.gone) ell(f.x, 180, 44, 7, '#0b1430');
