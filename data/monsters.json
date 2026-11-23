@@ -182,7 +182,7 @@
       "ko": "단위를 빠뜨리거나 틀리기",
       "en": "Dropping or mixing up units"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math1-trig/length",
     "basicLevel": 1,
     "skillLevel": 2
@@ -200,7 +200,7 @@
       "ko": "이항할 때 부호를 바꾸지 않기",
       "en": "Moving a term across the equals sign without changing its sign"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math1-expr/factor",
     "basicLevel": 1,
     "skillLevel": 2
@@ -218,7 +218,7 @@
       "ko": "이상값 하나에 끌려간 평균을 그대로 믿기",
       "en": "Trusting a mean that one outlier has dragged away"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math1-data/variance",
     "basicLevel": 1,
     "skillLevel": 2
@@ -236,7 +236,7 @@
       "ko": "합의 법칙과 곱의 법칙을 바꿔 쓰기 (더할지 곱할지)",
       "en": "Mixing up the addition rule and the multiplication rule"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "matha-count/perm",
     "basicLevel": 1,
     "skillLevel": 2
@@ -254,7 +254,7 @@
       "ko": "그림을 그리지 않고 풀려는 것",
       "en": "Solving without drawing the figure"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "math1-trig/twopoint",
     "basicLevel": 2,
     "skillLevel": 3
@@ -272,7 +272,7 @@
       "ko": "해가 있는지(D의 부호)를 확인하지 않고 풀기",
       "en": "Solving without checking whether solutions exist (the sign of D)"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "math1-quad/discriminant",
     "basicLevel": 2,
     "skillLevel": 3
@@ -290,7 +290,7 @@
       "ko": "정리를 쓸 수 있는 조건(원에 내접하는지 등)을 확인하지 않기",
       "en": "Using a theorem without checking that its conditions hold"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "matha-geom/power",
     "basicLevel": 2,
     "skillLevel": 3
@@ -308,7 +308,7 @@
       "ko": "약수를 셀 때 1이나 자기 자신, 짝이 되는 수를 빠뜨리기",
       "en": "Missing 1, the number itself or one of a pair when counting divisors"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "matha-int/divis",
     "basicLevel": 1,
     "skillLevel": 2
@@ -326,7 +326,7 @@
       "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
       "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "matha-int/euclid",
     "basicLevel": 2,
     "skillLevel": 3
@@ -548,7 +548,7 @@
       "ko": "고차방정식에서 해를 하나 찾고 멈추기",
       "en": "Stopping after finding only one root of a higher-degree equation"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math2-complex/higheq",
     "basicLevel": 2,
     "skillLevel": 3
@@ -566,7 +566,7 @@
       "ko": "f′(x) = 0 인 점을 증감을 확인하지 않고 모두 극값이라고 단정하기",
       "en": "Calling every point with f′(x) = 0 an extremum without checking the sign change"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "math2-calc/extrema",
     "basicLevel": 2,
     "skillLevel": 3
