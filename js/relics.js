@@ -40,6 +40,7 @@ export function relicVars(id) {
   if (id === 'ruler') return { n: v.dmg, hp: v.hp };
   if (id === 'workbook') return { n: v.ult, need: v.need, was: CONFIG.ultNeed };
   if (id === 'bag') return { hp: v.hp, n: v.heal };
+  if (id === 'chainbelt') return { n: v.uses, dmg: v.dmg };
   if (id === 'alarm') return { n: v, was: CONFIG.foeAttack.bigEvery };
   if (id === 'redpen') return { n: CONFIG.damage.weakBonus + v, was: CONFIG.damage.weakBonus };
   return { n: v };

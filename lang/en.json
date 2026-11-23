@@ -542,7 +542,7 @@
     },
     "chainbelt": {
       "name": "Chain Belt",
-      "text": "Use Chain {n} times per battle"
+      "text": "Use Chain {n} times per battle. Each chain step deals +{dmg} damage"
     },
     "ruler": {
       "name": "Cracked Ruler",

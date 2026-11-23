@@ -51,7 +51,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   const skillDmg = () => CONFIG.damage.skill + getRun().up.skill + flat() + (R('highlighter') ? RC.highlighter : 0);
   const counterDmg = () => CONFIG.damage.counter + getRun().up.counter + flat() + (R('setsquare') ? RC.setsquare : 0);
   const ultDmg = () => CONFIG.damage.ult + flat() + (R('workbook') ? RC.workbook.ult : 0);
-  const chainDmg = (i) => CONFIG.damage.chain[i] + flat();
+  const chainDmg = (i) => CONFIG.damage.chain[i] + flat() + (R('chainbelt') ? RC.chainbelt.dmg : 0);
   const weakMul = () => CONFIG.damage.weakBonus + getRun().up.weak + (R('redpen') ? RC.redpen : 0);
   // 공격 문제(기본·스킬·연속기)를 맞혔을 때 유물이 더해 주는 피해. 쓴 유물은 화면에 알립니다.
   function hitBonus() {
@@ -690,7 +690,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     B.onEnd = onEnd;
     B.chain = null;
     B.chainUsed = false;
-    B.chainLeft = R('chainbelt') ? RC.chainbelt : 1;
+    B.chainLeft = R('chainbelt') ? RC.chainbelt.uses : 1;
     B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0 };
     B.owed = 0;
     B.shownHp = null;
