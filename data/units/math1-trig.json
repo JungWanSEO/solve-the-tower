@@ -425,9 +425,9 @@
         "en": "θ is acute and {given} θ = {gv}. What is {ask} θ?"
       },
       "explain": {
-        "ja": "sin²θ + cos²θ = 1 に {given} θ = {gv} を代入して、もう一方の2乗を求める\nθ は鋭角なので、sin θ も cos θ も正\n必要なら tan θ = sin θ ÷ cos θ を使って {ask} θ = {answer}",
-        "ko": "sin²θ + cos²θ = 1 에 {given} θ = {gv} 를 대입해 다른 쪽의 제곱을 구합니다\nθ는 예각이므로 sin θ도 cos θ도 양수\n필요하면 tan θ = sin θ ÷ cos θ 를 써서 {ask} θ = {answer}",
-        "en": "Put {given} θ = {gv} into sin²θ + cos²θ = 1 to get the other square\nθ is acute, so sin θ and cos θ are both positive\nIf needed use tan θ = sin θ ÷ cos θ: {ask} θ = {answer}"
+        "ja": "sin²θ + cos²θ = 1 に {given} θ = {gv} を代入して、もう一方の2乗を求める → 1 − ({gv})² = {=1-gv*gv}\nθ は鋭角なので、sin θ も cos θ も正\n必要なら tan θ = sin θ ÷ cos θ を使って {ask} θ = {answer}",
+        "ko": "sin²θ + cos²θ = 1 에 {given} θ = {gv} 를 대입해 다른 쪽의 제곱을 구합니다 → 1 − ({gv})² = {=1-gv*gv}\nθ는 예각이므로 sin θ도 cos θ도 양수\n필요하면 tan θ = sin θ ÷ cos θ 를 써서 {ask} θ = {answer}",
+        "en": "Put {given} θ = {gv} into sin²θ + cos²θ = 1 to get the other square → 1 − ({gv})² = {=1-gv*gv}\nθ is acute, so sin θ and cos θ are both positive\nIf needed use tan θ = sin θ ÷ cos θ: {ask} θ = {answer}"
       }
     },
     {
@@ -444,9 +444,9 @@
         "en": "θ is obtuse and {given} θ = {gv}. What is {ask} θ?"
       },
       "explain": {
-        "ja": "sin²θ + cos²θ = 1 に {given} θ = {gv} を代入して、もう一方の2乗を求める\nθ は鈍角なので、cos θ と tan θ は負(sin θ は正)\n符号をつけて {ask} θ = {answer}",
-        "ko": "sin²θ + cos²θ = 1 에 {given} θ = {gv} 를 대입해 다른 쪽의 제곱을 구합니다\nθ는 둔각이므로 cos θ와 tan θ는 음수 (sin θ는 양수)\n부호를 붙이면 {ask} θ = {answer}",
-        "en": "Put {given} θ = {gv} into sin²θ + cos²θ = 1 to get the other square\nθ is obtuse, so cos θ and tan θ are negative (sin θ is positive)\nWith the sign: {ask} θ = {answer}"
+        "ja": "sin²θ + cos²θ = 1 に {given} θ = {gv} を代入して、もう一方の2乗を求める → 1 − ({gv})² = {=1-gv*gv}\nθ は鈍角なので、cos θ と tan θ は負(sin θ は正)\n符号をつけて {ask} θ = {answer}",
+        "ko": "sin²θ + cos²θ = 1 에 {given} θ = {gv} 를 대입해 다른 쪽의 제곱을 구합니다 → 1 − ({gv})² = {=1-gv*gv}\nθ는 둔각이므로 cos θ와 tan θ는 음수 (sin θ는 양수)\n부호를 붙이면 {ask} θ = {answer}",
+        "en": "Put {given} θ = {gv} into sin²θ + cos²θ = 1 to get the other square → 1 − ({gv})² = {=1-gv*gv}\nθ is obtuse, so cos θ and tan θ are negative (sin θ is positive)\nWith the sign: {ask} θ = {answer}"
       }
     },
     {
@@ -772,9 +772,9 @@
         "r": "r = ?"
       },
       "explain": {
-        "ja": "内心と3つの頂点を結ぶと、高さ r の三角形3つに分かれる\n面積 S = r(a + b + c) ÷ 2 なので r = 2S ÷ (a + b + c)\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}",
-        "ko": "내심과 세 꼭짓점을 이으면 높이가 r인 삼각형 3개로 나뉩니다\n넓이 S = r(a + b + c) ÷ 2 이므로 r = 2S ÷ (a + b + c)\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}",
-        "en": "Joining the incentre to the vertices gives three triangles of height r\nS = r(a + b + c) ÷ 2, so r = 2S ÷ (a + b + c)\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}"
+        "ja": "内心と3つの頂点を結ぶと、高さ r の三角形3つに分かれる\n面積 S = r(a + b + c) ÷ 2 なので r = 2S ÷ (a + b + c) → a + b + c = {=a+b+c}\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}",
+        "ko": "내심과 세 꼭짓점을 이으면 높이가 r인 삼각형 3개로 나뉩니다\n넓이 S = r(a + b + c) ÷ 2 이므로 r = 2S ÷ (a + b + c) → a + b + c = {=a+b+c}\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}",
+        "en": "Joining the incentre to the vertices gives three triangles of height r\nS = r(a + b + c) ÷ 2, so r = 2S ÷ (a + b + c) → a + b + c = {=a+b+c}\n2 × {S} ÷ ({a} + {b} + {c}) = {answer}"
       }
     },
     {

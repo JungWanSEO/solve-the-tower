@@ -81,9 +81,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "底が同じなので、指数だけを計算する\n掛け算は指数を足し、割り算は指数を引く\n残った指数で値を求めて {answer}",
-        "ko": "밑이 같으므로 지수만 계산합니다\n곱셈은 지수를 더하고 나눗셈은 지수를 뺍니다\n남은 지수로 값을 구하면 {answer}",
-        "en": "The base is the same, so work only with the exponents\nMultiplying adds exponents; dividing subtracts them\nEvaluate with the final exponent: {answer}"
+        "ja": "底が同じなので、指数だけを計算する\n掛け算は指数を足し、割り算は指数を引く → {=exps(expr)[0]} + ({=exps(expr)[1]}) − ({=exps(expr)[2]}) = {=exps(expr)[0]+exps(expr)[1]-exps(expr)[2]}\n残った指数で値を求めて {answer}",
+        "ko": "밑이 같으므로 지수만 계산합니다\n곱셈은 지수를 더하고 나눗셈은 지수를 뺍니다 → {=exps(expr)[0]} + ({=exps(expr)[1]}) − ({=exps(expr)[2]}) = {=exps(expr)[0]+exps(expr)[1]-exps(expr)[2]}\n남은 지수로 값을 구하면 {answer}",
+        "en": "The base is the same, so work only with the exponents\nMultiplying adds exponents; dividing subtracts them → {=exps(expr)[0]} + ({=exps(expr)[1]}) − ({=exps(expr)[2]}) = {=exps(expr)[0]+exps(expr)[1]-exps(expr)[2]}\nEvaluate with the final exponent: {answer}"
       }
     },
     {
@@ -208,9 +208,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "底が同じ対数の和は、真数の積の対数: log M + log N = log MN\n真数どうしを掛ける\nその数が底の何乗かを考えて {answer}",
-        "ko": "밑이 같은 로그의 합은 진수의 곱의 로그: log M + log N = log MN\n진수끼리 곱합니다\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
-        "en": "A sum of logs with one base is the log of the product: log M + log N = log MN\nMultiply the two numbers\nAsk what power of the base that is: {answer}"
+        "ja": "底が同じ対数の和は、真数の積の対数: log M + log N = log MN\n真数どうしを掛ける → {=nums(expr)[0]*nums(expr)[1]}\nその数が底の何乗かを考えて {answer}",
+        "ko": "밑이 같은 로그의 합은 진수의 곱의 로그: log M + log N = log MN\n진수끼리 곱합니다 → {=nums(expr)[0]*nums(expr)[1]}\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
+        "en": "A sum of logs with one base is the log of the product: log M + log N = log MN\nMultiply the two numbers → {=nums(expr)[0]*nums(expr)[1]}\nAsk what power of the base that is: {answer}"
       }
     },
     {
@@ -227,9 +227,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "底が同じ対数の差は、真数の商の対数: log M − log N = log (M/N)\n真数どうしを割る\nその数が底の何乗かを考えて {answer}",
-        "ko": "밑이 같은 로그의 차는 진수의 몫의 로그: log M − log N = log (M/N)\n진수끼리 나눕니다\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
-        "en": "A difference of logs with one base is the log of the quotient: log M − log N = log (M/N)\nDivide the two numbers\nAsk what power of the base that is: {answer}"
+        "ja": "底が同じ対数の差は、真数の商の対数: log M − log N = log (M/N)\n真数どうしを割る → {=nums(expr)[0]/nums(expr)[1]}\nその数が底の何乗かを考えて {answer}",
+        "ko": "밑이 같은 로그의 차는 진수의 몫의 로그: log M − log N = log (M/N)\n진수끼리 나눕니다 → {=nums(expr)[0]/nums(expr)[1]}\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
+        "en": "A difference of logs with one base is the log of the quotient: log M − log N = log (M/N)\nDivide the two numbers → {=nums(expr)[0]/nums(expr)[1]}\nAsk what power of the base that is: {answer}"
       }
     },
     {

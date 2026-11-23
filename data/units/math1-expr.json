@@ -114,9 +114,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "(x + a)(x + b) = x² + (a + b)x + ab を使う\nx の係数は2つの数の和、定数項は2つの数の積\n{answer}",
-        "ko": "(x + a)(x + b) = x² + (a + b)x + ab 를 씁니다\nx의 계수는 두 수의 합, 상수항은 두 수의 곱\n{answer}",
-        "en": "Use (x + a)(x + b) = x² + (a + b)x + ab\nThe x coefficient is the sum of the two numbers; the constant is their product\n{answer}"
+        "ja": "(x + a)(x + b) = x² + (a + b)x + ab を使う\nx の係数は2つの数の和、定数項は2つの数の積 → {=nums(expr)[0]+(nums(expr)[1]??nums(expr)[0])}, {=nums(expr)[0]*(nums(expr)[1]??nums(expr)[0])}\n{answer}",
+        "ko": "(x + a)(x + b) = x² + (a + b)x + ab 를 씁니다\nx의 계수는 두 수의 합, 상수항은 두 수의 곱 → {=nums(expr)[0]+(nums(expr)[1]??nums(expr)[0])}, {=nums(expr)[0]*(nums(expr)[1]??nums(expr)[0])}\n{answer}",
+        "en": "Use (x + a)(x + b) = x² + (a + b)x + ab\nThe x coefficient is the sum of the two numbers; the constant is their product → {=nums(expr)[0]+(nums(expr)[1]??nums(expr)[0])}, {=nums(expr)[0]*(nums(expr)[1]??nums(expr)[0])}\n{answer}"
       }
     },
     {
@@ -149,9 +149,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "掛けて定数項、足して x の係数になる2つの数を探す\nその2つの数を a, b として (x + a)(x + b) の形にする\n{answer}",
-        "ko": "곱해서 상수항, 더해서 x의 계수가 되는 두 수를 찾습니다\n그 두 수를 a, b라 하고 (x + a)(x + b) 꼴로 만듭니다\n{answer}",
-        "en": "Find two numbers whose product is the constant and whose sum is the x coefficient\nCall them a and b and write (x + a)(x + b)\n{answer}"
+        "ja": "掛けて定数項、足して x の係数になる2つの数を探す → {=pair(co(expr)[1],co(expr)[2])}\nその2つの数を a, b として (x + a)(x + b) の形にする\n{answer}",
+        "ko": "곱해서 상수항, 더해서 x의 계수가 되는 두 수를 찾습니다 → {=pair(co(expr)[1],co(expr)[2])}\n그 두 수를 a, b라 하고 (x + a)(x + b) 꼴로 만듭니다\n{answer}",
+        "en": "Find two numbers whose product is the constant and whose sum is the x coefficient → {=pair(co(expr)[1],co(expr)[2])}\nCall them a and b and write (x + a)(x + b)\n{answer}"
       }
     },
     {
@@ -184,9 +184,9 @@
         "en": "Simplify √{n}."
       },
       "explain": {
-        "ja": "{n} を (平方数) × (残り) の形に分ける\n平方数の部分を根号の外に出す\n√{n} = {answer}",
-        "ko": "{n} 을 (제곱수) × (나머지) 꼴로 나눕니다\n제곱수 부분을 근호 밖으로 꺼냅니다\n√{n} = {answer}",
-        "en": "Write {n} as (a square) × (the rest)\nTake the square part out of the root\n√{n} = {answer}"
+        "ja": "{n} を (平方数) × (残り) の形に分ける → {=sqpart(n)} × {=n/sqpart(n)}\n平方数の部分を根号の外に出す\n√{n} = {answer}",
+        "ko": "{n} 을 (제곱수) × (나머지) 꼴로 나눕니다 → {=sqpart(n)} × {=n/sqpart(n)}\n제곱수 부분을 근호 밖으로 꺼냅니다\n√{n} = {answer}",
+        "en": "Write {n} as (a square) × (the rest) → {=sqpart(n)} × {=n/sqpart(n)}\nTake the square part out of the root\n√{n} = {answer}"
       }
     },
     {
@@ -200,9 +200,9 @@
         "en": "Rationalize the denominator of {c}/√{m}."
       },
       "explain": {
-        "ja": "分母と分子の両方に √{m} を掛ける\n分母は √{m} × √{m} = {m} になる\n約分できれば約分して {answer}",
-        "ko": "분모와 분자에 모두 √{m} 을 곱합니다\n분모는 √{m} × √{m} = {m} 이 됩니다\n약분할 수 있으면 약분해서 {answer}",
-        "en": "Multiply top and bottom by √{m}\nThe bottom becomes √{m} × √{m} = {m}\nReduce if possible: {answer}"
+        "ja": "分母と分子の両方に √{m} を掛ける\n分母は √{m} × √{m} = {m} になる → {c}√{m}/{m}\n約分できれば約分して {answer}",
+        "ko": "분모와 분자에 모두 √{m} 을 곱합니다\n분모는 √{m} × √{m} = {m} 이 됩니다 → {c}√{m}/{m}\n약분할 수 있으면 약분해서 {answer}",
+        "en": "Multiply top and bottom by √{m}\nThe bottom becomes √{m} × √{m} = {m} → {c}√{m}/{m}\nReduce if possible: {answer}"
       }
     },
     {
@@ -216,9 +216,9 @@
         "en": "Solve {lhs} {op} {c}."
       },
       "explain": {
-        "ja": "数の項を右辺に移項する\nx の係数で両辺を割る\n負の数で割ったときだけ不等号の向きを逆にして {answer}",
-        "ko": "수의 항을 우변으로 이항합니다\nx의 계수로 양변을 나눕니다\n음수로 나눴을 때만 부등호의 방향을 바꿔서 {answer}",
-        "en": "Move the number to the right side\nDivide both sides by the coefficient of x\nFlip the sign only if you divided by a negative: {answer}"
+        "ja": "数の項を右辺に移項する → {=lin(lhs)[0]}x {op} {=c-lin(lhs)[1]}\nx の係数で両辺を割る\n負の数で割ったときだけ不等号の向きを逆にして {answer}",
+        "ko": "수의 항을 우변으로 이항합니다 → {=lin(lhs)[0]}x {op} {=c-lin(lhs)[1]}\nx의 계수로 양변을 나눕니다\n음수로 나눴을 때만 부등호의 방향을 바꿔서 {answer}",
+        "en": "Move the number to the right side → {=lin(lhs)[0]}x {op} {=c-lin(lhs)[1]}\nDivide both sides by the coefficient of x\nFlip the sign only if you divided by a negative: {answer}"
       }
     },
     {
@@ -341,9 +341,9 @@
         "en": "Solve {lhs} = {b}."
       },
       "explain": {
-        "ja": "絶対値の中身が {b} になる場合と −{b} になる場合に分ける\nそれぞれの1次方程式を解く\n{answer}",
-        "ko": "절댓값 안이 {b} 가 되는 경우와 −{b} 가 되는 경우로 나눕니다\n각각의 일차방정식을 풉니다\n{answer}",
-        "en": "Split into two cases: the inside equals {b} or −{b}\nSolve each linear equation\n{answer}"
+        "ja": "絶対値の中身が {b} になる場合と −{b} になる場合に分ける\nそれぞれの1次方程式を解く → x = {=(b-lin(inner(lhs))[1])/lin(inner(lhs))[0]}, {=(-b-lin(inner(lhs))[1])/lin(inner(lhs))[0]}\n{answer}",
+        "ko": "절댓값 안이 {b} 가 되는 경우와 −{b} 가 되는 경우로 나눕니다\n각각의 일차방정식을 풉니다 → x = {=(b-lin(inner(lhs))[1])/lin(inner(lhs))[0]}, {=(-b-lin(inner(lhs))[1])/lin(inner(lhs))[0]}\n{answer}",
+        "en": "Split into two cases: the inside equals {b} or −{b}\nSolve each linear equation → x = {=(b-lin(inner(lhs))[1])/lin(inner(lhs))[0]}, {=(-b-lin(inner(lhs))[1])/lin(inner(lhs))[0]}\n{answer}"
       }
     },
     {
@@ -582,9 +582,9 @@
         "en": "Rationalize the denominator of {c}/(√{a} + {b})."
       },
       "explain": {
-        "ja": "分母と分子に (√{a} − {b}) を掛ける\n分母は (√{a})² − {b}² になって根号が消える\n分子を計算して約分すると {answer}",
-        "ko": "분모와 분자에 (√{a} − {b}) 를 곱합니다\n분모는 (√{a})² − {b}² 이 되어 근호가 사라집니다\n분자를 계산하고 약분하면 {answer}",
-        "en": "Multiply top and bottom by (√{a} − {b})\nThe bottom becomes (√{a})² − {b}² with no root\nWork out the top and reduce: {answer}"
+        "ja": "分母と分子に (√{a} − {b}) を掛ける\n分母は (√{a})² − {b}² になって根号が消える = {=a-b*b}\n分子を計算して約分すると {answer}",
+        "ko": "분모와 분자에 (√{a} − {b}) 를 곱합니다\n분모는 (√{a})² − {b}² 이 되어 근호가 사라집니다 = {=a-b*b}\n분자를 계산하고 약분하면 {answer}",
+        "en": "Multiply top and bottom by (√{a} − {b})\nThe bottom becomes (√{a})² − {b}² with no root = {=a-b*b}\nWork out the top and reduce: {answer}"
       }
     },
     {

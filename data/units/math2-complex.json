@@ -125,9 +125,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "文字式と同じように展開する(4つの積)\ni² が出てきたら −1 におきかえる\n実部と虚部をまとめる\n{answer}",
-        "ko": "문자식처럼 전개합니다 (곱 4개)\ni² 이 나오면 −1 로 바꿉니다\n실수부분과 허수부분을 모읍니다\n{answer}",
-        "en": "Expand like ordinary brackets (four products)\nReplace i² with −1\nCollect the real and imaginary parts\n{answer}"
+        "ja": "文字式と同じように展開する(4つの積) → {=cx(p)[0]*cx(q)[0]} + ({=cx(p)[0]*cx(q)[1]+cx(p)[1]*cx(q)[0]})i + ({=cx(p)[1]*cx(q)[1]})i²\ni² が出てきたら −1 におきかえる\n実部と虚部をまとめる\n{answer}",
+        "ko": "문자식처럼 전개합니다 (곱 4개) → {=cx(p)[0]*cx(q)[0]} + ({=cx(p)[0]*cx(q)[1]+cx(p)[1]*cx(q)[0]})i + ({=cx(p)[1]*cx(q)[1]})i²\ni² 이 나오면 −1 로 바꿉니다\n실수부분과 허수부분을 모읍니다\n{answer}",
+        "en": "Expand like ordinary brackets (four products) → {=cx(p)[0]*cx(q)[0]} + ({=cx(p)[0]*cx(q)[1]+cx(p)[1]*cx(q)[0]})i + ({=cx(p)[1]*cx(q)[1]})i²\nReplace i² with −1\nCollect the real and imaginary parts\n{answer}"
       }
     },
     {
@@ -144,9 +144,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "分母 {q} の共役な複素数(虚部の符号を逆にしたもの)を、分母と分子に掛ける\n分母は (実部)² + (虚部)² の実数になる\n分子を展開して、その実数で割る\n{answer}",
-        "ko": "분모 {q} 의 켤레복소수(허수부분의 부호를 바꾼 것)를 분모와 분자에 곱합니다\n분모는 (실수부분)² + (허수부분)² 인 실수가 됩니다\n분자를 전개하고 그 실수로 나눕니다\n{answer}",
-        "en": "Multiply top and bottom by the conjugate of {q}\nThe bottom becomes the real number (real part)² + (imaginary part)²\nExpand the top and divide by that number\n{answer}"
+        "ja": "分母 {q} の共役な複素数(虚部の符号を逆にしたもの)を、分母と分子に掛ける\n分母は (実部)² + (虚部)² の実数になる → {=cx(q)[0]**2} + {=cx(q)[1]**2} = {=cx(q)[0]**2+cx(q)[1]**2}\n分子を展開して、その実数で割る\n{answer}",
+        "ko": "분모 {q} 의 켤레복소수(허수부분의 부호를 바꾼 것)를 분모와 분자에 곱합니다\n분모는 (실수부분)² + (허수부분)² 인 실수가 됩니다 → {=cx(q)[0]**2} + {=cx(q)[1]**2} = {=cx(q)[0]**2+cx(q)[1]**2}\n분자를 전개하고 그 실수로 나눕니다\n{answer}",
+        "en": "Multiply top and bottom by the conjugate of {q}\nThe bottom becomes the real number (real part)² + (imaginary part)² → {=cx(q)[0]**2} + {=cx(q)[1]**2} = {=cx(q)[0]**2+cx(q)[1]**2}\nExpand the top and divide by that number\n{answer}"
       }
     },
     {
@@ -195,9 +195,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a にあてはめる\n根号の中が負になるので、√(負の数) を i を使って表す\n約分して {answer}",
-        "ko": "근의 공식 x = (−b ± √(b² − 4ac)) ÷ 2a 에 대입합니다\n근호 안이 음수가 되므로 √(음수)를 i로 나타냅니다\n약분하면 {answer}",
-        "en": "Use x = (−b ± √(b² − 4ac)) ÷ 2a\nThe number under the root is negative, so write it with i\nReduce: {answer}"
+        "ja": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a にあてはめる\n根号の中が負になるので、√(負の数) を i を使って表す → b² − 4ac = {=co(eq)[1]**2-4*co(eq)[0]*co(eq)[2]}\n約分して {answer}",
+        "ko": "근의 공식 x = (−b ± √(b² − 4ac)) ÷ 2a 에 대입합니다\n근호 안이 음수가 되므로 √(음수)를 i로 나타냅니다 → b² − 4ac = {=co(eq)[1]**2-4*co(eq)[0]*co(eq)[2]}\n약분하면 {answer}",
+        "en": "Use x = (−b ± √(b² − 4ac)) ÷ 2a\nThe number under the root is negative, so write it with i → b² − 4ac = {=co(eq)[1]**2-4*co(eq)[0]*co(eq)[2]}\nReduce: {answer}"
       }
     },
     {
@@ -214,9 +214,9 @@
         "en": "For which k does {eq} have two distinct imaginary roots?"
       },
       "explain": {
-        "ja": "判別式 D = b² − 4ac を k を使って表す\n異なる2つの虚数解をもつ条件は D < 0\nk について解いて {answer}",
-        "ko": "판별식 D = b² − 4ac 를 k로 나타냅니다\n서로 다른 두 허근을 갖는 조건은 D < 0\nk에 대해 풀면 {answer}",
-        "en": "Write D = b² − 4ac in terms of k\nTwo distinct imaginary roots need D < 0\nSolve for k: {answer}"
+        "ja": "判別式 D = b² − 4ac を k を使って表す → D = {=nums(eq)[0]**2} − 4k\n異なる2つの虚数解をもつ条件は D < 0\nk について解いて {answer}",
+        "ko": "판별식 D = b² − 4ac 를 k로 나타냅니다 → D = {=nums(eq)[0]**2} − 4k\n서로 다른 두 허근을 갖는 조건은 D < 0\nk에 대해 풀면 {answer}",
+        "en": "Write D = b² − 4ac in terms of k → D = {=nums(eq)[0]**2} − 4k\nTwo distinct imaginary roots need D < 0\nSolve for k: {answer}"
       }
     },
     {
@@ -233,9 +233,9 @@
         "en": "For which k does {eq} have two distinct real roots?"
       },
       "explain": {
-        "ja": "判別式 D = b² − 4ac を k を使って表す\n異なる2つの実数解をもつ条件は D > 0\nk について解いて {answer}",
-        "ko": "판별식 D = b² − 4ac 를 k로 나타냅니다\n서로 다른 두 실근을 갖는 조건은 D > 0\nk에 대해 풀면 {answer}",
-        "en": "Write D = b² − 4ac in terms of k\nTwo distinct real roots need D > 0\nSolve for k: {answer}"
+        "ja": "判別式 D = b² − 4ac を k を使って表す → D = {=nums(eq)[0]**2} − 4k\n異なる2つの実数解をもつ条件は D > 0\nk について解いて {answer}",
+        "ko": "판별식 D = b² − 4ac 를 k로 나타냅니다 → D = {=nums(eq)[0]**2} − 4k\n서로 다른 두 실근을 갖는 조건은 D > 0\nk에 대해 풀면 {answer}",
+        "en": "Write D = b² − 4ac in terms of k → D = {=nums(eq)[0]**2} − 4k\nTwo distinct real roots need D > 0\nSolve for k: {answer}"
       }
     },
     {
@@ -252,9 +252,9 @@
         "en": "If α and β are the roots of {eq}, what is α + β?"
       },
       "explain": {
-        "ja": "ax² + bx + c = 0 の解と係数の関係: α + β = −b/a、αβ = c/a\n{eq} から a, b, c を読みとる\nα + β = −b/a = {answer}(符号に注意)",
-        "ko": "ax² + bx + c = 0 의 근과 계수의 관계: α + β = −b/a, αβ = c/a\n{eq} 에서 a, b, c를 읽습니다\nα + β = −b/a = {answer} (부호에 주의)",
-        "en": "For ax² + bx + c = 0: α + β = −b/a and αβ = c/a\nRead a, b, c from {eq}\nα + β = −b/a = {answer} (mind the sign)"
+        "ja": "ax² + bx + c = 0 の解と係数の関係: α + β = −b/a、αβ = c/a\n{eq} から a, b, c を読みとる → a = {=co(eq)[0]}, b = {=co(eq)[1]}, c = {=co(eq)[2]}\nα + β = −b/a = {answer}(符号に注意)",
+        "ko": "ax² + bx + c = 0 의 근과 계수의 관계: α + β = −b/a, αβ = c/a\n{eq} 에서 a, b, c를 읽습니다 → a = {=co(eq)[0]}, b = {=co(eq)[1]}, c = {=co(eq)[2]}\nα + β = −b/a = {answer} (부호에 주의)",
+        "en": "For ax² + bx + c = 0: α + β = −b/a and αβ = c/a\nRead a, b, c from {eq} → a = {=co(eq)[0]}, b = {=co(eq)[1]}, c = {=co(eq)[2]}\nα + β = −b/a = {answer} (mind the sign)"
       }
     },
     {
@@ -271,9 +271,9 @@
         "en": "If α and β are the roots of {eq}, what is αβ?"
       },
       "explain": {
-        "ja": "ax² + bx + c = 0 の解と係数の関係: α + β = −b/a、αβ = c/a\n{eq} から a, b, c を読みとる\nαβ = c/a = {answer}",
-        "ko": "ax² + bx + c = 0 의 근과 계수의 관계: α + β = −b/a, αβ = c/a\n{eq} 에서 a, b, c를 읽습니다\nαβ = c/a = {answer}",
-        "en": "For ax² + bx + c = 0: α + β = −b/a and αβ = c/a\nRead a, b, c from {eq}\nαβ = c/a = {answer}"
+        "ja": "ax² + bx + c = 0 の解と係数の関係: α + β = −b/a、αβ = c/a\n{eq} から a, b, c を読みとる → a = {=co(eq)[0]}, b = {=co(eq)[1]}, c = {=co(eq)[2]}\nαβ = c/a = {answer}",
+        "ko": "ax² + bx + c = 0 의 근과 계수의 관계: α + β = −b/a, αβ = c/a\n{eq} 에서 a, b, c를 읽습니다 → a = {=co(eq)[0]}, b = {=co(eq)[1]}, c = {=co(eq)[2]}\nαβ = c/a = {answer}",
+        "en": "For ax² + bx + c = 0: α + β = −b/a and αβ = c/a\nRead a, b, c from {eq} → a = {=co(eq)[0]}, b = {=co(eq)[1]}, c = {=co(eq)[2]}\nαβ = c/a = {answer}"
       }
     },
     {
@@ -290,9 +290,9 @@
         "en": "If α and β are the roots of {eq}, what is α² + β²?"
       },
       "explain": {
-        "ja": "解と係数の関係から α + β と αβ を求める\nα² + β² = (α + β)² − 2αβ に代入する\n{answer}",
-        "ko": "근과 계수의 관계에서 α + β 와 αβ 를 구합니다\nα² + β² = (α + β)² − 2αβ 에 대입합니다\n{answer}",
-        "en": "Get α + β and αβ from the coefficients\nPut them into α² + β² = (α + β)² − 2αβ\n{answer}"
+        "ja": "解と係数の関係から α + β と αβ を求める → {=-co(eq)[1]/co(eq)[0]}, {=co(eq)[2]/co(eq)[0]}\nα² + β² = (α + β)² − 2αβ に代入する\n{answer}",
+        "ko": "근과 계수의 관계에서 α + β 와 αβ 를 구합니다 → {=-co(eq)[1]/co(eq)[0]}, {=co(eq)[2]/co(eq)[0]}\nα² + β² = (α + β)² − 2αβ 에 대입합니다\n{answer}",
+        "en": "Get α + β and αβ from the coefficients → {=-co(eq)[1]/co(eq)[0]}, {=co(eq)[2]/co(eq)[0]}\nPut them into α² + β² = (α + β)² − 2αβ\n{answer}"
       }
     },
     {
@@ -306,9 +306,9 @@
         "en": "What is the remainder when P(x) = {expr} is divided by {div}?"
       },
       "explain": {
-        "ja": "剰余の定理: P(x) を x − k で割った余りは P(k)\n{div} = 0 となる x の値を求める\nその値を P(x) に代入して {answer}",
-        "ko": "나머지정리: P(x)를 x − k 로 나눈 나머지는 P(k)\n{div} = 0 이 되는 x의 값을 구합니다\n그 값을 P(x)에 대입하면 {answer}",
-        "en": "Remainder theorem: dividing P(x) by x − k leaves P(k)\nFind the x that makes {div} = 0\nSubstitute it into P(x): {answer}"
+        "ja": "剰余の定理: P(x) を x − k で割った余りは P(k)\n{div} = 0 となる x の値を求める → x = {=-lin(div)[1]}\nその値を P(x) に代入して {answer}",
+        "ko": "나머지정리: P(x)를 x − k 로 나눈 나머지는 P(k)\n{div} = 0 이 되는 x의 값을 구합니다 → x = {=-lin(div)[1]}\n그 값을 P(x)에 대입하면 {answer}",
+        "en": "Remainder theorem: dividing P(x) by x − k leaves P(k)\nFind the x that makes {div} = 0 → x = {=-lin(div)[1]}\nSubstitute it into P(x): {answer}"
       }
     },
     {
@@ -322,9 +322,9 @@
         "en": "If {expr} is divisible by {div}, what is a?"
       },
       "explain": {
-        "ja": "因数定理: x − k で割り切れる ⇔ P(k) = 0\n{div} = 0 となる x の値を式に代入して、= 0 とおく\na についての1次方程式を解いて a = {answer}",
-        "ko": "인수정리: x − k 로 나누어떨어진다 ⇔ P(k) = 0\n{div} = 0 이 되는 x의 값을 식에 대입하고 = 0 으로 놓습니다\na에 대한 일차방정식을 풀면 a = {answer}",
-        "en": "Factor theorem: divisible by x − k ⇔ P(k) = 0\nSubstitute the x that makes {div} = 0 and set the result to 0\nSolve the linear equation in a: a = {answer}"
+        "ja": "因数定理: x − k で割り切れる ⇔ P(k) = 0\n{div} = 0 となる x の値を式に代入して、= 0 とおく → x = {=-lin(div)[1]}\na についての1次方程式を解いて a = {answer}",
+        "ko": "인수정리: x − k 로 나누어떨어진다 ⇔ P(k) = 0\n{div} = 0 이 되는 x의 값을 식에 대입하고 = 0 으로 놓습니다 → x = {=-lin(div)[1]}\na에 대한 일차방정식을 풀면 a = {answer}",
+        "en": "Factor theorem: divisible by x − k ⇔ P(k) = 0\nSubstitute the x that makes {div} = 0 and set the result to 0 → x = {=-lin(div)[1]}\nSolve the linear equation in a: a = {answer}"
       }
     },
     {
@@ -338,9 +338,9 @@
         "en": "Solve the cubic equation {eq}."
       },
       "explain": {
-        "ja": "定数項の約数(±1, ±2, …)を代入して、P(k) = 0 となる k を1つ見つける\nx − k で割って、残りの2次式を求める\n2次式を因数分解して、解は {answer}",
-        "ko": "상수항의 약수(±1, ±2, …)를 대입해서 P(k) = 0 이 되는 k를 하나 찾습니다\nx − k 로 나누어 남은 이차식을 구합니다\n이차식을 인수분해하면 해는 {answer}",
-        "en": "Try divisors of the constant (±1, ±2, …) to find one k with P(k) = 0\nDivide by x − k to get a quadratic\nFactor the quadratic: {answer}"
+        "ja": "定数項の約数(±1, ±2, …)を代入して、P(k) = 0 となる k を1つ見つける → k = {=iroots(eq)[0]}\nx − k で割って、残りの2次式を求める\n2次式を因数分解して、解は {answer}",
+        "ko": "상수항의 약수(±1, ±2, …)를 대입해서 P(k) = 0 이 되는 k를 하나 찾습니다 → k = {=iroots(eq)[0]}\nx − k 로 나누어 남은 이차식을 구합니다\n이차식을 인수분해하면 해는 {answer}",
+        "en": "Try divisors of the constant (±1, ±2, …) to find one k with P(k) = 0 → k = {=iroots(eq)[0]}\nDivide by x − k to get a quadratic\nFactor the quadratic: {answer}"
       }
     }
   ],

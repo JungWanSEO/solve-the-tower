@@ -116,9 +116,9 @@
         "en": "In △ABC, M is the midpoint of BC and G is the centroid. If AM = {m}, how long is AG?"
       },
       "explain": {
-        "ja": "重心は中線を頂点の側から 2 : 1 に分ける\nAG : GM = 2 : 1 なので AG = AM × 2/3\n{m} × 2/3 = {answer}",
-        "ko": "무게중심은 중선을 꼭짓점 쪽에서 2 : 1로 나눕니다\nAG : GM = 2 : 1 이므로 AG = AM × 2/3\n{m} × 2/3 = {answer}",
-        "en": "The centroid divides a median 2 : 1 from the vertex\nAG : GM = 2 : 1, so AG = AM × 2/3\n{m} × 2/3 = {answer}"
+        "ja": "重心は中線を頂点の側から 2 : 1 に分ける\nAG : GM = 2 : 1 なので AG = AM × 2/3 → {m} × 2 ÷ 3\n{m} × 2/3 = {answer}",
+        "ko": "무게중심은 중선을 꼭짓점 쪽에서 2 : 1로 나눕니다\nAG : GM = 2 : 1 이므로 AG = AM × 2/3 → {m} × 2 ÷ 3\n{m} × 2/3 = {answer}",
+        "en": "The centroid divides a median 2 : 1 from the vertex\nAG : GM = 2 : 1, so AG = AM × 2/3 → {m} × 2 ÷ 3\n{m} × 2/3 = {answer}"
       },
       "figure": {
         "kind": "median",
@@ -160,9 +160,9 @@
         "en": "I is the incenter of △ABC. If ∠A = {A}°, what is ∠BIC?"
       },
       "explain": {
-        "ja": "内心 I は角の二等分線の交点なので、∠IBC = ∠B ÷ 2、∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}° なので、その半分を 180° から引く\n∠BIC = 90° + {A}° ÷ 2 = {answer}",
-        "ko": "내심 I는 각의 이등분선의 교점이므로 ∠IBC = ∠B ÷ 2, ∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}° 이므로 그 절반을 180°에서 뺍니다\n∠BIC = 90° + {A}° ÷ 2 = {answer}",
-        "en": "I lies on the angle bisectors, so ∠IBC = ∠B ÷ 2 and ∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}°; subtract half of that from 180°\n∠BIC = 90° + {A}° ÷ 2 = {answer}"
+        "ja": "内心 I は角の二等分線の交点なので、∠IBC = ∠B ÷ 2、∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}° なので、その半分を 180° から引く → (180° − {A}°) ÷ 2 = {=(180-A)/2}°\n∠BIC = 90° + {A}° ÷ 2 = {answer}",
+        "ko": "내심 I는 각의 이등분선의 교점이므로 ∠IBC = ∠B ÷ 2, ∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}° 이므로 그 절반을 180°에서 뺍니다 → (180° − {A}°) ÷ 2 = {=(180-A)/2}°\n∠BIC = 90° + {A}° ÷ 2 = {answer}",
+        "en": "I lies on the angle bisectors, so ∠IBC = ∠B ÷ 2 and ∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}°; subtract half of that from 180° → (180° − {A}°) ÷ 2 = {=(180-A)/2}°\n∠BIC = 90° + {A}° ÷ 2 = {answer}"
       },
       "figure": {
         "kind": "incenter",
@@ -303,9 +303,9 @@
         "ce": "?"
       },
       "explain": {
-        "ja": "チェバの定理: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1\nCE/EA について解いて CE : EA = {answer}",
-        "ko": "체바 정리: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1\nCE/EA에 대해 풀면 CE : EA = {answer}",
-        "en": "Ceva: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1\nSolve for CE/EA: CE : EA = {answer}"
+        "ja": "チェバの定理: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1 → ({=p*r}/{=q*s}) × (CE/EA) = 1\nCE/EA について解いて CE : EA = {answer}",
+        "ko": "체바 정리: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1 → ({=p*r}/{=q*s}) × (CE/EA) = 1\nCE/EA에 대해 풀면 CE : EA = {answer}",
+        "en": "Ceva: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1 → ({=p*r}/{=q*s}) × (CE/EA) = 1\nSolve for CE/EA: CE : EA = {answer}"
       }
     },
     {
@@ -386,9 +386,9 @@
         "cq": "?"
       },
       "explain": {
-        "ja": "メネラウスの定理: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1\nCQ/QA について解いて CQ : QA = {answer}",
-        "ko": "메넬라오스 정리: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1\nCQ/QA에 대해 풀면 CQ : QA = {answer}",
-        "en": "Menelaus: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1\nSolve for CQ/QA: CQ : QA = {answer}"
+        "ja": "メネラウスの定理: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1 → ({=p*r}/{=q*s}) × (CQ/QA) = 1\nCQ/QA について解いて CQ : QA = {answer}",
+        "ko": "메넬라오스 정리: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1 → ({=p*r}/{=q*s}) × (CQ/QA) = 1\nCQ/QA에 대해 풀면 CQ : QA = {answer}",
+        "en": "Menelaus: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1 → ({=p*r}/{=q*s}) × (CQ/QA) = 1\nSolve for CQ/QA: CQ : QA = {answer}"
       }
     },
     {
