@@ -718,6 +718,9 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   $('hintBtn').addEventListener('click', useHint);
   $('nextBtn').addEventListener('click', () => {
     if (B.phase !== 'review') return;
+    // 풀이를 읽느라 화면이 아래로 내려가 있습니다. 이어지는 연출(적이 쓰러지는 모습, 다음 물음)이 보이도록 먼저 맨 위로 올립니다.
+    window.scrollTo(0, 0);
+    wasReview = false;
     const go = B.after; // 맞힌 문제의 풀이를 읽고 넘어갈 때 이어서 할 일
     B.after = null;
     if (go) go();
