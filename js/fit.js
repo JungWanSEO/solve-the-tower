@@ -60,7 +60,7 @@ export function fitBattle() {
   };
 
   // 넓은 화면(가로로 놓은 태블릿 등)에서는 싸우는 그림과 문제가 좌우로 나란히 놓입니다. 그림을 줄여도 문제 쪽 자리가 늘지 않으므로 줄이지 않습니다.
-  const wide = getComputedStyle(screen).display === 'grid';
+  const wide = window.getComputedStyle(screen).display === 'grid';
   if (over() <= 0) return;
   if (!wide && shrink(Math.min(natural, roomy))) return;
   screen.classList.add('tight');
