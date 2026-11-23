@@ -9,8 +9,11 @@ import { $ } from './ui.js';
 import { icon } from './art.js';
 import { play } from './sound.js';
 import { fitBattle, showReview } from './fit.js';
+import { has } from './relics.js';
 
-export function createBattle({ stage, getRun, record, tutorial, onChange }) {
+// mastered(type): 그 유형을 이미 정복했는지 (도서관 카드 유물이 봅니다)
+// onRelic(id, vars): 유물의 효과가 났을 때 화면에 알립니다.
+export function createBattle({ stage, getRun, record, tutorial, onChange, mastered = () => true, onRelic = () => {} }) {
   let wasReview = false; // 바로 앞의 화면이 풀이 확인이었는지 (다음 문제로 넘어갈 때 화면을 맨 위로 되돌리려고 기억합니다)
   const B = {
     foe: null,
@@ -30,12 +33,68 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     notice: { key: 'msg.choose', vars: null },
     onEnd: null,
     chain: null,     // 지금 푸는 연속기 { data, index }
-    chainUsed: false, // 연속기는 한 전투에 한 번만 씁니다.
+    chainUsed: false, // 연속기를 다 썼는지. 한 전투에 한 번만 씁니다. (유물 "연속기 띠"가 있으면 chainLeft 가 2 에서 시작)
+    chainLeft: 1,
+    rel: {},         // 유물의 전투 중 상태 { pencil, eraser: 아직 안 썼는지, note: 오답 노트가 걸려 있는지, streak: 연승 리본이 세는 연속 정답, shield: 막기 횟수 }
     shownHp: null,   // 화면에 마지막으로 보여 준 체력 (줄어들면 연출을 냅니다)
     shownFoeHp: null,
   };
 
   const typeName = typeLabel;
+
+  // ---- 유물 (js/relics.js) ----
+  const R = (id) => has(getRun(), id);
+  const RC = CONFIG.relic;
+  const ultNeed = () => (R('workbook') ? RC.workbook.need : CONFIG.ultNeed);
+  const flat = () => (R('ruler') ? RC.ruler.dmg : 0); // 금이 간 자: 모든 피해에 더합니다
+  const basicDmg = () => CONFIG.damage.basic + getRun().up.basic + flat();
+  const skillDmg = () => CONFIG.damage.skill + getRun().up.skill + flat() + (R('highlighter') ? RC.highlighter : 0);
+  const counterDmg = () => CONFIG.damage.counter + getRun().up.counter + flat() + (R('setsquare') ? RC.setsquare : 0);
+  const ultDmg = () => CONFIG.damage.ult + flat() + (R('workbook') ? RC.workbook.ult : 0);
+  const chainDmg = (i) => CONFIG.damage.chain[i] + flat();
+  const weakMul = () => CONFIG.damage.weakBonus + getRun().up.weak + (R('redpen') ? RC.redpen : 0);
+  // 공격 문제(기본·스킬·연속기)를 맞혔을 때 유물이 더해 주는 피해. 쓴 유물은 화면에 알립니다.
+  function hitBonus() {
+    let add = 0;
+    if (R('pencil') && B.rel.pencil) {
+      B.rel.pencil = false;
+      add += RC.pencil;
+      onRelic('pencil', { n: RC.pencil });
+    }
+    if (R('grid') && !$('qFigure').hidden) {
+      add += RC.grid;
+      onRelic('grid', { n: RC.grid });
+    }
+    if (R('wrongnote') && B.rel.note) {
+      B.rel.note = false;
+      add += RC.wrongnote;
+      onRelic('wrongnote', { n: RC.wrongnote });
+    }
+    return add;
+  }
+  // 문제를 맞혔을 때마다: 연승 리본과 도서관 카드. fresh: 답하기 전에 그 유형이 아직 정복 전이었는지
+  function onRight(fresh) {
+    B.rel.streak = (B.rel.streak || 0) + 1;
+    if (R('ribbon') && B.rel.streak % RC.ribbon === 0) {
+      B.rel.shield = (B.rel.shield || 0) + 1;
+      onRelic('ribbon', { ready: true });
+    }
+    if (R('library') && fresh) {
+      getRun().gold += RC.library;
+      onRelic('library', { n: RC.library });
+    }
+  }
+  // 문제를 틀렸을 때마다. 돌려주는 값: 이번에 받는 피해에 곱할 비율 (지우개가 있으면 전투마다 첫 오답은 절반)
+  function onWrong() {
+    B.rel.streak = 0;
+    if (R('wrongnote')) B.rel.note = true;
+    if (R('eraser') && B.rel.eraser) {
+      B.rel.eraser = false;
+      onRelic('eraser', { n: Math.round(RC.eraser * 100) });
+      return RC.eraser;
+    }
+    return 1;
+  }
 
   // 연출이 끝난 뒤 할 일을 감쌉니다. 그 사이 전투를 나갔다면 아무것도 하지 않습니다.
   const live = (fn) => {
@@ -256,18 +315,15 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       $('foeIntentIco').innerHTML = icon(B.intent === 'big' ? 'warn' : 'sword');
     }
     // 버튼마다 맞혔을 때의 피해를 적습니다.
-    $('basicDmg').textContent = t('ui.dmg', { d: CONFIG.damage.basic + run.up.basic });
-    $('skillDmg').textContent = t('ui.dmg', { d: CONFIG.damage.skill + run.up.skill });
-    $('defendDmg').textContent = t('ui.counterDmg', { d: CONFIG.damage.counter + run.up.counter });
+    $('basicDmg').textContent = t('ui.dmg', { d: basicDmg() });
+    $('skillDmg').textContent = t('ui.dmg', { d: skillDmg() });
+    $('defendDmg').textContent = t('ui.counterDmg', { d: counterDmg() });
     $('foeIntent').classList.toggle('big', B.intent === 'big');
     // 강한 공격 턴에는 공격 버튼에도 "맞혀도 피해를 받는다"는 것을 적어 둡니다.
     // 맞히면 적이 쓰러지는 행동은 그렇게 적고 강조합니다. 쓰러뜨리면 적의 공격(강한 공격 포함)은 오지 않습니다.
     // 약점 보너스는 어떤 문제가 나올지 몰라 셈에 넣지 않습니다. (확실히 쓰러뜨리는 경우만 표시)
-    const basicDmg = CONFIG.damage.basic + run.up.basic;
-    const skillDmg = CONFIG.damage.skill + run.up.skill;
-    const counterDmg = CONFIG.damage.counter + run.up.counter;
-    const chainDmg = CONFIG.damage.chain.reduce((sum, d) => sum + d, 0);
-    const ends = { basic: basicDmg >= B.foeHp, skill: skillDmg >= B.foeHp, defend: counterDmg >= B.foeHp, chain: !B.chainUsed && chainDmg >= B.foeHp, ult: B.combo >= CONFIG.ultNeed && CONFIG.damage.ult >= B.foeHp }; // 쓸 수 없는 행동은 표시하지 않습니다
+    const chainAll = CONFIG.damage.chain.reduce((sum, d, i) => sum + chainDmg(i), 0);
+    const ends = { basic: basicDmg() >= B.foeHp, skill: skillDmg() >= B.foeHp, defend: counterDmg() >= B.foeHp, chain: !B.chainUsed && chainAll >= B.foeHp, ult: B.combo >= ultNeed() && ultDmg() >= B.foeHp }; // 쓸 수 없는 행동은 표시하지 않습니다
     const alive = B.foeHp > 0;
     $('basicSub').textContent = t(alive && ends.basic ? 'ui.finish' : B.intent === 'big' ? 'ui.attackBigSub' : 'ui.basicSub');
     $('skillSub').textContent = t(alive && ends.skill ? 'ui.finish' : B.intent === 'big' ? 'ui.attackBigSub' : 'ui.skillSub');
@@ -286,7 +342,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
     const pips = $('ultPips');
     pips.innerHTML = '';
-    for (let i = 0; i < CONFIG.ultNeed; i++) {
+    for (let i = 0; i < ultNeed(); i++) {
       const pip = document.createElement('span');
       if (i < B.combo) pip.className = 'on';
       pips.appendChild(pip);
@@ -306,15 +362,15 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     const chainBtn = $('chainBtn');
     chainBtn.hidden = !hasChain(B.kind === 'boss');
     chainBtn.disabled = !choosing || Boolean(only) || B.chainUsed;
-    $('chainSub').textContent = t(B.chainUsed ? 'ui.chainUsed' : alive && ends.chain ? 'ui.finishChain' : 'ui.chainSub');
+    $('chainSub').textContent = B.chainUsed ? t('ui.chainUsed') : alive && ends.chain ? t('ui.finishChain') : R('chainbelt') ? t('ui.chainSubN', { n: B.chainLeft }) : t('ui.chainSub');
 
-    const ready = B.combo >= CONFIG.ultNeed;
+    const ready = B.combo >= ultNeed();
     const ult = $('ultBtn');
     ult.disabled = !(choosing && ready) || Boolean(only);
     ult.classList.toggle('ready', ready);
-    $('ultText').textContent = ready ? t('ui.ultReady') : t('ui.ultCharge', { n: B.combo, need: CONFIG.ultNeed });
-    $('ultSub').textContent = alive && ends.ult ? t('ui.finishUlt', { d: CONFIG.damage.ult }) : t('ui.dmg', { d: CONFIG.damage.ult });
-    $('ultFill').style.width = `${Math.min(1, B.combo / CONFIG.ultNeed) * 100}%`; // 연속 정답만큼 차오릅니다.
+    $('ultText').textContent = ready ? t('ui.ultReady') : t('ui.ultCharge', { n: B.combo, need: ultNeed() });
+    $('ultSub').textContent = alive && ends.ult ? t('ui.finishUlt', { d: ultDmg() }) : t('ui.dmg', { d: ultDmg() });
+    $('ultFill').style.width = `${Math.min(1, B.combo / ultNeed()) * 100}%`; // 연속 정답만큼 차오릅니다.
 
     $('notice').textContent = t(B.notice.key, B.notice.vars);
     renderQuestion();
@@ -332,7 +388,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
   // ---- 턴 진행 ----
   function planIntent() {
     B.turn += 1;
-    B.intent = B.turn % CONFIG.foeAttack.bigEvery === 0 ? 'big' : 'normal';
+    B.intent = B.turn % (R('alarm') ? RC.alarm : CONFIG.foeAttack.bigEvery) === 0 ? 'big' : 'normal'; // 알람 시계: 강한 공격이 더 드물게
     if (B.intent === 'big') {
       stage.foeSpecial(); // 고유 동작으로 강한 공격을 예고
       play('warn');
@@ -354,11 +410,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     if (only && only !== action) return;
 
     if (action === 'ult') {
-      if (B.combo < CONFIG.ultNeed) return;
+      if (B.combo < ultNeed()) return;
       B.combo = 0;
       B.lastAction = 'ult';
       B.phase = 'busy';
-      const dmg = CONFIG.damage.ult;
+      const dmg = ultDmg();
       say('msg.ult', { d: dmg });
       play('ult');
       render();
@@ -370,7 +426,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       if (B.chainUsed) return;
       const data = nextChain(B.kind === 'boss');
       if (!data) return;
-      B.chainUsed = true;
+      B.chainLeft -= 1;
+      B.chainUsed = B.chainLeft <= 0;
       B.lastAction = 'chain';
       B.chain = { data, index: 0 };
       askStep();
@@ -457,14 +514,17 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     B.phase = 'busy';
     B.picked = i;
     const ok = i === B.cur.correct;
+    const fresh = !mastered(B.cur.type); // 도서관 카드: 답하기 전에 아직 정복하지 못한 유형이었는지
     record(B.cur.type, ok);
+    const soft = ok ? 1 : onWrong(); // 유물: 틀렸을 때 받는 피해의 비율
+    if (ok) onRight(fresh);
     play(ok ? 'right' : 'wrong');
     tutorial.emit('answered');
 
     if (B.cur.action === 'defend') {
       if (ok) {
         // 완벽 방어: 피해 0, 반격, 연속 정답 +1
-        B.combo = Math.min(CONFIG.ultNeed, B.combo + 1);
+        B.combo = Math.min(ultNeed(), B.combo + 1);
         say('msg.guardOk');
         render();
         foeTurn(0, counter);
@@ -472,7 +532,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
         B.combo = 0;
         say('msg.guardFail', { explain: explainBrief(B.cur.raw) });
         render();
-        foeTurn(CONFIG.defendReduce);
+        foeTurn(CONFIG.defendReduce * soft);
       }
       return;
     }
@@ -481,8 +541,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       if (ok) {
         const last = B.chain.index + 1 === B.chain.data.steps.length;
         const weak = B.cur.type === B.weak;
-        const dmg = Math.round(CONFIG.damage.chain[B.chain.index] * (weak ? CONFIG.damage.weakBonus + run.up.weak : 1));
-        B.combo = Math.min(CONFIG.ultNeed, B.combo + 1);
+        const dmg = Math.round(chainDmg(B.chain.index) * (weak ? weakMul() : 1)) + hitBonus();
+        B.combo = Math.min(ultNeed(), B.combo + 1);
         say(last ? 'msg.chainDone' : 'msg.chainNext', { d: dmg });
         render();
         stage.heroAttack(`-${dmg}`, weak || last, live(() => chainHit(dmg)), weak ? t('ui.weakHit') : '');
@@ -491,19 +551,17 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
         B.combo = 0;
         say('msg.wrong', { explain: explainBrief(B.cur.raw) });
         render();
-        B.owed = Math.ceil(intentDamage()); // 틀린 값은 이미 치른 것으로 적어 둡니다 (연출 중에 나가도 피해는 받습니다)
-        stage.heroMiss(t('msg.miss'), live(() => foeTurn(1)));
+        B.owed = Math.ceil(intentDamage() * soft); // 틀린 값은 이미 치른 것으로 적어 둡니다 (연출 중에 나가도 피해는 받습니다)
+        stage.heroMiss(t('msg.miss'), live(() => foeTurn(soft)));
       }
       return;
     }
 
     if (ok) {
       const weak = B.cur.type === B.weak;
-      const base = B.cur.action === 'skill'
-        ? CONFIG.damage.skill + run.up.skill
-        : CONFIG.damage.basic + run.up.basic;
-      const dmg = Math.round(base * (weak ? CONFIG.damage.weakBonus + run.up.weak : 1));
-      B.combo = Math.min(CONFIG.ultNeed, B.combo + 1);
+      const base = B.cur.action === 'skill' ? skillDmg() : basicDmg();
+      const dmg = Math.round(base * (weak ? weakMul() : 1)) + hitBonus();
+      B.combo = Math.min(ultNeed(), B.combo + 1);
       say(weak ? 'msg.correctWeak' : 'msg.correct', { d: dmg });
       render();
       stage.heroAttack(`-${dmg}`, weak, live(() => afterHit(dmg)), weak ? t('ui.weakHit') : '');
@@ -511,8 +569,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       B.combo = 0;
       say('msg.wrong', { explain: explainBrief(B.cur.raw) });
       render();
-      B.owed = Math.ceil(intentDamage());
-      stage.heroMiss(t('msg.miss'), live(() => foeTurn(1)));
+      B.owed = Math.ceil(intentDamage() * soft);
+      stage.heroMiss(t('msg.miss'), live(() => foeTurn(soft)));
     }
   }
 
@@ -545,7 +603,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
   // 방어에 성공한 뒤의 반격
   function counter() {
-    const dmg = CONFIG.damage.counter + getRun().up.counter;
+    const dmg = counterDmg();
     stage.heroAttack(`-${dmg}`, false, live(() => {
       B.foeHp -= dmg;
       render();
@@ -556,7 +614,13 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
 
   // mult: 받는 피해 비율 (1 = 그대로, 0.5 = 방어 실패, 0 = 완벽 방어)
   function foeTurn(mult, then) {
-    const dmg = Math.ceil(intentDamage() * mult);
+    let dmg = Math.ceil(intentDamage() * mult);
+    // 연승 리본: 쌓아 둔 막기가 있으면 이번 피해를 한 번 막습니다.
+    if (dmg > 0 && B.rel.shield > 0) {
+      B.rel.shield -= 1;
+      dmg = 0;
+      onRelic('ribbon', { used: true });
+    }
     B.owed = dmg;
     stage.foeAttack(dmg > 0 ? `-${dmg}` : t('msg.blocked'), mult < 1, live(() => {
       const run = getRun();
@@ -564,6 +628,12 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
       B.owed = 0;
       run.hp -= dmg;
       if (B.safe && run.hp < 1) run.hp = 1;
+      // 반창고: 쓰러질 때 한 판에 한 번, 체력을 남기고 버팁니다.
+      if (run.hp <= 0 && R('bandage') && !(run.spent && run.spent.bandage)) {
+        run.spent = { ...(run.spent || {}), bandage: true };
+        run.hp = RC.bandage;
+        onRelic('bandage', { n: RC.bandage });
+      }
       if (run.hp <= 0) {
         run.hp = 0;
         render();
@@ -615,11 +685,13 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     if (run.frail > 0 && (kind === 'battle' || kind === 'elite')) B.foeMax = 1;
     B.foeHp = B.foeMax;
     B.turn = 0;
-    B.combo = 0;
+    B.combo = R('bookmark') ? Math.min(ultNeed(), RC.bookmark) : 0; // 책갈피: 연속 정답 1 에서 시작
     B.lastAction = null;
     B.onEnd = onEnd;
     B.chain = null;
     B.chainUsed = false;
+    B.chainLeft = R('chainbelt') ? RC.chainbelt : 1;
+    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0 };
     B.owed = 0;
     B.shownHp = null;
     B.shownFoeHp = null;
@@ -668,5 +740,6 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     choosing: () => B.phase === 'choose',
     chainReady: () => B.phase === 'choose' && !B.chainUsed && hasChain(B.kind === 'boss'),
     refresh: render, // 언어를 바꾼 뒤 화면의 글을 다시 씁니다.
+    relicState: () => ({ ...B.rel, chainLeft: B.chainLeft, fighting: B.phase !== 'busy' || Boolean(B.onEnd) }), // 가방 창이 "이번 전투: 사용함" 같은 상태를 적을 때 봅니다
   };
 }
