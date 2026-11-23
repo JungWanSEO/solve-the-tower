@@ -28,7 +28,7 @@ export function fitBattle() {
   if (figure) figure.style.maxWidth = '';
   screen.classList.remove('tight', 'tighter', 'tightest');
 
-  // 적이 쓰러지는 연출 동안에는 줄이지 않습니다. 아래의 행동 버튼은 이때 누를 일이 없으니 화면 밖으로 밀려나도 괜찮습니다.
+  // 공격·반격·쓰러지는 연출 동안에는 줄이지 않습니다. 아래의 행동 버튼은 이때 누를 일이 없으니 화면 밖으로 밀려나도 괜찮습니다.
   if (screen.classList.contains('finale')) return;
 
   const answering = screen.classList.contains('answering');
@@ -48,7 +48,12 @@ export function fitBattle() {
   // 높이는 "모자란 만큼"이 아니라 정해 둔 단계(넉넉한 높이 → 보기 좋은 높이 → 최소 높이)로만 줄입니다.
   // 모자란 만큼씩 줄이면 문제마다 그림의 크기가 조금씩 달라져, 문제가 바뀔 때마다 장면이 들쭉날쭉해 보입니다.
   const shrink = (floor) => {
-    if (over() > 0 && floor < canvas.getBoundingClientRect().height) canvas.style.height = `${Math.round(floor)}px`;
+    const now = canvas.getBoundingClientRect().height;
+    if (over() > 0 && floor < now) {
+      // 행동을 고르는 화면은 내용이 늘 같아서 크기가 흔들릴 일이 없습니다. 거기서는 모자란 만큼만 줄여 그림을 되도록 크게 둡니다.
+      const to = answering ? floor : Math.max(floor, now - over());
+      canvas.style.height = `${Math.round(to)}px`;
+    }
     return over() <= 0;
   };
 

@@ -144,7 +144,9 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
 
   // ---- 화면 갱신 ----
   function renderQuestion() {
-    const showing = B.cur && (B.phase === 'answer' || B.picked >= 0);
+    // 문제와 답은 "푸는 중"과 "풀이를 읽는 중"에만 보입니다. 답을 고른 뒤 공격·반격 연출이 나오는 동안에는 접어서,
+    // 싸우는 그림이 원래 크기로 돌아온 상태에서 연출이 보이게 합니다. (작은 화면에서는 문제를 푸는 동안 그림이 작게 줄어 있습니다)
+    const showing = B.cur && (B.phase === 'answer' || B.phase === 'review');
     $('question').hidden = !showing;
     $('answers').hidden = !showing;
     // 문제를 푸는 동안에는 행동 버튼을 접어 문제와 답이 한 화면에 보이게 합니다.
@@ -386,6 +388,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     onChange();
     // 문제를 푸는 동안에는 위쪽 줄들을 줄여 문제에 자리를 내 줍니다. 그다음 화면 높이에 맞춥니다.
     document.body.classList.toggle('is-answering', $('screenBattle').classList.contains('answering'));
+    // 연출이 나오는 동안(문제가 접혀 있고 누를 것이 없을 때)에는 싸우는 그림을 줄이지 않습니다 (fit.js).
+    $('screenBattle').classList.toggle('finale', B.phase === 'busy' && !$('screenBattle').classList.contains('answering'));
     // 풀이를 보느라 내려 둔 화면은 다음 문제로 넘어갈 때 맨 위로 되돌립니다.
     if (wasReview && B.phase !== 'review') window.scrollTo(0, 0);
     wasReview = B.phase === 'review';
@@ -668,7 +672,6 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     B.chain = null;
     B.cur = null;
     B.picked = -1;
-    $('screenBattle').classList.add('finale'); // 이 동안에는 싸우는 그림을 줄이지 않습니다 (fit.js)
     render();
     pulse($('screenBattle'), 'koflash');
     stage.foeDefeat(live(() => finish('win')), t('ui.defeated'), big);
