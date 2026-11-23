@@ -8,6 +8,7 @@
 //    5층  중간 보스
 //  1~4층  갈라지는 길  ← 맨 아래에서 출발할 칸을 고릅니다
 import { CONFIG } from './config.js';
+import { gainRelic } from './relics.js';
 
 // 칸 종류가 나올 확률의 무게 (출발 칸, 중간 보스, 보스 직전, 보스는 따로 정합니다)
 const WEIGHTS = { battle: 4, event: 2.5, elite: 1.5, treasure: 1.2, shop: 1, rest: 1 };
@@ -112,7 +113,7 @@ export function makeMap(ascend = 0) {
 export function newRun(scope, ascend = 0, cheer = 0, acts = null) {
   const { bonusPerType, bonusMax } = CONFIG.scope;
   const long = Array.isArray(acts) && acts.length > 1;
-  return {
+  const run = {
     scope: long ? [...acts[0].keys] : [...scope], // 지금 막에서 나오는 유형
     ...(long ? { full: [...scope], acts: acts.map((a) => ({ id: a.id, keys: [...a.keys] })), act: 0 } : {}),
     goldMul: 1 + Math.min(bonusMax, bonusPerType * Math.max(0, scope.length - 1)), // 범위가 넓을수록 골드를 더 받습니다
@@ -129,8 +130,12 @@ export function newRun(scope, ascend = 0, cheer = 0, acts = null) {
     gold: 0,
     hints: ascend >= 4 ? CONFIG.ascend.hints : CONFIG.player.hints,
     up: { basic: 0, skill: 0, counter: 0, weak: 0 }, // 강화로 더해진 값
+    relics: [],      // 이번 판에 얻은 유물의 id (얻은 순서대로. js/relics.js)
+    spent: {},       // 한 판에 한 번만 쓰는 유물을 이미 썼는지 { bandage: true }
     lastFoe: null,
   };
+  for (const id of CONFIG.relic.start) gainRelic(run, id); // 시작 유물 (보통은 없습니다)
+  return run;
 }
 
 // 긴 탑에서 다음 막으로 넘어갑니다: 새 지도, 그 막의 유형, 체력 회복. 골드·강화·힌트는 그대로 가져갑니다.

@@ -887,3 +887,36 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 .steps li { counter-increment: step; display: flex; gap: 8px; align-items: flex-start; }
 .steps li::before { content: counter(step); flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); color: var(--ink); font-size: 11px; font-weight: 800; line-height: 18px; text-align: center; }
 .tight .steps { gap: 2px; }
+
+/* ---- 유물 ---- */
+/* 등급은 색과 함께 글자("흔함·드묾·보스")로도 적습니다. 색만으로 구분하지 않습니다. */
+.rarity-common { --rare: #9fb0d6; }
+.rarity-uncommon { --rare: #c9a0ff; }
+.rarity-boss { --rare: var(--amber); }
+/* 상태 줄 오른쪽의 유물 줄: 아이콘 몇 개와 "+N". 줄 전체가 버튼입니다. */
+.relic-strip { position: relative; margin-left: auto; display: inline-flex; align-items: center; gap: 3px; height: 20px; padding: 0 5px 0 1px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+/* 줄은 다른 칩과 같은 높이로 두고, 손가락으로 누르기 쉽게 누르는 범위만 위아래로 넓힙니다. */
+.relic-strip::after { content: ''; position: absolute; inset: -11px -6px; }
+.relic-strip i { width: 18px; height: 18px; flex: none; border-radius: 50%; display: grid; place-items: center; color: var(--rare); background: var(--deep); border: 1px solid var(--rare); }
+.relic-strip i svg { width: 12px; height: 12px; }
+.relic-strip span { font-size: 12px; font-weight: 700; padding: 0 3px; }
+.relic-strip i.pop { animation: relicPop 0.5s ease-out; }
+@keyframes relicPop { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
+/* 가방 창과, 방금 얻은 유물 카드 */
+.bag-box { max-height: min(88vh, 720px); overflow-y: auto; }
+.bag-list { display: flex; flex-direction: column; }
+.relic-row, .relic-card { display: grid; grid-template-columns: 40px 1fr auto; column-gap: 12px; row-gap: 2px; align-items: center; text-align: left; }
+.relic-row { padding: 10px 0; border-top: 1px solid var(--line); }
+.relic-card { padding: 10px 12px; border-radius: 14px; border: 1px solid var(--rare); background: var(--panel); }
+.relic-row .ico, .relic-card .ico { grid-row: 1 / span 3; align-self: start; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--rare); background: var(--deep); border: 1px solid var(--rare); }
+.relic-row .ico svg, .relic-card .ico svg { width: 22px; height: 22px; }
+.relic-card .relic-got { grid-column: 2 / span 2; font-size: 11px; font-weight: 700; color: var(--teal); }
+.relic-row b, .relic-card b { grid-column: 2; font-size: 15px; }
+.relic-row em, .relic-card em, .options button.relic-pick em { grid-column: 3; font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #0b1430; background: var(--rare); }
+.relic-row small, .relic-card small, .options button.relic-pick small { grid-column: 2 / span 2; font-size: 13px; line-height: 1.5; color: var(--muted); white-space: pre-line; }
+.relic-row > span { grid-column: 2 / span 2; font-size: 12px; color: var(--teal); }
+.options button.relic-pick .ico { color: var(--rare); border-color: var(--rare); }
+.options button.relic-pick em { grid-row: 1; align-self: end; }
+html[lang="ko"] .relic-row small, html[lang="ko"] .relic-card small { word-break: keep-all; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .relic-strip i.pop { animation: none; } }
+.relic-down { color: var(--rose); }
