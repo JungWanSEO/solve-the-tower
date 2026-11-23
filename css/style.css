@@ -954,3 +954,12 @@ html[lang="ko"] .hero-card small { word-break: keep-all; overflow-wrap: anywhere
 .news-list ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
 .news-list li { font-size: 14px; line-height: 1.5; color: var(--muted); }
 html[lang="ko"] .news-list li { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* 화면이 아주 모자랄 때(fit.js 의 tightest): 연속기의 "이미 푼 물음"은 접고(위의 점 표시로 몇 번째인지는 보입니다), 지문과 여백을 더 줄입니다. */
+.tightest .chain-done { display: none; }
+.tightest .chain-box { gap: 2px; padding-bottom: 4px; }
+.tightest .chain-intro { font-size: 12px; line-height: 1.35; }
+.tightest .q-head { min-height: 0; }
+.tightest .question { padding: 6px 10px; gap: 3px; }
+.tightest .answers button { min-height: 44px; }
+.tightest .foe { padding-top: 6px; padding-bottom: 4px; gap: 4px; }

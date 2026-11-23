@@ -1,7 +1,8 @@
 // 화면 크기에 맞추기. 스마트폰마다 화면 높이가 다르고, 브라우저의 주소 줄 때문에 실제로 보이는 높이는 더 작습니다.
 // 전투 화면에서 "지금 눌러야 하는 것"이 스크롤 없이 보이도록, 덜 중요한 것부터 차례로 줄입니다.
 //   1) 싸우는 그림의 높이(보기 좋은 높이까지)  2) 여백(tight)  3) 문제 그림의 크기(모자란 만큼만)  4) 글자 크기(tighter)
-//   5) 싸우는 그림의 높이(최소 높이까지)  — 화면에 여유가 있으면 싸우는 그림은 줄이지 않습니다.
+//   5) 연속기의 "이미 푼 물음" 접기(tightest)  6) 싸우는 그림의 높이(최소 96px 까지)
+//   그래도 넘치면 싸우는 그림은 남기고 화면을 내려서 답을 고르게 합니다. 화면에 여유가 있으면 싸우는 그림은 줄이지 않습니다.
 import { $ } from './ui.js';
 
 // 지금 눈에 보이는 높이. 스마트폰 브라우저에서는 주소 줄과 아래쪽 도구 줄이 나왔다 들어갔다 해서 이 값이 계속 바뀝니다.
@@ -34,7 +35,7 @@ export function fitBattle() {
   canvas.style.height = '';
   if ($('nextBtn').hidden) screen.style.paddingBottom = ''; // 풀이를 보느라 내려 둔 동안에는 아래 여백을 그대로 둡니다
   if (figure) figure.style.maxWidth = '';
-  screen.classList.remove('tight', 'tighter');
+  screen.classList.remove('tight', 'tighter', 'tightest');
 
   const answering = screen.classList.contains('answering');
   // 지금 꼭 보여야 하는 마지막 요소: 문제를 푸는 중이면 답 버튼, 아니면 맨 아래 안내 글.
@@ -47,7 +48,8 @@ export function fitBattle() {
   //   먼저 "보기 좋은 높이"까지만 줄이고 → 여백·문제 그림·글자를 줄인 뒤 → 그래도 모자라면 "최소 높이"까지 줄입니다.
   const natural = canvas.getBoundingClientRect().height;
   const good = answering ? 132 : 96; // 보기 좋은 높이
-  const least = answering ? 84 : 96; // 최소 높이 (캐릭터와 적의 얼굴이 보이는 높이)
+  // 최소 높이. 이보다 줄이지 않습니다 (장면을 줄여 그려도 캐릭터와 적을 알아볼 수 있는 높이). 아주 낮은 화면(500px 아래)에서만 조금 더 줄입니다.
+  const least = viewHeight() < 500 ? 64 : 96;
   const shrink = (floor) => {
     const now = canvas.getBoundingClientRect().height;
     const cut = Math.min(over(), Math.max(0, now - floor));
@@ -70,10 +72,13 @@ export function fitBattle() {
   }
   screen.classList.add('tighter');
   if (over() <= 0) return;
+  // 연속기는 지문과 "이미 푼 물음"이 더 붙어 길어집니다. 싸우는 그림을 더 줄이기 전에 그쪽을 먼저 접습니다.
+  screen.classList.add('tightest');
+  if (over() <= 0) return;
   if (shrink(least)) return;
-  if (answering && shrink(60)) return; // 조금만 더 줄이면 들어가는 경우
-  // 아주 작은 화면: 답 버튼이 가려지는 것보다는 싸우는 그림을 접는 편이 낫습니다.
-  if (answering && over() > 24) canvas.style.height = '0px';
+  // 그래도 넘치면 싸우는 그림은 그대로 두고 화면을 내려서 답을 고르게 합니다. (그림이 사라지면 게임 화면 같지 않습니다)
+  // 가로로 눕힌 아주 낮은 화면에서만 그림을 접습니다. (세로로 돌려 달라는 안내가 뜨는 크기)
+  if (answering && viewHeight() < 431 && over() > 24) canvas.style.height = '0px';
 }
 
 // 답을 고른 뒤: 풀이와 "다음" 버튼이 보이도록 화면을 내립니다. 풀이가 길면 풀이의 첫 줄이 위에 오는 데까지만 내립니다.
