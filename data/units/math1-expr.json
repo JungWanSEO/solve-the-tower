@@ -232,9 +232,9 @@
         "en": "If n(A) = {p}, n(B) = {q} and n(A∩B) = {r}, what is n(A∪B)?"
       },
       "explain": {
-        "ja": "n(A∪B) = n(A) + n(B) − n(A∩B) を使う\n{p} + {q} − {r}(両方に入っている分を1回引く)\n{answer}",
-        "ko": "n(A∪B) = n(A) + n(B) − n(A∩B) 를 씁니다\n{p} + {q} − {r} (둘 다에 들어 있는 만큼을 한 번 뺍니다)\n{answer}",
-        "en": "Use n(A∪B) = n(A) + n(B) − n(A∩B)\n{p} + {q} − {r} (subtract the overlap once)\n{answer}"
+        "ja": "n(A∪B) = n(A) + n(B) − n(A∩B) を使う\n{p} + {q} − {r}(両方に入っている分を1回引く) = {=p+q-r}\n{answer}",
+        "ko": "n(A∪B) = n(A) + n(B) − n(A∩B) 를 씁니다\n{p} + {q} − {r} (둘 다에 들어 있는 만큼을 한 번 뺍니다) = {=p+q-r}\n{answer}",
+        "en": "Use n(A∪B) = n(A) + n(B) − n(A∩B)\n{p} + {q} − {r} (subtract the overlap once) = {=p+q-r}\n{answer}"
       }
     },
     {
@@ -389,9 +389,9 @@
         "en": "If x + y = {s} and xy = {p}, what is x² + y²?"
       },
       "explain": {
-        "ja": "x² + y² = (x + y)² − 2xy を使う\n({s})² − 2 × ({p})\n{answer}",
-        "ko": "x² + y² = (x + y)² − 2xy 를 씁니다\n({s})² − 2 × ({p})\n{answer}",
-        "en": "Use x² + y² = (x + y)² − 2xy\n({s})² − 2 × ({p})\n{answer}"
+        "ja": "x² + y² = (x + y)² − 2xy を使う\n({s})² − 2 × ({p}) = {=s*s} − ({=2*p})\n{answer}",
+        "ko": "x² + y² = (x + y)² − 2xy 를 씁니다\n({s})² − 2 × ({p}) = {=s*s} − ({=2*p})\n{answer}",
+        "en": "Use x² + y² = (x + y)² − 2xy\n({s})² − 2 × ({p}) = {=s*s} − ({=2*p})\n{answer}"
       }
     },
     {
@@ -619,9 +619,9 @@
         "en": "Ignore sales tax."
       },
       "explain": {
-        "ja": "個数を x として式を立てる: {price}x + {box} ≦ {budget}\n{box} を移項して {price} で割る\nその範囲で最も大きい整数は {answer}",
-        "ko": "개수를 x로 놓고 식을 세웁니다: {price}x + {box} ≦ {budget}\n{box} 을 이항하고 {price} 로 나눕니다\n그 범위에서 가장 큰 정수는 {answer}",
-        "en": "Let x be the number bought: {price}x + {box} ≤ {budget}\nMove {box} across and divide by {price}\nThe largest whole number in that range is {answer}"
+        "ja": "個数を x として式を立てる: {price}x + {box} ≦ {budget}\n{box} を移項して {price} で割る → {price}x ≦ {=budget-box}, x ≦ {=(budget-box)/price}\nその範囲で最も大きい整数は {answer}",
+        "ko": "개수를 x로 놓고 식을 세웁니다: {price}x + {box} ≦ {budget}\n{box} 을 이항하고 {price} 로 나눕니다 → {price}x ≦ {=budget-box}, x ≦ {=(budget-box)/price}\n그 범위에서 가장 큰 정수는 {answer}",
+        "en": "Let x be the number bought: {price}x + {box} ≤ {budget}\nMove {box} across and divide by {price} → {price}x ≦ {=budget-box}, x ≦ {=(budget-box)/price}\nThe largest whole number in that range is {answer}"
       }
     },
     {

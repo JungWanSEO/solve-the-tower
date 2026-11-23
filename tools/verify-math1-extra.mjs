@@ -61,7 +61,7 @@ for (const file of ['math1-expr', 'math1-trig', 'math1-data', 'matha-count', 'ma
         if (opts.some((o) => /^−|^0($| )/.test(o)) && !['correlation', 'covariance', 'condition'].includes(tpl.gen)) problems.push('non-positive option: ' + opts.join(' | '));
       } catch (e) { problems.push('error ' + e.message); }
       if (tpl.figure) for (const v of Object.values(tpl.figure)) { const f = String(v).replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/[{}]|undefined|NaN/.test(f)) problems.push('bad figure label ' + f); }
-      for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain', 'note']) { if (!tpl[part]) continue; const s = tpl[part][lang].replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/[{}]|undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
+      for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain', 'note']) { if (!tpl[part]) continue; const s = tpl[part][lang].replace(/\{=[^{}]*\}/g, "0").replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/[{}]|undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
       if (problems.length) { bad++; const seenT = (globalThis.__s ||= {}); seenT[tpl.id] = (seenT[tpl.id] || 0) + 1; if (seenT[tpl.id] <= 2) console.log('PROBLEM', tpl.id, JSON.stringify(it), [...new Set(problems)].join('; ')); }
       const key = { ...it }; delete key.wrong; (distinct[tpl.id] ||= new Set()).add(JSON.stringify(key));
     }

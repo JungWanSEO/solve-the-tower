@@ -281,9 +281,9 @@
         "en": "Taking {log}, how many digits does {power} have?"
       },
       "explain": {
-        "ja": "{power} の常用対数は {n} × log₁₀ {base}({log} を使う)\nその値の整数部分を k とすると、10ᵏ ≦ {power} < 10ᵏ⁺¹\n桁数は k + 1 なので {answer}",
-        "ko": "{power} 의 상용로그는 {n} × log₁₀ {base} ({log} 를 씁니다)\n그 값의 정수 부분을 k라 하면 10ᵏ ≦ {power} < 10ᵏ⁺¹\n자릿수는 k + 1 이므로 {answer}",
-        "en": "The common log of {power} is {n} × log₁₀ {base} (use {log})\nIf its whole part is k, then 10ᵏ ≤ {power} < 10ᵏ⁺¹\nThe number of digits is k + 1 = {answer}"
+        "ja": "{power} の常用対数は {n} × log₁₀ {base}({log} を使う) = {=round(n*(base==2?0.3010:0.4771),4)}\nその値の整数部分を k とすると、10ᵏ ≦ {power} < 10ᵏ⁺¹\n桁数は k + 1 なので {answer}",
+        "ko": "{power} 의 상용로그는 {n} × log₁₀ {base} ({log} 를 씁니다) = {=round(n*(base==2?0.3010:0.4771),4)}\n그 값의 정수 부분을 k라 하면 10ᵏ ≦ {power} < 10ᵏ⁺¹\n자릿수는 k + 1 이므로 {answer}",
+        "en": "The common log of {power} is {n} × log₁₀ {base} (use {log}) = {=round(n*(base==2?0.3010:0.4771),4)}\nIf its whole part is k, then 10ᵏ ≤ {power} < 10ᵏ⁺¹\nThe number of digits is k + 1 = {answer}"
       }
     }
   ],
@@ -311,9 +311,9 @@
             "en": "What is log₁₀ {power}?"
           },
           "explain": {
-            "ja": "指数を前に出して {n} × 0.3010 = {answer}",
-            "ko": "지수를 앞으로 꺼내서 {n} × 0.3010 = {answer}",
-            "en": "Bring the exponent down: {n} × 0.3010 = {answer}"
+            "ja": "log₁₀ aⁿ = n × log₁₀ a(指数を前に出す)\n{n} × 0.3010 = {answer}",
+            "ko": "log₁₀ aⁿ = n × log₁₀ a (지수를 앞으로 꺼냅니다)\n{n} × 0.3010 = {answer}",
+            "en": "log₁₀ aⁿ = n × log₁₀ a (bring the exponent down)\n{n} × 0.3010 = {answer}"
           }
         },
         {
@@ -330,9 +330,9 @@
             "en": "What is the whole-number part of that value?"
           },
           "explain": {
-            "ja": "{a1} の整数部分は {answer}",
-            "ko": "{a1} 의 정수 부분은 {answer}",
-            "en": "The whole part of {a1} is {answer}"
+            "ja": "整数部分は、小数点より前の数\n{a1} の整数部分は {answer}",
+            "ko": "정수 부분은 소수점 앞의 수\n{a1} 의 정수 부분은 {answer}",
+            "en": "The whole part is the number before the decimal point\nThe whole part of {a1} is {answer}"
           }
         },
         {
@@ -349,9 +349,9 @@
             "en": "How many digits does {power} have?"
           },
           "explain": {
-            "ja": "10 の {a2} 乗以上、{a2} + 1 乗未満なので {answer} 桁",
-            "ko": "10의 {a2} 제곱 이상, {a2} + 1 제곱 미만이므로 {answer} 자리",
-            "en": "It is at least 10 to the {a2} and below 10 to the {a2} + 1, so {answer} digits"
+            "ja": "常用対数の整数部分が {a2} → 10 の {a2} 乗以上、{a2} + 1 乗未満\n10 の k 乗は (k + 1) 桁なので {answer} 桁",
+            "ko": "상용로그의 정수 부분이 {a2} → 10의 {a2}제곱 이상, {a2} + 1 제곱 미만\n10의 k제곱은 (k + 1)자리이므로 {answer} 자리",
+            "en": "Whole part {a2} means at least 10 to the {a2} and below 10 to the {a2} + 1\n10 to the k has k + 1 digits, so {answer} digits"
           }
         }
       ]
@@ -379,8 +379,8 @@
             "en": "What is the smaller root of the quadratic in t?"
           },
           "explain": {
-            "ja": "4ˣ = t² なので t の2次方程式になる。因数分解して、小さい方は {answer}",
-            "ko": "4ˣ = t² 이므로 t에 대한 이차방정식이 됩니다. 인수분해하면 작은 쪽은 {answer}",
+            "ja": "4ˣ = t² なので t の2次方程式になる\n因数分解して、小さい方は {answer}",
+            "ko": "4ˣ = t² 이므로 t에 대한 이차방정식이 됩니다\n인수분해하면 작은 쪽은 {answer}",
             "en": "Since 4ˣ = t² this is a quadratic in t; factoring, the smaller root is {answer}"
           }
         },
@@ -398,9 +398,9 @@
             "en": "What is the larger root?"
           },
           "explain": {
-            "ja": "もう1つの解は {answer}",
-            "ko": "다른 한 해는 {answer}",
-            "en": "The other root is {answer}"
+            "ja": "因数分解した (t − {a1})(t − □) = 0 のもう一方\n大きい方の解は {answer}",
+            "ko": "인수분해한 (t − {a1})(t − □) = 0 의 다른 쪽\n큰 쪽의 해는 {answer}",
+            "en": "The other factor of (t − {a1})(t − □) = 0\nThe larger root is {answer}"
           }
         },
         {
@@ -417,9 +417,9 @@
             "en": "What is x when t = {a2}?"
           },
           "explain": {
-            "ja": "2ˣ = {a2} より x = {answer}",
-            "ko": "2ˣ = {a2} 이므로 x = {answer}",
-            "en": "2ˣ = {a2}, so x = {answer}"
+            "ja": "t = 2ˣ にもどす: 2ˣ = {a2}\n{a2} を 2 の累乗で表して x = {answer}",
+            "ko": "t = 2ˣ 로 되돌립니다: 2ˣ = {a2}\n{a2} 를 2의 거듭제곱으로 나타내면 x = {answer}",
+            "en": "Go back to t = 2ˣ: 2ˣ = {a2}\nWrite {a2} as a power of 2: x = {answer}"
           }
         }
       ]
