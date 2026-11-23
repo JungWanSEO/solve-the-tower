@@ -84,9 +84,9 @@
         "en": "What is the greatest common divisor of {a} and {b}?"
       },
       "explain": {
-        "ja": "{a} と {b} をそれぞれ素因数分解する\n共通する素因数を、指数の小さい方で掛け合わせる\n{answer}",
-        "ko": "{a} 와 {b} 를 각각 소인수분해합니다\n공통인 소인수를 지수가 작은 쪽으로 곱합니다\n{answer}",
-        "en": "Factor {a} and {b} into primes\nMultiply the common primes with the smaller exponents\n{answer}"
+        "ja": "{a} と {b} をそれぞれ素因数分解する → {=pf(a)}, {=pf(b)}\n共通する素因数を、指数の小さい方で掛け合わせる\n{answer}",
+        "ko": "{a} 와 {b} 를 각각 소인수분해합니다 → {=pf(a)}, {=pf(b)}\n공통인 소인수를 지수가 작은 쪽으로 곱합니다\n{answer}",
+        "en": "Factor {a} and {b} into primes → {=pf(a)}, {=pf(b)}\nMultiply the common primes with the smaller exponents\n{answer}"
       }
     },
     {
@@ -103,9 +103,9 @@
         "en": "What is the least common multiple of {a} and {b}?"
       },
       "explain": {
-        "ja": "{a} と {b} の最大公約数を求める\n最小公倍数 = 2数の積 ÷ 最大公約数\n{a} × {b} ÷ (最大公約数) = {answer}",
-        "ko": "{a} 와 {b} 의 최대공약수를 구합니다\n최소공배수 = 두 수의 곱 ÷ 최대공약수\n{a} × {b} ÷ (최대공약수) = {answer}",
-        "en": "Find the GCD of {a} and {b}\nLCM = product ÷ GCD\n{a} × {b} ÷ GCD = {answer}"
+        "ja": "{a} と {b} の最大公約数を求める → {=gcd(a,b)}\n最小公倍数 = 2数の積 ÷ 最大公約数\n{a} × {b} ÷ (最大公約数) = {answer}",
+        "ko": "{a} 와 {b} 의 최대공약수를 구합니다 → {=gcd(a,b)}\n최소공배수 = 두 수의 곱 ÷ 최대공약수\n{a} × {b} ÷ (최대공약수) = {answer}",
+        "en": "Find the GCD of {a} and {b} → {=gcd(a,b)}\nLCM = product ÷ GCD\n{a} × {b} ÷ GCD = {answer}"
       }
     },
     {
@@ -123,9 +123,9 @@
         "en": "Use the Euclidean algorithm to find the GCD of {a} and {b}."
       },
       "explain": {
-        "ja": "{a} を {b} で割った余りを求める\n割る数をその余りで割る。これを余りが 0 になるまでくり返す\n最後に割った数が最大公約数: {answer}",
-        "ko": "{a} 를 {b} 로 나눈 나머지를 구합니다\n나누는 수를 그 나머지로 나눕니다. 나머지가 0이 될 때까지 되풀이합니다\n마지막에 나눈 수가 최대공약수: {answer}",
-        "en": "Divide {a} by {b} and take the remainder\nDivide the divisor by that remainder; repeat until the remainder is 0\nThe last divisor is the GCD: {answer}"
+        "ja": "{a} を {b} で割った余りを求める → {=a%b}\n割る数をその余りで割る。これを余りが 0 になるまでくり返す\n最後に割った数が最大公約数: {answer}",
+        "ko": "{a} 를 {b} 로 나눈 나머지를 구합니다 → {=a%b}\n나누는 수를 그 나머지로 나눕니다. 나머지가 0이 될 때까지 되풀이합니다\n마지막에 나눈 수가 최대공약수: {answer}",
+        "en": "Divide {a} by {b} and take the remainder → {=a%b}\nDivide the divisor by that remainder; repeat until the remainder is 0\nThe last divisor is the GCD: {answer}"
       }
     },
     {
@@ -142,9 +142,9 @@
         "en": "Integers a and b leave remainders {r1} and {r2} when divided by {m}. What is the remainder of a + b divided by {m}?"
       },
       "explain": {
-        "ja": "a + b の余りは、余りどうしの和で考えられる\n{r1} + {r2} を計算する\nそれを {m} で割った余りは {answer}",
-        "ko": "a + b 의 나머지는 나머지끼리의 합으로 생각할 수 있습니다\n{r1} + {r2} 를 계산합니다\n그것을 {m} 으로 나눈 나머지는 {answer}",
-        "en": "The remainder of a + b comes from the sum of the remainders\nWork out {r1} + {r2}\nIts remainder on division by {m} is {answer}"
+        "ja": "a + b の余りは、余りどうしの和で考えられる\n{r1} + {r2} を計算する = {=r1+r2}\nそれを {m} で割った余りは {answer}",
+        "ko": "a + b 의 나머지는 나머지끼리의 합으로 생각할 수 있습니다\n{r1} + {r2} 를 계산합니다 = {=r1+r2}\n그것을 {m} 으로 나눈 나머지는 {answer}",
+        "en": "The remainder of a + b comes from the sum of the remainders\nWork out {r1} + {r2} = {=r1+r2}\nIts remainder on division by {m} is {answer}"
       }
     },
     {
@@ -161,9 +161,9 @@
         "en": "Integers a and b leave remainders {r1} and {r2} when divided by {m}. What is the remainder of ab divided by {m}?"
       },
       "explain": {
-        "ja": "ab の余りは、余りどうしの積で考えられる\n{r1} × {r2} を計算する\nそれを {m} で割った余りは {answer}",
-        "ko": "ab 의 나머지는 나머지끼리의 곱으로 생각할 수 있습니다\n{r1} × {r2} 를 계산합니다\n그것을 {m} 으로 나눈 나머지는 {answer}",
-        "en": "The remainder of ab comes from the product of the remainders\nWork out {r1} × {r2}\nIts remainder on division by {m} is {answer}"
+        "ja": "ab の余りは、余りどうしの積で考えられる\n{r1} × {r2} を計算する = {=r1*r2}\nそれを {m} で割った余りは {answer}",
+        "ko": "ab 의 나머지는 나머지끼리의 곱으로 생각할 수 있습니다\n{r1} × {r2} 를 계산합니다 = {=r1*r2}\n그것을 {m} 으로 나눈 나머지는 {answer}",
+        "en": "The remainder of ab comes from the product of the remainders\nWork out {r1} × {r2} = {=r1*r2}\nIts remainder on division by {m} is {answer}"
       }
     },
     {
@@ -331,9 +331,9 @@
             "en": "What is the greatest common divisor?"
           },
           "explain": {
-            "ja": "両方を割り切る最大の数は {answer}",
-            "ko": "둘을 모두 나누어떨어지게 하는 가장 큰 수는 {answer}",
-            "en": "The largest number dividing both is {answer}"
+            "ja": "{a} = {=pf(a)}、{b} = {=pf(b)} と素因数分解する\n共通する素因数を掛けて {answer}",
+            "ko": "{a} = {=pf(a)}, {b} = {=pf(b)} 로 소인수분해합니다\n공통인 소인수를 곱하면 {answer}",
+            "en": "Factor: {a} = {=pf(a)} and {b} = {=pf(b)}\nMultiply the common primes: {answer}"
           }
         },
         {
@@ -350,9 +350,9 @@
             "en": "What is the least common multiple?"
           },
           "explain": {
-            "ja": "{a} × {b} ÷ (最大公約数 {a1}) = {answer}",
-            "ko": "{a} × {b} ÷ (최대공약수 {a1}) = {answer}",
-            "en": "{a} × {b} ÷ (GCD {a1}) = {answer}"
+            "ja": "最小公倍数 = 2数の積 ÷ 最大公約数\n{a} × {b} ÷ {a1} = {answer}",
+            "ko": "최소공배수 = 두 수의 곱 ÷ 최대공약수\n{a} × {b} ÷ {a1} = {answer}",
+            "en": "LCM = product ÷ GCD\n{a} × {b} ÷ {a1} = {answer}"
           }
         },
         {
@@ -369,7 +369,7 @@
             "en": "What is the product of the GCD and the LCM?"
           },
           "explain": {
-            "ja": "(最大公約数) × (最小公倍数) は2数の積 {a} × {b} に等しい。{answer}",
+            "ja": "(最大公約数) × (最小公倍数) は2数の積 {a} × {b} に等しい\n{answer}",
             "ko": "(최대공약수) × (최소공배수)는 두 수의 곱 {a} × {b}와 같습니다. {answer}",
             "en": "GCD × LCM equals the product {a} × {b}: {answer}"
           }
@@ -399,9 +399,9 @@
             "en": "What is the remainder when {a} is divided by {b}?"
           },
           "explain": {
-            "ja": "{a} = {b} × (商) + (余り)。余りは {answer}",
-            "ko": "{a} = {b} × (몫) + (나머지). 나머지는 {answer}",
-            "en": "{a} = {b} × quotient + remainder. The remainder is {answer}"
+            "ja": "{a} = {b} × (商) + (余り)\n余りは {answer}",
+            "ko": "{a} = {b} × (몫) + (나머지)\n나머지는 {answer}",
+            "en": "{a} = {b} × quotient + remainder\nThe remainder is {answer}"
           }
         },
         {
@@ -418,9 +418,9 @@
             "en": "Continuing the Euclidean algorithm, what is the GCD of {a} and {b}?"
           },
           "explain": {
-            "ja": "{a} と {b} の最大公約数は、{b} と余り {a1} の最大公約数に等しい。余りが 0 になるまで続けると {answer}",
-            "ko": "{a}와 {b}의 최대공약수는 {b}와 나머지 {a1}의 최대공약수와 같습니다. 나머지가 0이 될 때까지 계속하면 {answer}",
-            "en": "gcd({a}, {b}) = gcd({b}, {a1}). Continuing until the remainder is 0 gives {answer}"
+            "ja": "{a} と {b} の最大公約数は、{b} と余り {a1} の最大公約数に等しい\n余りが 0 になるまで続けると {answer}",
+            "ko": "{a}와 {b}의 최대공약수는 {b}와 나머지 {a1}의 최대공약수와 같습니다\n나머지가 0이 될 때까지 계속하면 {answer}",
+            "en": "gcd({a}, {b}) = gcd({b}, {a1})\nContinuing until the remainder is 0 gives {answer}"
           }
         },
         {
@@ -437,7 +437,7 @@
             "en": "When {a}/{b} is reduced to lowest terms, what is the denominator?"
           },
           "explain": {
-            "ja": "分母と分子を最大公約数 {a2} で割る。{b} ÷ {a2} = {answer}",
+            "ja": "分母と分子を最大公約数 {a2} で割る\n{b} ÷ {a2} = {answer}",
             "ko": "분모와 분자를 최대공약수 {a2}로 나눕니다. {b} ÷ {a2} = {answer}",
             "en": "Divide both by the GCD {a2}: {b} ÷ {a2} = {answer}"
           }

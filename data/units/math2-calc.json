@@ -90,9 +90,9 @@
         "en": "For f(x) = {expr}, what is the average rate of change from x = {p} to x = {q}?"
       },
       "explain": {
-        "ja": "平均変化率 = (y の変化量) ÷ (x の変化量)\nf({q}) と f({p}) をそれぞれ計算する\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
-        "ko": "평균변화율 = (y의 변화량) ÷ (x의 변화량)\nf({q}) 와 f({p}) 를 각각 계산합니다\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
-        "en": "Average rate of change = (change in y) ÷ (change in x)\nWork out f({q}) and f({p})\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}"
+        "ja": "平均変化率 = (y の変化量) ÷ (x の変化量)\nf({q}) と f({p}) をそれぞれ計算する → f({q}) = {=ev(expr,q)}, f({p}) = {=ev(expr,p)}\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
+        "ko": "평균변화율 = (y의 변화량) ÷ (x의 변화량)\nf({q}) 와 f({p}) 를 각각 계산합니다 → f({q}) = {=ev(expr,q)}, f({p}) = {=ev(expr,p)}\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}",
+        "en": "Average rate of change = (change in y) ÷ (change in x)\nWork out f({q}) and f({p}) → f({q}) = {=ev(expr,q)}, f({p}) = {=ev(expr,p)}\n(f({q}) − f({p})) ÷ ({q} − ({p})) = {answer}"
       }
     },
     {
@@ -148,9 +148,9 @@
         "en": "What is the tangent to the parabola {expr} at the point where x = {t}?"
       },
       "explain": {
-        "ja": "y′ を求めて x = {t} を代入 → 接線の傾き\nもとの式に x = {t} を代入 → 接点の y 座標\ny − y₁ = m(x − x₁) に代入して整理すると {answer}",
-        "ko": "y′ 을 구해 x = {t} 를 대입 → 접선의 기울기\n원래 식에 x = {t} 를 대입 → 접점의 y좌표\ny − y₁ = m(x − x₁) 에 대입해 정리하면 {answer}",
-        "en": "Find y′ and put x = {t} → the slope of the tangent\nPut x = {t} into the original → the y of the point\nUse y − y₁ = m(x − x₁) and simplify: {answer}"
+        "ja": "y′ を求めて x = {t} を代入 → 接線の傾き = {=2*t+coefs[1]}\nもとの式に x = {t} を代入 → 接点の y 座標 = {=t*t+coefs[1]*t+coefs[2]}\ny − y₁ = m(x − x₁) に代入して整理すると {answer}",
+        "ko": "y′ 을 구해 x = {t} 를 대입 → 접선의 기울기 = {=2*t+coefs[1]}\n원래 식에 x = {t} 를 대입 → 접점의 y좌표 = {=t*t+coefs[1]*t+coefs[2]}\ny − y₁ = m(x − x₁) 에 대입해 정리하면 {answer}",
+        "en": "Find y′ and put x = {t} → the slope of the tangent = {=2*t+coefs[1]}\nPut x = {t} into the original → the y of the point = {=t*t+coefs[1]*t+coefs[2]}\nUse y − y₁ = m(x − x₁) and simplify: {answer}"
       }
     },
     {
@@ -213,9 +213,9 @@
         "en": "What is the maximum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
       },
       "explain": {
-        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する\nそれらのうち、いちばん大きいものが最大値: {answer}",
-        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다\n그중 가장 큰 것이 최댓값: {answer}",
-        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b}\nThe largest of those is the maximum: {answer}"
+        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nそれらのうち、いちばん大きいものが最大値: {answer}",
+        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다 → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\n그중 가장 큰 것이 최댓값: {answer}",
+        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b} → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nThe largest of those is the maximum: {answer}"
       }
     },
     {
@@ -232,9 +232,9 @@
         "en": "What is the minimum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
       },
       "explain": {
-        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する\nそれらのうち、いちばん小さいものが最小値: {answer}",
-        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다\n그중 가장 작은 것이 최솟값: {answer}",
-        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b}\nThe smallest of those is the minimum: {answer}"
+        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nそれらのうち、いちばん小さいものが最小値: {answer}",
+        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다 → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\n그중 가장 작은 것이 최솟값: {answer}",
+        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b} → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nThe smallest of those is the minimum: {answer}"
       }
     },
     {
@@ -270,9 +270,9 @@
         "en": "What is the definite integral of f(x) = {expr} from x = {p} to x = {q}?"
       },
       "explain": {
-        "ja": "原始関数 F(x) を求める(各項を xⁿ⁺¹ ÷ (n + 1) に)\nF({q}) と F({p}) をそれぞれ計算する\nF({q}) − F({p}) = {answer}",
-        "ko": "원시함수 F(x)를 구합니다 (각 항을 xⁿ⁺¹ ÷ (n + 1) 으로)\nF({q}) 와 F({p}) 를 각각 계산합니다\nF({q}) − F({p}) = {answer}",
-        "en": "Find an antiderivative F(x) (each term becomes xⁿ⁺¹ ÷ (n + 1))\nWork out F({q}) and F({p})\nF({q}) − F({p}) = {answer}"
+        "ja": "原始関数 F(x) を求める(各項を xⁿ⁺¹ ÷ (n + 1) に)\nF({q}) と F({p}) をそれぞれ計算する → F({q}) = {=Fint(coefs,to)}, F({p}) = {=Fint(coefs,from)}\nF({q}) − F({p}) = {answer}",
+        "ko": "원시함수 F(x)를 구합니다 (각 항을 xⁿ⁺¹ ÷ (n + 1) 으로)\nF({q}) 와 F({p}) 를 각각 계산합니다 → F({q}) = {=Fint(coefs,to)}, F({p}) = {=Fint(coefs,from)}\nF({q}) − F({p}) = {answer}",
+        "en": "Find an antiderivative F(x) (each term becomes xⁿ⁺¹ ÷ (n + 1))\nWork out F({q}) and F({p}) → F({q}) = {=Fint(coefs,to)}, F({p}) = {=Fint(coefs,from)}\nF({q}) − F({p}) = {answer}"
       }
     },
     {
@@ -324,9 +324,9 @@
             "en": "What is the smaller root of f′(x) = 0?"
           },
           "explain": {
-            "ja": "f′(x) を求めて因数分解すると、小さい方の解は {answer}",
-            "ko": "f′(x)를 구해 인수분해하면 작은 쪽의 해는 {answer}",
-            "en": "Factor f′(x); the smaller root is {answer}"
+            "ja": "f′(x) を求める(各項を n xⁿ⁻¹ に)\nf′(x) = 0 を因数分解して解くと、小さい方は {answer}",
+            "ko": "f′(x)를 구합니다 (각 항을 n xⁿ⁻¹ 으로)\nf′(x) = 0 을 인수분해해서 풀면 작은 쪽은 {answer}",
+            "en": "Find f′(x) (each term becomes n xⁿ⁻¹)\nFactor f′(x) = 0; the smaller root is {answer}"
           }
         },
         {
@@ -343,7 +343,7 @@
             "en": "What is the local maximum value?"
           },
           "explain": {
-            "ja": "x = {a1} で増加から減少に変わる。f({a1}) = {answer}",
+            "ja": "x = {a1} で増加から減少に変わる\nf({a1}) = {answer}",
             "ko": "x = {a1} 에서 증가에서 감소로 바뀝니다. f({a1}) = {answer}",
             "en": "f changes from rising to falling at x = {a1}: f({a1}) = {answer}"
           }
@@ -362,8 +362,8 @@
             "en": "What is the local minimum value?"
           },
           "explain": {
-            "ja": "もう1つの解で減少から増加に変わる。その値は {answer}",
-            "ko": "다른 한 해에서 감소에서 증가로 바뀝니다. 그 값은 {answer}",
+            "ja": "もう1つの解で減少から増加に変わる\nその値は {answer}",
+            "ko": "다른 한 해에서 감소에서 증가로 바뀝니다\n그 값은 {answer}",
             "en": "At the other root f changes from falling to rising; the value is {answer}"
           }
         }
@@ -396,9 +396,9 @@
             "en": "What is the smaller x where the parabola meets the x-axis?"
           },
           "explain": {
-            "ja": "y = 0 とおいて因数分解すると、小さい方は {answer}",
-            "ko": "y = 0 으로 놓고 인수분해하면 작은 쪽은 {answer}",
-            "en": "Set y = 0 and factor; the smaller one is {answer}"
+            "ja": "x 軸との交点では y = 0\n右辺を因数分解して解くと、小さい方は {answer}",
+            "ko": "x축과의 교점에서는 y = 0\n우변을 인수분해해서 풀면 작은 쪽은 {answer}",
+            "en": "On the x-axis y = 0\nFactor the right side; the smaller root is {answer}"
           }
         },
         {
@@ -415,9 +415,9 @@
             "en": "What is the larger one?"
           },
           "explain": {
-            "ja": "もう1つの交点は x = {answer}",
-            "ko": "다른 한 교점은 x = {answer}",
-            "en": "The other crossing is x = {answer}"
+            "ja": "因数分解したもう一方のかっこが 0 になる x\n{answer}",
+            "ko": "인수분해한 다른 쪽 괄호가 0이 되는 x\n{answer}",
+            "en": "The x that makes the other bracket 0\n{answer}"
           }
         },
         {
@@ -434,9 +434,9 @@
             "en": "What is the enclosed area?"
           },
           "explain": {
-            "ja": "x = {a1} から x = {a2} まで定積分して {answer}",
-            "ko": "x = {a1} 에서 x = {a2} 까지 정적분하면 {answer}",
-            "en": "Integrate from x = {a1} to x = {a2}: {answer}"
+            "ja": "この範囲でグラフは x 軸より上にあるので、そのまま定積分する\nx = {a1} から x = {a2} まで積分して {answer}",
+            "ko": "이 범위에서 그래프는 x축보다 위에 있으므로 그대로 정적분합니다\nx = {a1} 에서 x = {a2} 까지 적분하면 {answer}",
+            "en": "The graph is above the axis here, so integrate directly\nFrom x = {a1} to x = {a2}: {answer}"
           }
         }
       ]

@@ -474,9 +474,9 @@
             "en": "What is the completed-square form?"
           },
           "explain": {
-            "ja": "x の係数の半分を2乗して足し引きすると {answer}",
-            "ko": "x의 계수의 절반을 제곱해 더하고 빼면 {answer}",
-            "en": "Add and subtract the square of half the x coefficient: {answer}"
+            "ja": "x の係数の半分を求め、その2乗を足して引く\n( )² の形にまとめて {answer}",
+            "ko": "x의 계수의 절반을 구하고, 그 제곱을 더하고 뺍니다\n( )² 꼴로 묶으면 {answer}",
+            "en": "Take half the x coefficient, then add and subtract its square\nGroup into ( )²: {answer}"
           }
         },
         {
@@ -493,9 +493,9 @@
             "en": "What is the vertex of the graph?"
           },
           "explain": {
-            "ja": "{a1} より、頂点は {answer}",
-            "ko": "{a1}에서 꼭짓점은 {answer}",
-            "en": "From {a1}, the vertex is {answer}"
+            "ja": "{a1} を y = a(x − p)² + q と見比べる\n頂点は (p, q) なので {answer}",
+            "ko": "{a1} 을 y = a(x − p)² + q 와 비교합니다\n꼭짓점은 (p, q)이므로 {answer}",
+            "en": "Compare {a1} with y = a(x − p)² + q\nThe vertex is (p, q) = {answer}"
           }
         },
         {
@@ -512,7 +512,7 @@
             "en": "What is the maximum for {s} ≦ x ≦ {t}?"
           },
           "explain": {
-            "ja": "頂点 {a2} から遠い方の端で最大になる。{answer}",
+            "ja": "頂点 {a2} から遠い方の端で最大になる\n{answer}",
             "ko": "꼭짓점 {a2}에서 먼 쪽 끝에서 최대가 됩니다. {answer}",
             "en": "The maximum is at the end farther from the vertex {a2}: {answer}"
           }
@@ -542,9 +542,9 @@
             "en": "What is the discriminant D of {f} = 0?"
           },
           "explain": {
-            "ja": "D = b² − 4ac を計算すると {answer}",
-            "ko": "D = b² − 4ac를 계산하면 {answer}",
-            "en": "Computing D = b² − 4ac gives {answer}"
+            "ja": "{f} から a, b, c を読みとる\nD = b² − 4ac を計算すると {answer}",
+            "ko": "{f} 에서 a, b, c를 읽습니다\nD = b² − 4ac 를 계산하면 {answer}",
+            "en": "Read a, b, c from {f}\nD = b² − 4ac = {answer}"
           }
         },
         {
@@ -561,9 +561,9 @@
             "en": "What are the roots of {f} = 0?"
           },
           "explain": {
-            "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ。因数分解して {answer}",
-            "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다. 인수분해하면 {answer}",
-            "en": "Since D = {a1} > 0 there are two different real roots. Factorising gives {answer}"
+            "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ\n因数分解して {answer}",
+            "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다\n인수분해하면 {answer}",
+            "en": "Since D = {a1} > 0 there are two different real roots\nFactorising gives {answer}"
           }
         },
         {
@@ -580,9 +580,9 @@
             "en": "What is the solution of {f} < 0?"
           },
           "explain": {
-            "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})。x 軸より下にあるのは2つの解の間なので {answer}",
+            "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})\nx 軸より下にあるのは2つの解の間なので {answer}",
             "ko": "그래프는 아래로 볼록하고 x축과 만나는 점은 ({a2}). x축보다 아래에 있는 것은 두 해 사이이므로 {answer}",
-            "en": "The graph opens upward and meets the x-axis at ({a2}). It is below the axis between the roots: {answer}"
+            "en": "The graph opens upward and meets the x-axis at ({a2})\nIt is below the axis between the roots: {answer}"
           }
         }
       ]
@@ -612,9 +612,9 @@
             "en": "What is the vertex of the parabola y = {f}?"
           },
           "explain": {
-            "ja": "平方完成すると y = (x − a)² + ({m})。頂点は {answer}",
-            "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m}). 꼭짓점은 {answer}",
-            "en": "Completing the square gives y = (x − a)² + ({m}). The vertex is {answer}"
+            "ja": "平方完成すると y = (x − a)² + ({m})\n頂点は {answer}",
+            "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m})\n꼭짓점은 {answer}",
+            "en": "Completing the square gives y = (x − a)² + ({m})\nThe vertex is {answer}"
           }
         },
         {
@@ -631,7 +631,7 @@
             "en": "For 0 < a < {c}, let m be the minimum of f(x). As a varies, what is the largest value of m?"
           },
           "explain": {
-            "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}。a = {t} のとき最大値 {answer}",
+            "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}\na = {t} のとき最大値 {answer}",
             "ko": "0 < a < {c}에서는 축 x = a가 정의역 안에 있으므로 m = {m} = {comp}. a = {t}일 때 최댓값 {answer}",
             "en": "For 0 < a < {c} the axis x = a lies inside the domain, so m = {m} = {comp}. It is largest at a = {t}: {answer}"
           }
@@ -650,7 +650,7 @@
             "en": "For a > {c}, for which a is the minimum of f(x) equal to {T}?"
           },
           "explain": {
-            "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}。これが {T} に等しいので a = {answer}",
+            "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}\nこれが {T} に等しいので a = {answer}",
             "ko": "a > {c}에서는 축이 정의역의 오른쪽에 있으므로 최솟값은 f({c}) = {fc}. 이 값이 {T}이므로 a = {answer}",
             "en": "For a > {c} the axis is to the right of the domain, so the minimum is f({c}) = {fc}. Setting it equal to {T} gives a = {answer}"
           }

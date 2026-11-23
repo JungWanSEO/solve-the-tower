@@ -37,7 +37,7 @@ const check = (tpl, it) => {
   if (new Set(opts).size !== 4) problems.push('duplicate text');
   for (let a = 0; a < 4; a++) for (let b = a + 1; b < 4; b++) if (Math.abs(vals[a] - vals[b]) < 1e-9) problems.push(`same value ${opts[a]} / ${opts[b]}`);
   if (vals.some((v) => !Number.isFinite(v))) problems.push('non-finite');
-  for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain']) { const s = tpl[part][lang].replace(/\{(\w+)\}/g, (m, k) => (k in it ? it[k] : m)); if (/[{}]/.test(s) || /undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
+  for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain']) { const s = tpl[part][lang].replace(/\{=[^{}]*\}/g, "0").replace(/\{(\w+)\}/g, (m, k) => (k in it ? it[k] : m)); if (/[{}]/.test(s) || /undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
   if (tpl.figure) { const f = figureFor({ tpl, item: it }); if (!f || /undefined|NaN|\{/.test(f.alt)) problems.push('bad figure ' + (f && f.alt)); }
   if (problems.length && bad < 8) console.log('PROBLEM', tpl.id, JSON.stringify(it), problems.join('; '));
   if (problems.length) bad++;

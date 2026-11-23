@@ -263,9 +263,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: sin(α + β) = sin α cos β + cos α sin β\n代入して計算すると {answer}",
-        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: sin(α + β) = sin α cos β + cos α sin β\n대입해서 계산하면 {answer}",
-        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: sin(α + β) = sin α cos β + cos α sin β\nSubstitute and calculate: {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n加法定理: sin(α + β) = sin α cos β + cos α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n덧셈정리: sin(α + β) = sin α cos β + cos α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\nAddition formula: sin(α + β) = sin α cos β + cos α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -282,9 +282,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: sin(α − β) = sin α cos β − cos α sin β\n代入して計算すると {answer}",
-        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: sin(α − β) = sin α cos β − cos α sin β\n대입해서 계산하면 {answer}",
-        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: sin(α − β) = sin α cos β − cos α sin β\nSubstitute and calculate: {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n加法定理: sin(α − β) = sin α cos β − cos α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n덧셈정리: sin(α − β) = sin α cos β − cos α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\nAddition formula: sin(α − β) = sin α cos β − cos α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -301,9 +301,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: cos(α + β) = cos α cos β − sin α sin β\n代入して計算すると {answer}",
-        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: cos(α + β) = cos α cos β − sin α sin β\n대입해서 계산하면 {answer}",
-        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: cos(α + β) = cos α cos β − sin α sin β\nSubstitute and calculate: {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n加法定理: cos(α + β) = cos α cos β − sin α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n덧셈정리: cos(α + β) = cos α cos β − sin α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\nAddition formula: cos(α + β) = cos α cos β − sin α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -320,9 +320,9 @@
         "en": "α and β are acute with sin α = {sa} and cos β = {cb}. What is {expr}?"
       },
       "explain": {
-        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正)\n加法定理: cos(α − β) = cos α cos β + sin α sin β\n代入して計算すると {answer}",
-        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수)\n덧셈정리: cos(α − β) = cos α cos β + sin α sin β\n대입해서 계산하면 {answer}",
-        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles)\nAddition formula: cos(α − β) = cos α cos β + sin α sin β\nSubstitute and calculate: {answer}"
+        "ja": "sin α = {sa} から cos α、cos β = {cb} から sin β を求める(鋭角なのでどちらも正) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n加法定理: cos(α − β) = cos α cos β + sin α sin β\n代入して計算すると {answer}",
+        "ko": "sin α = {sa} 에서 cos α, cos β = {cb} 에서 sin β 를 구합니다 (예각이므로 둘 다 양수) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\n덧셈정리: cos(α − β) = cos α cos β + sin α sin β\n대입해서 계산하면 {answer}",
+        "en": "Find cos α from sin α = {sa} and sin β from cos β = {cb} (both positive, acute angles) → cos α = {=sqrt(1-sa*sa)}, sin β = {=sqrt(1-cb*cb)}\nAddition formula: cos(α − β) = cos α cos β + sin α sin β\nSubstitute and calculate: {answer}"
       }
     },
     {
@@ -339,9 +339,9 @@
         "en": "Given {range} and sin θ = {sin}, what is sin 2θ?"
       },
       "explain": {
-        "ja": "sin² θ + cos² θ = 1 から cos θ の大きさを求める\n範囲 {range} から cos θ の符号を決める\nsin 2θ = 2 sin θ cos θ に代入して {answer}",
-        "ko": "sin² θ + cos² θ = 1 에서 cos θ 의 크기를 구합니다\n범위 {range} 에서 cos θ 의 부호를 정합니다\nsin 2θ = 2 sin θ cos θ 에 대입하면 {answer}",
-        "en": "Find the size of cos θ from sin² θ + cos² θ = 1\nThe range {range} fixes the sign of cos θ\nPut into sin 2θ = 2 sin θ cos θ: {answer}"
+        "ja": "sin² θ + cos² θ = 1 から cos θ の大きさを求める → {=sqrt(1-sin*sin)}\n範囲 {range} から cos θ の符号を決める\nsin 2θ = 2 sin θ cos θ に代入して {answer}",
+        "ko": "sin² θ + cos² θ = 1 에서 cos θ 의 크기를 구합니다 → {=sqrt(1-sin*sin)}\n범위 {range} 에서 cos θ 의 부호를 정합니다\nsin 2θ = 2 sin θ cos θ 에 대입하면 {answer}",
+        "en": "Find the size of cos θ from sin² θ + cos² θ = 1 → {=sqrt(1-sin*sin)}\nThe range {range} fixes the sign of cos θ\nPut into sin 2θ = 2 sin θ cos θ: {answer}"
       }
     },
     {
@@ -358,9 +358,9 @@
         "en": "Given {range} and sin θ = {sin}, what is cos 2θ?"
       },
       "explain": {
-        "ja": "2倍角の公式 cos 2θ = 1 − 2 sin² θ を使う(sin θ だけで計算できる)\n1 − 2 × ({sin})²\n{answer}",
-        "ko": "2배각 공식 cos 2θ = 1 − 2 sin² θ 를 씁니다 (sin θ 만으로 계산됩니다)\n1 − 2 × ({sin})²\n{answer}",
-        "en": "Use cos 2θ = 1 − 2 sin² θ (it needs only sin θ)\n1 − 2 × ({sin})²\n{answer}"
+        "ja": "2倍角の公式 cos 2θ = 1 − 2 sin² θ を使う(sin θ だけで計算できる)\n1 − 2 × ({sin})² = 1 − {=2*sin*sin}\n{answer}",
+        "ko": "2배각 공식 cos 2θ = 1 − 2 sin² θ 를 씁니다 (sin θ 만으로 계산됩니다)\n1 − 2 × ({sin})² = 1 − {=2*sin*sin}\n{answer}",
+        "en": "Use cos 2θ = 1 − 2 sin² θ (it needs only sin θ)\n1 − 2 × ({sin})² = 1 − {=2*sin*sin}\n{answer}"
       }
     },
     {
@@ -412,9 +412,9 @@
             "en": "What is the angle in radians?"
           },
           "explain": {
-            "ja": "{deg}° × π/180 = {answer}",
-            "ko": "{deg}° × π/180 = {answer}",
-            "en": "{deg}° × π/180 = {answer}"
+            "ja": "180° = π なので、度に π/180 を掛ける\n{deg}° × π/180 = {answer}",
+            "ko": "180° = π 이므로 도(°)에 π/180 을 곱합니다\n{deg}° × π/180 = {answer}",
+            "en": "180° = π, so multiply degrees by π/180\n{deg}° × π/180 = {answer}"
           },
           "figure": {
             "angle": "?"
@@ -434,9 +434,9 @@
             "en": "What is the arc length?"
           },
           "explain": {
-            "ja": "l = rθ = {r} × {a1} = {answer}",
-            "ko": "l = rθ = {r} × {a1} = {answer}",
-            "en": "l = rθ = {r} × {a1} = {answer}"
+            "ja": "弧の長さ l = rθ(θ は弧度法)\n{r} × {a1} = {answer}",
+            "ko": "호의 길이 l = rθ (θ는 호도법)\n{r} × {a1} = {answer}",
+            "en": "Arc length l = rθ (θ in radians)\n{r} × {a1} = {answer}"
           },
           "figure": {
             "angle": "{a1}",
@@ -457,9 +457,9 @@
             "en": "What is the area?"
           },
           "explain": {
-            "ja": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}",
-            "ko": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}",
-            "en": "S = rl ÷ 2 = {r} × {a2} ÷ 2 = {answer}"
+            "ja": "面積 S = rl ÷ 2(弧の長さを使う形)\n{r} × {a2} ÷ 2 = {answer}",
+            "ko": "넓이 S = rl ÷ 2 (호의 길이를 쓰는 꼴)\n{r} × {a2} ÷ 2 = {answer}",
+            "en": "Area S = rl ÷ 2 (using the arc length)\n{r} × {a2} ÷ 2 = {answer}"
           },
           "figure": {
             "angle": "{a1}",
@@ -492,7 +492,7 @@
             "en": "What is cos θ?"
           },
           "explain": {
-            "ja": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0。{answer}",
+            "ja": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0\n{answer}",
             "ko": "sin² θ + cos² θ = 1 이고 θ는 제2사분면이므로 cos θ < 0. {answer}",
             "en": "sin² θ + cos² θ = 1 and θ is in the second quadrant, so cos θ < 0: {answer}"
           }
@@ -511,9 +511,9 @@
             "en": "What is sin 2θ?"
           },
           "explain": {
-            "ja": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}",
-            "ko": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}",
-            "en": "2 sin θ cos θ = 2 × {sin} × ({a1}) = {answer}"
+            "ja": "2倍角の公式 sin 2θ = 2 sin θ cos θ\n2 × {sin} × ({a1}) = {answer}",
+            "ko": "2배각 공식 sin 2θ = 2 sin θ cos θ\n2 × {sin} × ({a1}) = {answer}",
+            "en": "Double angle: sin 2θ = 2 sin θ cos θ\n2 × {sin} × ({a1}) = {answer}"
           }
         },
         {
@@ -530,9 +530,9 @@
             "en": "What is cos 2θ?"
           },
           "explain": {
-            "ja": "1 − 2 sin² θ = {answer}",
-            "ko": "1 − 2 sin² θ = {answer}",
-            "en": "1 − 2 sin² θ = {answer}"
+            "ja": "2倍角の公式 cos 2θ = 1 − 2 sin² θ\n1 − 2 × ({sin})² = {answer}",
+            "ko": "2배각 공식 cos 2θ = 1 − 2 sin² θ\n1 − 2 × ({sin})² = {answer}",
+            "en": "Double angle: cos 2θ = 1 − 2 sin² θ\n1 − 2 × ({sin})² = {answer}"
           }
         }
       ]

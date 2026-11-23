@@ -92,7 +92,7 @@ for (const file of cat.subjects.flatMap((s) => s.units)) {
         if (false && (N(it.answer) < 0 || N(it.answer) >= it.m)) problems.push('remainder out of range');
       } catch (e) { problems.push('error ' + e.message); }
       if (tpl.figure) for (const v of Object.values(tpl.figure)) { const f = String(v).replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/[{}]|undefined|NaN/.test(f)) problems.push('bad figure label ' + f); }
-      for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain', 'note']) { if (!tpl[part]) continue; const s = tpl[part][lang].replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/\{[A-Za-z]\w*\}|undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
+      for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain', 'note']) { if (!tpl[part]) continue; const s = tpl[part][lang].replace(/\{=[^{}]*\}/g, "0").replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/\{[A-Za-z]\w*\}|undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
       if (problems.length) { bad++; seenT[tpl.id] = (seenT[tpl.id] || 0) + 1; if (seenT[tpl.id] <= 2) console.log('PROBLEM', tpl.id, JSON.stringify(it).slice(0, 230), [...new Set(problems)].join('; ').slice(0, 260)); }
       const key = { ...it }; delete key.wrong; (distinct[tpl.id] ||= new Set()).add(JSON.stringify(key));
     }

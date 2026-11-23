@@ -126,9 +126,9 @@
         "en": "In the expansion of {expr}, what is the coefficient of {term}?"
       },
       "explain": {
-        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める\n2つを掛けて {answer}",
-        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다\n둘을 곱하면 {answer}",
-        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest}\nMultiply them: {answer}"
+        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める → {=nCr(n,k)}, {=a**rest}\n2つを掛けて {answer}",
+        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다 → {=nCr(n,k)}, {=a**rest}\n둘을 곱하면 {answer}",
+        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest} → {=nCr(n,k)}, {=a**rest}\nMultiply them: {answer}"
       }
     },
     {
@@ -145,9 +145,9 @@
         "en": "In the expansion of {expr}, what is the coefficient of {term}?"
       },
       "explain": {
-        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める\n2つを掛けて {answer}",
-        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다\n둘을 곱하면 {answer}",
-        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest}\nMultiply them: {answer}"
+        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める → {=nCr(n,k)}, {=a**rest}\n2つを掛けて {answer}",
+        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다 → {=nCr(n,k)}, {=a**rest}\n둘을 곱하면 {answer}",
+        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest} → {=nCr(n,k)}, {=a**rest}\nMultiply them: {answer}"
       }
     },
     {
@@ -342,9 +342,9 @@
             "en": "What is {comb}, which appears in the {term} term?"
           },
           "explain": {
-            "ja": "{n} 個から {k} 個を選ぶ組合せは {answer}",
-            "ko": "{n}개에서 {k}개를 고르는 조합은 {answer}",
-            "en": "Choosing {k} from {n}: {answer}"
+            "ja": "{n} 個から {k} 個を選ぶ組合せ {comb}\n{=seq(n,k)} ÷ {k}! = {answer}",
+            "ko": "{n} 개에서 {k} 개를 고르는 조합 {comb}\n{=seq(n,k)} ÷ {k}! = {answer}",
+            "en": "{comb}: choosing {k} from {n}\n{=seq(n,k)} ÷ {k}! = {answer}"
           }
         },
         {
@@ -361,9 +361,9 @@
             "en": "What is ({a}) to the power {rest}, which multiplies the same term?"
           },
           "explain": {
-            "ja": "({a}) を {rest} 回掛けると {answer}",
-            "ko": "({a})를 {rest}번 곱하면 {answer}",
-            "en": "Multiply ({a}) by itself {rest} times: {answer}"
+            "ja": "{term} の項では、({a}) が残りの {rest} 回分掛かる\n({a}) を {rest} 回掛けると {answer}",
+            "ko": "{term} 항에서는 ({a})가 나머지 {rest}번만큼 곱해집니다\n({a})를 {rest}번 곱하면 {answer}",
+            "en": "In the {term} term, ({a}) is multiplied the other {rest} times\n({a}) to the power {rest} = {answer}"
           }
         },
         {
@@ -380,9 +380,9 @@
             "en": "What is the coefficient of {term}?"
           },
           "explain": {
-            "ja": "{a1} × {a2} = {answer}",
-            "ko": "{a1} × {a2} = {answer}",
-            "en": "{a1} × {a2} = {answer}"
+            "ja": "係数 = (組合せ) × (累乗)\n{a1} × {a2} = {answer}",
+            "ko": "계수 = (조합) × (거듭제곱)\n{a1} × {a2} = {answer}",
+            "en": "Coefficient = (combination) × (power)\n{a1} × {a2} = {answer}"
           }
         }
       ]
@@ -410,9 +410,9 @@
             "en": "What is the product of x and {c}/x?"
           },
           "explain": {
-            "ja": "x が約分されて {answer}",
-            "ko": "x가 약분되어 {answer}",
-            "en": "The x cancels: {answer}"
+            "ja": "x × ({c}/x) を計算する\nx が約分されて {answer}",
+            "ko": "x × ({c}/x) 를 계산합니다\nx가 약분되어 {answer}",
+            "en": "Work out x × ({c}/x)\nThe x cancels: {answer}"
           }
         },
         {
@@ -429,7 +429,7 @@
             "en": "What is the minimum of {expr}?"
           },
           "explain": {
-            "ja": "x + {c}/x ≧ 2√{a1}。これに定数 {d} を加えて {answer}",
+            "ja": "x + {c}/x ≧ 2√{a1}\nこれに定数 {d} を加えて {answer}",
             "ko": "x + {c}/x ≧ 2√{a1}. 여기에 상수 {d}를 더해서 {answer}",
             "en": "x + {c}/x ≥ 2√{a1}; then add the constant {d}: {answer}"
           }
@@ -448,7 +448,7 @@
             "en": "At what x is the minimum reached?"
           },
           "explain": {
-            "ja": "等号は x = {c}/x のとき成り立つ。x > 0 より x = {answer}",
+            "ja": "等号は x = {c}/x のとき成り立つ\nx > 0 より x = {answer}",
             "ko": "등호는 x = {c}/x 일 때 성립합니다. x > 0 이므로 x = {answer}",
             "en": "Equality holds when x = {c}/x; since x > 0, x = {answer}"
           }

@@ -93,9 +93,9 @@
         "en": "In △ABC, AB = {c}, AC = {b} and BC = {a}. The bisector of ∠A meets BC at D. How long is BD?"
       },
       "explain": {
-        "ja": "角の二等分線は、向かい合う辺を、角をはさむ2辺の比に分ける\nBD : DC = AB : AC = {c} : {b}\nBD = BC × {c} ÷ ({c} + {b}) = {answer}",
-        "ko": "각의 이등분선은 마주 보는 변을, 각을 낀 두 변의 비로 나눕니다\nBD : DC = AB : AC = {c} : {b}\nBD = BC × {c} ÷ ({c} + {b}) = {answer}",
-        "en": "An angle bisector divides the opposite side in the ratio of the two sides\nBD : DC = AB : AC = {c} : {b}\nBD = BC × {c} ÷ ({c} + {b}) = {answer}"
+        "ja": "角の二等分線は、向かい合う辺を、角をはさむ2辺の比に分ける\nBD : DC = AB : AC = {c} : {b} (BC = {a})\nBD = BC × {c} ÷ ({c} + {b}) = {answer}",
+        "ko": "각의 이등분선은 마주 보는 변을, 각을 낀 두 변의 비로 나눕니다\nBD : DC = AB : AC = {c} : {b} (BC = {a})\nBD = BC × {c} ÷ ({c} + {b}) = {answer}",
+        "en": "An angle bisector divides the opposite side in the ratio of the two sides\nBD : DC = AB : AC = {c} : {b} (BC = {a})\nBD = BC × {c} ÷ ({c} + {b}) = {answer}"
       },
       "figure": {
         "kind": "bisect",
@@ -250,9 +250,9 @@
         "en": "Chords AB and CD of a circle meet at P. If PA = {a}, PB = {b} and PC = {c}, how long is PD?"
       },
       "explain": {
-        "ja": "方べきの定理: PA × PB = PC × PD\n{a} × {b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}",
-        "ko": "방멱 정리: PA × PB = PC × PD\n{a} × {b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}",
-        "en": "Intersecting chords: PA × PB = PC × PD\n{a} × {b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}"
+        "ja": "方べきの定理: PA × PB = PC × PD\n{a} × {b} = {c} × PD → {=a*b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}",
+        "ko": "방멱 정리: PA × PB = PC × PD\n{a} × {b} = {c} × PD → {=a*b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}",
+        "en": "Intersecting chords: PA × PB = PC × PD\n{a} × {b} = {c} × PD → {=a*b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}"
       },
       "figure": {
         "kind": "chords",
@@ -273,9 +273,9 @@
         "en": "A line through an outside point P meets a circle at A and B, and a tangent from P touches the circle at T. If PA = {a} and PB = {b}, how long is PT?"
       },
       "explain": {
-        "ja": "方べきの定理(接線): PT² = PA × PB\nPT² = {a} × {b}\n平方根をとって PT = {answer}",
-        "ko": "방멱 정리(접선): PT² = PA × PB\nPT² = {a} × {b}\n제곱근을 구하면 PT = {answer}",
-        "en": "Tangent–secant: PT² = PA × PB\nPT² = {a} × {b}\nTake the root: PT = {answer}"
+        "ja": "方べきの定理(接線): PT² = PA × PB\nPT² = {a} × {b} = {=a*b}\n平方根をとって PT = {answer}",
+        "ko": "방멱 정리(접선): PT² = PA × PB\nPT² = {a} × {b} = {=a*b}\n제곱근을 구하면 PT = {answer}",
+        "en": "Tangent–secant: PT² = PA × PB\nPT² = {a} × {b} = {=a*b}\nTake the root: PT = {answer}"
       },
       "figure": {
         "kind": "tangent",
@@ -347,9 +347,9 @@
         "af": "AF = ?"
       },
       "explain": {
-        "ja": "1点から円に引いた2本の接線の長さは等しい\nAF = x とすると、AB + CA − BC = 2x になる\nx = ({c} + {b} − {a}) ÷ 2 = {answer}",
-        "ko": "한 점에서 원에 그은 두 접선의 길이는 같습니다\nAF = x 라 하면 AB + CA − BC = 2x 가 됩니다\nx = ({c} + {b} − {a}) ÷ 2 = {answer}",
-        "en": "Two tangents from one point have equal length\nWith AF = x, AB + CA − BC = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}"
+        "ja": "1点から円に引いた2本の接線の長さは等しい\nAF = x とすると、AB + CA − BC = 2x になる → {=c+b-a} = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}",
+        "ko": "한 점에서 원에 그은 두 접선의 길이는 같습니다\nAF = x 라 하면 AB + CA − BC = 2x 가 됩니다 → {=c+b-a} = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}",
+        "en": "Two tangents from one point have equal length\nWith AF = x, AB + CA − BC = 2x → {=c+b-a} = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}"
       }
     },
     {
@@ -363,9 +363,9 @@
         "en": "Two circles have radii {r1} and {r2}, and their centers are {d} apart. How many common tangents do they have?"
       },
       "explain": {
-        "ja": "半径の和 {r1} + {r2} と、半径の差 {r1} − {r2} を求める\n中心間の距離 {d} をこの2つと比べる\n和より大: 4本、和と等しい: 3本、間: 2本、差と等しい: 1本、差より小: 0本。{answer} 本",
-        "ko": "반지름의 합 {r1} + {r2} 와 반지름의 차 {r1} − {r2} 를 구합니다\n중심 사이의 거리 {d} 를 이 둘과 비교합니다\n합보다 큼: 4개, 합과 같음: 3개, 사이: 2개, 차와 같음: 1개, 차보다 작음: 0개. {answer}개",
-        "en": "Find the sum {r1} + {r2} and the difference {r1} − {r2} of the radii\nCompare the distance {d} with both\nMore than the sum: 4; equal: 3; between: 2; equal to the difference: 1; less: 0. {answer}"
+        "ja": "半径の和 {r1} + {r2} と、半径の差 {r1} − {r2} を求める → {=r1+r2}, {=r1-r2}\n中心間の距離 {d} をこの2つと比べる\n和より大: 4本、和と等しい: 3本、間: 2本、差と等しい: 1本、差より小: 0本。{answer} 本",
+        "ko": "반지름의 합 {r1} + {r2} 와 반지름의 차 {r1} − {r2} 를 구합니다 → {=r1+r2}, {=r1-r2}\n중심 사이의 거리 {d} 를 이 둘과 비교합니다\n합보다 큼: 4개, 합과 같음: 3개, 사이: 2개, 차와 같음: 1개, 차보다 작음: 0개. {answer}개",
+        "en": "Find the sum {r1} + {r2} and the difference {r1} − {r2} of the radii → {=r1+r2}, {=r1-r2}\nCompare the distance {d} with both\nMore than the sum: 4; equal: 3; between: 2; equal to the difference: 1; less: 0. {answer}"
       }
     },
     {
@@ -465,7 +465,7 @@
             "en": "What is ∠C?"
           },
           "explain": {
-            "ja": "円に内接する四角形の向かい合う角の和は 180°。∠C = 180° − {A}° = {answer}",
+            "ja": "円に内接する四角形の向かい合う角の和は 180°\n∠C = 180° − {A}° = {answer}",
             "ko": "원에 내접하는 사각형에서 마주 보는 각의 합은 180°. ∠C = 180° − {A}° = {answer}",
             "en": "Opposite angles of a cyclic quadrilateral add to 180°: ∠C = 180° − {A}° = {answer}"
           }
@@ -487,7 +487,7 @@
             "en": "What is the central angle ∠BOD standing on the arc BD that contains C?"
           },
           "explain": {
-            "ja": "この弧に対する円周角は ∠A = {A}°。中心角は円周角の2倍なので {answer}",
+            "ja": "この弧に対する円周角は ∠A = {A}°\n中心角は円周角の2倍なので {answer}",
             "ko": "이 호에 대한 원주각은 ∠A = {A}°. 중심각은 원주각의 2배이므로 {answer}",
             "en": "The inscribed angle on this arc is ∠A = {A}°. The central angle is twice it: {answer}"
           }
@@ -509,7 +509,7 @@
             "en": "What is the acute angle between the tangent at B and the chord BD?"
           },
           "explain": {
-            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)。{answer}",
+            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)\n{answer}",
             "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각 ∠A와 같습니다(접현 정리). {answer}",
             "en": "The tangent–chord angle equals the inscribed angle ∠A on that chord: {answer}"
           }

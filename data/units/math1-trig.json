@@ -611,9 +611,9 @@
         "en": "In △ABC, b = {b}, c = {c} and A = {A}°. What is a?"
       },
       "explain": {
-        "ja": "余弦定理 a² = b² + c² − 2bc cos A を使う\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\na > 0 なので平方根をとって a = {answer}",
-        "ko": "코사인법칙 a² = b² + c² − 2bc cos A 를 씁니다\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\na > 0 이므로 제곱근을 구하면 a = {answer}",
-        "en": "Use the cosine rule a² = b² + c² − 2bc cos A\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}°\nSince a > 0, take the root: a = {answer}"
+        "ja": "余弦定理 a² = b² + c² − 2bc cos A を使う\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}° = {=b*b+c*c-2*b*c*cosd(A)}\na > 0 なので平方根をとって a = {answer}",
+        "ko": "코사인법칙 a² = b² + c² − 2bc cos A 를 씁니다\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}° = {=b*b+c*c-2*b*c*cosd(A)}\na > 0 이므로 제곱근을 구하면 a = {answer}",
+        "en": "Use the cosine rule a² = b² + c² − 2bc cos A\na² = {b}² + {c}² − 2 × {b} × {c} × cos {A}° = {=b*b+c*c-2*b*c*cosd(A)}\nSince a > 0, take the root: a = {answer}"
       }
     },
     {
@@ -636,9 +636,9 @@
         "en": "In △ABC, a = {a}, b = {b} and c = {c}. What is A?"
       },
       "explain": {
-        "ja": "余弦定理を cos A について解いた形 cos A = (b² + c² − a²) ÷ 2bc を使う\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c})\nその値になる角は A = {answer}",
-        "ko": "코사인법칙을 cos A에 대해 푼 꼴 cos A = (b² + c² − a²) ÷ 2bc 를 씁니다\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c})\n그 값이 되는 각은 A = {answer}",
-        "en": "Use cos A = (b² + c² − a²) ÷ 2bc\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c})\nThe angle with that value is A = {answer}"
+        "ja": "余弦定理を cos A について解いた形 cos A = (b² + c² − a²) ÷ 2bc を使う\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c}) = {=(b*b+c*c-a*a)/(2*b*c)}\nその値になる角は A = {answer}",
+        "ko": "코사인법칙을 cos A에 대해 푼 꼴 cos A = (b² + c² − a²) ÷ 2bc 를 씁니다\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c}) = {=(b*b+c*c-a*a)/(2*b*c)}\n그 값이 되는 각은 A = {answer}",
+        "en": "Use cos A = (b² + c² − a²) ÷ 2bc\ncos A = ({b}² + {c}² − {a}²) ÷ (2 × {b} × {c}) = {=(b*b+c*c-a*a)/(2*b*c)}\nThe angle with that value is A = {answer}"
       }
     },
     {
@@ -677,9 +677,9 @@
         "en": "In cuboid ABCD-EFGH, AB = {a}, AD = {b} and AE = {c}. How long is the diagonal AG?"
       },
       "explain": {
-        "ja": "底面の対角線 AC² = AB² + AD² = {a}² + {b}²\n直角三角形 ACG で AG² = AC² + AE² = {a}² + {b}² + {c}²\n平方根をとって AG = {answer}",
-        "ko": "밑면의 대각선 AC² = AB² + AD² = {a}² + {b}²\n직각삼각형 ACG에서 AG² = AC² + AE² = {a}² + {b}² + {c}²\n제곱근을 구하면 AG = {answer}",
-        "en": "Base diagonal: AC² = AB² + AD² = {a}² + {b}²\nIn right triangle ACG: AG² = AC² + AE² = {a}² + {b}² + {c}²\nTake the root: AG = {answer}"
+        "ja": "底面の対角線 AC² = AB² + AD² = {a}² + {b}² = {=a*a+b*b}\n直角三角形 ACG で AG² = AC² + AE² = {a}² + {b}² + {c}² = {=a*a+b*b+c*c}\n平方根をとって AG = {answer}",
+        "ko": "밑면의 대각선 AC² = AB² + AD² = {a}² + {b}² = {=a*a+b*b}\n직각삼각형 ACG에서 AG² = AC² + AE² = {a}² + {b}² + {c}² = {=a*a+b*b+c*c}\n제곱근을 구하면 AG = {answer}",
+        "en": "Base diagonal: AC² = AB² + AD² = {a}² + {b}² = {=a*a+b*b}\nIn right triangle ACG: AG² = AC² + AE² = {a}² + {b}² + {c}² = {=a*a+b*b+c*c}\nTake the root: AG = {answer}"
       },
       "figure": {
         "kind": "cuboid",
@@ -788,9 +788,9 @@
         "en": "What kind of triangle has sides {a}, {b} and {c}?"
       },
       "explain": {
-        "ja": "いちばん長い辺を見つける\nその2乗と、ほかの2辺の2乗の和を比べる\n等しければ直角、小さければ鋭角、大きければ鈍角三角形。{answer}",
-        "ko": "가장 긴 변을 찾습니다\n그 제곱과 나머지 두 변의 제곱의 합을 비교합니다\n같으면 직각, 작으면 예각, 크면 둔각삼각형. {answer}",
-        "en": "Find the longest side\nCompare its square with the sum of the squares of the other two\nEqual: right; smaller: acute; larger: obtuse. {answer}"
+        "ja": "いちばん長い辺を見つける\nその2乗と、ほかの2辺の2乗の和を比べる → {=max(a,b,c)**2} : {=a*a+b*b+c*c-max(a,b,c)**2}\n等しければ直角、小さければ鋭角、大きければ鈍角三角形。{answer}",
+        "ko": "가장 긴 변을 찾습니다\n그 제곱과 나머지 두 변의 제곱의 합을 비교합니다 → {=max(a,b,c)**2} : {=a*a+b*b+c*c-max(a,b,c)**2}\n같으면 직각, 작으면 예각, 크면 둔각삼각형. {answer}",
+        "en": "Find the longest side\nCompare its square with the sum of the squares of the other two → {=max(a,b,c)**2} : {=a*a+b*b+c*c-max(a,b,c)**2}\nEqual: right; smaller: acute; larger: obtuse. {answer}"
       }
     },
     {
@@ -813,9 +813,9 @@
         "sideC": "{c}"
       },
       "explain": {
-        "ja": "s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 を求める\ns − a、s − b、s − c をそれぞれ計算する\nS = √(s(s − a)(s − b)(s − c)) = {answer}",
-        "ko": "s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 를 구합니다\ns − a, s − b, s − c 를 각각 계산합니다\nS = √(s(s − a)(s − b)(s − c)) = {answer}",
-        "en": "Find s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2\nWork out s − a, s − b and s − c\nS = √(s(s − a)(s − b)(s − c)) = {answer}"
+        "ja": "s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 を求める = {=(a+b+c)/2}\ns − a、s − b、s − c をそれぞれ計算する → {=(b+c-a)/2}, {=(a+c-b)/2}, {=(a+b-c)/2}\nS = √(s(s − a)(s − b)(s − c)) = {answer}",
+        "ko": "s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 를 구합니다 = {=(a+b+c)/2}\ns − a, s − b, s − c 를 각각 계산합니다 → {=(b+c-a)/2}, {=(a+c-b)/2}, {=(a+b-c)/2}\nS = √(s(s − a)(s − b)(s − c)) = {answer}",
+        "en": "Find s = (a + b + c) ÷ 2 = ({a} + {b} + {c}) ÷ 2 = {=(a+b+c)/2}\nWork out s − a, s − b and s − c → {=(b+c-a)/2}, {=(a+c-b)/2}, {=(a+b-c)/2}\nS = √(s(s − a)(s − b)(s − c)) = {answer}"
       }
     },
     {

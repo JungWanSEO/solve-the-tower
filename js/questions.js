@@ -7,6 +7,7 @@
 //
 // 유형의 이름은 "단원/유형" 입니다. (예: math1-trig/sinerule)
 // 플레이어가 고른 범위(유형 목록) 안에서만 문제를 냅니다.
+import { calcFill } from './calc.js';
 import { fill, pick, t } from './i18n.js';
 import { GENERATORS, CHAINS } from './generators.js';
 
@@ -214,7 +215,7 @@ export function questionText(raw) {
 
 // 풀이 글. 단원 파일에서 줄바꿈으로 단계를 나눠 적으면 화면에 ①②③ 단계로 나옵니다.
 export function explainText(raw) {
-  return fill(pick(raw.tpl.explain), shown(raw.item));
+  return fill(calcFill(pick(raw.tpl.explain), raw.item), shown(raw.item)); // {= 식 } 을 먼저 계산합니다 (js/calc.js)
 }
 // 풀이의 단계들 (한 줄짜리 풀이는 한 단계)
 export const explainSteps = (raw) => explainText(raw).split('\n').map((line) => line.trim()).filter(Boolean);

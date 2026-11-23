@@ -368,9 +368,9 @@
             "en": "What is α + β?"
           },
           "explain": {
-            "ja": "α + β = −b/a より {answer}",
-            "ko": "α + β = −b/a 이므로 {answer}",
-            "en": "α + β = −b/a = {answer}"
+            "ja": "解と係数の関係: α + β = −b/a\n{eq} では a = 1 なので、x の係数の符号を逆にして {answer}",
+            "ko": "근과 계수의 관계: α + β = −b/a\n{eq} 에서는 a = 1 이므로 x의 계수의 부호를 바꿔 {answer}",
+            "en": "Roots and coefficients: α + β = −b/a\nIn {eq} a = 1, so flip the sign of the x coefficient: {answer}"
           }
         },
         {
@@ -387,9 +387,9 @@
             "en": "What is αβ?"
           },
           "explain": {
-            "ja": "αβ = c/a より {answer}",
-            "ko": "αβ = c/a 이므로 {answer}",
-            "en": "αβ = c/a = {answer}"
+            "ja": "解と係数の関係: αβ = c/a\n{eq} では a = 1 なので、定数項そのまま {answer}",
+            "ko": "근과 계수의 관계: αβ = c/a\n{eq} 에서는 a = 1 이므로 상수항 그대로 {answer}",
+            "en": "Roots and coefficients: αβ = c/a\nIn {eq} a = 1, so it is the constant term: {answer}"
           }
         },
         {
@@ -406,9 +406,9 @@
             "en": "What is α² + β²?"
           },
           "explain": {
-            "ja": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}",
-            "ko": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}",
-            "en": "(α + β)² − 2αβ = ({a1})² − 2 × ({a2}) = {answer}"
+            "ja": "α² + β² = (α + β)² − 2αβ\n({a1})² − 2 × ({a2}) = {answer}",
+            "ko": "α² + β² = (α + β)² − 2αβ\n({a1})² − 2 × ({a2}) = {answer}",
+            "en": "α² + β² = (α + β)² − 2αβ\n({a1})² − 2 × ({a2}) = {answer}"
           }
         }
       ]
@@ -436,9 +436,9 @@
             "en": "What is the remainder when P(x) is divided by {div}?"
           },
           "explain": {
-            "ja": "剰余の定理より、代入して {answer}",
-            "ko": "나머지정리에 의해 대입하면 {answer}",
-            "en": "Substitute, by the remainder theorem: {answer}"
+            "ja": "剰余の定理: {div} で割った余りは、{div} = 0 となる x を P(x) に代入した値\n代入して {answer}",
+            "ko": "나머지정리: {div} 로 나눈 나머지는 {div} = 0 이 되는 x를 P(x)에 대입한 값\n대입하면 {answer}",
+            "en": "Remainder theorem: put the x that makes {div} = 0 into P(x)\nSubstituting gives {answer}"
           }
         },
         {
@@ -455,9 +455,9 @@
             "en": "What is the smallest root of P(x) = 0?"
           },
           "explain": {
-            "ja": "P(k) = 0 となる k を見つけて因数分解すると、最小の解は {answer}",
-            "ko": "P(k) = 0 이 되는 k를 찾아 인수분해하면 가장 작은 해는 {answer}",
-            "en": "Find k with P(k) = 0 and factor; the smallest root is {answer}"
+            "ja": "定数項の約数を代入して P(k) = 0 となる k を1つ見つける\nx − k で割り、残りの2次式を因数分解する\n3つの解のうち最小のものは {answer}",
+            "ko": "상수항의 약수를 대입해서 P(k) = 0 이 되는 k를 하나 찾습니다\nx − k 로 나누고 남은 이차식을 인수분해합니다\n세 해 중 가장 작은 것은 {answer}",
+            "en": "Try divisors of the constant to find a k with P(k) = 0\nDivide by x − k and factor the quadratic\nThe smallest of the three roots is {answer}"
           }
         },
         {
@@ -474,9 +474,9 @@
             "en": "What is the largest root of P(x) = 0?"
           },
           "explain": {
-            "ja": "3つの解のうち最大のものは {answer}",
-            "ko": "세 해 중에서 가장 큰 것은 {answer}",
-            "en": "The largest of the three roots is {answer}"
+            "ja": "前の問いで求めた3つの解を小さい順に並べる\n最大のものは {answer}",
+            "ko": "앞에서 구한 세 해를 작은 순서로 늘어놓습니다\n가장 큰 것은 {answer}",
+            "en": "List the three roots found above in order\nThe largest is {answer}"
           }
         }
       ]

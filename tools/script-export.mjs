@@ -6,9 +6,10 @@ const ROOT = new URL('../', import.meta.url).pathname;
 const read = (p) => JSON.parse(fs.readFileSync(ROOT + p, 'utf8'));
 globalThis.document = { documentElement: {} };
 const { GENERATORS, CHAINS } = await import(ROOT + 'js/generators.js');
+const { calcFill } = await import(ROOT + 'js/calc.js');
 const rows = []; // { key, area, kind, ko, ja, sample }
 // sample: {a} 같은 자리에 실제 숫자를 넣어 본 예. 검수하는 사람이 화면에 어떻게 나오는지 볼 수 있게 합니다.
-const fillWith = (s, item) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in item ? item[k] : m));
+const fillWith = (s, item) => String(calcFill(s, item)).replace(/\{(\w+)\}/g, (m, k) => (k in item ? item[k] : m));
 const add = (key, area, kind, text, item) => { if (text && text.ja) rows.push({ key, area, kind, ko: text.ko || '', ja: text.ja, sample: item && /\{\w+\}/.test(text.ja) ? fillWith(text.ja, item) : '' }); };
 
 // 1) 화면 글 (lang/ja.json)

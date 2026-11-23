@@ -3,7 +3,7 @@
   "type": "module",
   "description": "Solve the Tower 검사 도구. 게임 자체는 이 폴더 없이 동작합니다.",
   "scripts": {
-    "verify": "rm -f .covered-*.json; for f in verify-trig verify-math1-basic verify-math1-extra verify-math1a verify-math1-finish verify-matha-finish verify-math2 verify-chains verify-coverage; do echo \"== $f\"; node $f.mjs | grep -E 'PROBLEM|MISSING|NOT VERIFIED|problems [0-9]+' | cut -c1-300; done",
+    "verify": "rm -f .covered-*.json; for f in verify-trig verify-math1-basic verify-math1-extra verify-math1a verify-math1-finish verify-matha-finish verify-math2 verify-explain verify-chains verify-coverage; do echo \"== $f\"; node $f.mjs | grep -E 'PROBLEM|MISSING|NOT VERIFIED|problems [0-9]+' | cut -c1-300; done",
     "play": "node play.mjs 0.8 3",
     "balance": "node balance.mjs",
     "layout": "node layout.mjs",
