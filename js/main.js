@@ -303,6 +303,7 @@ async function boot() {
 
   function go(name) {
     screen = name;
+    document.body.dataset.screen = name; // 화면마다 다른 배치를 CSS 가 고를 수 있게 (넓은 화면의 전투 등)
     show(name);
     if (name !== 'screenBattle') music('calm'); // 전투가 아니면 잔잔한 곡
     window.scrollTo(0, 0); // 긴 화면에서 넘어와도 맨 위부터 보이게

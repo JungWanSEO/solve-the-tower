@@ -9,7 +9,7 @@
   --teal: #2fd9b9;
   --amber: #ffc857;
   --rose: #ff7d8f;
-  color-scheme: dark;
+  color-scheme: only dark; /* 이미 어두운 화면입니다. 브라우저가 색을 한 번 더 어둡게 바꾸지 않게 합니다 */
 }
 
 * { box-sizing: border-box; }
@@ -963,3 +963,17 @@ html[lang="ko"] .news-list li { word-break: keep-all; overflow-wrap: anywhere; }
 .tightest .question { padding: 6px 10px; gap: 3px; }
 .tightest .answers button { min-height: 44px; }
 .tightest .foe { padding-top: 6px; padding-bottom: 4px; gap: 4px; }
+
+/* ---- 넓은 화면의 전투 (가로로 놓은 태블릿, PC) ----
+   세로로 긴 스마트폰에 맞춘 한 줄 배치를 그대로 쓰면, 화면은 넓은데 높이가 낮아서 싸우는 그림이 가는 띠가 됩니다.
+   폭이 820px 이상이고 가로로 놓였을 때는 왼쪽에 싸우는 그림, 오른쪽에 문제와 답을 나란히 놓습니다. */
+@media (min-width: 820px) and (orientation: landscape) {
+  body[data-screen="screenBattle"] #app { max-width: 980px; }
+  #screenBattle:not([hidden]) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; }
+  #screenBattle .foe { grid-column: 1; grid-row: 1; }
+  #screenBattle .me { grid-column: 1; grid-row: 2; }
+  #screenBattle .panel { grid-column: 2; grid-row: 1 / span 2; }
+  #screenBattle.answering .foe { grid-row: 1 / span 2; align-self: stretch; }
+  #screenBattle canvas, .answering canvas { max-height: none; }
+  #screenBattle.answering .intent { display: flex; }
+}
