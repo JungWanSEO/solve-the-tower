@@ -4,7 +4,7 @@
 //   "figure": { "kind": "triangle", "angle": "θ", "opp": "{a}", "adj": "{b}", "hyp": "{c}" }
 //
 // kind 는 아래와 같습니다. (数学A 와 공간도형용 그림은 파일 아래쪽 설명을 보세요) 빈 글("")을 적은 자리에는 아무것도 표시하지 않습니다.
-//   triangle  직각삼각형   angle 각 · opp 맞은편 변 · adj 이웃 변 · hyp 빗변
+//   triangle  직각삼각형   angle 각 · opp 맞은편 변 · adj 이웃 변 · hyp 빗변 · r 내접원의 이름표 (적으면 내접원을 그립니다)
 //   tower     탑 하나      angle 올려본 각 · dist 수평거리 · height 높이
 //   twopoint  탑과 두 지점 far 먼 지점의 각 · near 가까운 지점의 각 · gap 두 지점 사이 · height 높이
 //   anytri    삼각형 ABC   angleA·angleB·angleC 각 · sideA·sideB·sideC 변 (a 는 A 와 마주 보는 변)
@@ -90,7 +90,9 @@ const DRAW = {
       label(76, 119, L.angle, 'start') +
       label(140, 144, L.adj) +
       label(250, 80, L.opp, 'start') +
-      label(128, 62, L.hyp, 'end')
+      label(128, 62, L.hyp, 'end') +
+      // r 을 적으면 내접원을 그리고 그 안에 이름표를 둡니다 (내접원의 반지름을 묻는 문제)
+      (L.r ? ring([201.8, 86.8], 38.2, ASK) + label(201.8, 92, L.r) : '')
     );
   },
   tower(L) {
@@ -162,10 +164,23 @@ const DRAW = {
       `<path d="M${P.A[0]} ${P.A[1]} L${P.B[0]} ${P.B[1]} L${P.C[0]} ${P.C[1]} Z" stroke="${LINE}" stroke-width="2.5"/>` +
       corner(P.A, 'A') + corner(P.B, 'B') + corner(P.C, 'C') +
       angle(P.A, 'A', L.angleA) + angle(P.B, 'B', L.angleB) + angle(P.C, 'C', L.angleC) +
-      side(P.B, P.C, 'a', L.sideA) + side(P.C, P.A, 'b', L.sideB) + side(P.A, P.B, 'c', L.sideC)
+      side(P.B, P.C, 'a', L.sideA) + side(P.C, P.A, 'b', L.sideB) + side(P.A, P.B, 'c', L.sideC) +
+      incircleOf(P.A, P.B, P.C, L.r)
     );
   },
 };
+// 삼각형의 내접원과 그 안의 이름표 (r 을 적은 그림에만 그립니다. 내접원의 반지름을 묻는 문제용)
+function incircleOf(A, B, C, text) {
+  if (!text) return '';
+  const a = Math.hypot(B[0] - C[0], B[1] - C[1]);
+  const b = Math.hypot(A[0] - C[0], A[1] - C[1]);
+  const c = Math.hypot(A[0] - B[0], A[1] - B[1]);
+  const I = [(a * A[0] + b * B[0] + c * C[0]) / (a + b + c), (a * A[1] + b * B[1] + c * C[1]) / (a + b + c)];
+  const s2 = (a + b + c) / 2;
+  const r = Math.sqrt(((s2 - a) * (s2 - b) * (s2 - c)) / s2);
+  // 원이 작으면 이름표를 원 안에 넣지 않고 오른쪽 옆에 둡니다.
+  return ring([r1(I[0]), r1(I[1])], r1(r), ASK) + (r >= 36 ? label(r1(I[0]), r1(I[1] + 6), text) : dot(I, ASK) + label(r1(I[0] + r + 8), r1(I[1] + 6), text, 'start'));
+}
 
 // ---------- 数学A 図形の性質 · 空間図形 ----------
 Object.assign(DRAW, {
@@ -245,8 +260,17 @@ Object.assign(DRAW, {
     const B = onCircle(O, R, 118);
     const C = onCircle(O, R, 22);
     const D = onCircle(O, R, 300);
+    // central 을 적으면 중심 O 와 반지름 OB, OD, 중심각을 그립니다. tangent 를 적으면 점 B 에서의 접선과 현 BD 를 그립니다.
+    let extra = '';
+    if (L.central) extra += seg(O, B, ASK, 2) + seg(O, D, ASK, 2) + dot(O) + `<text x="${O[0] - 12}" y="${O[1] + 4}" text-anchor="middle" font-size="13" font-weight="700" fill="${DIM}">O</text>` + label(O[0] - 8, O[1] - 26, L.central);
+    if (L.tangent) {
+      const dir = [-(B[1] - O[1]) / R, (B[0] - O[0]) / R]; // 반지름에 수직인 방향
+      const T1 = [B[0] - dir[0] * 70, B[1] - dir[1] * 70];
+      const T2 = [B[0] + dir[0] * 70, B[1] + dir[1] * 70];
+      extra += seg(T1, T2, ASK, 2.5) + seg(B, D, ASK, 2, '5 4') + label(r1(B[0] + 40), r1(B[1] + 2), L.tangent, 'start');
+    }
     return frame(
-      ring(O, R) + shape([A, B, C, D]) + arc(A, B, D, 18) + arc(C, B, D, 18) +
+      ring(O, R) + shape([A, B, C, D]) + arc(A, B, D, 18) + arc(C, B, D, 18) + extra +
       vertex(A, 'A', O) + vertex(B, 'B', O) + vertex(C, 'C', O) + vertex(D, 'D', O) +
       tag(inside(A, B, D, 36), L.angleA) + tag(inside(C, B, D, 38), L.angleC),
       184,

@@ -479,7 +479,8 @@
             "en": "∠BOD"
           },
           "figure": {
-            "angleC": "{a1}"
+            "angleC": "{a1}",
+            "central": "?"
           },
           "text": {
             "ja": "点 C を含む弧 BD に対する中心角 ∠BOD の大きさは?",
@@ -501,7 +502,8 @@
             "en": "Tangent–chord angle"
           },
           "figure": {
-            "angleC": "{a1}"
+            "angleC": "{a1}",
+            "tangent": "?"
           },
           "text": {
             "ja": "点 B における接線と弦 BD がつくる鋭角の大きさは?",

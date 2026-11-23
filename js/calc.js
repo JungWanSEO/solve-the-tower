@@ -18,6 +18,7 @@ const TOOLS = {
   // 소수로 보여 줄 값 (분수로 바꾸지 않습니다)
   round: (v, places = 0) => { const r = Math.round(v * 10 ** places) / 10 ** places; return Number.isInteger(r) ? r : neg(r); },
   cosd: (deg) => Math.round(Math.cos((deg * Math.PI) / 180) * 1e12) / 1e12,
+  tand: (deg) => Math.round(Math.tan((deg * Math.PI) / 180) * 1e12) / 1e12,
   sind: (deg) => Math.round(Math.sin((deg * Math.PI) / 180) * 1e12) / 1e12,
   // seq(6, 3) → "6 × 5 × 4" (순열을 곱으로 풀어 쓴 것)
   seq: (n, r) => Array.from({ length: r }, (_, k) => n - k).join(' × '),
@@ -76,6 +77,18 @@ function show(value) {
   if (typeof value !== 'number' || !Number.isFinite(value)) return '?';
   if (Math.abs(value - Math.round(value)) < 1e-9) return neg(Math.round(value));
   for (let d = 2; d <= 3000; d++) { const n = value * d; if (Math.abs(n - Math.round(n)) < 1e-7) return `${neg(Math.round(n))}/${d}`; }
+  // 제곱하면 분수가 되는 수는 루트로 적습니다. 예: 0.8660… → √3/2, 4.2426… → 3√2
+  const sq = value * value;
+  for (let d = 1; d <= 400; d++) {
+    const n = sq * d;
+    if (Math.abs(n - Math.round(n)) > 1e-6 || Math.round(n) === 0) continue;
+    let inside = Math.round(n) * d; // 값 = √(n/d) = √(n·d) ÷ d
+    let outside = 1;
+    for (let k = 2; k * k <= inside; k++) while (inside % (k * k) === 0) { inside /= k * k; outside *= k; }
+    const g = gcd(outside, d);
+    const [top, bottom] = [outside / g, d / g];
+    return `${value < 0 ? MINUS : ''}${top === 1 ? '' : top}√${inside}${bottom === 1 ? '' : `/${bottom}`}`;
+  }
   return neg(Math.round(value * 1000) / 1000);
 }
 export function calcFill(text, item) {

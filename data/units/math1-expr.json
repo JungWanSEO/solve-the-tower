@@ -566,9 +566,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "それぞれの根号を簡単にする(平方数を外に出す)\n根号の中が同じものどうしを、文字と同じようにまとめる\n{answer}",
-        "ko": "각 근호를 간단히 합니다 (제곱수를 밖으로)\n근호 안이 같은 것끼리 문자처럼 모읍니다\n{answer}",
-        "en": "Simplify each root (take squares outside)\nCombine roots with the same inside, like like terms\n{answer}"
+        "ja": "それぞれの根号を簡単にする(平方数を外に出す) → {=sqrt(nums(expr)[0])}, {=sqrt(abs(nums(expr)[1]))}\n根号の中が同じものどうしを、文字と同じようにまとめる\n{answer}",
+        "ko": "각 근호를 간단히 합니다 (제곱수를 밖으로) → {=sqrt(nums(expr)[0])}, {=sqrt(abs(nums(expr)[1]))}\n근호 안이 같은 것끼리 문자처럼 모읍니다\n{answer}",
+        "en": "Simplify each root (take squares outside) → {=sqrt(nums(expr)[0])}, {=sqrt(abs(nums(expr)[1]))}\nCombine roots with the same inside, like like terms\n{answer}"
       }
     },
     {
