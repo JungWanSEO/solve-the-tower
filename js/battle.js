@@ -8,9 +8,10 @@ import { fillQuestion } from './qview.js';
 import { $ } from './ui.js';
 import { icon } from './art.js';
 import { play } from './sound.js';
-import { fitBattle } from './fit.js';
+import { fitBattle, showReview } from './fit.js';
 
 export function createBattle({ stage, getRun, record, tutorial, onChange }) {
+  let wasReview = false; // 바로 앞의 화면이 풀이 확인이었는지 (다음 문제로 넘어갈 때 화면을 맨 위로 되돌리려고 기억합니다)
   const B = {
     foe: null,
     weak: null,      // 이번 전투에서 적의 약점 유형
@@ -321,8 +322,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange }) {
     onChange();
     // 문제를 푸는 동안에는 위쪽 줄들을 줄여 문제에 자리를 내 줍니다. 그다음 화면 높이에 맞춥니다.
     document.body.classList.toggle('is-answering', $('screenBattle').classList.contains('answering'));
+    // 풀이를 보느라 내려 둔 화면은 다음 문제로 넘어갈 때 맨 위로 되돌립니다.
+    if (wasReview && B.phase !== 'review') window.scrollTo(0, 0);
+    wasReview = B.phase === 'review';
     fitBattle();
-    if (B.phase === 'review') $('nextBtn').scrollIntoView({ block: 'nearest' });
+    if (wasReview) showReview();
   }
 
   // ---- 턴 진행 ----

@@ -12,12 +12,15 @@ export function fitBattle() {
   if (!screen || screen.hidden) return;
   const figure = document.querySelector('#qFigure svg');
   canvas.style.height = '';
+  if ($('nextBtn').hidden) screen.style.paddingBottom = ''; // 풀이를 보느라 내려 둔 동안에는 아래 여백을 그대로 둡니다
   if (figure) figure.style.maxWidth = '';
   screen.classList.remove('tight', 'tighter');
 
   const answering = screen.classList.contains('answering');
-  // 지금 꼭 보여야 하는 마지막 요소: 틀린 문제 확인 중이면 "다음" 버튼, 문제를 푸는 중이면 답 버튼, 아니면 맨 아래 안내 글
-  const target = !$('nextBtn').hidden ? $('nextBtn') : answering ? $('answers') : $('notice'); // 행동을 고를 때는 아래의 안내 글까지
+  // 지금 꼭 보여야 하는 마지막 요소: 문제를 푸는 중이면 답 버튼, 아니면 맨 아래 안내 글.
+  // 답을 고른 뒤의 풀이와 "다음" 버튼은 여기에 넣지 않습니다. 풀이는 길어서 어차피 한 화면에 다 들어오지 않고,
+  // 거기에 맞추려고 싸우는 그림을 더 줄이면 답을 고르는 순간 화면이 출렁이며 캐릭터와 적이 잘립니다. 풀이는 스크롤해서 봅니다.
+  const target = answering ? $('answers') : $('notice'); // 행동을 고를 때는 아래의 안내 글까지
   const over = () => Math.ceil(target.getBoundingClientRect().bottom + window.scrollY + 10 - viewHeight());
 
   // 싸우는 그림은 게임의 얼굴이라 되도록 크게 남깁니다. 그래서 두 번에 나누어 줄입니다.
@@ -53,10 +56,40 @@ export function fitBattle() {
   if (answering && over() > 24) canvas.style.height = '0px';
 }
 
+// 답을 고른 뒤: 풀이와 "다음" 버튼이 보이도록 화면을 내립니다. 풀이가 길면 풀이의 첫 줄이 위에 오는 데까지만 내립니다.
+export function showReview() {
+  const box = $('reviewBox');
+  const next = $('nextBtn');
+  if (next.hidden) return;
+  const head = $('topBar').getBoundingClientRect().height;
+  const toNext = next.getBoundingClientRect().bottom + 12 - viewHeight(); // "다음" 버튼이 다 보이려면 내려야 하는 거리
+  const toTop = (box.hidden ? next : box).getBoundingClientRect().top - head - 8; // 풀이의 첫 줄이 가려지지 않는 한계
+  let move = Math.min(toNext, toTop);
+  if (move <= 0) return;
+  // 싸우는 그림이 위쪽 줄 밑으로 반쯤 걸쳐 잘려 보이지 않게, 내릴 바에는 그림이 다 넘어갈 때까지 내립니다.
+  const stageEnd = document.querySelector('#screenBattle .foe').getBoundingClientRect().bottom - head;
+  if (stageEnd > move && stageEnd <= toTop) move = stageEnd;
+  // 화면 아래에 내릴 자리가 모자라면 그만큼 여백을 둡니다. (다음 문제에서 fitBattle 이 지웁니다)
+  const screen = $('screenBattle');
+  const short = window.scrollY + move + viewHeight() - document.documentElement.scrollHeight;
+  if (short > 0) screen.style.paddingBottom = `${Math.ceil(short)}px`;
+  window.scrollBy({ top: move, behavior: document.body.classList.contains('calm') ? 'auto' : 'smooth' });
+}
+
 // 화면이 돌아가거나 주소 줄이 접히고 펴질 때 다시 맞춥니다.
 export function watchFit() {
   let timer = 0;
+  let width = window.innerWidth;
+  let height = viewHeight();
   const again = () => {
+    // 손가락으로 화면을 내리면 브라우저의 주소 줄이 접히면서 높이가 조금 바뀝니다. 그때마다 다시 맞추면
+    // 스크롤하는 도중에 싸우는 그림의 크기가 바뀌어 화면이 출렁이므로, 내려 둔 상태의 작은 높이 변화는 넘깁니다.
+    const w = window.innerWidth;
+    const h = viewHeight();
+    const small = w === width && Math.abs(h - height) < 130;
+    if (small && window.scrollY > 0) return;
+    width = w;
+    height = h;
     clearTimeout(timer);
     timer = setTimeout(fitBattle, 60);
   };
