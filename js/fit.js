@@ -47,20 +47,32 @@ export function fitBattle() {
   // 싸우는 그림은 게임의 얼굴이라 되도록 크게 남깁니다. 그래서 두 번에 나누어 줄입니다.
   //   먼저 "보기 좋은 높이"까지만 줄이고 → 여백·문제 그림·글자를 줄인 뒤 → 그래도 모자라면 "최소 높이"까지 줄입니다.
   const natural = canvas.getBoundingClientRect().height;
+  const roomy = answering ? 180 : 96; // 넉넉한 높이: 여기까지는 먼저 줄입니다
   const good = answering ? 132 : 96; // 보기 좋은 높이
   // 최소 높이. 이보다 줄이지 않습니다 (장면을 줄여 그려도 캐릭터와 적을 알아볼 수 있는 높이). 아주 낮은 화면(500px 아래)에서만 조금 더 줄입니다.
   const least = viewHeight() < 500 ? 64 : 96;
   const shrink = (floor) => {
+    if (floor >= canvas.getBoundingClientRect().height) return over() <= 0;
     const now = canvas.getBoundingClientRect().height;
     const cut = Math.min(over(), Math.max(0, now - floor));
     if (cut > 0) canvas.style.height = `${Math.round(now - cut)}px`;
     return over() <= 0;
   };
 
+  // 넓은 화면(가로로 놓은 태블릿 등)에서는 싸우는 그림과 문제가 좌우로 나란히 놓입니다. 그림을 줄여도 문제 쪽 자리가 늘지 않으므로 줄이지 않습니다.
+  const wide = getComputedStyle(screen).display === 'grid';
   if (over() <= 0) return;
-  if (shrink(Math.min(natural, good))) return;
+  if (!wide && shrink(Math.min(natural, roomy))) return;
   screen.classList.add('tight');
   if (over() <= 0) return;
+  // 문제 그림을 먼저 조금 줄이고(넉넉한 높이까지), 그다음에 싸우는 그림을 보기 좋은 높이까지 줄입니다.
+  if (figure) {
+    const box = figure.getBoundingClientRect();
+    const height = Math.max(Math.min(box.height, 150), box.height - over());
+    figure.style.maxWidth = `${Math.floor((box.width * height) / box.height)}px`;
+    if (over() <= 0) return;
+  }
+  if (!wide && shrink(Math.min(natural, good))) return;
   // 그림은 모자란 만큼만 줄입니다. (너무 작아지지 않게 아래 한계를 둡니다)
   if (figure) {
     const box = figure.getBoundingClientRect();
@@ -75,7 +87,7 @@ export function fitBattle() {
   // 연속기는 지문과 "이미 푼 물음"이 더 붙어 길어집니다. 싸우는 그림을 더 줄이기 전에 그쪽을 먼저 접습니다.
   screen.classList.add('tightest');
   if (over() <= 0) return;
-  if (shrink(least)) return;
+  if (!wide && shrink(least)) return;
   // 그래도 넘치면 싸우는 그림은 그대로 두고 화면을 내려서 답을 고르게 합니다. (그림이 사라지면 게임 화면 같지 않습니다)
   // 가로로 눕힌 아주 낮은 화면에서만 그림을 접습니다. (세로로 돌려 달라는 안내가 뜨는 크기)
   if (answering && viewHeight() < 431 && over() > 24) canvas.style.height = '0px';

@@ -25,11 +25,12 @@ function label(x, y, text, anchor = 'middle') {
   if (!text) return '';
   const ask = String(text).includes('?');
   if (!ask) return `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="14" font-weight="600" fill="${INK}">${esc(text)}</text>`;
-  // 구해야 하는 값은 노란 테두리의 이름표로 눈에 띄게 합니다. 예: "a = ?"
+  // 구해야 하는 값은 노란 바탕에 검은 글씨의 이름표로 눈에 띄게 합니다. 예: "a = ?"
+  // (어두운 바탕에 노란 글씨였는데, 브라우저가 색을 바꾸는 기기에서 글씨가 바탕에 묻혔습니다. 밝은 바탕과 검은 글씨는 색이 뒤집혀도 읽힙니다)
   const width = String(text).length * 9 + 16;
   const left = anchor === 'start' ? x - 8 : anchor === 'end' ? x - width + 8 : x - width / 2;
-  return `<rect x="${left}" y="${y - 17}" width="${width}" height="24" rx="8" fill="#3a2f10" stroke="${ASK}" stroke-width="1.5"/>` +
-    `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="17" font-weight="800" fill="${ASK}">${esc(text)}</text>`;
+  return `<rect x="${left}" y="${y - 17}" width="${width}" height="24" rx="8" fill="${ASK}" stroke="#fff3d0" stroke-width="1.5"/>` +
+    `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="17" font-weight="800" fill="#1a1205">${esc(text)}</text>`;
 }
 
 const frame = (inner, height = 152) =>
