@@ -942,3 +942,7 @@ html[lang="ko"] .relic-row small, html[lang="ko"] .relic-card small { word-break
 .hero-row .hero-face svg { width: 34px; height: 38px; }
 .hero-row em { background: var(--teal) !important; }
 html[lang="ko"] .hero-card small { word-break: keep-all; overflow-wrap: anywhere; }
+.stat.keys svg { color: #c9a0ff; }
+#dialogText { white-space: pre-line; }
+/* 아주 좁은 화면(320px): 칩 사이를 좁혀 열쇠·유물 줄까지 한 줄에 들어가게 합니다. */
+@media (max-width: 340px) { .statusbar { gap: 3px; padding-left: 10px; padding-right: 10px; } .stat { padding: 2px 6px 2px 4px; gap: 2px; } .relic-strip { gap: 2px; padding-right: 3px; } }

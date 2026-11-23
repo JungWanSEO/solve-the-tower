@@ -971,7 +971,30 @@ export function createStage(canvas) {
     });
     glyph('0', 0, 32, 16, '#d9ffef');
   }
+  // 진보스 "포기의 그림자": 주인공과 같은 모양의 검은 그림자. 눈만 빛나고, 강한 공격 때 크게 부풉니다.
+  function drawShadow(f) {
+    const sp = specOf(f);
+    const grow = 1 + Math.sin(sp * Math.PI) * 0.18;
+    const sway = Math.sin(S.t * 1.6) * 3;
+    ctx.save();
+    ctx.scale(grow, grow);
+    for (let k = 0; k < 3; k++) { // 뒤로 흩어지는 그림자
+      ctx.globalAlpha = 0.16;
+      poly([sway * (k + 1), -30 - k * 6, -44 - k * 8, 46, 44 + k * 8, 46], '#6b5bd6');
+    }
+    ctx.globalAlpha = 1;
+    poly([0, -22, -36, 46, 36, 46], '#141033');
+    circ(0, -30, 19, '#141033');
+    poly([-24, -40, 24, -40, 8 + sway, -76], '#141033'); // 구겨진 모자
+    rrect(-28, -43, 56, 6, 3, '#241a52');
+    circ(-7, -30, 3.4, '#ff7d8f');
+    circ(7, -30, 3.4, '#ff7d8f');
+    line(-9, -18, 9, -18, '#ff7d8f', 2); // 굳게 다문 입
+    glyph('×', 0, 22, 22, '#6b5bd6');
+    ctx.restore();
+  }
   const FOE_DRAW = {
+    shadow: drawShadow,
     ruler: drawRuler, target: drawTarget, pendulum: drawPendulum, wave: drawWave, sprout: drawSprout, logger: drawLogger,
     skater: drawSkater, bucket: drawBucket, sphinx: drawSphinx, hydra: drawHydra,
     imp: drawImp, mirror: drawMirror,

@@ -132,6 +132,7 @@ export function newRun(scope, ascend = 0, cheer = 0, acts = null, hero = 'starte
     gold: 0,
     hints: ascend >= 4 ? CONFIG.ascend.hints : CONFIG.player.hints,
     up: { basic: 0, skill: 0, counter: 0, weak: 0 }, // 강화로 더해진 값
+    keys: {},        // 진보스의 열쇠 { rest, relic, win: true } (js/config.js 의 trueBoss)
     relics: [],      // 이번 판에 얻은 유물의 id (얻은 순서대로. js/relics.js)
     spent: {},       // 한 판에 한 번만 쓰는 유물을 이미 썼는지 { bandage: true }
     lastFoe: null,

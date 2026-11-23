@@ -570,5 +570,23 @@
     "weak": "math2-calc/extrema",
     "basicLevel": 2,
     "skillLevel": 3
+  },
+  {
+    "id": "shadow",
+    "final": true,
+    "name": {
+      "ja": "あきらめの影",
+      "ko": "포기의 그림자",
+      "en": "Shadow of Giving Up"
+    },
+    "mistake": {
+      "ja": "「どうせできない」と決めて、解く前に鉛筆を置く",
+      "ko": "\"어차피 못 해\"라고 정하고, 풀기도 전에 연필을 내려놓기",
+      "en": "Deciding \"I can't do it anyway\" and putting the pencil down before trying"
+    },
+    "hp": 44,
+    "weak": "math1-expr/factor",
+    "basicLevel": 2,
+    "skillLevel": 3
   }
 ]

@@ -131,7 +131,8 @@
     "restUsed": "You have already used this rest stop.",
     "treasureUsed": "You already tried this chest. Its lock is now shut tight.",
     "treasureOkRelic": "The chest opens. You get {gold}G and a relic.",
-    "rewardTextRelic": "You get {gold}G and a relic. Choose one upgrade."
+    "rewardTextRelic": "You get {gold}G and a relic. Choose one upgrade.",
+    "treasureOkGold": "The chest opens. You get {gold}G."
   },
   "up": {
     "maxhp": {
@@ -581,5 +582,43 @@
       "story": "After two towers, the kid calculates as fast as lightning."
     },
     "fx": "{name} · Damage +{n}"
+  },
+  "key": {
+    "name": "Keys",
+    "chip": "Keys {n}/3",
+    "title": "Keys to the true boss",
+    "text": "Collect all three keys and, after the final boss, the true boss waits at the deepest part of the tower. You get a key by giving up a reward.",
+    "have": "Owned",
+    "none": "Not yet",
+    "rest": {
+      "name": "Key of Rest",
+      "where": "At a rest room, instead of resting",
+      "take": "Take the Key of Rest",
+      "sub": "Get the key without resting or reviewing",
+      "got": "You took the Key of Rest instead of resting."
+    },
+    "relic": {
+      "name": "Key of Treasure",
+      "where": "From an elite or a chest, instead of a relic",
+      "take": "Take the Key of Treasure",
+      "sub": "Get the key instead of the relic"
+    },
+    "win": {
+      "name": "Key of Victory",
+      "where": "After the mid-boss, instead of a relic",
+      "take": "Take the Key of Victory",
+      "sub": "Get the key instead of choosing a relic"
+    },
+    "orTitle": "Relic or key",
+    "orText": "You can take only one.",
+    "gotOne": "You got the {name}.",
+    "doorTitle": "The three keys glow",
+    "doorText": "You cleared the tower. But the three keys point to a deeper door. Behind it waits the {name}. You heal {hp} HP before entering. Even if you lose, your clear still counts.",
+    "doorGo": "Open the door",
+    "doorSkip": "Go back",
+    "won": "And you defeated the {name}. (True boss defeated {n} time(s))",
+    "lost": "You lost to the {name}, but your clear still counts.",
+    "record": "True boss defeated {n} time(s)",
+    "final": "True Boss {name}"
   }
 }
