@@ -7,6 +7,7 @@ import { load, store } from './save.js';
 import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName } from './questions.js';
 import { newRun, nextAct, isLastAct } from './run.js';
 import { RELICS, has, relicVars } from './relics.js';
+import { heroOf, unlockedHeroes, newHeroes, heroVars } from './heroes.js';
 import { createStage } from './stage.js';
 import { createBattle } from './battle.js';
 import { createMap } from './map.js';
@@ -21,7 +22,7 @@ import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
 import { showGuide, hideGuide } from './guide.js';
 import { createData, inIosSafariTab, ask } from './data.js';
-import { fillIcons, icon, setSceneArt } from './art.js';
+import { fillIcons, icon, setSceneArt, setHeroLook, heroPortrait } from './art.js';
 
 const FIGHTS = ['battle', 'elite', 'midboss', 'boss'];
 
@@ -57,6 +58,7 @@ async function boot() {
   }
   // 저장된 지도가 없거나 예전 형식이면 새로 만듭니다. 범위가 없던 지도는 전체 범위로 봅니다.
   if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(allTypeKeys());
+  setHeroLook(heroOf(data.run)); // 장면 그림 속 주인공을 이어서 할 판의 모습으로
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
   data.run.scope = data.run.scope.filter(hasType); // 꺼진 단원의 유형이 예전 기록에 남아 있으면 뺍니다
   if (data.run.acts) { // 긴 탑: 막마다 같은 정리를 합니다. 모양이 맞지 않으면 지금 막 하나로 끝나는 탑이 됩니다.
@@ -234,6 +236,17 @@ async function boot() {
     $('bagClose').textContent = t('relic.close');
     const list = $('bagList');
     list.innerHTML = '';
+    // 맨 위에는 지금 모습과 그 고유 능력
+    {
+      const id = heroOf(run);
+      const row = document.createElement('div');
+      row.className = 'relic-row hero-row';
+      row.innerHTML = `<i class="ico hero-face">${heroPortrait(id)}</i><b></b><em></em><small></small>`;
+      row.querySelector('b').textContent = t(`hero.${id}.name`);
+      row.querySelector('em').textContent = t('hero.now');
+      row.querySelector('small').textContent = t(`hero.${id}.ability`, heroVars(id));
+      list.appendChild(row);
+    }
     for (const id of relics) {
       if (!RELICS[id]) continue;
       const row = document.createElement('div');
@@ -256,6 +269,10 @@ async function boot() {
 
   // 유물의 효과가 났을 때: 무슨 유물이 무엇을 했는지 잠깐 알리고, 상태 줄의 그 아이콘을 한 번 키웁니다.
   function onRelic(id, vars = {}) {
+    if (id === 'hero-grit') { // 모습의 고유 능력이 났을 때
+      toast(t('hero.fx', { name: t('hero.grit.name'), n: vars.n }), icon('counter'));
+      return;
+    }
     const what = id === 'library' ? t('relic.fx.gold', vars)
       : id === 'eraser' ? t('relic.fx.half', vars)
         : id === 'bandage' ? t('relic.fx.endure', vars)
@@ -388,22 +405,33 @@ async function boot() {
           title: t('act.askTitle'),
           text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => subjectName(a.id)).join(' → ') }),
           buttons: [
-            { label: t('act.long', { n: acts.length }), kind: 'primary', run: () => begin(keys, acts) },
-            { label: t('act.short'), run: () => begin(keys, null) },
+            { label: t('act.long', { n: acts.length }), kind: 'primary', run: () => chooseHero(keys, acts) },
+            { label: t('act.short'), run: () => chooseHero(keys, null) },
           ],
         });
         return;
       }
-      begin(keys, null);
+      chooseHero(keys, null);
     },
     onBack: () => goTitle(),
   });
-  function begin(keys, acts) {
+  // 모습 고르기: 얻은 모습이 둘 이상일 때만 묻습니다. (튜토리얼은 첫 모습으로만)
+  function chooseHero(keys, acts) {
+    const mine = unlockedHeroes(data);
+    if (CONFIG.hero.force) return begin(keys, acts, CONFIG.hero.force);
+    if (mine.length < 2 || tutorial.active()) return begin(keys, acts, 'starter');
+    go('screenEvent');
+    events.heroChoice((id) => begin(keys, acts, id));
+  }
+  function begin(keys, acts, hero = 'starter') {
     {
+      data.hero = hero;
+      setHeroLook(hero);
+      data.relics = { ...(data.relics || {}), [CONFIG.hero[hero].relic]: true }; // 시작 유물도 도감에 기록합니다
       data.lastScope = keys;
       const level = Math.min(data.ascend || 0, data.ascendMax || 0);
       // 격려는 보통 난이도에서만 붙습니다. (도전 단계는 스스로 고른 어려움이므로)
-      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0), acts); // 설정에서 격려를 꺼 두면 붙지 않습니다
+      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0), acts, hero); // 설정에서 격려를 꺼 두면 붙지 않습니다
       setScope(data.run.scope);
       // 재도전 선물: 한 판이라도 끝낸 적이 있으면, 지난 판의 성적에 맞는 선물을 고르고 출발합니다.
       if (CONFIG.bless.on && data.last && !tutorial.active()) {
@@ -416,6 +444,16 @@ async function boot() {
     }
   }
   function goScope() {
+    // 탑을 깨서 새 모습을 얻었으면, 범위를 고르기 전에 한 번 알려 줍니다. (이미 깬 기록이 있는 학생은 업데이트 뒤 처음 시작할 때)
+    const fresh = tutorial.active() ? [] : newHeroes(data);
+    if (fresh.length) {
+      data.heroSeen = { ...(data.heroSeen || {}), [fresh[0]]: true };
+      persist();
+      go('screenEvent');
+      play('clear');
+      events.heroGained(fresh[0], goScope);
+      return;
+    }
     persist();
     go('screenScope');
     scope.open();

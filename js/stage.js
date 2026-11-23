@@ -173,26 +173,75 @@ export function createStage(canvas) {
   const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
 
   // ---- 캐릭터 ----
+  // 주인공은 모습(js/heroes.js)마다 다르게 그립니다. S.look: 'starter' 다시 시작한 아이 · 'grit' 끈기 대장 · 'flash' 암산 번개
   function drawHero() {
-    line(-36, -34, -36, 44, '#ffd24a', 3);
-    circ(-36, -38, 5, '#f2a13b');
-    ell(-10, 46, 9, 4, '#1e8f80');
-    ell(10, 46, 9, 4, '#1e8f80');
-    poly([0, -18, -30, 44, 30, 44], '#2bb8a3');
-    poly([0, -4, -8, 14, 8, 14], '#e9fbf7');
+    const look = S.look || 'starter';
+    const robe = { starter: '#2bb8a3', grit: '#3b5bbd', flash: '#8a63d2' }[look];
+    const shoe = { starter: '#1e8f80', grit: '#2a4390', flash: '#6243a8' }[look];
+    // 지팡이 (끈기 대장과 암산 번개는 들지 않습니다)
+    if (look === 'starter') {
+      line(-36, -34, -36, 44, '#ffd24a', 3);
+      circ(-36, -38, 5, '#f2a13b');
+    }
+    ell(-10, 46, 9, 4, shoe);
+    ell(10, 46, 9, 4, shoe);
+    poly([0, -18, -30, 44, 30, 44], robe);
+    poly([0, -4, -8, 14, 8, 14], look === 'flash' ? '#ffe27a' : '#e9fbf7');
     line(20, 16, 34, 20, '#ffd9a8', 5);
-    ctx.fillStyle = C('#fff2c2');
-    ctx.strokeStyle = C('#f2a13b');
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(50, 22, 20, Math.PI, 0);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    line(50, 22, 62, 8, '#e5484d', 1.5);
+    if (look === 'starter') {
+      // 각도기
+      ctx.fillStyle = C('#fff2c2');
+      ctx.strokeStyle = C('#f2a13b');
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(50, 22, 20, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      line(50, 22, 62, 8, '#e5484d', 1.5);
+    } else if (look === 'grit') {
+      // 삼각자 모양 방패
+      poly([32, -8, 32, 40, 66, 40], '#ffe9b0');
+      poly([40, 12, 40, 32, 54, 32], robe);
+      ctx.strokeStyle = C('#f2a13b');
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(32, -8);
+      ctx.lineTo(32, 40);
+      ctx.lineTo(66, 40);
+      ctx.closePath();
+      ctx.stroke();
+    } else {
+      // 번개 모양 분필
+      poly([52, -14, 38, 12, 48, 12, 40, 36, 62, 4, 51, 4, 58, -14], '#ffe27a');
+      ctx.strokeStyle = C('#f2a13b');
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      [[52, -14], [38, 12], [48, 12], [40, 36], [62, 4], [51, 4], [58, -14]].forEach(([x, y], k) => (k ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      ctx.closePath();
+      ctx.stroke();
+      // 노란 목도리 (바람에 날림)
+      rrect(-14, -14, 28, 7, 3, '#ffd24a');
+      poly([-12, -10, -34, -4, -30, 6, -10, -6], '#ffd24a');
+    }
     circ(0, -26, 16, '#ffd9a8');
-    poly([-20, -36, 20, -36, 6, -62], '#f2a13b');
-    rrect(-24, -38, 48, 5, 2, '#d9822b');
+    if (look === 'starter') {
+      poly([-20, -36, 20, -36, 6, -62], '#f2a13b');
+      rrect(-24, -38, 48, 5, 2, '#d9822b');
+    } else if (look === 'grit') {
+      // 짧은 머리와 붉은 머리띠 (매듭이 뒤로 날림)
+      ctx.fillStyle = C('#3a2a1c');
+      ctx.beginPath();
+      ctx.arc(0, -29, 16.5, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+      rrect(-17, -36, 34, 6, 2, '#e5484d');
+      poly([-16, -34, -30, -40, -28, -30], '#e5484d');
+      poly([-16, -32, -32, -28, -27, -22], '#c93a40');
+    } else {
+      // 바람에 날리는 머리
+      poly([-17, -30, -24, -46, -10, -40, -8, -52, 2, -42, 8, -54, 13, -40, 22, -44, 17, -28], '#5a3fa0');
+    }
     eye(-6, -25, 2, false, '#1c2740', 0);
     eye(6, -25, 2, false, '#1c2740', 0);
     ctx.strokeStyle = C('#1c2740');
@@ -1150,6 +1199,10 @@ export function createStage(canvas) {
     setFoe(kind) {
       S.kind = kind;
       Object.assign(S.foe, { lunge: 0, hit: 0, dead: 0, gone: false, spawn: 1, spec: 0, flag: false });
+    },
+    // 주인공의 모습을 바꿉니다 (js/heroes.js 의 id)
+    setHero(look) {
+      S.look = look;
     },
     heroUp() {
       S.hero.down = false;

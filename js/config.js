@@ -102,6 +102,14 @@ export const CONFIG = {
     bigAdd: 2,       // 5단계: 적의 강한 공격에 더하는 값
   },
 
+  // 모습(직업). 탑을 깬 횟수가 clears 이상이면 얻습니다. 어떤 모습인지는 js/heroes.js, 이름과 설명은 lang/ 의 hero.<id>. 임시 값입니다.
+  hero: {
+    starter: { clears: 0, hp: 30, relic: 'pencil' },                    // 다시 시작한 아이: 균형. 고유 능력 없음
+    grit: { clears: 1, hp: 34, relic: 'setsquare', guardBonus: 2 },     // 끈기 대장: 방어에 성공하면 다음 정답의 피해 +guardBonus
+    flash: { clears: 2, hp: 24, relic: 'bookmark', ultNeed: 2 },        // 암산 번개: 필살기에 필요한 연속 정답이 ultNeed 개
+    force: '',                                                          // 밸런스를 잴 때: 이 모습으로 고정하고 고르는 화면을 건너뜁니다
+  },
+
   // 유물의 숫자. 어떤 유물인지는 js/relics.js, 이름과 설명은 lang/ 의 relic.<id> 를 보세요. 모두 임시 값입니다.
   relic: {
     pencil: 2,       // 닳은 연필: 전투마다 첫 정답에 더하는 피해
@@ -122,7 +130,7 @@ export const CONFIG = {
     bandage: 5,      // 반창고: 쓰러질 때 버티고 남는 체력 (한 판에 한 번)
     chainbelt: { uses: 2, dmg: 2 }, // 연속기 띠: 전투마다 연속기를 쓸 수 있는 횟수, 연속기의 물음마다 더하는 피해
     ruler: { dmg: 2, hp: 6 },       // 금이 간 자: 모든 피해에 더하는 값, 줄어드는 최대 체력
-    workbook: { ult: 8, need: 4 },  // 두꺼운 문제집: 필살기에 더하는 피해, 필살기에 필요한 연속 정답 수
+    workbook: { ult: 8, need: 1 },  // 두꺼운 문제집: 필살기에 더하는 피해, 필살기에 필요한 연속 정답에 더하는 수
     bag: { hp: 12, heal: 1 },       // 무거운 가방: 늘어나는 최대 체력, 줄어드는 전투 승리 회복
     commonWeight: 2,                // 보통 보상에서 흔함 : 드묾 = 2 : 1
     price: { common: 80, uncommon: 120 }, // 상점 가격

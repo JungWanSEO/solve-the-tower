@@ -38,7 +38,7 @@ export function relicVars(id) {
   const v = c[id];
   if (id === 'eraser' || id === 'piggy') return { n: Math.round(v * 100) };
   if (id === 'ruler') return { n: v.dmg, hp: v.hp };
-  if (id === 'workbook') return { n: v.ult, need: v.need, was: CONFIG.ultNeed };
+  if (id === 'workbook') return { n: v.ult, need: v.need };
   if (id === 'bag') return { hp: v.hp, n: v.heal };
   if (id === 'chainbelt') return { n: v.uses, dmg: v.dmg };
   if (id === 'alarm') return { n: v, was: CONFIG.foeAttack.bigEvery };

@@ -65,20 +65,42 @@ const ROSE = '#ff7d8f';
 const STARS = [[22, 18], [64, 34], [108, 12], [150, 30], [196, 16], [238, 38], [282, 14], [322, 30], [344, 58], [14, 60], [176, 52], [262, 62]];
 const stars = (dim = 1) => STARS.map(([x, y], i) => `<rect class="tw tw${i % 3}" x="${x}" y="${y}" width="${i % 2 ? 2 : 1.5}" height="${i % 2 ? 2 : 1.5}" fill="#a7ddff" opacity="${0.7 * dim}"/>`).join('');
 
-// 주인공: 초록 망토, 주황 모자, 지팡이 (발 밑이 x, y)
-function hero(x, y, { down = false, cheer = false } = {}) {
-  const body =
-    `<path d="M-13 0L0-34 13 0z" fill="#2bbf9f"/>` +
-    `<path d="M-4-12L0-22 4-12z" fill="#eafff9"/>` +
-    `<circle cx="0" cy="-39" r="9" fill="#ffd9a8"/>` +
-    `<path d="M-14-45L0-64 14-45z" fill="#f2a03d"/><rect x="-16" y="-46" width="32" height="4" rx="2" fill="#f2a03d"/>` +
+// 주인공 (발 밑이 x, y). 모습(js/heroes.js)마다 다르게 그립니다.
+//   starter 다시 시작한 아이: 초록 옷, 주황 모자, 지팡이 · grit 끈기 대장: 남색 옷, 붉은 머리띠, 삼각자 방패 · flash 암산 번개: 보라 옷, 노란 목도리, 번개 분필
+let heroLook = 'starter';
+export function setHeroLook(look) {
+  heroLook = look || 'starter';
+}
+export const currentHeroLook = () => heroLook;
+function heroBody(look, { down = false, cheer = false } = {}) {
+  const robe = { starter: '#2bbf9f', grit: '#3b5bbd', flash: '#8a63d2' }[look] || '#2bbf9f';
+  const head = look === 'grit'
+    ? `<path d="M-9.5-41a9.5 9.5 0 0119 0z" fill="#3a2a1c"/><rect x="-10" y="-46" width="20" height="4" rx="1.5" fill="#e5484d"/><path d="M-9-45l-9-4 2 7z" fill="#e5484d"/>`
+    : look === 'flash'
+      ? `<path d="M-10-41l-4-10 8 4 1-8 6 6 4-8 3 9 6-3-3 10z" fill="#5a3fa0"/>`
+      : `<path d="M-14-45L0-64 14-45z" fill="#f2a03d"/><rect x="-16" y="-46" width="32" height="4" rx="2" fill="#f2a03d"/>`;
+  const held = look === 'grit'
+    ? `<path d="M15-26V0h19z" fill="#ffe9b0" stroke="#f2a13b" stroke-width="1.5" stroke-linejoin="round"/>`
+    : look === 'flash'
+      ? `<path d="M24-${cheer ? 62 : 34}l-8 15h6l-5 14 13-18h-7l5-11z" fill="#ffe27a" stroke="#f2a13b" stroke-width="1" stroke-linejoin="round"/>`
+      : cheer
+        ? `<path d="M16-18L24-66" stroke="${AMBER}" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="-68" r="4.5" fill="${AMBER}"/>`
+        : `<path d="M-19 0V-52" stroke="${AMBER}" stroke-width="3" stroke-linecap="round"/><circle cx="-19" cy="-55" r="4" fill="${AMBER}"/>`;
+  return `<path d="M-13 0L0-34 13 0z" fill="${robe}"/>` +
+    `<path d="M-4-12L0-22 4-12z" fill="${look === 'flash' ? '#ffe27a' : '#eafff9'}"/>` +
+    (look === 'flash' ? `<rect x="-8" y="-33" width="16" height="4" rx="2" fill="#ffd24a"/><path d="M-7-31l-12 3 2 5z" fill="#ffd24a"/>` : '') +
+    `<circle cx="0" cy="-39" r="9" fill="#ffd9a8"/>` + head +
     `<circle cx="-3" cy="-39" r="1.3" fill="#3a2f10"/><circle cx="3" cy="-39" r="1.3" fill="#3a2f10"/>` +
-    (down ? '' : `<path d="M-3-35q3 2.5 6 0" stroke="#3a2f10" stroke-width="1.2" fill="none" stroke-linecap="round"/>`) +
-    (cheer
-      ? `<path d="M16-18L24-66" stroke="${AMBER}" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="-68" r="4.5" fill="${AMBER}"/>`
-      : `<path d="M-19 0V-52" stroke="${AMBER}" stroke-width="3" stroke-linecap="round"/><circle cx="-19" cy="-55" r="4" fill="${AMBER}"/>`);
+    (down ? '' : `<path d="M-3-35q3 2.5 6 0" stroke="#3a2f10" stroke-width="1.2" fill="none" stroke-linecap="round"/>`) + held;
+}
+function hero(x, y, { down = false, cheer = false } = {}) {
   const turn = down ? ' rotate(90)' : '';
-  return `<ellipse cx="${x + (down ? 26 : 0)}" cy="${y + 2}" rx="${down ? 40 : 17}" ry="3.5" fill="#0b1430"/><g transform="translate(${x} ${y - (down ? 13 : 0)})${turn}">${body}</g>`;
+  return `<ellipse cx="${x + (down ? 26 : 0)}" cy="${y + 2}" rx="${down ? 40 : 17}" ry="3.5" fill="#0b1430"/><g transform="translate(${x} ${y - (down ? 13 : 0)})${turn}">${heroBody(heroLook, { down, cheer })}</g>`;
+}
+// 모습 하나의 초상 (고르는 화면과 "새 모습을 얻었습니다" 창). dim: 아직 얻지 못한 모습은 그림자로
+export function heroPortrait(look, dim = false) {
+  return `<svg viewBox="-34 -72 68 78" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"${dim ? ' style="filter:brightness(0) opacity(0.45)"' : ''}>` +
+    `<ellipse cx="0" cy="2" rx="18" ry="3.5" fill="#0b1430"/>${heroBody(look)}</svg>`;
 }
 
 const frame = (inner, tone = SKY) =>
