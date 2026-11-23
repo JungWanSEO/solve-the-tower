@@ -1069,9 +1069,12 @@ export function createStage(canvas) {
     // 캐릭터의 모자나 키 큰 적의 머리가 잘리지 않도록, 보이는 띠 안에 다 들어가게 장면을 줄여서 그립니다.
     const boxW = canvas.clientWidth;
     const boxH = canvas.clientHeight;
+    let roof = 0; // 보이는 범위의 위쪽 끝 (그림 좌표). 떠오르는 숫자와 글이 이 위로 잘려 나가지 않게 합니다.
     if (boxW > 0 && boxH > 0) {
       const seen = boxH / (boxW / W); // 보이는 높이 (그림 좌표)
       const need = BAND[1] - BAND[0];
+      if (seen < need) roof = BAND[0];
+      else if (seen < H) roof = (H - seen) * 0.62;
       if (seen < need) {
         const top = (H - seen) * 0.62; // style.css 의 object-position: 50% 62% 와 같은 값
         const zoom = seen / need;
@@ -1193,9 +1196,10 @@ export function createStage(canvas) {
       ctx.globalAlpha = Math.min(1, n.life * 3);
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#0b1430';
-      ctx.strokeText(n.text, n.x, n.y);
+      const y = Math.max(n.y, roof + n.size * pop * 0.62);
+      ctx.strokeText(n.text, n.x, y);
       ctx.fillStyle = n.color;
-      ctx.fillText(n.text, n.x, n.y);
+      ctx.fillText(n.text, n.x, y);
     }
     ctx.globalAlpha = 1;
     ctx.restore();

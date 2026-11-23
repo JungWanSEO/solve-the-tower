@@ -373,7 +373,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 /* while answering: make room for the question by folding the rest of the battle screen */
 .answering .me, .answering #actions, .answering #specialRow, .answering .intent { display: none; }
 /* 문제를 푸는 동안에도 싸우는 그림은 화면이 허락하는 만큼 크게 둡니다. 줄이는 일은 js/fit.js 가 합니다. */
-.answering canvas { max-height: 230px; object-fit: cover; object-position: 50% 62%; }
+.answering canvas { max-height: 180px; object-fit: cover; object-position: 50% 62%; }
 
 /* title screen */
 .title { display: flex; flex-direction: column; gap: 14px; padding: 48px 20px 24px; }

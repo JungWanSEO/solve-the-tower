@@ -662,6 +662,14 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
 
   function win() {
     const big = B.kind === 'midboss' || B.kind === 'boss';
+    // 문제와 답을 접어 싸우는 그림을 원래 크기로 되돌린 뒤에 쓰러지는 연출을 보여 줍니다.
+    // (문제를 푸는 동안에는 그림이 작게 줄어 있어서, 그대로 두면 쓰러지는 모습과 터지는 효과가 잘립니다)
+    B.phase = 'busy';
+    B.chain = null;
+    B.cur = null;
+    B.picked = -1;
+    $('screenBattle').classList.add('finale'); // 이 동안에는 싸우는 그림을 줄이지 않습니다 (fit.js)
+    render();
     pulse($('screenBattle'), 'koflash');
     stage.foeDefeat(live(() => finish('win')), t('ui.defeated'), big);
   }
@@ -679,6 +687,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   // floor: 지도에서 몇 번째 층인지 (0 부터). 처음 몇 층의 보통 전투는 적의 체력이 낮습니다.
   function start({ monster, kind, weak, safe, floor = 99 }, onEnd) {
     B.gen += 1;
+    $('screenBattle').classList.remove('finale');
     B.foe = monster;
     B.weak = weak;
     B.kind = kind;
