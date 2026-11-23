@@ -10,6 +10,7 @@ import { icon } from './art.js';
 import { play } from './sound.js';
 import { fitBattle, showReview } from './fit.js';
 import { has } from './relics.js';
+import { isHero } from './heroes.js';
 
 // mastered(type): 그 유형을 이미 정복했는지 (도서관 카드 유물이 봅니다)
 // onRelic(id, vars): 유물의 효과가 났을 때 화면에 알립니다.
@@ -45,7 +46,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   // ---- 유물 (js/relics.js) ----
   const R = (id) => has(getRun(), id);
   const RC = CONFIG.relic;
-  const ultNeed = () => (R('workbook') ? RC.workbook.need : CONFIG.ultNeed);
+  // 필살기에 필요한 연속 정답: 모습 "암산 번개"는 적게, 유물 "두꺼운 문제집"은 하나 더
+  const ultNeed = () => (isHero(getRun(), 'flash') ? CONFIG.hero.flash.ultNeed : CONFIG.ultNeed) + (R('workbook') ? RC.workbook.need : 0);
   const flat = () => (R('ruler') ? RC.ruler.dmg : 0); // 금이 간 자: 모든 피해에 더합니다
   const basicDmg = () => CONFIG.damage.basic + getRun().up.basic + flat();
   const skillDmg = () => CONFIG.damage.skill + getRun().up.skill + flat() + (R('highlighter') ? RC.highlighter : 0);
@@ -64,6 +66,12 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     if (R('grid') && !$('qFigure').hidden) {
       add += RC.grid;
       onRelic('grid', { n: RC.grid });
+    }
+    // 모습 "끈기 대장": 방어에 성공한 뒤의 첫 정답
+    if (B.rel.guardUp) {
+      B.rel.guardUp = false;
+      add += CONFIG.hero.grit.guardBonus;
+      onRelic('hero-grit', { n: CONFIG.hero.grit.guardBonus });
     }
     if (R('wrongnote') && B.rel.note) {
       B.rel.note = false;
@@ -525,6 +533,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
       if (ok) {
         // 완벽 방어: 피해 0, 반격, 연속 정답 +1
         B.combo = Math.min(ultNeed(), B.combo + 1);
+        if (isHero(run, 'grit')) B.rel.guardUp = true; // 끈기 대장: 다음 정답이 세집니다
         say('msg.guardOk');
         render();
         foeTurn(0, counter);
@@ -691,10 +700,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     B.chain = null;
     B.chainUsed = false;
     B.chainLeft = R('chainbelt') ? RC.chainbelt.uses : 1;
-    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0 };
+    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0, guardUp: false };
     B.owed = 0;
     B.shownHp = null;
     B.shownFoeHp = null;
+    stage.setHero(run.hero || 'starter');
     stage.heroUp();
     stage.setFoe(monster.id);
     say('msg.choose');

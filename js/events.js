@@ -8,10 +8,11 @@ import { UPGRADES, SHOP, rollUpgrades } from './run.js';
 import { RELICS, has, gainRelic, rollRelics, relicVars, relicPrice } from './relics.js';
 import { $, twoLineButton, toast, fillRelicText } from './ui.js';
 import { play } from './sound.js';
-import { scene, hasScene, icon } from './art.js';
+import { scene, hasScene, icon, heroPortrait, currentHeroLook } from './art.js';
+import { HERO_IDS, unlockedHeroes, heroVars } from './heroes.js';
 
 // 화면 제목으로 위쪽 장면 그림을 고릅니다. (? 칸은 mystery.<사건>.title 의 사건 이름이 곧 그림 이름)
-const ART = { 'bless.title': 'bless', 'ev.rewardTitle': 'reward', 'ev.shopTitle': 'shop', 'ev.restTitle': 'rest', 'ev.treasureTitle': 'treasure', 'relic.chooseTitle': 'treasure', 'ev.overTitle': 'over', 'ev.clearTitle': 'clear' };
+const ART = { 'bless.title': 'bless', 'ev.rewardTitle': 'reward', 'ev.shopTitle': 'shop', 'ev.restTitle': 'rest', 'ev.treasureTitle': 'treasure', 'relic.chooseTitle': 'treasure', 'hero.gainedTitle': 'clear', 'ev.overTitle': 'over', 'ev.clearTitle': 'clear' };
 const artOf = (titleKey) => ART[titleKey] || (titleKey.split('.')[0] === 'mystery' ? titleKey.split('.')[1] : '');
 
 export function createEvents({ getRun, data, record, onChange, persist = () => {} }) {
@@ -60,6 +61,27 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     showTip('relic');
   }
 
+  // ---- 모습(직업) ----
+  // 모습 하나를 보여 주는 카드. onPick 이 있으면 누르는 버튼, 없으면 읽는 카드입니다. locked: 아직 얻지 못한 모습
+  function heroCard(id, { onPick = null, locked = false, current = false } = {}) {
+    const vars = heroVars(id);
+    const card = document.createElement(onPick ? 'button' : 'div');
+    if (onPick) card.type = 'button';
+    card.className = `hero-card hero-${id}${locked ? ' locked' : ''}${current ? ' current' : ''}`;
+    card.innerHTML = `<i class="hero-face">${heroPortrait(id, locked)}</i><b></b><em></em><small class="hero-role"></small><small class="hero-ability"></small><small class="hero-start"></small>`;
+    card.querySelector('b').textContent = locked ? t('codex.unseen') : t(`hero.${id}.name`);
+    card.querySelector('em').textContent = locked ? '' : t('hero.hp', vars);
+    card.querySelector('em').hidden = locked;
+    card.querySelector('.hero-role').textContent = locked ? t('hero.locked', vars) : t(`hero.${id}.role`);
+    card.querySelector('.hero-ability').textContent = locked ? '' : t(`hero.${id}.ability`, vars);
+    card.querySelector('.hero-start').textContent = locked ? '' : t('hero.start', { name: `${relicName(CONFIG.hero[id].relic)} (${relicText(CONFIG.hero[id].relic).split('\n')[0]})` });
+    if (onPick) {
+      card.disabled = locked;
+      card.addEventListener('click', () => onPick(id));
+    }
+    $('evOptions').appendChild(card);
+  }
+
   // ---- 화면 조각 ----
   function base(titleKey, text) {
     $('evTitle').textContent = t(titleKey);
@@ -67,8 +89,9 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     const art = artOf(titleKey);
     const box = $('evArt');
     box.hidden = !hasScene(art);
-    if (box.dataset.art !== art) { // 같은 그림이면 다시 그리지 않아 움직임이 끊기지 않습니다.
-      box.dataset.art = art;
+    const key = `${art}:${currentHeroLook()}`; // 장면 그림 속 주인공은 지금 모습으로 그립니다
+    if (box.dataset.art !== key) { // 같은 그림이면 다시 그리지 않아 움직임이 끊기지 않습니다.
+      box.dataset.art = key;
       box.innerHTML = scene(art);
     }
     $('evQuiz').hidden = true;
@@ -203,6 +226,30 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
             done();
           }, id);
         });
+      });
+    },
+
+    // 새 판을 시작할 때 모습 고르기. 얻은 모습만 고를 수 있고, 아직 얻지 못한 모습은 그림자와 얻는 조건이 보입니다.
+    heroChoice(onPick) {
+      const mine = unlockedHeroes(data);
+      open(() => {
+        base('hero.pickTitle', t('hero.pickText'));
+        for (const id of HERO_IDS) {
+          heroCard(id, { locked: !mine.includes(id), current: id === data.hero, onPick: (picked) => {
+            draw = null;
+            onPick(picked);
+          } });
+        }
+      });
+    },
+
+    // 탑을 깨서 새 모습을 얻었을 때: 그림, 이름, 성장 이야기, 능력, 시작 유물을 보여 줍니다.
+    heroGained(id, done) {
+      open(() => {
+        base('hero.gainedTitle', `${t(`hero.${id}.story`)}\n${t('hero.gainedText')}`);
+        heroCard(id);
+        $('evOptions').lastChild.classList.add('gained');
+        leave('ev.continue', done);
       });
     },
 

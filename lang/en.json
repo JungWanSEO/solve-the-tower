@@ -550,7 +550,36 @@
     },
     "workbook": {
       "name": "Thick Workbook",
-      "text": "Ultimate deals +{n} damage\n▼ Ultimate needs a streak of {need} (was {was})"
+      "text": "Ultimate deals +{n} damage\n▼ Ultimate needs {need} more correct answer in a row"
     }
+  },
+  "hero": {
+    "pickTitle": "Choose a form",
+    "pickText": "Which form will climb the tower? You gain a new form each time you clear it.",
+    "locked": "Clear the tower {clears} time(s) to unlock",
+    "hp": "HP {hp}",
+    "start": "Starting relic: {name}",
+    "gainedTitle": "New form unlocked",
+    "gainedText": "You can choose this form from your next run.",
+    "now": "Current form",
+    "starter": {
+      "name": "The Restarter",
+      "role": "A balanced form",
+      "ability": "No special ability. The basic rules",
+      "story": "The kid who gave up on math picked up the pencil again."
+    },
+    "grit": {
+      "name": "Captain Grit",
+      "role": "Holds on through mistakes",
+      "ability": "After a successful guard, your next correct answer deals +{n} damage",
+      "story": "The kid who kept retrying became Captain Grit."
+    },
+    "flash": {
+      "name": "Lightning Abacus",
+      "role": "Strong when answers chain",
+      "ability": "Ultimate needs a streak of {n} (was {was})",
+      "story": "After two towers, the kid calculates as fast as lightning."
+    },
+    "fx": "{name} · Damage +{n}"
   }
 }
