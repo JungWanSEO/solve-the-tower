@@ -4,8 +4,9 @@
 import { CONFIG } from './config.js';
 import { loadLang, applyStatic, t } from './i18n.js';
 import { load, store } from './save.js';
-import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames } from './questions.js';
-import { newRun } from './run.js';
+import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName } from './questions.js';
+import { newRun, nextAct, isLastAct } from './run.js';
+import { RELICS, has, relicVars } from './relics.js';
 import { createStage } from './stage.js';
 import { createBattle } from './battle.js';
 import { createMap } from './map.js';
@@ -14,8 +15,8 @@ import { createCodex } from './codex.js';
 import { createTutorial } from './tutorial.js';
 import { createTitle } from './title.js';
 import { createScope } from './scope.js';
-import { $, show, celebrate, toast } from './ui.js';
-import { play, music, wake } from './sound.js';
+import { $, show, celebrate, toast, fillRelicText } from './ui.js';
+import { play, music, battleMusic, wake } from './sound.js';
 import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
 import { showGuide, hideGuide } from './guide.js';
@@ -58,6 +59,11 @@ async function boot() {
   if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(allTypeKeys());
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
   data.run.scope = data.run.scope.filter(hasType); // 꺼진 단원의 유형이 예전 기록에 남아 있으면 뺍니다
+  if (data.run.acts) { // 긴 탑: 막마다 같은 정리를 합니다. 모양이 맞지 않으면 지금 막 하나로 끝나는 탑이 됩니다.
+    const acts = Array.isArray(data.run.acts) ? data.run.acts.map((a) => ({ id: a.id, keys: (Array.isArray(a.keys) ? a.keys : []).filter(hasType) })) : [];
+    if (acts.length > 1 && acts.every((a) => a.keys.length) && Number.isInteger(data.run.act) && acts[data.run.act]) data.run.acts = acts;
+    else { delete data.run.acts; delete data.run.act; delete data.run.full; }
+  }
   setScope(data.run.scope);
 
   document.addEventListener('pointerdown', wake, { passive: true }); // 브라우저는 화면을 누른 뒤에야 소리를 허락합니다.
@@ -131,7 +137,9 @@ async function boot() {
     // 위쪽 줄: 큰 글씨는 지금 몇 층인지, 작은 글씨는 이번 판의 범위
     const spot = run.nodes.find((n) => n.id === (run.pending ?? run.at));
     $('subjectName').textContent = `${subjectNames(run.scope).join(' · ')} · ${t('ui.scopeCount', { n: run.scope.length, total: allTypeKeys().length })}`;
-    $('unitName').textContent = spot ? t('ui.where', { n: spot.floor + 1, total: run.floors }) : t('ui.whereStart', { total: run.floors });
+    const where = spot ? t('ui.where', { n: spot.floor + 1, total: run.floors }) : t('ui.whereStart', { total: run.floors });
+    // 긴 탑에서는 막과 층을 짧게 함께 적습니다. (좁은 화면에서 잘리지 않도록)
+    $('unitName').textContent = !run.acts ? where : spot ? t('ui.actWhere', { a: run.act + 1, at: run.acts.length, n: spot.floor + 1, total: run.floors }) : t('ui.actStart', { a: run.act + 1, at: run.acts.length });
     // 체력·골드·힌트는 그림이 붙은 칩으로, 지금 걸려 있는 효과는 색 딱지로 보여 줍니다.
     const chips = [
       ['hp', 'maxhp', `${Math.max(0, run.hp)}/${run.maxHp}`],
@@ -154,8 +162,10 @@ async function boot() {
     }
     const label = t('ui.status', { hp: Math.max(0, run.hp), max: run.maxHp, gold: run.gold, hints: run.hints });
     const bar = $('runStatus');
-    if (bar.dataset.shown !== chips.join('|')) { // 바뀌었을 때만 다시 그립니다
-      bar.dataset.shown = chips.join('|');
+    const relics = run.relics || [];
+    const shown = `${chips.join('|')}|${relics.join(',')}|${data.lang}`;
+    if (bar.dataset.shown !== shown) { // 바뀌었을 때만 다시 그립니다
+      bar.dataset.shown = shown;
       bar.setAttribute('aria-label', label);
       bar.innerHTML = '';
       for (const [cls, ico, text] of chips) {
@@ -170,6 +180,25 @@ async function boot() {
         chip.append(text);
         bar.appendChild(chip);
       }
+      // 유물 줄: 얻은 순서대로 몇 개만 아이콘으로 보이고, 넘으면 "+N". 줄 전체가 버튼 하나이고 누르면 가방이 열립니다.
+      // (아이콘 하나는 손가락으로 누르기에 작아서 따로 누르게 하지 않습니다. 줄은 늘 한 줄이라 문제 화면의 높이가 변하지 않습니다)
+      if (relics.length) {
+        const strip = document.createElement('button');
+        strip.type = 'button';
+        strip.className = 'relic-strip';
+        strip.setAttribute('aria-label', t('relic.barLabel', { n: relics.length }));
+        strip.addEventListener('click', openBag);
+        bar.appendChild(strip);
+        // 좁은 화면에서 줄이 두 줄로 넘어가면 아이콘을 하나씩 줄입니다. (상태 줄의 높이가 늘면 문제 화면이 밀립니다)
+        const first = bar.firstChild;
+        for (let room = CONFIG.relic.bar; room >= 0; room--) {
+          const few = relics.length > room ? relics.slice(0, Math.max(0, room - 1)) : relics; // 넘치면 마지막 자리는 "+N" 이 씁니다
+          strip.innerHTML = few.map((id) => `<i class="rarity-${RELICS[id] ? RELICS[id].rarity : 'common'}" data-relic="${id}">${icon(`r-${id}`)}</i>`).join('')
+            + (relics.length > few.length ? `<span>+${relics.length - few.length}</span>` : '');
+          if (strip.offsetTop <= first.offsetTop + 4) break;
+        }
+        if (bar.offsetParent === null) bar.dataset.shown = ''; // 상태 줄이 숨겨져 있을 때는 잴 수 없으므로, 보일 때 다시 그립니다
+      }
     }
     bar.classList.toggle('low', run.hp / run.maxHp <= 0.3);
     updateCoach();
@@ -183,7 +212,66 @@ async function boot() {
     setSceneArt(manifest.scenes);
     if (manifest.scenes && manifest.scenes.title) title.render();
   }).catch(() => {});
-  const battle = createBattle({ stage, getRun, record, tutorial, onChange });
+  // ---- 유물: 가방 창과 효과 알림 ----
+  // 가방: 가진 유물의 이름, 등급, 효과, 지금 상태를 글로 보여 줍니다.
+  function openBag() {
+    const run = getRun();
+    const relics = run.relics || [];
+    const state = battle.relicState();
+    const inBattle = screen === 'screenBattle';
+    const RC = CONFIG.relic;
+    // 지금 상태를 한 줄로: 전투 중에만 뜻이 있는 것은 전투 중에만 적습니다.
+    const status = (id) => {
+      if (id === 'bandage') return run.spent && run.spent.bandage ? t('relic.state.spent') : '';
+      if (!inBattle) return '';
+      if (id === 'pencil' || id === 'eraser') return t(state[id] ? 'relic.state.ready' : 'relic.state.used');
+      if (id === 'wrongnote') return state.note ? t('relic.state.armed', { n: RC.wrongnote }) : '';
+      if (id === 'ribbon') return state.shield > 0 ? t('relic.state.shield', { n: state.shield }) : t('relic.state.streak', { n: state.streak % RC.ribbon, need: RC.ribbon });
+      if (id === 'chainbelt') return t('relic.state.left', { n: Math.max(0, state.chainLeft) });
+      return '';
+    };
+    $('bagTitle').textContent = `${t('relic.bag')} · ${t('relic.count', { n: relics.length })}`;
+    $('bagClose').textContent = t('relic.close');
+    const list = $('bagList');
+    list.innerHTML = '';
+    for (const id of relics) {
+      if (!RELICS[id]) continue;
+      const row = document.createElement('div');
+      row.className = `relic-row rarity-${RELICS[id].rarity}`;
+      row.innerHTML = `<i class="ico">${icon(`r-${id}`)}</i><b></b><em></em><small></small><span></span>`;
+      row.querySelector('b').textContent = t(`relic.${id}.name`);
+      row.querySelector('em').textContent = t(`relic.rarity.${RELICS[id].rarity}`);
+      fillRelicText(row.querySelector('small'), t(`relic.${id}.text`, relicVars(id)));
+      const now = status(id);
+      row.querySelector('span').textContent = now;
+      row.querySelector('span').hidden = !now;
+      list.appendChild(row);
+    }
+    $('bag').hidden = false;
+    $('bagClose').focus({ preventScroll: true }); // 닫기 버튼에 초점을 주되, 목록은 맨 위부터 보이게
+    $('bag').querySelector('.bag-box').scrollTop = 0;
+  }
+  $('bagClose').addEventListener('click', () => { $('bag').hidden = true; });
+  $('bag').addEventListener('click', (event) => { if (event.target === $('bag')) $('bag').hidden = true; });
+
+  // 유물의 효과가 났을 때: 무슨 유물이 무엇을 했는지 잠깐 알리고, 상태 줄의 그 아이콘을 한 번 키웁니다.
+  function onRelic(id, vars = {}) {
+    const what = id === 'library' ? t('relic.fx.gold', vars)
+      : id === 'eraser' ? t('relic.fx.half', vars)
+        : id === 'bandage' ? t('relic.fx.endure', vars)
+          : id === 'note' ? t('relic.fx.hint')
+            : id === 'ribbon' ? t(vars.used ? 'relic.fx.shieldUsed' : 'relic.fx.shieldReady')
+              : t('relic.fx.add', vars);
+    toast(`${t(`relic.${id}.name`)} · ${what}`, icon(`r-${id}`));
+    const mark = document.querySelector(`.relic-strip [data-relic="${id}"]`);
+    if (mark && !document.body.classList.contains('calm')) {
+      mark.classList.remove('pop');
+      void mark.offsetWidth; // 같은 움직임을 다시 시작하게 합니다
+      mark.classList.add('pop');
+    }
+  }
+  const mastered = (type) => ((data.codex[type] || {}).streak || 0) >= CONFIG.codexStreak;
+  const battle = createBattle({ stage, getRun, record, tutorial, onChange, mastered, onRelic });
   const events = createEvents({ getRun, data, record, onChange, persist });
   const map = createMap({ getRun, onPick, getWins: () => data.wins });
   const codex = createCodex({ data, monsters, portrait: (id) => stage.portrait(id) });
@@ -293,11 +381,30 @@ async function boot() {
   const scope = createScope({
     data,
     onStart(keys) {
+      // 과목을 둘 이상 골랐으면 탑의 길이를 묻습니다. (튜토리얼 중에는 묻지 않고 짧은 탑)
+      const acts = actsFor(keys);
+      if (acts.length > 1 && !tutorial.active()) {
+        ask({
+          title: t('act.askTitle'),
+          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => subjectName(a.id)).join(' → ') }),
+          buttons: [
+            { label: t('act.long', { n: acts.length }), kind: 'primary', run: () => begin(keys, acts) },
+            { label: t('act.short'), run: () => begin(keys, null) },
+          ],
+        });
+        return;
+      }
+      begin(keys, null);
+    },
+    onBack: () => goTitle(),
+  });
+  function begin(keys, acts) {
+    {
       data.lastScope = keys;
       const level = Math.min(data.ascend || 0, data.ascendMax || 0);
       // 격려는 보통 난이도에서만 붙습니다. (도전 단계는 스스로 고른 어려움이므로)
-      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0)); // 설정에서 격려를 꺼 두면 붙지 않습니다
-      setScope(keys);
+      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0), acts); // 설정에서 격려를 꺼 두면 붙지 않습니다
+      setScope(data.run.scope);
       // 재도전 선물: 한 판이라도 끝낸 적이 있으면, 지난 판의 성적에 맞는 선물을 고르고 출발합니다.
       if (CONFIG.bless.on && data.last && !tutorial.active()) {
         persist();
@@ -306,9 +413,8 @@ async function boot() {
         return;
       }
       goMap();
-    },
-    onBack: () => goTitle(),
-  });
+    }
+  }
   function goScope() {
     persist();
     go('screenScope');
@@ -382,7 +488,7 @@ async function boot() {
     const monster = monsters.find((m) => m.id === node.monster) || monsters[0];
     if (!node.weak || !run.scope.includes(node.weak)) node.weak = chooseWeak(monster);
     run.lastFoe = monster.id;
-    music(kind === 'midboss' || kind === 'boss' ? 'boss' : 'battle');
+    battleMusic(kind, monster.weak, monster.id); // 보통 전투는 과목별, 강적·중간 보스·보스는 각자의 곡
     // 중간 보스 방 앞에는 작은 샘이 있습니다. 들어갈 때 한 번, 체력을 조금 회복합니다.
     if (kind === 'midboss' && CONFIG.midboss.healBefore > 0 && !node.sipped) {
       node.sipped = true;
@@ -401,20 +507,38 @@ async function boot() {
         data.deaths = (data.deaths || 0) + 1;
         data.last = { floor: node.floor + 1, clear: false }; // 다음 판의 재도전 선물이 이것을 봅니다
         if (!run.ascend) data.falls = (data.falls || 0) + 1; // 연달아 쓰러진 횟수 (격려 단계가 됩니다)
-        data.run = newRun(run.scope);
+        data.run = newRun(run.full || run.scope);
         persist();
         go('screenEvent');
         events.gameover({ floor: node.floor + 1, total: run.floors }, goScope);
         return;
       }
-      const gold = Math.round(CONFIG.gold[kind] * (run.goldMul || 1));
+      // 유물: 돼지 저금통은 골드를, 간식 주머니와 무거운 가방은 승리 회복을 바꿉니다.
+      const gold = Math.round(CONFIG.gold[kind] * (run.goldMul || 1) * (has(run, 'piggy') ? 1 + CONFIG.relic.piggy : 1));
+      const heal = ((run.ascend || 0) >= 4 ? CONFIG.ascend.heal : CONFIG.player.healOnWin)
+        + (has(run, 'snack') ? CONFIG.relic.snack : 0) - (has(run, 'bag') ? CONFIG.relic.bag.heal : 0);
       data.wins += 1;
       run.gold += gold;
-      run.hp = Math.min(run.maxHp, run.hp + ((run.ascend || 0) >= 4 ? CONFIG.ascend.heal : CONFIG.player.healOnWin));
+      run.hp = Math.min(run.maxHp, run.hp + Math.max(0, heal));
       if (run.frail > 0 && (kind === 'battle' || kind === 'elite')) run.frail -= 1;
       tutorial.emit('won');
       go('screenEvent');
-      if (kind === 'boss') {
+      if (kind === 'boss' && !isLastAct(run)) {
+        // 긴 탑: 막의 보스를 이기면 유물을 하나 고르고 다음 막으로 넘어갑니다. (탑 클리어는 마지막 막에서)
+        play('clear');
+        persist();
+        events.relicChoice(() => {
+          const healed = nextAct(run);
+          setScope(run.scope);
+          persist();
+          goMap();
+          ask({
+            title: t('act.nextTitle', { n: run.act + 1, name: subjectName(run.acts[run.act].id) }),
+            text: t(isLastAct(run) ? 'act.lastText' : 'act.nextText', { gold, hp: healed, left: run.acts.length - run.act }),
+            buttons: [{ label: t('ui.ok'), kind: 'primary' }],
+          });
+        });
+      } else if (kind === 'boss') {
         play('clear');
         data.clears += 1;
         data.last = { floor: run.floors, clear: true };
@@ -426,22 +550,30 @@ async function boot() {
           data.ascendMax = level + 1;
           data.ascend = level + 1;
         }
-        data.run = newRun(run.scope);
+        data.run = newRun(run.full || run.scope);
         persist();
         events.clear(gold, goScope, opened ? level + 1 : 0);
         celebrate();
       } else {
         persist();
+        // 강적은 유물 1개를 바로 주고, 중간 보스는 강화를 고른 뒤 유물 3개 중 1개를 고릅니다. (튜토리얼 중에는 유물이 나오지 않습니다)
+        const guided = tutorial.active();
         events.reward(gold, () => {
           tutorial.emit('rewarded');
-          complete(node);
-        });
+          if (kind === 'midboss' && !guided) events.relicChoice(() => complete(node));
+          else complete(node);
+        }, kind === 'elite' && !guided);
       }
     });
   }
 
   function onPick(node) {
     const run = getRun();
+    // 선배의 쪽지: 새 칸에 들어갈 때마다 힌트 +1 (힌트가 적을 때만. 들어갔던 칸에 다시 들어올 때는 주지 않습니다)
+    if (run.pending !== node.id && has(run, 'note') && run.hints < CONFIG.relic.note) {
+      run.hints += 1;
+      onRelic('note');
+    }
     run.pending = node.id;
     persist();
     tutorial.emit('picked');

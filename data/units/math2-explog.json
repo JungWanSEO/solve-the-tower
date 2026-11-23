@@ -1,0 +1,428 @@
+{
+  "id": "math2-explog",
+  "name": {
+    "ja": "指数関数・対数関数",
+    "ko": "지수함수·로그함수",
+    "en": "Exponential and logarithmic functions"
+  },
+  "types": {
+    "exprule": {
+      "ja": "指数法則",
+      "ko": "지수법칙",
+      "en": "Laws of exponents"
+    },
+    "root": {
+      "ja": "累乗根と有理数の指数",
+      "ko": "거듭제곱근과 유리수 지수",
+      "en": "Roots and rational exponents"
+    },
+    "expeq": {
+      "ja": "指数方程式・不等式",
+      "ko": "지수방정식·부등식",
+      "en": "Exponential equations and inequalities"
+    },
+    "logval": {
+      "ja": "対数の値",
+      "ko": "로그의 값",
+      "en": "Values of logarithms"
+    },
+    "logrule": {
+      "ja": "対数の性質",
+      "ko": "로그의 성질",
+      "en": "Properties of logarithms"
+    },
+    "logeq": {
+      "ja": "対数方程式・不等式",
+      "ko": "로그방정식·부등식",
+      "en": "Logarithmic equations and inequalities"
+    },
+    "digits": {
+      "ja": "常用対数と桁数",
+      "ko": "상용로그와 자릿수",
+      "en": "Common logarithms and digits"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "指数関数",
+        "ko": "지수함수",
+        "en": "Exponential functions"
+      },
+      "types": [
+        "exprule",
+        "root",
+        "expeq"
+      ]
+    },
+    {
+      "name": {
+        "ja": "対数関数",
+        "ko": "로그함수",
+        "en": "Logarithmic functions"
+      },
+      "types": [
+        "logval",
+        "logrule",
+        "logeq",
+        "digits"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "exprule",
+      "level": 1,
+      "type": "exprule",
+      "gen": "exprule",
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr} 을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "底が同じなので、指数だけを計算する\n掛け算は指数を足し、割り算は指数を引く → {=exps(expr)[0]} + ({=exps(expr)[1]}) − ({=exps(expr)[2]}) = {=exps(expr)[0]+exps(expr)[1]-exps(expr)[2]}\n残った指数で値を求めて {answer}",
+        "ko": "밑이 같으므로 지수만 계산합니다\n곱셈은 지수를 더하고 나눗셈은 지수를 뺍니다 → {=exps(expr)[0]} + ({=exps(expr)[1]}) − ({=exps(expr)[2]}) = {=exps(expr)[0]+exps(expr)[1]-exps(expr)[2]}\n남은 지수로 값을 구하면 {answer}",
+        "en": "The base is the same, so work only with the exponents\nMultiplying adds exponents; dividing subtracts them → {=exps(expr)[0]} + ({=exps(expr)[1]}) − ({=exps(expr)[2]}) = {=exps(expr)[0]+exps(expr)[1]-exps(expr)[2]}\nEvaluate with the final exponent: {answer}"
+      }
+    },
+    {
+      "id": "root",
+      "level": 1,
+      "type": "root",
+      "gen": "root",
+      "text": {
+        "ja": "{expr} の値は?",
+        "ko": "{expr} 의 값은?",
+        "en": "What is {expr}?"
+      },
+      "explain": {
+        "ja": "根号の左上の数を n とすると、「n 乗するとその数になる正の数」を探す\n中の数を素因数分解して、同じ数の n 個の積にする\n{answer}",
+        "ko": "근호 왼쪽 위의 수를 n이라 하면 \"n제곱하면 그 수가 되는 양수\"를 찾습니다\n안의 수를 소인수분해해서 같은 수 n개의 곱으로 만듭니다\n{answer}",
+        "en": "If the index of the root is n, find the positive number whose n-th power gives it\nFactor the number into n equal factors\n{answer}"
+      }
+    },
+    {
+      "id": "fracexp",
+      "level": 2,
+      "type": "root",
+      "gen": "root",
+      "params": {
+        "ask": "frac"
+      },
+      "text": {
+        "ja": "{base} の {exp} 乗の値は?",
+        "ko": "{base} 의 {exp} 제곱의 값은?",
+        "en": "What is {base} to the power {exp}?"
+      },
+      "explain": {
+        "ja": "{base} を素数の累乗で表す\n(aᵐ)ⁿ = aᵐⁿ を使って、指数 {exp} を掛ける\n指数が負のときは逆数にして {answer}",
+        "ko": "{base} 를 소수의 거듭제곱으로 나타냅니다\n(aᵐ)ⁿ = aᵐⁿ 을 써서 지수 {exp} 를 곱합니다\n지수가 음수이면 역수로 만들어 {answer}",
+        "en": "Write {base} as a power of a prime\nUse (aᵐ)ⁿ = aᵐⁿ to multiply by the exponent {exp}\nA negative exponent means the reciprocal: {answer}"
+      }
+    },
+    {
+      "id": "expeq",
+      "level": 1,
+      "type": "expeq",
+      "gen": "expeq",
+      "params": {
+        "ask": "eq"
+      },
+      "text": {
+        "ja": "方程式 {eq} の解は?",
+        "ko": "방정식 {eq} 의 해는?",
+        "en": "Solve {eq}."
+      },
+      "explain": {
+        "ja": "右辺を、左辺と同じ底の累乗で表す\n底が同じなので、指数どうしが等しい\nその1次方程式を解いて {answer}",
+        "ko": "우변을 좌변과 같은 밑의 거듭제곱으로 나타냅니다\n밑이 같으므로 지수끼리 같습니다\n그 일차방정식을 풀면 {answer}",
+        "en": "Write the right side as a power of the same base\nEqual bases mean equal exponents\nSolve that linear equation: {answer}"
+      }
+    },
+    {
+      "id": "expineq",
+      "level": 2,
+      "type": "expeq",
+      "gen": "expeq",
+      "params": {
+        "ask": "ineq"
+      },
+      "text": {
+        "ja": "不等式 {eq} の解は?",
+        "ko": "부등식 {eq} 의 해는?",
+        "en": "Solve {eq}."
+      },
+      "explain": {
+        "ja": "右辺を、左辺と同じ底の累乗で表す\n底が 1 より大きければ不等号の向きはそのまま、1 より小さければ逆になる\n指数を比べて {answer}",
+        "ko": "우변을 좌변과 같은 밑의 거듭제곱으로 나타냅니다\n밑이 1보다 크면 부등호 방향은 그대로, 1보다 작으면 반대가 됩니다\n지수를 비교하면 {answer}",
+        "en": "Write the right side as a power of the same base\nBase above 1 keeps the inequality; base below 1 flips it\nCompare exponents: {answer}"
+      }
+    },
+    {
+      "id": "logval",
+      "level": 1,
+      "type": "logval",
+      "gen": "logval",
+      "text": {
+        "ja": "{expr} の値は?",
+        "ko": "{expr} 의 값은?",
+        "en": "What is {expr}?"
+      },
+      "explain": {
+        "ja": "log の値は「底を何乗すると真数になるか」\n真数を底の累乗で表す(分数なら負の指数)\nその指数が答え: {answer}",
+        "ko": "로그의 값은 \"밑을 몇 제곱하면 진수가 되는가\"\n진수를 밑의 거듭제곱으로 나타냅니다 (분수이면 음의 지수)\n그 지수가 답: {answer}",
+        "en": "A log asks: what power of the base gives the number?\nWrite the number as a power of the base (a fraction means a negative power)\nThat exponent is the answer: {answer}"
+      }
+    },
+    {
+      "id": "logbase",
+      "level": 2,
+      "type": "logval",
+      "gen": "logval",
+      "params": {
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} の値は?",
+        "ko": "{expr} 의 값은?",
+        "en": "What is {expr}?"
+      },
+      "explain": {
+        "ja": "底と真数を、同じ数の累乗で表す\n底の変換公式で、(真数の指数) ÷ (底の指数) になる\n{answer}",
+        "ko": "밑과 진수를 같은 수의 거듭제곱으로 나타냅니다\n밑의 변환 공식으로 (진수의 지수) ÷ (밑의 지수)가 됩니다\n{answer}",
+        "en": "Write the base and the number as powers of the same number\nChanging base gives (exponent of the number) ÷ (exponent of the base)\n{answer}"
+      }
+    },
+    {
+      "id": "logsum",
+      "level": 1,
+      "type": "logrule",
+      "gen": "logrule",
+      "params": {
+        "ask": "sum"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr} 을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "底が同じ対数の和は、真数の積の対数: log M + log N = log MN\n真数どうしを掛ける → {=nums(expr)[0]*nums(expr)[1]}\nその数が底の何乗かを考えて {answer}",
+        "ko": "밑이 같은 로그의 합은 진수의 곱의 로그: log M + log N = log MN\n진수끼리 곱합니다 → {=nums(expr)[0]*nums(expr)[1]}\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
+        "en": "A sum of logs with one base is the log of the product: log M + log N = log MN\nMultiply the two numbers → {=nums(expr)[0]*nums(expr)[1]}\nAsk what power of the base that is: {answer}"
+      }
+    },
+    {
+      "id": "logdiff",
+      "level": 1,
+      "type": "logrule",
+      "gen": "logrule",
+      "params": {
+        "ask": "diff"
+      },
+      "text": {
+        "ja": "{expr} を計算すると?",
+        "ko": "{expr} 을 계산하면?",
+        "en": "Calculate {expr}."
+      },
+      "explain": {
+        "ja": "底が同じ対数の差は、真数の商の対数: log M − log N = log (M/N)\n真数どうしを割る → {=nums(expr)[0]/nums(expr)[1]}\nその数が底の何乗かを考えて {answer}",
+        "ko": "밑이 같은 로그의 차는 진수의 몫의 로그: log M − log N = log (M/N)\n진수끼리 나눕니다 → {=nums(expr)[0]/nums(expr)[1]}\n그 수가 밑의 몇 제곱인지 생각하면 {answer}",
+        "en": "A difference of logs with one base is the log of the quotient: log M − log N = log (M/N)\nDivide the two numbers → {=nums(expr)[0]/nums(expr)[1]}\nAsk what power of the base that is: {answer}"
+      }
+    },
+    {
+      "id": "logeq",
+      "level": 2,
+      "type": "logeq",
+      "gen": "logeq",
+      "params": {
+        "ask": "eq"
+      },
+      "text": {
+        "ja": "方程式 {eq} の解は?",
+        "ko": "방정식 {eq} 의 해는?",
+        "en": "Solve {eq}."
+      },
+      "explain": {
+        "ja": "log の定義から、(真数) = (底) の (右辺) 乗\nその値を計算して、x の1次方程式にする\n解いて {answer}(真数が正になることも確かめる)",
+        "ko": "로그의 정의에서 (진수) = (밑)의 (우변)제곱\n그 값을 계산해서 x의 일차방정식으로 만듭니다\n풀면 {answer} (진수가 양수가 되는지도 확인)",
+        "en": "By definition, (argument) = (base) to the power (right side)\nEvaluate it to get a linear equation in x\nSolve: {answer} (and check the argument is positive)"
+      }
+    },
+    {
+      "id": "logineq",
+      "level": 3,
+      "type": "logeq",
+      "gen": "logeq",
+      "params": {
+        "ask": "ineq"
+      },
+      "text": {
+        "ja": "不等式 {eq} の解は?",
+        "ko": "부등식 {eq} 의 해는?",
+        "en": "Solve {eq}."
+      },
+      "explain": {
+        "ja": "まず真数の条件: x > 0\n右辺を同じ底の対数で表して、真数どうしを比べる(底が 1 より大きいので向きはそのまま)\n真数の条件と合わせて {answer}",
+        "ko": "먼저 진수의 조건: x > 0\n우변을 같은 밑의 로그로 나타내고 진수끼리 비교합니다 (밑이 1보다 크므로 방향은 그대로)\n진수의 조건과 합치면 {answer}",
+        "en": "First the condition on the argument: x > 0\nWrite the right side as a log with the same base and compare arguments (base above 1 keeps the direction)\nTogether with x > 0: {answer}"
+      }
+    },
+    {
+      "id": "digits",
+      "level": 3,
+      "type": "digits",
+      "gen": "digits",
+      "text": {
+        "ja": "{log} とするとき、{power} は何桁の数か?",
+        "ko": "{log} 이라 할 때, {power} 은 몇 자리 수인가?",
+        "en": "Taking {log}, how many digits does {power} have?"
+      },
+      "explain": {
+        "ja": "{power} の常用対数は {n} × log₁₀ {base}({log} を使う) = {=round(n*(base==2?0.3010:0.4771),4)}\nその値の整数部分を k とすると、10ᵏ ≦ {power} < 10ᵏ⁺¹\n桁数は k + 1 なので {answer}",
+        "ko": "{power} 의 상용로그는 {n} × log₁₀ {base} ({log} 를 씁니다) = {=round(n*(base==2?0.3010:0.4771),4)}\n그 값의 정수 부분을 k라 하면 10ᵏ ≦ {power} < 10ᵏ⁺¹\n자릿수는 k + 1 이므로 {answer}",
+        "en": "The common log of {power} is {n} × log₁₀ {base} (use {log}) = {=round(n*(base==2?0.3010:0.4771),4)}\nIf its whole part is k, then 10ᵏ ≤ {power} < 10ᵏ⁺¹\nThe number of digits is k + 1 = {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-digits",
+      "gen": "digits",
+      "intro": {
+        "ja": "{log} として、{power} について答えよ。",
+        "ko": "{log} 이라 하고, {power} 에 대하여 답하시오.",
+        "en": "Taking {log}, answer about {power}."
+      },
+      "steps": [
+        {
+          "type": "logrule",
+          "level": 1,
+          "sum": {
+            "ja": "常用対数",
+            "ko": "상용로그",
+            "en": "Common log"
+          },
+          "text": {
+            "ja": "log₁₀ {power} の値は?",
+            "ko": "log₁₀ {power} 의 값은?",
+            "en": "What is log₁₀ {power}?"
+          },
+          "explain": {
+            "ja": "log₁₀ aⁿ = n × log₁₀ a(指数を前に出す)\n{n} × 0.3010 = {answer}",
+            "ko": "log₁₀ aⁿ = n × log₁₀ a (지수를 앞으로 꺼냅니다)\n{n} × 0.3010 = {answer}",
+            "en": "log₁₀ aⁿ = n × log₁₀ a (bring the exponent down)\n{n} × 0.3010 = {answer}"
+          }
+        },
+        {
+          "type": "digits",
+          "level": 2,
+          "sum": {
+            "ja": "整数部分",
+            "ko": "정수 부분",
+            "en": "Whole part"
+          },
+          "text": {
+            "ja": "その値の整数部分は?",
+            "ko": "그 값의 정수 부분은?",
+            "en": "What is the whole-number part of that value?"
+          },
+          "explain": {
+            "ja": "整数部分は、小数点より前の数\n{a1} の整数部分は {answer}",
+            "ko": "정수 부분은 소수점 앞의 수\n{a1} 의 정수 부분은 {answer}",
+            "en": "The whole part is the number before the decimal point\nThe whole part of {a1} is {answer}"
+          }
+        },
+        {
+          "type": "digits",
+          "level": 3,
+          "sum": {
+            "ja": "桁数",
+            "ko": "자릿수",
+            "en": "Digits"
+          },
+          "text": {
+            "ja": "{power} は何桁の数か?",
+            "ko": "{power} 은 몇 자리 수인가?",
+            "en": "How many digits does {power} have?"
+          },
+          "explain": {
+            "ja": "常用対数の整数部分が {a2} → 10 の {a2} 乗以上、{a2} + 1 乗未満\n10 の k 乗は (k + 1) 桁なので {answer} 桁",
+            "ko": "상용로그의 정수 부분이 {a2} → 10의 {a2}제곱 이상, {a2} + 1 제곱 미만\n10의 k제곱은 (k + 1)자리이므로 {answer} 자리",
+            "en": "Whole part {a2} means at least 10 to the {a2} and below 10 to the {a2} + 1\n10 to the k has k + 1 digits, so {answer} digits"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-expquad",
+      "gen": "expquad",
+      "intro": {
+        "ja": "方程式 {eq} を、2ˣ = t とおいて解く。",
+        "ko": "방정식 {eq} 을 2ˣ = t 로 놓고 푼다.",
+        "en": "Solve {eq} by putting 2ˣ = t."
+      },
+      "steps": [
+        {
+          "type": "expeq",
+          "level": 2,
+          "sum": {
+            "ja": "小さい t",
+            "ko": "작은 t",
+            "en": "Smaller t"
+          },
+          "text": {
+            "ja": "t の2次方程式の解のうち、小さい方は?",
+            "ko": "t에 대한 이차방정식의 해 중에서 작은 쪽은?",
+            "en": "What is the smaller root of the quadratic in t?"
+          },
+          "explain": {
+            "ja": "4ˣ = t² なので t の2次方程式になる\n因数分解して、小さい方は {answer}",
+            "ko": "4ˣ = t² 이므로 t에 대한 이차방정식이 됩니다\n인수분해하면 작은 쪽은 {answer}",
+            "en": "Since 4ˣ = t² this is a quadratic in t; factoring, the smaller root is {answer}"
+          }
+        },
+        {
+          "type": "expeq",
+          "level": 2,
+          "sum": {
+            "ja": "大きい t",
+            "ko": "큰 t",
+            "en": "Larger t"
+          },
+          "text": {
+            "ja": "大きい方は?",
+            "ko": "큰 쪽은?",
+            "en": "What is the larger root?"
+          },
+          "explain": {
+            "ja": "因数分解した (t − {a1})(t − □) = 0 のもう一方\n大きい方の解は {answer}",
+            "ko": "인수분해한 (t − {a1})(t − □) = 0 의 다른 쪽\n큰 쪽의 해는 {answer}",
+            "en": "The other factor of (t − {a1})(t − □) = 0\nThe larger root is {answer}"
+          }
+        },
+        {
+          "type": "expeq",
+          "level": 2,
+          "sum": {
+            "ja": "x の値",
+            "ko": "x의 값",
+            "en": "Value of x"
+          },
+          "text": {
+            "ja": "t = {a2} のときの x の値は?",
+            "ko": "t = {a2} 일 때의 x의 값은?",
+            "en": "What is x when t = {a2}?"
+          },
+          "explain": {
+            "ja": "t = 2ˣ にもどす: 2ˣ = {a2}\n{a2} を 2 の累乗で表して x = {answer}",
+            "ko": "t = 2ˣ 로 되돌립니다: 2ˣ = {a2}\n{a2} 를 2의 거듭제곱으로 나타내면 x = {answer}",
+            "en": "Go back to t = 2ˣ: 2ˣ = {a2}\nWrite {a2} as a power of 2: x = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -26,6 +26,27 @@ const ICON = {
   counter: '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M14.5 9l-5 5M9.5 9.5V14H14"/>',
   coin: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M14.5 9.5h-3.7a1.7 1.7 0 000 3.4h2.4a1.7 1.7 0 010 3.4H9.5"/>',
   weak: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/>',
+  // 유물 (학용품). 이름은 'r-' + 유물 id (js/relics.js)
+  'r-pencil': '<path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="M14 6l4 4M5 15l4 4"/>',
+  'r-eraser': '<path d="M8 19l-4.5-4.5a1.5 1.5 0 010-2.1L12 4a1.5 1.5 0 012.1 0l5.4 5.4a1.5 1.5 0 010 2.1L12 19z"/><path d="M8 8.5l7.5 7.5M8 19h12"/>',
+  'r-grid': '<rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9.3h16M4 14.7h16M9.3 4v16M14.7 4v16"/>',
+  'r-snack': '<path d="M8 8c-3 2.5-4.5 5.5-4.5 8.5a4 4 0 004 4h9a4 4 0 004-4c0-3-1.5-6-4.5-8.5z"/><path d="M8 8h8M9 4.5L10.5 8M15 4.5L13.5 8M12 3.5V8"/>',
+  'r-piggy': '<path d="M4 12.5a7 5.5 0 0114 0v.5h2v3h-2.3a7 5.5 0 01-1.7 1.8V20h-3v-1.2a8 8 0 01-3 0V20H7v-1.9a5.6 5.6 0 01-3-5.6z"/><path d="M9.5 8.3H13M15.5 12h.01"/>',
+  'r-note': '<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h5"/>',
+  'r-setsquare': '<path d="M4 20V5l15 15z"/><path d="M7.5 16.5v-4l4 4z"/>',
+  'r-bottle': '<path d="M10 2.5h4v3l2 2.5V20a1.5 1.5 0 01-1.5 1.5h-5A1.5 1.5 0 018 20V8l2-2.5z"/><path d="M8 12h8M8 16h8"/>',
+  'r-bookmark': '<path d="M7 3h10v18l-5-4-5 4z"/><path d="M10 8h4"/>',
+  'r-ribbon': '<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5"/>',
+  'r-redpen': '<path d="M9 3h6v11l-3 5-3-5z"/><path d="M9 7h6M12 19v2.5"/>',
+  'r-wrongnote': '<path d="M6 3h12a1 1 0 011 1v16a1 1 0 01-1 1H6z"/><path d="M4 7h3M4 12h3M4 17h3M10.5 9.5l5 5M15.5 9.5l-5 5"/>',
+  'r-alarm': '<circle cx="12" cy="13" r="7"/><path d="M12 9.5V13l2.5 1.5M5 4.5L2.5 7M19 4.5L21.5 7M7 19l-1.5 2M17 19l1.5 2"/>',
+  'r-highlighter': '<path d="M14 3l7 7-8.5 8.5H8l-2.5-2.5V11.5z"/><path d="M5.5 16L3 20.5h5M10 7.5l6.5 6.5"/>',
+  'r-library': '<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M6.5 10h5M6.5 13.5H10M15 9.5h3v5h-3z"/>',
+  'r-bandage': '<path d="M3.8 14.8l11-11a3.8 3.8 0 015.4 5.4l-11 11a3.8 3.8 0 01-5.4-5.4z"/><path d="M8.5 10l5.5 5.5M11 11.5h.01M12.5 13h.01"/>',
+  'r-chainbelt': '<path d="M3 9h18v6H3z"/><rect x="9" y="7" width="6" height="10" rx="1"/><path d="M12 10.5v3"/>',
+  'r-ruler': '<path d="M3 15.5L15.5 3 21 8.5 8.5 21z"/><path d="M7 12l1.5 1.5M10 9l1.5 1.5M13 6l1.5 1.5M12.5 17l1-3 2.5 1 .5-3.5"/>',
+  'r-workbook': '<path d="M5 4h12a2 2 0 012 2v14H7a2 2 0 01-2-2z"/><path d="M5 18a2 2 0 012-2h12M9 8h6M9 11.5h4"/>',
+  'r-bag': '<path d="M6 9h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2z"/><path d="M9 9V6.5a3 3 0 016 0V9M9 14h6v3H9z"/>',
 };
 
 export function icon(name) {

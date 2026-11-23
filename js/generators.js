@@ -381,7 +381,7 @@ Object.assign(GENERATORS, {
     const a = pickOne([1, 2, 3, -1, -2]);
     const p = nonzero(-6, 6);
     const q = nonzero(-6, 6);
-    return item({ f: vertexForm(a, p, q) }, point(p, q), [point(-p, q), point(p, -q), point(q, p)], [point(-p, -q), point(p + 1, q), point(p, q + 1)]);
+    return item({ f: vertexForm(a, p, q), ps: numStr(p), qs: numStr(q) }, point(p, q), [point(-p, q), point(p, -q), point(q, p)], [point(-p, -q), point(p + 1, q), point(p, q + 1)]);
   },
 
   // 완전제곱식으로 고쳐 꼭짓점 구하기: y = ax² + bx + c
@@ -390,7 +390,7 @@ Object.assign(GENERATORS, {
     const p = nonzero(-5, 5);
     const q = nonzero(-5, 5);
     const c0 = a * p * p + q;
-    return item({ f: `y = ${polyStr(a, -2 * a * p, c0)}` }, point(p, q),
+    return item({ f: `y = ${polyStr(a, -2 * a * p, c0)}`, form: vertexForm(a, p, q) }, point(p, q),
       [point(-p, q), point(p, c0), point(p, -q)],
       [point(-p, c0), point(2 * p, q), point(p + 1, q)]);
   },
@@ -416,7 +416,7 @@ Object.assign(GENERATORS, {
     const high = Math.max(f(s), f(t));
     const answer = int(params.ask === 'min' ? low : high);
     const other = int(params.ask === 'min' ? high : low);
-    return item({ f: vertexForm(1, p, q), s: numStr(s), t: numStr(t) }, answer,
+    return item({ f: vertexForm(1, p, q), s: numStr(s), t: numStr(t), axis: numStr(p), vq: numStr(q), vs: numStr(f(s)), vt: numStr(f(t)) }, answer,
       [other, int(q), int(Math.min(f(s), f(t))), int(p)],
       [int(answer.v + 1), int(answer.v - 1), int(f(s) + f(t))]);
   },
@@ -425,7 +425,7 @@ Object.assign(GENERATORS, {
   quadeq() {
     const a = nonzero(-9, 9);
     const b = pickOne(range(-9, 9).filter((n) => n !== 0 && n !== a));
-    return item({ f: `${polyStr(1, -(a + b), a * b)} = 0` }, roots(a, b),
+    return item({ f: `${polyStr(1, -(a + b), a * b)} = 0`, fac: product(1, -Math.min(a, b), 1, -Math.max(a, b)).s, prod: numStr(a * b), lin: numStr(-(a + b)) }, roots(a, b),
       [roots(-a, -b), roots(a, -b), roots(-a, b)],
       [roots(a, b + 1), roots(a - 1, b), roots(a + 1, b + 1)]);
   },
@@ -436,7 +436,7 @@ Object.assign(GENERATORS, {
     const b = pickOne(range(-8, 8));
     const c = nonzero(-6, 6);
     const D = b * b - 4 * a * c;
-    return item({ f: `${polyStr(a, b, c)} = 0`, a, b, c }, int(D),
+    return item({ f: `${polyStr(a, b, c)} = 0`, a, b, c, b2: b * b, ac4: numStr(4 * a * c) }, int(D),
       [int(b * b + 4 * a * c), int(b * b - a * c), int(b - 4 * a * c)],
       [int(4 * a * c - b * b), int(D + 4), int(D - 1)]);
   },
@@ -447,7 +447,7 @@ Object.assign(GENERATORS, {
     const b = pickOne(range(-8, 8).filter((n) => n !== 0 && n !== a));
     const op = pickOne(['<', '>']);
     const inside = op === '<';
-    return item({ f: polyStr(1, -(a + b), a * b), op }, interval(a, b, inside),
+    return item({ f: polyStr(1, -(a + b), a * b), op, fac: product(1, -Math.min(a, b), 1, -Math.max(a, b)).s, r1: numStr(Math.min(a, b)), r2: numStr(Math.max(a, b)) }, interval(a, b, inside),
       [interval(a, b, !inside), interval(-a, -b, inside), interval(-a, -b, !inside)],
       [interval(a, b + 1, inside), interval(a - 1, b, inside), interval(a + 1, b + 2, !inside)]);
   },
@@ -924,19 +924,21 @@ Object.assign(GENERATORS, {
     const k = pickOne([0, 1, 2]);
     const a = pickOne([1, 2, -1]);
     let f;
+    let co; // [a, b, c]
     if (k === 1) {
       const r = nonzero(-5, 5);
-      f = polyStr(a, -2 * a * r, a * r * r);
+      co = [a, -2 * a * r, a * r * r];
     } else if (k === 2) {
       const r1 = nonzero(-5, 5);
       const r2 = pickOne(range(-5, 5).filter((n) => n !== r1));
-      f = polyStr(a, -a * (r1 + r2), a * r1 * r2);
+      co = [a, -a * (r1 + r2), a * r1 * r2];
     } else {
       const p = pickOne(range(-4, 4));
       const q = pickOne(range(1, 6));
-      f = polyStr(a, -2 * a * p, a * p * p + a * q); // 꼭짓점이 x 축과 같은 쪽으로 떨어져 있음
+      co = [a, -2 * a * p, a * p * p + a * q]; // 꼭짓점이 x 축과 같은 쪽으로 떨어져 있음
     }
-    return item({ f: `y = ${f}` }, int(k), [0, 1, 2, 3].filter((n) => n !== k).map(int));
+    f = polyStr(...co);
+    return item({ f: `y = ${f}`, a: numStr(co[0]), b: numStr(co[1]), c: numStr(co[2]), D: numStr(co[1] * co[1] - 4 * co[0] * co[2]) }, int(k), [0, 1, 2, 3].filter((n) => n !== k).map(int));
   },
 
   // 해가 "모든 실수" 이거나 "없음" 이 되는 이차부등식
@@ -1396,7 +1398,7 @@ Object.assign(GENERATORS, {
     const c = pickOne(range(-6, 6));
     const k = nonzero(-4, 4);
     const f = (x) => a * x * x + b * x + c;
-    return item({ f: polyStr(a, b, c), k: numStr(k) }, int(f(k)), [int(f(-k)), int(-a * k * k + b * k + c), int(a * k * 2 + b * k + c)],
+    return item({ f: polyStr(a, b, c), k: numStr(k), sub: `${numStr(a)} × (${numStr(k)})² ${b < 0 ? MINUS : '+'} ${Math.abs(b)} × (${numStr(k)}) ${c < 0 ? MINUS : '+'} ${Math.abs(c)}`, t1: numStr(a * k * k), t2: numStr(b * k), t3: numStr(c) }, int(f(k)), [int(f(-k)), int(-a * k * k + b * k + c), int(a * k * 2 + b * k + c)],
       [int(f(k) + 1), int(f(k) - 1), int(f(k) + 2)]);
   },
 
@@ -1474,7 +1476,7 @@ Object.assign(GENERATORS, {
       return { s: `x = ${numStr(-bb)} ± ${q.n === 1 ? '' : q.n}√${q.r}`, v: -bb + Math.sqrt(dd) + 0.001 };
     };
     const wrongD = b * b + 4 * c;
-    return item({ f: `${polyStr(1, b, c)} = 0` }, form(b, D), [form(-b, D), plain(b, D), wrongD > 0 && surd(1, wrongD).r !== 1 ? form(b, wrongD) : null],
+    return item({ f: `${polyStr(1, b, c)} = 0`, bs: numStr(b), cs: numStr(c), nb: numStr(-b), D }, form(b, D), [form(-b, D), plain(b, D), wrongD > 0 && surd(1, wrongD).r !== 1 ? form(b, wrongD) : null],
       [plain(-b, D), form(b, D + 4), form(b + 2, D + 4)]);
   },
 
@@ -2057,3 +2059,967 @@ export const CHAINS = {
     };
   },
 };
+
+// =====================================================================
+// 数学II
+// =====================================================================
+
+// 높은 차수부터 적은 계수로 다항식을 글로 씁니다. 예: polyN([1, 0, 0, 27]) → "x³ + 27"
+const SUP = ['', '', '²', '³', '⁴', '⁵', '⁶', '⁷'];
+function polyN(coefs) {
+  const parts = [];
+  coefs.forEach((coef, k) => {
+    if (!coef) return;
+    const deg = coefs.length - 1 - k;
+    const sym = deg === 0 ? '' : `x${SUP[deg]}`;
+    const abs = Math.abs(coef);
+    parts.push([coef < 0, `${abs === 1 && sym ? '' : abs}${sym}`]);
+  });
+  if (!parts.length) return '0';
+  return parts.map(([neg, body], i) => (i === 0 ? `${neg ? MINUS : ''}${body}` : ` ${neg ? MINUS : '+'} ${body}`)).join('');
+}
+// 다항식 보기: x = 1.37 에서의 값으로 서로 구별합니다.
+const AT = 1.37;
+const valN = (coefs) => coefs.reduce((acc, c) => acc * AT + c, 0);
+const polyOpt = (coefs) => ({ s: polyN(coefs), v: valN(coefs) });
+const powerOf = (x, n) => `x${SUP[n]}`.replace('x', x);
+const SUB = '₀₁₂₃₄₅₆₇₈₉';
+const combStr = (n, k) => `${SUB[n]}C${SUB[k]}`; // ₅C₂ 처럼 씁니다 (한 자리 수만)
+
+Object.assign(GENERATORS, {
+  // ---------- 数学II: 式と証明 ----------
+
+  // 세제곱의 전개: (x + a)³. params.hard 이면 (2x + a)³
+  cubeexpand(params) {
+    const k = params.hard ? pickOne([2, 3]) : 1;
+    const a = params.hard ? nonzero(-3, 3) : nonzero(-5, 5);
+    const right = [k ** 3, 3 * k * k * a, 3 * k * a * a, a ** 3];
+    return item({ expr: `${lin(k, a)}³` }, polyOpt(right),
+      [polyOpt([k ** 3, 0, 0, a ** 3]), polyOpt([k ** 3, k * k * a, k * a * a, a ** 3]), polyOpt([k ** 3, 3 * k * k * a, 3 * k * a * a, -(a ** 3)])],
+      [polyOpt([k ** 3, -3 * k * k * a, 3 * k * a * a, -(a ** 3)]), polyOpt([k, 3 * k * k * a, 3 * k * a * a, a ** 3]), polyOpt([k ** 3, 3 * k * a, 3 * k * a * a, a ** 3]), polyOpt([k ** 3, 3 * k * k * a, 3 * k * a * a + 1, a ** 3])]);
+  },
+
+  // 세제곱의 합·차의 인수분해: x³ ± a³ = (x ± a)(x² ∓ ax + a²)
+  cubefactor() {
+    const a = 1 + rand(5);
+    const s = pickOne([1, -1]);
+    const opt = (p, q, r) => ({ s: `${lin(1, p)}${paren(1, q, r)}`, v: (AT + p) * (AT * AT + q * AT + r) });
+    const cube = { s: `${lin(1, s * a)}³`, v: (AT + s * a) ** 3 };
+    return item({ expr: polyN([1, 0, 0, s * a ** 3]) }, opt(s * a, -s * a, a * a),
+      [opt(s * a, s * a, a * a), opt(-s * a, -s * a, a * a), cube],
+      [opt(s * a, -2 * s * a, a * a), opt(-s * a, s * a, a * a), opt(s * a, -s * a, -a * a)]);
+  },
+
+  // 이항정리: (x + a)ⁿ 의 전개식에서 x^k 의 계수. params.hard 이면 a 가 1 이 아님
+  binom(params) {
+    const n = pickOne(params.hard ? [5, 6] : [4, 5, 6]);
+    const a = params.hard ? pickOne([2, 3, -2, -3]) : pickOne([1, 1, -1, 2]);
+    const k = 1 + rand(n - 1);
+    const c = nCr(n, k);
+    const answer = c * a ** (n - k);
+    return item({ expr: `${lin(1, a)}${SUP[n]}`, term: powerOf('x', k), n, k, a: numStr(a), comb: combStr(n, k), rest: n - k }, int(answer),
+      [int(c), int(c * a ** k), int(a ** (n - k))],
+      [int(-answer), int(c * a * (n - k)), int(nCr(n, k - 1) * a ** (n - k)), int(answer + c), int(c + n), int(answer * 2)]);
+  },
+
+  // 다항식의 나눗셈: (ax² + …) ÷ (x − k). params.ask 는 'quot'(몫) 또는 'rem'(나머지). params.hard 이면 x² 의 계수가 2 또는 3
+  polydiv(params) {
+    const a = params.hard ? pickOne([2, 3]) : 1;
+    const k = nonzero(-4, 4);
+    const m = nonzero(-6, 6);
+    const r = nonzero(-9, 9);
+    const p = m - a * k; // (x − k)(ax + m) + r = ax² + (m − ak)x + (r − km)
+    const q = r - k * m;
+    const fields = { expr: polyStr(a, p, q), div: polyStr(0, 1, -k) };
+    const linear = (c1, c0) => ({ s: polyStr(0, c1, c0), v: c1 * AT + c0 });
+    if (params.ask === 'quot') {
+      return item(fields, linear(a, m), [linear(a, p), linear(a, p - a * k), linear(a, -m)],
+        [linear(a, m + 1), linear(a, m - 1), linear(1, m + a), linear(a, m + 2)]);
+    }
+    return item(fields, int(r), [int(a * k * k - p * k + q), int(q), int(-r)], [int(r + 1), int(r - 1), int(k * m), int(r + 2), int(r - 2)]);
+  },
+
+  // 분수식의 약분: (x + a)(x + b) / (x + a)(x + c) = (x + b)/(x + c)
+  fracexpr() {
+    let a;
+    let b;
+    let c;
+    do {
+      [a, b, c] = [nonzero(-6, 6), nonzero(-6, 6), nonzero(-6, 6)];
+    } while (a === b || b === c || a === c || a + b === 0 || a + c === 0);
+    const ratio = (p, q) => ({ s: `${lin(1, p)}/${lin(1, q)}`, v: (AT + p) / (AT + q) });
+    return item({ top: polyStr(1, a + b, a * b), bottom: polyStr(1, a + c, a * c) }, ratio(b, c),
+      [ratio(c, b), ratio(a, c), ratio(b, a), ratio(-b, -c)], [ratio(a + b, a + c), ratio(b + 1, c), ratio(b, c + 1)]);
+  },
+
+  // 항등식의 계수: px + q = a(x + m) + b(x − n) 에서 a 또는 b. params.ask 는 'a' 또는 'b'
+  identity(params) {
+    let a;
+    let b;
+    let m;
+    let n;
+    do {
+      [a, b, m, n] = [nonzero(-6, 6), nonzero(-6, 6), 1 + rand(3), 1 + rand(3)];
+    } while (a === b || a + b === 0 || a * m - b * n === 0);
+    const p = a + b;
+    const q = a * m - b * n;
+    const answer = params.ask === 'a' ? a : b;
+    const other = params.ask === 'a' ? b : a;
+    return item({ left: polyStr(0, p, q), right: `a(x + ${m}) + b(x ${MINUS} ${n})` }, int(answer),
+      [int(other), int(p), int(q)], [int(-answer), int(answer + 1), int(answer - 1), int(answer + 2), int(p - q)]);
+  },
+
+  // 산술평균과 기하평균: x > 0 일 때 x + c/x 의 최솟값. params.hard 이면 ax + b/x
+  amgm(params) {
+    if (params.hard) {
+      const a = pickOne([2, 3, 4, 5]);
+      const t = pickOne([1, 2, 3, 4]);
+      const b = a * t * t; // √(ab) = at
+      return item({ expr: `${a}x + ${b}/x` }, int(2 * a * t), [int(a * t), int(a * b), int(a + b)],
+        [int(4 * a * t), int(2 * a * t + 1), int(a * t * t), int(2 * b), int(2 * a * t + 2)]);
+    }
+    const k = 1 + rand(9);
+    return item({ expr: `x + ${k * k}/x` }, int(2 * k), [int(k), int(k * k), int(k * k + 1)], [int(4 * k), int(2 * k + 1), int(2 * k * k), int(k + 1), int(2 * k - 1)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 이항정리: ₙCₖ → a 의 거듭제곱 → 계수
+  binom() {
+    const n = pickOne([5, 6]);
+    const a = pickOne([2, 3, -2]);
+    const k = pickOne(range(2, n - 2));
+    const c = nCr(n, k);
+    const pw = a ** (n - k);
+    return {
+      expr: `${lin(1, a)}${SUP[n]}`, term: powerOf('x', k), n, k, a: numStr(a), comb: combStr(n, k), rest: n - k,
+      steps: [
+        step(int(c), [int(nPr(n, k)), int(n * k), int(nCr(n, k - 1))], [int(c + n), int(c * 2), int(c - 1)]),
+        step(int(pw), [int(a ** k), int(a * (n - k)), int(-pw)], [int(pw * a), int(pw + a), int(pw * 2)]),
+        step(int(c * pw), [int(c + pw), int(c * a ** k), int(c)], [int(-c * pw), int(c * pw + c), int(c * pw * 2)]),
+      ],
+    };
+  },
+
+  // 산술평균·기하평균: 두 항의 곱 → 최솟값 → 그때의 x
+  amgm() {
+    const k = 2 + rand(6);
+    const d = nonzero(-5, 9);
+    const min = 2 * k + d;
+    return {
+      expr: `x + ${k * k}/x ${d < 0 ? MINUS : '+'} ${Math.abs(d)}`, c: k * k, d: numStr(d),
+      steps: [
+        step(int(k * k), [int(k), int(2 * k), int(k * k + 1)], [int(k * k * 2), int(k * k - 1), int(k * k + d)]),
+        step(int(min), [int(2 * k), int(k * k + d), int(k + d)], [int(min + 1), int(min - 1), int(2 * k * k + d), int(min + 2)]),
+        step(int(k), [int(k * k), int(2 * k), int(min)], [int(k + 1), int(k - 1), int(k + 2)]),
+      ],
+    };
+  },
+});
+
+// ---------- 数学II: 複素数と方程式 ----------
+
+// 복소수 a + bi 를 글로 씁니다. 예: cplxStr(3, -1) → "3 − i"
+function cplxStr(re, im) {
+  if (im === 0) return numStr(re);
+  const body = `${Math.abs(im) === 1 ? '' : Math.abs(im)}i`;
+  if (re === 0) return `${im < 0 ? MINUS : ''}${body}`;
+  return `${numStr(re)} ${im < 0 ? MINUS : '+'} ${body}`;
+}
+const cplx = (re, im) => ({ s: cplxStr(re, im), v: re * 1000.5 + im * 1.0007 });
+// 세 해 "x = a, b, c" (작은 수부터)
+function roots3(list) {
+  const sorted = [...list].sort((p, q) => p - q);
+  return { s: `x = ${sorted.map(numStr).join(', ')}`, v: sorted[0] * 10000.5 + sorted[1] * 100.3 + sorted[2] };
+}
+// ab 가 제곱수가 되는 짝 (√(−a) × √(−b) 계산용)
+const SQUARE_PAIRS = [[2, 8], [3, 12], [2, 18], [3, 27], [5, 20], [2, 32], [6, 24], [3, 48], [5, 45], [7, 28], [2, 50], [8, 18]];
+
+Object.assign(GENERATORS, {
+  // 복소수의 사칙연산. params.op 는 'add', 'sub', 'mul', 'div'
+  cplxcalc(params) {
+    const [a, b, c, d] = [nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5)];
+    const p = cplxStr(a, b);
+    const q = cplxStr(c, d);
+    if (params.op === 'add') {
+      return item({ expr: `(${p}) + (${q})`, p, q }, cplx(a + c, b + d), [cplx(a - c, b - d), cplx(a + c, b - d), cplx(a + d, b + c)],
+        [cplx(a + c + 1, b + d), cplx(a + c, b + d + 1), cplx(a * c, b * d)]);
+    }
+    if (params.op === 'sub') {
+      return item({ expr: `(${p}) ${MINUS} (${q})`, p, q }, cplx(a - c, b - d), [cplx(a - c, b + d), cplx(a + c, b + d), cplx(c - a, d - b)],
+        [cplx(a - c + 1, b - d), cplx(a - c, b - d - 1), cplx(a - d, b - c)]);
+    }
+    if (params.op === 'mul') {
+      return item({ expr: `(${p})(${q})`, p, q }, cplx(a * c - b * d, a * d + b * c),
+        [cplx(a * c + b * d, a * d + b * c), cplx(a * c, b * d), cplx(a * c - b * d, a * d - b * c)],
+        [cplx(a * c - b * d, b * d), cplx(a * c - b * d + 1, a * d + b * c), cplx(-(a * c - b * d), a * d + b * c), cplx(a * c - b * d, a * d + b * c + 1)]);
+    }
+    // 나눗셈: 몫이 정수 복소수가 되도록 (몫 × 나누는 수) 를 분자로 씁니다.
+    const [nr, ni] = [a * c - b * d, a * d + b * c]; // (a + bi)(c + di)
+    if (nr === 0 || ni === 0) return GENERATORS.cplxcalc(params);
+    const num = cplxStr(nr, ni);
+    return item({ expr: `(${num})/(${q})`, p: num, q }, cplx(a, b), [cplx(a, -b), cplx(b, a), cplx(-a, b)],
+      [cplx(a + 1, b), cplx(a, b + 1), cplx(-a, -b), cplx(a - 1, b)]);
+  },
+
+  // 음수의 제곱근. params.ask 가 'prod' 이면 √(−a) × √(−b), 아니면 √(−n) 을 i 로 나타내기
+  negsqrt(params) {
+    if (params.ask === 'prod') {
+      const [a, b] = shuffled(pickOne(SQUARE_PAIRS));
+      const r = Math.round(Math.sqrt(a * b));
+      const imag = (n) => ({ s: `${n < 0 ? MINUS : ''}${Math.abs(n)}i`, v: n * 1.0007 });
+      return item({ expr: `√(${MINUS}${a}) × √(${MINUS}${b})` }, int(-r), [int(r), imag(r), imag(-r)], [int(-a * b), int(a * b), int(-r - 1)]);
+    }
+    const k = pickOne([2, 3, 4, 5, 6]);
+    const m = pickOne([1, 1, 2, 3, 5, 7]);
+    const n = k * k * m;
+    const imag = (x, neg) => ({ s: `${neg ? MINUS : ''}${x.s}i`, v: (neg ? -1 : 1) * x.v * 1.0007 });
+    const real = (x, neg) => ({ s: `${neg ? MINUS : ''}${x.s}`, v: (neg ? -1 : 1) * x.v * 1000.5 });
+    return item({ expr: `√(${MINUS}${n})` }, imag(surd(k, m), false), [real(surd(k, m), true), imag(surd(k, m), true), real(surd(k, m), false)],
+      [imag(surd(1, n === 4 ? 2 : k * m), false), imag(surd(k * k, m), false), imag(surd(k + 1, m), false)]);
+  },
+
+  // 허근을 갖는 이차방정식: x² + 2px + (p² + q²) = 0 의 해 x = −p ± qi
+  cplxroot() {
+    const p = nonzero(-4, 4);
+    const q = 1 + rand(4);
+    const pm = (re, im) => ({ s: `x = ${numStr(re)} ± ${im === 1 ? '' : im}i`, v: re * 1000.5 + im * 1.0007 });
+    const real = (re, d) => ({ s: `x = ${numStr(re)} ± ${d}`, v: re * 77.7 + d * 0.013 + 5e6 });
+    return item({ eq: `${polyStr(1, 2 * p, p * p + q * q)} = 0` }, pm(-p, q), [pm(p, q), pm(-p, 2 * q), real(-p, q)],
+      [pm(-2 * p, q), pm(-p, q + 1), pm(-p, q * q), pm(p, 2 * q)]);
+  },
+
+  // 판별식: x² + 2mx + k = 0 이 허근을 가질 k 의 범위 (params.ask 'imag'), 서로 다른 두 실근 ('real')
+  imagk(params) {
+    const m = nonzero(-6, 6);
+    const sq = m * m;
+    const opt = (op, n) => ({ s: `k ${op} ${numStr(n)}`, v: OPS.indexOf(op) * 1000 + n });
+    const want = params.ask === 'imag' ? '>' : '<';
+    return item({ eq: `${polyStr(1, 2 * m, 0)} + k = 0` }, opt(want, sq), [opt(flipOp(want), sq), opt(want, Math.abs(m)), opt(want, 4 * sq)],
+      [opt(want === '>' ? '≧' : '≦', sq), opt(want, 2 * sq), opt(flipOp(want), 4 * sq), opt(want, -sq)]);
+  },
+
+  // 근과 계수의 관계: ax² + bx + c = 0 의 두 해 α, β. params.ask 는 'sum', 'prod', 'sq' (α² + β²)
+  vieta(params) {
+    const a = params.ask === 'sq' ? 1 : pickOne([1, 1, 2, 3]);
+    const b = nonzero(-7, 7);
+    const c = nonzero(-7, 7);
+    const fields = { eq: `${polyStr(a, b, c)} = 0` };
+    if (params.ask === 'sum') return item(fields, frac(-b, a), [frac(b, a), frac(c, a), frac(-c, a)], [frac(-b, 1), frac(-b + 1, a), frac(-b - 1, a), frac(a, b)]);
+    if (params.ask === 'prod') return item(fields, frac(c, a), [frac(-c, a), frac(-b, a), frac(b, a)], [frac(c, 1), frac(c + 1, a), frac(c - 1, a), frac(a, c)]);
+    const sq = b * b - 2 * c;
+    return item(fields, int(sq), [int(b * b), int(b * b + 2 * c), int(b * b - c)], [int(-b - 2 * c), int(sq + 1), int(sq - 1), int(b * b - 4 * c), int(sq + 2)]);
+  },
+
+  // 나머지정리: P(x) = x³ + ax² + bx + c 를 x − k 로 나눈 나머지
+  remthm() {
+    const [a, b, c] = [nonzero(-4, 4), nonzero(-6, 6), nonzero(-9, 9)];
+    const k = pickOne([1, -1, 2, -2, 3]);
+    const P = (x) => x ** 3 + a * x * x + b * x + c;
+    return item({ expr: polyN([1, a, b, c]), div: polyStr(0, 1, -k) }, int(P(k)), [int(P(-k)), int(c), int(-P(k))],
+      [int(P(k) + 1), int(P(k) - 1), int(P(k) + k), int(1 + a + b + c), int(P(k) + 2), int(P(k) - 2)]);
+  },
+
+  // 인수정리: x³ + ax² + bx + c 가 x − k 로 나누어떨어질 때 a 의 값
+  factthm() {
+    const k = pickOne([1, -1, 2, -2]);
+    const m = nonzero(-5, 5);
+    const b = nonzero(-6, 6);
+    const c = -(k ** 3 + m * k * k + b * k);
+    if (c === 0) return GENERATORS.factthm();
+    const tail = polyStr(0, b, c);
+    const expr = `x³ + ax² ${tail.startsWith(MINUS) ? `${MINUS} ${tail.slice(1)}` : `+ ${tail}`}`;
+    const other = -((-k) ** 3 + b * -k + c) / (k * k); // 부호를 거꾸로 넣었을 때
+    return item({ expr, div: polyStr(0, 1, -k) }, int(m), [int(-m), ...(Number.isInteger(other) ? [int(other)] : []), int(m + b)],
+      [int(m + 1), int(m - 1), int(m + 2), int(m - 2), int(c)]);
+  },
+
+  // 고차방정식: (x − r1)(x − r2)(x − r3) = 0 을 전개한 식의 해
+  higheq() {
+    const [r1, r2, r3] = shuffled(range(-4, 4)).slice(0, 3);
+    const co = [1, -(r1 + r2 + r3), r1 * r2 + r1 * r3 + r2 * r3, -r1 * r2 * r3];
+    return item({ eq: `${polyN(co)} = 0` }, roots3([r1, r2, r3]),
+      [roots3([-r1, -r2, -r3]), roots3([r1, r2, -r3]), roots3([r1, -r2, r3])].filter((o) => new Set(o.s.replace('x = ', '').split(', ')).size === 3),
+      [[r1, r2, r3 + 1], [r1, r2 + 1, r3], [r1 - 1, r2, r3], [r1, r2, r3 + 2], [r1 + 2, r2, r3], [-r1, r2, r3]].filter((l) => new Set(l).size === 3).map(roots3));
+  },
+});
+
+Object.assign(CHAINS, {
+  // 근과 계수의 관계: α + β → αβ → α² + β²
+  vieta() {
+    const b = nonzero(-7, 7);
+    const c = nonzero(-7, 7);
+    const sq = b * b - 2 * c;
+    return {
+      eq: `${polyStr(1, b, c)} = 0`,
+      steps: [
+        step(int(-b), [int(b), int(c), int(-c)], [int(-b + 1), int(-b - 1), int(-b + 2)]),
+        step(int(c), [int(-c), int(-b), int(b)], [int(c + 1), int(c - 1), int(c + 2)]),
+        step(int(sq), [int(b * b), int(b * b + 2 * c), int(b * b - c)], [int(sq + 1), int(sq - 1), int(b * b - 4 * c), int(sq + 2)]),
+      ],
+    };
+  },
+
+  // 인수정리와 고차방정식: 나머지 → 가장 작은 해 → 가장 큰 해
+  cubic() {
+    const [r1, r2, r3] = shuffled(range(-4, 4)).slice(0, 3).sort((p, q) => p - q);
+    const co = [1, -(r1 + r2 + r3), r1 * r2 + r1 * r3 + r2 * r3, -r1 * r2 * r3];
+    const P = (x) => co.reduce((acc, k) => acc * x + k, 0);
+    const t = pickOne(range(-5, 5).filter((x) => ![r1, r2, r3].includes(x) && x !== 0));
+    return {
+      expr: polyN(co), div: polyStr(0, 1, -t),
+      steps: [
+        step(int(P(t)), [int(P(-t)), int(co[3]), int(-P(t))], [int(P(t) + 1), int(P(t) - 1), int(P(t) + 2), int(P(t) - 2)]),
+        step(int(r1), [int(-r3), int(r2), int(r3)], [int(r1 - 1), int(r1 + 1), int(r1 - 2), int(r1 + 2)]),
+        step(int(r3), [int(-r1), int(r2), int(r1)], [int(r3 + 1), int(r3 - 1), int(r3 + 2), int(r3 - 2)]),
+      ],
+    };
+  },
+});
+
+// ---------- 数学II: 図形と方程式 ----------
+
+const ptStr = (x, y) => `(${numStr(x)}, ${numStr(y)})`;
+// 기호가 붙은 항들을 이어 씁니다. 예: termsStr([[1, 'x²'], [1, 'y²'], [-4, 'x'], [3, '']]) → "x² + y² − 4x + 3"
+function termsStr(list) {
+  const parts = list.filter(([coef]) => coef).map(([coef, sym]) => [coef < 0, `${Math.abs(coef) === 1 && sym ? '' : Math.abs(coef)}${sym}`]);
+  if (!parts.length) return '0';
+  return parts.map(([neg, body], i) => (i === 0 ? `${neg ? MINUS : ''}${body}` : ` ${neg ? MINUS : '+'} ${body}`)).join('');
+}
+const lineOpt = (m, k) => ({ s: `y = ${polyStr(0, m, k)}`, v: m * 1000.5 + k });
+const planeOf = (spec) => JSON.stringify(spec);
+// 점들이 모두 들어가는 좌표평면 범위 (원점 포함, 여유 1칸)
+function boxOf(points, pad = 1) {
+  const xs = [0, ...points.map((p) => p[0])];
+  const ys = [0, ...points.map((p) => p[1])];
+  return [Math.min(...xs) - pad, Math.max(...xs) + pad, Math.min(...ys) - pad, Math.max(...ys) + pad];
+}
+const NORMS = [[3, 4, 5], [4, 3, 5], [5, 12, 13], [12, 5, 13], [6, 8, 10], [8, 6, 10]];
+const CHORDS = [[3, 4, 5], [4, 3, 5], [6, 8, 10], [8, 6, 10], [5, 12, 13], [12, 5, 13]]; // [중심에서 직선까지 거리, 현의 절반, 반지름]
+
+Object.assign(GENERATORS, {
+  // 두 점 사이의 거리. params.hard 이면 답이 √ 꼴
+  dist(params) {
+    let dx;
+    let dy;
+    if (params.hard) {
+      do { [dx, dy] = [nonzero(-5, 5), nonzero(-5, 5)]; } while (Number.isInteger(Math.sqrt(dx * dx + dy * dy)));
+    } else {
+      const [a, b] = pickOne([[3, 4], [4, 3], [6, 8], [8, 6], [5, 12], [12, 5]]);
+      [dx, dy] = [a * pickOne([1, -1]), b * pickOne([1, -1])];
+    }
+    const x1 = pickOne(range(-4, 4).filter((x) => Math.abs(x + dx) <= 9));
+    const y1 = pickOne(range(-4, 4).filter((y) => Math.abs(y + dy) <= 9));
+    const [x2, y2] = [x1 + dx, y1 + dy];
+    const sq = dx * dx + dy * dy;
+    const fields = { A: ptStr(x1, y1), B: ptStr(x2, y2), x1, y1, x2, y2, plot: planeOf({ r: boxOf([[x1, y1], [x2, y2]]), pts: [[x1, y1, 'A'], [x2, y2, 'B']], segs: [[x1, y1, x2, y2]] }) };
+    return item(fields, surd(1, sq), [int(Math.abs(dx) + Math.abs(dy)), int(sq), surd(1, Math.abs(dx * dx - dy * dy) || 2)],
+      [surd(1, sq + 1), surd(1, sq + 2), surd(1, x1 * x1 + y1 * y1 + 3), int(Math.max(Math.abs(dx), Math.abs(dy)))]);
+  },
+
+  // 내분점, 외분점, 무게중심. params.ask 는 'in', 'out', 'cent'
+  divide(params) {
+    if (params.ask === 'cent') {
+      const g = [nonzero(-3, 3), nonzero(-3, 3)];
+      let A;
+      let B;
+      let C;
+      do {
+        A = [nonzero(-6, 6), nonzero(-6, 6)];
+        B = [nonzero(-6, 6), nonzero(-6, 6)];
+        C = [3 * g[0] - A[0] - B[0], 3 * g[1] - A[1] - B[1]];
+      } while (Math.abs(C[0]) > 7 || Math.abs(C[1]) > 7 || (A[0] - C[0]) * (B[1] - C[1]) === (B[0] - C[0]) * (A[1] - C[1]));
+      const sum = [A[0] + B[0] + C[0], A[1] + B[1] + C[1]];
+      return item({ A: ptStr(...A), B: ptStr(...B), C: ptStr(...C), pa: A, pb: B, pc: C,
+        plot: planeOf({ r: boxOf([A, B, C]), pts: [[...A, 'A'], [...B, 'B'], [...C, 'C']], segs: [[...A, ...B], [...B, ...C], [...C, ...A]] }) },
+      point(g[0], g[1]), [point(sum[0], sum[1]), point(g[0], -g[1]), point(g[1], g[0])],
+      [point(g[0] + 1, g[1]), point(g[0], g[1] + 1), point(g[0] - 1, g[1]), point(-g[0], g[1])]);
+    }
+    const [m, n] = pickOne(params.ask === 'out' ? [[2, 1], [3, 1], [3, 2]] : [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3], [3, 2]]);
+    let d;
+    let A;
+    let B;
+    let P;
+    do {
+      d = [range(-2, 2)[rand(5)], range(-2, 2)[rand(5)]];
+      A = [range(-5, 5)[rand(11)], range(-5, 5)[rand(11)]];
+      if (params.ask === 'out') { B = [A[0] + (m - n) * d[0], A[1] + (m - n) * d[1]]; P = [A[0] + m * d[0], A[1] + m * d[1]]; }
+      else { P = [A[0] + m * d[0], A[1] + m * d[1]]; B = [P[0] + n * d[0], P[1] + n * d[1]]; }
+    } while ((d[0] === 0 && d[1] === 0) || [...B, ...P].some((v) => Math.abs(v) > 9));
+    const flip = params.ask === 'out' ? [A[0] - n * d[0], A[1] - n * d[1]] : [A[0] + n * d[0], A[1] + n * d[1]];
+    return item({ A: ptStr(...A), B: ptStr(...B), m, n, pa: A, pb: B }, point(P[0], P[1]),
+      [point(flip[0], flip[1]), point(A[0] + B[0], A[1] + B[1]), point(P[1], P[0])],
+      [point(P[0] + 1, P[1]), point(P[0], P[1] + 1), point(P[0] - 1, P[1]), point(P[0], P[1] - 1)]);
+  },
+
+  // 직선의 방정식. params.ask 가 'two' 이면 두 점, 아니면 한 점과 기울기
+  lineeq(params) {
+    const m = nonzero(-3, 3);
+    const x1 = nonzero(-4, 4);
+    const y1 = range(-5, 5)[rand(11)];
+    const k = y1 - m * x1;
+    const wrong = [lineOpt(-m, y1 + m * x1), lineOpt(m, y1), lineOpt(m, -k), lineOpt(m, y1 + m * x1)];
+    const pads = [lineOpt(m, k + 1), lineOpt(m, k - 1), lineOpt(m + 1, k), lineOpt(m, k + 2)];
+    if (params.ask === 'two') {
+      const dx = pickOne([-2, -1, 1, 2].filter((v) => v !== -x1));
+      const [x2, y2] = [x1 + dx, y1 + m * dx];
+      return item({ A: ptStr(x1, y1), B: ptStr(x2, y2), pa: [x1, y1], pb: [x2, y2],
+        plot: planeOf({ r: boxOf([[x1, y1], [x2, y2]], 2), pts: [[x1, y1, 'A'], [x2, y2, 'B']], lines: [[m, -1, -k]] }) }, lineOpt(m, k), wrong, pads);
+    }
+    return item({ A: ptStr(x1, y1), m: numStr(m), pa: [x1, y1], slope: m }, lineOpt(m, k), wrong, pads);
+  },
+
+  // 평행·수직인 직선의 기울기: 직선 ax + by + c = 0 에 대해. params.ask 는 'para' 또는 'perp'
+  slope(params) {
+    let a;
+    let b;
+    do { [a, b] = [nonzero(-5, 5), nonzero(-5, 5)]; } while (Math.abs(a) === Math.abs(b));
+    const c = nonzero(-9, 9);
+    const fields = { line: `${termsStr([[a, 'x'], [b, 'y'], [c, '']])} = 0` };
+    const para = frac(-a, b);
+    const perp = frac(b, a);
+    return params.ask === 'para'
+      ? item(fields, para, [perp, frac(a, b), frac(-b, a)], [frac(-a, 1), frac(1, b), frac(-c, b)])
+      : item(fields, perp, [para, frac(-b, a), frac(a, b)], [frac(b, 1), frac(1, a), frac(-c, a)]);
+  },
+
+  // 점과 직선 사이의 거리
+  pdist() {
+    const [a0, b0, n] = pickOne(NORMS);
+    const [a, b] = [a0 * pickOne([1, -1]), b0 * pickOne([1, -1])];
+    let x0;
+    let y0;
+    let c;
+    let val;
+    do {
+      [x0, y0, c] = [range(-4, 4)[rand(9)], range(-4, 4)[rand(9)], nonzero(-12, 12)];
+      val = Math.abs(a * x0 + b * y0 + c);
+    } while (val === 0 || val > 60);
+    return item({ P: ptStr(x0, y0), line: `${termsStr([[a, 'x'], [b, 'y'], [c, '']])} = 0`, px: x0, py: y0 }, frac(val, n),
+      [int(val), frac(Math.abs(a * x0 + b * y0), n), frac(val, Math.abs(a) + Math.abs(b))].filter((o) => o.v > 0),
+      [frac(val + n, n), frac(val, n * n), frac(Math.abs(c), n), frac(val + 1, n), frac(val + 2, n)]);
+  },
+
+  // 원의 방정식 x² + y² + ax + by + c = 0 의 중심 또는 반지름. params.ask 는 'center' 또는 'radius'
+  circleeq(params) {
+    const [p, q, r] = [nonzero(-5, 5), nonzero(-5, 5), 1 + rand(6)];
+    const fields = { eq: `${termsStr([[1, 'x²'], [1, 'y²'], [-2 * p, 'x'], [-2 * q, 'y'], [p * p + q * q - r * r, '']])} = 0` };
+    if (params.ask === 'center') {
+      return item(fields, point(p, q), [point(-p, -q), point(-2 * p, -2 * q), point(2 * p, 2 * q)], [point(p, -q), point(-p, q), point(q, p)]);
+    }
+    return item(fields, int(r), [int(r * r), int(Math.abs(p * p + q * q - r * r)), int(2 * r)], [int(r + 1), int(r + 2), int(r + 3), int(p * p + q * q)]);
+  },
+
+  // 원 x² + y² = r² 과 직선이 만나서 생기는 현의 길이
+  chord() {
+    const [d, h, r] = pickOne(CHORDS);
+    const [a, b] = pickOne([[3, 4], [4, 3], [-3, 4], [3, -4], [4, -3], [-4, 3]]);
+    const c = 5 * d * pickOne([1, -1]);
+    return item({ circle: `x² + y² = ${r * r}`, line: `${termsStr([[a, 'x'], [b, 'y']])} = ${numStr(c)}`,
+      plot: planeOf({ r: [-r - 2, r + 2, -r - 2, r + 2], circles: [[0, 0, r]], lines: [[a, b, c]] }) }, int(2 * h),
+    [int(h), int(2 * d), int(d)], [int(r), int(2 * r), int(2 * h + 2), int(2 * h - 2), int(h + d)]);
+  },
+
+  // 부등식의 영역: 네 점 가운데 영역 안에 있는 점 하나 고르기 (경계 위의 점은 들어가지 않습니다)
+  region() {
+    const m = nonzero(-2, 2);
+    const k = range(-3, 3)[rand(7)];
+    const op = pickOne(['>', '<']);
+    const side = (x, y) => Math.sign(y - (m * x + k)) * (op === '>' ? 1 : -1);
+    const all = shuffled(range(-4, 4).flatMap((x) => range(-5, 5).map((y) => [x, y])));
+    const inside = all.find(([x, y]) => side(x, y) > 0 && Math.abs(y - (m * x + k)) <= 3);
+    const edge = all.find(([x, y]) => side(x, y) === 0);
+    const outside = all.filter(([x, y]) => side(x, y) < 0 && Math.abs(y - (m * x + k)) <= 4).slice(0, 4);
+    return item({ ineq: `y ${op} ${polyStr(0, m, k)}` }, point(...inside), [point(...edge), ...outside.map((p) => point(...p))]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 원과 직선: 반지름 → 중심에서 직선까지 거리 → 현의 길이
+  chord() {
+    const [d, h, r] = pickOne(CHORDS);
+    const [p, q] = [nonzero(-4, 4), nonzero(-4, 4)];
+    const [a, b] = pickOne([[3, 4], [4, 3], [3, -4], [4, -3]]);
+    const c = 5 * d * pickOne([1, -1]) - a * p - b * q; // |ap + bq + c| = 5d
+    const sq = (v, sym) => (v === 0 ? `${sym}²` : `(${sym} ${v > 0 ? MINUS : '+'} ${Math.abs(v)})²`);
+    return {
+      circle: `${sq(p, 'x')} + ${sq(q, 'y')} = ${r * r}`, line: `${termsStr([[a, 'x'], [b, 'y'], [c, '']])} = 0`,
+      plot: planeOf({ r: [p - r - 2, p + r + 2, q - r - 2, q + r + 2], circles: [[p, q, r]], lines: [[a, b, -c]], pts: [[p, q, 'C']] }),
+      steps: [
+        step(int(r), [int(r * r), int(2 * r), int(Math.abs(p) + Math.abs(q))], [int(r + 1), int(r - 1), int(r + 2)]),
+        step(int(d), [int(5 * d), int(Math.abs(c)), int(r)], [int(d + 1), int(d - 1), int(d + 2), int(d * 2)]),
+        step(int(2 * h), [int(h), int(2 * d), int(r - d)], [int(2 * r), int(2 * h + 2), int(2 * h - 2), int(h + d)]),
+      ],
+    };
+  },
+
+  // 직선: 기울기 → y 절편 → x 절편
+  line() {
+    const m = pickOne([-3, -2, 2, 3]);
+    const x0 = nonzero(-3, 3); // x 절편
+    const k = -m * x0;
+    const dx = pickOne([1, 2].filter((v) => x0 + v !== 0));
+    const [x1, y1] = [x0 + dx, m * dx];
+    const [x2, y2] = [x0 - dx, -m * dx];
+    return {
+      A: ptStr(x1, y1), B: ptStr(x2, y2), pa: [x1, y1], pb: [x2, y2],
+      plot: planeOf({ r: boxOf([[x1, y1], [x2, y2], [0, k]], 1), pts: [[x1, y1, 'A'], [x2, y2, 'B']], lines: [[m, -1, -k]] }),
+      steps: [
+        step(int(m), [int(-m), frac(1, m), frac(-1, m)], [int(m + 1), int(m - 1), int(2 * m)]),
+        step(int(k), [int(-k), int(x0), int(y1)], [int(k + 1), int(k - 1), int(k + m)]),
+        step(int(x0), [int(-x0), int(k), frac(k, m)], [int(x0 + 1), int(x0 - 1), int(x0 + 2), int(x0 - 2)]),
+      ],
+    };
+  },
+});
+
+// ---------- 数学II: 三角関数 ----------
+
+// nπ/d 꼴의 각. 예: piFrac(7, 6) → "7π/6"
+function piFrac(n, d = 1) {
+  if (d < 0) { n = -n; d = -d; }
+  const g = gcd(n, d) || 1;
+  n /= g;
+  d /= g;
+  if (n === 0) return { s: '0', v: 0, n, d };
+  return { s: `${n === 1 ? '' : n === -1 ? MINUS : numStr(n)}π${d === 1 ? '' : `/${d}`}`, v: n / d, n, d };
+}
+const radOf = (deg) => piFrac(deg, 180);
+// 특수각의 정확한 값
+const SIN_REF = { 0: [0, 1, 1], 30: [1, 1, 2], 45: [1, 2, 2], 60: [1, 3, 2], 90: [1, 1, 1] };
+function sinDeg(deg) {
+  const d = ((deg % 360) + 360) % 360;
+  let ref = d % 180;
+  if (ref > 90) ref = 180 - ref;
+  const [n, r, den] = SIN_REF[ref];
+  return surd(d > 180 ? -n : n, r, den);
+}
+const cosDeg = (deg) => sinDeg(deg + 90);
+function tanDeg(deg) {
+  const d = ((deg % 180) + 180) % 180;
+  const ref = d > 90 ? 180 - d : d;
+  const [n, r, den] = { 0: [0, 1, 1], 30: [1, 3, 3], 45: [1, 1, 1], 60: [1, 3, 1] }[ref];
+  return surd(d > 90 ? -n : n, r, den);
+}
+const TRIG = { sin: sinDeg, cos: cosDeg, tan: tanDeg };
+const TRIG_POOL = [surd(1, 1, 2), surd(-1, 1, 2), surd(1, 2, 2), surd(-1, 2, 2), surd(1, 3, 2), surd(-1, 3, 2), surd(1, 3, 3), surd(-1, 3, 3), surd(1, 3), surd(-1, 3), int(1), int(-1), int(0)];
+const ACUTE = [[3, 4, 5], [4, 3, 5], [5, 12, 13], [12, 5, 13], [8, 15, 17], [15, 8, 17]]; // [sin 의 분자, cos 의 분자, 분모]
+const SECTOR_ANGLES = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 6], [5, 6]];
+const degOpt = (deg) => ({ s: `${deg}°`, v: deg });
+
+Object.assign(GENERATORS, {
+  // 도 ↔ 호도. params.dir 가 'from' 이면 호도 → 도
+  radian(params) {
+    const deg = pickOne([15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 210, 225, 240, 270, 300, 315, 330]);
+    if (params.dir === 'from') {
+      return item({ rad: radOf(deg).s }, degOpt(deg), [degOpt(deg / 2), degOpt(deg * 2), degOpt(360 - deg)].filter((o) => Number.isInteger(o.v)),
+        [degOpt(deg + 15), degOpt(deg - 15), degOpt(deg + 30), degOpt(180 - deg > 0 ? 180 - deg : deg + 45)]);
+    }
+    return item({ deg }, radOf(deg), [piFrac(deg, 90), piFrac(deg, 360), piFrac(180, deg)], [radOf(deg + 15), radOf(deg + 30), radOf(deg - 15)]);
+  },
+
+  // 부채꼴의 호의 길이와 넓이. params.ask 는 'arc' 또는 'area'
+  sectorq(params) {
+    const r = 2 + rand(8);
+    const [p, q] = pickOne(SECTOR_ANGLES);
+    const arc = piFrac(r * p, q);
+    const area = piFrac(r * r * p, 2 * q);
+    const fields = { r, theta: piFrac(p, q).s, deg: (180 * p) / q };
+    return params.ask === 'arc'
+      ? item(fields, arc, [area, piFrac(r * r * p, q), piFrac(2 * r * p, q)], [piFrac(p, q), piFrac(r * p, 2 * q), piFrac(r * p + q, q)])
+      : item(fields, area, [arc, piFrac(r * r * p, q), piFrac(r * p, 2 * q)], [piFrac(2 * r * r * p, q), piFrac(r * r * p + 2 * q, 2 * q), piFrac(r * r, 2)]);
+  },
+
+  // 일반각의 삼각함수 값
+  trigval() {
+    const fn = pickOne(['sin', 'cos', 'tan']);
+    const deg = pickOne([120, 135, 150, 210, 225, 240, 300, 315, 330, -30, -45, -60, -120, -135, 390, 405, 420]);
+    const answer = TRIG[fn](deg);
+    const neg = surd(-answer.n, answer.r, answer.d);
+    const other = fn === 'sin' ? cosDeg(deg) : sinDeg(deg);
+    return item({ expr: `${fn}(${radOf(deg).s})`, deg, label: radOf(deg).s }, answer, [neg, other, surd(-other.n, other.r, other.d)], shuffled(TRIG_POOL));
+  },
+
+  // 주기와 최댓값: y = a sin(bx) + c. params.ask 는 'period' 또는 'max'
+  period(params) {
+    const fn = pickOne(['sin', 'cos']);
+    const a = pickOne([-4, -3, -2, 2, 3, 4]);
+    const [n, d] = pickOne([[2, 1], [3, 1], [4, 1], [6, 1], [1, 2], [1, 3], [2, 3]]);
+    const arg = d === 1 ? ` ${n}x` : `(${n === 1 ? '' : n}x/${d})`;
+    const head = `${a === 1 ? '' : a === -1 ? MINUS : numStr(a)}${fn}${arg}`;
+    if (params.ask === 'period') {
+      return item({ expr: `y = ${head}` }, piFrac(2 * d, n), [piFrac(d, n), piFrac(2 * n, d), piFrac(n, d)], [piFrac(2, 1), piFrac(4 * d, n), piFrac(1, 1), piFrac(d, 2 * n)]);
+    }
+    const c = nonzero(-4, 4);
+    const max = Math.abs(a) + c;
+    return item({ expr: `y = ${head} ${c < 0 ? MINUS : '+'} ${Math.abs(c)}` }, int(max), [int(a + c), int(Math.abs(a)), int(c - Math.abs(a))],
+      [int(max + 1), int(max - 1), int(Math.abs(a) * n + c), int(c), int(max + 2)]);
+  },
+
+  // 덧셈정리: α, β 는 예각, sin α 와 cos β 가 주어졌을 때. params.ask 는 'sin+', 'sin-', 'cos+', 'cos-'
+  addition(params) {
+    let A;
+    let B;
+    do { [A, B] = [pickOne(ACUTE), pickOne(ACUTE)]; } while (A[2] === B[2]);
+    const [sa, ca, c] = A;
+    const [sb, cb, g] = B;
+    const all = { 'sin+': sa * cb + ca * sb, 'sin-': sa * cb - ca * sb, 'cos+': ca * cb - sa * sb, 'cos-': ca * cb + sa * sb };
+    const sign = params.ask.endsWith('+') ? '+' : MINUS;
+    const others = Object.entries(all).filter(([key]) => key !== params.ask).map(([, v]) => frac(v, c * g));
+    return item({ sa: `${sa}/${c}`, cb: `${cb}/${g}`, expr: `${params.ask.slice(0, 3)}(α ${sign} β)` }, frac(all[params.ask], c * g),
+      [...others, frac(sa * g + sb * c, c * g)], [frac(sa * cb, c * g), frac(ca * sb, c * g), frac(-all[params.ask], c * g)]);
+  },
+
+  // 2배각: sin θ 와 θ 의 범위가 주어졌을 때. params.ask 는 'sin2' 또는 'cos2'
+  double(params) {
+    const [a, b0, c] = pickOne(ACUTE);
+    const second = Math.random() < 0.5;
+    const b = second ? -b0 : b0;
+    const fields = { sin: `${a}/${c}`, range: second ? 'π/2 < θ < π' : '0 < θ < π/2' };
+    return params.ask === 'sin2'
+      ? item(fields, frac(2 * a * b, c * c), [frac(-2 * a * b, c * c), frac(2 * a, c), frac(a * b, c * c)], [frac(c * c - 2 * a * a, c * c), frac(2 * b, c), frac(a * a, c * c)])
+      : item(fields, frac(c * c - 2 * a * a, c * c), [frac(2 * a * a - c * c, c * c), frac(2 * a, c), frac(c * c - a * a, c * c)], [frac(2 * a * b, c * c), frac(c * c - 2 * a, c * c), frac(a * a, c * c)]);
+  },
+
+  // 삼각함수의 합성: a sin θ + b cos θ 의 최댓값
+  compose() {
+    const [a, b] = [1 + rand(5), nonzero(-5, 5)];
+    const sq = a * a + b * b;
+    return item({ expr: `${a === 1 ? '' : a}sin θ ${b < 0 ? MINUS : '+'} ${Math.abs(b) === 1 ? '' : Math.abs(b)}cos θ` }, surd(1, sq),
+      [int(a + Math.abs(b)), int(sq), int(Math.max(a, Math.abs(b)))], [surd(1, sq + 1), surd(1, Math.abs(a * a - b * b) || 3), int(a + b), surd(1, sq + 2)]);
+  },
+
+  // 삼각방정식: 0 ≦ θ < 2π 에서 sin θ = k 또는 cos θ = k
+  trigeq2() {
+    const fn = pickOne(['sin', 'cos']);
+    const val = pickOne([surd(1, 1, 2), surd(-1, 1, 2), surd(1, 2, 2), surd(-1, 2, 2), surd(1, 3, 2), surd(-1, 3, 2)]);
+    const solve = (f, v) => [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330].filter((deg) => Math.abs(TRIG[f](deg).v - v) < 1e-9);
+    const opt = (list) => ({ s: `θ = ${list.map((deg) => radOf(deg).s).join(', ')}`, v: list[0] * 1000.5 + list[1] });
+    const mine = solve(fn, val.v);
+    const other = fn === 'sin' ? 'cos' : 'sin';
+    return item({ eq: `${fn} θ = ${val.s}` }, opt(mine), [opt(solve(fn, -val.v)), opt(solve(other, val.v)), opt(solve(other, -val.v))],
+      [opt([mine[0], (mine[0] + 180) % 360].sort((p, q) => p - q)), opt([mine[1], (mine[1] + 180) % 360].sort((p, q) => p - q))]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 부채꼴: 호도 → 호의 길이 → 넓이
+  sector() {
+    const r = 2 + rand(8);
+    const [p, q] = pickOne(SECTOR_ANGLES);
+    const deg = (180 * p) / q;
+    return {
+      r, deg,
+      steps: [
+        step(piFrac(p, q), [piFrac(2 * p, q), piFrac(p, 2 * q), piFrac(q, p)], [radOf(deg + 15), radOf(deg + 30), radOf(deg - 15)]),
+        step(piFrac(r * p, q), [piFrac(r * r * p, 2 * q), piFrac(2 * r * p, q), piFrac(p, q)], [piFrac(r * p, 2 * q), piFrac(r * r * p, q), piFrac(r * p + q, q)]),
+        step(piFrac(r * r * p, 2 * q), [piFrac(r * r * p, q), piFrac(r * p, q), piFrac(r * p, 2 * q)], [piFrac(2 * r * r * p, q), piFrac(r * r, 2), piFrac(r * r * p + 2 * q, 2 * q)]),
+      ],
+    };
+  },
+
+  // 2배각: cos θ → sin 2θ → cos 2θ (θ 는 둔각)
+  double() {
+    const [a, b, c] = pickOne(ACUTE);
+    return {
+      sin: `${a}/${c}`,
+      steps: [
+        step(frac(-b, c), [frac(b, c), frac(-a, c), frac(c - a, c)], [frac(-b - 1, c), frac(-b + 1, c), frac(-1, c)]),
+        step(frac(-2 * a * b, c * c), [frac(2 * a * b, c * c), frac(2 * a, c), frac(-a * b, c * c)], [frac(-2 * b, c), frac(a * a, c * c), frac(-2 * a * b + 1, c * c)]),
+        step(frac(c * c - 2 * a * a, c * c), [frac(2 * a * a - c * c, c * c), frac(-2 * b, c), frac(b * b, c * c)], [frac(c * c - a * a, c * c), frac(2 * a, c), frac(c * c - 2 * a, c * c)]),
+      ],
+    };
+  },
+});
+
+// ---------- 数学II: 指数関数・対数関数 ----------
+
+const SUPMAP = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹', x: 'ˣ', '+': '⁺', '-': '⁻', [MINUS]: '⁻' };
+const sup = (text) => String(text).split('').map((ch) => SUPMAP[ch] ?? ch).join('');
+const sub = (n) => String(n).split('').map((ch) => SUB[ch]).join('');
+const logStr = (base, arg) => `log${sub(base)} ${arg}`;
+const powOpt = (a, e) => (e >= 0 ? int(a ** e) : frac(1, a ** -e));
+const xEq = (n) => ({ s: `x = ${numStr(n)}`, v: n });
+const textOpt = (s, v) => ({ s, v });
+const LOG10 = { 2: '0.3010', 3: '0.4771' };
+const digitsOf = (base, n) => String(BigInt(base) ** BigInt(n)).length;
+const SUM_BASES = { 6: [2, 3], 10: [2, 5], 12: [3, 4], 15: [3, 5], 14: [2, 7] };
+
+Object.assign(GENERATORS, {
+  // 지수법칙: a^m × a^n ÷ a^p
+  exprule() {
+    const a = pickOne([2, 3, 5]);
+    const pool = [-3, -2, -1, 2, 3, 4, 5];
+    let m;
+    let n;
+    let p;
+    let e;
+    do { [m, n, p] = [pickOne(pool), pickOne(pool), pickOne(pool)]; e = m + n - p; } while (e < -2 || e > (a === 2 ? 5 : 3));
+    const cand = [m + n + p, m * n - p, m - n - p, m * n, e + 1, e - 1, -e, e + 2].filter((x) => x >= -4 && x <= 7);
+    return item({ expr: `${a}${sup(m)} × ${a}${sup(n)} ÷ ${a}${sup(p)}` }, powOpt(a, e), cand.map((x) => powOpt(a, x)), [int(a * 2), int(1), frac(1, a)]);
+  },
+
+  // 거듭제곱근과 유리수 지수. params.ask 가 'frac' 이면 a 의 p/q 제곱
+  root(params) {
+    if (params.ask === 'frac') {
+      const b = pickOne([2, 3]);
+      const q = pickOne([2, 3, 4]);
+      if (b ** q > 100) return GENERATORS.root(params);
+      const p = pickOne(range(-3, 4).filter((x) => x !== 0 && x !== q && Math.abs(x) % q !== 0));
+      return item({ base: b ** q, exp: `${numStr(p)}/${q}` }, powOpt(b, p), [frac(b ** q * p, q), powOpt(b, -p), powOpt(b, q)],
+        [powOpt(b, p + 1), powOpt(b, p - 1), powOpt(b, 2 * p), int(b ** q)]);
+    }
+    const [n, sign] = pickOne([[3, '∛'], [3, '∛'], [4, '∜'], [5, '⁵√']]);
+    const b = pickOne(n === 3 ? [2, 3, 4, 5, 6] : n === 4 ? [2, 3] : [2, 3]);
+    return item({ expr: `${sign}${b ** n}` }, int(b), [int(b ** (n - 1)), int(Math.round(b ** n / n)), int(n)], [int(b + 1), int(b - 1), int(b * 2), int(b + 2)]);
+  },
+
+  // 지수방정식과 부등식. params.ask 는 'eq' 또는 'ineq'
+  expeq(params) {
+    const a = pickOne([2, 3, 5]);
+    const k = 2 + rand(a === 2 ? 5 : a === 3 ? 3 : 2);
+    if (params.ask === 'eq') {
+      const c = nonzero(-3, 3);
+      return item({ eq: `${a}${sup(`x${c < 0 ? '-' : '+'}${Math.abs(c)}`)} = ${a ** k}` }, xEq(k - c), [xEq(k + c), xEq(k), xEq(a ** k - c)],
+        [xEq(k - c + 1), xEq(k - c - 1), xEq(-k), xEq(k * c)]);
+    }
+    const small = Math.random() < 0.5; // 밑이 1 보다 작으면 부등호의 방향이 바뀝니다
+    const op = pickOne(['<', '>']);
+    const left = small ? `(1/${a})${sup('x')}` : `${a}${sup('x')}`;
+    const right = small ? `1/${a ** k}` : `${a ** k}`;
+    const ans = small ? flipOp(op) : op;
+    return item({ eq: `${left} ${op} ${right}` }, half(ans, k), [half(flipOp(ans), k), half(ans, -k), half(flipOp(ans), -k)],
+      [half(ans, a ** k), half(ans, k + 1), half(ans, k - 1)]);
+  },
+
+  // 로그의 값. params.hard 이면 밑의 변환이 필요한 꼴
+  logval(params) {
+    const a = pickOne([2, 3]);
+    if (params.hard) {
+      const p = pickOne([2, 3]);
+      const q = pickOne(range(1, 5).filter((x) => x !== p && a ** x <= 243 && a ** p <= 27));
+      return item({ expr: logStr(a ** p, a ** q) }, frac(q, p), [frac(p, q), int(q - p), frac(a ** q, a ** p), int(q)], [frac(q + 1, p), frac(q, p + 1), int(p)]);
+    }
+    const k = pickOne(a === 2 ? [-3, -2, -1, 2, 3, 4, 5, 6] : [-2, -1, 2, 3, 4]);
+    const arg = k >= 0 ? `${a ** k}` : `(1/${a ** -k})`;
+    return item({ expr: logStr(a, arg) }, int(k), [int(-k), powOpt(a, k), frac(a ** Math.abs(k), a)], [int(k + 1), int(k - 1), int(2 * k), int(a)]);
+  },
+
+  // 로그의 성질: 합과 차. params.ask 는 'sum' 또는 'diff'
+  logrule(params) {
+    if (params.ask === 'sum') {
+      const b = Number(pickOne(Object.keys(SUM_BASES)));
+      const [p, q] = SUM_BASES[b];
+      const k = pickOne(b <= 10 ? [1, 2, 3] : [1, 2]);
+      const [m, n] = pickOne([[p ** k, q ** k], [p * b ** (k - 1), q]]);
+      return item({ expr: `${logStr(b, m)} + ${logStr(b, n)}` }, int(k), [int(m + n), int(m * n), int(k + 1)], [int(k + 2), int(2 * k + 1), int(b), int(k + 3)]);
+    }
+    const b = pickOne([2, 3, 5]);
+    const n = pickOne([3, 5, 6, 7].filter((x) => x % b !== 0));
+    const k = pickOne(b === 2 ? [1, 2, 3, 4] : [1, 2]);
+    const m = n * b ** k;
+    return item({ expr: `${logStr(b, m)} ${MINUS} ${logStr(b, n)}` }, int(k), [int(m - n), int(b ** k), int(k + 1)], [int(k + 2), int(k - 1), int(2 * k + 1), int(n)]);
+  },
+
+  // 로그방정식과 부등식. params.ask 는 'eq' 또는 'ineq'
+  logeq(params) {
+    const a = pickOne([2, 3]);
+    const k = pickOne(a === 2 ? [2, 3, 4] : [1, 2, 3]);
+    const N = a ** k;
+    if (params.ask === 'eq') {
+      const c = nonzero(-5, 5);
+      return item({ eq: `${logStr(a, `(x ${c > 0 ? MINUS : '+'} ${Math.abs(c)})`)} = ${k}` }, xEq(N + c), [xEq(N - c), xEq(a * k + c), xEq(k ** a + c), xEq(N)],
+        [xEq(N + c + 1), xEq(N + c - 1), xEq(k + c)]);
+    }
+    const op = pickOne(['<', '>']);
+    const between = (hi) => textOpt(`0 < x < ${hi}`, 70000 + hi);
+    const above = (lo) => textOpt(`x > ${lo}`, 80000 + lo);
+    const below = (hi) => textOpt(`x < ${hi}`, 90000 + hi);
+    return op === '<'
+      ? item({ eq: `${logStr(a, 'x')} < ${k}` }, between(N), [below(N), above(N), between(a * k)], [below(a * k), between(N + a), between(k)])
+      : item({ eq: `${logStr(a, 'x')} > ${k}` }, above(N), [between(N), below(N), above(a * k)], [above(k), above(N + a), between(a * k)]);
+  },
+
+  // 상용로그와 자릿수: 2ⁿ 또는 3ⁿ 은 몇 자리 수인가
+  digits() {
+    const base = pickOne([2, 3]);
+    let n;
+    let d;
+    do { n = 10 + rand(41); d = Math.floor(n * Number(LOG10[base])) + 1; } while (d !== digitsOf(base, n));
+    return item({ power: `${base}${sup(n)}`, base, n, log: `${logStr(10, base)} = ${LOG10[base]}` }, int(d), [int(d - 1), int(n), int(d + 1)], [int(d + 2), int(d - 2), int(Math.round(n / 2))]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 자릿수: n × log₁₀2 → 정수 부분 → 자릿수
+  digits() {
+    const n = pickOne([10, 20, 30, 40, 50, 15, 25, 35, 45]);
+    const value = Math.round(n * 3010) / 10000;
+    const whole = Math.floor(value);
+    const dec = (v) => textOpt(String(Math.round(v * 10000) / 10000), v);
+    return {
+      power: `2${sup(n)}`, n, log: `${logStr(10, 2)} = 0.3010`,
+      steps: [
+        step(dec(value), [dec(value * 10), dec(n + 0.301), dec(value / 10)], [dec(value + 1), dec(value - 1), dec(value + 0.301)]),
+        step(int(whole), [int(whole + 1), int(n), int(Math.round(value * 10))], [int(whole - 1), int(whole + 2), int(whole - 2)]),
+        step(int(whole + 1), [int(whole), int(whole + 2), int(n)], [int(whole - 1), int(whole + 3), int(Math.round(n / 2))]),
+      ],
+    };
+  },
+
+  // 지수방정식 (치환): 2ˣ = t 로 놓고 작은 t → 큰 t → 큰 쪽의 해 x
+  expquad() {
+    const [p, q] = pickOne([[0, 1], [0, 2], [1, 2], [1, 3], [0, 3], [2, 3], [1, 4], [2, 4]]);
+    const [t1, t2] = [2 ** p, 2 ** q];
+    return {
+      eq: `4${sup('x')} ${MINUS} ${t1 + t2}·2${sup('x')} + ${t1 * t2} = 0`,
+      steps: [
+        step(int(t1), [int(t2), int(t1 + t2), int(t1 * t2)], [int(t1 + 1), int(t1 + 2), int(t1 + 3)]),
+        step(int(t2), [int(t1), int(t1 + t2), int(t1 * t2)], [int(t2 + 1), int(t2 - 1), int(t2 * 2), int(t2 + 2)]),
+        step(int(q), [int(t2), int(p), int(q + 1)], [int(q - 1), int(q + 2), int(2 * q), int(q + 3)]),
+      ],
+    };
+  },
+});
+
+// ---------- 数学II: 微分法と積分法 ----------
+
+// 극값을 x = p (극대), x = q (극소) 에서 갖는 삼차함수 (p < q). 계수는 높은 차수부터
+function cubicWith(p, q, c) {
+  return (p + q) % 2 === 0 ? [1, (-3 * (p + q)) / 2, 3 * p * q, c] : [2, -3 * (p + q), 6 * p * q, c];
+}
+const windowOf = (coefs, from, to) => {
+  const ys = range(0, 40).map((n) => valAt(coefs, from + ((to - from) * n) / 40));
+  return [from, to, Math.min(0, ...ys) - 1, Math.max(0, ...ys) + 1];
+};
+const valAt = (coefs, x) => coefs.reduce((acc, k) => acc * x + k, 0);
+
+Object.assign(GENERATORS, {
+  // 평균변화율: f(x) = x² + bx + c 에서 x 가 p 부터 q 까지 변할 때
+  avgrate() {
+    const [b, c] = [nonzero(-5, 5), range(-5, 5)[rand(11)]];
+    const p = range(-3, 3)[rand(7)];
+    const q = p + 1 + rand(3);
+    const f = (x) => x * x + b * x + c;
+    const rate = p + q + b;
+    return item({ expr: polyStr(1, b, c), p: numStr(p), q: numStr(q) }, int(rate), [int(f(q) - f(p)), int(2 * p + b), int(2 * q + b)],
+      [int(rate + 1), int(rate - 1), int(f(q) + f(p)), int(rate + 2), int(-rate)]);
+  },
+
+  // 도함수와 미분계수. params.ask 는 'func' 또는 'value'
+  deriv(params) {
+    const [a, b, c, d] = [pickOne([1, 2]), nonzero(-4, 4), nonzero(-6, 6), nonzero(-7, 7)];
+    const fields = { expr: polyN([a, b, c, d]) };
+    if (params.ask === 'func') {
+      return item(fields, polyOpt([3 * a, 2 * b, c]), [polyOpt([a, b, c]), polyOpt([3 * a, 2 * b, c, d]), polyOpt([3 * a, b, c])],
+        [polyOpt([3 * a, 2 * b, 0]), polyOpt([a, 2 * b, c]), polyOpt([3 * a, 2 * b, c + 1])]);
+    }
+    const k = pickOne([-2, -1, 1, 2]);
+    const value = 3 * a * k * k + 2 * b * k + c;
+    return item({ ...fields, k: numStr(k) }, int(value), [int(valAt([a, b, c, d], k)), int(a * k * k + b * k + c), int(3 * a * k * k + 2 * b * k + c + d)],
+      [int(value + 1), int(value - 1), int(-value), int(value + 2)]);
+  },
+
+  // 접선의 방정식: y = x² + bx + c 위의 x = t 인 점에서
+  tangent2() {
+    const [b, c, t] = [range(-3, 3)[rand(7)], range(-3, 3)[rand(7)], nonzero(-2, 2)];
+    const m = 2 * t + b;
+    const y = t * t + b * t + c;
+    const k = c - t * t;
+    if (m === 0) return GENERATORS.tangent2();
+    return item({ expr: `y = ${polyStr(1, b, c)}`, t: numStr(t), px: t, coefs: [1, b, c],
+      plot: planeOf({ free: 1, r: [t - 4, t + 4, Math.min(y, 0) - 4, Math.max(y, 0) + 5], curves: [[1, b, c]], lines: [[m, -1, -k]], pts: [[t, y, '']] }) }, lineOpt(m, k),
+    [lineOpt(m, c), lineOpt(m, y), lineOpt(2 * t, k), lineOpt(-m, k)], [lineOpt(m, k + 1), lineOpt(m, k - 1), lineOpt(m + 1, k)]);
+  },
+
+  // 극댓값과 극솟값. params.ask 는 'max' 또는 'min'
+  extrema(params) {
+    const p = range(-2, 1)[rand(4)];
+    const q = p + 1 + rand(3);
+    const co = cubicWith(p, q, range(-4, 4)[rand(9)]);
+    const [hi, lo] = [valAt(co, p), valAt(co, q)];
+    const answer = params.ask === 'max' ? hi : lo;
+    const [x0, x1] = [p - 1.3, q + 1.3];
+    return item({ expr: polyN(co), coefs: co, plot: planeOf({ free: 1, r: windowOf(co, x0, x1), curves: [co], mx: [p, q].filter((v) => v !== 0) }) }, int(answer),
+      [int(params.ask === 'max' ? lo : hi), int(params.ask === 'max' ? p : q), int(co[3])], [int(answer + 1), int(answer - 1), int(-answer), int(answer + 2), int(answer - 2)]);
+  },
+
+  // 닫힌 구간에서의 최댓값·최솟값. params.ask 는 'max' 또는 'min'
+  interval2(params) {
+    const p = range(-2, 0)[rand(3)];
+    const q = p + 1 + rand(2);
+    const co = cubicWith(p, q, range(-3, 3)[rand(7)]);
+    const [a, b] = [p - 1 - rand(2), q + 1 + rand(2)];
+    const cand = [a, p, q, b].map((x) => valAt(co, x));
+    const answer = params.ask === 'max' ? Math.max(...cand) : Math.min(...cand);
+    return item({ expr: polyN(co), a: numStr(a), b: numStr(b), coefs: co, from: a, to: b }, int(answer), shuffled(cand).map(int),
+      [int(answer + 1), int(answer - 1), int(answer + 2), int(-answer), int(answer - 2)]);
+  },
+
+  // 적분. params.ask 가 'indef' 이면 부정적분, 'def' 이면 정적분
+  integral(params) {
+    const [a, b, c] = [pickOne([1, 2]), nonzero(-3, 3), nonzero(-5, 5)];
+    const f = [3 * a, 2 * b, c];
+    const F = [a, b, c, 0];
+    const withC = (coefs) => ({ s: `${polyN(coefs)} + C`, v: valN(coefs) });
+    if (params.ask === 'indef') {
+      return item({ expr: polyN(f), coefs: f }, withC(F), [withC([6 * a, 2 * b]), withC([3 * a, 2 * b, c, 0]), withC([a, b, c])],
+        [withC([a, b, 0, 0]), withC([a, 2 * b, c, 0]), withC([3 * a, b, c, 0])]);
+    }
+    const p = range(-2, 1)[rand(4)];
+    const q = p + 1 + rand(3);
+    const value = valAt(F, q) - valAt(F, p);
+    return item({ expr: polyN(f), p: numStr(p), q: numStr(q), coefs: f, from: p, to: q }, int(value),
+      [int(valAt(F, q) + valAt(F, p)), int(-value), int(valAt(f, q) - valAt(f, p)), int(valAt(F, q))],
+      [int(value + 1), int(value - 1), int(value + 2), int(value - 2), int(value * 2)]);
+  },
+
+  // 포물선과 x 축으로 둘러싸인 넓이
+  area2() {
+    const p = range(-3, 1)[rand(5)];
+    const d = 1 + rand(5);
+    const q = p + d;
+    const s = pickOne([1, -1]);
+    const co = [s, -s * (p + q), s * p * q];
+    const peak = valAt(co, (p + q) / 2);
+    return item({ expr: `y = ${polyStr(...co)}`, coefs: co,
+      plot: planeOf({ free: 1, r: [p - 1.5, q + 1.5, Math.min(0, peak) - 1.5, Math.max(0, peak) + 1.5], curves: [co], area: [co, null, p, q], mx: [p, q].filter((v) => v !== 0) }) },
+    frac(d ** 3, 6), [frac(d ** 3, 3), frac(d ** 3, 2), frac(d * d, 6), frac(d ** 3, 12)], [frac(d ** 3 + 6, 6), frac(d, 6), int(d)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 삼차함수: f′(x) = 0 의 작은 해 → 극댓값 → 극솟값
+  cubicx() {
+    const p = range(-2, 1)[rand(4)];
+    const q = p + 1 + rand(3);
+    const co = cubicWith(p, q, range(-4, 4)[rand(9)]);
+    const [hi, lo] = [valAt(co, p), valAt(co, q)];
+    return {
+      expr: polyN(co), coefs: co, plot: planeOf({ free: 1, r: windowOf(co, p - 1.3, q + 1.3), curves: [co] }),
+      steps: [
+        step(int(p), [int(q), int(-p), int(-q)], [int(p - 1), int(p + 2), int(p - 2), int(q + 1)]),
+        step(int(hi), [int(lo), int(p), int(co[3])], [int(hi + 1), int(hi - 1), int(-hi), int(hi + 2)]),
+        step(int(lo), [int(hi), int(q), int(co[3])], [int(lo + 1), int(lo - 1), int(-lo), int(lo - 2)]),
+      ],
+    };
+  },
+
+  // 넓이: 작은 교점 → 큰 교점 → 넓이
+  area() {
+    const p = range(-3, 1)[rand(5)];
+    const d = 1 + rand(5);
+    const q = p + d;
+    const co = [-1, p + q, -p * q];
+    const peak = valAt(co, (p + q) / 2);
+    return {
+      expr: `y = ${polyStr(...co)}`, coefs: co,
+      plot: planeOf({ free: 1, r: [p - 1.5, q + 1.5, -1.5, peak + 1.5], curves: [co], area: [co, null, p, q], mx: [p, q].filter((v) => v !== 0) }),
+      steps: [
+        step(int(p), [int(q), int(-p), int(-q)], [int(p - 1), int(p + 1), int(p - 2), int(p + 2)]),
+        step(int(q), [int(p), int(-q), int(-p)], [int(q + 1), int(q - 1), int(q + 2), int(q - 2)]),
+        step(frac(d ** 3, 6), [frac(d ** 3, 3), frac(d ** 3, 2), frac(d * d, 6)], [frac(d ** 3, 12), frac(d ** 3 + 6, 6), int(d)]),
+      ],
+    };
+  },
+});

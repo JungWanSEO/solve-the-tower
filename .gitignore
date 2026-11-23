@@ -2,3 +2,4 @@ tools/node_modules/
 tools/*.png
 tools/package-lock.json
 tools/.covered-*.json
+script/ja-fixes.json

@@ -418,6 +418,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
   position: fixed; inset: 0; z-index: 20;
   display: flex; align-items: center; justify-content: center;
   padding: 20px; background: rgba(5, 10, 28, 0.78);
+  /* 창은 지금 보이는 영역 안에 놓습니다. 아래쪽 도구 줄이나 홈 막대에 닫기 버튼이 가려지지 않게 합니다. */
+  height: 100vh; height: 100dvh; bottom: auto;
+  padding-top: max(20px, env(safe-area-inset-top)); padding-bottom: max(20px, env(safe-area-inset-bottom));
 }
 .menu-overlay[hidden] { display: none; }
 .menu-box {
@@ -425,6 +428,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
   display: flex; flex-direction: column; gap: 12px;
   padding: 20px 18px; border-radius: 16px;
   background: var(--deep); border: 1px solid var(--line);
+  max-height: 100%; overflow-y: auto; /* 내용이 길면 창 안에서 스크롤합니다 (창이 화면 밖으로 넘치지 않게) */
 }
 .menu-box h2 { margin: 0; font-size: 18px; }
 .menu-box p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
@@ -464,7 +468,8 @@ button, select, .node { touch-action: manipulation; } /* 두 번 눌러 확대�
 
 /* ============ phones: every screen size ============ */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-#app { min-height: 100dvh; }
+/* 높이는 주소 줄과 아래쪽 도구 줄이 다 나와 있을 때(svh)를 기준으로 합니다. 줄이 들어갔다 나올 때 화면이 늘었다 줄지 않게 하려는 것입니다. */
+#app { min-height: 100vh; min-height: 100svh; }
 button, .node, .scope-item, canvas { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 canvas { object-fit: cover; object-position: 50% 62%; }
 .panel { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
@@ -744,10 +749,10 @@ body:not(.ready) .ios-hint { visibility: hidden; }
 .review { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--teal); border-left-width: 5px; background: rgba(47, 217, 185, 0.08); animation: screenIn 0.25s ease-out; }
 .review[hidden] { display: none; }
 .review b { font-size: 15px; color: var(--teal); }
-.review p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
-html[lang="ko"] .review p { word-break: keep-all; overflow-wrap: anywhere; }
+.review p, .review-text { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
+html[lang="ko"] .review p, html[lang="ko"] .review-text { word-break: keep-all; overflow-wrap: anywhere; }
 .tight .review { padding: 7px 10px; }
-.tight .review p { font-size: 12px; line-height: 1.45; }
+.tight .review p, .tight .review-text { font-size: 12px; line-height: 1.45; }
 
 /* range screen: units fold */
 .scope-head { display: flex; align-items: stretch; gap: 8px; margin-top: 4px; }
@@ -817,7 +822,7 @@ button.stat.tag { min-height: 0; line-height: 1.5; cursor: pointer; text-decorat
 .top-btn { flex: 0 0 auto; white-space: nowrap; }
 
 /* ================= settings ================= */
-.set-box { max-height: min(88vh, 720px); overflow-y: auto; gap: 8px; }
+.set-box { gap: 8px; }
 .set-box h3 { margin: 8px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
 .set-row { display: flex; align-items: center; gap: 12px; min-height: 50px; padding: 6px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--deep); text-align: left; font-size: 14px; font-weight: 600; color: var(--ink); }
 .set-row > span { flex: 0 0 auto; min-width: 64px; }
@@ -877,3 +882,45 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 
 /* tutorial questions: the right answer glows, the others are switched off */
 .answers button.teach { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.55), 0 0 18px rgba(255, 200, 87, 0.5); animation: mapPulse 1.2s ease-in-out infinite; }
+
+/* 맞힌 문제의 풀이 카드: 틀렸을 때와 같은 자리, 색만 다르게 (맞힘 = 노랑) */
+.review.right { border-color: var(--amber); background: rgba(255, 200, 87, 0.08); }
+.review.right b { color: var(--amber); }
+
+/* 단계별 풀이: ①②③ 번호가 붙은 목록 */
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 4px; }
+.steps li { counter-increment: step; display: flex; gap: 8px; align-items: flex-start; }
+.steps li::before { content: counter(step); flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); color: var(--ink); font-size: 11px; font-weight: 800; line-height: 18px; text-align: center; }
+.tight .steps { gap: 2px; }
+
+/* ---- 유물 ---- */
+/* 등급은 색과 함께 글자("흔함·드묾·보스")로도 적습니다. 색만으로 구분하지 않습니다. */
+.rarity-common { --rare: #9fb0d6; }
+.rarity-uncommon { --rare: #c9a0ff; }
+.rarity-boss { --rare: var(--amber); }
+/* 상태 줄 오른쪽의 유물 줄: 아이콘 몇 개와 "+N". 줄 전체가 버튼입니다. */
+.relic-strip { position: relative; margin-left: auto; display: inline-flex; align-items: center; gap: 3px; height: 20px; padding: 0 5px 0 1px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+/* 줄은 다른 칩과 같은 높이로 두고, 손가락으로 누르기 쉽게 누르는 범위만 위아래로 넓힙니다. */
+.relic-strip::after { content: ''; position: absolute; inset: -11px -6px; }
+.relic-strip i { width: 18px; height: 18px; flex: none; border-radius: 50%; display: grid; place-items: center; color: var(--rare); background: var(--deep); border: 1px solid var(--rare); }
+.relic-strip i svg { width: 12px; height: 12px; }
+.relic-strip span { font-size: 12px; font-weight: 700; padding: 0 3px; }
+.relic-strip i.pop { animation: relicPop 0.5s ease-out; }
+@keyframes relicPop { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
+/* 가방 창과, 방금 얻은 유물 카드 */
+.bag-list { display: flex; flex-direction: column; }
+.relic-row, .relic-card { display: grid; grid-template-columns: 40px 1fr auto; column-gap: 12px; row-gap: 2px; align-items: center; text-align: left; }
+.relic-row { padding: 10px 0; border-top: 1px solid var(--line); }
+.relic-card { padding: 10px 12px; border-radius: 14px; border: 1px solid var(--rare); background: var(--panel); }
+.relic-row .ico, .relic-card .ico { grid-row: 1 / span 3; align-self: start; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--rare); background: var(--deep); border: 1px solid var(--rare); }
+.relic-row .ico svg, .relic-card .ico svg { width: 22px; height: 22px; }
+.relic-card .relic-got { grid-column: 2 / span 2; font-size: 11px; font-weight: 700; color: var(--teal); }
+.relic-row b, .relic-card b { grid-column: 2; font-size: 15px; }
+.relic-row em, .relic-card em, .options button.relic-pick em { grid-column: 3; font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #0b1430; background: var(--rare); }
+.relic-row small, .relic-card small, .options button.relic-pick small { grid-column: 2 / span 2; font-size: 13px; line-height: 1.5; color: var(--muted); white-space: pre-line; }
+.relic-row > span { grid-column: 2 / span 2; font-size: 12px; color: var(--teal); }
+.options button.relic-pick .ico { color: var(--rare); border-color: var(--rare); }
+.options button.relic-pick em { grid-row: 1; align-self: end; }
+html[lang="ko"] .relic-row small, html[lang="ko"] .relic-card small { word-break: keep-all; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .relic-strip i.pop { animation: none; } }
+.relic-down { color: var(--rose); }

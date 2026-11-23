@@ -63,3 +63,15 @@ export function celebrate(count = 70) {
   document.body.appendChild(layer);
   setTimeout(() => layer.remove(), 5000);
 }
+
+// 유물의 효과 글을 넣습니다. 불이익이 있는 유물은 둘째 줄이 "▼" 로 시작하는데, 그 줄만 다른 색으로 보이게 나눠 넣습니다.
+export function fillRelicText(el, text) {
+  const [good, ...bad] = String(text).split('\n');
+  el.textContent = good;
+  for (const line of bad) {
+    const down = document.createElement('span');
+    down.className = 'relic-down';
+    down.textContent = line;
+    el.append(document.createElement('br'), down);
+  }
+}

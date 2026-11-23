@@ -52,7 +52,11 @@
     "finish": "Correct = defeated",
     "finishCounter": "Block = defeated",
     "finishChain": "All correct = defeated",
-    "finishUlt": "Damage {d} · defeats it"
+    "finishUlt": "Damage {d} · defeats it",
+    "actWhere": "Act {a}/{at} · F{n}/{total}",
+    "actStart": "Act {a}/{at} · Gate",
+    "reviewRight": "Correct! {answer}",
+    "chainSubN": "Linked questions · {n} left"
   },
   "msg": {
     "choose": "Choose an action.",
@@ -125,7 +129,9 @@
     "overText": "You fell on floor {n} of {total}. Your gold and upgrades are gone, but your codex record stays. Pick your range again and start on a new map.",
     "restart": "Choose range",
     "restUsed": "You have already used this rest stop.",
-    "treasureUsed": "You already tried this chest. Its lock is now shut tight."
+    "treasureUsed": "You already tried this chest. Its lock is now shut tight.",
+    "treasureOkRelic": "The chest opens. You get {gold}G and a relic.",
+    "rewardTextRelic": "You get {gold}G and a relic. Choose one upgrade."
   },
   "up": {
     "maxhp": {
@@ -176,7 +182,10 @@
     },
     "met": "Monsters met {n} / {total}",
     "unseenLeft": "{n} monsters are still waiting to be met.",
-    "unitDone": "Mastered {done} / {total}"
+    "unitDone": "Mastered {done} / {total}",
+    "relics": "Relics",
+    "relicMet": "Relics found {n} / {total}",
+    "relicLeft": "{n} relics are still waiting to be found."
   },
   "tut": {
     "start": "Tap a space in the bottom row to set out. A battle will begin.",
@@ -419,6 +428,129 @@
     "shop": "In the shop you buy upgrades with the gold you earned in battle. Buy several, or leave without buying.",
     "rest": "At a rest stop you choose one of the two. Resting heals a lot; a correct review question gives a hint and a little HP.",
     "treasure": "A treasure chest gives gold and a hint for a correct answer. A wrong answer does no damage and still gives a little gold. A chest you have seen cannot be opened again.",
-    "event": "On a ? space something good or bad happens. You only find out by going in."
+    "event": "On a ? space something good or bad happens. You only find out by going in.",
+    "relic": "A relic works on its own until this run ends. Tap the relic row at the top to see your bag."
+  },
+  "act": {
+    "askTitle": "Tower length",
+    "askText": "You picked {n} subjects. The long tower climbs one act per subject, in the order {list} ({floors} floors in all). The short tower has 10 floors with the problems mixed.",
+    "long": "Long tower ({n} acts)",
+    "short": "Short tower (10 floors)",
+    "nextTitle": "Act {n}: {name}",
+    "nextText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. {left} acts remain, counting this one. Your gold and upgrades carry over.",
+    "lastText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. This is the final act. Your gold and upgrades carry over."
+  },
+  "relic": {
+    "bag": {
+      "name": "Heavy Bag",
+      "text": "Max HP +{hp}\n▼ Heal {n} less after battles"
+    },
+    "count": "{n} relics",
+    "barLabel": "{n} relics. Tap to open the bag",
+    "close": "Close",
+    "rarity": {
+      "common": "Common",
+      "uncommon": "Uncommon",
+      "boss": "Boss"
+    },
+    "got": "Relic obtained",
+    "none": "No relics left, so you received {gold}G instead.",
+    "chooseTitle": "Choose a relic",
+    "chooseText": "Pick one. You may also skip.",
+    "skip": "Skip",
+    "state": {
+      "ready": "This battle: not used yet",
+      "used": "This battle: used",
+      "streak": "Streak {n}/{need}",
+      "shield": "{n} block(s) ready",
+      "spent": "This run: used",
+      "left": "This battle: {n} left",
+      "armed": "Next correct answer +{n} ready"
+    },
+    "fx": {
+      "add": "Damage +{n}",
+      "gold": "+{n}G",
+      "half": "Damage taken {n}%",
+      "shieldReady": "1 block ready",
+      "shieldUsed": "Damage blocked",
+      "endure": "Survived with {n} HP",
+      "hint": "Hint +1"
+    },
+    "pencil": {
+      "name": "Worn Pencil",
+      "text": "First correct answer each battle deals +{n} damage"
+    },
+    "eraser": {
+      "name": "Eraser",
+      "text": "First wrong answer each battle: take only {n}% damage"
+    },
+    "grid": {
+      "name": "Graph Paper",
+      "text": "Correct answers on questions with a figure deal +{n} damage"
+    },
+    "snack": {
+      "name": "Snack Pouch",
+      "text": "Heal +{n} HP after winning a battle"
+    },
+    "piggy": {
+      "name": "Piggy Bank",
+      "text": "+{n}% gold from battles"
+    },
+    "note": {
+      "name": "Senior's Note",
+      "text": "Gain 1 hint on entering each new room (while you have fewer than {n})"
+    },
+    "setsquare": {
+      "name": "Set Square",
+      "text": "Counterattacks after a successful guard deal +{n} damage"
+    },
+    "bottle": {
+      "name": "Water Bottle",
+      "text": "Resting heals +{n} more HP"
+    },
+    "bookmark": {
+      "name": "Bookmark",
+      "text": "Start each battle with a streak of {n}"
+    },
+    "ribbon": {
+      "name": "Streak Ribbon",
+      "text": "Every {n} correct answers in a row, block the next damage once"
+    },
+    "redpen": {
+      "name": "Red Pen",
+      "text": "Weak-point multiplier ×{was} → ×{n}"
+    },
+    "wrongnote": {
+      "name": "Mistake Notebook",
+      "text": "After a wrong answer, your next correct answer deals +{n} damage"
+    },
+    "alarm": {
+      "name": "Alarm Clock",
+      "text": "Enemy heavy attacks come every {n} turns (was {was})"
+    },
+    "highlighter": {
+      "name": "Highlighter",
+      "text": "Skill deals +{n} damage"
+    },
+    "library": {
+      "name": "Library Card",
+      "text": "+{n} gold for a correct answer on a type you have not mastered"
+    },
+    "bandage": {
+      "name": "Bandage",
+      "text": "Once per run, survive a fatal blow with {n} HP"
+    },
+    "chainbelt": {
+      "name": "Chain Belt",
+      "text": "Use Chain {n} times per battle. Each chain step deals +{dmg} damage"
+    },
+    "ruler": {
+      "name": "Cracked Ruler",
+      "text": "All damage +{n}\n▼ Max HP −{hp}"
+    },
+    "workbook": {
+      "name": "Thick Workbook",
+      "text": "Ultimate deals +{n} damage\n▼ Ultimate needs a streak of {need} (was {was})"
+    }
   }
 }

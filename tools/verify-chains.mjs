@@ -96,6 +96,10 @@ const OK = {
 let total = 0, bad = 0; const seen = {}; const used = new Set();
 const cat = JSON.parse(fs.readFileSync(ROOT + 'data/catalog.json', 'utf8'));
 for (const file of cat.subjects.flatMap((s) => s.units)) {
+  if (file.startsWith('math2')) { // 数学II 의 묶음은 verify-math2.mjs 가 검사합니다
+    for (const ch of JSON.parse(fs.readFileSync(`${ROOT}data/units/${file}.json`, 'utf8')).chains || []) used.add(ch.gen);
+    continue;
+  }
   const unit = JSON.parse(fs.readFileSync(`${ROOT}data/units/${file}.json`, 'utf8'));
   for (const ch of unit.chains || []) {
     used.add(ch.gen);

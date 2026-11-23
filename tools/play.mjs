@@ -88,6 +88,7 @@ function act() {
   const coach = $('coach'); if (coach && !coach.hidden) stats.coach.add(coach.textContent);
   if (vis('screenTitle')) { stats.title = (stats.title || 0) + 1; const c = $('titleContinue'); (c.hidden ? $('titleNew') : c).click(); return; }
   if (!$('confirm').hidden) { $('confirmOk').click(); return; }
+  { const dlg = $('dialog'); if (dlg && !dlg.hidden) { (stats.dialogs ||= new Set()).add(`${$('dialogTitle').textContent} | ${$('dialogText').textContent}`); const bs = [...dlg.querySelectorAll('#dialogButtons button')]; if (bs.length === 2 && /10/.test(bs[1].textContent)) { stats.lengthAsked = (stats.lengthAsked || 0) + 1; (process.env.LONG ? bs[0] : bs[1]).click(); } else { if (bs.length === 1 && /막|幕|Act/.test($('dialogTitle').textContent)) stats.acts = (stats.acts || 0) + 1; bs[0].click(); } return; } }
   if (vis('screenScope')) { stats.scope = (stats.scope || 0) + 1; const mode = process.env.SCOPE || 'all';
     if (mode === 'all') $('scopeAll').click();
     else { $('scopeAll').click(); window.document.querySelectorAll('.scope-fold').forEach((x) => { if (x.getAttribute('aria-expanded') !== 'true') x.click(); }); const items = [...window.document.querySelectorAll('.scope-item')]; items.forEach((b, i) => { if (!mode.split(',').includes(String(i))) b.click(); }); }
@@ -127,6 +128,8 @@ function act() {
     if (/ゲームオーバー|게임 오버|Game over/.test(title) && lastScreen !== 'defeat') { stats.defeats++; lastScreen = 'defeat'; const f = (save().last || {}).floor || 0; stats.deathFloors[f] = (stats.deathFloors[f] || 0) + 1; } else if (!/ゲームオーバー|게임 오버|Game over/.test(title)) lastScreen = '';
     const opts = enabled('#evOptions button');
     const leave = $('evLeave');
+    const relicPick = opts.filter((b) => b.classList.contains('relic-pick'));
+    if (relicPick.length && (process.env.NORELIC ? false : true) && !/ショップ|상점|Shop/.test(title)) { rnd(relicPick).click(); stats.relics = (stats.relics || 0) + 1; stats.clicks++; return; }
     if (opts.length && (leave.hidden || (shopClicks < 6 && Math.random() < 0.6))) { shopClicks++; if (!leave.hidden) stats.bought++; rnd(opts).click(); stats.clicks++; return; }
     if (!leave.hidden) { leave.click(); stats.clicks++; return; }
   }
@@ -134,18 +137,24 @@ function act() {
 
 const save = () => JSON.parse(window.localStorage.getItem('mathrpg_save_v1') || '{}');
 let i = 0;
+let relicNow = 0; const relicCounts = [];
 const CAP = Number(process.env.CAP || 400000);
 const RUNS = Number(process.env.RUNS || 0);
 for (; i < CAP && !errors.length; i++) {
   ts += 16; const q = frames; frames = []; for (const f of q) f(ts);
   if (i % 12 === 0) act();
+  // 한 판에 유물을 몇 개 모았는지 셉니다: 상태 줄에 적힌 유물 수가 줄어들면(새 판) 앞 판의 수를 적어 둡니다.
+  if (i % 12 === 0) { const strip = window.document.querySelector('.relic-strip'); const n = strip ? Number((strip.getAttribute('aria-label').match(/\d+/) || [0])[0]) : 0; if (n < relicNow) relicCounts.push(relicNow); relicNow = n; }
   if (i % 500 === 0 && (save().clears || 0) >= WANT_CLEARS) break;
   if (RUNS && i % 500 === 0 && (save().clears || 0) + stats.defeats >= RUNS) break; // RUNS: 이기든 지든 정해진 판 수만 합니다
   if (RUNS && i % 12 === 0 && vis('screenTitle') && (save().clears || 0) + stats.defeats >= RUNS) break;
 }
 const s = save();
+if (relicNow) relicCounts.push(relicNow);
+if (process.env.RELICCOUNT) console.log('RELICS_PER_RUN ' + relicCounts.join(' '));
 if (process.env.JSONOUT) { console.log(JSON.stringify({ acc: ACC, clears: s.clears || 0, deaths: stats.defeats, deathFloors: stats.deathFloors, answered: stats.answers, right: stats.right, errors: errors.length })); process.exit(errors.length ? 1 : 0); }
-if (process.env.BRIEF) { console.log(`acc ${ACC}: clears ${s.clears || 0}, deaths ${stats.defeats}, clear rate ${(((s.clears || 0) / Math.max(1, (s.clears || 0) + stats.defeats)) * 100).toFixed(0)}%, midboss reached ${stats.nodes['type-midboss'] || 0}, boss reached ${stats.nodes['type-boss'] || 0}, errors ${errors.length}`); process.exit(errors.length ? 1 : 0); }
+if (process.env.DIALOGS) for (const d of stats.dialogs || []) console.log('DIALOG', d);
+if (process.env.BRIEF) { console.log(`relics seen ${Object.keys(s.relics || {}).length}: ${Object.keys(s.relics || {}).join(' ')} | picked at choices ${stats.relics || 0}`); console.log(`acc ${ACC}: clears ${s.clears || 0}, deaths ${stats.defeats}, clear rate ${(((s.clears || 0) / Math.max(1, (s.clears || 0) + stats.defeats)) * 100).toFixed(0)}%, midboss reached ${stats.nodes['type-midboss'] || 0}, boss reached ${stats.nodes['type-boss'] || 0}, errors ${errors.length}, acts passed ${stats.acts || 0}, answered ${stats.answers}`); process.exit(errors.length ? 1 : 0); }
 console.log(JSON.stringify({ acc: ACC, frames: i, minutesOfAnimation: +(i * 16 / 60000).toFixed(1), clears: s.clears, wins: s.wins, tut: s.tut, stats: { ...stats, coach: [...stats.coach].length, guides: stats.guides ? stats.guides.size : 0 }, answeredRate: +(stats.right / Math.max(1, stats.answers)).toFixed(2), seen: Object.keys(s.seen || {}), codexTypes: Object.keys(s.codex || {}).length, errors: errors.slice(0, 3) }));
 // language switch smoke test on whatever screen is showing
 for (const l of ['ko', 'en', 'ja']) { const sel = $('langSelect'); sel.value = l; sel.dispatchEvent(new window.Event('change')); await new Promise((r) => setTimeout(r, 30)); for (let k = 0; k < 5; k++) { ts += 16; const q = frames; frames = []; for (const f of q) f(ts); } }

@@ -108,9 +108,9 @@
         "en": "What is the vertex of the graph of {f}?"
       },
       "explain": {
-        "ja": "y = a(x − p)² + q の頂点は (p, q) なので {answer}",
-        "ko": "y = a(x − p)² + q의 꼭짓점은 (p, q)이므로 {answer}",
-        "en": "The vertex of y = a(x − p)² + q is (p, q), so {answer}"
+        "ja": "y = a(x − p)² + q の形と見比べる\np = {ps}、q = {qs}(かっこの中の符号は逆に読む)\n頂点は (p, q) なので {answer}",
+        "ko": "y = a(x − p)² + q 꼴과 비교합니다\np = {ps}, q = {qs} (괄호 안의 부호는 반대로 읽습니다)\n꼭짓점은 (p, q)이므로 {answer}",
+        "en": "Compare with y = a(x − p)² + q\np = {ps}, q = {qs} (the sign inside the bracket flips)\nThe vertex is (p, q) = {answer}"
       }
     },
     {
@@ -124,9 +124,9 @@
         "en": "What is the vertex of the graph of {f}?"
       },
       "explain": {
-        "ja": "平方完成して y = a(x − p)² + q の形にすると頂点は {answer}",
-        "ko": "완전제곱식으로 고쳐 y = a(x − p)² + q 꼴로 만들면 꼭짓점은 {answer}",
-        "en": "Complete the square to get y = a(x − p)² + q; the vertex is {answer}"
+        "ja": "x² と x の項を平方完成する\n{form}\ny = a(x − p)² + q の頂点は (p, q) なので {answer}",
+        "ko": "x²과 x의 항을 완전제곱식으로 고칩니다\n{form}\ny = a(x − p)² + q 의 꼭짓점은 (p, q)이므로 {answer}",
+        "en": "Complete the square in x\n{form}\nThe vertex of y = a(x − p)² + q is (p, q) = {answer}"
       }
     },
     {
@@ -143,9 +143,9 @@
         "en": "What is the minimum of {f} for {s} ≦ x ≦ {t}?"
       },
       "explain": {
-        "ja": "頂点が範囲に入っているかを確かめる。最小値は {answer}",
-        "ko": "꼭짓점이 범위 안에 있는지 먼저 확인합니다. 최솟값은 {answer}",
-        "en": "Check whether the vertex is inside the range. The minimum is {answer}"
+        "ja": "軸は x = {axis}、頂点の y 座標は {vq}\n両端の値: x = {s} のとき y = {vs}、x = {t} のとき y = {vt}\n軸が範囲に入っていれば頂点で最小、入っていなければ両端の小さい方\n最小値は {answer}",
+        "ko": "축은 x = {axis}, 꼭짓점의 y좌표는 {vq}\n양 끝의 값: x = {s} 일 때 y = {vs}, x = {t} 일 때 y = {vt}\n축이 범위 안에 있으면 꼭짓점에서 최소, 없으면 양 끝 중 작은 쪽\n최솟값은 {answer}",
+        "en": "The axis is x = {axis}; the vertex has y = {vq}\nAt the ends: x = {s} gives y = {vs}, x = {t} gives y = {vt}\nIf the axis is inside the range the minimum is at the vertex; otherwise at the lower end value\nThe minimum is {answer}"
       }
     },
     {
@@ -162,9 +162,9 @@
         "en": "What is the maximum of {f} for {s} ≦ x ≦ {t}?"
       },
       "explain": {
-        "ja": "下に凸のグラフでは、軸から遠い方の端で最大になる。最大値は {answer}",
-        "ko": "아래로 볼록한 그래프는 축에서 먼 쪽 끝에서 최대가 됩니다. 최댓값은 {answer}",
-        "en": "For an upward-opening graph the maximum is at the end farther from the axis: {answer}"
+        "ja": "軸は x = {axis}。下に凸のグラフ\n両端の値: x = {s} のとき y = {vs}、x = {t} のとき y = {vt}\n下に凸なので、最大は軸から遠い方の端\n最大値は {answer}",
+        "ko": "축은 x = {axis}. 아래로 볼록한 그래프\n양 끝의 값: x = {s} 일 때 y = {vs}, x = {t} 일 때 y = {vt}\n아래로 볼록하므로 최대는 축에서 먼 쪽 끝\n최댓값은 {answer}",
+        "en": "The axis is x = {axis}; the graph opens upward\nAt the ends: x = {s} gives y = {vs}, x = {t} gives y = {vt}\nOpening upward, the maximum is at the end farther from the axis\nThe maximum is {answer}"
       }
     },
     {
@@ -178,9 +178,9 @@
         "en": "Solve {f}."
       },
       "explain": {
-        "ja": "左辺を因数分解して解くと {answer}",
-        "ko": "좌변을 인수분해해서 풀면 {answer}",
-        "en": "Factor the left side: {answer}"
+        "ja": "掛けて {prod}、足して {lin} になる2つの数を探す\n左辺を因数分解すると {fac} = 0\nそれぞれのかっこが 0 になる x を求めて {answer}",
+        "ko": "곱해서 {prod}, 더해서 {lin} 이 되는 두 수를 찾습니다\n좌변을 인수분해하면 {fac} = 0\n각 괄호가 0이 되는 x를 구하면 {answer}",
+        "en": "Find two numbers with product {prod} and sum {lin}\nFactor the left side: {fac} = 0\nSet each bracket to 0: {answer}"
       }
     },
     {
@@ -194,9 +194,9 @@
         "en": "What is the discriminant D of {f}?"
       },
       "explain": {
-        "ja": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}",
-        "ko": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}",
-        "en": "D = b² − 4ac = ({b})² − 4 × ({a}) × ({c}) = {answer}"
+        "ja": "a = {a}、b = {b}、c = {c} を読みとる\nD = b² − 4ac = ({b})² − 4 × ({a}) × ({c})\n= {b2} − ({ac4}) = {answer}",
+        "ko": "a = {a}, b = {b}, c = {c} 를 읽습니다\nD = b² − 4ac = ({b})² − 4 × ({a}) × ({c})\n= {b2} − ({ac4}) = {answer}",
+        "en": "Read off a = {a}, b = {b}, c = {c}\nD = b² − 4ac = ({b})² − 4 × ({a}) × ({c})\n= {b2} − ({ac4}) = {answer}"
       }
     },
     {
@@ -210,9 +210,9 @@
         "en": "Solve {f} {op} 0."
       },
       "explain": {
-        "ja": "左辺を因数分解し、グラフが x 軸より下か上かを考えると {answer}",
-        "ko": "좌변을 인수분해하고, 그래프가 x축보다 아래인지 위인지 생각하면 {answer}",
-        "en": "Factor the left side and think about where the graph is below or above the x-axis: {answer}"
+        "ja": "左辺を因数分解すると {fac} {op} 0\ny = {fac} のグラフは x = {r1}, {r2} で x 軸と交わる下に凸の放物線\n「< 0」は x 軸より下(2つの交点の間)、「> 0」は x 軸より上(外側)\nよって {answer}",
+        "ko": "좌변을 인수분해하면 {fac} {op} 0\ny = {fac} 의 그래프는 x = {r1}, {r2} 에서 x축과 만나는 아래로 볼록한 포물선\n\"< 0\"은 x축보다 아래(두 교점 사이), \"> 0\"은 x축보다 위(바깥쪽)\n따라서 {answer}",
+        "en": "Factor the left side: {fac} {op} 0\ny = {fac} is an upward parabola crossing the x-axis at x = {r1}, {r2}\n\"< 0\" is the part below the axis (between the crossings); \"> 0\" is the part above (outside)\nSo {answer}"
       }
     },
     {
@@ -226,9 +226,9 @@
         "en": "The graph of {f} is shifted {p} in the x-direction and {q} in the y-direction. What is the new equation?"
       },
       "explain": {
-        "ja": "x を x − p に、y に q を加える。{answer}",
-        "ko": "x를 x − p로 바꾸고, y에 q를 더합니다. {answer}",
-        "en": "Replace x with x − p and add q: {answer}"
+        "ja": "x 軸方向に {p} → x を (x − ({p})) におきかえる\ny 軸方向に {q} → 右辺に {q} を足す\n整理して {answer}",
+        "ko": "x축 방향으로 {p} → x를 (x − ({p}))로 바꿉니다\ny축 방향으로 {q} → 우변에 {q} 를 더합니다\n정리하면 {answer}",
+        "en": "Shift by {p} in x → replace x with (x − ({p}))\nShift by {q} in y → add {q} to the right side\nSimplify: {answer}"
       }
     },
     {
@@ -242,9 +242,9 @@
         "en": "A parabola y = a(x − p)² + q has vertex ({p}, {q}) and passes through ({x0}, {y0}). What is a?"
       },
       "explain": {
-        "ja": "通る点の座標を代入して a を求めると {answer}",
-        "ko": "지나는 점의 좌표를 대입해 a를 구하면 {answer}",
-        "en": "Substitute the point to find a: {answer}"
+        "ja": "頂点から y = a(x − ({p}))² + ({q}) とおく\n点 ({x0}, {y0}) を代入: {y0} = a × ({x0} − ({p}))² + ({q})\na について解くと a = {answer}",
+        "ko": "꼭짓점에서 y = a(x − ({p}))² + ({q}) 로 놓습니다\n점 ({x0}, {y0})을 대입: {y0} = a × ({x0} − ({p}))² + ({q})\na에 대해 풀면 a = {answer}",
+        "en": "From the vertex, write y = a(x − ({p}))² + ({q})\nSubstitute ({x0}, {y0}): {y0} = a × ({x0} − ({p}))² + ({q})\nSolve for a: a = {answer}"
       }
     },
     {
@@ -258,9 +258,9 @@
         "en": "How many points does the graph of {f} share with the x-axis?"
       },
       "explain": {
-        "ja": "判別式 D の符号を調べる。D > 0 なら 2 個、D = 0 なら 1 個、D < 0 なら 0 個。答えは {answer}",
-        "ko": "판별식 D의 부호를 봅니다. D > 0이면 2개, D = 0이면 1개, D < 0이면 0개. 답은 {answer}",
-        "en": "Check the sign of D: two points if D > 0, one if D = 0, none if D < 0. Answer: {answer}"
+        "ja": "y = 0 とおいた2次方程式の判別式 D を調べる\na = {a}、b = {b}、c = {c} より D = b² − 4ac = {D}\nD > 0 なら2個、D = 0 なら1個、D < 0 なら0個\nよって {answer} 個",
+        "ko": "y = 0 으로 놓은 이차방정식의 판별식 D를 봅니다\na = {a}, b = {b}, c = {c} 이므로 D = b² − 4ac = {D}\nD > 0 이면 2개, D = 0 이면 1개, D < 0 이면 0개\n따라서 {answer}개",
+        "en": "Look at the discriminant D of the equation y = 0\nWith a = {a}, b = {b}, c = {c}: D = b² − 4ac = {D}\nD > 0 gives 2 points, D = 0 gives 1, D < 0 gives 0\nSo {answer}"
       }
     },
     {
@@ -279,9 +279,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "左辺を平方完成して、グラフと x 軸の位置関係を考える。{answer}",
-        "ko": "좌변을 완전제곱식으로 고쳐 그래프와 x축의 위치를 생각합니다. {answer}",
-        "en": "Complete the square and compare the graph with the x-axis: {answer}"
+        "ja": "左辺を因数分解して ( )² の形にする\n( )² は常に 0 以上で、0 になるのは1点だけ\n不等号 {op} と見比べて {answer}",
+        "ko": "좌변을 인수분해해서 ( )² 꼴로 만듭니다\n( )² 은 항상 0 이상이고, 0이 되는 곳은 한 점뿐입니다\n부등호 {op} 와 비교하면 {answer}",
+        "en": "Factor the left side into ( )²\nA square is never negative and is 0 at only one point\nCompare with the sign {op}: {answer}"
       }
     },
     {
@@ -295,9 +295,9 @@
         "en": "If f(x) = {f}, what is f({k})?"
       },
       "explain": {
-        "ja": "x に {k} を代入すると {answer}",
-        "ko": "x에 {k}를 대입하면 {answer}",
-        "en": "Substitute {k} for x: {answer}"
+        "ja": "x に {k} を代入する: {sub}\nそれぞれの項を計算すると {t1}、{t2}、{t3}\n足して {answer}",
+        "ko": "x에 {k} 를 대입합니다: {sub}\n각 항을 계산하면 {t1}, {t2}, {t3}\n더하면 {answer}",
+        "en": "Substitute x = {k}: {sub}\nThe terms are {t1}, {t2} and {t3}\nAdd them: {answer}"
       }
     },
     {
@@ -311,9 +311,9 @@
         "en": "What is the range of {f} for {s} ≦ x ≦ {t}?"
       },
       "explain": {
-        "ja": "両端の x の値を代入して、小さい方から大きい方まで。{answer}",
-        "ko": "양 끝의 x 값을 대입해 작은 쪽부터 큰 쪽까지입니다. {answer}",
-        "en": "Substitute both ends of x and order the results: {answer}"
+        "ja": "x = {s} と x = {t} を代入して両端の y を求める\n1次関数は範囲の端で最大・最小になる\n小さい方から大きい方まで: {answer}",
+        "ko": "x = {s} 와 x = {t} 를 대입해 양 끝의 y를 구합니다\n일차함수는 범위의 끝에서 최대·최소가 됩니다\n작은 쪽부터 큰 쪽까지: {answer}",
+        "en": "Substitute x = {s} and x = {t} to get y at both ends\nA linear function takes its extreme values at the ends\nFrom the smaller to the larger: {answer}"
       }
     },
     {
@@ -327,9 +327,9 @@
         "en": "The graph of {f} is reflected in {axis}. What is the new equation?"
       },
       "explain": {
-        "ja": "x 軸なら y を −y に、y 軸なら x を −x に、原点なら両方を変える。{answer}",
-        "ko": "x축이면 y를 −y로, y축이면 x를 −x로, 원점이면 둘 다 바꿉니다. {answer}",
-        "en": "x-axis: replace y with −y. y-axis: replace x with −x. Origin: do both. {answer}"
+        "ja": "x 軸対称は y を −y に、y 軸対称は x を −x に、原点対称は両方おきかえる\nおきかえた式を y = … の形に整理する\n{answer}",
+        "ko": "x축 대칭은 y를 −y로, y축 대칭은 x를 −x로, 원점 대칭은 둘 다 바꿉니다\n바꾼 식을 y = … 꼴로 정리합니다\n{answer}",
+        "en": "x-axis: replace y with −y; y-axis: replace x with −x; origin: replace both\nRearrange into the form y = …\n{answer}"
       }
     },
     {
@@ -343,9 +343,9 @@
         "en": "Which parabola passes through (0, {y0}), (1, {y1}) and (−1, {y2})?"
       },
       "explain": {
-        "ja": "y = ax² + bx + c に3点を代入して a, b, c を求めると {answer}",
-        "ko": "y = ax² + bx + c에 세 점을 대입해 a, b, c를 구하면 {answer}",
-        "en": "Substitute the three points into y = ax² + bx + c: {answer}"
+        "ja": "y = ax² + bx + c に (0, {y0}) を代入 → c = {y0}\n(1, {y1}) と (−1, {y2}) を代入 → a + b + c = {y1}、a − b + c = {y2}\n2つの式を足して a を、引いて b を求める\n{answer}",
+        "ko": "y = ax² + bx + c 에 (0, {y0})을 대입 → c = {y0}\n(1, {y1})과 (−1, {y2})를 대입 → a + b + c = {y1}, a − b + c = {y2}\n두 식을 더해서 a를, 빼서 b를 구합니다\n{answer}",
+        "en": "Put (0, {y0}) into y = ax² + bx + c → c = {y0}\nPut (1, {y1}) and (−1, {y2}) → a + b + c = {y1}, a − b + c = {y2}\nAdd the two equations to get a; subtract to get b\n{answer}"
       }
     },
     {
@@ -359,9 +359,9 @@
         "en": "The maximum of {f} for {s} ≦ x ≦ {t} is {M}. What is the constant c?"
       },
       "explain": {
-        "ja": "軸から遠い方の端で最大になる。その x を代入して c を求めると {answer}",
-        "ko": "축에서 먼 쪽 끝에서 최대가 됩니다. 그 x를 대입해 c를 구하면 {answer}",
-        "en": "The maximum is at the end farther from the axis. Substitute that x to find c: {answer}"
+        "ja": "下に凸なので、最大は軸から遠い方の端でとる\nその端の x を代入した式を {M} とおく\nc について解くと c = {answer}",
+        "ko": "아래로 볼록하므로 최대는 축에서 먼 쪽 끝에서 가집니다\n그 끝의 x를 대입한 식을 {M} 으로 놓습니다\nc에 대해 풀면 c = {answer}",
+        "en": "Opening upward, the maximum is at the end farther from the axis\nSubstitute that x and set the result equal to {M}\nSolve for c: c = {answer}"
       }
     },
     {
@@ -375,9 +375,9 @@
         "en": "Solve {f}."
       },
       "explain": {
-        "ja": "解の公式 x = (−b ± √(b² − 4ac)) ÷ 2a を使うと {answer}",
-        "ko": "근의 공식 x = (−b ± √(b² − 4ac)) ÷ 2a를 쓰면 {answer}",
-        "en": "Use the quadratic formula x = (−b ± √(b² − 4ac)) ÷ 2a: {answer}"
+        "ja": "a = 1、b = {bs}、c = {cs}\n根号の中: b² − 4ac = {D}\nx = (−b ± √D) ÷ 2a = ({nb} ± √{D}) ÷ 2\n√ を簡単にして約分すると {answer}",
+        "ko": "a = 1, b = {bs}, c = {cs}\n근호 안: b² − 4ac = {D}\nx = (−b ± √D) ÷ 2a = ({nb} ± √{D}) ÷ 2\n√ 를 간단히 하고 약분하면 {answer}",
+        "en": "a = 1, b = {bs}, c = {cs}\nUnder the root: b² − 4ac = {D}\nx = (−b ± √D) ÷ 2a = ({nb} ± √{D}) ÷ 2\nSimplify the root and reduce: {answer}"
       }
     },
     {
@@ -391,9 +391,9 @@
         "en": "For which values of k does {f} {cond}?"
       },
       "explain": {
-        "ja": "判別式 D の符号の条件から {answer}",
-        "ko": "판별식 D의 부호 조건에서 {answer}",
-        "en": "From the condition on the sign of D: {answer}"
+        "ja": "判別式 D を k を使って表す\n条件を D の符号に直す(異なる2つの実数解: D > 0、重解: D = 0、実数解なし: D < 0)\nその不等式を k について解くと {answer}",
+        "ko": "판별식 D를 k로 나타냅니다\n조건을 D의 부호로 바꿉니다 (서로 다른 두 실근: D > 0, 중근: D = 0, 실근 없음: D < 0)\n그 식을 k에 대해 풀면 {answer}",
+        "en": "Write the discriminant D in terms of k\nTurn the condition into a sign of D (two real roots: D > 0, double root: D = 0, no real root: D < 0)\nSolve for k: {answer}"
       }
     },
     {
@@ -407,9 +407,9 @@
         "en": "For which values of k is {f} > 0 for every real x?"
       },
       "explain": {
-        "ja": "グラフが x 軸と共有点をもたなければよいので D < 0。{answer}",
-        "ko": "그래프가 x축과 만나지 않으면 되므로 D < 0입니다. {answer}",
-        "en": "The graph must not meet the x-axis, so D < 0: {answer}"
+        "ja": "x² の係数が正なので、グラフは下に凸\n常に正 ⇔ グラフが x 軸と交わらない ⇔ D < 0\nD = k² − 4 × (定数項) < 0 を解いて {answer}",
+        "ko": "x²의 계수가 양수이므로 그래프는 아래로 볼록\n항상 양수 ⇔ 그래프가 x축과 만나지 않음 ⇔ D < 0\nD = k² − 4 × (상수항) < 0 을 풀면 {answer}",
+        "en": "The x² coefficient is positive, so the graph opens upward\nAlways positive ⇔ the graph never meets the x-axis ⇔ D < 0\nSolve D = k² − 4 × (constant term) < 0: {answer}"
       }
     },
     {
@@ -423,9 +423,9 @@
         "en": "Solve the system {f} < 0 and {g}."
       },
       "explain": {
-        "ja": "2次不等式を解いてから、もう一方との共通範囲を求めると {answer}",
-        "ko": "이차부등식을 푼 뒤 다른 부등식과의 공통 범위를 구하면 {answer}",
-        "en": "Solve the quadratic inequality, then take the overlap: {answer}"
+        "ja": "2次不等式 {f} < 0 を因数分解して解く\nもう一方の {g} と数直線に重ねてかく\n共通する範囲は {answer}",
+        "ko": "이차부등식 {f} < 0 을 인수분해해서 풉니다\n다른 부등식 {g} 와 수직선에 겹쳐 그립니다\n공통 범위는 {answer}",
+        "en": "Solve {f} < 0 by factoring\nMark it and {g} on one number line\nThe common part is {answer}"
       }
     },
     {
@@ -444,9 +444,9 @@
         "en": "All of the string is used; ignore its thickness."
       },
       "explain": {
-        "ja": "縦を x とすると面積は x({P} ÷ 2 − x)。平方完成すると最大値は {answer}",
-        "ko": "세로를 x라 하면 넓이는 x({P} ÷ 2 − x)입니다. 완전제곱식으로 고치면 최댓값은 {answer}",
-        "en": "With height x the area is x({P} ÷ 2 − x). Completing the square gives the maximum {answer}"
+        "ja": "縦を x cm とすると、横は ({P} ÷ 2 − x) cm\n面積は x({P} ÷ 2 − x)\n平方完成すると、x = {P} ÷ 4(正方形)のとき最大\n最大値は {answer}",
+        "ko": "세로를 x cm라 하면 가로는 ({P} ÷ 2 − x) cm\n넓이는 x({P} ÷ 2 − x)\n완전제곱식으로 고치면 x = {P} ÷ 4 (정사각형)일 때 최대\n최댓값은 {answer}",
+        "en": "Let the height be x cm; the width is ({P} ÷ 2 − x) cm\nThe area is x({P} ÷ 2 − x)\nCompleting the square, it is largest when x = {P} ÷ 4 (a square)\nThe maximum is {answer}"
       }
     }
   ],
@@ -474,9 +474,9 @@
             "en": "What is the completed-square form?"
           },
           "explain": {
-            "ja": "x の係数の半分を2乗して足し引きすると {answer}",
-            "ko": "x의 계수의 절반을 제곱해 더하고 빼면 {answer}",
-            "en": "Add and subtract the square of half the x coefficient: {answer}"
+            "ja": "x の係数の半分を求め、その2乗を足して引く\n( )² の形にまとめて {answer}",
+            "ko": "x의 계수의 절반을 구하고, 그 제곱을 더하고 뺍니다\n( )² 꼴로 묶으면 {answer}",
+            "en": "Take half the x coefficient, then add and subtract its square\nGroup into ( )²: {answer}"
           }
         },
         {
@@ -493,9 +493,9 @@
             "en": "What is the vertex of the graph?"
           },
           "explain": {
-            "ja": "{a1} より、頂点は {answer}",
-            "ko": "{a1}에서 꼭짓점은 {answer}",
-            "en": "From {a1}, the vertex is {answer}"
+            "ja": "{a1} を y = a(x − p)² + q と見比べる\n頂点は (p, q) なので {answer}",
+            "ko": "{a1} 을 y = a(x − p)² + q 와 비교합니다\n꼭짓점은 (p, q)이므로 {answer}",
+            "en": "Compare {a1} with y = a(x − p)² + q\nThe vertex is (p, q) = {answer}"
           }
         },
         {
@@ -512,7 +512,7 @@
             "en": "What is the maximum for {s} ≦ x ≦ {t}?"
           },
           "explain": {
-            "ja": "頂点 {a2} から遠い方の端で最大になる。{answer}",
+            "ja": "頂点 {a2} から遠い方の端で最大になる\n{answer}",
             "ko": "꼭짓점 {a2}에서 먼 쪽 끝에서 최대가 됩니다. {answer}",
             "en": "The maximum is at the end farther from the vertex {a2}: {answer}"
           }
@@ -542,9 +542,9 @@
             "en": "What is the discriminant D of {f} = 0?"
           },
           "explain": {
-            "ja": "D = b² − 4ac を計算すると {answer}",
-            "ko": "D = b² − 4ac를 계산하면 {answer}",
-            "en": "Computing D = b² − 4ac gives {answer}"
+            "ja": "{f} から a, b, c を読みとる\nD = b² − 4ac を計算すると {answer}",
+            "ko": "{f} 에서 a, b, c를 읽습니다\nD = b² − 4ac 를 계산하면 {answer}",
+            "en": "Read a, b, c from {f}\nD = b² − 4ac = {answer}"
           }
         },
         {
@@ -561,9 +561,9 @@
             "en": "What are the roots of {f} = 0?"
           },
           "explain": {
-            "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ。因数分解して {answer}",
-            "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다. 인수분해하면 {answer}",
-            "en": "Since D = {a1} > 0 there are two different real roots. Factorising gives {answer}"
+            "ja": "D = {a1} > 0 なので異なる2つの実数解をもつ\n因数分解して {answer}",
+            "ko": "D = {a1} > 0이므로 서로 다른 두 실근을 가집니다\n인수분해하면 {answer}",
+            "en": "Since D = {a1} > 0 there are two different real roots\nFactorising gives {answer}"
           }
         },
         {
@@ -580,9 +580,9 @@
             "en": "What is the solution of {f} < 0?"
           },
           "explain": {
-            "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})。x 軸より下にあるのは2つの解の間なので {answer}",
+            "ja": "グラフは下に凸で、x 軸と交わる点は ({a2})\nx 軸より下にあるのは2つの解の間なので {answer}",
             "ko": "그래프는 아래로 볼록하고 x축과 만나는 점은 ({a2}). x축보다 아래에 있는 것은 두 해 사이이므로 {answer}",
-            "en": "The graph opens upward and meets the x-axis at ({a2}). It is below the axis between the roots: {answer}"
+            "en": "The graph opens upward and meets the x-axis at ({a2})\nIt is below the axis between the roots: {answer}"
           }
         }
       ]
@@ -612,9 +612,9 @@
             "en": "What is the vertex of the parabola y = {f}?"
           },
           "explain": {
-            "ja": "平方完成すると y = (x − a)² + ({m})。頂点は {answer}",
-            "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m}). 꼭짓점은 {answer}",
-            "en": "Completing the square gives y = (x − a)² + ({m}). The vertex is {answer}"
+            "ja": "平方完成すると y = (x − a)² + ({m})\n頂点は {answer}",
+            "ko": "완전제곱식으로 고치면 y = (x − a)² + ({m})\n꼭짓점은 {answer}",
+            "en": "Completing the square gives y = (x − a)² + ({m})\nThe vertex is {answer}"
           }
         },
         {
@@ -631,7 +631,7 @@
             "en": "For 0 < a < {c}, let m be the minimum of f(x). As a varies, what is the largest value of m?"
           },
           "explain": {
-            "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}。a = {t} のとき最大値 {answer}",
+            "ja": "0 < a < {c} では軸 x = a が定義域の中にあるので m = {m} = {comp}\na = {t} のとき最大値 {answer}",
             "ko": "0 < a < {c}에서는 축 x = a가 정의역 안에 있으므로 m = {m} = {comp}. a = {t}일 때 최댓값 {answer}",
             "en": "For 0 < a < {c} the axis x = a lies inside the domain, so m = {m} = {comp}. It is largest at a = {t}: {answer}"
           }
@@ -650,7 +650,7 @@
             "en": "For a > {c}, for which a is the minimum of f(x) equal to {T}?"
           },
           "explain": {
-            "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}。これが {T} に等しいので a = {answer}",
+            "ja": "a > {c} では軸が定義域の右側にあるので、最小値は f({c}) = {fc}\nこれが {T} に等しいので a = {answer}",
             "ko": "a > {c}에서는 축이 정의역의 오른쪽에 있으므로 최솟값은 f({c}) = {fc}. 이 값이 {T}이므로 a = {answer}",
             "en": "For a > {c} the axis is to the right of the domain, so the minimum is f({c}) = {fc}. Setting it equal to {T} gives a = {answer}"
           }

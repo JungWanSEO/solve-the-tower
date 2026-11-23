@@ -16,8 +16,10 @@
 <link rel="stylesheet" href="./css/style.css">
 <!-- 코드 파일을 차례로 기다리지 않고 한꺼번에 받게 합니다. js 파일을 추가하면 여기에도 한 줄 추가합니다. -->
 <link rel="modulepreload" href="./js/battle.js">
+<link rel="modulepreload" href="./js/relics.js">
 <link rel="modulepreload" href="./js/codex.js">
 <link rel="modulepreload" href="./js/art.js">
+<link rel="modulepreload" href="./js/calc.js">
 <link rel="modulepreload" href="./js/config.js">
 <link rel="modulepreload" href="./js/data.js">
 <link rel="modulepreload" href="./js/events.js">
@@ -213,10 +215,10 @@
         <span class="q-note" id="qNote" hidden></span>
       </div>
       <div class="answers" id="answers" hidden></div>
-      <!-- 틀렸을 때: 정답과 해설을 답 바로 아래, "다음" 버튼 위에 보여 줍니다 -->
+      <!-- 답을 고르면(맞혔든 틀렸든) 정답과 해설을 답 바로 아래, "다음" 버튼 위에 보여 줍니다 -->
       <div class="review" id="reviewBox" hidden>
         <b id="reviewAnswer"></b>
-        <p id="reviewText"></p>
+        <div class="review-text" id="reviewText"></div>
       </div>
       <button type="button" class="primary" id="nextBtn" data-i18n="ui.next" hidden></button>
 
@@ -309,9 +311,11 @@
       <div class="tabs" role="tablist">
         <button type="button" id="codexTabTypes" role="tab" data-i18n="codex.types"></button>
         <button type="button" id="codexTabMonsters" role="tab" data-i18n="codex.monsters"></button>
+        <button type="button" id="codexTabRelics" role="tab" data-i18n="codex.relics"></button>
       </div>
       <div class="cards" id="codexTypes"></div>
       <div class="cards" id="codexMonsters" hidden></div>
+      <div class="cards" id="codexRelics" hidden></div>
       <button type="button" class="primary sticky-foot" id="codexClose" data-i18n="codex.close"></button>
     </div>
   </section>
@@ -363,6 +367,15 @@
       <h2 id="dialogTitle"></h2>
       <p id="dialogText"></p>
       <div class="dialog-buttons" id="dialogButtons"></div>
+    </div>
+  </div>
+
+  <!-- 가방: 이번 판에 가진 유물 목록 (위쪽 상태 줄의 유물 줄을 누르면 열립니다) -->
+  <div class="menu-overlay" id="bag" role="dialog" aria-modal="true" aria-labelledby="bagTitle" hidden>
+    <div class="menu-box bag-box">
+      <h2 id="bagTitle"></h2>
+      <div class="bag-list" id="bagList"></div>
+      <button type="button" class="primary" id="bagClose"></button>
     </div>
   </div>
 

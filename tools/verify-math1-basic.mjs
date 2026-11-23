@@ -52,7 +52,7 @@ for (const file of ['math1-expr', 'math1-quad', 'math1-data']) {
         if (new Set(opts).size !== 4) problems.push('duplicate option text');
         it.wrong.forEach((w) => { if (ok(it, w, tpl.params || {})) problems.push(`wrong option is also correct: ${w}`); });
       } catch (e) { problems.push('error ' + e.message); }
-      for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain']) { const s = tpl[part][lang].replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/[{}]|undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
+      for (const lang of ['ja', 'ko', 'en']) for (const part of ['text', 'explain']) { const s = tpl[part][lang].replace(/\{=[^{}]*\}/g, "0").replace(/\{(\w+)\}/g, (m, key) => (key in it ? it[key] : m)); if (/[{}]|undefined|NaN/.test(s)) problems.push(`bad ${part}.${lang}: ${s}`); }
       if (problems.length) { bad++; if (bad <= 8) console.log('PROBLEM', tpl.id, JSON.stringify(it), problems.join('; ')); }
       const key = { ...it }; delete key.wrong; (distinct[tpl.id] ||= new Set()).add(JSON.stringify(key));
     }

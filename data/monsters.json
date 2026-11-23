@@ -182,7 +182,7 @@
       "ko": "단위를 빠뜨리거나 틀리기",
       "en": "Dropping or mixing up units"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math1-trig/length",
     "basicLevel": 1,
     "skillLevel": 2
@@ -200,7 +200,7 @@
       "ko": "이항할 때 부호를 바꾸지 않기",
       "en": "Moving a term across the equals sign without changing its sign"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math1-expr/factor",
     "basicLevel": 1,
     "skillLevel": 2
@@ -218,7 +218,7 @@
       "ko": "이상값 하나에 끌려간 평균을 그대로 믿기",
       "en": "Trusting a mean that one outlier has dragged away"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "math1-data/variance",
     "basicLevel": 1,
     "skillLevel": 2
@@ -236,7 +236,7 @@
       "ko": "합의 법칙과 곱의 법칙을 바꿔 쓰기 (더할지 곱할지)",
       "en": "Mixing up the addition rule and the multiplication rule"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "matha-count/perm",
     "basicLevel": 1,
     "skillLevel": 2
@@ -254,7 +254,7 @@
       "ko": "그림을 그리지 않고 풀려는 것",
       "en": "Solving without drawing the figure"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "math1-trig/twopoint",
     "basicLevel": 2,
     "skillLevel": 3
@@ -272,7 +272,7 @@
       "ko": "해가 있는지(D의 부호)를 확인하지 않고 풀기",
       "en": "Solving without checking whether solutions exist (the sign of D)"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "math1-quad/discriminant",
     "basicLevel": 2,
     "skillLevel": 3
@@ -290,7 +290,7 @@
       "ko": "정리를 쓸 수 있는 조건(원에 내접하는지 등)을 확인하지 않기",
       "en": "Using a theorem without checking that its conditions hold"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "matha-geom/power",
     "basicLevel": 2,
     "skillLevel": 3
@@ -308,7 +308,7 @@
       "ko": "약수를 셀 때 1이나 자기 자신, 짝이 되는 수를 빠뜨리기",
       "en": "Missing 1, the number itself or one of a pair when counting divisors"
     },
-    "hp": 22,
+    "hp": 24,
     "weak": "matha-int/divis",
     "basicLevel": 1,
     "skillLevel": 2
@@ -326,8 +326,248 @@
       "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
       "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
     },
-    "hp": 28,
+    "hp": 32,
     "weak": "matha-int/euclid",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "pascal",
+    "name": {
+      "ja": "パスカルの三角岩",
+      "ko": "파스칼 삼각바위",
+      "en": "Pascal's Rock"
+    },
+    "mistake": {
+      "ja": "二項定理で ₙCₖ だけを書き、数の累乗を掛け忘れる",
+      "ko": "이항정리에서 ₙCₖ 만 쓰고 수의 거듭제곱을 곱하지 않기",
+      "en": "Writing only C(n, k) and forgetting the power of the number"
+    },
+    "hp": 16,
+    "weak": "math2-expr/binom",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "saw",
+    "name": {
+      "ja": "筆算のこぎり",
+      "ko": "세로셈 톱",
+      "en": "Division Saw"
+    },
+    "mistake": {
+      "ja": "割り算の筆算で、引くときの符号をまちがえる",
+      "ko": "나눗셈 세로셈에서 뺄 때 부호를 틀리기",
+      "en": "Getting a sign wrong when subtracting in long division"
+    },
+    "hp": 18,
+    "weak": "math2-expr/polydiv",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "imp",
+    "name": {
+      "ja": "虚数の小鬼",
+      "ko": "허수 도깨비",
+      "en": "Imaginary Imp"
+    },
+    "mistake": {
+      "ja": "i² を −1 ではなく 1 として計算する",
+      "ko": "i² 을 −1 이 아니라 1 로 계산하기",
+      "en": "Treating i² as 1 instead of −1"
+    },
+    "hp": 16,
+    "weak": "math2-complex/cplx",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "mirror",
+    "name": {
+      "ja": "解と係数のかがみ",
+      "ko": "근과 계수의 거울",
+      "en": "Vieta's Mirror"
+    },
+    "mistake": {
+      "ja": "解と係数の関係で、α + β の符号を逆にする",
+      "ko": "근과 계수의 관계에서 α + β의 부호를 반대로 쓰기",
+      "en": "Flipping the sign of α + β in the root–coefficient relations"
+    },
+    "hp": 18,
+    "weak": "math2-complex/vieta",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "ruler",
+    "name": {
+      "ja": "距離のものさし",
+      "ko": "거리 자",
+      "en": "Distance Ruler"
+    },
+    "mistake": {
+      "ja": "距離を求めるとき、座標の差を2乗せずにそのまま足す",
+      "ko": "거리를 구할 때 좌표의 차를 제곱하지 않고 그대로 더하기",
+      "en": "Adding coordinate differences without squaring them"
+    },
+    "hp": 16,
+    "weak": "math2-coord/dist",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "target",
+    "name": {
+      "ja": "円のまと",
+      "ko": "원 과녁",
+      "en": "Circle Target"
+    },
+    "mistake": {
+      "ja": "円の方程式から中心を読むとき、符号を逆にする",
+      "ko": "원의 방정식에서 중심을 읽을 때 부호를 반대로 쓰기",
+      "en": "Reading the centre of a circle with the wrong signs"
+    },
+    "hp": 18,
+    "weak": "math2-coord/circle",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "pendulum",
+    "name": {
+      "ja": "弧度法のふりこ",
+      "ko": "호도법 시계추",
+      "en": "Radian Pendulum"
+    },
+    "mistake": {
+      "ja": "度と弧度を混ぜて計算する",
+      "ko": "도(°)와 호도를 섞어서 계산하기",
+      "en": "Mixing degrees and radians in one calculation"
+    },
+    "hp": 16,
+    "weak": "math2-trig/radian",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "wave",
+    "name": {
+      "ja": "加法定理の波",
+      "ko": "덧셈정리 파도",
+      "en": "Addition Wave"
+    },
+    "mistake": {
+      "ja": "sin(α + β) を sin α + sin β と計算する",
+      "ko": "sin(α + β)를 sin α + sin β 로 계산하기",
+      "en": "Computing sin(α + β) as sin α + sin β"
+    },
+    "hp": 18,
+    "weak": "math2-trig/addition",
+    "basicLevel": 2,
+    "skillLevel": 2
+  },
+  {
+    "id": "sprout",
+    "name": {
+      "ja": "指数のめばえ",
+      "ko": "지수 새싹",
+      "en": "Exponent Sprout"
+    },
+    "mistake": {
+      "ja": "同じ底の掛け算で、指数を足さずに掛ける",
+      "ko": "밑이 같은 곱셈에서 지수를 더하지 않고 곱하기",
+      "en": "Multiplying exponents instead of adding them"
+    },
+    "hp": 16,
+    "weak": "math2-explog/exprule",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "logger",
+    "name": {
+      "ja": "対数の丸太",
+      "ko": "로그 통나무",
+      "en": "Log Log"
+    },
+    "mistake": {
+      "ja": "log(M + N) を log M + log N と計算する",
+      "ko": "log(M + N)을 log M + log N 으로 계산하기",
+      "en": "Computing log(M + N) as log M + log N"
+    },
+    "hp": 18,
+    "weak": "math2-explog/logrule",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "skater",
+    "name": {
+      "ja": "傾きスケーター",
+      "ko": "기울기 스케이터",
+      "en": "Slope Skater"
+    },
+    "mistake": {
+      "ja": "微分するとき、指数を前に出すのを忘れる",
+      "ko": "미분할 때 지수를 앞으로 꺼내는 것을 잊기",
+      "en": "Forgetting to bring the exponent down when differentiating"
+    },
+    "hp": 16,
+    "weak": "math2-calc/deriv",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "bucket",
+    "name": {
+      "ja": "面積のバケツ",
+      "ko": "넓이 양동이",
+      "en": "Area Bucket"
+    },
+    "mistake": {
+      "ja": "x 軸の下にある部分の面積を負のまま答える",
+      "ko": "x축 아래에 있는 부분의 넓이를 음수 그대로 답하기",
+      "en": "Leaving an area below the x-axis as a negative number"
+    },
+    "hp": 18,
+    "weak": "math2-calc/area",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "sphinx",
+    "midboss": true,
+    "name": {
+      "ja": "方程式のスフィンクス",
+      "ko": "방정식 스핑크스",
+      "en": "Equation Sphinx"
+    },
+    "mistake": {
+      "ja": "高次方程式で、解を1つ見つけたところでやめてしまう",
+      "ko": "고차방정식에서 해를 하나 찾고 멈추기",
+      "en": "Stopping after finding only one root of a higher-degree equation"
+    },
+    "hp": 24,
+    "weak": "math2-complex/higheq",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "hydra",
+    "boss": true,
+    "name": {
+      "ja": "微積のヒドラ",
+      "ko": "미적분 히드라",
+      "en": "Calculus Hydra"
+    },
+    "mistake": {
+      "ja": "f′(x) = 0 の点を、増減を調べずにすべて極値だと決めつける",
+      "ko": "f′(x) = 0 인 점을 증감을 확인하지 않고 모두 극값이라고 단정하기",
+      "en": "Calling every point with f′(x) = 0 an extremum without checking the sign change"
+    },
+    "hp": 32,
+    "weak": "math2-calc/extrema",
     "basicLevel": 2,
     "skillLevel": 3
   }

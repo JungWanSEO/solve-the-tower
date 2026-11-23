@@ -7,6 +7,7 @@
 //
 // 유형의 이름은 "단원/유형" 입니다. (예: math1-trig/sinerule)
 // 플레이어가 고른 범위(유형 목록) 안에서만 문제를 냅니다.
+import { calcFill } from './calc.js';
 import { fill, pick, t } from './i18n.js';
 import { GENERATORS, CHAINS } from './generators.js';
 
@@ -32,6 +33,7 @@ export async function loadAll(onStep = () => {}) {
   onStep();
   // 단원 파일은 하나씩 기다리지 않고 한꺼번에 받습니다. (통신이 느릴 때 차이가 큽니다)
   // 목록의 off 에 적힌 단원은 건너뜁니다. (학교 범위가 아닌 단원을 지우지 않고 꺼 둘 때 씁니다)
+  // "단원/유형" 으로 적으면 그 유형만 끕니다. 예: "math2-trig/compose"
   const off = new Set(catalog.off || []);
   const wanted = catalog.subjects.flatMap((subject) => subject.units.filter((id) => !off.has(id)).map((id) => ({ subject, id })));
   const loaded = await Promise.all(wanted.map(({ id }) => getJson(`./data/units/${id}.json`).then((unit) => {
@@ -41,6 +43,15 @@ export async function loadAll(onStep = () => {}) {
   // 받은 순서와 상관없이 목록에 적힌 순서대로 정리합니다.
   loaded.forEach((unit, n) => {
     unit.subject = wanted[n].subject;
+    // 꺼 둔 유형: 유형 목록, 묶음, 문제 틀, 그 유형이 들어간 연속기에서 모두 뺍니다.
+    const gone = new Set(Object.keys(unit.types).filter((name) => off.has(`${unit.id}/${name}`)));
+    if (gone.size) {
+      for (const name of gone) delete unit.types[name];
+      unit.groups = unit.groups.map((g) => ({ ...g, types: g.types.filter((t) => !gone.has(t)) })).filter((g) => g.types.length);
+      unit.templates = unit.templates.filter((tpl) => !gone.has(tpl.type));
+      unit.chains = (unit.chains || []).filter((ch) => !ch.steps.some((st) => gone.has(st.type)));
+    }
+    if (!Object.keys(unit.types).length) return; // 유형을 모두 껐으면 단원도 나오지 않습니다
     units.push(unit);
     for (const [name, names] of Object.entries(unit.types)) {
       const key = `${unit.id}/${name}`;
@@ -82,6 +93,17 @@ export function scopeTree() {
 }
 
 // 유형 목록에 걸친 과목 이름들 (화면 위쪽에 보여줍니다)
+// 고른 유형을 과목별로 나눕니다 (목록의 과목 순서대로). 긴 탑에서 과목 하나가 한 막이 됩니다.
+export function actsFor(keys) {
+  const acts = [];
+  for (const subject of catalog.subjects) {
+    const mine = keys.filter((key) => types.get(key)?.unit.subject === subject);
+    if (mine.length) acts.push({ id: subject.id, keys: mine });
+  }
+  return acts;
+}
+export const subjectName = (id) => { const subject = catalog.subjects.find((s) => s.id === id); return subject ? pick(subject.name) : ''; };
+
 export function subjectNames(keys) {
   const seen = [];
   for (const key of keys) {
@@ -191,9 +213,14 @@ export function questionText(raw) {
   return fill(pick(raw.tpl.text), shown(raw.item));
 }
 
+// 풀이 글. 단원 파일에서 줄바꿈으로 단계를 나눠 적으면 화면에 ①②③ 단계로 나옵니다.
 export function explainText(raw) {
-  return fill(pick(raw.tpl.explain), shown(raw.item));
+  return fill(calcFill(pick(raw.tpl.explain), raw.item), shown(raw.item)); // {= 식 } 을 먼저 계산합니다 (js/calc.js)
 }
+// 풀이의 단계들 (한 줄짜리 풀이는 한 단계)
+export const explainSteps = (raw) => explainText(raw).split('\n').map((line) => line.trim()).filter(Boolean);
+// 알림 줄처럼 좁은 곳에 쓰는 한 줄: 마지막 단계 (답이 들어 있는 줄)
+export const explainBrief = (raw) => explainSteps(raw).at(-1) || '';
 
 // 보기가 말로 된 문제: 보기에 "@이름" 을 적으면 lang 파일의 opt.<이름> 문구가 지금 언어로 나옵니다.
 export function optionText(text) {

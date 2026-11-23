@@ -4,7 +4,7 @@
 //   "figure": { "kind": "triangle", "angle": "θ", "opp": "{a}", "adj": "{b}", "hyp": "{c}" }
 //
 // kind 는 아래와 같습니다. (数学A 와 공간도형용 그림은 파일 아래쪽 설명을 보세요) 빈 글("")을 적은 자리에는 아무것도 표시하지 않습니다.
-//   triangle  직각삼각형   angle 각 · opp 맞은편 변 · adj 이웃 변 · hyp 빗변
+//   triangle  직각삼각형   angle 각 · opp 맞은편 변 · adj 이웃 변 · hyp 빗변 · r 내접원의 이름표 (적으면 내접원을 그립니다)
 //   tower     탑 하나      angle 올려본 각 · dist 수평거리 · height 높이
 //   twopoint  탑과 두 지점 far 먼 지점의 각 · near 가까운 지점의 각 · gap 두 지점 사이 · height 높이
 //   anytri    삼각형 ABC   angleA·angleB·angleC 각 · sideA·sideB·sideC 변 (a 는 A 와 마주 보는 변)
@@ -90,7 +90,9 @@ const DRAW = {
       label(76, 119, L.angle, 'start') +
       label(140, 144, L.adj) +
       label(250, 80, L.opp, 'start') +
-      label(128, 62, L.hyp, 'end')
+      label(128, 62, L.hyp, 'end') +
+      // r 을 적으면 내접원을 그리고 그 안에 이름표를 둡니다 (내접원의 반지름을 묻는 문제)
+      (L.r ? ring([201.8, 86.8], 38.2, ASK) + label(201.8, 92, L.r) : '')
     );
   },
   tower(L) {
@@ -162,10 +164,23 @@ const DRAW = {
       `<path d="M${P.A[0]} ${P.A[1]} L${P.B[0]} ${P.B[1]} L${P.C[0]} ${P.C[1]} Z" stroke="${LINE}" stroke-width="2.5"/>` +
       corner(P.A, 'A') + corner(P.B, 'B') + corner(P.C, 'C') +
       angle(P.A, 'A', L.angleA) + angle(P.B, 'B', L.angleB) + angle(P.C, 'C', L.angleC) +
-      side(P.B, P.C, 'a', L.sideA) + side(P.C, P.A, 'b', L.sideB) + side(P.A, P.B, 'c', L.sideC)
+      side(P.B, P.C, 'a', L.sideA) + side(P.C, P.A, 'b', L.sideB) + side(P.A, P.B, 'c', L.sideC) +
+      incircleOf(P.A, P.B, P.C, L.r)
     );
   },
 };
+// 삼각형의 내접원과 그 안의 이름표 (r 을 적은 그림에만 그립니다. 내접원의 반지름을 묻는 문제용)
+function incircleOf(A, B, C, text) {
+  if (!text) return '';
+  const a = Math.hypot(B[0] - C[0], B[1] - C[1]);
+  const b = Math.hypot(A[0] - C[0], A[1] - C[1]);
+  const c = Math.hypot(A[0] - B[0], A[1] - B[1]);
+  const I = [(a * A[0] + b * B[0] + c * C[0]) / (a + b + c), (a * A[1] + b * B[1] + c * C[1]) / (a + b + c)];
+  const s2 = (a + b + c) / 2;
+  const r = Math.sqrt(((s2 - a) * (s2 - b) * (s2 - c)) / s2);
+  // 원이 작으면 이름표를 원 안에 넣지 않고 오른쪽 옆에 둡니다.
+  return ring([r1(I[0]), r1(I[1])], r1(r), ASK) + (r >= 36 ? label(r1(I[0]), r1(I[1] + 6), text) : dot(I, ASK) + label(r1(I[0] + r + 8), r1(I[1] + 6), text, 'start'));
+}
 
 // ---------- 数学A 図形の性質 · 空間図形 ----------
 Object.assign(DRAW, {
@@ -245,8 +260,17 @@ Object.assign(DRAW, {
     const B = onCircle(O, R, 118);
     const C = onCircle(O, R, 22);
     const D = onCircle(O, R, 300);
+    // central 을 적으면 중심 O 와 반지름 OB, OD, 중심각을 그립니다. tangent 를 적으면 점 B 에서의 접선과 현 BD 를 그립니다.
+    let extra = '';
+    if (L.central) extra += seg(O, B, ASK, 2) + seg(O, D, ASK, 2) + dot(O) + `<text x="${O[0] - 12}" y="${O[1] + 4}" text-anchor="middle" font-size="13" font-weight="700" fill="${DIM}">O</text>` + label(O[0] - 8, O[1] - 26, L.central);
+    if (L.tangent) {
+      const dir = [-(B[1] - O[1]) / R, (B[0] - O[0]) / R]; // 반지름에 수직인 방향
+      const T1 = [B[0] - dir[0] * 70, B[1] - dir[1] * 70];
+      const T2 = [B[0] + dir[0] * 70, B[1] + dir[1] * 70];
+      extra += seg(T1, T2, ASK, 2.5) + seg(B, D, ASK, 2, '5 4') + label(r1(B[0] + 40), r1(B[1] + 2), L.tangent, 'start');
+    }
     return frame(
-      ring(O, R) + shape([A, B, C, D]) + arc(A, B, D, 18) + arc(C, B, D, 18) +
+      ring(O, R) + shape([A, B, C, D]) + arc(A, B, D, 18) + arc(C, B, D, 18) + extra +
       vertex(A, 'A', O) + vertex(B, 'B', O) + vertex(C, 'C', O) + vertex(D, 'D', O) +
       tag(inside(A, B, D, 36), L.angleA) + tag(inside(C, B, D, 38), L.angleC),
       184,
@@ -509,8 +533,114 @@ Object.assign(DRAW, {
   },
 });
 
+// ---- 数学II 그림 ----
+//   plane       좌표평면 (정확한 그림). plot 에 생성기가 만든 설정(JSON 글)을 넣습니다: "figure": { "kind": "plane", "plot": "{plot}" }
+//               r [x0, x1, y0, y1] 범위 · pts [[x, y, 이름]] 점 · segs [[x1, y1, x2, y2, 점선?]] 선분 · lines [[a, b, c]] 직선 ax + by = c
+//               circles [[cx, cy, r]] 원 · curves [[계수…]] 곡선 (높은 차수부터) · area [위 곡선, 아래 곡선, 시작, 끝] 색칠할 넓이
+//               mx, my 축에 적을 눈금 값
+//   unitcircle  단위원 (정확한 그림). deg 각의 크기(도) · label 각의 이름표
+//   sector      부채꼴 (정확한 그림). deg 중심각의 크기(도) · r 반지름 · angle 중심각 · arc 호의 길이 · area 넓이
+let planeCount = 0;
+const polyAt = (coefs, x) => coefs.reduce((acc, c) => acc * x + c, 0);
+Object.assign(DRAW, {
+  plane(L) {
+    let P;
+    try { P = JSON.parse(L.plot); } catch (e) { return frame(''); }
+    const [x0, x1, y0, y1] = P.r;
+    const H = 176;
+    // 원이 있는 그림은 가로세로 눈금을 같게, 함수의 그래프(free)는 칸에 꽉 차게 그립니다.
+    const k = Math.min(300 / (x1 - x0), (H - 22) / (y1 - y0));
+    const kx = P.free ? Math.min(300, (H - 22) * 1.5) / (x1 - x0) : k;
+    const ky = P.free ? (H - 22) / (y1 - y0) : k;
+    const ox = 163 - ((x0 + x1) / 2) * kx;
+    const oy = H / 2 + ((y0 + y1) / 2) * ky;
+    const X = (x) => r1(ox + x * kx);
+    const Y = (y) => r1(oy - y * ky);
+    const txt = (x, y, t, color = INK, size = 15, anchor = 'middle') =>
+      `<text x="${r1(x)}" y="${r1(y)}" text-anchor="${anchor}" font-size="${size}" font-weight="600" fill="${color}">${esc(t)}</text>`;
+    const id = `pl${++planeCount}`;
+    let out = `<clipPath id="${id}"><rect x="${X(x0)}" y="${Y(y1)}" width="${r1((x1 - x0) * kx)}" height="${r1((y1 - y0) * ky)}"/></clipPath>`;
+    if (!P.free && x1 - x0 <= 16 && y1 - y0 <= 16) {
+      for (let x = Math.ceil(x0); x <= x1; x++) out += `<path d="M${X(x)} ${Y(y0)} V${Y(y1)}" stroke="${DIM}" stroke-width="1" opacity="0.28"/>`;
+      for (let y = Math.ceil(y0); y <= y1; y++) out += `<path d="M${X(x0)} ${Y(y)} H${X(x1)}" stroke="${DIM}" stroke-width="1" opacity="0.28"/>`;
+    }
+    let body = '';
+    if (P.area) {
+      const [top, bottom, from, to] = P.area;
+      const pts = [];
+      for (let n = 0; n <= 40; n++) { const x = from + ((to - from) * n) / 40; pts.push(`${X(x)} ${Y(polyAt(top, x))}`); }
+      for (let n = 40; n >= 0; n--) { const x = from + ((to - from) * n) / 40; pts.push(`${X(x)} ${Y(bottom ? polyAt(bottom, x) : 0)}`); }
+      body += `<path d="M${pts.join(' L')} Z" fill="${ASK}" opacity="0.38"/>`;
+    }
+    for (const c of P.curves || []) {
+      const pts = [];
+      for (let n = 0; n <= 90; n++) { const x = x0 + ((x1 - x0) * n) / 90; const y = polyAt(c, x); if (y > y0 - (y1 - y0) && y < y1 + (y1 - y0)) pts.push(`${X(x)} ${Y(y)}`); }
+      body += `<path d="M${pts.join(' L')}" stroke="${LINE}" stroke-width="2.5"/>`;
+    }
+    for (const [a, b, c] of P.lines || []) {
+      body += b ? `<path d="M${X(x0)} ${Y((c - a * x0) / b)} L${X(x1)} ${Y((c - a * x1) / b)}" stroke="${LINE}" stroke-width="2.5"/>`
+        : `<path d="M${X(c / a)} ${Y(y0)} V${Y(y1)}" stroke="${LINE}" stroke-width="2.5"/>`;
+    }
+    for (const [cx, cy, r] of P.circles || []) body += `<circle cx="${X(cx)}" cy="${Y(cy)}" r="${r1(r * k)}" stroke="${LINE}" stroke-width="2.5"/>`;
+    for (const [a, b, c, d, dash] of P.segs || []) body += `<path d="M${X(a)} ${Y(b)} L${X(c)} ${Y(d)}" stroke="${dash ? DIM : ASK}" stroke-width="${dash ? 1.5 : 2.5}"${dash ? ' stroke-dasharray="5 4"' : ''}/>`;
+    // 축
+    const ax = Math.min(Math.max(0, y0), y1);
+    const ay = Math.min(Math.max(0, x0), x1);
+    out += `<path d="M${X(x0)} ${Y(ax)} H${X(x1)} M${X(x1) - 6} ${Y(ax) - 4} L${X(x1)} ${Y(ax)} L${X(x1) - 6} ${Y(ax) + 4}" stroke="${INK}" stroke-width="1.5"/>`;
+    out += `<path d="M${X(ay)} ${Y(y0)} V${Y(y1)} M${X(ay) - 4} ${Y(y1) + 6} L${X(ay)} ${Y(y1)} L${X(ay) + 4} ${Y(y1) + 6}" stroke="${INK}" stroke-width="1.5"/>`;
+    out += txt(X(x1) - 2, Y(ax) + 14, 'x', DIM, 14, 'end') + txt(X(ay) + 6, Y(y1) + 12, 'y', DIM, 14, 'start');
+    if (x0 < 0 && x1 > 0 && y0 < 0 && y1 > 0) out += txt(X(0) - 5, Y(0) + 13, 'O', DIM, 14, 'end');
+    for (const v of P.mx || []) out += `<path d="M${X(v)} ${Y(ax) - 3} V${Y(ax) + 3}" stroke="${INK}" stroke-width="1.5"/>` + txt(X(v), Y(ax) + 15, String(v).replace('-', '−'), INK, 15);
+    for (const v of P.my || []) out += `<path d="M${X(ay) - 3} ${Y(v)} H${X(ay) + 3}" stroke="${INK}" stroke-width="1.5"/>` + txt(X(ay) - 7, Y(v) + 4, String(v).replace('-', '−'), INK, 15, 'end');
+    out += `<g clip-path="url(#${id})">${body}</g>`;
+    for (const [x, y, name, side] of P.pts || []) {
+      out += dot([X(x), Y(y)], ASK);
+      if (name) out += txt(X(x) + (side === 'l' ? -8 : 8), Y(y) - 7, name, INK, 16, side === 'l' ? 'end' : 'start');
+    }
+    return frame(out, H);
+  },
+  unitcircle(L) {
+    const deg = Number(L.deg) || 0;
+    const C = [163, 90];
+    const R = 62;
+    const Pt = [C[0] + R * Math.cos((deg * Math.PI) / 180), C[1] - R * Math.sin((deg * Math.PI) / 180)];
+    const txt = (x, y, t, color = DIM, size = 14, anchor = 'middle') => `<text x="${r1(x)}" y="${r1(y)}" text-anchor="${anchor}" font-size="${size}" font-weight="600" fill="${color}">${esc(t)}</text>`;
+    // 음의 각은 시계 방향으로, 한 바퀴를 넘는 각은 넘은 만큼만 그립니다.
+    const sweep = deg < 0 ? -(((-deg) % 360) || 360) : (deg % 360) || (deg ? 360 : 0);
+    const mid = (sweep / 2) * (Math.PI / 180);
+    const end = [C[0] + 20 * Math.cos((sweep * Math.PI) / 180), C[1] - 20 * Math.sin((sweep * Math.PI) / 180)];
+    const arcPath = sweep ? `<path d="M${C[0] + 20} ${C[1]} A20 20 0 ${Math.abs(sweep) > 180 ? 1 : 0} ${sweep < 0 ? 1 : 0} ${r1(end[0])} ${r1(end[1])}" stroke="${ASK}" stroke-width="2"/>` : '';
+    return frame(
+      `<path d="M${C[0] - 92} ${C[1]} H${C[0] + 92} M${C[0]} ${C[1] + 80} V${C[1] - 80}" stroke="${INK}" stroke-width="1.5"/>` +
+      ring(C, R) + arcPath + seg(C, Pt, ASK, 2.5) + seg(Pt, [Pt[0], C[1]], DIM, 1.5, '5 4') + seg(Pt, [C[0], Pt[1]], DIM, 1.5, '5 4') + dot(Pt, ASK) +
+      txt(C[0] + 96, C[1] + 14, 'x') + txt(C[0] + 10, C[1] - 72, 'y') + txt(C[0] - 8, C[1] + 14, 'O') +
+      txt(C[0] + R + 8, C[1] + 14, '1') + txt(C[0] - R - 10, C[1] + 14, '−1') + txt(Pt[0] + (Pt[0] >= C[0] ? 10 : -10), Pt[1] + (Pt[1] <= C[1] ? -6 : 14), 'P', INK, 16) +
+      (L.label ? `<rect x="${C[0] - 150}" y="8" width="84" height="24" rx="8" fill="#16234a"/>` + txt(C[0] - 108, 25, `θ = ${L.label}`, ASK, 15) : ''),
+      176,
+    );
+  },
+  sector(L) {
+    const deg = Math.min(170, Math.max(20, Number(L.deg) || 60));
+    const R = 106;
+    const B0 = onCircle([0, 0], R, -deg);
+    const left = Math.min(0, B0[0]);
+    const O = [163 - (left + R) / 2, 144];
+    const A = [O[0] + R, O[1]];
+    const B = onCircle(O, R, -deg);
+    const M = onCircle(O, R, -deg / 2);
+    const T = onCircle(O, 34, -deg / 2);
+    const S = onCircle(O, R * 0.62, -deg / 2);
+    return frame(
+      `<path d="M${r1(O[0])} ${O[1]} L${r1(A[0])} ${A[1]} A${R} ${R} 0 0 0 ${r1(B[0])} ${r1(B[1])} Z" stroke="${LINE}" stroke-width="2.5"/>` +
+      arc(O, A, B, 20) + label(T[0] + 6, T[1] + 5, L.angle, 'start') + label(between(O, A)[0], O[1] + 20, L.r) +
+      label(M[0] + (M[0] > O[0] ? 8 : -8), M[1] - 6, L.arc, M[0] > O[0] ? 'start' : 'end') + label(S[0], S[1] - 8, L.area),
+      168,
+    );
+  },
+});
+
 // 길이와 각도를 정확히 그리지 않은 약도인지. 통계 그래프와 격자 길은 정확한 그림입니다.
-const EXACT = ['histogram', 'boxplot', 'scatter', 'grid'];
+const EXACT = ['histogram', 'boxplot', 'scatter', 'grid', 'plane', 'unitcircle', 'sector'];
 export const isSketch = (raw) => Boolean(raw.tpl.figure) && !EXACT.includes(raw.tpl.figure.kind);
 
 // 문제의 그림을 만듭니다. 그림이 없는 문제면 null.
@@ -524,7 +654,7 @@ export function figureFor(raw) {
   }
   return {
     svg: DRAW[spec.kind](labels),
-    alt: Object.values(labels).filter(Boolean).join(', '),
+    alt: Object.values(labels).filter((v) => v && !/^[{[]/.test(v)).join(', '), // 그림 설정(JSON)은 읽어 주지 않습니다
   };
 }
 

@@ -2,15 +2,16 @@
 // 모두 같은 화면(#screenEvent)을 씁니다. 제목, 설명, 고를 것 목록, 나가기 버튼으로 이루어집니다.
 import { CONFIG } from './config.js';
 import { t } from './i18n.js';
-import { next, nextByType, explainText, typeLabel, optionText } from './questions.js';
+import { next, nextByType, explainText, explainBrief, typeLabel, optionText } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { UPGRADES, SHOP, rollUpgrades } from './run.js';
-import { $, twoLineButton, toast } from './ui.js';
+import { RELICS, has, gainRelic, rollRelics, relicVars, relicPrice } from './relics.js';
+import { $, twoLineButton, toast, fillRelicText } from './ui.js';
 import { play } from './sound.js';
 import { scene, hasScene, icon } from './art.js';
 
 // 화면 제목으로 위쪽 장면 그림을 고릅니다. (? 칸은 mystery.<사건>.title 의 사건 이름이 곧 그림 이름)
-const ART = { 'bless.title': 'bless', 'ev.rewardTitle': 'reward', 'ev.shopTitle': 'shop', 'ev.restTitle': 'rest', 'ev.treasureTitle': 'treasure', 'ev.overTitle': 'over', 'ev.clearTitle': 'clear' };
+const ART = { 'bless.title': 'bless', 'ev.rewardTitle': 'reward', 'ev.shopTitle': 'shop', 'ev.restTitle': 'rest', 'ev.treasureTitle': 'treasure', 'relic.chooseTitle': 'treasure', 'ev.overTitle': 'over', 'ev.clearTitle': 'clear' };
 const artOf = (titleKey) => ART[titleKey] || (titleKey.split('.')[0] === 'mystery' ? titleKey.split('.')[1] : '');
 
 export function createEvents({ getRun, data, record, onChange, persist = () => {} }) {
@@ -28,6 +29,36 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
 
   // 무엇을 얻었는지 잠깐 알려 줍니다. 예: "단단한 줄자 · 기본 공격 피해 +1"
   const gained = (key, ico) => toast(`${t(`${key}.name`)} · ${t(`${key}.desc`)}`, icon(ico));
+
+  // ---- 유물 ----
+  const relicName = (id) => t(`relic.${id}.name`);
+  const relicText = (id) => t(`relic.${id}.text`, relicVars(id));
+  // 유물을 얻습니다: 이번 판의 유물 목록에 넣고, 도감용 기록(data.relics)에 남기고, 처음이면 안내를 띄웁니다.
+  function takeRelic(id) {
+    if (!gainRelic(getRun(), id)) return false;
+    if (!data.relics) data.relics = {};
+    data.relics[id] = true;
+    tip('relic');
+    return true;
+  }
+  // 방금 만든 선택 버튼을 유물 버튼으로 꾸밉니다 (등급 색, 불이익 줄의 색)
+  function markPick(id) {
+    const btn = $('evOptions').lastChild;
+    btn.classList.add('relic-pick', `rarity-${RELICS[id].rarity}`);
+    fillRelicText(btn.querySelector('small'), relicText(id));
+  }
+  // 방금 얻은 유물을 보여 주는 카드 (누르는 것이 아니라 읽는 것)
+  function relicCard(id) {
+    const card = document.createElement('div');
+    card.className = `relic-card rarity-${RELICS[id].rarity}`;
+    card.innerHTML = `<i class="ico">${icon(`r-${id}`)}</i><span class="relic-got"></span><b></b><em></em><small></small>`;
+    card.querySelector('.relic-got').textContent = t('relic.got');
+    card.querySelector('b').textContent = relicName(id);
+    card.querySelector('em').textContent = t(`relic.rarity.${RELICS[id].rarity}`);
+    fillRelicText(card.querySelector('small'), relicText(id));
+    $('evOptions').appendChild(card);
+    showTip('relic');
+  }
 
   // ---- 화면 조각 ----
   function base(titleKey, text) {
@@ -110,7 +141,8 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
 
   // 문제 하나를 풀고 결과를 보여주는 화면.
   // onResult(ok, q) 는 보상을 한 번 적용하고, "결과 문장을 만드는 함수"를 돌려줍니다.
-  function quizScreen({ titleKey, intro, question, onResult, done, tipKind = '' }) {
+  // after(): 답을 고른 뒤 화면 아래에 더 그릴 것 (예: 얻은 유물 카드)
+  function quizScreen({ titleKey, intro, question, onResult, done, tipKind = '', after = null }) {
     const state = { q: question, picked: -1, result: null };
     open(() => {
       base(titleKey, state.picked < 0 ? intro() : state.result());
@@ -124,6 +156,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         state.result = onResult(ok, state.q);
         redraw();
       });
+      if (state.picked >= 0 && after) after();
       if (state.picked >= 0) leave('ev.continue', done);
     });
   }
@@ -145,10 +178,23 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     refresh: redraw,
 
     // 전투 승리: 골드를 받고 강화 셋 중 하나를 고릅니다.
-    reward(gold, done) {
+    // relic: 이 전투에서 유물도 나오는지 (강적). 줄 유물이 남아 있지 않으면 골드를 대신 받습니다.
+    reward(gold, done, relic = false) {
       const picks = rollUpgrades(3);
+      let got = '';
+      let extra = 0;
+      if (relic) {
+        [got = ''] = rollRelics(getRun(), 1);
+        if (got) takeRelic(got);
+        else if (CONFIG.relic.drops) {
+          extra = CONFIG.relic.emptyGold;
+          getRun().gold += extra;
+        }
+        persist();
+      }
       open(() => {
-        base('ev.rewardTitle', t('ev.rewardText', { gold }));
+        base('ev.rewardTitle', got ? t('ev.rewardTextRelic', { gold }) : `${t('ev.rewardText', { gold })}${extra ? ` ${t('relic.none', { gold: extra })}` : ''}`);
+        if (got) relicCard(got);
         picks.forEach((id) => {
           option(t(`up.${id}.name`), t(`up.${id}.desc`), false, () => {
             UPGRADES[id](getRun());
@@ -160,13 +206,70 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       });
     },
 
-    // 상점: 골드로 강화를 삽니다. 여러 개 살 수 있습니다.
-    shop(done) {
+    // 유물 3개 중 1개 고르기 (중간 보스를 이겼을 때, 긴 탑에서 막을 넘어갈 때). 받지 않아도 됩니다.
+    // 줄 유물이 하나도 없으면 골드를 대신 주고 바로 넘어갑니다.
+    relicChoice(done) {
+      const run = getRun();
+      const picks = rollRelics(run, 3, 'big');
+      if (!CONFIG.relic.drops) {
+        done();
+        return;
+      }
+      if (!picks.length) {
+        run.gold += CONFIG.relic.emptyGold;
+        toast(t('relic.none', { gold: CONFIG.relic.emptyGold }), icon('coin'));
+        done();
+        return;
+      }
+      let taken = '';
+      open(() => {
+        if (taken) {
+          base('relic.chooseTitle', '');
+          relicCard(taken);
+          leave('ev.continue', done);
+          return;
+        }
+        base('relic.chooseTitle', t('relic.chooseText'));
+        picks.forEach((id) => {
+          option(relicName(id), relicText(id), false, () => {
+            takeRelic(id);
+            taken = id;
+            play('right');
+            persist();
+            redraw();
+          }, `r-${id}`, t(`relic.rarity.${RELICS[id].rarity}`));
+          markPick(id);
+        });
+        leave('relic.skip', done);
+      });
+    },
+
+    // 상점: 골드로 강화를 삽니다. 여러 개 살 수 있습니다. 유물도 한 칸 팝니다.
+    // node: 지도의 그 칸. 어떤 유물을 파는지 칸에 적어 두어, 나갔다 들어와도 같은 유물이 나옵니다.
+    shop(done, node = {}) {
       tip('shop');
+      if (node.relic === undefined) {
+        [node.relic = ''] = rollRelics(getRun(), 1);
+        persist();
+      }
       open(() => {
         const run = getRun();
         base('ev.shopTitle', t('ev.shopText', { gold: run.gold }));
         showTip('shop');
+        if (node.relic && !has(run, node.relic)) {
+          const id = node.relic;
+          const price = relicPrice(id);
+          option(relicName(id), relicText(id), run.gold < price, () => {
+            if (run.gold < price) return;
+            run.gold -= price;
+            takeRelic(id);
+            play('right');
+            toast(`${relicName(id)} · ${t('relic.got')}`, icon(`r-${id}`));
+            persist();
+            redraw();
+          }, `r-${id}`, `${price}G`);
+          markPick(id);
+        }
         SHOP.forEach(({ id, price }) => {
           option(t(`up.${id}.name`), t(`up.${id}.desc`), run.gold < price, () => {
             if (run.gold < price) return;
@@ -185,7 +288,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     // node: 지도의 그 칸. 이미 쉬었거나 복습을 시작한 칸은 다시 들어와도 한 번 더 할 수 없습니다.
     rest(done, node = {}) {
       const run = getRun();
-      const heal = Math.ceil(run.maxHp * CONFIG.rest.healRatio);
+      const heal = Math.ceil(run.maxHp * CONFIG.rest.healRatio) + (has(run, 'bottle') ? CONFIG.relic.bottle : 0); // 물통: 쉴 때 더 회복
       let slept = false;
       tip('rest');
       if (node.used) {
@@ -223,7 +326,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                 run.hp = Math.min(run.maxHp, run.hp + CONFIG.rest.reviewHeal);
                 return () => t('ev.reviewOk', { n: CONFIG.rest.reviewHeal });
               }
-              return () => t('ev.reviewFail', { explain: explainText(q.raw) });
+              return () => t('ev.reviewFail', { explain: explainBrief(q.raw) });
             },
             done,
           });
@@ -246,6 +349,11 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       }
       node.used = true;
       persist();
+      let got = ''; // 상자에서 나온 유물
+      const openChest = () => {
+        [got = ''] = rollRelics(run, 1);
+        if (got) takeRelic(got);
+      };
       quizScreen({
         tipKind: 'treasure',
         titleKey: 'ev.treasureTitle',
@@ -254,12 +362,17 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         onResult(ok, q) {
           if (ok) {
             run.gold += CONFIG.gold.treasureWin;
+            openChest();
+            // 맞히면 유물이 나옵니다. 줄 유물이 남아 있지 않으면 예전처럼 힌트를 받습니다.
+            if (got) return () => t('ev.treasureOkRelic', { gold: CONFIG.gold.treasureWin });
             run.hints += 1;
             return () => t('ev.treasureOk', { gold: CONFIG.gold.treasureWin });
           }
           run.gold += CONFIG.gold.treasureLose;
-          return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: explainText(q.raw) });
+          if (CONFIG.relic.treasureOnWrong) openChest(); // 틀려도 유물을 줄지는 설정으로 정합니다 (밸런스 비교용)
+          return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: explainBrief(q.raw) });
         },
+        after: () => { if (got) relicCard(got); },
         done,
       });
     },
@@ -306,7 +419,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                   return () => t('mystery.statue.ok', { name: t(`up.${id}.name`), desc: t(`up.${id}.desc`) });
                 }
                 run.hp = Math.max(1, run.hp - M.statueLoss);
-                return () => t('mystery.statue.fail', { n: M.statueLoss, explain: explainText(q.raw) });
+                return () => t('mystery.statue.fail', { n: M.statueLoss, explain: explainBrief(q.raw) });
               },
               done,
             });

@@ -3,7 +3,9 @@ import { CONFIG } from './config.js';
 import { t, pick } from './i18n.js';
 import { scopeTree, typeLabel, hasType } from './questions.js';
 import { statusOf } from './scope.js';
-import { $ } from './ui.js';
+import { $, fillRelicText } from './ui.js';
+import { icon } from './art.js';
+import { RELICS, RELIC_IDS, relicVars } from './relics.js';
 
 export function createCodex({ data, monsters, portrait = () => '' }) {
   const faces = {}; // 몬스터 얼굴 그림 (한 번 그리면 다시 씁니다)
@@ -39,6 +41,27 @@ export function createCodex({ data, monsters, portrait = () => '' }) {
     $('codexTabMonsters').setAttribute('aria-selected', String(tab === 'monsters'));
     $('codexTypes').hidden = tab !== 'types';
     $('codexMonsters').hidden = tab !== 'monsters';
+    $('codexTabRelics').setAttribute('aria-selected', String(tab === 'relics'));
+    $('codexRelics').hidden = tab !== 'relics';
+
+    // 유물: 한 번이라도 얻어 본 것만 그림과 설명을 보여 주고, 나머지는 몇 개 남았는지만 셉니다.
+    const rBox = $('codexRelics');
+    rBox.innerHTML = '';
+    const found = RELIC_IDS.filter((id) => data.relics && data.relics[id]);
+    const rCount = document.createElement('p');
+    rCount.className = 'codex-count';
+    rCount.textContent = t('codex.relicMet', { n: found.length, total: RELIC_IDS.length });
+    rBox.appendChild(rCount);
+    for (const id of found) {
+      const row = document.createElement('div');
+      row.className = `codex-card relic-row rarity-${RELICS[id].rarity}`;
+      row.innerHTML = `<i class="ico">${icon(`r-${id}`)}</i><b></b><em></em><small></small>`;
+      row.querySelector('b').textContent = t(`relic.${id}.name`);
+      row.querySelector('em').textContent = t(`relic.rarity.${RELICS[id].rarity}`);
+      fillRelicText(row.querySelector('small'), t(`relic.${id}.text`, relicVars(id)));
+      rBox.appendChild(row);
+    }
+    if (found.length < RELIC_IDS.length) rBox.appendChild(card(t('codex.unseen'), [t('codex.relicLeft', { n: RELIC_IDS.length - found.length })]));
 
     // 몬스터: 만난 것만 카드로, 아직 못 만난 것은 한 줄로 셉니다.
     const mBox = $('codexMonsters');
@@ -119,6 +142,7 @@ export function createCodex({ data, monsters, portrait = () => '' }) {
   }
   $('codexTabTypes').addEventListener('click', () => { tab = 'types'; render(); });
   $('codexTabMonsters').addEventListener('click', () => { tab = 'monsters'; render(); });
+  $('codexTabRelics').addEventListener('click', () => { tab = 'relics'; render(); });
 
   return { render };
 }

@@ -1,0 +1,459 @@
+{
+  "id": "math2-expr",
+  "name": {
+    "ja": "式と証明",
+    "ko": "식과 증명",
+    "en": "Expressions and proofs"
+  },
+  "types": {
+    "cube": {
+      "ja": "3次式の展開・因数分解",
+      "ko": "삼차식의 전개·인수분해",
+      "en": "Cubic expansion and factoring"
+    },
+    "binom": {
+      "ja": "二項定理",
+      "ko": "이항정리",
+      "en": "Binomial theorem"
+    },
+    "polydiv": {
+      "ja": "多項式の割り算",
+      "ko": "다항식의 나눗셈",
+      "en": "Polynomial division"
+    },
+    "fracexpr": {
+      "ja": "分数式",
+      "ko": "분수식",
+      "en": "Rational expressions"
+    },
+    "identity": {
+      "ja": "恒等式",
+      "ko": "항등식",
+      "en": "Identities"
+    },
+    "amgm": {
+      "ja": "相加平均・相乗平均",
+      "ko": "산술평균·기하평균",
+      "en": "AM–GM inequality"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "式の計算",
+        "ko": "식의 계산",
+        "en": "Calculating with expressions"
+      },
+      "types": [
+        "cube",
+        "binom",
+        "polydiv",
+        "fracexpr"
+      ]
+    },
+    {
+      "name": {
+        "ja": "等式と不等式",
+        "ko": "등식과 부등식",
+        "en": "Equalities and inequalities"
+      },
+      "types": [
+        "identity",
+        "amgm"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "cubeexpand",
+      "level": 1,
+      "type": "cube",
+      "gen": "cubeexpand",
+      "text": {
+        "ja": "{expr} を展開すると?",
+        "ko": "{expr}을 전개하면?",
+        "en": "Expand {expr}."
+      },
+      "explain": {
+        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ にあてはめる(引き算のときは b を負の数と考える)\n3a²b と 3ab² の係数の 3 を忘れない\n{answer}",
+        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 대입합니다 (뺄셈일 때는 b를 음수로 생각)\n3a²b 와 3ab² 의 계수 3을 잊지 않습니다\n{answer}",
+        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a minus, treat b as negative)\nDo not forget the 3 in 3a²b and 3ab²\n{answer}"
+      }
+    },
+    {
+      "id": "cubeexpand2",
+      "level": 2,
+      "type": "cube",
+      "gen": "cubeexpand",
+      "params": {
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} を展開すると?",
+        "ko": "{expr}을 전개하면?",
+        "en": "Expand {expr}."
+      },
+      "explain": {
+        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ にあてはめる(引き算のときは b を負の数と考える)\n3a²b と 3ab² の係数の 3 を忘れない\n{answer}",
+        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 대입합니다 (뺄셈일 때는 b를 음수로 생각)\n3a²b 와 3ab² 의 계수 3을 잊지 않습니다\n{answer}",
+        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a minus, treat b as negative)\nDo not forget the 3 in 3a²b and 3ab²\n{answer}"
+      }
+    },
+    {
+      "id": "cubefactor",
+      "level": 2,
+      "type": "cube",
+      "gen": "cubefactor",
+      "text": {
+        "ja": "{expr} を因数分解すると?",
+        "ko": "{expr}을 인수분해하면?",
+        "en": "Factor {expr}."
+      },
+      "explain": {
+        "ja": "a³ + b³ = (a + b)(a² − ab + b²)、a³ − b³ = (a − b)(a² + ab + b²)\n{expr} の定数項が何の3乗かを考える → {=abs(nums(expr)[0])} = {=cbrt(abs(nums(expr)[0]))}³\n2つ目のかっこのまん中の符号は逆になる。{answer}",
+        "ko": "a³ + b³ = (a + b)(a² − ab + b²), a³ − b³ = (a − b)(a² + ab + b²)\n{expr} 의 상수항이 무엇의 세제곱인지 생각합니다 → {=abs(nums(expr)[0])} = {=cbrt(abs(nums(expr)[0]))}³\n둘째 괄호의 가운데 부호는 반대가 됩니다. {answer}",
+        "en": "a³ + b³ = (a + b)(a² − ab + b²) and a³ − b³ = (a − b)(a² + ab + b²)\nAsk which number cubed gives the constant in {expr} → {=abs(nums(expr)[0])} = {=cbrt(abs(nums(expr)[0]))}³\nThe middle sign of the second bracket flips: {answer}"
+      }
+    },
+    {
+      "id": "binom",
+      "level": 1,
+      "type": "binom",
+      "gen": "binom",
+      "text": {
+        "ja": "{expr} の展開式で、{term} の係数は?",
+        "ko": "{expr}의 전개식에서 {term}의 계수는?",
+        "en": "In the expansion of {expr}, what is the coefficient of {term}?"
+      },
+      "explain": {
+        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める → {=nCr(n,k)}, {=a**rest}\n2つを掛けて {answer}",
+        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다 → {=nCr(n,k)}, {=a**rest}\n둘을 곱하면 {answer}",
+        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest} → {=nCr(n,k)}, {=a**rest}\nMultiply them: {answer}"
+      }
+    },
+    {
+      "id": "binom2",
+      "level": 2,
+      "type": "binom",
+      "gen": "binom",
+      "params": {
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} の展開式で、{term} の係数は?",
+        "ko": "{expr}의 전개식에서 {term}의 계수는?",
+        "en": "In the expansion of {expr}, what is the coefficient of {term}?"
+      },
+      "explain": {
+        "ja": "{term} の項は {comb} × x^k × ({a}) の {rest} 乗(n = {n}, k = {k})\n{comb} の値と、({a}) の {rest} 乗の値をそれぞれ求める → {=nCr(n,k)}, {=a**rest}\n2つを掛けて {answer}",
+        "ko": "{term} 항은 {comb} × x^k × ({a})의 {rest}제곱 (n = {n}, k = {k})\n{comb} 의 값과 ({a})의 {rest}제곱의 값을 각각 구합니다 → {=nCr(n,k)}, {=a**rest}\n둘을 곱하면 {answer}",
+        "en": "The {term} term is {comb} × x^k × ({a}) to the power {rest} (n = {n}, k = {k})\nFind {comb} and ({a}) to the power {rest} → {=nCr(n,k)}, {=a**rest}\nMultiply them: {answer}"
+      }
+    },
+    {
+      "id": "polyquot",
+      "level": 1,
+      "type": "polydiv",
+      "gen": "polydiv",
+      "params": {
+        "ask": "quot"
+      },
+      "text": {
+        "ja": "{expr} を {div} で割ったときの商は?",
+        "ko": "{expr}을 {div}로 나눈 몫은?",
+        "en": "What is the quotient when {expr} is divided by {div}?"
+      },
+      "explain": {
+        "ja": "割られる式の最高次の項を、割る式の最高次の項 x で割る → 商の最初の項\nその項に {div} を掛けて引く\n残りに同じことをくり返して、商は {answer}",
+        "ko": "나누어지는 식의 최고차항을 나누는 식의 최고차항 x로 나눕니다 → 몫의 첫 항\n그 항에 {div} 를 곱해서 뺍니다\n남은 식에 같은 일을 되풀이하면 몫은 {answer}",
+        "en": "Divide the leading term by x to get the first term of the quotient\nMultiply it by {div} and subtract\nRepeat on what is left; the quotient is {answer}"
+      }
+    },
+    {
+      "id": "polyrem",
+      "level": 1,
+      "type": "polydiv",
+      "gen": "polydiv",
+      "params": {
+        "ask": "rem"
+      },
+      "text": {
+        "ja": "{expr} を {div} で割ったときの余りは?",
+        "ko": "{expr}을 {div}로 나눈 나머지는?",
+        "en": "What is the remainder when {expr} is divided by {div}?"
+      },
+      "explain": {
+        "ja": "筆算で {expr} を {div} で割る\n商の各項に {div} を掛けて、上の式から引いていく\nx がなくなったときに残る数が余り: {answer}",
+        "ko": "세로셈으로 {expr} 을 {div} 로 나눕니다\n몫의 각 항에 {div} 를 곱해서 위의 식에서 빼 나갑니다\nx가 없어졌을 때 남는 수가 나머지: {answer}",
+        "en": "Divide {expr} by {div} by long division\nMultiply each quotient term by {div} and subtract\nThe number left when no x remains is the remainder: {answer}"
+      }
+    },
+    {
+      "id": "polyquot2",
+      "level": 2,
+      "type": "polydiv",
+      "gen": "polydiv",
+      "params": {
+        "ask": "quot",
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} を {div} で割ったときの商は?",
+        "ko": "{expr}을 {div}로 나눈 몫은?",
+        "en": "What is the quotient when {expr} is divided by {div}?"
+      },
+      "explain": {
+        "ja": "割られる式の最高次の項を、割る式の最高次の項 x で割る → 商の最初の項\nその項に {div} を掛けて引く\n残りに同じことをくり返して、商は {answer}",
+        "ko": "나누어지는 식의 최고차항을 나누는 식의 최고차항 x로 나눕니다 → 몫의 첫 항\n그 항에 {div} 를 곱해서 뺍니다\n남은 식에 같은 일을 되풀이하면 몫은 {answer}",
+        "en": "Divide the leading term by x to get the first term of the quotient\nMultiply it by {div} and subtract\nRepeat on what is left; the quotient is {answer}"
+      }
+    },
+    {
+      "id": "polyrem2",
+      "level": 2,
+      "type": "polydiv",
+      "gen": "polydiv",
+      "params": {
+        "ask": "rem",
+        "hard": true
+      },
+      "text": {
+        "ja": "{expr} を {div} で割ったときの余りは?",
+        "ko": "{expr}을 {div}로 나눈 나머지는?",
+        "en": "What is the remainder when {expr} is divided by {div}?"
+      },
+      "explain": {
+        "ja": "筆算で {expr} を {div} で割る\n商の各項に {div} を掛けて、上の式から引いていく\nx がなくなったときに残る数が余り: {answer}",
+        "ko": "세로셈으로 {expr} 을 {div} 로 나눕니다\n몫의 각 항에 {div} 를 곱해서 위의 식에서 빼 나갑니다\nx가 없어졌을 때 남는 수가 나머지: {answer}",
+        "en": "Divide {expr} by {div} by long division\nMultiply each quotient term by {div} and subtract\nThe number left when no x remains is the remainder: {answer}"
+      }
+    },
+    {
+      "id": "fracexpr",
+      "level": 2,
+      "type": "fracexpr",
+      "gen": "fracexpr",
+      "text": {
+        "ja": "分数式 ({top})/({bottom}) を約分すると?",
+        "ko": "분수식 ({top})/({bottom})을 약분하면?",
+        "en": "Simplify ({top})/({bottom})."
+      },
+      "explain": {
+        "ja": "分子 {top} を因数分解する → {=fac(top)}\n分母 {bottom} を因数分解する → {=fac(bottom)}\n共通の因数で約分して {answer}",
+        "ko": "분자 {top} 을 인수분해합니다 → {=fac(top)}\n분모 {bottom} 을 인수분해합니다 → {=fac(bottom)}\n공통인 인수로 약분하면 {answer}",
+        "en": "Factor the top {top} → {=fac(top)}\nFactor the bottom {bottom} → {=fac(bottom)}\nCancel the common factor: {answer}"
+      }
+    },
+    {
+      "id": "identa",
+      "level": 2,
+      "type": "identity",
+      "gen": "identity",
+      "params": {
+        "ask": "a"
+      },
+      "text": {
+        "ja": "{left} = {right} が x についての恒等式であるとき、a の値は?",
+        "ko": "{left} = {right} 가 x에 대한 항등식일 때, a의 값은?",
+        "en": "If {left} = {right} is an identity in x, what is a?"
+      },
+      "explain": {
+        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n解いて a = {answer}",
+        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다 → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n풀면 a = {answer}",
+        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\nSolve: a = {answer}"
+      }
+    },
+    {
+      "id": "identb",
+      "level": 2,
+      "type": "identity",
+      "gen": "identity",
+      "params": {
+        "ask": "b"
+      },
+      "text": {
+        "ja": "{left} = {right} が x についての恒等式であるとき、b の値は?",
+        "ko": "{left} = {right} 가 x에 대한 항등식일 때, b의 값은?",
+        "en": "If {left} = {right} is an identity in x, what is b?"
+      },
+      "explain": {
+        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n解いて b = {answer}",
+        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다 → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n풀면 b = {answer}",
+        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\nSolve: b = {answer}"
+      }
+    },
+    {
+      "id": "amgm",
+      "level": 2,
+      "type": "amgm",
+      "gen": "amgm",
+      "text": {
+        "ja": "x > 0 のとき、{expr} の最小値は?",
+        "ko": "x > 0 일 때, {expr}의 최솟값은?",
+        "en": "For x > 0, what is the minimum of {expr}?"
+      },
+      "explain": {
+        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n積は x が消えて定数になる。最小値は {answer}",
+        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
+        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\nThe product is a constant because x cancels; the minimum is {answer}"
+      }
+    },
+    {
+      "id": "amgm2",
+      "level": 3,
+      "type": "amgm",
+      "gen": "amgm",
+      "params": {
+        "hard": true
+      },
+      "text": {
+        "ja": "x > 0 のとき、{expr} の最小値は?",
+        "ko": "x > 0 일 때, {expr}의 최솟값은?",
+        "en": "For x > 0, what is the minimum of {expr}?"
+      },
+      "explain": {
+        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n積は x が消えて定数になる。最小値は {answer}",
+        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
+        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\nThe product is a constant because x cancels; the minimum is {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-binom",
+      "gen": "binom",
+      "intro": {
+        "ja": "{expr} の展開式における {term} の項について答えよ。",
+        "ko": "{expr}의 전개식에서 {term} 항에 대하여 답하시오.",
+        "en": "Answer about the {term} term in the expansion of {expr}."
+      },
+      "steps": [
+        {
+          "type": "binom",
+          "level": 1,
+          "sum": {
+            "ja": "組合せ",
+            "ko": "조합",
+            "en": "Combination"
+          },
+          "text": {
+            "ja": "{term} の項に現れる {comb} の値は?",
+            "ko": "{term} 항에 나오는 {comb}의 값은?",
+            "en": "What is {comb}, which appears in the {term} term?"
+          },
+          "explain": {
+            "ja": "{n} 個から {k} 個を選ぶ組合せ {comb}\n{=seq(n,k)} ÷ {k}! = {answer}",
+            "ko": "{n} 개에서 {k} 개를 고르는 조합 {comb}\n{=seq(n,k)} ÷ {k}! = {answer}",
+            "en": "{comb}: choosing {k} from {n}\n{=seq(n,k)} ÷ {k}! = {answer}"
+          }
+        },
+        {
+          "type": "binom",
+          "level": 2,
+          "sum": {
+            "ja": "累乗",
+            "ko": "거듭제곱",
+            "en": "Power"
+          },
+          "text": {
+            "ja": "同じ項に掛かる ({a}) の {rest} 乗の値は?",
+            "ko": "같은 항에 곱해지는 ({a})의 {rest}제곱의 값은?",
+            "en": "What is ({a}) to the power {rest}, which multiplies the same term?"
+          },
+          "explain": {
+            "ja": "{term} の項では、({a}) が残りの {rest} 回分掛かる\n({a}) を {rest} 回掛けると {answer}",
+            "ko": "{term} 항에서는 ({a})가 나머지 {rest}번만큼 곱해집니다\n({a})를 {rest}번 곱하면 {answer}",
+            "en": "In the {term} term, ({a}) is multiplied the other {rest} times\n({a}) to the power {rest} = {answer}"
+          }
+        },
+        {
+          "type": "binom",
+          "level": 2,
+          "sum": {
+            "ja": "係数",
+            "ko": "계수",
+            "en": "Coefficient"
+          },
+          "text": {
+            "ja": "{term} の係数は?",
+            "ko": "{term}의 계수는?",
+            "en": "What is the coefficient of {term}?"
+          },
+          "explain": {
+            "ja": "係数 = (組合せ) × (累乗)\n{a1} × {a2} = {answer}",
+            "ko": "계수 = (조합) × (거듭제곱)\n{a1} × {a2} = {answer}",
+            "en": "Coefficient = (combination) × (power)\n{a1} × {a2} = {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-amgm",
+      "gen": "amgm",
+      "intro": {
+        "ja": "x > 0 のとき、{expr} について答えよ。",
+        "ko": "x > 0 일 때, {expr}에 대하여 답하시오.",
+        "en": "For x > 0, answer about {expr}."
+      },
+      "steps": [
+        {
+          "type": "amgm",
+          "level": 1,
+          "sum": {
+            "ja": "2数の積",
+            "ko": "두 수의 곱",
+            "en": "Product"
+          },
+          "text": {
+            "ja": "x と {c}/x の積は?",
+            "ko": "x와 {c}/x의 곱은?",
+            "en": "What is the product of x and {c}/x?"
+          },
+          "explain": {
+            "ja": "x × ({c}/x) を計算する\nx が約分されて {answer}",
+            "ko": "x × ({c}/x) 를 계산합니다\nx가 약분되어 {answer}",
+            "en": "Work out x × ({c}/x)\nThe x cancels: {answer}"
+          }
+        },
+        {
+          "type": "amgm",
+          "level": 2,
+          "sum": {
+            "ja": "最小値",
+            "ko": "최솟값",
+            "en": "Minimum"
+          },
+          "text": {
+            "ja": "{expr} の最小値は?",
+            "ko": "{expr}의 최솟값은?",
+            "en": "What is the minimum of {expr}?"
+          },
+          "explain": {
+            "ja": "x + {c}/x ≧ 2√{a1}\nこれに定数 {d} を加えて {answer}",
+            "ko": "x + {c}/x ≧ 2√{a1}. 여기에 상수 {d}를 더해서 {answer}",
+            "en": "x + {c}/x ≥ 2√{a1}; then add the constant {d}: {answer}"
+          }
+        },
+        {
+          "type": "amgm",
+          "level": 2,
+          "sum": {
+            "ja": "そのときの x",
+            "ko": "그때의 x",
+            "en": "x at the minimum"
+          },
+          "text": {
+            "ja": "最小値をとるときの x の値は?",
+            "ko": "최솟값을 가질 때의 x의 값은?",
+            "en": "At what x is the minimum reached?"
+          },
+          "explain": {
+            "ja": "等号は x = {c}/x のとき成り立つ\nx > 0 より x = {answer}",
+            "ko": "등호는 x = {c}/x 일 때 성립합니다. x > 0 이므로 x = {answer}",
+            "en": "Equality holds when x = {c}/x; since x > 0, x = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

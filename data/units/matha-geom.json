@@ -93,9 +93,9 @@
         "en": "In △ABC, AB = {c}, AC = {b} and BC = {a}. The bisector of ∠A meets BC at D. How long is BD?"
       },
       "explain": {
-        "ja": "BD : DC = AB : AC = {c} : {b} より BD = {answer}",
-        "ko": "BD : DC = AB : AC = {c} : {b}이므로 BD = {answer}",
-        "en": "BD : DC = AB : AC = {c} : {b}, so BD = {answer}"
+        "ja": "角の二等分線は、向かい合う辺を、角をはさむ2辺の比に分ける\nBD : DC = AB : AC = {c} : {b} (BC = {a})\nBD = BC × {c} ÷ ({c} + {b}) = {answer}",
+        "ko": "각의 이등분선은 마주 보는 변을, 각을 낀 두 변의 비로 나눕니다\nBD : DC = AB : AC = {c} : {b} (BC = {a})\nBD = BC × {c} ÷ ({c} + {b}) = {answer}",
+        "en": "An angle bisector divides the opposite side in the ratio of the two sides\nBD : DC = AB : AC = {c} : {b} (BC = {a})\nBD = BC × {c} ÷ ({c} + {b}) = {answer}"
       },
       "figure": {
         "kind": "bisect",
@@ -116,9 +116,9 @@
         "en": "In △ABC, M is the midpoint of BC and G is the centroid. If AM = {m}, how long is AG?"
       },
       "explain": {
-        "ja": "重心は中線を 2 : 1 に分けるので AG = {answer}",
-        "ko": "무게중심은 중선을 2 : 1로 나누므로 AG = {answer}",
-        "en": "The centroid divides a median 2 : 1, so AG = {answer}"
+        "ja": "重心は中線を頂点の側から 2 : 1 に分ける\nAG : GM = 2 : 1 なので AG = AM × 2/3 → {m} × 2 ÷ 3\n{m} × 2/3 = {answer}",
+        "ko": "무게중심은 중선을 꼭짓점 쪽에서 2 : 1로 나눕니다\nAG : GM = 2 : 1 이므로 AG = AM × 2/3 → {m} × 2 ÷ 3\n{m} × 2/3 = {answer}",
+        "en": "The centroid divides a median 2 : 1 from the vertex\nAG : GM = 2 : 1, so AG = AM × 2/3 → {m} × 2 ÷ 3\n{m} × 2/3 = {answer}"
       },
       "figure": {
         "kind": "median",
@@ -137,9 +137,9 @@
         "en": "O is the circumcenter of acute triangle ABC. If ∠A = {A}°, what is ∠BOC?"
       },
       "explain": {
-        "ja": "中心角は円周角の 2 倍なので ∠BOC = {answer}",
-        "ko": "중심각은 원주각의 2배이므로 ∠BOC = {answer}",
-        "en": "A central angle is twice the inscribed angle, so ∠BOC = {answer}"
+        "ja": "外心 O は外接円の中心\n∠A は弧 BC に対する円周角、∠BOC は同じ弧に対する中心角\n中心角は円周角の2倍なので {A}° × 2 = {answer}",
+        "ko": "외심 O는 외접원의 중심\n∠A는 호 BC에 대한 원주각, ∠BOC는 같은 호에 대한 중심각\n중심각은 원주각의 2배이므로 {A}° × 2 = {answer}",
+        "en": "The circumcentre O is the centre of the circumscribed circle\n∠A is the inscribed angle on arc BC and ∠BOC the central angle on it\nThe central angle is twice the inscribed angle: {A}° × 2 = {answer}"
       },
       "figure": {
         "kind": "circleangle",
@@ -160,9 +160,9 @@
         "en": "I is the incenter of △ABC. If ∠A = {A}°, what is ∠BIC?"
       },
       "explain": {
-        "ja": "∠BIC = 90° + ∠A ÷ 2 = {answer}",
-        "ko": "∠BIC = 90° + ∠A ÷ 2 = {answer}",
-        "en": "∠BIC = 90° + ∠A ÷ 2 = {answer}"
+        "ja": "内心 I は角の二等分線の交点なので、∠IBC = ∠B ÷ 2、∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}° なので、その半分を 180° から引く → (180° − {A}°) ÷ 2 = {=(180-A)/2}°\n∠BIC = 90° + {A}° ÷ 2 = {answer}",
+        "ko": "내심 I는 각의 이등분선의 교점이므로 ∠IBC = ∠B ÷ 2, ∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}° 이므로 그 절반을 180°에서 뺍니다 → (180° − {A}°) ÷ 2 = {=(180-A)/2}°\n∠BIC = 90° + {A}° ÷ 2 = {answer}",
+        "en": "I lies on the angle bisectors, so ∠IBC = ∠B ÷ 2 and ∠ICB = ∠C ÷ 2\n∠B + ∠C = 180° − {A}°; subtract half of that from 180° → (180° − {A}°) ÷ 2 = {=(180-A)/2}°\n∠BIC = 90° + {A}° ÷ 2 = {answer}"
       },
       "figure": {
         "kind": "incenter",
@@ -184,9 +184,9 @@
         "en": "In the figure, the central angle on arc AB is {x}°. What is the inscribed angle ∠APB?"
       },
       "explain": {
-        "ja": "円周角は中心角の半分なので {answer}",
-        "ko": "원주각은 중심각의 절반이므로 {answer}",
-        "en": "An inscribed angle is half the central angle: {answer}"
+        "ja": "同じ弧に対する円周角は、中心角の半分\n{x}° ÷ 2 = {answer}",
+        "ko": "같은 호에 대한 원주각은 중심각의 절반\n{x}° ÷ 2 = {answer}",
+        "en": "An inscribed angle is half the central angle on the same arc\n{x}° ÷ 2 = {answer}"
       },
       "figure": {
         "kind": "circleangle",
@@ -208,9 +208,9 @@
         "en": "In the figure, the inscribed angle ∠APB on arc AB is {x}°. What is the central angle ∠AOB?"
       },
       "explain": {
-        "ja": "中心角は円周角の 2 倍なので {answer}",
-        "ko": "중심각은 원주각의 2배이므로 {answer}",
-        "en": "A central angle is twice the inscribed angle: {answer}"
+        "ja": "同じ弧に対する中心角は、円周角の2倍\n{x}° × 2 = {answer}",
+        "ko": "같은 호에 대한 중심각은 원주각의 2배\n{x}° × 2 = {answer}",
+        "en": "A central angle is twice the inscribed angle on the same arc\n{x}° × 2 = {answer}"
       },
       "figure": {
         "kind": "circleangle",
@@ -229,9 +229,9 @@
         "en": "Quadrilateral ABCD is inscribed in a circle. If ∠A = {A}°, what is ∠C?"
       },
       "explain": {
-        "ja": "円に内接する四角形の対角の和は 180° なので {answer}",
-        "ko": "원에 내접하는 사각형은 마주 보는 각의 합이 180°이므로 {answer}",
-        "en": "Opposite angles of a cyclic quadrilateral add to 180°: {answer}"
+        "ja": "円に内接する四角形では、向かい合う角の和が 180°\n∠A + ∠C = 180°\n∠C = 180° − {A}° = {answer}",
+        "ko": "원에 내접하는 사각형은 마주 보는 각의 합이 180°\n∠A + ∠C = 180°\n∠C = 180° − {A}° = {answer}",
+        "en": "Opposite angles of a cyclic quadrilateral add to 180°\n∠A + ∠C = 180°\n∠C = 180° − {A}° = {answer}"
       },
       "figure": {
         "kind": "cyclic",
@@ -250,9 +250,9 @@
         "en": "Chords AB and CD of a circle meet at P. If PA = {a}, PB = {b} and PC = {c}, how long is PD?"
       },
       "explain": {
-        "ja": "方べきの定理 PA × PB = PC × PD より PD = {answer}",
-        "ko": "방멱 정리 PA × PB = PC × PD에서 PD = {answer}",
-        "en": "By the power of a point, PA × PB = PC × PD, so PD = {answer}"
+        "ja": "方べきの定理: PA × PB = PC × PD\n{a} × {b} = {c} × PD → {=a*b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}",
+        "ko": "방멱 정리: PA × PB = PC × PD\n{a} × {b} = {c} × PD → {=a*b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}",
+        "en": "Intersecting chords: PA × PB = PC × PD\n{a} × {b} = {c} × PD → {=a*b} = {c} × PD\nPD = {a} × {b} ÷ {c} = {answer}"
       },
       "figure": {
         "kind": "chords",
@@ -273,9 +273,9 @@
         "en": "A line through an outside point P meets a circle at A and B, and a tangent from P touches the circle at T. If PA = {a} and PB = {b}, how long is PT?"
       },
       "explain": {
-        "ja": "方べきの定理 PT² = PA × PB より PT = {answer}",
-        "ko": "방멱 정리 PT² = PA × PB에서 PT = {answer}",
-        "en": "By the power of a point, PT² = PA × PB, so PT = {answer}"
+        "ja": "方べきの定理(接線): PT² = PA × PB\nPT² = {a} × {b} = {=a*b}\n平方根をとって PT = {answer}",
+        "ko": "방멱 정리(접선): PT² = PA × PB\nPT² = {a} × {b} = {=a*b}\n제곱근을 구하면 PT = {answer}",
+        "en": "Tangent–secant: PT² = PA × PB\nPT² = {a} × {b} = {=a*b}\nTake the root: PT = {answer}"
       },
       "figure": {
         "kind": "tangent",
@@ -303,9 +303,9 @@
         "ce": "?"
       },
       "explain": {
-        "ja": "チェバの定理 (AF/FB) × (BD/DC) × (CE/EA) = 1 より CE : EA = {answer}",
-        "ko": "체바의 정리 (AF/FB) × (BD/DC) × (CE/EA) = 1에서 CE : EA = {answer}",
-        "en": "By Ceva's theorem, (AF/FB) × (BD/DC) × (CE/EA) = 1, so CE : EA = {answer}"
+        "ja": "チェバの定理: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1 → ({=p*r}/{=q*s}) × (CE/EA) = 1\nCE/EA について解いて CE : EA = {answer}",
+        "ko": "체바 정리: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1 → ({=p*r}/{=q*s}) × (CE/EA) = 1\nCE/EA에 대해 풀면 CE : EA = {answer}",
+        "en": "Ceva: (AF/FB) × (BD/DC) × (CE/EA) = 1\n({p}/{q}) × ({r}/{s}) × (CE/EA) = 1 → ({=p*r}/{=q*s}) × (CE/EA) = 1\nSolve for CE/EA: CE : EA = {answer}"
       }
     },
     {
@@ -324,9 +324,9 @@
         "bat": "?"
       },
       "explain": {
-        "ja": "接線と弦のつくる角は、その弦に対する円周角に等しい。{answer}",
-        "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각과 같습니다. {answer}",
-        "en": "The angle between a tangent and a chord equals the inscribed angle on that chord: {answer}"
+        "ja": "接弦定理: 接線と弦のつくる角は、その弦に対する円周角に等しい\n弦 AB に対する円周角は ∠ACB = {x}°\n∠BAT = {answer}",
+        "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각과 같습니다\n현 AB에 대한 원주각은 ∠ACB = {x}°\n∠BAT = {answer}",
+        "en": "The angle between a tangent and a chord equals the inscribed angle on that chord\nThe inscribed angle on chord AB is ∠ACB = {x}°\n∠BAT = {answer}"
       }
     },
     {
@@ -347,9 +347,9 @@
         "af": "AF = ?"
       },
       "explain": {
-        "ja": "1点から引いた2本の接線の長さは等しいので AF = (AB + CA − BC) ÷ 2 = {answer}",
-        "ko": "한 점에서 그은 두 접선의 길이는 같으므로 AF = (AB + CA − BC) ÷ 2 = {answer}",
-        "en": "Tangents from one point are equal, so AF = (AB + CA − BC) ÷ 2 = {answer}"
+        "ja": "1点から円に引いた2本の接線の長さは等しい\nAF = x とすると、AB + CA − BC = 2x になる → {=c+b-a} = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}",
+        "ko": "한 점에서 원에 그은 두 접선의 길이는 같습니다\nAF = x 라 하면 AB + CA − BC = 2x 가 됩니다 → {=c+b-a} = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}",
+        "en": "Two tangents from one point have equal length\nWith AF = x, AB + CA − BC = 2x → {=c+b-a} = 2x\nx = ({c} + {b} − {a}) ÷ 2 = {answer}"
       }
     },
     {
@@ -363,9 +363,9 @@
         "en": "Two circles have radii {r1} and {r2}, and their centers are {d} apart. How many common tangents do they have?"
       },
       "explain": {
-        "ja": "中心間の距離を、半径の和 {r1} + {r2} と差 {r1} − {r2} と比べると {answer} 本",
-        "ko": "중심 사이의 거리를 반지름의 합 {r1} + {r2}, 차 {r1} − {r2}와 비교하면 {answer}개",
-        "en": "Compare the distance with the sum {r1} + {r2} and the difference {r1} − {r2} of the radii: {answer}"
+        "ja": "半径の和 {r1} + {r2} と、半径の差 {r1} − {r2} を求める → {=r1+r2}, {=r1-r2}\n中心間の距離 {d} をこの2つと比べる\n和より大: 4本、和と等しい: 3本、間: 2本、差と等しい: 1本、差より小: 0本。{answer} 本",
+        "ko": "반지름의 합 {r1} + {r2} 와 반지름의 차 {r1} − {r2} 를 구합니다 → {=r1+r2}, {=r1-r2}\n중심 사이의 거리 {d} 를 이 둘과 비교합니다\n합보다 큼: 4개, 합과 같음: 3개, 사이: 2개, 차와 같음: 1개, 차보다 작음: 0개. {answer}개",
+        "en": "Find the sum {r1} + {r2} and the difference {r1} − {r2} of the radii → {=r1+r2}, {=r1-r2}\nCompare the distance {d} with both\nMore than the sum: 4; equal: 3; between: 2; equal to the difference: 1; less: 0. {answer}"
       }
     },
     {
@@ -386,9 +386,9 @@
         "cq": "?"
       },
       "explain": {
-        "ja": "メネラウスの定理 (AR/RB) × (BP/PC) × (CQ/QA) = 1 より CQ : QA = {answer}",
-        "ko": "메넬라우스의 정리 (AR/RB) × (BP/PC) × (CQ/QA) = 1에서 CQ : QA = {answer}",
-        "en": "By Menelaus's theorem, (AR/RB) × (BP/PC) × (CQ/QA) = 1, so CQ : QA = {answer}"
+        "ja": "メネラウスの定理: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1 → ({=p*r}/{=q*s}) × (CQ/QA) = 1\nCQ/QA について解いて CQ : QA = {answer}",
+        "ko": "메넬라오스 정리: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1 → ({=p*r}/{=q*s}) × (CQ/QA) = 1\nCQ/QA에 대해 풀면 CQ : QA = {answer}",
+        "en": "Menelaus: (AR/RB) × (BP/PC) × (CQ/QA) = 1\n({p}/{q}) × ({r}/{s}) × (CQ/QA) = 1 → ({=p*r}/{=q*s}) × (CQ/QA) = 1\nSolve for CQ/QA: CQ : QA = {answer}"
       }
     },
     {
@@ -411,9 +411,9 @@
         "sideC": "{c}"
       },
       "explain": {
-        "ja": "最も長い辺に向かい合う角が最も大きい。{answer}",
-        "ko": "가장 긴 변과 마주 보는 각이 가장 큽니다. {answer}",
-        "en": "The largest angle is opposite the longest side: {answer}"
+        "ja": "三角形では、長い辺に向かい合う角ほど大きい\n3辺 {a}, {b}, {c} のうち、いちばん長い辺を見つける\nその辺に向かい合う角は {answer}",
+        "ko": "삼각형에서는 긴 변과 마주 보는 각일수록 큽니다\n세 변 {a}, {b}, {c} 중에서 가장 긴 변을 찾습니다\n그 변과 마주 보는 각은 {answer}",
+        "en": "In a triangle the larger angle faces the longer side\nFind the longest of {a}, {b}, {c}\nThe angle opposite it is {answer}"
       }
     },
     {
@@ -427,9 +427,9 @@
         "en": "A convex polyhedron has {given}. What is its {ask}?"
       },
       "explain": {
-        "ja": "オイラーの多面体定理 (頂点の数) − (辺の数) + (面の数) = 2 より {answer}",
-        "ko": "오일러의 다면체 정리 (꼭짓점의 수) − (모서리의 수) + (면의 수) = 2에서 {answer}",
-        "en": "By Euler's formula, vertices − edges + faces = 2: {answer}"
+        "ja": "オイラーの多面体定理: (頂点の数) − (辺の数) + (面の数) = 2\nわかっている2つの数を代入する\n残りの1つについて解いて {answer}",
+        "ko": "오일러의 다면체 정리: (꼭짓점의 수) − (모서리의 수) + (면의 수) = 2\n알고 있는 두 수를 대입합니다\n나머지 하나에 대해 풀면 {answer}",
+        "en": "Euler's formula: vertices − edges + faces = 2\nPut in the two numbers you know\nSolve for the third: {answer}"
       }
     }
   ],
@@ -465,7 +465,7 @@
             "en": "What is ∠C?"
           },
           "explain": {
-            "ja": "円に内接する四角形の向かい合う角の和は 180°。∠C = 180° − {A}° = {answer}",
+            "ja": "円に内接する四角形の向かい合う角の和は 180°\n∠C = 180° − {A}° = {answer}",
             "ko": "원에 내접하는 사각형에서 마주 보는 각의 합은 180°. ∠C = 180° − {A}° = {answer}",
             "en": "Opposite angles of a cyclic quadrilateral add to 180°: ∠C = 180° − {A}° = {answer}"
           }
@@ -479,7 +479,8 @@
             "en": "∠BOD"
           },
           "figure": {
-            "angleC": "{a1}"
+            "angleC": "{a1}",
+            "central": "?"
           },
           "text": {
             "ja": "点 C を含む弧 BD に対する中心角 ∠BOD の大きさは?",
@@ -487,7 +488,7 @@
             "en": "What is the central angle ∠BOD standing on the arc BD that contains C?"
           },
           "explain": {
-            "ja": "この弧に対する円周角は ∠A = {A}°。中心角は円周角の2倍なので {answer}",
+            "ja": "この弧に対する円周角は ∠A = {A}°\n中心角は円周角の2倍なので {answer}",
             "ko": "이 호에 대한 원주각은 ∠A = {A}°. 중심각은 원주각의 2배이므로 {answer}",
             "en": "The inscribed angle on this arc is ∠A = {A}°. The central angle is twice it: {answer}"
           }
@@ -501,7 +502,8 @@
             "en": "Tangent–chord angle"
           },
           "figure": {
-            "angleC": "{a1}"
+            "angleC": "{a1}",
+            "tangent": "?"
           },
           "text": {
             "ja": "点 B における接線と弦 BD がつくる鋭角の大きさは?",
@@ -509,7 +511,7 @@
             "en": "What is the acute angle between the tangent at B and the chord BD?"
           },
           "explain": {
-            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)。{answer}",
+            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)\n{answer}",
             "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각 ∠A와 같습니다(접현 정리). {answer}",
             "en": "The tangent–chord angle equals the inscribed angle ∠A on that chord: {answer}"
           }
