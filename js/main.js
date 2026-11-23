@@ -2,7 +2,7 @@
 // 처음 화면 → 범위 고르기 → 지도 → (칸을 고름) → 전투 / ? / 상점 / 휴식 / 보물 → 지도 → … → 보스
 // 전투에서 쓰러지면 게임 오버이고, 범위를 다시 골라 새 지도로 처음부터 시작합니다.
 import { CONFIG } from './config.js';
-import { loadLang, applyStatic, t } from './i18n.js';
+import { loadLang, applyStatic, t, pick } from './i18n.js';
 import { load, store } from './save.js';
 import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName } from './questions.js';
 import { newRun, nextAct, isLastAct } from './run.js';
@@ -158,6 +158,13 @@ async function boot() {
       chips.push(['tag cheer', '', t('cheer.short', { n: run.cheer })]);
       info.cheer = [t('cheer.name'), t('cheer.text', { n: run.cheer, hp: CONFIG.cheer.hp * run.cheer, pct: Math.round(CONFIG.cheer.guard * run.cheer * 100) })];
     }
+    // 진보스의 열쇠: 탑을 한 번 깬 뒤부터 보입니다. 누르면 어느 열쇠를 어디서 얻는지 나옵니다.
+    if (CONFIG.trueBoss.on && (data.clears || 0) >= CONFIG.trueBoss.clears && data.tut === 'done') {
+      const keys = run.keys || {};
+      const kinds = ['rest', 'relic', 'win'];
+      chips.push(['keys', 'key', `${kinds.filter((k) => keys[k]).length}/3`]); // 좁은 화면에서도 한 줄에 들어가도록 그림과 숫자만
+      info.keys = [t('key.title'), `${t('key.text')}\n\n${kinds.map((k) => `${keys[k] ? '●' : '○'} ${t(`key.${k}.name`)}: ${t(`key.${k}.where`)} (${t(keys[k] ? 'key.have' : 'key.none')})`).join('\n')}`];
+    }
     if (run.frail > 0) {
       chips.push(['tag frail', '', t('bless.frailLeft', { n: run.frail })]);
       info.frail = [t('bless.frail'), t('bless.frailSub', CONFIG.bless)];
@@ -171,7 +178,7 @@ async function boot() {
       bar.setAttribute('aria-label', label);
       bar.innerHTML = '';
       for (const [cls, ico, text] of chips) {
-        const kind = cls.split(' ')[1];
+        const kind = cls.split(' ')[1] || cls;
         const chip = document.createElement(info[kind] ? 'button' : 'span');
         chip.className = `stat ${cls}`;
         if (info[kind]) {
@@ -503,7 +510,7 @@ async function boot() {
     const any = (list) => list[Math.floor(Math.random() * list.length)];
     if (kind === 'boss') return any(fit(monsters.filter((m) => m.boss)));
     if (kind === 'midboss') return any(fit(monsters.filter((m) => m.midboss)));
-    const normal = monsters.filter((m) => !m.boss && !m.midboss);
+    const normal = monsters.filter((m) => !m.boss && !m.midboss && !m.final); // 진보스는 열쇠를 모았을 때만 나옵니다
     if (tutorial.active()) return normal[0];
     const base = fit(normal);
     const fresh = base.filter((m) => m.id !== run.lastFoe);
@@ -578,27 +585,61 @@ async function boot() {
         });
       } else if (kind === 'boss') {
         play('clear');
-        data.clears += 1;
-        data.last = { floor: run.floors, clear: true };
-        data.falls = 0;
-        // 지금 열려 있는 가장 높은 도전 단계로 깼으면 다음 단계가 열립니다.
-        const level = run.ascend || 0;
-        const opened = level === (data.ascendMax || 0) && level < CONFIG.ascend.max;
-        if (opened) {
-          data.ascendMax = level + 1;
-          data.ascend = level + 1;
+        // 탑 클리어를 기록하고 축하 화면을 띄웁니다. extra: 진보스와 싸운 결과를 덧붙이는 글
+        const finishClear = (extra = '') => {
+          data.clears += 1;
+          data.last = { floor: run.floors, clear: true };
+          data.falls = 0;
+          // 지금 열려 있는 가장 높은 도전 단계로 깼으면 다음 단계가 열립니다.
+          const level = run.ascend || 0;
+          const opened = level === (data.ascendMax || 0) && level < CONFIG.ascend.max;
+          if (opened) {
+            data.ascendMax = level + 1;
+            data.ascend = level + 1;
+          }
+          data.run = newRun(run.full || run.scope);
+          persist();
+          go('screenEvent');
+          events.clear(gold, goScope, opened ? level + 1 : 0, extra);
+          celebrate();
+        };
+        // 열쇠 셋을 모았으면 진보스에게 도전할 수 있습니다. 져도 탑을 깬 기록은 그대로입니다.
+        const final = monsters.find((m) => m.final);
+        const keys = run.keys || {};
+        if (final && CONFIG.trueBoss.on && keys.rest && keys.relic && keys.win) {
+          const name = pick(final.name);
+          persist();
+          ask({
+            title: t('key.doorTitle'),
+            text: t('key.doorText', { name, hp: CONFIG.trueBoss.heal }),
+            buttons: [
+              { label: t('key.doorGo'), kind: 'primary', run: () => {
+                run.hp = Math.min(run.maxHp, run.hp + CONFIG.trueBoss.heal);
+                if (run.full) { // 긴 탑: 진보스의 문제는 고른 범위 전체에서 나옵니다
+                  run.scope = [...run.full];
+                  setScope(run.scope);
+                }
+                data.seen[final.id] = true;
+                battleMusic('boss', '', final.id);
+                go('screenBattle');
+                battle.start({ monster: final, kind: 'boss', weak: chooseWeak(final), safe: false, floor: node.floor }, (end) => {
+                  if (end === 'win') data.trueClears = (data.trueClears || 0) + 1;
+                  finishClear(end === 'win' ? t('key.won', { name, n: data.trueClears }) : t('key.lost', { name }));
+                });
+              } },
+              { label: t('key.doorSkip'), run: () => finishClear() },
+            ],
+          });
+          return;
         }
-        data.run = newRun(run.full || run.scope);
-        persist();
-        events.clear(gold, goScope, opened ? level + 1 : 0);
-        celebrate();
+        finishClear();
       } else {
         persist();
         // 강적은 유물 1개를 바로 주고, 중간 보스는 강화를 고른 뒤 유물 3개 중 1개를 고릅니다. (튜토리얼 중에는 유물이 나오지 않습니다)
         const guided = tutorial.active();
         events.reward(gold, () => {
           tutorial.emit('rewarded');
-          if (kind === 'midboss' && !guided) events.relicChoice(() => complete(node));
+          if (kind === 'midboss' && !guided) events.relicChoice(() => complete(node), true); // true: 유물 대신 "승리의 열쇠"도 고를 수 있습니다
           else complete(node);
         }, kind === 'elite' && !guided);
       }

@@ -61,6 +61,50 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     showTip('relic');
   }
 
+  // ---- 진보스의 열쇠 ----
+  // 지금 이 열쇠를 내놓을 수 있는지: 탑을 한 번 깬 뒤부터, 튜토리얼이 끝난 뒤, 아직 그 열쇠가 없을 때
+  const keyOffer = (kind) => CONFIG.trueBoss.on && (data.clears || 0) >= CONFIG.trueBoss.clears && data.tut === 'done' && !(getRun().keys && getRun().keys[kind]);
+  function takeKey(kind) {
+    const run = getRun();
+    run.keys = { ...(run.keys || {}), [kind]: true };
+    play('right');
+    toast(t('key.gotOne', { name: t(`key.${kind}.name`) }), icon('key'));
+    persist();
+  }
+  const keyOption = (kind, onDone) => option(t(`key.${kind}.take`), t(`key.${kind}.sub`), false, () => {
+    takeKey(kind);
+    onDone();
+  }, 'key');
+  // 유물 1개와 열쇠 중 하나를 고릅니다 (강적, 보물 상자). 받지 않고 넘어갈 수는 없습니다.
+  function relicOrKey(done) {
+    const run = getRun();
+    const [offer = ''] = rollRelics(run, 1);
+    let result = ''; // 고른 뒤: 유물 id 또는 'key'
+    open(() => {
+      if (result) {
+        base('key.orTitle', result === 'key' ? t('key.gotOne', { name: t('key.relic.name') }) : '');
+        if (result !== 'key') relicCard(result);
+        leave('ev.continue', done);
+        return;
+      }
+      base('key.orTitle', t('key.orText'));
+      if (offer) {
+        option(relicName(offer), relicText(offer), false, () => {
+          takeRelic(offer);
+          result = offer;
+          play('right');
+          persist();
+          redraw();
+        }, `r-${offer}`, t(`relic.rarity.${RELICS[offer].rarity}`));
+        markPick(offer);
+      }
+      keyOption('relic', () => {
+        result = 'key';
+        redraw();
+      });
+    });
+  }
+
   // ---- 모습(직업) ----
   // 모습 하나를 보여 주는 카드. onPick 이 있으면 누르는 버튼, 없으면 읽는 카드입니다. locked: 아직 얻지 못한 모습
   function heroCard(id, { onPick = null, locked = false, current = false } = {}) {
@@ -206,7 +250,8 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       const picks = rollUpgrades(3);
       let got = '';
       let extra = 0;
-      if (relic) {
+      const pickKey = relic && keyOffer('relic'); // 열쇠를 고를 수 있으면 유물을 바로 주지 않고, 강화를 고른 뒤에 유물과 열쇠 중 하나를 묻습니다
+      if (relic && !pickKey) {
         [got = ''] = rollRelics(getRun(), 1);
         if (got) takeRelic(got);
         else if (CONFIG.relic.drops) {
@@ -223,7 +268,8 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
             UPGRADES[id](getRun());
             gained(`up.${id}`, id);
             draw = null;
-            done();
+            if (pickKey) relicOrKey(done);
+            else done();
           }, id);
         });
       });
@@ -255,14 +301,14 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
 
     // 유물 3개 중 1개 고르기 (중간 보스를 이겼을 때, 긴 탑에서 막을 넘어갈 때). 받지 않아도 됩니다.
     // 줄 유물이 하나도 없으면 골드를 대신 주고 바로 넘어갑니다.
-    relicChoice(done) {
+    relicChoice(done, withKey = false) {
       const run = getRun();
       const picks = rollRelics(run, 3, 'big');
       if (!CONFIG.relic.drops) {
         done();
         return;
       }
-      if (!picks.length) {
+      if (!picks.length && !(withKey && keyOffer('win'))) {
         run.gold += CONFIG.relic.emptyGold;
         toast(t('relic.none', { gold: CONFIG.relic.emptyGold }), icon('coin'));
         done();
@@ -286,6 +332,11 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
             redraw();
           }, `r-${id}`, t(`relic.rarity.${RELICS[id].rarity}`));
           markPick(id);
+        });
+        // 중간 보스에서는 유물 대신 "승리의 열쇠"를 고를 수도 있습니다.
+        if (withKey && keyOffer('win')) keyOption('win', () => {
+          draw = null;
+          done();
         });
         leave('relic.skip', done);
       });
@@ -337,6 +388,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       const run = getRun();
       const heal = Math.ceil(run.maxHp * CONFIG.rest.healRatio) + (has(run, 'bottle') ? CONFIG.relic.bottle : 0); // 물통: 쉴 때 더 회복
       let slept = false;
+      let keyTaken = false;
       tip('rest');
       if (node.used) {
         open(() => {
@@ -348,6 +400,11 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       const menu = () => {
         if (slept) {
           base('ev.restTitle', t('ev.restSlept', { n: heal }));
+          leave('ev.continue', done);
+          return;
+        }
+        if (keyTaken) {
+          base('ev.restTitle', t('key.rest.got'));
           leave('ev.continue', done);
           return;
         }
@@ -378,6 +435,13 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
             done,
           });
         }, 'book');
+        // 쉬는 대신 "쉼의 열쇠"를 받을 수도 있습니다.
+        if (keyOffer('rest')) keyOption('rest', () => {
+          node.used = true;
+          keyTaken = true;
+          persist();
+          redraw();
+        });
       };
       open(menu);
     },
@@ -397,6 +461,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       node.used = true;
       persist();
       let got = ''; // 상자에서 나온 유물
+      let choose = false; // 유물과 열쇠 중 하나를 고르는 화면으로 넘어갈지
       const openChest = () => {
         [got = ''] = rollRelics(run, 1);
         if (got) takeRelic(got);
@@ -407,6 +472,12 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         intro: () => t('ev.treasureText'),
         question: next(2),
         onResult(ok, q) {
+          if (ok && keyOffer('relic')) {
+            // 열쇠를 고를 수 있으면: 골드만 먼저 받고, 다음 화면에서 유물과 열쇠 중 하나를 고릅니다.
+            run.gold += CONFIG.gold.treasureWin;
+            choose = true;
+            return () => `${t('ev.treasureOkGold', { gold: CONFIG.gold.treasureWin })} ${t('key.orText')}`;
+          }
           if (ok) {
             run.gold += CONFIG.gold.treasureWin;
             openChest();
@@ -420,7 +491,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
           return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: explainBrief(q.raw) });
         },
         after: () => { if (got) relicCard(got); },
-        done,
+        done: () => (choose ? relicOrKey(done) : done()),
       });
     },
 
@@ -548,9 +619,10 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
 
     // 보스를 쓰러뜨려 단원을 클리어했습니다.
     // opened: 이번에 새로 열린 도전 단계 (없으면 0)
-    clear(gold, done, opened = 0) {
+    // extra: 덧붙일 글 (진보스와 싸운 결과)
+    clear(gold, done, opened = 0, extra = '') {
       open(() => {
-        base('ev.clearTitle', t('ev.clearText', { n: data.clears, gold }) + (opened ? `\n\n${t('ascend.opened', { n: opened })}\n${t(`ascend.l${opened}`)}` : ''));
+        base('ev.clearTitle', t('ev.clearText', { n: data.clears, gold }) + (extra ? `\n${extra}` : '') + (opened ? `\n\n${t('ascend.opened', { n: opened })}\n${t(`ascend.l${opened}`)}` : ''));
         leave('ev.newRun', done);
       });
     },
