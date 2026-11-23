@@ -418,6 +418,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
   position: fixed; inset: 0; z-index: 20;
   display: flex; align-items: center; justify-content: center;
   padding: 20px; background: rgba(5, 10, 28, 0.78);
+  /* 창은 지금 보이는 영역 안에 놓습니다. 아래쪽 도구 줄이나 홈 막대에 닫기 버튼이 가려지지 않게 합니다. */
+  height: 100vh; height: 100dvh; bottom: auto;
+  padding-top: max(20px, env(safe-area-inset-top)); padding-bottom: max(20px, env(safe-area-inset-bottom));
 }
 .menu-overlay[hidden] { display: none; }
 .menu-box {
@@ -425,6 +428,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
   display: flex; flex-direction: column; gap: 12px;
   padding: 20px 18px; border-radius: 16px;
   background: var(--deep); border: 1px solid var(--line);
+  max-height: 100%; overflow-y: auto; /* 내용이 길면 창 안에서 스크롤합니다 (창이 화면 밖으로 넘치지 않게) */
 }
 .menu-box h2 { margin: 0; font-size: 18px; }
 .menu-box p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
@@ -464,7 +468,8 @@ button, select, .node { touch-action: manipulation; } /* 두 번 눌러 확대�
 
 /* ============ phones: every screen size ============ */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-#app { min-height: 100dvh; }
+/* 높이는 주소 줄과 아래쪽 도구 줄이 다 나와 있을 때(svh)를 기준으로 합니다. 줄이 들어갔다 나올 때 화면이 늘었다 줄지 않게 하려는 것입니다. */
+#app { min-height: 100vh; min-height: 100svh; }
 button, .node, .scope-item, canvas { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 canvas { object-fit: cover; object-position: 50% 62%; }
 .panel { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
@@ -817,7 +822,7 @@ button.stat.tag { min-height: 0; line-height: 1.5; cursor: pointer; text-decorat
 .top-btn { flex: 0 0 auto; white-space: nowrap; }
 
 /* ================= settings ================= */
-.set-box { max-height: min(88vh, 720px); overflow-y: auto; gap: 8px; }
+.set-box { gap: 8px; }
 .set-box h3 { margin: 8px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
 .set-row { display: flex; align-items: center; gap: 12px; min-height: 50px; padding: 6px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--deep); text-align: left; font-size: 14px; font-weight: 600; color: var(--ink); }
 .set-row > span { flex: 0 0 auto; min-width: 64px; }
@@ -903,7 +908,6 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 .relic-strip i.pop { animation: relicPop 0.5s ease-out; }
 @keyframes relicPop { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
 /* 가방 창과, 방금 얻은 유물 카드 */
-.bag-box { max-height: min(88vh, 720px); overflow-y: auto; }
 .bag-list { display: flex; flex-direction: column; }
 .relic-row, .relic-card { display: grid; grid-template-columns: 40px 1fr auto; column-gap: 12px; row-gap: 2px; align-items: center; text-align: left; }
 .relic-row { padding: 10px 0; border-top: 1px solid var(--line); }
