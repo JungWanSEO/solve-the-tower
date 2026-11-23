@@ -160,9 +160,9 @@
         "en": "Write {expr} using i."
       },
       "explain": {
-        "ja": "a > 0 のとき √(−a) = √a i\n根号の中の平方数を外に出して簡単にする\n{answer}",
-        "ko": "a > 0 일 때 √(−a) = √a i\n근호 안의 제곱수를 밖으로 꺼내 간단히 합니다\n{answer}",
-        "en": "For a > 0, √(−a) = √a · i\nTake any square factor out of the root\n{answer}"
+        "ja": "a > 0 のとき √(−a) = √a i\n根号の中の平方数を外に出して簡単にする → √{=abs(nums(expr)[0])} = {=sqrt(abs(nums(expr)[0]))}\n{answer}",
+        "ko": "a > 0 일 때 √(−a) = √a i\n근호 안의 제곱수를 밖으로 꺼내 간단히 합니다 → √{=abs(nums(expr)[0])} = {=sqrt(abs(nums(expr)[0]))}\n{answer}",
+        "en": "For a > 0, √(−a) = √a · i\nTake any square factor out of the root → √{=abs(nums(expr)[0])} = {=sqrt(abs(nums(expr)[0]))}\n{answer}"
       }
     },
     {
@@ -179,9 +179,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "先にそれぞれを i を使って表す: √(−a) = √a i\ni どうしを掛けると i² = −1\n根号の部分を掛けて、符号をつけると {answer}",
-        "ko": "먼저 각각을 i로 나타냅니다: √(−a) = √a i\ni끼리 곱하면 i² = −1\n근호 부분을 곱하고 부호를 붙이면 {answer}",
-        "en": "First write each with i: √(−a) = √a · i\ni times i is i² = −1\nMultiply the roots and attach the sign: {answer}"
+        "ja": "先にそれぞれを i を使って表す: √(−a) = √a i → {=sqrt(abs(nums(expr)[0]))}i, {=sqrt(abs(nums(expr)[1]))}i\ni どうしを掛けると i² = −1\n根号の部分を掛けて、符号をつけると {answer}",
+        "ko": "먼저 각각을 i로 나타냅니다: √(−a) = √a i → {=sqrt(abs(nums(expr)[0]))}i, {=sqrt(abs(nums(expr)[1]))}i\ni끼리 곱하면 i² = −1\n근호 부분을 곱하고 부호를 붙이면 {answer}",
+        "en": "First write each with i: √(−a) = √a · i → {=sqrt(abs(nums(expr)[0]))}i, {=sqrt(abs(nums(expr)[1]))}i\ni times i is i² = −1\nMultiply the roots and attach the sign: {answer}"
       }
     },
     {

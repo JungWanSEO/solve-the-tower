@@ -190,9 +190,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "単位円に角 {label} の動径をかき、円との交点を P とする\nsin は P の y 座標、cos は x 座標、tan は y ÷ x\nP がどの象限にあるかで符号を決めて {answer}",
-        "ko": "단위원에 각 {label} 의 동경을 그리고 원과의 교점을 P라 합니다\nsin은 P의 y좌표, cos은 x좌표, tan은 y ÷ x\nP가 어느 사분면에 있는지로 부호를 정하면 {answer}",
-        "en": "Draw the angle {label} on the unit circle and call the point P\nsin is P's y-coordinate, cos its x-coordinate, tan is y ÷ x\nThe quadrant of P fixes the sign: {answer}"
+        "ja": "単位円に角 {label} の動径をかき、円との交点を P とする\nsin は P の y 座標、cos は x 座標、tan は y ÷ x → P({=cosd(deg)}, {=sind(deg)})\nP がどの象限にあるかで符号を決めて {answer}",
+        "ko": "단위원에 각 {label} 의 동경을 그리고 원과의 교점을 P라 합니다\nsin은 P의 y좌표, cos은 x좌표, tan은 y ÷ x → P({=cosd(deg)}, {=sind(deg)})\nP가 어느 사분면에 있는지로 부호를 정하면 {answer}",
+        "en": "Draw the angle {label} on the unit circle and call the point P\nsin is P's y-coordinate, cos its x-coordinate, tan is y ÷ x → P({=cosd(deg)}, {=sind(deg)})\nThe quadrant of P fixes the sign: {answer}"
       }
     },
     {

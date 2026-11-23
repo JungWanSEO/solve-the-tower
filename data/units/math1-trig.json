@@ -254,9 +254,9 @@
         "en": "What is the exact value of {fn} {deg}°?"
       },
       "explain": {
-        "ja": "180° − {deg}° の鋭角の値を使う\n鈍角では sin は正のまま、cos と tan は負になる\n{fn} {deg}° = {answer}",
-        "ko": "180° − {deg}° 인 예각의 값을 씁니다\n둔각에서는 sin은 그대로 양수, cos과 tan은 음수가 됩니다\n{fn} {deg}° = {answer}",
-        "en": "Use the acute angle 180° − {deg}°\nFor an obtuse angle sin stays positive; cos and tan become negative\n{fn} {deg}° = {answer}"
+        "ja": "180° − {deg}° の鋭角の値を使う = {=180-deg}°\n鈍角では sin は正のまま、cos と tan は負になる\n{fn} {deg}° = {answer}",
+        "ko": "180° − {deg}° 인 예각의 값을 씁니다 = {=180-deg}°\n둔각에서는 sin은 그대로 양수, cos과 tan은 음수가 됩니다\n{fn} {deg}° = {answer}",
+        "en": "Use the acute angle 180° − {deg}° = {=180-deg}°\nFor an obtuse angle sin stays positive; cos and tan become negative\n{fn} {deg}° = {answer}"
       },
       "items": [
         {
@@ -512,9 +512,9 @@
         "en": "As shown, from a point {d} m away the angle of elevation to the top of the tower is {deg}°. What is the height h of the tower?"
       },
       "explain": {
-        "ja": "水平距離 {d} m が隣辺、高さ h が対辺の直角三角形\ntan {deg}° = h ÷ {d} なので h = {d} × tan {deg}°\n{answer}",
-        "ko": "수평거리 {d} m가 이웃변, 높이 h가 대변인 직각삼각형\ntan {deg}° = h ÷ {d} 이므로 h = {d} × tan {deg}°\n{answer}",
-        "en": "A right triangle with the distance {d} m adjacent and the height h opposite\ntan {deg}° = h ÷ {d}, so h = {d} × tan {deg}°\n{answer}"
+        "ja": "水平距離 {d} m が隣辺、高さ h が対辺の直角三角形\ntan {deg}° = h ÷ {d} なので h = {d} × tan {deg}° → tan {deg}° = {=tand(deg)}\n{answer}",
+        "ko": "수평거리 {d} m가 이웃변, 높이 h가 대변인 직각삼각형\ntan {deg}° = h ÷ {d} 이므로 h = {d} × tan {deg}° → tan {deg}° = {=tand(deg)}\n{answer}",
+        "en": "A right triangle with the distance {d} m adjacent and the height h opposite\ntan {deg}° = h ÷ {d}, so h = {d} × tan {deg}° → tan {deg}° = {=tand(deg)}\n{answer}"
       },
       "note": {
         "ja": "目の高さは考えないものとする。",
@@ -540,9 +540,9 @@
         "en": "As shown, from two points {g} m apart the angles of elevation to the top of the tower are {a}° and {b}°. What is the height h of the tower?"
       },
       "explain": {
-        "ja": "塔までの距離を、遠い地点から h ÷ tan {a}°、近い地点から h ÷ tan {b}° と表す\nその差が {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nh について解くと {answer}",
-        "ko": "탑까지의 거리를 먼 지점에서는 h ÷ tan {a}°, 가까운 지점에서는 h ÷ tan {b}° 로 나타냅니다\n그 차가 {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nh에 대해 풀면 {answer}",
-        "en": "Write the distances to the tower as h ÷ tan {a}° (far point) and h ÷ tan {b}° (near point)\nTheir difference is {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nSolve for h: {answer}"
+        "ja": "塔までの距離を、遠い地点から h ÷ tan {a}°、近い地点から h ÷ tan {b}° と表す → tan {a}° = {=tand(a)}, tan {b}° = {=tand(b)}\nその差が {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nh について解くと {answer}",
+        "ko": "탑까지의 거리를 먼 지점에서는 h ÷ tan {a}°, 가까운 지점에서는 h ÷ tan {b}° 로 나타냅니다 → tan {a}° = {=tand(a)}, tan {b}° = {=tand(b)}\n그 차가 {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nh에 대해 풀면 {answer}",
+        "en": "Write the distances to the tower as h ÷ tan {a}° (far point) and h ÷ tan {b}° (near point) → tan {a}° = {=tand(a)}, tan {b}° = {=tand(b)}\nTheir difference is {g} m: h ÷ tan {a}° − h ÷ tan {b}° = {g}\nSolve for h: {answer}"
       },
       "note": {
         "ja": "目の高さは考えないものとする。",
@@ -570,9 +570,9 @@
         "en": "In △ABC, a = {a}, A = {A}° and B = {B}°. What is b?"
       },
       "explain": {
-        "ja": "正弦定理 a ÷ sin A = b ÷ sin B を使う\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}",
-        "ko": "사인법칙 a ÷ sin A = b ÷ sin B 를 씁니다\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}",
-        "en": "Use the sine rule a ÷ sin A = b ÷ sin B\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}"
+        "ja": "正弦定理 a ÷ sin A = b ÷ sin B を使う → sin {A}° = {=sind(A)}, sin {B}° = {=sind(B)}\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}",
+        "ko": "사인법칙 a ÷ sin A = b ÷ sin B 를 씁니다 → sin {A}° = {=sind(A)}, sin {B}° = {=sind(B)}\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}",
+        "en": "Use the sine rule a ÷ sin A = b ÷ sin B → sin {A}° = {=sind(A)}, sin {B}° = {=sind(B)}\nb = a × sin B ÷ sin A = {a} × sin {B}° ÷ sin {A}°\n{answer}"
       }
     },
     {
@@ -586,9 +586,9 @@
         "en": "In △ABC, a = {a} and A = {A}°. What is the circumradius R?"
       },
       "explain": {
-        "ja": "正弦定理 a ÷ sin A = 2R を使う\n2R = {a} ÷ sin {A}°\n2 で割って R = {answer}",
-        "ko": "사인법칙 a ÷ sin A = 2R 을 씁니다\n2R = {a} ÷ sin {A}°\n2로 나누면 R = {answer}",
-        "en": "Use the sine rule a ÷ sin A = 2R\n2R = {a} ÷ sin {A}°\nHalve it: R = {answer}"
+        "ja": "正弦定理 a ÷ sin A = 2R を使う\n2R = {a} ÷ sin {A}° = {a} ÷ {=sind(A)} = {=a/sind(A)}\n2 で割って R = {answer}",
+        "ko": "사인법칙 a ÷ sin A = 2R 을 씁니다\n2R = {a} ÷ sin {A}° = {a} ÷ {=sind(A)} = {=a/sind(A)}\n2로 나누면 R = {answer}",
+        "en": "Use the sine rule a ÷ sin A = 2R\n2R = {a} ÷ sin {A}° = {a} ÷ {=sind(A)} = {=a/sind(A)}\nHalve it: R = {answer}"
       }
     },
     {
@@ -661,9 +661,9 @@
         "en": "In △ABC, b = {b}, c = {c} and A = {A}°. What is the area S?"
       },
       "explain": {
-        "ja": "2辺とその間の角から S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}°\n{answer}",
-        "ko": "두 변과 그 끼인각에서 S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}°\n{answer}",
-        "en": "From two sides and the included angle: S = (1/2) bc sin A\n(1/2) × {b} × {c} × sin {A}°\n{answer}"
+        "ja": "2辺とその間の角から S = (1/2) bc sin A → sin {A}° = {=sind(A)}\n(1/2) × {b} × {c} × sin {A}°\n{answer}",
+        "ko": "두 변과 그 끼인각에서 S = (1/2) bc sin A → sin {A}° = {=sind(A)}\n(1/2) × {b} × {c} × sin {A}°\n{answer}",
+        "en": "From two sides and the included angle: S = (1/2) bc sin A → sin {A}° = {=sind(A)}\n(1/2) × {b} × {c} × sin {A}°\n{answer}"
       }
     },
     {
@@ -700,9 +700,9 @@
         "en": "Tower PH stands vertically on the ground. From ground points A and B the angles of elevation to the top P are {al}° and {be}°. If ∠AHB = 90° and AB = {d} m, how tall is PH?"
       },
       "explain": {
-        "ja": "PH = h とおくと、AH = h ÷ tan {al}°、BH = h ÷ tan {be}°\n地面の三角形 ABH は直角三角形なので AB² = AH² + BH²\n{d}² = AH² + BH² を h について解くと {answer}",
-        "ko": "PH = h 로 놓으면 AH = h ÷ tan {al}°, BH = h ÷ tan {be}°\n땅 위의 삼각형 ABH는 직각삼각형이므로 AB² = AH² + BH²\n{d}² = AH² + BH² 을 h에 대해 풀면 {answer}",
-        "en": "Let PH = h; then AH = h ÷ tan {al}° and BH = h ÷ tan {be}°\nTriangle ABH on the ground is right-angled, so AB² = AH² + BH²\nSolve {d}² = AH² + BH² for h: {answer}"
+        "ja": "PH = h とおくと、AH = h ÷ tan {al}°、BH = h ÷ tan {be}° → tan {al}° = {=tand(al)}, tan {be}° = {=tand(be)}\n地面の三角形 ABH は直角三角形なので AB² = AH² + BH²\n{d}² = AH² + BH² を h について解くと {answer}",
+        "ko": "PH = h 로 놓으면 AH = h ÷ tan {al}°, BH = h ÷ tan {be}° → tan {al}° = {=tand(al)}, tan {be}° = {=tand(be)}\n땅 위의 삼각형 ABH는 직각삼각형이므로 AB² = AH² + BH²\n{d}² = AH² + BH² 을 h에 대해 풀면 {answer}",
+        "en": "Let PH = h; then AH = h ÷ tan {al}° and BH = h ÷ tan {be}° → tan {al}° = {=tand(al)}, tan {be}° = {=tand(be)}\nTriangle ABH on the ground is right-angled, so AB² = AH² + BH²\nSolve {d}² = AH² + BH² for h: {answer}"
       },
       "figure": {
         "kind": "space",
@@ -837,9 +837,9 @@
         "h": "h = ?"
       },
       "explain": {
-        "ja": "頂点から底面に下ろした垂線の足は、底面(正三角形)の重心\n重心から底面の頂点までの距離は {a} ÷ √3\n三平方の定理 h² = {a}² − ({a} ÷ √3)² より h = {answer}",
-        "ko": "꼭짓점에서 밑면에 내린 수선의 발은 밑면(정삼각형)의 무게중심\n무게중심에서 밑면의 꼭짓점까지의 거리는 {a} ÷ √3\n피타고라스 정리 h² = {a}² − ({a} ÷ √3)² 에서 h = {answer}",
-        "en": "The foot of the height is the centroid of the base triangle\nThe centroid is {a} ÷ √3 from each base vertex\nBy Pythagoras h² = {a}² − ({a} ÷ √3)², so h = {answer}"
+        "ja": "頂点から底面に下ろした垂線の足は、底面(正三角形)の重心\n重心から底面の頂点までの距離は {a} ÷ √3 = {=a/sqrt(3)}\n三平方の定理 h² = {a}² − ({a} ÷ √3)² より h = {answer}",
+        "ko": "꼭짓점에서 밑면에 내린 수선의 발은 밑면(정삼각형)의 무게중심\n무게중심에서 밑면의 꼭짓점까지의 거리는 {a} ÷ √3 = {=a/sqrt(3)}\n피타고라스 정리 h² = {a}² − ({a} ÷ √3)² 에서 h = {answer}",
+        "en": "The foot of the height is the centroid of the base triangle\nThe centroid is {a} ÷ √3 from each base vertex = {=a/sqrt(3)}\nBy Pythagoras h² = {a}² − ({a} ÷ √3)², so h = {answer}"
       }
     },
     {
@@ -861,9 +861,9 @@
         "h": ""
       },
       "explain": {
-        "ja": "底面積(1辺 {a} の正三角形)= (√3 ÷ 4) × {a}²\n高さ = (√6 ÷ 3) × {a}\n体積 = 底面積 × 高さ ÷ 3 = {answer}",
-        "ko": "밑넓이(한 변이 {a} 인 정삼각형) = (√3 ÷ 4) × {a}²\n높이 = (√6 ÷ 3) × {a}\n부피 = 밑넓이 × 높이 ÷ 3 = {answer}",
-        "en": "Base area (equilateral, side {a}) = (√3 ÷ 4) × {a}²\nHeight = (√6 ÷ 3) × {a}\nVolume = base × height ÷ 3 = {answer}"
+        "ja": "底面積(1辺 {a} の正三角形)= (√3 ÷ 4) × {a}² = {=sqrt(3)/4*a*a}\n高さ = (√6 ÷ 3) × {a} = {=sqrt(6)/3*a}\n体積 = 底面積 × 高さ ÷ 3 = {answer}",
+        "ko": "밑넓이(한 변이 {a} 인 정삼각형) = (√3 ÷ 4) × {a}² = {=sqrt(3)/4*a*a}\n높이 = (√6 ÷ 3) × {a} = {=sqrt(6)/3*a}\n부피 = 밑넓이 × 높이 ÷ 3 = {answer}",
+        "en": "Base area (equilateral, side {a}) = (√3 ÷ 4) × {a}² = {=sqrt(3)/4*a*a}\nHeight = (√6 ÷ 3) × {a} = {=sqrt(6)/3*a}\nVolume = base × height ÷ 3 = {answer}"
       }
     }
   ],
@@ -949,7 +949,8 @@
             "en": "Solve S = r(a + b + c) ÷ 2 for r\nPut a = {a1} and S = {a2}: r = 2S ÷ (a + b + c)\nr = {answer}"
           },
           "figure": {
-            "sideA": "{a1}"
+            "sideA": "{a1}",
+            "r": "r = ?"
           }
         }
       ]
@@ -1023,7 +1024,8 @@
             "en": "Inradius r"
           },
           "figure": {
-            "hyp": "{a1}"
+            "hyp": "{a1}",
+            "r": "r = ?"
           },
           "text": {
             "ja": "内接円の半径 r は?",
