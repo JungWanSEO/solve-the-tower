@@ -35,7 +35,8 @@ export function wake() {
     const Ctx = window.AudioContext || window.webkitAudioContext;
     if (!Ctx) return;
     if (!ctx) ctx = new Ctx();
-    if (ctx.state === 'suspended') ctx.resume();
+    // 아이폰은 전화·알림·앱 전환 뒤에 'interrupted' 상태가 되기도 합니다. 'running' 이 아니면 언제나 다시 켭니다.
+    if (ctx.state !== 'running') ctx.resume();
   } catch (e) {
     // 소리를 낼 수 없는 환경
   }
@@ -72,15 +73,28 @@ export function play(name) {
 // 화음 진행을 따라 음을 하나씩 짚는 단순한 반복 음악입니다. (이 게임을 위해 만든 진행)
 // 곡 하나: bpm 빠르기, wave 파형, chords 한 마디씩의 화음(미디 음 번호 셋), lead 한 마디 8칸에서 짚을 화음 자리(-1 은 쉼), bass 베이스를 치는 칸
 const TRACKS = {
-  calm: { bpm: 78, wave: 'triangle', chords: [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]], lead: [0, 2, 1, 2, 0, 2, 1, -1], bass: [0, 4] },
-  battle: { bpm: 116, wave: 'triangle', chords: [[50, 53, 57], [46, 50, 53], [48, 52, 55], [45, 49, 52]], lead: [0, 1, 2, 1, 0, 2, 1, 2], bass: [0, 2, 4, 6] },
-  boss: { bpm: 128, wave: 'square', chords: [[45, 48, 52], [45, 48, 52], [41, 45, 48], [43, 47, 50]], lead: [0, 2, 1, 2, 0, 2, 1, 2], bass: [0, 1, 2, 4, 5, 6] },
+  // 지도·상점·휴식: 잔잔하게
+  calm: { bpm: 78, wave: 'triangle', chords: [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]], lead: [0, 2, 1, 2, 0, 2, 1, -1], bass: [0, 4], pad: 0.3 },
+  // 보통 전투: 과목마다 분위기가 다릅니다 (몬스터의 약점 단원으로 고릅니다)
+  battle: { bpm: 116, wave: 'triangle', chords: [[50, 53, 57], [46, 50, 53], [48, 52, 55], [45, 49, 52]], lead: [0, 1, 2, 1, 0, 2, 1, 2], bass: [0, 2, 4, 6], kick: [0, 4] }, // 数学I: 씩씩하게
+  battleA: { bpm: 104, wave: 'triangle', chords: [[55, 59, 62], [52, 55, 59], [48, 52, 55], [50, 54, 57]], melody: [[0, null, 4, 7, null, 4, 7, 12], [0, null, 3, 7, null, 3, 7, null], [0, 4, 7, null, 12, null, 7, 4], [0, null, 4, 7, 9, 7, 4, null]], bass: [0, 3, 4, 7], kick: [0, 3, 6] }, // 数学A: 가볍고 통통 튀게
+  battle2: { bpm: 110, wave: 'sawtooth', leadVol: 0.55, chords: [[50, 53, 57], [48, 52, 55], [46, 50, 53], [45, 49, 52]], melody: [[0, null, 7, null, 3, null, 7, 10], [0, null, 7, null, 4, 5, 7, null], [0, null, 7, null, 4, null, 7, 11], [0, 4, 7, null, 12, 10, 7, null]], bass: [0, 2, 4, 6], kick: [0, 4], pad: 0.22 }, // 数学II: 어둡고 신비롭게
+  // 강적: 쉬지 않고 몰아치는 베이스
+  elite: { bpm: 138, wave: 'square', leadVol: 0.7, chords: [[45, 48, 52], [45, 48, 52], [43, 46, 50], [41, 45, 48]], lead: [0, 0, 2, 0, 1, 0, 2, 1], bass: [0, 1, 2, 3, 4, 5, 6, 7], kick: [0, 2, 4, 6] },
+  // 중간 보스: 긴장감 있는 빠른 곡
+  midboss: { bpm: 128, wave: 'square', leadVol: 0.75, chords: [[45, 48, 52], [45, 48, 52], [41, 45, 48], [43, 47, 50]], lead: [0, 2, 1, 2, 0, 2, 1, 2], bass: [0, 1, 2, 4, 5, 6], kick: [0, 4, 6] },
+  // 보스: 느리고 웅장하게. 화음을 길게 깔고, 가락은 한 옥타브 아래를 겹쳐 두껍게, 큰북이 박을 칩니다.
+  boss: { bpm: 92, wave: 'sawtooth', leadVol: 0.6, big: true, chords: [[50, 53, 57], [46, 50, 53], [48, 52, 55], [45, 49, 52]],
+    melody: [[0, null, null, 7, null, null, 5, 3], [7, null, null, 4, null, null, 7, null], [7, null, 4, null, 7, null, 12, null], [4, null, null, 7, null, 4, null, null],
+      [12, null, null, 10, null, null, 7, 3], [7, null, 11, null, 12, null, 7, null], [7, null, 9, null, 12, null, 16, null], [16, null, null, 12, null, 7, 4, null]],
+    bass: [0, 4], pad: 0.45, drum: [0, 3, 6, 7] },
 };
 const MUSIC_VOLUME = 0.06; // 설정의 음악 음량 100% 일 때의 크기 (기본 50% 에서 0.03)
 const hz = (midi) => 440 * 2 ** ((midi - 69) / 12);
 let musicOn = true;
 let musicLevel = 1; // 음악 음량 (0 ~ 1)
 let wanted = 'calm'; // 지금 나와야 하는 곡
+let shift = 0; // 곡 전체를 반음 몇 개만큼 올리거나 내릴지 (보스마다 조가 다릅니다)
 let step = 0;
 let nextAt = 0;
 let timer = 0;
@@ -98,18 +112,45 @@ function tone(freq, at, len, wave, volume) {
   osc.stop(at + len + 0.03);
 }
 
+// 북 소리: 높은 음에서 낮은 음으로 빠르게 떨어지는 사인파. deep 이면 큰북처럼 낮고 길게
+function drum(at, deep) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const len = deep ? 0.5 : 0.13;
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(deep ? 95 : 150, at);
+  osc.frequency.exponentialRampToValueAtTime(deep ? 38 : 48, at + len);
+  gain.gain.setValueAtTime(Math.max(0.0002, MUSIC_VOLUME * (deep ? 2.6 : 1.5) * musicLevel), at);
+  gain.gain.exponentialRampToValueAtTime(0.0001, at + len);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(at);
+  osc.stop(at + len + 0.03);
+}
+
 // 0.1초마다 깨어나, 앞으로 0.3초 안에 울릴 음을 미리 예약합니다.
 function tick() {
   if (!musicOn || !ctx || ctx.state !== 'running' || document.hidden) return;
   const track = TRACKS[wanted];
   const beat = 60 / track.bpm / 2; // 8분음표 하나의 길이
+  const leadVol = MUSIC_VOLUME * (track.leadVol || 1);
   if (nextAt < ctx.currentTime) nextAt = ctx.currentTime + 0.05;
   while (nextAt < ctx.currentTime + 0.3) {
-    const chord = track.chords[Math.floor(step / 8) % track.chords.length];
+    const bar = Math.floor(step / 8);
+    const chord = track.chords[bar % track.chords.length].map((n) => n + shift);
     const slot = step % 8;
-    const pick = track.lead[slot];
-    if (pick >= 0) tone(hz(chord[pick] + 12), nextAt, beat * 0.9, track.wave, MUSIC_VOLUME);
-    if (track.bass.includes(slot)) tone(hz(chord[0] - 12), nextAt, beat * 1.6, 'sine', MUSIC_VOLUME * 1.6);
+    // 가락: melody 가 있으면 화음의 밑음에서 반음 몇 개 위인지로, 없으면 lead 가 짚는 화음 자리로
+    let note = null;
+    if (track.melody) { const up = track.melody[bar % track.melody.length][slot]; if (up !== null && up !== undefined) note = chord[0] + 12 + up; }
+    else if (track.lead[slot] >= 0) note = chord[track.lead[slot]] + 12;
+    if (note !== null) {
+      tone(hz(note), nextAt, beat * (track.big ? 1.9 : 0.9), track.wave, leadVol);
+      if (track.big) tone(hz(note - 12), nextAt, beat * 1.9, 'triangle', leadVol * 0.9);
+    }
+    if (track.bass.includes(slot)) tone(hz(chord[0] - 12), nextAt, beat * (track.big ? 3.6 : 1.6), 'sine', MUSIC_VOLUME * 1.6);
+    // 깔리는 화음: 마디의 첫 박에 세 음을 길게
+    if (track.pad && slot === 0) for (const n of chord) tone(hz(n), nextAt, beat * 7.6, 'triangle', MUSIC_VOLUME * track.pad);
+    if (track.kick && track.kick.includes(slot)) drum(nextAt, false);
+    if (track.drum && track.drum.includes(slot)) drum(nextAt, true);
     step += 1;
     nextAt += beat;
   }
@@ -121,9 +162,18 @@ export function setMusic(value) {
   musicOn = musicLevel > 0;
   if (musicOn && !timer && typeof setInterval === 'function' && (window.AudioContext || window.webkitAudioContext)) timer = setInterval(tick, 100);
 }
-// 곡을 바꿉니다: 'calm'(지도·상점 등), 'battle'(전투), 'boss'(중간 보스·보스)
-export function music(name) {
-  if (!TRACKS[name] || name === wanted) return;
+// 곡을 바꿉니다: 'calm'(지도·상점 등), 'battle'·'battleA'·'battle2'(과목별 보통 전투), 'elite'(강적), 'midboss', 'boss'
+// key: 곡의 조를 반음 몇 개만큼 옮길지 (보스마다 다른 조로 들리게 할 때 씁니다)
+export function music(name, key = 0) {
+  if (!TRACKS[name] || (name === wanted && key === shift)) return;
   wanted = name;
+  shift = key;
   step = 0;
+}
+// 전투에 맞는 곡 고르기. weak 는 몬스터의 약점 유형("단원/유형"), id 는 몬스터 id
+export function battleMusic(kind, weak = '', id = '') {
+  if (kind === 'boss') return music('boss', ([...id].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % 5) - 2);
+  if (kind === 'midboss') return music('midboss');
+  if (kind === 'elite') return music('elite');
+  return music(weak.startsWith('math2-') ? 'battle2' : weak.startsWith('matha-') ? 'battleA' : 'battle');
 }
