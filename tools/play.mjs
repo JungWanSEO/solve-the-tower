@@ -137,16 +137,21 @@ function act() {
 
 const save = () => JSON.parse(window.localStorage.getItem('mathrpg_save_v1') || '{}');
 let i = 0;
+let relicNow = 0; const relicCounts = [];
 const CAP = Number(process.env.CAP || 400000);
 const RUNS = Number(process.env.RUNS || 0);
 for (; i < CAP && !errors.length; i++) {
   ts += 16; const q = frames; frames = []; for (const f of q) f(ts);
   if (i % 12 === 0) act();
+  // 한 판에 유물을 몇 개 모았는지 셉니다: 상태 줄에 적힌 유물 수가 줄어들면(새 판) 앞 판의 수를 적어 둡니다.
+  if (i % 12 === 0) { const strip = window.document.querySelector('.relic-strip'); const n = strip ? Number((strip.getAttribute('aria-label').match(/\d+/) || [0])[0]) : 0; if (n < relicNow) relicCounts.push(relicNow); relicNow = n; }
   if (i % 500 === 0 && (save().clears || 0) >= WANT_CLEARS) break;
   if (RUNS && i % 500 === 0 && (save().clears || 0) + stats.defeats >= RUNS) break; // RUNS: 이기든 지든 정해진 판 수만 합니다
   if (RUNS && i % 12 === 0 && vis('screenTitle') && (save().clears || 0) + stats.defeats >= RUNS) break;
 }
 const s = save();
+if (relicNow) relicCounts.push(relicNow);
+if (process.env.RELICCOUNT) console.log('RELICS_PER_RUN ' + relicCounts.join(' '));
 if (process.env.JSONOUT) { console.log(JSON.stringify({ acc: ACC, clears: s.clears || 0, deaths: stats.defeats, deathFloors: stats.deathFloors, answered: stats.answers, right: stats.right, errors: errors.length })); process.exit(errors.length ? 1 : 0); }
 if (process.env.DIALOGS) for (const d of stats.dialogs || []) console.log('DIALOG', d);
 if (process.env.BRIEF) { console.log(`relics seen ${Object.keys(s.relics || {}).length}: ${Object.keys(s.relics || {}).join(' ')} | picked at choices ${stats.relics || 0}`); console.log(`acc ${ACC}: clears ${s.clears || 0}, deaths ${stats.defeats}, clear rate ${(((s.clears || 0) / Math.max(1, (s.clears || 0) + stats.defeats)) * 100).toFixed(0)}%, midboss reached ${stats.nodes['type-midboss'] || 0}, boss reached ${stats.nodes['type-boss'] || 0}, errors ${errors.length}, acts passed ${stats.acts || 0}, answered ${stats.answers}`); process.exit(errors.length ? 1 : 0); }
