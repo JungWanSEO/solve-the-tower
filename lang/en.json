@@ -266,7 +266,9 @@
     "iosHintSub": "Safari clears them after about a week away. See how to keep them →",
     "record": "Battles won {wins} · Towers cleared {clears}",
     "tutorialShort": "Tutorial",
-    "setSub": "Volume, language, display, data"
+    "setSub": "Volume, language, display, data",
+    "newsShort": "News",
+    "newsSub": "See what changed"
   },
   "scope": {
     "title": "Choose your range",
@@ -620,5 +622,11 @@
     "lost": "You lost to the {name}, but your clear still counts.",
     "record": "True boss defeated {n} time(s)",
     "final": "True Boss {name}"
+  },
+  "news": {
+    "title": "Update news",
+    "version": "Version {v}",
+    "latest": "New",
+    "none": "Could not load the news."
   }
 }

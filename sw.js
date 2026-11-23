@@ -5,7 +5,7 @@
 //   VERSION 이 바뀌면 브라우저가 새 파일을 통째로 다시 받고, 화면에 "새 버전이 준비됐습니다" 가 나옵니다.
 //   바꾸지 않으면 이미 열어 본 사람에게는 예전 화면이 계속 나옵니다.
 // 파일을 새로 만들면 FILES 에도 추가합니다. (빠뜨려도 처음 쓸 때 저장되지만, 오프라인 첫 실행에서 빠집니다)
-const VERSION = '0.4.0-dev.2';
+const VERSION = '0.4.0-dev.3';
 const CACHE = `solve-the-tower-${VERSION}`;
 const FILES = [
   './',
@@ -31,6 +31,7 @@ const FILES = [
   './js/run.js',
   './js/relics.js',
   './js/heroes.js',
+  './js/news.js',
   './js/save.js',
   './js/scope.js',
   './js/settings.js',
@@ -40,6 +41,7 @@ const FILES = [
   './js/tutorial.js',
   './js/ui.js',
   './data/catalog.json',
+  './data/news.json',
   './data/monsters.json',
   './data/units/math1-expr.json',
   './data/units/math1-quad.json',
