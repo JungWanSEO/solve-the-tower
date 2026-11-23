@@ -26,6 +26,7 @@ const ICON = {
   counter: '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M14.5 9l-5 5M9.5 9.5V14H14"/>',
   coin: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M14.5 9.5h-3.7a1.7 1.7 0 000 3.4h2.4a1.7 1.7 0 010 3.4H9.5"/>',
   weak: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/>',
+  news: '<path d="M4 10v4h3l7 4V6l-7 4z"/><path d="M17.5 9.5a3.5 3.5 0 010 5M8 14v4.5h2.5"/>',
   key: '<circle cx="8" cy="8" r="4.5"/><path d="M11.2 11.2L20 20M16 16l2.5-2.5M18.5 18.5L21 16"/>',
   // 유물 (학용품). 이름은 'r-' + 유물 id (js/relics.js)
   'r-pencil': '<path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="M14 6l4 4M5 15l4 4"/>',

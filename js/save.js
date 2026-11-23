@@ -9,6 +9,7 @@ export function blank() {
     clears: 0,                 // 단원을 클리어한 횟수
     codex: {},                 // 유형별 기록: { 유형: { right, wrong, streak } }
     seen: {},                  // 만난 몬스터: { 몬스터 id: true }
+    newsSeen: '',              // 업데이트 소식을 마지막으로 본 버전
     trueClears: 0,             // 진보스를 이긴 횟수
     hero: 'starter',           // 마지막으로 고른 모습 (js/heroes.js)
     heroSeen: {},              // "새 모습을 얻었습니다" 창을 이미 본 모습: { 모습 id: true }
@@ -85,6 +86,7 @@ export function decodeSave(code) {
       if (key.length < 60 && entry && isNum(entry.right) && isNum(entry.wrong)) out.codex[key] = { right: entry.right, wrong: entry.wrong, streak: isNum(entry.streak) ? entry.streak : 0 };
     }
     if (raw.seen && typeof raw.seen === 'object') for (const key of Object.keys(raw.seen)) if (key.length < 30) out.seen[key] = true;
+    if (typeof raw.newsSeen === 'string' && raw.newsSeen.length < 20) out.newsSeen = raw.newsSeen;
     if (isNum(raw.trueClears)) out.trueClears = Math.floor(raw.trueClears);
     if (typeof raw.hero === 'string' && raw.hero.length < 20) out.hero = raw.hero;
     if (raw.heroSeen && typeof raw.heroSeen === 'object') for (const key of Object.keys(raw.heroSeen)) if (key.length < 20) out.heroSeen[key] = true;

@@ -8,6 +8,7 @@ import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor
 import { newRun, nextAct, isLastAct } from './run.js';
 import { RELICS, has, relicVars } from './relics.js';
 import { heroOf, unlockedHeroes, newHeroes, heroVars } from './heroes.js';
+import { createNews } from './news.js';
 import { createStage } from './stage.js';
 import { createBattle } from './battle.js';
 import { createMap } from './map.js';
@@ -697,11 +698,14 @@ async function boot() {
       goData();
     },
   });
+  const news = createNews({ data, persist });
+  $('titleNews').addEventListener('click', news.open);
   $('titleSettings').addEventListener('click', settings.open);
   $('menuSettings').addEventListener('click', settings.open);
 
   watchFit();
   goTitle();
+  news.showIfNew(); // 새 버전을 처음 열었으면 업데이트 소식을 한 번 보여 줍니다
   document.body.classList.add('ready'); // 불러오기 끝: 진행 막대를 치우고 버튼을 보여 줍니다.
   clearTimeout(window.sttSlow);
   watchUpdate();

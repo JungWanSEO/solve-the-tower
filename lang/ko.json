@@ -266,7 +266,9 @@
     "iosHintSub": "일주일쯤 쉬면 사파리가 기록을 지웁니다. 지키는 방법 보기 →",
     "record": "이긴 전투 {wins} · 탑 클리어 {clears}",
     "tutorialShort": "튜토리얼",
-    "setSub": "음량, 언어, 화면, 데이터 관리"
+    "setSub": "음량, 언어, 화면, 데이터 관리",
+    "newsShort": "소식",
+    "newsSub": "이번에 바뀐 것 보기"
   },
   "scope": {
     "title": "범위 고르기",
@@ -620,5 +622,11 @@
     "lost": "진보스 「{name}」에게는 졌지만, 탑을 깬 기록은 그대로입니다.",
     "record": "진보스 격파 {n}회",
     "final": "진보스 {name}"
+  },
+  "news": {
+    "title": "업데이트 소식",
+    "version": "버전 {v}",
+    "latest": "새 소식",
+    "none": "소식을 불러오지 못했습니다."
   }
 }
