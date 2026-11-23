@@ -200,9 +200,9 @@
         "en": "What is the equation of the line through {A} with slope {m}?"
       },
       "explain": {
-        "ja": "点 (x₁, y₁) を通り傾き m の直線は y − y₁ = m(x − x₁)\n点 {A} と m = {m} を代入する\ny = … の形に整理して {answer}",
-        "ko": "점 (x₁, y₁)을 지나고 기울기가 m인 직선은 y − y₁ = m(x − x₁)\n점 {A} 와 m = {m} 을 대입합니다\ny = … 꼴로 정리하면 {answer}",
-        "en": "A line through (x₁, y₁) with slope m is y − y₁ = m(x − x₁)\nPut in the point {A} and m = {m}\nRearrange to y = …: {answer}"
+        "ja": "点 (x₁, y₁) を通り傾き m の直線は y − y₁ = m(x − x₁)\n点 {A} と m = {m} を代入する → y − ({=pa[1]}) = {m}(x − ({=pa[0]}))\ny = … の形に整理して {answer}",
+        "ko": "점 (x₁, y₁)을 지나고 기울기가 m인 직선은 y − y₁ = m(x − x₁)\n점 {A} 와 m = {m} 을 대입합니다 → y − ({=pa[1]}) = {m}(x − ({=pa[0]}))\ny = … 꼴로 정리하면 {answer}",
+        "en": "A line through (x₁, y₁) with slope m is y − y₁ = m(x − x₁)\nPut in the point {A} and m = {m} → y − ({=pa[1]}) = {m}(x − ({=pa[0]}))\nRearrange to y = …: {answer}"
       }
     },
     {
@@ -242,9 +242,9 @@
         "en": "What is the slope of a line parallel to {line}?"
       },
       "explain": {
-        "ja": "{line} を y = … の形に直して傾きを読みとる\n平行な2直線は傾きが等しい\n{answer}",
-        "ko": "{line} 을 y = … 꼴로 고쳐서 기울기를 읽습니다\n평행한 두 직선은 기울기가 같습니다\n{answer}",
-        "en": "Rewrite {line} as y = … and read off the slope\nParallel lines have equal slopes\n{answer}"
+        "ja": "{line} を y = … の形に直して傾きを読みとる → y = ({=-lineco(line)[0]/lineco(line)[1]})x + ({=-lineco(line)[2]/lineco(line)[1]})\n平行な2直線は傾きが等しい\n{answer}",
+        "ko": "{line} 을 y = … 꼴로 고쳐서 기울기를 읽습니다 → y = ({=-lineco(line)[0]/lineco(line)[1]})x + ({=-lineco(line)[2]/lineco(line)[1]})\n평행한 두 직선은 기울기가 같습니다\n{answer}",
+        "en": "Rewrite {line} as y = … and read off the slope → y = ({=-lineco(line)[0]/lineco(line)[1]})x + ({=-lineco(line)[2]/lineco(line)[1]})\nParallel lines have equal slopes\n{answer}"
       }
     },
     {
@@ -261,9 +261,9 @@
         "en": "What is the slope of a line perpendicular to {line}?"
       },
       "explain": {
-        "ja": "{line} を y = … の形に直して傾き m を読みとる\n垂直な2直線の傾きの積は −1\n求める傾きは −1 ÷ m = {answer}",
-        "ko": "{line} 을 y = … 꼴로 고쳐서 기울기 m을 읽습니다\n수직인 두 직선의 기울기의 곱은 −1\n구하는 기울기는 −1 ÷ m = {answer}",
-        "en": "Rewrite {line} as y = … and read off its slope m\nPerpendicular slopes multiply to −1\nThe slope is −1 ÷ m = {answer}"
+        "ja": "{line} を y = … の形に直して傾き m を読みとる → m = {=-lineco(line)[0]/lineco(line)[1]}\n垂直な2直線の傾きの積は −1\n求める傾きは −1 ÷ m = {answer}",
+        "ko": "{line} 을 y = … 꼴로 고쳐서 기울기 m을 읽습니다 → m = {=-lineco(line)[0]/lineco(line)[1]}\n수직인 두 직선의 기울기의 곱은 −1\n구하는 기울기는 −1 ÷ m = {answer}",
+        "en": "Rewrite {line} as y = … and read off its slope m → m = {=-lineco(line)[0]/lineco(line)[1]}\nPerpendicular slopes multiply to −1\nThe slope is −1 ÷ m = {answer}"
       }
     },
     {
@@ -277,9 +277,9 @@
         "en": "What is the distance from the point {P} to the line {line}?"
       },
       "explain": {
-        "ja": "点 (x₁, y₁) と直線 ax + by + c = 0 の距離は |ax₁ + by₁ + c| ÷ √(a² + b²)\n分子: 点 {P} を {line} の左辺に代入して絶対値をとる\n分母 √(a² + b²) で割って {answer}",
-        "ko": "점 (x₁, y₁)과 직선 ax + by + c = 0 사이의 거리는 |ax₁ + by₁ + c| ÷ √(a² + b²)\n분자: 점 {P} 를 {line} 의 좌변에 대입하고 절댓값을 구합니다\n분모 √(a² + b²) 로 나누면 {answer}",
-        "en": "Distance from (x₁, y₁) to ax + by + c = 0 is |ax₁ + by₁ + c| ÷ √(a² + b²)\nTop: put {P} into the left side of {line} and take the absolute value\nDivide by √(a² + b²): {answer}"
+        "ja": "点 (x₁, y₁) と直線 ax + by + c = 0 の距離は |ax₁ + by₁ + c| ÷ √(a² + b²)\n分子: 点 {P} を {line} の左辺に代入して絶対値をとる → |{=lineco(line)[0]*px+lineco(line)[1]*py+lineco(line)[2]}|\n分母 √(a² + b²) で割って {answer}",
+        "ko": "점 (x₁, y₁)과 직선 ax + by + c = 0 사이의 거리는 |ax₁ + by₁ + c| ÷ √(a² + b²)\n분자: 점 {P} 를 {line} 의 좌변에 대입하고 절댓값을 구합니다 → |{=lineco(line)[0]*px+lineco(line)[1]*py+lineco(line)[2]}|\n분모 √(a² + b²) 로 나누면 {answer}",
+        "en": "Distance from (x₁, y₁) to ax + by + c = 0 is |ax₁ + by₁ + c| ÷ √(a² + b²)\nTop: put {P} into the left side of {line} and take the absolute value → |{=lineco(line)[0]*px+lineco(line)[1]*py+lineco(line)[2]}|\nDivide by √(a² + b²): {answer}"
       }
     },
     {
@@ -296,9 +296,9 @@
         "en": "What is the centre of the circle {eq}?"
       },
       "explain": {
-        "ja": "x の項と y の項を、それぞれ平方完成する\n(x − a)² + (y − b)² = r² の形にする\n中心は (a, b) なので {answer}",
-        "ko": "x의 항과 y의 항을 각각 완전제곱식으로 고칩니다\n(x − a)² + (y − b)² = r² 꼴로 만듭니다\n중심은 (a, b)이므로 {answer}",
-        "en": "Complete the square in x and in y\nWrite it as (x − a)² + (y − b)² = r²\nThe centre is (a, b) = {answer}"
+        "ja": "x の項と y の項を、それぞれ平方完成する\n(x − a)² + (y − b)² = r² の形にする → (x − ({=circ(eq)[0]}))² + (y − ({=circ(eq)[1]}))² = {=circ(eq)[2]}\n中心は (a, b) なので {answer}",
+        "ko": "x의 항과 y의 항을 각각 완전제곱식으로 고칩니다\n(x − a)² + (y − b)² = r² 꼴로 만듭니다 → (x − ({=circ(eq)[0]}))² + (y − ({=circ(eq)[1]}))² = {=circ(eq)[2]}\n중심은 (a, b)이므로 {answer}",
+        "en": "Complete the square in x and in y\nWrite it as (x − a)² + (y − b)² = r² → (x − ({=circ(eq)[0]}))² + (y − ({=circ(eq)[1]}))² = {=circ(eq)[2]}\nThe centre is (a, b) = {answer}"
       }
     },
     {
@@ -315,9 +315,9 @@
         "en": "What is the radius of the circle {eq}?"
       },
       "explain": {
-        "ja": "x の項と y の項を、それぞれ平方完成する\n(x − a)² + (y − b)² = r² の形にして、右辺 r² を求める\nr > 0 なので平方根をとって {answer}",
-        "ko": "x의 항과 y의 항을 각각 완전제곱식으로 고칩니다\n(x − a)² + (y − b)² = r² 꼴로 만들어 우변 r² 을 구합니다\nr > 0 이므로 제곱근을 구하면 {answer}",
-        "en": "Complete the square in x and in y\nWrite it as (x − a)² + (y − b)² = r² and read r²\nSince r > 0, take the root: {answer}"
+        "ja": "x の項と y の項を、それぞれ平方完成する\n(x − a)² + (y − b)² = r² の形にして、右辺 r² を求める → r² = {=circ(eq)[2]}\nr > 0 なので平方根をとって {answer}",
+        "ko": "x의 항과 y의 항을 각각 완전제곱식으로 고칩니다\n(x − a)² + (y − b)² = r² 꼴로 만들어 우변 r² 을 구합니다 → r² = {=circ(eq)[2]}\nr > 0 이므로 제곱근을 구하면 {answer}",
+        "en": "Complete the square in x and in y\nWrite it as (x − a)² + (y − b)² = r² and read r² → r² = {=circ(eq)[2]}\nSince r > 0, take the root: {answer}"
       }
     },
     {
@@ -335,9 +335,9 @@
         "en": "What is the length of the chord cut from the circle {circle} by the line {line}?"
       },
       "explain": {
-        "ja": "{circle} から半径 r を求める\n中心(原点)から直線までの距離 d を求める\n弦の長さ = 2√(r² − d²) = {answer}",
-        "ko": "{circle} 에서 반지름 r을 구합니다\n중심(원점)에서 직선까지의 거리 d를 구합니다\n현의 길이 = 2√(r² − d²) = {answer}",
-        "en": "Read the radius r from {circle}\nFind the distance d from the centre (the origin) to the line\nChord = 2√(r² − d²) = {answer}"
+        "ja": "{circle} から半径 r を求める → r = {=sqrt(nums(circle)[0])}\n中心(原点)から直線までの距離 d を求める → d = {=abs(lineco(line)[2])/sqrt(lineco(line)[0]**2+lineco(line)[1]**2)}\n弦の長さ = 2√(r² − d²) = {answer}",
+        "ko": "{circle} 에서 반지름 r을 구합니다 → r = {=sqrt(nums(circle)[0])}\n중심(원점)에서 직선까지의 거리 d를 구합니다 → d = {=abs(lineco(line)[2])/sqrt(lineco(line)[0]**2+lineco(line)[1]**2)}\n현의 길이 = 2√(r² − d²) = {answer}",
+        "en": "Read the radius r from {circle} → r = {=sqrt(nums(circle)[0])}\nFind the distance d from the centre (the origin) to the line → d = {=abs(lineco(line)[2])/sqrt(lineco(line)[0]**2+lineco(line)[1]**2)}\nChord = 2√(r² − d²) = {answer}"
       }
     },
     {

@@ -123,9 +123,9 @@
         "en": "Use the Euclidean algorithm to find the GCD of {a} and {b}."
       },
       "explain": {
-        "ja": "{a} を {b} で割った余りを求める → {=a%b}\n割る数をその余りで割る。これを余りが 0 になるまでくり返す\n最後に割った数が最大公約数: {answer}",
-        "ko": "{a} 를 {b} 로 나눈 나머지를 구합니다 → {=a%b}\n나누는 수를 그 나머지로 나눕니다. 나머지가 0이 될 때까지 되풀이합니다\n마지막에 나눈 수가 최대공약수: {answer}",
-        "en": "Divide {a} by {b} and take the remainder → {=a%b}\nDivide the divisor by that remainder; repeat until the remainder is 0\nThe last divisor is the GCD: {answer}"
+        "ja": "{a} を {b} で割った余りを求める\n割る数をその余りで割る。これを余りが 0 になるまでくり返す → {=euclidS(a,b)}\n最後に割った数が最大公約数: {answer}",
+        "ko": "{a} 를 {b} 로 나눈 나머지를 구합니다\n나누는 수를 그 나머지로 나눕니다. 나머지가 0이 될 때까지 되풀이합니다 → {=euclidS(a,b)}\n마지막에 나눈 수가 최대공약수: {answer}",
+        "en": "Divide {a} by {b} and take the remainder\nDivide the divisor by that remainder; repeat until the remainder is 0 → {=euclidS(a,b)}\nThe last divisor is the GCD: {answer}"
       }
     },
     {
@@ -177,9 +177,9 @@
         "en": "Which integer pair (x, y) satisfies {eq}?"
       },
       "explain": {
-        "ja": "それぞれの組 (x, y) を {eq} の左辺に代入する\n左辺が 1 になるものを探す\n{answer}",
-        "ko": "각 짝 (x, y)를 {eq} 의 좌변에 대입합니다\n좌변이 1이 되는 것을 찾습니다\n{answer}",
-        "en": "Substitute each pair (x, y) into the left side of {eq}\nLook for the one that gives 1\n{answer}"
+        "ja": "それぞれの組 (x, y) を {eq} の左辺に代入する\n左辺が 1 になるものを探す → {=nums(eq)[0]} × ({=nums(answer)[0]}) + {=nums(eq)[1]} × ({=nums(answer)[1]}) = 1\n{answer}",
+        "ko": "각 짝 (x, y)를 {eq} 의 좌변에 대입합니다\n좌변이 1이 되는 것을 찾습니다 → {=nums(eq)[0]} × ({=nums(answer)[0]}) + {=nums(eq)[1]} × ({=nums(answer)[1]}) = 1\n{answer}",
+        "en": "Substitute each pair (x, y) into the left side of {eq}\nLook for the one that gives 1 → {=nums(eq)[0]} × ({=nums(answer)[0]}) + {=nums(eq)[1]} × ({=nums(answer)[1]}) = 1\n{answer}"
       }
     },
     {
@@ -196,9 +196,9 @@
         "en": "The number {num} is written in base {base}. What is it in base 10?"
       },
       "explain": {
-        "ja": "右の位から順に、{base} の 0 乗、1 乗、2 乗…の重みをもつ\n各位の数字にその重みを掛ける\nすべて足して {answer}",
-        "ko": "오른쪽 자리부터 차례로 {base} 의 0제곱, 1제곱, 2제곱…의 자릿값을 가집니다\n각 자리의 숫자에 그 자릿값을 곱합니다\n모두 더하면 {answer}",
-        "en": "From the right the places are worth {base} to the power 0, 1, 2, …\nMultiply each digit by its place value\nAdd them all: {answer}"
+        "ja": "右の位から順に、{base} の 0 乗、1 乗、2 乗…の重みをもつ\n各位の数字にその重みを掛ける → {=expand10(num,base)}\nすべて足して {answer}",
+        "ko": "오른쪽 자리부터 차례로 {base} 의 0제곱, 1제곱, 2제곱…의 자릿값을 가집니다\n각 자리의 숫자에 그 자릿값을 곱합니다 → {=expand10(num,base)}\n모두 더하면 {answer}",
+        "en": "From the right the places are worth {base} to the power 0, 1, 2, …\nMultiply each digit by its place value → {=expand10(num,base)}\nAdd them all: {answer}"
       }
     },
     {
@@ -215,9 +215,9 @@
         "en": "Write the base-10 number {n} in base {base}."
       },
       "explain": {
-        "ja": "{n} を {base} で割り、商と余りを書く\n商をまた {base} で割る。商が 0 になるまでくり返す\n余りを最後のものから順に並べて {answer}",
-        "ko": "{n} 을 {base} 로 나누고 몫과 나머지를 적습니다\n몫을 다시 {base} 로 나눕니다. 몫이 0이 될 때까지 되풀이합니다\n나머지를 마지막 것부터 차례로 늘어놓으면 {answer}",
-        "en": "Divide {n} by {base} and note quotient and remainder\nDivide the quotient by {base} again until it reaches 0\nRead the remainders from last to first: {answer}"
+        "ja": "{n} を {base} で割り、商と余りを書く\n商をまた {base} で割る。商が 0 になるまでくり返す → {=divs(n,base)}\n余りを最後のものから順に並べて {answer}",
+        "ko": "{n} 을 {base} 로 나누고 몫과 나머지를 적습니다\n몫을 다시 {base} 로 나눕니다. 몫이 0이 될 때까지 되풀이합니다 → {=divs(n,base)}\n나머지를 마지막 것부터 차례로 늘어놓으면 {answer}",
+        "en": "Divide {n} by {base} and note quotient and remainder\nDivide the quotient by {base} again until it reaches 0 → {=divs(n,base)}\nRead the remainders from last to first: {answer}"
       }
     },
     {
@@ -247,9 +247,9 @@
         "en": "The four-digit number {num} is a multiple of 9. Which digit goes in □?"
       },
       "explain": {
-        "ja": "9 の倍数は、各位の数の和が 9 の倍数\nわかっている位の数を足す\n和が 9 の倍数になるように □ を決めて {answer}",
-        "ko": "9의 배수는 각 자리 숫자의 합이 9의 배수\n알고 있는 자리의 숫자를 더합니다\n합이 9의 배수가 되도록 □ 를 정하면 {answer}",
-        "en": "A multiple of 9 has a digit sum that is a multiple of 9\nAdd the digits you know\nChoose □ so the sum is a multiple of 9: {answer}"
+        "ja": "9 の倍数は、各位の数の和が 9 の倍数\nわかっている位の数を足す → {=digsum(num)} + □\n和が 9 の倍数になるように □ を決めて {answer}",
+        "ko": "9의 배수는 각 자리 숫자의 합이 9의 배수\n알고 있는 자리의 숫자를 더합니다 → {=digsum(num)} + □\n합이 9의 배수가 되도록 □ 를 정하면 {answer}",
+        "en": "A multiple of 9 has a digit sum that is a multiple of 9\nAdd the digits you know → {=digsum(num)} + □\nChoose □ so the sum is a multiple of 9: {answer}"
       }
     },
     {
@@ -282,9 +282,9 @@
         "en": "In coordinate space, what is the distance from the origin O to P{P}?"
       },
       "explain": {
-        "ja": "原点からの距離は OP = √(x² + y² + z²)\n3つの座標をそれぞれ2乗して足す\n平方根をとって {answer}",
-        "ko": "원점에서의 거리는 OP = √(x² + y² + z²)\n세 좌표를 각각 제곱해서 더합니다\n제곱근을 구하면 {answer}",
-        "en": "Distance from the origin: OP = √(x² + y² + z²)\nSquare the three coordinates and add\nTake the root: {answer}"
+        "ja": "原点からの距離は OP = √(x² + y² + z²)\n3つの座標をそれぞれ2乗して足す → {=nums(P)[0]**2} + {=nums(P)[1]**2} + {=nums(P)[2]**2} = {=nums(P)[0]**2+nums(P)[1]**2+nums(P)[2]**2}\n平方根をとって {answer}",
+        "ko": "원점에서의 거리는 OP = √(x² + y² + z²)\n세 좌표를 각각 제곱해서 더합니다 → {=nums(P)[0]**2} + {=nums(P)[1]**2} + {=nums(P)[2]**2} = {=nums(P)[0]**2+nums(P)[1]**2+nums(P)[2]**2}\n제곱근을 구하면 {answer}",
+        "en": "Distance from the origin: OP = √(x² + y² + z²)\nSquare the three coordinates and add → {=nums(P)[0]**2} + {=nums(P)[1]**2} + {=nums(P)[2]**2} = {=nums(P)[0]**2+nums(P)[1]**2+nums(P)[2]**2}\nTake the root: {answer}"
       }
     },
     {

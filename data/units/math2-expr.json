@@ -110,9 +110,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "a³ + b³ = (a + b)(a² − ab + b²)、a³ − b³ = (a − b)(a² + ab + b²)\n{expr} の定数項が何の3乗かを考える\n2つ目のかっこのまん中の符号は逆になる。{answer}",
-        "ko": "a³ + b³ = (a + b)(a² − ab + b²), a³ − b³ = (a − b)(a² + ab + b²)\n{expr} 의 상수항이 무엇의 세제곱인지 생각합니다\n둘째 괄호의 가운데 부호는 반대가 됩니다. {answer}",
-        "en": "a³ + b³ = (a + b)(a² − ab + b²) and a³ − b³ = (a − b)(a² + ab + b²)\nAsk which number cubed gives the constant in {expr}\nThe middle sign of the second bracket flips: {answer}"
+        "ja": "a³ + b³ = (a + b)(a² − ab + b²)、a³ − b³ = (a − b)(a² + ab + b²)\n{expr} の定数項が何の3乗かを考える → {=abs(nums(expr)[0])} = {=cbrt(abs(nums(expr)[0]))}³\n2つ目のかっこのまん中の符号は逆になる。{answer}",
+        "ko": "a³ + b³ = (a + b)(a² − ab + b²), a³ − b³ = (a − b)(a² + ab + b²)\n{expr} 의 상수항이 무엇의 세제곱인지 생각합니다 → {=abs(nums(expr)[0])} = {=cbrt(abs(nums(expr)[0]))}³\n둘째 괄호의 가운데 부호는 반대가 됩니다. {answer}",
+        "en": "a³ + b³ = (a + b)(a² − ab + b²) and a³ − b³ = (a − b)(a² + ab + b²)\nAsk which number cubed gives the constant in {expr} → {=abs(nums(expr)[0])} = {=cbrt(abs(nums(expr)[0]))}³\nThe middle sign of the second bracket flips: {answer}"
       }
     },
     {
@@ -239,9 +239,9 @@
         "en": "Simplify ({top})/({bottom})."
       },
       "explain": {
-        "ja": "分子 {top} を因数分解する\n分母 {bottom} を因数分解する\n共通の因数で約分して {answer}",
-        "ko": "분자 {top} 을 인수분해합니다\n분모 {bottom} 을 인수분해합니다\n공통인 인수로 약분하면 {answer}",
-        "en": "Factor the top {top}\nFactor the bottom {bottom}\nCancel the common factor: {answer}"
+        "ja": "分子 {top} を因数分解する → {=fac(top)}\n分母 {bottom} を因数分解する → {=fac(bottom)}\n共通の因数で約分して {answer}",
+        "ko": "분자 {top} 을 인수분해합니다 → {=fac(top)}\n분모 {bottom} 을 인수분해합니다 → {=fac(bottom)}\n공통인 인수로 약분하면 {answer}",
+        "en": "Factor the top {top} → {=fac(top)}\nFactor the bottom {bottom} → {=fac(bottom)}\nCancel the common factor: {answer}"
       }
     },
     {
@@ -258,9 +258,9 @@
         "en": "If {left} = {right} is an identity in x, what is a?"
       },
       "explain": {
-        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る\n解いて a = {answer}",
-        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다\n풀면 a = {answer}",
-        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b\nSolve: a = {answer}"
+        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n解いて a = {answer}",
+        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다 → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n풀면 a = {answer}",
+        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\nSolve: a = {answer}"
       }
     },
     {
@@ -277,9 +277,9 @@
         "en": "If {left} = {right} is an identity in x, what is b?"
       },
       "explain": {
-        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る\n解いて b = {answer}",
-        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다\n풀면 b = {answer}",
-        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b\nSolve: b = {answer}"
+        "ja": "右辺を展開して x の項と定数項に分ける: (a + b)x + (定数)\n左辺 {left} と係数を比べて、a, b の連立方程式を作る → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n解いて b = {answer}",
+        "ko": "우변을 전개해서 x의 항과 상수항으로 나눕니다: (a + b)x + (상수)\n좌변 {left} 과 계수를 비교해서 a, b의 연립방정식을 세웁니다 → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\n풀면 b = {answer}",
+        "en": "Expand the right side into an x term and a constant: (a + b)x + (constant)\nCompare coefficients with {left} to get two equations in a and b → a + b = {=lin(left)[0]}, {=nums(right)[0]}a − {=abs(nums(right)[1])}b = {=lin(left)[1]}\nSolve: b = {answer}"
       }
     },
     {
@@ -293,9 +293,9 @@
         "en": "For x > 0, what is the minimum of {expr}?"
       },
       "explain": {
-        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積)\n積は x が消えて定数になる。最小値は {answer}",
-        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱)\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
-        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product)\nThe product is a constant because x cancels; the minimum is {answer}"
+        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n積は x が消えて定数になる。最小値は {answer}",
+        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
+        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\nThe product is a constant because x cancels; the minimum is {answer}"
       }
     },
     {
@@ -312,9 +312,9 @@
         "en": "For x > 0, what is the minimum of {expr}?"
       },
       "explain": {
-        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積)\n積は x が消えて定数になる。最小値は {answer}",
-        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱)\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
-        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product)\nThe product is a constant because x cancels; the minimum is {answer}"
+        "ja": "x > 0 なので、2つの項はどちらも正\n相加平均・相乗平均の関係: (2数の和) ≧ 2√(2数の積) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n積は x が消えて定数になる。最小値は {answer}",
+        "ko": "x > 0 이므로 두 항은 모두 양수\n산술평균·기하평균의 관계: (두 수의 합) ≧ 2√(두 수의 곱) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\n곱은 x가 사라져 상수가 됩니다. 최솟값은 {answer}",
+        "en": "Since x > 0 both terms are positive\nAM–GM: (sum of two numbers) ≥ 2√(their product) → 2√{=nums(expr).reduce((p,q)=>p*q,1)}\nThe product is a constant because x cancels; the minimum is {answer}"
       }
     }
   ],

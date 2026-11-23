@@ -274,9 +274,9 @@
         "en": "In how many ways can {r} letters be arranged in a row from {n} kinds, with repetition allowed?"
       },
       "explain": {
-        "ja": "同じ文字を何度使ってもよいので、どの場所も {n} 通り\n場所は {r} か所\n{n} を {r} 回掛けて {answer}",
-        "ko": "같은 문자를 여러 번 써도 되므로 어느 자리든 {n} 가지\n자리는 {r} 곳\n{n} 을 {r} 번 곱하면 {answer}",
-        "en": "Repeats are allowed, so every place has {n} choices\nThere are {r} places\nMultiply {n} by itself {r} times: {answer}"
+        "ja": "同じ文字を何度使ってもよいので、どの場所も {n} 通り\n場所は {r} か所 → {=Array(r).fill(n).join(\" × \")}\n{n} を {r} 回掛けて {answer}",
+        "ko": "같은 문자를 여러 번 써도 되므로 어느 자리든 {n} 가지\n자리는 {r} 곳 → {=Array(r).fill(n).join(\" × \")}\n{n} 을 {r} 번 곱하면 {answer}",
+        "en": "Repeats are allowed, so every place has {n} choices\nThere are {r} places → {=Array(r).fill(n).join(\" × \")}\nMultiply {n} by itself {r} times: {answer}"
       }
     },
     {
@@ -358,9 +358,9 @@
         "en": "The people are distinguishable; the groups are not."
       },
       "explain": {
-        "ja": "まず組に名前があるものとして、{size} 人ずつ順に選ぶ\n実際は組に区別がないので、同じ分け方が {groups}! 回ずつ数えられている\n{groups}! で割って {answer}",
-        "ko": "먼저 조에 이름이 있다고 보고 {size} 명씩 차례로 고릅니다\n실제로는 조를 구별하지 않으므로 같은 나누기가 {groups}! 번씩 세어졌습니다\n{groups}! 로 나누면 {answer}",
-        "en": "First pretend the groups are named and choose {size} at a time\nThe groups are not really named, so each split was counted {groups}! times\nDivide by {groups}!: {answer}"
+        "ja": "まず組に名前があるものとして、{size} 人ずつ順に選ぶ → {=fact(n)/fact(size)**groups}\n実際は組に区別がないので、同じ分け方が {groups}! 回ずつ数えられている ({groups}! = {=fact(groups)})\n{groups}! で割って {answer}",
+        "ko": "먼저 조에 이름이 있다고 보고 {size} 명씩 차례로 고릅니다 → {=fact(n)/fact(size)**groups}\n실제로는 조를 구별하지 않으므로 같은 나누기가 {groups}! 번씩 세어졌습니다 ({groups}! = {=fact(groups)})\n{groups}! 로 나누면 {answer}",
+        "en": "First pretend the groups are named and choose {size} at a time → {=fact(n)/fact(size)**groups}\nThe groups are not really named, so each split was counted {groups}! times ({groups}! = {=fact(groups)})\nDivide by {groups}!: {answer}"
       }
     },
     {
@@ -382,9 +382,9 @@
         "en": "All the people are distinguishable."
       },
       "explain": {
-        "ja": "1つ目の部屋に入る {size} 人を選ぶ\n残りから次の部屋の {size} 人を選ぶ(これをくり返す)\n部屋は区別するので割らずに掛けて {answer}",
-        "ko": "첫째 방에 들어갈 {size} 명을 고릅니다\n남은 사람 중에서 다음 방의 {size} 명을 고릅니다 (이것을 되풀이)\n방은 구별하므로 나누지 않고 곱해서 {answer}",
-        "en": "Choose the {size} people for the first room\nChoose the next {size} from those left, and so on\nRooms are different, so multiply without dividing: {answer}"
+        "ja": "1つ目の部屋に入る {size} 人を選ぶ\n残りから次の部屋の {size} 人を選ぶ(これをくり返す) → {=fact(n)/fact(size)**groups}\n部屋は区別するので割らずに掛けて {answer}",
+        "ko": "첫째 방에 들어갈 {size} 명을 고릅니다\n남은 사람 중에서 다음 방의 {size} 명을 고릅니다 (이것을 되풀이) → {=fact(n)/fact(size)**groups}\n방은 구별하므로 나누지 않고 곱해서 {answer}",
+        "en": "Choose the {size} people for the first room\nChoose the next {size} from those left, and so on → {=fact(n)/fact(size)**groups}\nRooms are different, so multiply without dividing: {answer}"
       }
     },
     {

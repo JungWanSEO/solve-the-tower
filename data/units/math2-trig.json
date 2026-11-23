@@ -142,9 +142,9 @@
         "en": "What is the arc length of a sector with radius {r} and angle {theta}?"
       },
       "explain": {
-        "ja": "中心角が弧度法で表されているので、弧の長さ l = rθ\n{r} × {theta}\n{answer}",
-        "ko": "중심각이 호도법으로 나타나 있으므로 호의 길이 l = rθ\n{r} × {theta}\n{answer}",
-        "en": "With the angle in radians, arc length l = rθ\n{r} × {theta}\n{answer}"
+        "ja": "中心角が弧度法で表されているので、弧の長さ l = rθ\n{r} × {theta} = {answer}\n{answer}",
+        "ko": "중심각이 호도법으로 나타나 있으므로 호의 길이 l = rθ\n{r} × {theta} = {answer}\n{answer}",
+        "en": "With the angle in radians, arc length l = rθ\n{r} × {theta} = {answer}\n{answer}"
       }
     },
     {

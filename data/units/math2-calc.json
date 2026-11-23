@@ -109,9 +109,9 @@
         "en": "Differentiate f(x) = {expr}."
       },
       "explain": {
-        "ja": "xⁿ の微分は n xⁿ⁻¹(指数を前に出して、指数を 1 減らす)\n各項を別々に微分する。定数項は 0 になる\n{answer}",
-        "ko": "xⁿ 의 미분은 n xⁿ⁻¹ (지수를 앞으로 꺼내고 지수를 1 줄입니다)\n각 항을 따로 미분합니다. 상수항은 0이 됩니다\n{answer}",
-        "en": "The derivative of xⁿ is n xⁿ⁻¹ (bring the power down, lower it by 1)\nDifferentiate each term; the constant becomes 0\n{answer}"
+        "ja": "xⁿ の微分は n xⁿ⁻¹(指数を前に出して、指数を 1 減らす)\n各項を別々に微分する。定数項は 0 になる → {=3*co(expr)[0]}x², {=2*co(expr)[1]}x, {=co(expr)[2]}\n{answer}",
+        "ko": "xⁿ 의 미분은 n xⁿ⁻¹ (지수를 앞으로 꺼내고 지수를 1 줄입니다)\n각 항을 따로 미분합니다. 상수항은 0이 됩니다 → {=3*co(expr)[0]}x², {=2*co(expr)[1]}x, {=co(expr)[2]}\n{answer}",
+        "en": "The derivative of xⁿ is n xⁿ⁻¹ (bring the power down, lower it by 1)\nDifferentiate each term; the constant becomes 0 → {=3*co(expr)[0]}x², {=2*co(expr)[1]}x, {=co(expr)[2]}\n{answer}"
       }
     },
     {
@@ -128,9 +128,9 @@
         "en": "For f(x) = {expr}, what is f′({k})?"
       },
       "explain": {
-        "ja": "先に導関数 f′(x) を求める(各項を n xⁿ⁻¹ に)\nf′(x) に x = {k} を代入する\n{answer}",
-        "ko": "먼저 도함수 f′(x)를 구합니다 (각 항을 n xⁿ⁻¹ 으로)\nf′(x)에 x = {k} 를 대입합니다\n{answer}",
-        "en": "First find f′(x) (each term becomes n xⁿ⁻¹)\nPut x = {k} into f′(x)\n{answer}"
+        "ja": "先に導関数 f′(x) を求める(各項を n xⁿ⁻¹ に) → {=3*co(expr)[0]}x², {=2*co(expr)[1]}x, {=co(expr)[2]}\nf′(x) に x = {k} を代入する\n{answer}",
+        "ko": "먼저 도함수 f′(x)를 구합니다 (각 항을 n xⁿ⁻¹ 으로) → {=3*co(expr)[0]}x², {=2*co(expr)[1]}x, {=co(expr)[2]}\nf′(x)에 x = {k} 를 대입합니다\n{answer}",
+        "en": "First find f′(x) (each term becomes n xⁿ⁻¹) → {=3*co(expr)[0]}x², {=2*co(expr)[1]}x, {=co(expr)[2]}\nPut x = {k} into f′(x)\n{answer}"
       }
     },
     {
@@ -171,9 +171,9 @@
         "en": "What is the local maximum value of f(x) = {expr}?"
       },
       "explain": {
-        "ja": "f′(x) を求めて、f′(x) = 0 を解く\nその前後で f′(x) の符号を調べ、増減表を作る\n増加(+)から減少(−)に変わる x での値が極大値: {answer}",
-        "ko": "f′(x)를 구해서 f′(x) = 0 을 풉니다\n그 앞뒤에서 f′(x)의 부호를 조사해 증감표를 만듭니다\n증가(+)에서 감소(−)로 바뀌는 x에서의 값이 극댓값: {answer}",
-        "en": "Find f′(x) and solve f′(x) = 0\nCheck the sign of f′(x) on each side and make a table\nWhere f changes from rising (+) to falling (−), the value is the local maximum: {answer}"
+        "ja": "f′(x) を求めて、f′(x) = 0 を解く → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nその前後で f′(x) の符号を調べ、増減表を作る\n増加(+)から減少(−)に変わる x での値が極大値: {answer}",
+        "ko": "f′(x)를 구해서 f′(x) = 0 을 풉니다 → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\n그 앞뒤에서 f′(x)의 부호를 조사해 증감표를 만듭니다\n증가(+)에서 감소(−)로 바뀌는 x에서의 값이 극댓값: {answer}",
+        "en": "Find f′(x) and solve f′(x) = 0 → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nCheck the sign of f′(x) on each side and make a table\nWhere f changes from rising (+) to falling (−), the value is the local maximum: {answer}"
       }
     },
     {
@@ -194,9 +194,9 @@
         "en": "What is the local minimum value of f(x) = {expr}?"
       },
       "explain": {
-        "ja": "f′(x) を求めて、f′(x) = 0 を解く\nその前後で f′(x) の符号を調べ、増減表を作る\n減少(−)から増加(+)に変わる x での値が極小値: {answer}",
-        "ko": "f′(x)를 구해서 f′(x) = 0 을 풉니다\n그 앞뒤에서 f′(x)의 부호를 조사해 증감표를 만듭니다\n감소(−)에서 증가(+)로 바뀌는 x에서의 값이 극솟값: {answer}",
-        "en": "Find f′(x) and solve f′(x) = 0\nCheck the sign of f′(x) on each side and make a table\nWhere f changes from falling (−) to rising (+), the value is the local minimum: {answer}"
+        "ja": "f′(x) を求めて、f′(x) = 0 を解く → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nその前後で f′(x) の符号を調べ、増減表を作る\n減少(−)から増加(+)に変わる x での値が極小値: {answer}",
+        "ko": "f′(x)를 구해서 f′(x) = 0 을 풉니다 → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\n그 앞뒤에서 f′(x)의 부호를 조사해 증감표를 만듭니다\n감소(−)에서 증가(+)로 바뀌는 x에서의 값이 극솟값: {answer}",
+        "en": "Find f′(x) and solve f′(x) = 0 → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nCheck the sign of f′(x) on each side and make a table\nWhere f changes from falling (−) to rising (+), the value is the local minimum: {answer}"
       }
     },
     {
@@ -213,9 +213,9 @@
         "en": "What is the maximum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
       },
       "explain": {
-        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nそれらのうち、いちばん大きいものが最大値: {answer}",
-        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다 → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\n그중 가장 큰 것이 최댓값: {answer}",
-        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b} → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nThe largest of those is the maximum: {answer}"
+        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nその x と、両端 x = {a}, {b} での f(x) の値を計算する → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nそれらのうち、いちばん大きいものが最大値: {answer}",
+        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다 → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다 → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\n그중 가장 큰 것이 최댓값: {answer}",
+        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b} → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nWork out f(x) there and at both ends x = {a}, {b} → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nThe largest of those is the maximum: {answer}"
       }
     },
     {
@@ -232,9 +232,9 @@
         "en": "What is the minimum of f(x) = {expr} on {a} ≤ x ≤ {b}?"
       },
       "explain": {
-        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める\nその x と、両端 x = {a}, {b} での f(x) の値を計算する → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nそれらのうち、いちばん小さいものが最小値: {answer}",
-        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다 → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\n그중 가장 작은 것이 최솟값: {answer}",
-        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b}\nWork out f(x) there and at both ends x = {a}, {b} → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nThe smallest of those is the minimum: {answer}"
+        "ja": "f′(x) = 0 を解いて、範囲 {a} ≦ x ≦ {b} に入る x を求める → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nその x と、両端 x = {a}, {b} での f(x) の値を計算する → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nそれらのうち、いちばん小さいものが最小値: {answer}",
+        "ko": "f′(x) = 0 을 풀어 범위 {a} ≦ x ≦ {b} 에 들어가는 x를 구합니다 → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\n그 x와 양 끝 x = {a}, {b} 에서의 f(x) 값을 계산합니다 → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\n그중 가장 작은 것이 최솟값: {answer}",
+        "en": "Solve f′(x) = 0 and keep the x inside {a} ≤ x ≤ {b} → x = {=qroots(3*coefs[0],2*coefs[1],coefs[2])[0]}, {=qroots(3*coefs[0],2*coefs[1],coefs[2])[1]}\nWork out f(x) there and at both ends x = {a}, {b} → f({a}) = {=ev(expr,from)}, f({b}) = {=ev(expr,to)}\nThe smallest of those is the minimum: {answer}"
       }
     },
     {
@@ -290,9 +290,9 @@
         "en": "What is the area enclosed by the parabola {expr} and the x-axis?"
       },
       "explain": {
-        "ja": "y = 0 とおいて因数分解し、x 軸との交点 x = α, β を求める\nα から β まで定積分する。グラフが x 軸より下なら符号を逆にする\n面積は必ず正で {answer}",
-        "ko": "y = 0 으로 놓고 인수분해해서 x축과의 교점 x = α, β 를 구합니다\nα 부터 β 까지 정적분합니다. 그래프가 x축보다 아래이면 부호를 바꿉니다\n넓이는 반드시 양수이고 {answer}",
-        "en": "Set y = 0 and factor to find the crossings x = α, β\nIntegrate from α to β; flip the sign if the graph is below the axis\nAn area is always positive: {answer}"
+        "ja": "y = 0 とおいて因数分解し、x 軸との交点 x = α, β を求める → x = {=qroots(coefs[0],coefs[1],coefs[2])[0]}, {=qroots(coefs[0],coefs[1],coefs[2])[1]}\nα から β まで定積分する。グラフが x 軸より下なら符号を逆にする\n面積は必ず正で {answer}",
+        "ko": "y = 0 으로 놓고 인수분해해서 x축과의 교점 x = α, β 를 구합니다 → x = {=qroots(coefs[0],coefs[1],coefs[2])[0]}, {=qroots(coefs[0],coefs[1],coefs[2])[1]}\nα 부터 β 까지 정적분합니다. 그래프가 x축보다 아래이면 부호를 바꿉니다\n넓이는 반드시 양수이고 {answer}",
+        "en": "Set y = 0 and factor to find the crossings x = α, β → x = {=qroots(coefs[0],coefs[1],coefs[2])[0]}, {=qroots(coefs[0],coefs[1],coefs[2])[1]}\nIntegrate from α to β; flip the sign if the graph is below the axis\nAn area is always positive: {answer}"
       }
     }
   ],
