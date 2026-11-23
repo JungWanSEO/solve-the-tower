@@ -232,7 +232,7 @@ const SCENES = {
   ),
   // 처음 화면: 구름 위로 솟은 탑 (360 × 170)
   title: () =>
-    `<svg viewBox="0 0 360 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice" aria-hidden="true">` +
+    `<svg viewBox="0 0 360 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" aria-hidden="true">` +
     stars() + [[30, 96], [330, 110], [88, 70], [276, 84]].map(([x, y], i) => `<rect class="tw tw${i % 3}" x="${x}" y="${y}" width="2" height="2" fill="#a7ddff" opacity="0.7"/>`).join('') +
     `<circle cx="286" cy="38" r="20" fill="#eef6ff" opacity="0.95"/><circle cx="296" cy="32" r="19" fill="#0b1430"/>` +
     `<path d="M0 170v-34l40-18 44 22 50-30 46 26 50-22 56 28 74-24v52z" fill="#152352"/>` +
