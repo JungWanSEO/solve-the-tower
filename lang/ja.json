@@ -131,6 +131,7 @@
     "restUsed": "この休憩所はもう使いました。",
     "treasureUsed": "この宝箱は、もう開けようとした箱です。錠がかたく閉まってしまいました。",
     "treasureOkRelic": "箱が開きました。{gold}G と遺物を手に入れました。",
+    "rewardPick": "つぎに、強化を1つ選んでください",
     "rewardTextRelic": "{gold}G と遺物を手に入れました。強化を1つえらんでください。",
     "treasureOkGold": "箱が開きました。{gold}G を手に入れました。"
   },
