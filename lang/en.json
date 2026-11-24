@@ -131,6 +131,7 @@
     "restUsed": "You have already used this rest stop.",
     "treasureUsed": "You already tried this chest. Its lock is now shut tight.",
     "treasureOkRelic": "The chest opens. You get {gold}G and a relic.",
+    "rewardPick": "Now choose one upgrade",
     "rewardTextRelic": "You get {gold}G and a relic. Choose one upgrade.",
     "treasureOkGold": "The chest opens. You get {gold}G."
   },

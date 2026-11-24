@@ -262,7 +262,14 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       }
       open(() => {
         base('ev.rewardTitle', got ? t('ev.rewardTextRelic', { gold }) : `${t('ev.rewardText', { gold })}${extra ? ` ${t('relic.none', { gold: extra })}` : ''}`);
-        if (got) relicCard(got);
+        if (got) {
+          relicCard(got);
+          // 유물은 이미 받았고, 아래는 따로 고르는 강화라는 것을 알려 줍니다 (유물 카드를 눌러야 하는 줄 아는 일이 있었습니다)
+          const label = document.createElement('p');
+          label.className = 'pick-label';
+          label.textContent = t('ev.rewardPick');
+          $('evOptions').appendChild(label);
+        }
         picks.forEach((id) => {
           option(t(`up.${id}.name`), t(`up.${id}.desc`), false, () => {
             UPGRADES[id](getRun());

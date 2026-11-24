@@ -254,7 +254,7 @@
       "ko": "그림을 그리지 않고 풀려는 것",
       "en": "Solving without drawing the figure"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "math1-trig/twopoint",
     "basicLevel": 2,
     "skillLevel": 3
@@ -272,7 +272,7 @@
       "ko": "해가 있는지(D의 부호)를 확인하지 않고 풀기",
       "en": "Solving without checking whether solutions exist (the sign of D)"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "math1-quad/discriminant",
     "basicLevel": 2,
     "skillLevel": 3
@@ -290,7 +290,7 @@
       "ko": "정리를 쓸 수 있는 조건(원에 내접하는지 등)을 확인하지 않기",
       "en": "Using a theorem without checking that its conditions hold"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "matha-geom/power",
     "basicLevel": 2,
     "skillLevel": 3
@@ -326,7 +326,7 @@
       "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
       "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "matha-int/euclid",
     "basicLevel": 2,
     "skillLevel": 3
@@ -566,7 +566,7 @@
       "ko": "f′(x) = 0 인 점을 증감을 확인하지 않고 모두 극값이라고 단정하기",
       "en": "Calling every point with f′(x) = 0 an extremum without checking the sign change"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "math2-calc/extrema",
     "basicLevel": 2,
     "skillLevel": 3
@@ -584,7 +584,7 @@
       "ko": "\"어차피 못 해\"라고 정하고, 풀기도 전에 연필을 내려놓기",
       "en": "Deciding \"I can't do it anyway\" and putting the pencil down before trying"
     },
-    "hp": 44,
+    "hp": 56,
     "weak": "math1-expr/factor",
     "basicLevel": 2,
     "skillLevel": 3
