@@ -436,6 +436,8 @@
     "relic": "A relic works on its own until this run ends. Tap the relic row at the top to see your bag."
   },
   "act": {
+    "tooMany": "You chose {n} subjects. The long tower allows up to {max} (each subject adds 10 floors). Start a short tower (10 floors, mixed problems), or go back and choose {max} or fewer.",
+    "back": "Go back and choose again",
     "askTitle": "Tower length",
     "askText": "You picked {n} subjects. The long tower climbs one act per subject, in the order {list} ({floors} floors in all). The short tower has 10 floors with the problems mixed.",
     "long": "Long tower ({n} acts)",

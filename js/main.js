@@ -4,7 +4,7 @@
 import { CONFIG } from './config.js';
 import { loadLang, applyStatic, t, pick } from './i18n.js';
 import { load, store } from './save.js';
-import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName } from './questions.js';
+import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName, starterKeys } from './questions.js';
 import { newRun, nextAct, isLastAct } from './run.js';
 import { RELICS, has, relicVars } from './relics.js';
 import { heroOf, unlockedHeroes, newHeroes, heroVars } from './heroes.js';
@@ -58,7 +58,7 @@ async function boot() {
     }
   }
   // 저장된 지도가 없거나 예전 형식이면 새로 만듭니다. 범위가 없던 지도는 전체 범위로 봅니다.
-  if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(allTypeKeys());
+  if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(starterKeys()); // 처음 판(튜토리얼)은 첫 과목의 문제만
   setHeroLook(heroOf(data.run)); // 장면 그림 속 주인공을 이어서 할 판의 모습으로
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
   data.run.scope = data.run.scope.filter(hasType); // 꺼진 단원의 유형이 예전 기록에 남아 있으면 뺍니다
@@ -409,6 +409,18 @@ async function boot() {
     onStart(keys) {
       // 과목을 둘 이상 골랐으면 탑의 길이를 묻습니다. (튜토리얼 중에는 묻지 않고 짧은 탑)
       const acts = actsFor(keys);
+      // 긴 탑은 CONFIG.act.max 과목까지. 그보다 많이 고르면 너무 길어지므로(과목마다 10층) 짧은 탑만 고를 수 있습니다.
+      if (acts.length > CONFIG.act.max && !tutorial.active()) {
+        ask({
+          title: t('act.askTitle'),
+          text: t('act.tooMany', { n: acts.length, max: CONFIG.act.max }),
+          buttons: [
+            { label: t('act.short'), kind: 'primary', run: () => chooseHero(keys, null) },
+            { label: t('act.back') },
+          ],
+        });
+        return;
+      }
       if (acts.length > 1 && !tutorial.active()) {
         ask({
           title: t('act.askTitle'),

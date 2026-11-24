@@ -103,6 +103,8 @@ export function actsFor(keys) {
   }
   return acts;
 }
+// 처음 하는 사람에게 골라 두는 범위: 목록의 첫 과목(数学I)만. 아직 배우지 않은 과목의 문제가 섞여 나오지 않게 합니다.
+export const starterKeys = () => { const first = actsFor(allTypeKeys())[0]; return first ? first.keys : allTypeKeys(); };
 export const subjectName = (id) => { const subject = catalog.subjects.find((s) => s.id === id); return subject ? pick(subject.name) : ''; };
 
 export function subjectNames(keys) {
