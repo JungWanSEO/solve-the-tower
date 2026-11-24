@@ -512,7 +512,7 @@ async function boot() {
     const any = (list) => list[Math.floor(Math.random() * list.length)];
     if (kind === 'boss') return any(fit(monsters.filter((m) => m.boss)));
     if (kind === 'midboss') return any(fit(monsters.filter((m) => m.midboss)));
-    const normal = monsters.filter((m) => !m.boss && !m.midboss && !m.final); // 진보스는 열쇠를 모았을 때만 나옵니다
+    const normal = monsters.filter((m) => !m.boss && !m.midboss && !m.final && !m.gate); // 진보스는 열쇠를 모았을 때만 나옵니다
     if (tutorial.active()) return normal[0];
     const base = fit(normal);
     const fresh = base.filter((m) => m.id !== run.lastFoe);
@@ -613,21 +613,48 @@ async function boot() {
           persist();
           ask({
             title: t('key.doorTitle'),
-            text: t('key.doorText', { name, hp: CONFIG.trueBoss.heal }),
+            text: t('key.doorText', { name, gate: pick((monsters.find((m) => m.gate) || final).name) }),
             buttons: [
               { label: t('key.doorGo'), kind: 'primary', run: () => {
-                run.hp = Math.min(run.maxHp, run.hp + CONFIG.trueBoss.heal);
-                if (run.full) { // 긴 탑: 진보스의 문제는 고른 범위 전체에서 나옵니다
+                // 그림자의 계단: 휴식 → 상점 → 문지기 → 진보스. 지도 없이 외길로 이어집니다.
+                if (run.full) { // 긴 탑: 여기서부터의 문제는 고른 범위 전체에서 나옵니다
                   run.scope = [...run.full];
                   setScope(run.scope);
                 }
-                data.seen[final.id] = true;
-                battleMusic('boss', '', final.id);
-                go('screenBattle');
-                battle.start({ monster: final, kind: 'boss', weak: chooseWeak(final), safe: false, floor: node.floor }, (end) => {
-                  if (end === 'win') data.trueClears = (data.trueClears || 0) + 1;
-                  finishClear(end === 'win' ? t('key.won', { name, n: data.trueClears }) : t('key.lost', { name }));
-                });
+                const gate = monsters.find((m) => m.gate);
+                const toShadow = () => {
+                  data.seen[final.id] = true;
+                  battleMusic('boss', '', final.id);
+                  go('screenBattle');
+                  battle.start({ monster: final, kind: 'boss', weak: chooseWeak(final), safe: false, floor: node.floor }, (end) => {
+                    if (end === 'win') data.trueClears = (data.trueClears || 0) + 1;
+                    finishClear(end === 'win' ? t('key.won', { name, n: data.trueClears }) : t('key.lost', { name }));
+                  });
+                };
+                const toGate = () => {
+                  if (!gate) { toShadow(); return; }
+                  data.seen[gate.id] = true;
+                  battleMusic('elite', '', gate.id);
+                  go('screenBattle');
+                  battle.start({ monster: gate, kind: 'elite', weak: chooseWeak(gate), safe: false, floor: node.floor }, (end) => {
+                    if (end !== 'win') { finishClear(t('key.lost', { name: pick(gate.name) })); return; }
+                    data.wins += 1;
+                    const before = run.hp;
+                    run.hp = Math.min(run.maxHp, run.hp + CONFIG.trueBoss.heal);
+                    persist();
+                    go('screenEvent');
+                    ask({
+                      title: t('key.gateTitle', { name: pick(gate.name) }),
+                      text: t('key.gateText', { name, hp: run.hp - before }),
+                      buttons: [{ label: t('key.gateGo'), kind: 'primary', run: toShadow }],
+                    });
+                  });
+                };
+                go('screenEvent');
+                events.rest(() => {
+                  go('screenEvent');
+                  events.shop(toGate, {});
+                }, {});
               } },
               { label: t('key.doorSkip'), run: () => finishClear() },
             ],
