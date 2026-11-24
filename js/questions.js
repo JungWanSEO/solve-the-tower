@@ -8,6 +8,7 @@
 // 유형의 이름은 "단원/유형" 입니다. (예: math1-trig/sinerule)
 // 플레이어가 고른 범위(유형 목록) 안에서만 문제를 냅니다.
 import { calcFill } from './calc.js';
+import { CONFIG } from './config.js';
 import { fill, pick, t } from './i18n.js';
 import { GENERATORS, CHAINS } from './generators.js';
 
@@ -176,21 +177,48 @@ function build(entry) {
 }
 
 // 유형을 먼저 고르고, 그 유형의 틀 중 하나를 고릅니다. (유형마다 고르게 나오도록)
+// 방금 낸 유형들. 같은 유형이 금방 다시 나오면 지루하므로, 다른 유형이 남아 있는 동안에는 이 유형들을 피합니다.
+const recentTypes = [];
+function remember(list, value, keep) {
+  const at = list.indexOf(value);
+  if (at >= 0) list.splice(at, 1);
+  list.push(value);
+  while (list.length > keep) list.shift();
+}
 function pickEntry(candidates) {
   const byType = new Map();
   for (const entry of candidates) {
     if (!byType.has(entry.type)) byType.set(entry.type, []);
     byType.get(entry.type).push(entry);
   }
-  const groups = [...byType.values()];
-  const group = groups[rand(groups.length)];
-  return group[rand(group.length)];
+  // 고를 수 있는 유형의 절반까지(많아도 CONFIG.variety.types 개) 최근 것을 뺍니다.
+  const keep = Math.min(CONFIG.variety.types, Math.floor(byType.size / 2));
+  const stale = new Set(recentTypes.slice(recentTypes.length - keep));
+  const fresh = keep > 0 ? [...byType.keys()].filter((type) => !stale.has(type)) : [];
+  const types = fresh.length ? fresh : [...byType.keys()];
+  const group = byType.get(types[rand(types.length)]);
+  const entry = group[rand(group.length)];
+  remember(recentTypes, entry.type, CONFIG.variety.types);
+  return entry;
 }
 
 // 단계에 맞는 문제를 하나 냅니다.
 // 범위 안에 그 단계의 문제가 없으면 가장 가까운 단계의 문제를 냅니다.
-export function next(level) {
+// favor: 적의 약점 유형. 주면 CONFIG.weakRate 의 확률로 그 유형을 먼저 냅니다. (그 유형에 이 단계의 문제가 없으면 가장 가까운 단계)
+//   범위가 넓어질수록 약점 유형이 우연히 나올 확률은 줄어듭니다 (유형 수 분의 1). 이렇게 따로 올려 두어야 약점이 의미를 가집니다.
+export function next(level, favor = '') {
   const pool = templates.filter(inScope);
+  if (favor && Math.random() < CONFIG.weakRate) {
+    const mine = pool.filter((entry) => entry.type === favor);
+    const reach = mine.length ? Math.min(...mine.map((entry) => Math.abs(entry.level - level))) : 9;
+    if (reach <= 1) { // 두 단계 넘게 차이 나는 문제는 내지 않습니다 (쉬운 문제를 고른 사람에게 가장 어려운 문제가 나오지 않게)
+      const near = Math.min(...mine.map((entry) => Math.abs(entry.level - level)));
+      const pickFrom = mine.filter((entry) => Math.abs(entry.level - level) === near);
+      const entry = pickFrom[rand(pickFrom.length)];
+      remember(recentTypes, entry.type, CONFIG.variety.types);
+      return build(entry);
+    }
+  }
   for (const distance of [0, 1, 2]) {
     const candidates = pool.filter((entry) => Math.abs(entry.level - level) === distance);
     if (candidates.length) {
@@ -269,10 +297,17 @@ export const chainTotal = () => chains.filter((entry) => entry.gen && !entry.dra
 // 연속기 하나를 만듭니다. 돌려주는 것: { intro(), steps: [물음, …] }
 // 물음 하나는 보통 문제와 같은 모양이라, 화면과 도감이 그대로 다룰 수 있습니다.
 // 물음에 figure 를 적으면 묶음의 그림에 그 이름표만 덮어씁니다. (구할 것은 "?", 구한 뒤에는 "{a1}")
+const recentChains = [];
 export function nextChain(boss = false) {
   const pool = chainPool(boss);
   if (!pool.length) return null;
-  const entry = pool[rand(pool.length)];
+  // 방금 나온 묶음은 피합니다: 고를 수 있는 묶음의 절반까지(많아도 CONFIG.variety.chains 개).
+  const keep = Math.min(CONFIG.variety.chains, Math.floor(pool.length / 2));
+  const stale = new Set(recentChains.slice(recentChains.length - keep));
+  const fresh = keep > 0 ? pool.filter((item) => !stale.has(item.id)) : [];
+  const from = fresh.length ? fresh : pool;
+  const entry = from[rand(from.length)];
+  remember(recentChains, entry.id, CONFIG.variety.chains);
   const data = entry.gen();
   const { steps: made, ...fields } = data;
   const answers = {};
