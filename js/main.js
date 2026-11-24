@@ -4,7 +4,7 @@
 import { CONFIG } from './config.js';
 import { loadLang, applyStatic, t, pick } from './i18n.js';
 import { load, store } from './save.js';
-import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName, starterKeys } from './questions.js';
+import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, actLabel, starterKeys } from './questions.js';
 import { newRun, nextAct, isLastAct } from './run.js';
 import { RELICS, has, relicVars } from './relics.js';
 import { heroOf, unlockedHeroes, newHeroes, heroVars } from './heroes.js';
@@ -407,27 +407,15 @@ async function boot() {
   const scope = createScope({
     data,
     onStart(keys) {
-      // 과목을 둘 이상 골랐으면 탑의 길이를 묻습니다. (튜토리얼 중에는 묻지 않고 짧은 탑)
+      // 탑의 길이를 묻습니다: 긴 탑(3막 30층, 범위를 셋으로 나눠 차례로) 또는 짧은 탑(10층, 섞어서). 튜토리얼 중이거나 유형이 너무 적으면 짧은 탑.
       const acts = actsFor(keys);
-      // 긴 탑은 CONFIG.act.max 과목까지. 그보다 많이 고르면 너무 길어지므로(과목마다 10층) 짧은 탑만 고를 수 있습니다.
-      if (acts.length > CONFIG.act.max && !tutorial.active()) {
-        ask({
-          title: t('act.askTitle'),
-          text: t('act.tooMany', { n: acts.length, max: CONFIG.act.max }),
-          buttons: [
-            { label: t('act.short'), kind: 'primary', run: () => chooseHero(keys, null) },
-            { label: t('act.back') },
-          ],
-        });
-        return;
-      }
       if (acts.length > 1 && !tutorial.active()) {
         ask({
           title: t('act.askTitle'),
-          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => subjectName(a.id)).join(' → ') }),
+          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => actLabel(a.keys)).join(' → ') }),
           buttons: [
-            { label: t('act.long', { n: acts.length }), kind: 'primary', run: () => chooseHero(keys, acts) },
-            { label: t('act.short'), run: () => chooseHero(keys, null) },
+            { label: t('act.short'), kind: 'primary', run: () => chooseHero(keys, null) },
+            { label: t('act.long', { n: acts.length }), run: () => chooseHero(keys, acts) },
           ],
         });
         return;
@@ -592,7 +580,7 @@ async function boot() {
           persist();
           goMap();
           ask({
-            title: t('act.nextTitle', { n: run.act + 1, name: subjectName(run.acts[run.act].id) }),
+            title: t('act.nextTitle', { n: run.act + 1, name: actLabel(run.acts[run.act].keys) }),
             text: t(isLastAct(run) ? 'act.lastText' : 'act.nextText', { gold, hp: healed, left: run.acts.length - run.act }),
             buttons: [{ label: t('ui.ok'), kind: 'primary' }],
           });
