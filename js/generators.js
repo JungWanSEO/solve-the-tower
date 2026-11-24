@@ -3206,3 +3206,470 @@ Object.assign(CHAINS, {
     };
   },
 });
+
+// =====================================================================
+// 数学C: ベクトル
+// =====================================================================
+
+const vecStr = (...c) => `(${c.map((x) => (typeof x === 'number' ? numStr(x) : x)).join(', ')})`;
+const vecOpt = (x, y) => ({ s: vecStr(x, y), v: x * 1000.5 + y * 1.0007 });
+// (ca·a + cb·b) ÷ den 을 글로 씁니다. 예: vecLin(2, 3, 5) → "(2a + 3b)/5", vecLin(-1, 2, 1) → "−a + 2b"
+function vecLin(ca, cb, den) {
+  const part = (c, sym, first) => {
+    const body = `${Math.abs(c) === 1 ? '' : Math.abs(c)}${sym}`;
+    return first ? `${c < 0 ? MINUS : ''}${body}` : ` ${c < 0 ? MINUS : '+'} ${body}`;
+  };
+  const top = `${part(ca, 'a', true)}${part(cb, 'b', false)}`;
+  return { s: den === 1 ? top : `(${top})/${den}`, v: ca / den + (100.5 * cb) / den };
+}
+// 이루는 각이 특수각인 두 벡터. [a, b, 각, 내적(n√r), |a|², |b|²]. 성분에 √3 이 들어가는 것은 글로 적습니다.
+const R3 = '√3';
+const VEC_ANGLES = [
+  [[1, 2], [3, 1], 45, [5, 1], 5, 10], [[2, 1], [1, 3], 45, [5, 1], 5, 10], [[1, 1], [0, 2], 45, [2, 1], 2, 4], [[3, 1], [2, 4], 45, [10, 1], 10, 20],
+  [[1, 2], [-3, -1], 135, [-5, 1], 5, 10], [[2, 1], [-1, -3], 135, [-5, 1], 5, 10], [[1, 1], [-2, 0], 135, [-2, 1], 2, 4],
+  [[1, 2], [2, -1], 90, [0, 1], 5, 5], [[3, 1], [-1, 3], 90, [0, 1], 10, 10], [[2, 3], [3, -2], 90, [0, 1], 13, 13],
+  [[2, 0], [1, R3], 60, [2, 1], 4, 4], [[1, R3], [-1, R3], 60, [2, 1], 4, 4], [[R3, 1], [R3, -1], 60, [2, 1], 4, 4],
+  [[2, 0], [-1, R3], 120, [-2, 1], 4, 4], [[1, R3], [1, `${MINUS}${R3}`], 120, [-2, 1], 4, 4],
+  [[R3, 1], [1, R3], 30, [2, 3], 4, 4], [[R3, 1], [2, 0], 30, [2, 3], 4, 4],
+  [[R3, 1], [-2, 0], 150, [-2, 3], 4, 4], [[R3, 1], [-1, `${MINUS}${R3}`], 150, [-2, 3], 4, 4],
+];
+const ANGLE_LIST = [30, 45, 60, 90, 120, 135, 150];
+// 내적을 구하는 식을 글로: dotWork([1, 2], [-3, 1]) → "1 × (−3) + 2 × 1"
+const dotWork = (a, b) => a.map((x, k) => { const show = (v) => { const t = typeof v === 'number' ? numStr(v) : v; return t.startsWith(MINUS) ? `(${t})` : t; }; return `${show(x)} × ${show(b[k])}`; }).join(' + ');
+// |a||b|cos θ 를 n√r/d 꼴로
+const COS_PARTS = { 30: [1, 3, 2], 45: [1, 2, 2], 60: [1, 1, 2], 120: [-1, 1, 2], 135: [-1, 2, 2], 150: [-1, 3, 2] };
+
+Object.assign(GENERATORS, {
+  // 성분으로 하는 계산: ka + lb
+  vcomp() {
+    const [a1, a2, b1, b2] = [nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5)];
+    if (a1 === b1 && a2 === b2) return GENERATORS.vcomp();
+    const k = pickOne([1, 2, 3]);
+    const l = pickOne([-3, -2, -1, 2, 3]);
+    const term = (c, sym, first) => { const body = `${Math.abs(c) === 1 ? '' : Math.abs(c)}${sym}`; return first ? body : ` ${c < 0 ? MINUS : '+'} ${body}`; };
+    return item({ av: vecStr(a1, a2), bv: vecStr(b1, b2), expr: `${term(k, 'a', true)}${term(l, 'b', false)}`, k, l: numStr(l), a1: numStr(a1), a2: numStr(a2), b1: numStr(b1), b2: numStr(b2) },
+      vecOpt(k * a1 + l * b1, k * a2 + l * b2),
+      [vecOpt(k * a1 - l * b1, k * a2 - l * b2), vecOpt(k * a2 + l * b2, k * a1 + l * b1), vecOpt(a1 + b1, a2 + b2), vecOpt(k * a1 + l * b2, k * a2 + l * b1)],
+      [vecOpt(k * a1 + l * b1 + 1, k * a2 + l * b2), vecOpt(k * a1 + l * b1, k * a2 + l * b2 - 1), vecOpt(-(k * a1 + l * b1), -(k * a2 + l * b2))]);
+  },
+
+  // 벡터의 크기. params.ask 가 'sum' 이면 |a + b|
+  vmag(params) {
+    const [a1, a2] = [nonzero(-6, 6), nonzero(-6, 6)];
+    if (params.ask === 'sum') {
+      const [b1, b2] = [nonzero(-6, 6), nonzero(-6, 6)];
+      const [c1, c2] = [a1 + b1, a2 + b2];
+      if (!c1 && !c2) return GENERATORS.vmag(params);
+      const q = c1 * c1 + c2 * c2;
+      return item({ av: vecStr(a1, a2), bv: vecStr(b1, b2), c1: numStr(c1), c2: numStr(c2) }, surd(1, q),
+        [int(q), int(Math.abs(c1) + Math.abs(c2)), surd(1, a1 * a1 + a2 * a2 + b1 * b1 + b2 * b2)], [surd(1, q + 1), surd(1, q + 2), surd(1, q + 4), int(q + 1)]);
+    }
+    const q = a1 * a1 + a2 * a2;
+    return item({ av: vecStr(a1, a2), a1: numStr(a1), a2: numStr(a2) }, surd(1, q), [int(q), int(Math.abs(a1) + Math.abs(a2)), surd(1, Math.abs(a1 * a1 - a2 * a2))], [surd(1, q + 1), surd(1, q + 3), int(q + 2), surd(1, q + 5)]);
+  },
+
+  // 내적. params.ask 가 'angle' 이면 크기와 각에서, 아니면 성분에서
+  vdot(params) {
+    if (params.ask === 'angle') {
+      const [p, q] = [1 + rand(5), 2 + rand(5)];
+      const deg = pickOne([30, 45, 60, 120, 135, 150]);
+      const [s, r, d] = COS_PARTS[deg];
+      const [s2, r2, d2] = COS_PARTS[{ 30: 60, 60: 30, 45: 45, 120: 150, 150: 120, 135: 135 }[deg]]; // sin 과 헷갈렸을 때의 값
+      return item({ p, q, deg }, surd(s * p * q, r, d), [surd(-s * p * q, r, d), surd(s2 * p * q, r2, d2), int(p * q), surd(s * (p + q), r, d)], [int(-p * q), surd(s * p * q, r, 1), int(p + q), int(0)]);
+    }
+    const [a1, a2, b1, b2] = [nonzero(-6, 6), nonzero(-6, 6), nonzero(-6, 6), nonzero(-6, 6)];
+    const dot = a1 * b1 + a2 * b2;
+    return item({ av: vecStr(a1, a2), bv: vecStr(b1, b2), a1: numStr(a1), a2: numStr(a2), b1: numStr(b1), b2: numStr(b2) }, int(dot),
+      [int(a1 * b2 + a2 * b1), int(a1 * b1 - a2 * b2), int((a1 + a2) * (b1 + b2)), int(a1 * b2 - a2 * b1)], [int(dot + 1), int(dot - 1), int(-dot), int(dot + 2), int(dot - 2)]);
+  },
+
+  // 두 벡터가 이루는 각
+  vangle() {
+    const [a, b, deg, dot, A, B] = pickOne(VEC_ANGLES);
+    const others = shuffled(ANGLE_LIST.filter((x) => x !== deg && x !== 180 - deg));
+    return item({ av: vecStr(...a), bv: vecStr(...b), work: dotWork(a, b), dot: surd(dot[0], dot[1]).s, ma: surd(1, A).s, mb: surd(1, B).s }, degOpt(deg), [degOpt(180 - deg), degOpt(others[0]), degOpt(others[1])], others.slice(2).map(degOpt));
+  },
+
+  // 수직·평행 조건. params.ask 가 'para' 이면 평행
+  vperp(params) {
+    const [p, q] = [nonzero(-4, 4), nonzero(-4, 4)];
+    const t = nonzero(-3, 3);
+    if (params.ask === 'para') {
+      const [x, r] = [p * t, q * t];
+      return item({ av: vecStr(p, q), r: numStr(r), p: numStr(p), q: numStr(q) }, int(x), [int(-x), int(-q * t), int(q * t), int(r)], [int(x + 1), int(x - 1), int(x + 2), int(x * 2), int(p + t)]);
+    }
+    const [x, r] = [-q * t, p * t];
+    return item({ av: vecStr(p, q), r: numStr(r), p: numStr(p), q: numStr(q) }, int(x), [int(-x), int(p * t), int(r), int(-p * t)], [int(x + 1), int(x - 1), int(x + 2), int(x * 2), int(q + t)]);
+  },
+
+  // 내분점·외분점의 위치벡터. params.ask 가 'ext' 이면 외분
+  vdiv(params) {
+    let m;
+    let n;
+    do { [m, n] = [1 + rand(5), 1 + rand(5)]; } while (m === n || gcd(m, n) !== 1);
+    if (params.ask === 'ext') {
+      const ans = m > n ? vecLin(-n, m, m - n) : vecLin(n, -m, n - m);
+      return item({ m, n }, ans, [vecLin(n, m, m + n), m > n ? vecLin(m, -n, m - n) : vecLin(-m, n, n - m), m > n ? vecLin(n, -m, m - n) : vecLin(-n, m, n - m), vecLin(m, n, m + n)],
+        [vecLin(1, 1, 2), vecLin(-n, m, m + n), vecLin(n, m, 1)]);
+    }
+    return item({ m, n }, vecLin(n, m, m + n), [vecLin(m, n, m + n), m > n ? vecLin(-n, m, m - n) : vecLin(n, -m, n - m), vecLin(n, m, m * n === m + n ? m + n + 1 : m * n)],
+      [vecLin(1, 1, 2), vecLin(n, m, m + n + 1), vecLin(m, n, 1), vecLin(n + 1, m, m + n)]);
+  },
+
+  // 공간벡터. params.ask: 'mag'(크기) · 'dist'(두 점 사이의 거리) · 'perp'(수직이 되는 x)
+  vspace(params) {
+    if (params.ask === 'perp') {
+      const [p, q, r] = [nonzero(-3, 3), nonzero(-3, 3), pickOne([1, -1, 2, -2])];
+      const [x, s] = [nonzero(-5, 5), nonzero(-4, 4)];
+      const rest = -(p * x + q * s);
+      if (rest % r !== 0 || rest === 0 || Math.abs(rest / r) > 8) return GENERATORS.vspace(params);
+      const t = rest / r;
+      return item({ av: vecStr(p, q, r), s: numStr(s), t: numStr(t), p: numStr(p), q: numStr(q), r: numStr(r) }, int(x), [int(-x), int(s + t), int(p + q + r)], [int(x + 1), int(x - 1), int(x + 2), int(x - 2), int(x * 2)]);
+    }
+    if (params.ask === 'dist') {
+      const A = [nonzero(-4, 4), nonzero(-4, 4), nonzero(-4, 4)];
+      const B = [nonzero(-4, 4), nonzero(-4, 4), nonzero(-4, 4)];
+      const d = B.map((v, k) => v - A[k]);
+      const q = d.reduce((sum, v) => sum + v * v, 0);
+      if (!q) return GENERATORS.vspace(params);
+      const plus = B.reduce((sum, v, k) => sum + (v + A[k]) ** 2, 0);
+      return item({ A: vecStr(...A), B: vecStr(...B), d1: numStr(d[0]), d2: numStr(d[1]), d3: numStr(d[2]) }, surd(1, q), [int(q), int(d.reduce((sum, v) => sum + Math.abs(v), 0)), surd(1, plus)], [surd(1, q + 1), surd(1, q + 2), surd(1, q + 3), int(q + 1)]);
+    }
+    const c = [nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5)];
+    const q = c.reduce((sum, v) => sum + v * v, 0);
+    return item({ av: vecStr(...c), a1: numStr(c[0]), a2: numStr(c[1]), a3: numStr(c[2]) }, surd(1, q), [int(q), int(c.reduce((sum, v) => sum + Math.abs(v), 0)), surd(1, c[0] * c[0] + c[1] * c[1])], [surd(1, q + 1), surd(1, q + 2), surd(1, q + 3), int(q + 1)]);
+  },
+
+  // 삼각형 OAB 의 넓이: ½|a₁b₂ − a₂b₁|
+  varea() {
+    const [a1, a2, b1, b2] = [nonzero(-6, 6), nonzero(-6, 6), nonzero(-6, 6), nonzero(-6, 6)];
+    const cross = Math.abs(a1 * b2 - a2 * b1);
+    if (!cross) return GENERATORS.varea();
+    return item({ A: vecStr(a1, a2), B: vecStr(b1, b2), a1: numStr(a1), a2: numStr(a2), b1: numStr(b1), b2: numStr(b2) }, frac(cross, 2),
+      [int(cross), frac(Math.abs(a1 * b1 + a2 * b2), 2), frac(Math.abs(a1 * b2 + a2 * b1), 2), frac(Math.abs(a1 * b1 - a2 * b2), 2)], [frac(cross + 1, 2), frac(cross + 2, 2), frac(cross + 3, 2), int(cross + 1)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 이루는 각: 내적 → 크기의 곱 → 각
+  vangle3() {
+    const [a, b, deg, dot, A, B] = pickOne(VEC_ANGLES);
+    const d = surd(dot[0], dot[1]);
+    const others = shuffled(ANGLE_LIST.filter((x) => x !== deg && x !== 180 - deg));
+    return {
+      av: vecStr(...a), bv: vecStr(...b), work: dotWork(a, b), ma: surd(1, A).s, mb: surd(1, B).s,
+      steps: [
+        step(d, [surd(-dot[0], dot[1]), surd(dot[0] + 1, dot[1]), surd(dot[0] * 2 || 2, dot[1])], [int(1), int(-1), int(3), int(4), surd(1, 3)]),
+        step(surd(1, A * B), [int(A * B), int(A + B), surd(1, A + B)], [surd(1, A * B + 1), surd(2, A * B), int(A * B + 1), surd(1, A * B + 2)]),
+        step(degOpt(deg), [degOpt(180 - deg), degOpt(others[0]), degOpt(others[1])], others.slice(2).map(degOpt)),
+      ],
+    };
+  },
+
+  // 삼각형 OAB: 내적 → |OA|²|OB|² → 넓이
+  vtri() {
+    const [a1, a2, b1, b2] = [nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5), nonzero(-5, 5)];
+    const cross = Math.abs(a1 * b2 - a2 * b1);
+    if (!cross) return CHAINS.vtri();
+    const dot = a1 * b1 + a2 * b2;
+    const mm = (a1 * a1 + a2 * a2) * (b1 * b1 + b2 * b2);
+    return {
+      A: vecStr(a1, a2), B: vecStr(b1, b2), x1: numStr(a1), y1: numStr(a2), x2: numStr(b1), y2: numStr(b2),
+      steps: [
+        step(int(dot), [int(a1 * b2 + a2 * b1), int(a1 * b1 - a2 * b2), int(-dot)], [int(dot + 1), int(dot - 1), int(dot + 2), int(dot - 2)]),
+        step(int(mm), [int(a1 * a1 + a2 * a2 + b1 * b1 + b2 * b2), int((a1 * a1 + a2 * a2) * (b1 * b1 + b2 * b2) - dot * dot), int((Math.abs(a1) + Math.abs(a2)) * (Math.abs(b1) + Math.abs(b2)))], [int(mm + 1), int(mm - 1), int(mm + 10), int(mm * 2)]),
+        step(frac(cross, 2), [int(cross), frac(mm - dot * dot, 2), frac(Math.abs(dot), 2)], [frac(cross + 1, 2), frac(cross + 2, 2), frac(cross + 3, 2), int(cross + 1)]),
+      ],
+    };
+  },
+});
+
+// =====================================================================
+// 数学C: 平面上の曲線と複素数平面
+// =====================================================================
+
+// 극형식으로 다루기 쉬운 복소수. [글, 실수부분, 허수부분, |z|², 편각(도, 0 이상 360 미만)]
+const S3 = Math.sqrt(3);
+const POLAR = [
+  ['1 + i', 1, 1, 2, 45], [`1 ${MINUS} i`, 1, -1, 2, 315], [`${MINUS}1 + i`, -1, 1, 2, 135], [`${MINUS}1 ${MINUS} i`, -1, -1, 2, 225],
+  ['√3 + i', S3, 1, 4, 30], ['1 + √3i', 1, S3, 4, 60], [`${MINUS}1 + √3i`, -1, S3, 4, 120], [`${MINUS}√3 + i`, -S3, 1, 4, 150],
+  [`1 ${MINUS} √3i`, 1, -S3, 4, 300], [`√3 ${MINUS} i`, S3, -1, 4, 330], [`${MINUS}√3 ${MINUS} i`, -S3, -1, 4, 210], [`${MINUS}1 ${MINUS} √3i`, -1, -S3, 4, 240],
+];
+// 거듭제곱했을 때 실수부분·허수부분이 정수가 되는 지수
+const powersFor = (deg) => (deg % 45 === 0 && deg % 90 !== 0 ? [2, 4, 6, 8] : [3, 6]);
+function cPower(entry, n) {
+  const m = entry[3] ** (n / 2);
+  const ang = (entry[4] * n * Math.PI) / 180;
+  return [Math.round(m * Math.cos(ang)), Math.round(m * Math.sin(ang)), Math.round(m)];
+}
+// 좌표가 분수일 수도 있는 점. x, y 는 frac() 이 만든 값
+const pointOpt = (x, y) => ({ s: `(${x.s}, ${y.s})`, v: x.v * 1000.5 + y.v * 1.0007 });
+const eqOpt = (axis, k) => ({ s: `${axis} = ${k.s}`, v: (axis === 'x' ? 0 : 5000.5) + k.v });
+// 초점 (±c, 0) 또는 (0, ±c). c 는 surd() 가 만든 값 (√7 처럼 정수가 아닐 수 있습니다)
+const fociOpt = (c, onX) => ({ s: onX ? `(±${c.s}, 0)` : `(0, ±${c.s})`, v: (onX ? 0 : 5000.5) + c.v });
+// 타원에 쓸 [a, b] (a > b)
+function ellipseNums() {
+  const a = 3 + rand(7);
+  const b = 2 + rand(a - 2);
+  return [a, b];
+}
+const slopeOpt = (n, d) => { const g = gcd(n, d); const [p, q] = [n / g, d / g]; return { s: `y = ±${q === 1 ? (p === 1 ? '' : p) : `(${p}/${q})`}x`, v: p / q }; };
+
+Object.assign(GENERATORS, {
+  // 복소수의 절댓값. params.ask 가 'dist' 이면 두 점 사이의 거리 |z₁ − z₂|
+  cabs(params) {
+    const [a, b] = [nonzero(-6, 6), nonzero(-6, 6)];
+    if (params.ask === 'dist') {
+      const [c, d] = [nonzero(-6, 6), nonzero(-6, 6)];
+      const [p, q] = [a - c, b - d];
+      if (!p || !q) return GENERATORS.cabs(params);
+      const s = p * p + q * q;
+      return item({ z1: cplxStr(a, b), z2: cplxStr(c, d), diff: cplxStr(p, q), p: numStr(p), q: numStr(q) }, surd(1, s), [int(s), int(Math.abs(p) + Math.abs(q)), surd(1, (a + c) ** 2 + (b + d) ** 2)], [surd(1, s + 1), surd(1, s + 2), surd(1, s + 4), int(s + 1)]);
+    }
+    const s = a * a + b * b;
+    return item({ z: cplxStr(a, b), a: numStr(a), b: numStr(b) }, surd(1, s), [int(s), int(Math.abs(a) + Math.abs(b)), surd(1, Math.abs(a * a - b * b))], [surd(1, s + 1), surd(1, s + 3), int(s + 2), surd(1, s + 5)]);
+  },
+
+  // 편각 (0 ≦ θ < 2π)
+  carg() {
+    const [z, re, im, , deg] = pickOne(POLAR);
+    const ref = deg % 90 === 45 ? 45 : [30, 150, 210, 330].includes(deg) ? 30 : 60; // x 축과 이루는 예각
+    const cand = [ref, 180 - ref, 180 + ref, 360 - ref].filter((d) => d !== deg);
+    return item({ z, quad: deg < 90 ? 1 : deg < 180 ? 2 : deg < 270 ? 3 : 4, re: surd(1, Math.round(re * re)).s, im: surd(1, Math.round(im * im)).s, ref: radOf(ref).s }, radOf(deg), cand.map(radOf), [radOf(90 - ref), radOf(180 - (90 - ref)), radOf(90), radOf(180)]);
+  },
+
+  // 드 무아브르의 정리: zⁿ
+  demoivre() {
+    const entry = pickOne(POLAR);
+    const n = pickOne(powersFor(entry[4]));
+    const [re, im, m] = cPower(entry, n);
+    const unit = [Math.round(re / m), Math.round(im / m)];
+    return item({ z: entry[0], n, r: surd(1, entry[3]).s, arg: radOf(entry[4]).s, rn: m, argn: radOf(entry[4] * n).s }, cplx(re, im),
+      [cplx(-re, -im), cplx(im, re), cplx(unit[0], unit[1]), cplx(-im, re)], [cplx(re * 2, im * 2), cplx(m, m), cplx(-m, 0), cplx(0, m), cplx(m, 0), cplx(0, -m)]);
+  },
+
+  // 회전: i, −1, −i 를 곱하기
+  crot() {
+    const [a, b] = [nonzero(-6, 6), nonzero(-6, 6)];
+    if (Math.abs(a) === Math.abs(b)) return GENERATORS.crot();
+    const [ang, mul, re, im] = pickOne([['π/2', 'i', -b, a], ['π', `${MINUS}1`, -a, -b], [`${MINUS}π/2`, `${MINUS}i`, b, -a]]);
+    return item({ z: cplxStr(a, b), ang, mul }, cplx(re, im), [cplx(-b, a), cplx(-a, -b), cplx(b, -a), cplx(a, -b), cplx(b, a)], [cplx(-a, b), cplx(-b, -a)]);
+  },
+
+  // 포물선 y² = 4px (또는 x² = 4py) 의 초점과 준선. params.ask 가 'dir' 이면 준선
+  parab(params) {
+    const k = 2 * nonzero(-12, 12); // 4p 의 값 (짝수). p 는 정수이거나 1/2 단위의 분수
+    const onX = Math.random() < 0.6;
+    const eq = onX ? `y² = ${numStr(k)}x` : `x² = ${numStr(k)}y`;
+    const P = (mul) => frac(k * mul, 4);
+    const zero = int(0);
+    const fields = { eq, k: numStr(k), form: onX ? 'y² = 4px' : 'x² = 4py', p: P(1).s };
+    if (params.ask === 'dir') {
+      const [mine, other] = onX ? ['x', 'y'] : ['y', 'x'];
+      return item(fields, eqOpt(mine, P(-1)), [eqOpt(mine, P(1)), eqOpt(other, P(-1)), eqOpt(mine, P(-4)), eqOpt(mine, P(-2))], [eqOpt(other, P(1)), eqOpt(mine, P(4))]);
+    }
+    const pt = (v) => (onX ? pointOpt(v, zero) : pointOpt(zero, v));
+    return item(fields, pt(P(1)), [pt(P(4)), pt(P(-1)), onX ? pointOpt(zero, P(1)) : pointOpt(P(1), zero), pt(P(2))], [pt(P(-4)), pt(P(8))]);
+  },
+
+  // 타원 x²/a² + y²/b² = 1. params.ask 가 'axis' 이면 긴지름의 길이, 아니면 초점
+  ellipse(params) {
+    const [a, b] = ellipseNums();
+    const c2 = a * a - b * b;
+    const onX = Math.random() < 0.6; // 긴지름이 x 축 위에 있는지
+    const [dx, dy] = onX ? [a * a, b * b] : [b * b, a * a];
+    const fields = { eq: `x²/${dx} + y²/${dy} = 1`, big: a * a, small: b * b, a, b, axis: onX ? 'x' : 'y' };
+    if (params.ask === 'axis') return item(fields, int(2 * a), [int(a), int(2 * b), int(a * a), int(b)], [int(a + b), int(2 * a + 2), int(2 * a - 1)]);
+    return item(fields, fociOpt(surd(1, c2), onX), [fociOpt(surd(1, a * a + b * b), onX), fociOpt(surd(1, c2), !onX), fociOpt(int(c2), onX), fociOpt(int(a), onX)], [fociOpt(int(b), onX), fociOpt(surd(1, c2 + 1), onX), fociOpt(int(a + b), onX)]);
+  },
+
+  // 쌍곡선 x²/a² − y²/b² = 1. params.ask 가 'asym' 이면 점근선, 아니면 초점
+  hyper(params) {
+    const [a, b] = [1 + rand(6), 1 + rand(6)];
+    if (a === b) return GENERATORS.hyper(params);
+    const c2 = a * a + b * b;
+    const fields = { eq: `x²/${a * a} ${MINUS} y²/${b * b} = 1`, a2: a * a, b2: b * b, a, b };
+    if (params.ask === 'asym') return item(fields, slopeOpt(b, a), [slopeOpt(a, b), slopeOpt(b * b, a * a), slopeOpt(a * a, b * b)], [slopeOpt(b + 1, a), slopeOpt(b, a + 1), slopeOpt(1, 1), slopeOpt(2, 1), slopeOpt(3, 1)]);
+    return item(fields, fociOpt(surd(1, c2), true), [fociOpt(surd(1, Math.abs(a * a - b * b)), true), fociOpt(surd(1, c2), false), fociOpt(int(c2), true), fociOpt(int(a), true)], [fociOpt(int(b), true), fociOpt(surd(1, c2 + 1), true), fociOpt(int(a + b), true)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 타원: 긴지름 → 짧은지름 → 초점
+  ellipse3() {
+    const [a, b] = ellipseNums();
+    const c2 = a * a - b * b;
+    return {
+      eq: `x²/${a * a} + y²/${b * b} = 1`, big: a * a, small: b * b,
+      steps: [
+        step(int(2 * a), [int(a), int(a * a), int(2 * b)], [int(2 * a + 2), int(a + b), int(a + 1), int(2 * a - 1)]),
+        step(int(2 * b), [int(b), int(b * b), int(2 * a)], [int(2 * b + 2), int(a + b), int(b + 1), int(2 * b - 1)]),
+        step(surd(1, c2), [int(c2), surd(1, a * a + b * b), int(a - b)], [surd(1, c2 + 1), surd(1, c2 + 2), int(a + b), surd(1, c2 + 3)]),
+      ],
+    };
+  },
+
+  // 극형식: 절댓값 → 편각 → 거듭제곱
+  polar3() {
+    const entry = pickOne(POLAR);
+    const [z, , , q, deg] = entry;
+    const n = pickOne(powersFor(deg));
+    const [re, im, m] = cPower(entry, n);
+    const ref = deg % 90 === 45 ? 45 : [30, 150, 210, 330].includes(deg) ? 30 : 60;
+    const cand = [ref, 180 - ref, 180 + ref, 360 - ref].filter((d) => d !== deg);
+    return {
+      z, n, rn: m, argn: radOf(deg * n).s, q, re: surd(1, Math.round(entry[1] ** 2)).s, im: surd(1, Math.round(entry[2] ** 2)).s, quad: deg < 90 ? 1 : deg < 180 ? 2 : deg < 270 ? 3 : 4, ref: radOf(ref).s,
+      steps: [
+        step(surd(1, q), [int(q), int(q === 2 ? 1 : 1), surd(1, q + 1)], [int(3), surd(1, 3), surd(1, 5), int(4), surd(1, 2)]),
+        step(radOf(deg), cand.map(radOf), [radOf(90 - ref), radOf(90), radOf(180)]),
+        step(cplx(re, im), [cplx(-re, -im), cplx(im, re), cplx(-im, re)], [cplx(re * 2, im * 2), cplx(m, m), cplx(-m, 0), cplx(0, m), cplx(m, 0), cplx(0, -m)]),
+      ],
+    };
+  },
+});
+
+// =====================================================================
+// 数学B: 統計的な推測
+// =====================================================================
+
+// 소수를 글로 (끝의 0 은 떼고, 음수는 − 로)
+const decOpt = (v, places = 4) => { const r = Math.round(v * 10 ** places) / 10 ** places; return { s: numStr(r), v: r }; };
+// 확률변수의 표: 값 3개와 확률(분모가 같은 분수). 돌려주는 것: { xs, ks, d }
+function probTable() {
+  const d = pickOne([4, 5, 6, 8, 10]);
+  const k1 = 1 + rand(d - 2);
+  const k2 = 1 + rand(d - k1 - 1);
+  const k3 = d - k1 - k2;
+  const start = rand(3);
+  const gap = 1 + rand(3);
+  const xs = [start, start + gap, start + gap + 1 + rand(3)];
+  return { xs, ks: [k1, k2, k3], d };
+}
+const tableFields = ({ xs, ks, d }) => ({ xs: xs.join(', '), ps: ks.map((k) => frac(k, d).s).join(', ') });
+// 이항분포 B(n, p): [n, p 의 분자, p 의 분모]. 평균 np 가 정수이고, 뒤의 넷은 분산 npq 가 제곱수가 아닌 것도 섞습니다
+const BINOMS = [[100, 1, 2], [400, 1, 5], [180, 1, 6], [72, 1, 3], [48, 1, 4], [64, 1, 2], [150, 2, 5], [162, 1, 3], [450, 1, 3], [36, 1, 2], [16, 1, 4], [144, 1, 2], [25, 1, 5], [225, 1, 10], [80, 1, 5], [18, 1, 3]];
+const SQUARE = (v) => Number.isInteger(Math.sqrt(v));
+// 표준정규분포에서 P(0 ≦ Z ≦ z)
+const NORMAL = { 1: 0.3413, 2: 0.4772 };
+const NORMAL_NOTE = 'P(0 ≦ Z ≦ 1) = 0.3413, P(0 ≦ Z ≦ 2) = 0.4772';
+
+Object.assign(GENERATORS, {
+  // 확률변수의 기댓값
+  expect() {
+    const t = probTable();
+    const sum = t.xs.reduce((s, x, k) => s + x * t.ks[k], 0);
+    return item({ ...tableFields(t), work: t.xs.map((x, k) => `${x} × ${frac(t.ks[k], t.d).s}`).join(' + ') }, frac(sum, t.d),
+      [frac(t.xs[0] + t.xs[1] + t.xs[2], 3), int(sum), frac(sum, 3), int(t.xs[1])], [frac(sum + 1, t.d), frac(sum - 1, t.d), frac(sum + t.d, t.d), frac(sum + 2, t.d)]);
+  },
+
+  // 확률변수의 분산: V(X) = E(X²) − {E(X)}²
+  rvvar() {
+    const t = probTable();
+    const s1 = t.xs.reduce((s, x, k) => s + x * t.ks[k], 0);
+    const s2 = t.xs.reduce((s, x, k) => s + x * x * t.ks[k], 0);
+    const top = t.d * s2 - s1 * s1;
+    return item({ ...tableFields(t), ex: frac(s1, t.d).s, ex2: frac(s2, t.d).s }, frac(top, t.d * t.d),
+      [frac(s2, t.d), frac(s2 - s1, t.d), frac(s1 * s1, t.d * t.d), frac(t.d * s2 + s1 * s1, t.d * t.d)], [frac(top + 1, t.d * t.d), frac(top + t.d, t.d * t.d), frac(top, t.d), frac(top + 2, t.d * t.d)]);
+  },
+
+  // aX + b 의 기댓값과 분산. params.ask 가 'var' 이면 분산
+  lintrans(params) {
+    const m = 2 + rand(9);
+    const v = 1 + rand(6);
+    const a = pickOne([-3, -2, 2, 3, 4, 5]);
+    const b = nonzero(-9, 9);
+    const fields = { m, v, expr: `${a === -1 ? MINUS : numStr(a)}X ${b > 0 ? '+' : MINUS} ${Math.abs(b)}`, a: numStr(a), b: numStr(b) };
+    if (params.ask === 'var') return item(fields, int(a * a * v), [int(a * v), int(a * a * v + b), int(a * v + b), int(Math.abs(a) * v)], [int(a * a * v + 1), int(a * a * v - 1), int(v), int(a * a * v * 2)]);
+    return item(fields, int(a * m + b), [int(a * m), int(a * a * m + b), int(a * (m + b)), int(a * a * m)], [int(a * m + b + 1), int(a * m + b - 1), int(m + b), int(-(a * m + b))]);
+  },
+
+  // 이항분포 B(n, p) 의 평균과 분산. params.ask 가 'var' 이면 분산
+  bindist(params) {
+    const [n, pn, pd] = pickOne(BINOMS);
+    const mean = (n * pn) / pd;
+    const fields = { n, p: frac(pn, pd).s, q: frac(pd - pn, pd).s };
+    if (params.ask === 'var') {
+      const V = frac(n * pn * (pd - pn), pd * pd);
+      return item(fields, V, [int(mean), frac(n * pn * pn, pd * pd), frac(n * (pd - pn), pd), SQUARE(V.v) ? int(Math.sqrt(V.v)) : frac(n * pn * (pd - pn), pd * pd * 2)], [frac(n * pn * (pd - pn) + pd * pd, pd * pd), int(n), frac(n * pn * (pd - pn), pd), frac(n, 4)]);
+    }
+    return item(fields, int(mean), [frac(n * (pd - pn), pd), frac(n * pn * (pd - pn), pd * pd), int(n), frac(n, 2)], [int(mean + 1), int(mean - 1), int(mean * 2), int(mean + 2)]);
+  },
+
+  // 정규분포. params.ask 가 'prob' 이면 확률(표의 값 사용), 아니면 표준화 z = (x − m) ÷ σ
+  normal(params) {
+    const m = pickOne([50, 60, 70, 100, 160, 170]);
+    const s = pickOne([4, 5, 8, 10, 20]);
+    if (params.ask === 'prob') {
+      const kind = pickOne(['mid', 'mid', 'upper', 'lower']);
+      if (kind === 'mid') {
+        const [z1, z2] = pickOne([[-1, 1], [-2, 2], [-1, 2], [-2, 1], [0, 1], [0, 2], [1, 2], [-2, -1], [-1, 0], [-2, 0]]);
+        const part = (z) => Math.sign(z) * (NORMAL[Math.abs(z)] || 0);
+        const ans = part(z2) - part(z1);
+        const [u1, u2] = [NORMAL[Math.abs(z1)] || 0, NORMAL[Math.abs(z2)] || 0];
+        return item({ m, s, range: `${m + z1 * s} ≦ X ≦ ${m + z2 * s}`, zrange: `${numStr(z1)} ≦ Z ≦ ${numStr(z2)}`, note: NORMAL_NOTE }, decOpt(ans),
+          [decOpt(Math.abs(u2 - u1)), decOpt(u1 + u2), decOpt(1 - ans), decOpt(0.5 - ans)].filter((o) => o.v > 0), [decOpt(0.5), decOpt(0.3413), decOpt(0.4772), decOpt(0.6826), decOpt(0.9544), decOpt(0.1359)]);
+      }
+      const z = pickOne([1, 2]);
+      const ans = 0.5 - NORMAL[z];
+      const [range, zrange] = kind === 'upper' ? [`X ≧ ${m + z * s}`, `Z ≧ ${z}`] : [`X ≦ ${m - z * s}`, `Z ≦ ${MINUS}${z}`];
+      return item({ m, s, range, zrange, note: NORMAL_NOTE }, decOpt(ans), [decOpt(NORMAL[z]), decOpt(0.5 + NORMAL[z]), decOpt(1 - NORMAL[z])], [decOpt(0.5), decOpt(0.1587), decOpt(0.0228), decOpt(0.1359)]);
+    }
+    const z = pickOne([-2.5, -2, -1.5, -1, -0.5, 0.5, 1, 1.5, 2, 2.5]);
+    const x = m + z * s;
+    return item({ m, s, x: numStr(x), diff: numStr(x - m) }, decOpt(z, 1), [decOpt(-z, 1), decOpt(x - m, 1), decOpt(Math.round((x / s) * 10) / 10, 1), decOpt((x - m) / (s * s), 2)], [decOpt(z + 0.5, 1), decOpt(z - 0.5, 1), decOpt(z + 1, 1), decOpt(z * 2, 1)]);
+  },
+
+  // 표본평균의 표준편차: σ ÷ √n
+  samplemean() {
+    const root = pickOne([4, 5, 6, 8, 10, 12, 20]);
+    const sigma = pickOne([2, 3, 4, 5, 6, 8, 10, 12, 15, 20]);
+    const n = root * root;
+    return item({ m: pickOne([50, 60, 100, 120, 165, 170]), sigma, n, root }, frac(sigma, root), [frac(sigma, n), int(sigma), int(sigma * root), frac(sigma * sigma, n)], [frac(sigma + 1, root), frac(sigma, root + 1), frac(sigma, 2 * root), frac(2 * sigma, root)]);
+  },
+
+  // 모평균의 신뢰구간 (신뢰도 95%): x̄ ± 1.96 × σ ÷ √n
+  confint() {
+    const [sigma, n] = pickOne([[10, 100], [20, 400], [15, 225], [12, 144], [10, 25], [20, 100], [5, 100], [10, 400], [6, 144], [8, 64], [4, 64], [30, 900]]);
+    const root = Math.sqrt(n);
+    const se = sigma / root;
+    const mean = pickOne([52, 60, 75, 100, 120, 158, 165, 170]) + rand(5);
+    const box = (half) => ({ s: `[${(mean - half).toFixed(2)}, ${(mean + half).toFixed(2)}]`, v: half });
+    const half = 1.96 * se;
+    return item({ mean, sigma, n, root, se: decOpt(se).s, half: decOpt(half).s }, box(half), [box(se), box(1.96 * sigma), box((1.96 * sigma) / n), box(2.58 * se)].filter((o) => o.v < mean), [box(half + 1), box(half * 2), box(half / 2), box(half + 0.5)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 이항분포: 평균 → 분산 → 표준편차
+  binom3() {
+    const [n, pn, pd] = pickOne(BINOMS.filter(([N, a, b]) => SQUARE((N * a * (b - a)) / (b * b))));
+    const mean = (n * pn) / pd;
+    const V = (n * pn * (pd - pn)) / (pd * pd);
+    const sd = Math.sqrt(V);
+    return {
+      n, p: frac(pn, pd).s, q: frac(pd - pn, pd).s,
+      steps: [
+        step(int(mean), [frac(n * (pd - pn), pd), int(V), int(n)], [int(mean + 1), int(mean - 1), int(mean * 2), int(mean + 5)]),
+        step(int(V), [int(mean), frac(n * pn * pn, pd * pd), int(sd)], [int(V + 1), int(V - 1), int(V * 2), int(V + 4)]),
+        step(int(sd), [int(V), frac(V, 2), int(V * V)], [int(sd + 1), int(sd - 1), int(sd + 2), int(sd * 2)]),
+      ],
+    };
+  },
+
+  // 신뢰구간: 표본평균의 표준편차 → 1.96 배 → 구간의 위쪽 끝
+  conf3() {
+    const [sigma, n] = pickOne([[10, 100], [20, 400], [15, 225], [12, 144], [10, 25], [20, 100], [5, 100], [10, 400], [6, 144], [8, 64], [4, 64], [30, 900]]);
+    const root = Math.sqrt(n);
+    const se = sigma / root;
+    const mean = pickOne([52, 60, 75, 100, 120, 158, 165, 170]) + rand(5);
+    const half = 1.96 * se;
+    return {
+      mean, sigma, n, root,
+      steps: [
+        step(decOpt(se), [decOpt(sigma / n), int(sigma), int(sigma * root)], [decOpt(se + 1), decOpt(se * 2), decOpt(se / 2), decOpt(se + 0.5)]),
+        step(decOpt(half), [decOpt(1.96 * sigma), decOpt(se), decOpt(2.58 * se), decOpt(1.96 + se)], [decOpt(half + 1), decOpt(half * 2), decOpt(half / 2)]),
+        step(decOpt(mean + half), [decOpt(mean - half), decOpt(mean + se), decOpt(mean + 1.96 * sigma), decOpt(mean + 1.96)], [decOpt(mean + half + 1), decOpt(mean + half * 2), decOpt(mean + 2.58 * se)]),
+      ],
+    };
+  },
+});
