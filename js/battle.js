@@ -453,7 +453,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     let level = CONFIG.guardLevel;
     if (action === 'basic') level = B.foe.basicLevel || 1;
     if (action === 'skill') level = B.foe.skillLevel || 2;
-    B.cur = next(level);
+    B.cur = next(level, action === 'defend' ? '' : B.weak); // 공격 문제는 약점 유형이 더 자주 나옵니다 (방어는 약점 보너스가 없어 그대로)
     B.cur.action = action;
     B.cur.removed = -1;
     B.cur.fill = fillOn() ? makeFill(B.cur) : null;
