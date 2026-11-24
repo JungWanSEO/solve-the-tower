@@ -1,0 +1,395 @@
+{
+  "id": "mathb-stat",
+  "name": {
+    "ja": "統計的な推測",
+    "ko": "통계적 추정",
+    "en": "Statistical inference"
+  },
+  "types": {
+    "expect": {
+      "ja": "確率変数の期待値",
+      "ko": "확률변수의 기댓값",
+      "en": "Expected value of a random variable"
+    },
+    "rvvar": {
+      "ja": "確率変数の分散",
+      "ko": "확률변수의 분산",
+      "en": "Variance of a random variable"
+    },
+    "lintrans": {
+      "ja": "aX + b の期待値と分散",
+      "ko": "aX + b 의 기댓값과 분산",
+      "en": "Mean and variance of aX + b"
+    },
+    "bindist": {
+      "ja": "二項分布",
+      "ko": "이항분포",
+      "en": "Binomial distribution"
+    },
+    "normal": {
+      "ja": "正規分布",
+      "ko": "정규분포",
+      "en": "Normal distribution"
+    },
+    "samplemean": {
+      "ja": "標本平均の分布",
+      "ko": "표본평균의 분포",
+      "en": "Distribution of the sample mean"
+    },
+    "confint": {
+      "ja": "母平均の推定(信頼区間)",
+      "ko": "모평균의 추정 (신뢰구간)",
+      "en": "Confidence intervals for the mean"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "確率分布",
+        "ko": "확률분포",
+        "en": "Probability distributions"
+      },
+      "types": [
+        "expect",
+        "rvvar",
+        "lintrans",
+        "bindist"
+      ]
+    },
+    {
+      "name": {
+        "ja": "正規分布",
+        "ko": "정규분포",
+        "en": "Normal distribution"
+      },
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "name": {
+        "ja": "統計的な推測",
+        "ko": "통계적 추정",
+        "en": "Statistical inference"
+      },
+      "types": [
+        "samplemean",
+        "confint"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "expect",
+      "level": 1,
+      "type": "expect",
+      "gen": "expect",
+      "text": {
+        "ja": "確率変数 X のとる値が {xs} で、その確率が順に {ps} のとき、期待値 E(X) は?",
+        "ko": "확률변수 X 가 가지는 값이 {xs} 이고 그 확률이 차례로 {ps} 일 때, 기댓값 E(X) 는?",
+        "en": "A random variable X takes the values {xs} with probabilities {ps} in that order. What is E(X)?"
+      },
+      "explain": {
+        "ja": "期待値は「値 × その確率」をすべて足したもの(値をただ平均するのではない)\nE(X) = {work}\n通分して計算すると {answer}",
+        "ko": "기댓값은 \"값 × 그 확률\"을 모두 더한 것입니다 (값을 그냥 평균 내는 것이 아닙니다)\nE(X) = {work}\n통분해서 계산하면 {answer}",
+        "en": "The expected value is the sum of (value × its probability), not a plain average of the values\nE(X) = {work}\nWith a common denominator this is {answer}"
+      }
+    },
+    {
+      "id": "rvvar",
+      "level": 2,
+      "type": "rvvar",
+      "gen": "rvvar",
+      "text": {
+        "ja": "確率変数 X のとる値が {xs} で、その確率が順に {ps} のとき、分散 V(X) は?",
+        "ko": "확률변수 X 가 가지는 값이 {xs} 이고 그 확률이 차례로 {ps} 일 때, 분산 V(X) 는?",
+        "en": "A random variable X takes the values {xs} with probabilities {ps} in that order. What is V(X)?"
+      },
+      "explain": {
+        "ja": "V(X) = E(X²) − (E(X))² を使う\nE(X) = {ex}、E(X²) は「値の 2 乗 × 確率」の和で {ex2}\nV(X) = {ex2} − ({ex})² = {answer}(E(X) を 2 乗してから引く)",
+        "ko": "V(X) = E(X²) − (E(X))² 을 씁니다\nE(X) = {ex}, E(X²) 은 \"값의 제곱 × 확률\"의 합으로 {ex2}\nV(X) = {ex2} − ({ex})² = {answer} (E(X) 를 제곱한 뒤에 뺍니다)",
+        "en": "Use V(X) = E(X²) − (E(X))²\nE(X) = {ex}; E(X²) is the sum of (value squared × probability) = {ex2}\nV(X) = {ex2} − ({ex})² = {answer} (square E(X) before subtracting)"
+      }
+    },
+    {
+      "id": "lintrans",
+      "level": 1,
+      "type": "lintrans",
+      "gen": "lintrans",
+      "text": {
+        "ja": "E(X) = {m} のとき、E({expr}) は?",
+        "ko": "E(X) = {m} 일 때, E({expr}) 는?",
+        "en": "If E(X) = {m}, what is E({expr})?"
+      },
+      "explain": {
+        "ja": "E(aX + b) = aE(X) + b(期待値は a 倍して b を足す)\n({a}) × {m} + ({b}) = {=a*m} + ({b})\n= {answer}",
+        "ko": "E(aX + b) = aE(X) + b (기댓값은 a 배 하고 b 를 더합니다)\n({a}) × {m} + ({b}) = {=a*m} + ({b})\n= {answer}",
+        "en": "E(aX + b) = aE(X) + b (multiply by a, then add b)\n({a}) × {m} + ({b}) = {=a*m} + ({b})\n= {answer}"
+      }
+    },
+    {
+      "id": "lintransvar",
+      "level": 2,
+      "type": "lintrans",
+      "gen": "lintrans",
+      "params": {
+        "ask": "var"
+      },
+      "text": {
+        "ja": "V(X) = {v} のとき、V({expr}) は?",
+        "ko": "V(X) = {v} 일 때, V({expr}) 는?",
+        "en": "If V(X) = {v}, what is V({expr})?"
+      },
+      "explain": {
+        "ja": "V(aX + b) = a²V(X)。分散は a の 2 乗倍になり、b を足しても変わらない(全体がずれるだけなので、ばらつきは同じ)\na² = ({a})² = {=a*a}\n{=a*a} × {v} = {answer}",
+        "ko": "V(aX + b) = a²V(X). 분산은 a 의 제곱 배가 되고, b 를 더해도 변하지 않습니다 (전체가 옮겨질 뿐 흩어진 정도는 같습니다)\na² = ({a})² = {=a*a}\n{=a*a} × {v} = {answer}",
+        "en": "V(aX + b) = a²V(X). The variance is multiplied by a squared, and adding b changes nothing (it only shifts everything)\na² = ({a})² = {=a*a}\n{=a*a} × {v} = {answer}"
+      }
+    },
+    {
+      "id": "bindist",
+      "level": 1,
+      "type": "bindist",
+      "gen": "bindist",
+      "text": {
+        "ja": "確率変数 X が二項分布 B({n}, {p}) に従うとき、期待値 E(X) は?",
+        "ko": "확률변수 X 가 이항분포 B({n}, {p}) 를 따를 때, 기댓값 E(X) 는?",
+        "en": "X follows the binomial distribution B({n}, {p}). What is E(X)?"
+      },
+      "explain": {
+        "ja": "B(n, p) は「1 回の確率 p の試行を n 回くり返したときの、起こる回数」の分布\n期待値は E(X) = np\n{n} × {p} = {answer}",
+        "ko": "B(n, p) 는 \"한 번의 확률이 p 인 시행을 n 번 되풀이했을 때 일어나는 횟수\"의 분포\n기댓값은 E(X) = np\n{n} × {p} = {answer}",
+        "en": "B(n, p) is the distribution of the number of successes in n trials, each with probability p\nThe mean is E(X) = np\n{n} × {p} = {answer}"
+      }
+    },
+    {
+      "id": "bindistvar",
+      "level": 2,
+      "type": "bindist",
+      "gen": "bindist",
+      "params": {
+        "ask": "var"
+      },
+      "text": {
+        "ja": "確率変数 X が二項分布 B({n}, {p}) に従うとき、分散 V(X) は?",
+        "ko": "확률변수 X 가 이항분포 B({n}, {p}) 를 따를 때, 분산 V(X) 는?",
+        "en": "X follows the binomial distribution B({n}, {p}). What is V(X)?"
+      },
+      "explain": {
+        "ja": "二項分布の分散は V(X) = npq(q = 1 − p)。np で止めない\nq = 1 − {p} = {q}\n{n} × {p} × {q} = {answer}",
+        "ko": "이항분포의 분산은 V(X) = npq (q = 1 − p). np 에서 멈추지 않습니다\nq = 1 − {p} = {q}\n{n} × {p} × {q} = {answer}",
+        "en": "The variance of a binomial distribution is V(X) = npq with q = 1 − p. Do not stop at np\nq = 1 − {p} = {q}\n{n} × {p} × {q} = {answer}"
+      }
+    },
+    {
+      "id": "normalz",
+      "level": 1,
+      "type": "normal",
+      "gen": "normal",
+      "text": {
+        "ja": "X が正規分布 N({m}, {s}²) に従うとき、X = {x} を標準化した値 z は?",
+        "ko": "X 가 정규분포 N({m}, {s}²) 을 따를 때, X = {x} 를 표준화한 값 z 는?",
+        "en": "X follows the normal distribution N({m}, {s}²). What is the standardized value z of X = {x}?"
+      },
+      "explain": {
+        "ja": "標準化は Z = (X − m) ÷ σ。平均 {m} を引いてから、標準偏差 {s} で割る(分散 {s}² で割らない)\nX − m = {x} − {m} = {diff}\n{diff} ÷ {s} = {answer}",
+        "ko": "표준화는 Z = (X − m) ÷ σ. 평균 {m} 을 뺀 뒤 표준편차 {s} 로 나눕니다 (분산 {s}² 으로 나누지 않습니다)\nX − m = {x} − {m} = {diff}\n{diff} ÷ {s} = {answer}",
+        "en": "Standardize with Z = (X − m) ÷ σ: subtract the mean {m}, then divide by the standard deviation {s} (not by the variance {s}²)\nX − m = {x} − {m} = {diff}\n{diff} ÷ {s} = {answer}"
+      }
+    },
+    {
+      "id": "normalp",
+      "level": 3,
+      "type": "normal",
+      "gen": "normal",
+      "params": {
+        "ask": "prob"
+      },
+      "text": {
+        "ja": "X が正規分布 N({m}, {s}²) に従うとき、P({range}) は?",
+        "ko": "X 가 정규분포 N({m}, {s}²) 을 따를 때, P({range}) 는?",
+        "en": "X follows the normal distribution N({m}, {s}²). What is P({range})?"
+      },
+      "note": {
+        "ja": "{note}",
+        "ko": "{note}",
+        "en": "{note}"
+      },
+      "explain": {
+        "ja": "Z = (X − {m}) ÷ {s} で標準化すると、P({range}) = P({zrange})\n標準正規分布は 0 について左右対称で、0 より右側全体の確率は 0.5。{note}\n0 をまたぐ範囲は左右を足し、同じ側の範囲は大きい方から小さい方を引き、外側は 0.5 から引く → {answer}",
+        "ko": "Z = (X − {m}) ÷ {s} 로 표준화하면 P({range}) = P({zrange})\n표준정규분포는 0 을 중심으로 좌우대칭이고, 0 의 오른쪽 전체의 확률은 0.5. {note}\n0 을 걸치는 범위는 양쪽을 더하고, 같은 쪽의 범위는 큰 것에서 작은 것을 빼고, 바깥쪽은 0.5 에서 뺍니다 → {answer}",
+        "en": "Standardize with Z = (X − {m}) ÷ {s}: P({range}) = P({zrange})\nThe standard normal curve is symmetric about 0 and the whole right half has probability 0.5. {note}\nA range across 0 adds both sides; a range on one side subtracts the smaller from the larger; a tail is 0.5 minus the table value → {answer}"
+      }
+    },
+    {
+      "id": "samplemean",
+      "level": 2,
+      "type": "samplemean",
+      "gen": "samplemean",
+      "text": {
+        "ja": "母平均 {m}、母標準偏差 {sigma} の母集団から大きさ {n} の標本を無作為に取り出すとき、標本平均の標準偏差は?",
+        "ko": "모평균 {m}, 모표준편차 {sigma} 인 모집단에서 크기 {n} 의 표본을 임의로 뽑을 때, 표본평균의 표준편차는?",
+        "en": "A random sample of size {n} is taken from a population with mean {m} and standard deviation {sigma}. What is the standard deviation of the sample mean?"
+      },
+      "explain": {
+        "ja": "標本平均の期待値は母平均と同じ {m}、標準偏差は σ ÷ √n(n で割るのではない)\n√n = √{n} = {root}\n{sigma} ÷ {root} = {answer}(標本が大きいほど、標本平均のばらつきは小さくなる)",
+        "ko": "표본평균의 기댓값은 모평균과 같은 {m}, 표준편차는 σ ÷ √n (n 으로 나누는 것이 아닙니다)\n√n = √{n} = {root}\n{sigma} ÷ {root} = {answer} (표본이 클수록 표본평균의 흩어짐은 작아집니다)",
+        "en": "The sample mean has the same mean {m} as the population, and standard deviation σ ÷ √n (not σ ÷ n)\n√n = √{n} = {root}\n{sigma} ÷ {root} = {answer} (a larger sample makes the sample mean vary less)"
+      }
+    },
+    {
+      "id": "confint",
+      "level": 3,
+      "type": "confint",
+      "gen": "confint",
+      "text": {
+        "ja": "母標準偏差 {sigma} の母集団から大きさ {n} の標本を取り出したところ、標本平均は {mean} だった。母平均に対する信頼度 95% の信頼区間は?",
+        "ko": "모표준편차 {sigma} 인 모집단에서 크기 {n} 의 표본을 뽑았더니 표본평균이 {mean} 이었습니다. 모평균에 대한 신뢰도 95% 의 신뢰구간은?",
+        "en": "A sample of size {n} from a population with standard deviation {sigma} has mean {mean}. What is the 95% confidence interval for the population mean?"
+      },
+      "explain": {
+        "ja": "信頼度 95% の信頼区間は「標本平均 ± 1.96 × σ ÷ √n」\nσ ÷ √n = {sigma} ÷ {root} = {se}、1.96 × {se} = {half}\n{mean} − {half} から {mean} + {half} まで → {answer}",
+        "ko": "신뢰도 95% 의 신뢰구간은 \"표본평균 ± 1.96 × σ ÷ √n\"\nσ ÷ √n = {sigma} ÷ {root} = {se}, 1.96 × {se} = {half}\n{mean} − {half} 부터 {mean} + {half} 까지 → {answer}",
+        "en": "The 95% confidence interval is (sample mean) ± 1.96 × σ ÷ √n\nσ ÷ √n = {sigma} ÷ {root} = {se}, and 1.96 × {se} = {half}\nFrom {mean} − {half} to {mean} + {half} → {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-binom",
+      "gen": "binom3",
+      "intro": {
+        "ja": "確率変数 X が二項分布 B({n}, {p}) に従うとき、次の値を求めよ。",
+        "ko": "확률변수 X 가 이항분포 B({n}, {p}) 를 따를 때, 다음 값을 구하시오.",
+        "en": "X follows the binomial distribution B({n}, {p}). Find each value."
+      },
+      "steps": [
+        {
+          "type": "bindist",
+          "level": 1,
+          "sum": {
+            "ja": "期待値",
+            "ko": "기댓값",
+            "en": "Mean"
+          },
+          "text": {
+            "ja": "期待値 E(X) は?",
+            "ko": "기댓값 E(X) 는?",
+            "en": "What is E(X)?"
+          },
+          "explain": {
+            "ja": "二項分布の期待値は np\n{n} × {p} = {answer}",
+            "ko": "이항분포의 기댓값은 np\n{n} × {p} = {answer}",
+            "en": "The mean of a binomial distribution is np\n{n} × {p} = {answer}"
+          }
+        },
+        {
+          "type": "bindist",
+          "level": 2,
+          "sum": {
+            "ja": "分散",
+            "ko": "분산",
+            "en": "Variance"
+          },
+          "text": {
+            "ja": "分散 V(X) は?",
+            "ko": "분산 V(X) 는?",
+            "en": "What is V(X)?"
+          },
+          "explain": {
+            "ja": "分散は npq(q = 1 − p = {q})\nnp = {a1} なので、{a1} × {q} = {answer}",
+            "ko": "분산은 npq (q = 1 − p = {q})\nnp = {a1} 이므로 {a1} × {q} = {answer}",
+            "en": "The variance is npq with q = 1 − p = {q}\nnp = {a1}, so {a1} × {q} = {answer}"
+          }
+        },
+        {
+          "type": "bindist",
+          "level": 2,
+          "sum": {
+            "ja": "標準偏差",
+            "ko": "표준편차",
+            "en": "Standard deviation"
+          },
+          "text": {
+            "ja": "標準偏差 σ(X) は?",
+            "ko": "표준편차 σ(X) 는?",
+            "en": "What is the standard deviation σ(X)?"
+          },
+          "explain": {
+            "ja": "標準偏差は分散の正の平方根(分散を 2 で割るのではない)\n√{a2} = {answer}",
+            "ko": "표준편차는 분산의 양의 제곱근입니다 (분산을 2 로 나누는 것이 아닙니다)\n√{a2} = {answer}",
+            "en": "The standard deviation is the positive square root of the variance (not half of it)\n√{a2} = {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-conf",
+      "gen": "conf3",
+      "intro": {
+        "ja": "母標準偏差 {sigma} の母集団から大きさ {n} の標本を取り出したところ、標本平均は {mean} だった。",
+        "ko": "모표준편차 {sigma} 인 모집단에서 크기 {n} 의 표본을 뽑았더니 표본평균이 {mean} 이었습니다.",
+        "en": "A sample of size {n} from a population with standard deviation {sigma} has mean {mean}."
+      },
+      "steps": [
+        {
+          "type": "samplemean",
+          "level": 2,
+          "sum": {
+            "ja": "σ ÷ √n",
+            "ko": "σ ÷ √n",
+            "en": "σ ÷ √n"
+          },
+          "text": {
+            "ja": "標本平均の標準偏差 σ ÷ √n は?",
+            "ko": "표본평균의 표준편차 σ ÷ √n 은?",
+            "en": "What is the standard deviation of the sample mean, σ ÷ √n?"
+          },
+          "explain": {
+            "ja": "√n = √{n} = {root}(n で割るのではない)\n{sigma} ÷ {root} = {answer}",
+            "ko": "√n = √{n} = {root} (n 으로 나누는 것이 아닙니다)\n{sigma} ÷ {root} = {answer}",
+            "en": "√n = √{n} = {root} (do not divide by n)\n{sigma} ÷ {root} = {answer}"
+          }
+        },
+        {
+          "type": "confint",
+          "level": 2,
+          "sum": {
+            "ja": "1.96 × σ ÷ √n",
+            "ko": "1.96 × σ ÷ √n",
+            "en": "1.96 × σ ÷ √n"
+          },
+          "text": {
+            "ja": "信頼度 95% の信頼区間の幅の半分 1.96 × σ ÷ √n は?",
+            "ko": "신뢰도 95% 신뢰구간의 폭의 절반 1.96 × σ ÷ √n 은?",
+            "en": "What is half the width of the 95% confidence interval, 1.96 × σ ÷ √n?"
+          },
+          "explain": {
+            "ja": "95% のときに掛ける数は 1.96(99% なら 2.58)\n1.96 × {a1} = {answer}",
+            "ko": "95% 일 때 곱하는 수는 1.96 (99% 라면 2.58)\n1.96 × {a1} = {answer}",
+            "en": "For 95% the multiplier is 1.96 (for 99% it is 2.58)\n1.96 × {a1} = {answer}"
+          }
+        },
+        {
+          "type": "confint",
+          "level": 3,
+          "sum": {
+            "ja": "区間の上端",
+            "ko": "구간의 위쪽 끝",
+            "en": "Upper limit"
+          },
+          "text": {
+            "ja": "信頼区間の上端(大きい方の端)は?",
+            "ko": "신뢰구간의 위쪽 끝(큰 쪽 끝)은?",
+            "en": "What is the upper limit of the confidence interval?"
+          },
+          "explain": {
+            "ja": "信頼区間は「標本平均 − {a2}」から「標本平均 + {a2}」まで\n上端は {mean} + {a2} = {answer}",
+            "ko": "신뢰구간은 \"표본평균 − {a2}\" 부터 \"표본평균 + {a2}\" 까지\n위쪽 끝은 {mean} + {a2} = {answer}",
+            "en": "The interval runs from (sample mean − {a2}) to (sample mean + {a2})\nThe upper limit is {mean} + {a2} = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

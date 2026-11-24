@@ -1057,8 +1057,162 @@ export function createStage(canvas) {
     glyph('×2', -2, -8, 13, '#7a1f1c');
     ctx.restore();
   }
+  // 화살표 까마귀 (数学C ベクトル): 고유 동작은 화살표를 반대로 뒤집기
+  function drawCrow(f) {
+    const sp = specOf(f);
+    const flip = Math.cos(sp * Math.PI * 2) < 0 ? -1 : 1;
+    const flap = Math.sin(S.t * 6) * 8;
+    poly([-20, 0, -58, -22 - flap, -40, 12], '#2b2f4a'); // 날개
+    poly([20, 0, 58, -22 - flap, 40, 12], '#2b2f4a');
+    ell(0, 6, 24, 28, '#3a4066');
+    circ(0, -26, 16, '#3a4066');
+    poly([-5, -22, 5, -22, 0, -10], '#ffc857'); // 부리
+    eye(-6, -29, 3.2, false, '#1c2740', 0.3);
+    eye(6, -29, 3.2, false, '#1c2740', 0.3);
+    line(-14 * flip, 14, 14 * flip, 14, '#ffc857', 3); // 화살표
+    poly([14 * flip, 8, 14 * flip, 20, 24 * flip, 14], '#ffc857');
+  }
+  // 직각 사마귀 (数学C ベクトル): 고유 동작은 낫 두 개를 직각으로 치켜들기
+  function drawMantis(f) {
+    const up = Math.sin(specOf(f) * Math.PI) * 18;
+    rrect(-8, -10, 16, 56, 7, '#5fbf6a'); // 몸
+    poly([-16, -30, 16, -30, 0, -8], '#7ad685'); // 세모 머리
+    eye(-8, -26, 3, false, '#1c2740', 0.5);
+    eye(8, -26, 3, false, '#1c2740', 0.5);
+    for (const dir of [-1, 1]) {
+      line(dir * 8, 0, dir * 30, -6 - up, '#5fbf6a', 5);
+      line(dir * 30, -6 - up, dir * 30, -36 - up, '#7ad685', 5); // 직각으로 꺾인 낫
+      line(dir * 6, 40, dir * 22, 48, '#5fbf6a', 3);
+    }
+    ctx.strokeStyle = C('#d7ffd9');
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(30 - 8, -6 - up - 8, 8, 8); // 직각 표시
+  }
+  // 빙글 팽이 (数学C 複素数平面): 늘 돌고 있고, 고유 동작은 한 바퀴 크게 돌기
+  function drawSpintop(f) {
+    const turn = S.t * 5 + specOf(f) * Math.PI * 2;
+    const wide = 30 * (0.75 + 0.25 * Math.abs(Math.cos(turn)));
+    line(0, -44, 0, -24, '#c9d3ee', 4); // 꼭지
+    poly([-wide, -24, wide, -24, 0, 44], '#7a6cf0');
+    poly([-wide, -24, wide, -24, wide * 0.6, -6, -wide * 0.6, -6], '#9d92ff');
+    line(-wide * 0.5 * Math.cos(turn), 6, wide * 0.5 * Math.cos(turn), 6, '#ffc857', 3);
+    eye(-8, -15, 3, false, '#1c2740', 0.9);
+    eye(8, -15, 3, false, '#1c2740', 0.9);
+    glyph('×i', 0, 22, 12, '#eef0ff');
+  }
+  // 타원 알 (数学C 2次曲線): 고유 동작은 옆으로 길게 눌렸다 돌아오기
+  function drawEgg(f) {
+    const sq = Math.sin(specOf(f) * Math.PI) * 0.35;
+    ctx.save();
+    ctx.translate(0, 6);
+    ctx.scale(1 + sq, 1 - sq);
+    ell(0, 0, 30, 40, '#f6ecd4');
+    ell(-8, -14, 9, 12, '#fffaf0');
+    circ(-12, 6, 2.6, '#c9a26b'); // 두 초점
+    circ(12, 6, 2.6, '#c9a26b');
+    line(-12, 6, 12, 6, '#c9a26b', 1);
+    eye(-9, -6, 3.4, false, '#1c2740', 0.1);
+    eye(9, -6, 3.4, false, '#1c2740', 0.1);
+    ctx.restore();
+  }
+  // 들쭉날쭉 고슴도치 (数学B 統計): 고유 동작은 가시를 길게 세우기
+  function drawHedgehog(f) {
+    const up = 1 + Math.sin(specOf(f) * Math.PI) * 0.6;
+    for (let k = 0; k < 9; k++) {
+      const a = Math.PI * (1.05 + (k / 8) * 0.9);
+      const len = (30 + ((k * 7) % 5) * 4) * up; // 길이가 제각각인 가시
+      line(Math.cos(a) * 20, 14 + Math.sin(a) * 16, Math.cos(a) * len * 1.2, 14 + Math.sin(a) * len, '#8a6a4a', 4);
+    }
+    ell(0, 20, 34, 24, '#b08a5e');
+    ell(22, 26, 18, 14, '#e8cfa8'); // 얼굴
+    circ(38, 26, 3.4, '#1c2740');
+    eye(22, 20, 3, false, '#1c2740', 0.6);
+    ell(-14, 42, 9, 4, '#8a6a4a');
+    ell(12, 42, 9, 4, '#8a6a4a');
+  }
+  // 종 모양 해파리 (数学B 統計): 정규분포 곡선 모양의 갓. 고유 동작은 갓을 넓게 펴기
+  function drawJelly(f) {
+    const wide = 1 + Math.sin(specOf(f) * Math.PI) * 0.35;
+    const bob = Math.sin(S.t * 2) * 4;
+    ctx.fillStyle = C('#7fd6f0');
+    ctx.beginPath();
+    ctx.moveTo(-46 * wide, 6 + bob);
+    ctx.bezierCurveTo(-20 * wide, 6 + bob, -16 * wide, -44 + bob, 0, -44 + bob); // 종 모양 곡선
+    ctx.bezierCurveTo(16 * wide, -44 + bob, 20 * wide, 6 + bob, 46 * wide, 6 + bob);
+    ctx.closePath();
+    ctx.fill();
+    for (let k = -2; k <= 2; k++) line(k * 9, 8 + bob, k * 9 + Math.sin(S.t * 3 + k) * 4, 40 + bob, '#a8e6f7', 3);
+    eye(-8, -14 + bob, 3.2, false, '#1c2740', 0.4);
+    eye(8, -14 + bob, 3.2, false, '#1c2740', 0.4);
+    line(0, -44 + bob, 0, 6 + bob, '#e9fbff', 1);
+  }
+  // 계차 지네 (중간 보스, 数学B): 마디 사이가 점점 벌어집니다. 고유 동작은 몸을 길게 늘이기
+  function drawCentipede(f) {
+    const stretch = 1 + Math.sin(specOf(f) * Math.PI) * 0.5;
+    let x = 24;
+    for (let k = 5; k >= 1; k--) {
+      const y = 28 + Math.sin(S.t * 3 + k) * 3;
+      circ(x, y, 13 - k, '#c2603a');
+      line(x, y + 8, x - 4, y + 20, '#7a3a22', 2);
+      line(x, y + 8, x + 4, y + 20, '#7a3a22', 2);
+      x += (4 + k * 2) * stretch; // 간격(계차)이 일정하게 늘어납니다
+    }
+    circ(-2, 14, 22, '#d9744a'); // 머리
+    line(-12, -4, -22, -22, '#7a3a22', 3);
+    line(6, -6, 12, -24, '#7a3a22', 3);
+    eye(-10, 10, 4, true, '#1c2740', 0.2);
+    eye(6, 10, 4, true, '#1c2740', 0.2);
+    glyph('Σ', -2, 26, 13, '#ffe9d9');
+  }
+  // 표본 올빼미 (보스, 数学B): 고유 동작은 두 눈을 크게 뜨기
+  function drawOwl(f) {
+    const big = 1 + Math.sin(specOf(f) * Math.PI) * 0.5;
+    poly([-46, -6, -70, 26, -40, 34], '#5a4a7a'); // 날개
+    poly([46, -6, 70, 26, 40, 34], '#5a4a7a');
+    ell(0, 10, 44, 46, '#6f5d96');
+    ell(0, 22, 28, 30, '#d9cfee');
+    poly([-34, -30, -22, -54, -10, -32], '#6f5d96'); // 귀깃
+    poly([34, -30, 22, -54, 10, -32], '#6f5d96');
+    for (const dir of [-1, 1]) {
+      circ(dir * 16, -12, 13 * big, '#fff6dd');
+      circ(dir * 16, -12, 6 * big, '#1c2740');
+    }
+    poly([-6, -2, 6, -2, 0, 10], '#ffc857');
+    glyph('n', 0, 30, 16, '#5a4a7a');
+  }
+  // 내적 기사 (중간 보스, 数学C): 방패에 내적의 점. 고유 동작은 창을 직각으로 세우기
+  function drawKnight(f) {
+    const lift = Math.sin(specOf(f) * Math.PI);
+    rrect(-20, -8, 40, 52, 8, '#8f9bb8'); // 갑옷
+    circ(0, -26, 18, '#aab5d0'); // 투구
+    rrect(-12, -30, 24, 6, 2, '#1c2740'); // 눈구멍
+    poly([-4, -44, 4, -44, 0, -60], '#d9534f'); // 깃
+    ctx.save();
+    ctx.translate(26, 10);
+    ctx.rotate(-lift * Math.PI / 2 + 0.5);
+    line(0, 30, 0, -50, '#c9d3ee', 4);
+    poly([-6, -50, 6, -50, 0, -66], '#ffc857');
+    ctx.restore();
+    poly([-44, -6, -12, -6, -12, 22, -28, 38, -44, 22], '#3a4a80'); // 방패
+    circ(-28, 12, 5, '#ffc857');
+  }
+  // 복소수 회오리 (보스, 数学C): 소용돌이치는 바람. 고유 동작은 크게 부풀며 돌기
+  function drawWhirl(f) {
+    const grow = 1 + Math.sin(specOf(f) * Math.PI) * 0.3;
+    for (let k = 0; k < 6; k++) {
+      const y = -52 + k * 19;
+      const w = (46 - k * 6) * grow;
+      const shift = Math.sin(S.t * 4 + k * 0.9) * 8;
+      ell(shift, y, w, 10, k % 2 ? '#7a8cf0' : '#9fb0ff');
+    }
+    eye(-12, -34, 5, true, '#1c2740', 0.3);
+    eye(12, -34, 5, true, '#1c2740', 0.3);
+    glyph('zⁿ', 0, -8, 16, '#eef0ff');
+  }
   const FOE_DRAW = {
     shadow: drawShadow, gate: drawGate, hopper: drawHopper, shroom: drawShroom,
+    crow: drawCrow, mantis: drawMantis, spintop: drawSpintop, egg: drawEgg, hedgehog: drawHedgehog, jelly: drawJelly,
+    centipede: drawCentipede, owl: drawOwl, knight: drawKnight, whirl: drawWhirl,
     ruler: drawRuler, target: drawTarget, pendulum: drawPendulum, wave: drawWave, sprout: drawSprout, logger: drawLogger,
     skater: drawSkater, bucket: drawBucket, sphinx: drawSphinx, hydra: drawHydra,
     imp: drawImp, mirror: drawMirror,

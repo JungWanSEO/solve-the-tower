@@ -1,0 +1,481 @@
+{
+  "id": "mathc-vector",
+  "name": {
+    "ja": "ベクトル",
+    "ko": "벡터",
+    "en": "Vectors"
+  },
+  "types": {
+    "vcomp": {
+      "ja": "ベクトルの成分計算",
+      "ko": "벡터의 성분 계산",
+      "en": "Vector components"
+    },
+    "vmag": {
+      "ja": "ベクトルの大きさ",
+      "ko": "벡터의 크기",
+      "en": "Magnitude of a vector"
+    },
+    "vdot": {
+      "ja": "内積",
+      "ko": "내적",
+      "en": "Dot product"
+    },
+    "vangle": {
+      "ja": "ベクトルのなす角",
+      "ko": "두 벡터가 이루는 각",
+      "en": "Angle between vectors"
+    },
+    "vperp": {
+      "ja": "垂直・平行の条件",
+      "ko": "수직·평행 조건",
+      "en": "Perpendicular and parallel vectors"
+    },
+    "vdiv": {
+      "ja": "内分点・外分点の位置ベクトル",
+      "ko": "내분점·외분점의 위치벡터",
+      "en": "Position vectors of dividing points"
+    },
+    "vspace": {
+      "ja": "空間ベクトル",
+      "ko": "공간벡터",
+      "en": "Vectors in space"
+    },
+    "varea": {
+      "ja": "三角形の面積(ベクトル)",
+      "ko": "삼각형의 넓이 (벡터)",
+      "en": "Area of a triangle with vectors"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "ベクトルの計算",
+        "ko": "벡터의 계산",
+        "en": "Working with vectors"
+      },
+      "types": [
+        "vcomp",
+        "vmag"
+      ]
+    },
+    {
+      "name": {
+        "ja": "内積",
+        "ko": "내적",
+        "en": "Dot product"
+      },
+      "types": [
+        "vdot",
+        "vangle",
+        "vperp"
+      ]
+    },
+    {
+      "name": {
+        "ja": "図形への応用",
+        "ko": "도형에의 활용",
+        "en": "Vectors and figures"
+      },
+      "types": [
+        "vdiv",
+        "varea"
+      ]
+    },
+    {
+      "name": {
+        "ja": "空間ベクトル",
+        "ko": "공간벡터",
+        "en": "Vectors in space"
+      },
+      "types": [
+        "vspace"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "vcomp",
+      "level": 1,
+      "type": "vcomp",
+      "gen": "vcomp",
+      "text": {
+        "ja": "ベクトル a = {av}, b = {bv} のとき、{expr} の成分は?",
+        "ko": "벡터 a = {av}, b = {bv} 일 때, {expr} 의 성분은?",
+        "en": "Given vectors a = {av} and b = {bv}, what are the components of {expr}?"
+      },
+      "explain": {
+        "ja": "実数倍も足し算・引き算も、x 成分どうし・y 成分どうしで計算する\nx 成分: {k} × ({a1}) + ({l}) × ({b1}) = {=k*a1+l*b1}\ny 成分: {k} × ({a2}) + ({l}) × ({b2}) = {=k*a2+l*b2} → {answer}",
+        "ko": "실수배도 덧셈·뺄셈도 x성분끼리, y성분끼리 계산합니다\nx성분: {k} × ({a1}) + ({l}) × ({b1}) = {=k*a1+l*b1}\ny성분: {k} × ({a2}) + ({l}) × ({b2}) = {=k*a2+l*b2} → {answer}",
+        "en": "Scalar multiples, sums and differences are all done component by component\nx: {k} × ({a1}) + ({l}) × ({b1}) = {=k*a1+l*b1}\ny: {k} × ({a2}) + ({l}) × ({b2}) = {=k*a2+l*b2} → {answer}"
+      }
+    },
+    {
+      "id": "vmag",
+      "level": 1,
+      "type": "vmag",
+      "gen": "vmag",
+      "text": {
+        "ja": "ベクトル a = {av} の大きさ |a| は?",
+        "ko": "벡터 a = {av} 의 크기 |a| 는?",
+        "en": "What is the magnitude |a| of the vector a = {av}?"
+      },
+      "explain": {
+        "ja": "大きさは「成分の 2 乗の和」の正の平方根(三平方の定理)\n({a1})² + ({a2})² = {=a1*a1} + {=a2*a2} = {=a1*a1+a2*a2}\n|a| = √{=a1*a1+a2*a2} = {answer}",
+        "ko": "크기는 \"성분의 제곱의 합\"의 양의 제곱근입니다 (피타고라스 정리)\n({a1})² + ({a2})² = {=a1*a1} + {=a2*a2} = {=a1*a1+a2*a2}\n|a| = √{=a1*a1+a2*a2} = {answer}",
+        "en": "The magnitude is the positive square root of the sum of squared components (Pythagoras)\n({a1})² + ({a2})² = {=a1*a1} + {=a2*a2} = {=a1*a1+a2*a2}\n|a| = √{=a1*a1+a2*a2} = {answer}"
+      }
+    },
+    {
+      "id": "vmagsum",
+      "level": 2,
+      "type": "vmag",
+      "gen": "vmag",
+      "params": {
+        "ask": "sum"
+      },
+      "text": {
+        "ja": "ベクトル a = {av}, b = {bv} のとき、|a + b| は?",
+        "ko": "벡터 a = {av}, b = {bv} 일 때, |a + b| 는?",
+        "en": "Given vectors a = {av} and b = {bv}, what is |a + b|?"
+      },
+      "explain": {
+        "ja": "|a + b| は |a| + |b| ではない。先に a + b の成分を求める\na + b = ({c1}, {c2})\n|a + b| = √(({c1})² + ({c2})²) = √{=c1*c1+c2*c2} = {answer}",
+        "ko": "|a + b| 는 |a| + |b| 가 아닙니다. 먼저 a + b 의 성분을 구합니다\na + b = ({c1}, {c2})\n|a + b| = √(({c1})² + ({c2})²) = √{=c1*c1+c2*c2} = {answer}",
+        "en": "|a + b| is not |a| + |b|. First find the components of a + b\na + b = ({c1}, {c2})\n|a + b| = √(({c1})² + ({c2})²) = √{=c1*c1+c2*c2} = {answer}"
+      }
+    },
+    {
+      "id": "vdot",
+      "level": 1,
+      "type": "vdot",
+      "gen": "vdot",
+      "text": {
+        "ja": "ベクトル a = {av}, b = {bv} の内積 a・b は?",
+        "ko": "벡터 a = {av}, b = {bv} 의 내적 a・b 는?",
+        "en": "What is the dot product a・b of a = {av} and b = {bv}?"
+      },
+      "explain": {
+        "ja": "内積は「x 成分どうしの積」+「y 成分どうしの積」。答えは数(ベクトルではない)\n({a1}) × ({b1}) = {=a1*b1}、({a2}) × ({b2}) = {=a2*b2}\n{=a1*b1} + ({=a2*b2}) = {answer}",
+        "ko": "내적은 \"x성분끼리의 곱\" + \"y성분끼리의 곱\"입니다. 답은 수(벡터가 아님)\n({a1}) × ({b1}) = {=a1*b1}, ({a2}) × ({b2}) = {=a2*b2}\n{=a1*b1} + ({=a2*b2}) = {answer}",
+        "en": "The dot product is (product of x components) + (product of y components). The answer is a number, not a vector\n({a1}) × ({b1}) = {=a1*b1}, ({a2}) × ({b2}) = {=a2*b2}\n{=a1*b1} + ({=a2*b2}) = {answer}"
+      }
+    },
+    {
+      "id": "vdotangle",
+      "level": 2,
+      "type": "vdot",
+      "gen": "vdot",
+      "params": {
+        "ask": "angle"
+      },
+      "text": {
+        "ja": "|a| = {p}, |b| = {q} で、a と b のなす角が {deg}° のとき、内積 a・b は?",
+        "ko": "|a| = {p}, |b| = {q} 이고 a 와 b 가 이루는 각이 {deg}° 일 때, 내적 a・b 는?",
+        "en": "If |a| = {p}, |b| = {q} and the angle between a and b is {deg}°, what is a・b?"
+      },
+      "explain": {
+        "ja": "内積の定義 a・b = |a||b|cos θ を使う(sin ではない)\n|a||b| = {p} × {q} = {=p*q}、cos {deg}° = {=cosd(deg)}(鈍角のときは負になる)\n{=p*q} × cos {deg}° = {answer}",
+        "ko": "내적의 정의 a・b = |a||b|cos θ 를 씁니다 (sin 이 아닙니다)\n|a||b| = {p} × {q} = {=p*q}, cos {deg}° = {=cosd(deg)} (둔각이면 음수가 됩니다)\n{=p*q} × cos {deg}° = {answer}",
+        "en": "Use the definition a・b = |a||b|cos θ (not sin)\n|a||b| = {p} × {q} = {=p*q}, cos {deg}° = {=cosd(deg)} (negative for an obtuse angle)\n{=p*q} × cos {deg}° = {answer}"
+      }
+    },
+    {
+      "id": "vangle",
+      "level": 2,
+      "type": "vangle",
+      "gen": "vangle",
+      "text": {
+        "ja": "ベクトル a = {av}, b = {bv} のなす角 θ は?(0° ≦ θ ≦ 180°)",
+        "ko": "벡터 a = {av}, b = {bv} 가 이루는 각 θ 는? (0° ≦ θ ≦ 180°)",
+        "en": "What is the angle θ between a = {av} and b = {bv}? (0° ≦ θ ≦ 180°)"
+      },
+      "explain": {
+        "ja": "cos θ = (a・b) ÷ (|a||b|) を使う\na・b = {work} = {dot}、|a| = {ma}、|b| = {mb}\ncos θ = {dot} ÷ ({ma} × {mb}) となる角は {answer}(内積が負なら鈍角、0 なら 90°)",
+        "ko": "cos θ = (a・b) ÷ (|a||b|) 를 씁니다\na・b = {work} = {dot}, |a| = {ma}, |b| = {mb}\ncos θ = {dot} ÷ ({ma} × {mb}) 가 되는 각은 {answer} (내적이 음수면 둔각, 0이면 90°)",
+        "en": "Use cos θ = (a・b) ÷ (|a||b|)\na・b = {work} = {dot}, |a| = {ma}, |b| = {mb}\nThe angle with cos θ = {dot} ÷ ({ma} × {mb}) is {answer} (a negative dot product means obtuse; 0 means 90°)"
+      }
+    },
+    {
+      "id": "vperp",
+      "level": 2,
+      "type": "vperp",
+      "gen": "vperp",
+      "text": {
+        "ja": "ベクトル a = {av}, b = (x, {r}) が垂直であるとき、x の値は?",
+        "ko": "벡터 a = {av}, b = (x, {r}) 가 수직일 때, x 의 값은?",
+        "en": "The vectors a = {av} and b = (x, {r}) are perpendicular. What is x?"
+      },
+      "explain": {
+        "ja": "垂直 ⇔ 内積が 0\na・b = ({p}) × x + ({q}) × ({r}) = {p}x + ({=q*r}) = 0\n{p}x = {=-q*r} より x = {answer}",
+        "ko": "수직 ⇔ 내적이 0\na・b = ({p}) × x + ({q}) × ({r}) = {p}x + ({=q*r}) = 0\n{p}x = {=-q*r} 이므로 x = {answer}",
+        "en": "Perpendicular ⇔ the dot product is 0\na・b = ({p}) × x + ({q}) × ({r}) = {p}x + ({=q*r}) = 0\n{p}x = {=-q*r}, so x = {answer}"
+      }
+    },
+    {
+      "id": "vpara",
+      "level": 2,
+      "type": "vperp",
+      "gen": "vperp",
+      "params": {
+        "ask": "para"
+      },
+      "text": {
+        "ja": "ベクトル a = {av}, b = (x, {r}) が平行であるとき、x の値は?",
+        "ko": "벡터 a = {av}, b = (x, {r}) 가 평행일 때, x 의 값은?",
+        "en": "The vectors a = {av} and b = (x, {r}) are parallel. What is x?"
+      },
+      "explain": {
+        "ja": "平行 ⇔ b = ka となる実数 k がある(内積 0 は垂直の条件)\ny 成分を比べると {r} = k × ({q}) → k = {=r/q}\nx = k × ({p}) = {answer}",
+        "ko": "평행 ⇔ b = ka 인 실수 k 가 있습니다 (내적 0 은 수직 조건)\ny성분을 비교하면 {r} = k × ({q}) → k = {=r/q}\nx = k × ({p}) = {answer}",
+        "en": "Parallel ⇔ b = ka for some real k (dot product 0 is the condition for perpendicular)\nCompare y components: {r} = k × ({q}) → k = {=r/q}\nx = k × ({p}) = {answer}"
+      }
+    },
+    {
+      "id": "vdiv",
+      "level": 2,
+      "type": "vdiv",
+      "gen": "vdiv",
+      "text": {
+        "ja": "OA = a, OB = b(ベクトル)とする。線分 AB を {m} : {n} に内分する点 P について、OP を a, b で表すと?",
+        "ko": "OA = a, OB = b (벡터)라 합니다. 선분 AB 를 {m} : {n} 으로 내분하는 점 P 에 대하여, OP 를 a, b 로 나타내면?",
+        "en": "Let OA = a and OB = b (vectors). P divides segment AB internally in the ratio {m} : {n}. Express OP in terms of a and b."
+      },
+      "explain": {
+        "ja": "内分点の公式 OP = (n a + m b) ÷ (m + n)。比を「たすきがけ」に掛ける(a に遠い方の {n}、b に {m})\n分母は m + n = {=m+n}\nOP = {answer}",
+        "ko": "내분점의 공식 OP = (n a + m b) ÷ (m + n). 비를 엇갈리게 곱합니다 (a 에 먼 쪽의 {n}, b 에 {m})\n분모는 m + n = {=m+n}\nOP = {answer}",
+        "en": "Internal division: OP = (n a + m b) ÷ (m + n). The ratios cross over (a takes the far part {n}, b takes {m})\nThe denominator is m + n = {=m+n}\nOP = {answer}"
+      }
+    },
+    {
+      "id": "vdivext",
+      "level": 3,
+      "type": "vdiv",
+      "gen": "vdiv",
+      "params": {
+        "ask": "ext"
+      },
+      "text": {
+        "ja": "OA = a, OB = b(ベクトル)とする。線分 AB を {m} : {n} に外分する点 Q について、OQ を a, b で表すと?",
+        "ko": "OA = a, OB = b (벡터)라 합니다. 선분 AB 를 {m} : {n} 으로 외분하는 점 Q 에 대하여, OQ 를 a, b 로 나타내면?",
+        "en": "Let OA = a and OB = b (vectors). Q divides segment AB externally in the ratio {m} : {n}. Express OQ in terms of a and b."
+      },
+      "explain": {
+        "ja": "外分は、内分の公式の n を −n に置きかえる: OQ = (−n a + m b) ÷ (m − n)\n−{n}a + {m}b を m − n = {=m-n} で割る\n分母が負なら分子・分母に −1 を掛けて整理して OQ = {answer}",
+        "ko": "외분은 내분 공식의 n 을 −n 으로 바꿉니다: OQ = (−n a + m b) ÷ (m − n)\n−{n}a + {m}b 를 m − n = {=m-n} 으로 나눕니다\n분모가 음수이면 분자·분모에 −1 을 곱해 정리하면 OQ = {answer}",
+        "en": "For external division replace n by −n: OQ = (−n a + m b) ÷ (m − n)\nDivide −{n}a + {m}b by m − n = {=m-n}\nIf the denominator is negative, multiply top and bottom by −1: OQ = {answer}"
+      }
+    },
+    {
+      "id": "vspacemag",
+      "level": 1,
+      "type": "vspace",
+      "gen": "vspace",
+      "params": {
+        "ask": "mag"
+      },
+      "text": {
+        "ja": "空間のベクトル a = {av} の大きさ |a| は?",
+        "ko": "공간의 벡터 a = {av} 의 크기 |a| 는?",
+        "en": "What is the magnitude |a| of the space vector a = {av}?"
+      },
+      "explain": {
+        "ja": "空間でも同じ。成分 3 つの 2 乗の和の平方根\n({a1})² + ({a2})² + ({a3})² = {=a1*a1} + {=a2*a2} + {=a3*a3} = {=a1*a1+a2*a2+a3*a3}\n|a| = √{=a1*a1+a2*a2+a3*a3} = {answer}",
+        "ko": "공간에서도 같습니다. 성분 3개의 제곱의 합의 제곱근\n({a1})² + ({a2})² + ({a3})² = {=a1*a1} + {=a2*a2} + {=a3*a3} = {=a1*a1+a2*a2+a3*a3}\n|a| = √{=a1*a1+a2*a2+a3*a3} = {answer}",
+        "en": "The same in space: the square root of the sum of the three squared components\n({a1})² + ({a2})² + ({a3})² = {=a1*a1} + {=a2*a2} + {=a3*a3} = {=a1*a1+a2*a2+a3*a3}\n|a| = √{=a1*a1+a2*a2+a3*a3} = {answer}"
+      }
+    },
+    {
+      "id": "vspacedist",
+      "level": 2,
+      "type": "vspace",
+      "gen": "vspace",
+      "params": {
+        "ask": "dist"
+      },
+      "text": {
+        "ja": "空間の 2 点 A{A}, B{B} の間の距離は?",
+        "ko": "공간의 두 점 A{A}, B{B} 사이의 거리는?",
+        "en": "What is the distance between the points A{A} and B{B} in space?"
+      },
+      "explain": {
+        "ja": "AB = (B の座標) − (A の座標) = ({d1}, {d2}, {d3})\n距離は |AB|: ({d1})² + ({d2})² + ({d3})² = {=d1*d1+d2*d2+d3*d3}\n√{=d1*d1+d2*d2+d3*d3} = {answer}",
+        "ko": "AB = (B 의 좌표) − (A 의 좌표) = ({d1}, {d2}, {d3})\n거리는 |AB|: ({d1})² + ({d2})² + ({d3})² = {=d1*d1+d2*d2+d3*d3}\n√{=d1*d1+d2*d2+d3*d3} = {answer}",
+        "en": "AB = (coordinates of B) − (coordinates of A) = ({d1}, {d2}, {d3})\nThe distance is |AB|: ({d1})² + ({d2})² + ({d3})² = {=d1*d1+d2*d2+d3*d3}\n√{=d1*d1+d2*d2+d3*d3} = {answer}"
+      }
+    },
+    {
+      "id": "vspaceperp",
+      "level": 2,
+      "type": "vspace",
+      "gen": "vspace",
+      "params": {
+        "ask": "perp"
+      },
+      "text": {
+        "ja": "空間のベクトル a = {av}, b = (x, {s}, {t}) が垂直であるとき、x の値は?",
+        "ko": "공간의 벡터 a = {av}, b = (x, {s}, {t}) 가 수직일 때, x 의 값은?",
+        "en": "The space vectors a = {av} and b = (x, {s}, {t}) are perpendicular. What is x?"
+      },
+      "explain": {
+        "ja": "空間でも 垂直 ⇔ 内積が 0。内積は 3 つの成分の積の和\n({p})x + ({q}) × ({s}) + ({r}) × ({t}) = {p}x + ({=q*s+r*t}) = 0\n{p}x = {=-(q*s+r*t)} より x = {answer}",
+        "ko": "공간에서도 수직 ⇔ 내적이 0. 내적은 세 성분의 곱의 합\n({p})x + ({q}) × ({s}) + ({r}) × ({t}) = {p}x + ({=q*s+r*t}) = 0\n{p}x = {=-(q*s+r*t)} 이므로 x = {answer}",
+        "en": "In space too, perpendicular ⇔ dot product 0, and the dot product sums three products\n({p})x + ({q}) × ({s}) + ({r}) × ({t}) = {p}x + ({=q*s+r*t}) = 0\n{p}x = {=-(q*s+r*t)}, so x = {answer}"
+      }
+    },
+    {
+      "id": "varea",
+      "level": 3,
+      "type": "varea",
+      "gen": "varea",
+      "text": {
+        "ja": "O を原点とする。A{A}, B{B} のとき、三角形 OAB の面積は?",
+        "ko": "O 를 원점이라 합니다. A{A}, B{B} 일 때, 삼각형 OAB 의 넓이는?",
+        "en": "Let O be the origin. For A{A} and B{B}, what is the area of triangle OAB?"
+      },
+      "explain": {
+        "ja": "OA = (a₁, a₂), OB = (b₁, b₂) のとき、面積 S = ½|a₁b₂ − a₂b₁|\na₁b₂ − a₂b₁ = ({a1}) × ({b2}) − ({a2}) × ({b1}) = {=a1*b2-a2*b1}\nS = ½ × {=abs(a1*b2-a2*b1)} = {answer}(絶対値をつけ、½ を忘れない)",
+        "ko": "OA = (a₁, a₂), OB = (b₁, b₂) 일 때, 넓이 S = ½|a₁b₂ − a₂b₁|\na₁b₂ − a₂b₁ = ({a1}) × ({b2}) − ({a2}) × ({b1}) = {=a1*b2-a2*b1}\nS = ½ × {=abs(a1*b2-a2*b1)} = {answer} (절댓값을 씌우고 ½ 을 잊지 않습니다)",
+        "en": "With OA = (a₁, a₂) and OB = (b₁, b₂), the area is S = ½|a₁b₂ − a₂b₁|\na₁b₂ − a₂b₁ = ({a1}) × ({b2}) − ({a2}) × ({b1}) = {=a1*b2-a2*b1}\nS = ½ × {=abs(a1*b2-a2*b1)} = {answer} (take the absolute value and do not forget the ½)"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-vangle",
+      "gen": "vangle3",
+      "intro": {
+        "ja": "ベクトル a = {av}, b = {bv} について答えよ。",
+        "ko": "벡터 a = {av}, b = {bv} 에 대하여 답하시오.",
+        "en": "Answer about the vectors a = {av} and b = {bv}."
+      },
+      "steps": [
+        {
+          "type": "vdot",
+          "level": 1,
+          "sum": {
+            "ja": "内積",
+            "ko": "내적",
+            "en": "Dot product"
+          },
+          "text": {
+            "ja": "内積 a・b は?",
+            "ko": "내적 a・b 는?",
+            "en": "What is a・b?"
+          },
+          "explain": {
+            "ja": "x 成分どうしの積と y 成分どうしの積を足す\n{work} = {answer}",
+            "ko": "x성분끼리의 곱과 y성분끼리의 곱을 더합니다\n{work} = {answer}",
+            "en": "Add the product of the x components and the product of the y components\n{work} = {answer}"
+          }
+        },
+        {
+          "type": "vmag",
+          "level": 2,
+          "sum": {
+            "ja": "|a||b|",
+            "ko": "|a||b|",
+            "en": "|a||b|"
+          },
+          "text": {
+            "ja": "大きさの積 |a||b| は?",
+            "ko": "크기의 곱 |a||b| 는?",
+            "en": "What is the product |a||b|?"
+          },
+          "explain": {
+            "ja": "|a| = {ma}、|b| = {mb}(それぞれ成分の 2 乗の和の平方根)\n{ma} × {mb} = {answer}",
+            "ko": "|a| = {ma}, |b| = {mb} (각각 성분의 제곱의 합의 제곱근)\n{ma} × {mb} = {answer}",
+            "en": "|a| = {ma} and |b| = {mb} (each is the root of the sum of squared components)\n{ma} × {mb} = {answer}"
+          }
+        },
+        {
+          "type": "vangle",
+          "level": 2,
+          "sum": {
+            "ja": "なす角",
+            "ko": "이루는 각",
+            "en": "Angle"
+          },
+          "text": {
+            "ja": "a と b のなす角 θ は?(0° ≦ θ ≦ 180°)",
+            "ko": "a 와 b 가 이루는 각 θ 는? (0° ≦ θ ≦ 180°)",
+            "en": "What is the angle θ between a and b? (0° ≦ θ ≦ 180°)"
+          },
+          "explain": {
+            "ja": "cos θ = (a・b) ÷ (|a||b|) = {a1} ÷ {a2}\nこの値になる角は {answer}(内積が負なら鈍角、0 なら 90°)",
+            "ko": "cos θ = (a・b) ÷ (|a||b|) = {a1} ÷ {a2}\n이 값이 되는 각은 {answer} (내적이 음수면 둔각, 0이면 90°)",
+            "en": "cos θ = (a・b) ÷ (|a||b|) = {a1} ÷ {a2}\nThe angle with this cosine is {answer} (negative dot product means obtuse; 0 means 90°)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-vtri",
+      "gen": "vtri",
+      "intro": {
+        "ja": "O を原点とし、A{A}, B{B} とする。三角形 OAB について答えよ。",
+        "ko": "O 를 원점, A{A}, B{B} 라 합니다. 삼각형 OAB 에 대하여 답하시오.",
+        "en": "Let O be the origin, A{A} and B{B}. Answer about triangle OAB."
+      },
+      "steps": [
+        {
+          "type": "vdot",
+          "level": 1,
+          "sum": {
+            "ja": "OA・OB",
+            "ko": "OA・OB",
+            "en": "OA・OB"
+          },
+          "text": {
+            "ja": "内積 OA・OB は?",
+            "ko": "내적 OA・OB 는?",
+            "en": "What is OA・OB?"
+          },
+          "explain": {
+            "ja": "({x1}) × ({x2}) + ({y1}) × ({y2}) = {=x1*x2} + ({=y1*y2})\n= {answer}",
+            "ko": "({x1}) × ({x2}) + ({y1}) × ({y2}) = {=x1*x2} + ({=y1*y2})\n= {answer}",
+            "en": "({x1}) × ({x2}) + ({y1}) × ({y2}) = {=x1*x2} + ({=y1*y2})\n= {answer}"
+          }
+        },
+        {
+          "type": "vmag",
+          "level": 2,
+          "sum": {
+            "ja": "|OA|²|OB|²",
+            "ko": "|OA|²|OB|²",
+            "en": "|OA|²|OB|²"
+          },
+          "text": {
+            "ja": "|OA|² × |OB|² の値は?",
+            "ko": "|OA|² × |OB|² 의 값은?",
+            "en": "What is |OA|² × |OB|²?"
+          },
+          "explain": {
+            "ja": "|OA|² = ({x1})² + ({y1})² = {=x1*x1+y1*y1}、|OB|² = ({x2})² + ({y2})² = {=x2*x2+y2*y2}\n{=x1*x1+y1*y1} × {=x2*x2+y2*y2} = {answer}",
+            "ko": "|OA|² = ({x1})² + ({y1})² = {=x1*x1+y1*y1}, |OB|² = ({x2})² + ({y2})² = {=x2*x2+y2*y2}\n{=x1*x1+y1*y1} × {=x2*x2+y2*y2} = {answer}",
+            "en": "|OA|² = ({x1})² + ({y1})² = {=x1*x1+y1*y1}, |OB|² = ({x2})² + ({y2})² = {=x2*x2+y2*y2}\n{=x1*x1+y1*y1} × {=x2*x2+y2*y2} = {answer}"
+          }
+        },
+        {
+          "type": "varea",
+          "level": 3,
+          "sum": {
+            "ja": "面積",
+            "ko": "넓이",
+            "en": "Area"
+          },
+          "text": {
+            "ja": "三角形 OAB の面積は?",
+            "ko": "삼각형 OAB 의 넓이는?",
+            "en": "What is the area of triangle OAB?"
+          },
+          "explain": {
+            "ja": "S = ½√(|OA|²|OB|² − (OA・OB)²) を使う\n|OA|²|OB|² − (OA・OB)² = {=(x1*x1+y1*y1)*(x2*x2+y2*y2)} − {=(x1*x2+y1*y2)**2} = {=(x1*y2-y1*x2)**2}\nS = ½ × √{=(x1*y2-y1*x2)**2} = ½ × {=abs(x1*y2-y1*x2)} = {answer}",
+            "ko": "S = ½√(|OA|²|OB|² − (OA・OB)²) 를 씁니다\n|OA|²|OB|² − (OA・OB)² = {=(x1*x1+y1*y1)*(x2*x2+y2*y2)} − {=(x1*x2+y1*y2)**2} = {=(x1*y2-y1*x2)**2}\nS = ½ × √{=(x1*y2-y1*x2)**2} = ½ × {=abs(x1*y2-y1*x2)} = {answer}",
+            "en": "Use S = ½√(|OA|²|OB|² − (OA・OB)²)\n|OA|²|OB|² − (OA・OB)² = {=(x1*x1+y1*y1)*(x2*x2+y2*y2)} − {=(x1*x2+y1*y2)**2} = {=(x1*y2-y1*x2)**2}\nS = ½ × √{=(x1*y2-y1*x2)**2} = ½ × {=abs(x1*y2-y1*x2)} = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}
