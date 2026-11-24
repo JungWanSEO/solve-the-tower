@@ -94,17 +94,40 @@ export function scopeTree() {
 }
 
 // 유형 목록에 걸친 과목 이름들 (화면 위쪽에 보여줍니다)
-// 고른 유형을 과목별로 나눕니다 (목록의 과목 순서대로). 긴 탑에서 과목 하나가 한 막이 됩니다.
+// 긴 탑: 고른 유형을 막 3개로 나눕니다. 막의 수는 과목 수와 상관없이 늘 3 입니다 (CONFIG.act.count).
+// 배우는 순서(목록의 단원 순서)대로 이어 붙인 뒤, 세 막의 유형 수가 비슷해지도록 단원의 경계에서 자릅니다.
+//   과목 하나(단원 셋)만 골랐다면 단원마다 한 막, 과목을 여럿 골랐다면 한 막에 여러 단원·과목이 들어갑니다.
+//   단원이 셋보다 적으면 유형 단위로 자릅니다. 유형이 너무 적으면(막마다 2개 미만) 긴 탑을 만들지 않습니다 → []
 export function actsFor(keys) {
-  const acts = [];
-  for (const subject of catalog.subjects) {
-    const mine = keys.filter((key) => types.get(key)?.unit.subject === subject);
-    if (mine.length) acts.push({ id: subject.id, keys: mine });
+  const count = CONFIG.act.count;
+  const mine = keys.filter((key) => types.has(key));
+  if (mine.length < count * 2) return [];
+  let blocks = units.map((unit) => mine.filter((key) => types.get(key).unit === unit)).filter((list) => list.length);
+  if (blocks.length < count) blocks = blocks.flat().map((key) => [key]);
+  // 자르는 자리 두 곳을 모두 해 보고, 가장 큰 막이 가장 작아지는 것을 고릅니다
+  const size = (from, to) => blocks.slice(from, to).reduce((sum, list) => sum + list.length, 0);
+  let best = null;
+  for (let i = 1; i < blocks.length - 1; i++) {
+    for (let j = i + 1; j < blocks.length; j++) {
+      const parts = [size(0, i), size(i, j), size(j, blocks.length)];
+      const score = Math.max(...parts) * 1000 - Math.min(...parts);
+      if (!best || score < best.score) best = { score, cuts: [0, i, j, blocks.length] };
+    }
   }
-  return acts;
+  return [0, 1, 2].map((n) => {
+    const part = blocks.slice(best.cuts[n], best.cuts[n + 1]).flat();
+    return { id: types.get(part[0]).unit.subject.id, keys: part };
+  });
+}
+// 막의 이름: 단원 하나뿐이면 그 단원 이름, 아니면 들어 있는 과목 이름들
+export function actLabel(keys) {
+  const list = keys.map((key) => types.get(key)).filter(Boolean);
+  const inUnits = [...new Set(list.map((type) => type.unit))];
+  if (inUnits.length === 1) return pick(inUnits[0].name);
+  return [...new Set(list.map((type) => pick(type.unit.subject.name)))].join(' · ');
 }
 // 처음 하는 사람에게 골라 두는 범위: 목록의 첫 과목(数学I)만. 아직 배우지 않은 과목의 문제가 섞여 나오지 않게 합니다.
-export const starterKeys = () => { const first = actsFor(allTypeKeys())[0]; return first ? first.keys : allTypeKeys(); };
+export const starterKeys = () => { const first = catalog.subjects[0]; const keys = allTypeKeys().filter((key) => types.get(key)?.unit.subject === first); return keys.length ? keys : allTypeKeys(); };
 export const subjectName = (id) => { const subject = catalog.subjects.find((s) => s.id === id); return subject ? pick(subject.name) : ''; };
 
 export function subjectNames(keys) {
