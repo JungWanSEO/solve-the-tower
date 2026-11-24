@@ -3023,3 +3023,186 @@ Object.assign(CHAINS, {
     };
   },
 });
+
+// =====================================================================
+// 数学B: 数列
+// =====================================================================
+
+// n 에 대한 식을 글로 씁니다. 예: seqPoly(1, -2, 3) → "n² − 2n + 3", seqPoly(0, 3, -2) → "3n − 2"
+function seqPoly(c2, c1, c0) {
+  const parts = [];
+  const term = (coef, sym) => {
+    if (!coef) return;
+    const abs = Math.abs(coef);
+    const body = sym ? `${abs === 1 ? '' : abs}${sym}` : `${abs}`;
+    parts.push(parts.length ? ` ${coef < 0 ? MINUS : '+'} ${body}` : `${coef < 0 ? MINUS : ''}${body}`);
+  };
+  term(c2, 'n²');
+  term(c1, 'n');
+  term(c0, '');
+  return parts.join('') || '0';
+}
+// 보기로 쓰는 일반항 "aₙ = …". 값은 n = 1, 2, 5 에서의 값을 섞어 만듭니다 (서로 다른 식이 같은 보기로 취급되지 않게).
+const seqSig = (f) => f(1) * 1.0001 + f(2) * 37.5 + f(5) * 1291.25;
+const anPoly = (c2, c1, c0) => ({ s: `aₙ = ${seqPoly(c2, c1, c0)}`, v: seqSig((n) => c2 * n * n + c1 * n + c0) });
+// c·pⁿ⁻¹ + k 꼴 (shift 가 0 이면 c·pⁿ + k)
+const anExp = (c, p, k, shift = 1) => ({
+  s: `aₙ = ${c === 1 ? '' : `${c}·`}${p}${shift ? 'ⁿ⁻¹' : 'ⁿ'}${k ? ` ${k > 0 ? '+' : MINUS} ${Math.abs(k)}` : ''}`,
+  v: seqSig((n) => c * p ** (n - shift) + k),
+});
+const sumK = (n) => (n * (n + 1)) / 2;
+const sumK2 = (n) => (n * (n + 1) * (2 * n + 1)) / 6;
+// 점화식 aₙ₊₁ = p·aₙ + q 에 쓸 숫자: α = pα + q 의 해 α 가 정수이고, a₁ − α = c > 0
+function recurNums() {
+  const p = pickOne([2, 3]);
+  const alpha = nonzero(-3, 3);
+  const q = alpha * (1 - p);
+  const c = 1 + rand(4);
+  return { p, q, alpha, c, a1: alpha + c, rule: `aₙ₊₁ = ${p}aₙ ${q > 0 ? '+' : MINUS} ${Math.abs(q)}` };
+}
+
+Object.assign(GENERATORS, {
+  // 등차수열의 일반항. params.ask 가 'general' 이면 두 항에서 일반항을 구합니다.
+  arith(params) {
+    const d = nonzero(-6, 6);
+    if (Math.abs(d) === 1) return GENERATORS.arith(params);
+    if (params.ask === 'general') {
+      const a = -9 + rand(22);
+      const p = 2 + rand(3);
+      const q = p + 2 + rand(4);
+      const [ap, aq] = [a + (p - 1) * d, a + (q - 1) * d];
+      return item({ p, q, ap: numStr(ap), aq: numStr(aq) }, anPoly(0, d, a - d),
+        [anPoly(0, d, a), anPoly(0, d, ap), anPoly(0, -d, a + d), anPoly(0, aq - ap, a - d)],
+        [anPoly(0, d, a - d + 1), anPoly(0, d + 1, a - d), anPoly(0, d, a - d - 1)]);
+    }
+    const a = -5 + rand(15);
+    const n = 8 + rand(13);
+    const ans = a + (n - 1) * d;
+    return item({ a: numStr(a), d: numStr(d), n }, int(ans), [int(a + n * d), int((n - 1) * d), int(a + (n - 2) * d)], [int(ans + d + 1), int(ans - 1), int(-ans), int(ans + 2)]);
+  },
+
+  // 등차수열의 합. params.ask 가 'last' 이면 첫째항·끝항·항의 수가 주어집니다.
+  arithsum(params) {
+    if (params.ask === 'last') {
+      const a = 1 + rand(9);
+      const d = 2 + rand(5);
+      const n = 6 + rand(10);
+      const l = a + (n - 1) * d;
+      const S = (n * (a + l)) / 2;
+      return item({ a, l, n }, int(S), [int(n * (a + l)), int(Math.round(((n - 1) * (a + l)) / 2)), int(Math.round(((n + 1) * (a + l)) / 2))], [int(S + n), int(S - a), int(S + l), int(S - n)]);
+    }
+    const a = nonzero(-3, 9);
+    const d = nonzero(-4, 5);
+    const n = 8 + rand(13);
+    const S = (n * (2 * a + (n - 1) * d)) / 2;
+    return item({ a: numStr(a), d: numStr(d), n }, int(S), [int(n * (2 * a + (n - 1) * d)), int(n * (a + (n - 1) * d)), int((n * (2 * a + n * d)) / 2)], [int(S + n), int(S - n), int(S + d * n), int(S + a)]);
+  },
+
+  // 등비수열의 일반항
+  geom() {
+    const a = 1 + rand(4);
+    const r = pickOne([2, 3, -2, 2, 3]);
+    const n = 4 + rand(r === 3 ? 3 : 5);
+    const ans = a * r ** (n - 1);
+    return item({ a, r: numStr(r), n }, int(ans), [int(a * r ** n), int(a + (n - 1) * r), int(a * r * (n - 1)), int(-ans)], [int(a * r ** (n - 2)), int(ans + a), int(ans * 2 + 1), int(ans - r)]);
+  },
+
+  // 등비수열의 합
+  geomsum() {
+    const a = 1 + rand(4);
+    const r = pickOne([2, 3, -2, 2, 3]);
+    const n = 4 + rand(r === 3 ? 3 : 5);
+    const S = (a * (r ** n - 1)) / (r - 1);
+    return item({ a, r: numStr(r), n }, int(S), [int(a * (r ** n - 1)), int(a * r ** (n - 1)), int((a * (r ** (n - 1) - 1)) / (r - 1)), int(a * r ** n)], [int(S + 1), int(S - a), int(S * 2), int(S + r)]);
+  },
+
+  // Σ 의 계산. params.ask 가 'sq' 이면 k² 이 들어갑니다.
+  sigma(params) {
+    if (params.ask === 'sq') {
+      const n = 5 + rand(8);
+      const p = rand(4);
+      const expr = p === 0 ? 'k²' : `(k² + ${p === 1 ? '' : p}k)`;
+      const S = sumK2(n) + p * sumK(n);
+      return item({ expr, n, p }, int(S), [int(sumK(n) ** 2 + p * sumK(n)), int(2 * sumK2(n) + p * sumK(n)), int(n * n + p * n), int(sumK2(n) + p * n)], [int(S + n), int(S - n), int(S + sumK(n)), int(S + 1)]);
+    }
+    const p = 2 + rand(5);
+    const q = nonzero(-5, 7);
+    const n = 6 + rand(10);
+    const S = p * sumK(n) + q * n;
+    return item({ expr: `(${p}k ${q > 0 ? '+' : MINUS} ${Math.abs(q)})`, n, p, q: numStr(q) }, int(S), [int(p * sumK(n) + q), int(p * n + q), int((p * n * (n - 1)) / 2 + q * n)], [int(S + n), int(S - n), int(S + p), int(S + q + 1)]);
+  },
+
+  // 계차수열. 처음 다섯 항을 보여 주고 n 번째 항(또는 일반항)을 묻습니다. 계차는 등차수열입니다.
+  diffseq(params) {
+    const general = params.ask === 'general';
+    const a1 = 1 + rand(6);
+    const b1 = 1 + rand(5);
+    const e = general ? pickOne([2, 4, 6]) : 1 + rand(4);
+    const f = (n) => a1 + (n - 1) * b1 + (e * (n - 1) * (n - 2)) / 2;
+    const seq = `${[1, 2, 3, 4, 5].map(f).join(', ')}, …`;
+    if (general) {
+      const [A, B, C] = [e / 2, b1 - (3 * e) / 2, a1 - b1 + e];
+      return item({ seq }, anPoly(A, B, C), [anPoly(A, 2 * A + B, A + B + C), anPoly(0, e, b1 - e), anPoly(A, -B, C), anPoly(A, B, C + b1)],
+        [anPoly(A, B + 1, C - 1), anPoly(A + 1, B, C), anPoly(A, B, C + 1)]);
+    }
+    const n = 7 + rand(4);
+    return item({ seq, n }, int(f(n)), [int(f(n + 1)), int(f(n - 1)), int(a1 + (n - 1) * (b1 + (n - 2) * e))], [int(f(n) + e), int(f(n) - e), int(f(n) + b1), int(f(n) + 1)]);
+  },
+
+  // 합 Sₙ 에서 일반항: aₙ = Sₙ − Sₙ₋₁
+  sumterm() {
+    const p = 1 + rand(4);
+    const q = nonzero(-5, 6);
+    return item({ sn: `Sₙ = ${seqPoly(p, q, 0)}`, p, q: numStr(q) }, anPoly(0, 2 * p, q - p), [anPoly(0, 2 * p, q), anPoly(0, 2 * p, q + p), anPoly(0, p, q), anPoly(p, q, 0)],
+      [anPoly(0, 2 * p, q - p + 1), anPoly(0, 2 * p + 1, q - p), anPoly(0, 2 * p, q - p - 1)]);
+  },
+
+  // 점화식 aₙ₊₁ = p·aₙ + q. params.ask 가 'general' 이면 일반항, 아니면 몇 번째 항의 값
+  recur(params) {
+    const { p, q, alpha, c, a1, rule } = recurNums();
+    if (params.ask === 'general') {
+      return item({ a1: numStr(a1), rule, p, q: numStr(q) }, anExp(c, p, alpha), [anExp(c, p, -alpha), anExp(c, p, alpha, 0), anExp(c, p, q), anPoly(0, p, a1 - p)],
+        [anExp(c + 1, p, alpha), anExp(c, p, alpha + 1), anExp(c, p + 1, alpha), anExp(c, p, 0)]);
+    }
+    const k = 4 + rand(2);
+    const f = (n) => c * p ** (n - 1) + alpha;
+    return item({ a1: numStr(a1), rule, p, q: numStr(q), k }, int(f(k)), [int(f(k - 1)), int(f(k + 1)), int(a1 * p ** (k - 1)), int(a1 + (k - 1) * q)], [int(f(k) + q), int(f(k) + 1), int(f(k) - 1), int(f(k) + p)]);
+  },
+});
+
+Object.assign(CHAINS, {
+  // 등차수열: 두 항 → 공차 → 첫째항 → 합
+  arithpair() {
+    const d = nonzero(-5, 5);
+    if (Math.abs(d) === 1) return CHAINS.arithpair();
+    const a = -6 + rand(17);
+    const p = 2 + rand(3);
+    const q = p + 2 + rand(3);
+    const n = pickOne([10, 12, 15, 20]);
+    const [ap, aq] = [a + (p - 1) * d, a + (q - 1) * d];
+    const S = (n * (2 * a + (n - 1) * d)) / 2;
+    return {
+      p, q, n, ap: numStr(ap), aq: numStr(aq),
+      steps: [
+        step(int(d), [int(aq - ap), int(-d), int(Math.round((aq - ap) / (q - p + 1)))], [int(d + 1), int(d - 1), int(d + 2), int(d * 2 + 1)]),
+        step(int(a), [int(ap - p * d), int(ap), int(ap + (p - 1) * d)], [int(a + 1), int(a - 1), int(a + d + 1), int(a + 2)]),
+        step(int(S), [int(n * (2 * a + (n - 1) * d)), int(n * (a + (n - 1) * d)), int((n * (2 * a + n * d)) / 2)], [int(S + n), int(S - n), int(S + a + 1), int(S + 1)]),
+      ],
+    };
+  },
+
+  // 점화식: 특성방정식의 해 α → b₁ = a₁ − α → 다섯째 항
+  recurstep() {
+    const { p, q, alpha, c, a1, rule } = recurNums();
+    const k = 5;
+    const ak = c * p ** (k - 1) + alpha;
+    return {
+      first: numStr(a1), rule, p, q: numStr(q), k, eq: `α = ${p}α ${q > 0 ? '+' : MINUS} ${Math.abs(q)}`,
+      steps: [
+        step(int(alpha), [int(-alpha), int(q), int(a1)], [int(alpha + 1), int(alpha - 1), int(alpha + 2), int(alpha - 2)]),
+        step(int(c), [int(a1 + alpha), int(a1), int(a1 - q)], [int(c + 1), int(c + 2), int(c - 1), int(c + 3)]),
+        step(int(ak), [int(c * p ** k + alpha), int(c * p ** (k - 1) - alpha), int(c * p ** (k - 1))], [int(ak + 1), int(ak - 1), int(ak + p), int(ak + 2)]),
+      ],
+    };
+  },
+});
