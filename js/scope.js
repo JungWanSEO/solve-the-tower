@@ -2,7 +2,7 @@
 // 유형마다 내 기록(정답률, 정복 여부)이 보여서 부족한 곳을 골라 연습할 수 있습니다.
 import { CONFIG } from './config.js';
 import { t, pick } from './i18n.js';
-import { scopeTree, allTypeKeys, typeLabel, hasType, chainCount, chainTotal } from './questions.js';
+import { scopeTree, allTypeKeys, starterKeys, typeLabel, hasType, chainCount, chainTotal } from './questions.js';
 import { $ } from './ui.js';
 
 // 유형의 상태: new 아직 안 풂 | open 미정복 | progress 진행 중 | done 정복
@@ -25,7 +25,7 @@ export function createScope({ data, onStart, onBack }) {
 
   function setChosen(keys) {
     chosen = new Set(keys.filter(hasType));
-    if (!chosen.size) chosen = new Set(allTypeKeys());
+    if (!chosen.size) chosen = new Set(starterKeys());
   }
 
   function render() {
@@ -146,9 +146,9 @@ export function createScope({ data, onStart, onBack }) {
   $('scopeBack').addEventListener('click', onBack);
 
   return {
-    // 화면을 열 때: 지난번 범위가 있으면 그것을, 없으면 전체를 골라 둡니다.
+    // 화면을 열 때: 지난번 범위가 있으면 그것을, 없으면 첫 과목만 골라 둡니다. (나머지 과목은 직접 켭니다)
     open() {
-      setChosen(data.lastScope || allTypeKeys());
+      setChosen(data.lastScope || starterKeys());
       render();
     },
     render,
