@@ -572,6 +572,24 @@
     "skillLevel": 3
   },
   {
+    "id": "gate",
+    "gate": true,
+    "name": {
+      "ja": "あとまわしの門番",
+      "ko": "미루기의 문지기",
+      "en": "Gatekeeper of Later"
+    },
+    "mistake": {
+      "ja": "「あとでやる」と言って、わからない問題をそのままにする",
+      "ko": "\"나중에 하지\"라며 모르는 문제를 그대로 두기",
+      "en": "Saying \"I'll do it later\" and leaving the problems you don't understand"
+    },
+    "hp": 30,
+    "weak": "math1-quad/vertex",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
     "id": "shadow",
     "final": true,
     "name": {

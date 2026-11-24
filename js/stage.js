@@ -993,8 +993,31 @@ export function createStage(canvas) {
     glyph('×', 0, 22, 22, '#6b5bd6');
     ctx.restore();
   }
+  // 미루기의 문지기: 진보스의 방 앞을 막는 문. 시계 얼굴에 눈을 반쯤 감고 있다가, 강한 공격을 예고할 때 눈을 번쩍 뜹니다.
+  function drawGate(f) {
+    const sp = specOf(f);
+    const wake = Math.sin(sp * Math.PI);
+    const nod = Math.sin(S.t * 1.2) * 1.5 * (1 - wake);
+    rrect(-34, -52 + nod, 68, 98, 10, '#2a2350'); // 문짝
+    rrect(-28, -46 + nod, 56, 86, 7, '#3a3170');
+    line(0, -46 + nod, 0, 40 + nod, '#2a2350', 3);
+    circ(0, -14 + nod, 21, '#f6e7c1'); // 시계 얼굴
+    circ(0, -14 + nod, 21 - 3, '#fff6dd');
+    const hand = S.t * 0.25;
+    line(0, -14 + nod, Math.sin(hand) * 12, -14 + nod - Math.cos(hand) * 12, '#2a2350', 2.5);
+    line(0, -14 + nod, 8, -14 + nod, '#2a2350', 2.5);
+    const lid = 2.6 * (1 - wake); // 감긴 정도
+    for (const x of [-8, 8]) {
+      circ(x, -19 + nod, 3.4, wake > 0.3 ? '#ff7d8f' : '#2a2350');
+      rrect(x - 4.5, -23.5 + nod, 9, lid + 1.5, 1, '#fff6dd'); // 눈꺼풀
+      line(x - 4.5, -22 + nod + lid, x + 4.5, -22 + nod + lid, '#2a2350', 1.6);
+    }
+    rrect(-5, 12 + nod, 10, 14, 3, '#ffc857'); // 자물쇠
+    circ(0, 18 + nod, 2, '#2a2350');
+    if (wake < 0.3) glyph('z', 30, -52 + Math.sin(S.t * 2) * 3, 16, '#a7ddff');
+  }
   const FOE_DRAW = {
-    shadow: drawShadow,
+    shadow: drawShadow, gate: drawGate,
     ruler: drawRuler, target: drawTarget, pendulum: drawPendulum, wave: drawWave, sprout: drawSprout, logger: drawLogger,
     skater: drawSkater, bucket: drawBucket, sphinx: drawSphinx, hydra: drawHydra,
     imp: drawImp, mirror: drawMirror,
