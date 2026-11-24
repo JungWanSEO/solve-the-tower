@@ -87,9 +87,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "かっこをはずす\n実部どうし、虚部(i のついた部分)どうしをそれぞれ足す\n{answer}",
-        "ko": "괄호를 풉니다\n실수부분끼리, 허수부분(i가 붙은 부분)끼리 각각 더합니다\n{answer}",
-        "en": "Remove the brackets\nAdd the real parts together and the imaginary parts together\n{answer}"
+        "ja": "かっこを外す(足し算なので符号はそのまま)\n実部どうし: ({=cx(p)[0]}) + ({=cx(q)[0]}) = {=cx(p)[0]+cx(q)[0]}\n虚部(i のついた部分)どうし: ({=cx(p)[1]}) + ({=cx(q)[1]}) = {=cx(p)[1]+cx(q)[1]}\nあわせて {answer}",
+        "ko": "괄호를 풉니다 (덧셈이므로 부호는 그대로)\n실수부분끼리: ({=cx(p)[0]}) + ({=cx(q)[0]}) = {=cx(p)[0]+cx(q)[0]}\n허수부분(i 가 붙은 부분)끼리: ({=cx(p)[1]}) + ({=cx(q)[1]}) = {=cx(p)[1]+cx(q)[1]}\n합치면 {answer}",
+        "en": "Remove the brackets (addition keeps the signs)\nReal parts: ({=cx(p)[0]}) + ({=cx(q)[0]}) = {=cx(p)[0]+cx(q)[0]}\nImaginary parts (the i terms): ({=cx(p)[1]}) + ({=cx(q)[1]}) = {=cx(p)[1]+cx(q)[1]}\nTogether: {answer}"
       }
     },
     {
@@ -106,9 +106,9 @@
         "en": "Calculate {expr}."
       },
       "explain": {
-        "ja": "引く方のかっこをはずすとき、中の符号を両方とも逆にする\n実部どうし、虚部どうしをそれぞれまとめる\n{answer}",
-        "ko": "빼는 쪽 괄호를 풀 때 안의 부호를 둘 다 반대로 합니다\n실수부분끼리, 허수부분끼리 각각 모읍니다\n{answer}",
-        "en": "When removing the subtracted bracket, flip both signs inside\nCombine the real parts and the imaginary parts\n{answer}"
+        "ja": "引く方のかっこを外すとき、中の符号を両方とも反対にする\n実部どうし: ({=cx(p)[0]}) − ({=cx(q)[0]}) = {=cx(p)[0]-cx(q)[0]}\n虚部(i のついた部分)どうし: ({=cx(p)[1]}) − ({=cx(q)[1]}) = {=cx(p)[1]-cx(q)[1]}\nあわせて {answer}",
+        "ko": "빼는 쪽 괄호를 풀 때 안의 부호를 둘 다 반대로 합니다\n실수부분끼리: ({=cx(p)[0]}) − ({=cx(q)[0]}) = {=cx(p)[0]-cx(q)[0]}\n허수부분(i 가 붙은 부분)끼리: ({=cx(p)[1]}) − ({=cx(q)[1]}) = {=cx(p)[1]-cx(q)[1]}\n합치면 {answer}",
+        "en": "When removing the bracket being subtracted, flip both signs inside\nReal parts: ({=cx(p)[0]}) − ({=cx(q)[0]}) = {=cx(p)[0]-cx(q)[0]}\nImaginary parts (the i terms): ({=cx(p)[1]}) − ({=cx(q)[1]}) = {=cx(p)[1]-cx(q)[1]}\nTogether: {answer}"
       }
     },
     {

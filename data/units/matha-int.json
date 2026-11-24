@@ -231,9 +231,9 @@
         "en": "Write {n} as a product of primes."
       },
       "explain": {
-        "ja": "いちばん小さい素数 2 で割れるだけ割る\n次に 3、5、7…と小さい素数から順に割っていく\n同じ素数は指数でまとめて {answer}",
-        "ko": "가장 작은 소수 2로 나눌 수 있는 만큼 나눕니다\n다음으로 3, 5, 7… 작은 소수부터 차례로 나눕니다\n같은 소수는 지수로 모아서 {answer}",
-        "en": "Divide by 2 as many times as possible\nThen by 3, 5, 7, … in order\nCollect equal primes as powers: {answer}"
+        "ja": "いちばん小さい素数 2 から順に、割り切れるだけ割っていく\n{=pfsteps(n)}\n割った素数を集め、同じ素数は指数でまとめて {answer}",
+        "ko": "가장 작은 소수 2 부터 차례로, 나누어떨어지는 만큼 나눕니다\n{=pfsteps(n)}\n나눈 소수를 모으고, 같은 소수는 지수로 묶어 {answer}",
+        "en": "Divide by the smallest prime, 2, as often as possible, then by the next primes\n{=pfsteps(n)}\nCollect the primes used, writing repeats as powers: {answer}"
       }
     },
     {

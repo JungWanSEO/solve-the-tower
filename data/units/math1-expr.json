@@ -133,9 +133,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "前のかっこの各項を、後ろのかっこの各項に掛ける(4つの積)\nx² の項、x の項、定数項に分ける\nx の項を1つにまとめて {answer}",
-        "ko": "앞 괄호의 각 항을 뒤 괄호의 각 항에 곱합니다 (곱 4개)\nx²의 항, x의 항, 상수항으로 나눕니다\nx의 항을 하나로 모으면 {answer}",
-        "en": "Multiply each term of the first bracket by each term of the second (four products)\nSort into x², x and constant terms\nCombine the x terms: {answer}"
+        "ja": "前のかっこの各項を、後ろのかっこの各項に掛ける(積は 4 つ)\nx² の項: {=lin(expr.split(')')[0].slice(1))[0]} × {=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]} = {=lin(expr.split(')')[0].slice(1))[0]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]}、定数項: ({=lin(expr.split(')')[0].slice(1))[1]}) × ({=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}) = {=lin(expr.split(')')[0].slice(1))[1]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}\nx の項は 2 つ出る: {=lin(expr.split(')')[0].slice(1))[0]} × ({=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}) + ({=lin(expr.split(')')[0].slice(1))[1]}) × {=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]} = {=lin(expr.split(')')[0].slice(1))[0]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]+lin(expr.split(')')[0].slice(1))[1]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]}\nまとめて {answer}",
+        "ko": "앞 괄호의 각 항을 뒤 괄호의 각 항에 곱합니다 (곱 4개)\nx² 의 항: {=lin(expr.split(')')[0].slice(1))[0]} × {=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]} = {=lin(expr.split(')')[0].slice(1))[0]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]}, 상수항: ({=lin(expr.split(')')[0].slice(1))[1]}) × ({=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}) = {=lin(expr.split(')')[0].slice(1))[1]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}\nx 의 항은 2개 나옵니다: {=lin(expr.split(')')[0].slice(1))[0]} × ({=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}) + ({=lin(expr.split(')')[0].slice(1))[1]}) × {=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]} = {=lin(expr.split(')')[0].slice(1))[0]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]+lin(expr.split(')')[0].slice(1))[1]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]}\n모으면 {answer}",
+        "en": "Multiply each term of the first bracket by each term of the second (4 products)\nx² term: {=lin(expr.split(')')[0].slice(1))[0]} × {=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]} = {=lin(expr.split(')')[0].slice(1))[0]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]}; constant: ({=lin(expr.split(')')[0].slice(1))[1]}) × ({=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}) = {=lin(expr.split(')')[0].slice(1))[1]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}\nTwo x terms appear: {=lin(expr.split(')')[0].slice(1))[0]} × ({=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]}) + ({=lin(expr.split(')')[0].slice(1))[1]}) × {=lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]} = {=lin(expr.split(')')[0].slice(1))[0]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[1]+lin(expr.split(')')[0].slice(1))[1]*lin((expr.includes(')(') ? expr.split(')(')[1] : expr.slice(1)).split(')')[0])[0]}\nTogether: {answer}"
       }
     },
     {
@@ -168,9 +168,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "x² の係数と定数項を、それぞれ2つの数の積に分ける\nたすき掛けで、斜めに掛けて足すと x の係数になる組を選ぶ\n横に並んだ数でかっこを作ると {answer}",
-        "ko": "x²의 계수와 상수항을 각각 두 수의 곱으로 나눕니다\n대각선으로 곱해서 더하면 x의 계수가 되는 짝을 고릅니다\n가로로 놓인 수로 괄호를 만들면 {answer}",
-        "en": "Split the x² coefficient and the constant each into two factors\nChoose the pairing whose cross products add up to the x coefficient\nRead the brackets across: {answer}"
+        "ja": "x² の係数 {=co(expr)[0]} と定数項 {=co(expr)[2]} を、それぞれ 2 つの数の積に分ける(たすきがけ)\n斜めに掛けて足した数が、x の係数 {=co(expr)[1]} になる組を探す\n見つけた数を横に読んでかっこを作ると {answer}。展開して元の式に戻るか確かめる",
+        "ko": "x² 의 계수 {=co(expr)[0]} 와 상수항 {=co(expr)[2]} 를 각각 두 수의 곱으로 나눕니다 (대각선 곱셈)\n대각선으로 곱해서 더한 수가 x 의 계수 {=co(expr)[1]} 이 되는 짝을 찾습니다\n찾은 수를 가로로 읽어 괄호를 만들면 {answer}. 전개해서 원래 식이 되는지 확인합니다",
+        "en": "Split the x² coefficient {=co(expr)[0]} and the constant {=co(expr)[2]} each into a product of two numbers (cross method)\nFind the pair whose cross products add up to the x coefficient {=co(expr)[1]}\nReading across gives {answer}. Expand it to check"
       }
     },
     {
@@ -357,9 +357,9 @@
         "en": "Solve {lhs} {op} {b}."
       },
       "explain": {
-        "ja": "|X| < b は −b < X < b、|X| > b は X < −b または b < X\n絶対値の中身を X として、その形に書きなおす\nx について解くと {answer}",
-        "ko": "|X| < b 는 −b < X < b, |X| > b 는 X < −b 또는 b < X\n절댓값 안을 X로 보고 그 꼴로 고쳐 씁니다\nx에 대해 풀면 {answer}",
-        "en": "|X| < b means −b < X < b; |X| > b means X < −b or b < X\nRewrite with the inside as X\nSolve for x: {answer}"
+        "ja": "|X| < b は −b < X < b、|X| > b は X < −b または b < X。ここでは X = {=inner(lhs)}、b = {b}\n境目になるのは {=inner(lhs)} = −{b} と {=inner(lhs)} = {b} のとき → x = {=(-nums(lhs)[0])-b} と x = {=(-nums(lhs)[0])+b}\n不等号が < なら 2 つの境目の間、> なら外側 → {answer}",
+        "ko": "|X| < b 는 −b < X < b, |X| > b 는 X < −b 또는 b < X. 여기서는 X = {=inner(lhs)}, b = {b}\n경계가 되는 것은 {=inner(lhs)} = −{b} 와 {=inner(lhs)} = {b} 일 때 → x = {=(-nums(lhs)[0])-b} 와 x = {=(-nums(lhs)[0])+b}\n부등호가 < 이면 두 경계 사이, > 이면 바깥쪽 → {answer}",
+        "en": "|X| < b means −b < X < b; |X| > b means X < −b or b < X. Here X = {=inner(lhs)} and b = {b}\nThe boundaries are where {=inner(lhs)} = −{b} and {=inner(lhs)} = {b} → x = {=(-nums(lhs)[0])-b} and x = {=(-nums(lhs)[0])+b}\nWith < take the part between them; with > take the outside → {answer}"
       }
     },
     {
@@ -408,9 +408,9 @@
         "en": "If A = {A} and B = {B}, what is A ∩ B?"
       },
       "explain": {
-        "ja": "A ∩ B は、A と B の両方に入っている要素の集合\nA の要素を1つずつ、B にもあるか確かめる\n{answer}",
-        "ko": "A ∩ B 는 A와 B 양쪽에 모두 들어 있는 원소의 집합\nA의 원소를 하나씩 B에도 있는지 확인합니다\n{answer}",
-        "en": "A ∩ B holds the elements that are in both A and B\nCheck each element of A against B\n{answer}"
+        "ja": "A ∩ B は、A と B の両方に入っている要素の集合\nA = {A} の要素を 1 つずつ、B = {B} にもあるか確かめる\n両方にあるものだけを集めて {answer}",
+        "ko": "A ∩ B 는 A 와 B 양쪽에 모두 들어 있는 원소의 집합\nA = {A} 의 원소를 하나씩, B = {B} 에도 있는지 확인합니다\n양쪽에 다 있는 것만 모으면 {answer}",
+        "en": "A ∩ B is the set of elements that are in both A and B\nTake each element of A = {A} and check whether it is also in B = {B}\nKeep only those in both: {answer}"
       }
     },
     {
@@ -427,9 +427,9 @@
         "en": "If A = {A} and B = {B}, what is A ∪ B?"
       },
       "explain": {
-        "ja": "A ∪ B は、A か B の少なくとも一方に入っている要素の集合\nA の要素に、B だけにある要素を加える(同じ要素は1回だけ)\n{answer}",
-        "ko": "A ∪ B 는 A나 B 중 적어도 한쪽에 들어 있는 원소의 집합\nA의 원소에 B에만 있는 원소를 더합니다 (같은 원소는 한 번만)\n{answer}",
-        "en": "A ∪ B holds the elements that are in at least one of A and B\nTake A and add what is only in B (no repeats)\n{answer}"
+        "ja": "A ∪ B は、A か B の少なくとも一方に入っている要素の集合\nA = {A} の要素に、B = {B} にだけある要素を加える(同じ要素は 1 回だけ書く)\n小さい順に並べて {answer}",
+        "ko": "A ∪ B 는 A 나 B 중 적어도 한쪽에 들어 있는 원소의 집합\nA = {A} 의 원소에, B = {B} 에만 있는 원소를 더합니다 (같은 원소는 한 번만 씁니다)\n작은 수부터 늘어놓으면 {answer}",
+        "en": "A ∪ B is the set of elements in at least one of A and B\nStart with A = {A} and add the elements that are only in B = {B} (write repeats once)\nIn order: {answer}"
       }
     },
     {
@@ -467,9 +467,9 @@
         "en": "Calculate {A} + {B}."
       },
       "explain": {
-        "ja": "かっこをはずす(足し算なので符号はそのまま)\nx² の項、x の項、定数項どうしをそれぞれまとめる\n{answer}",
-        "ko": "괄호를 풉니다 (덧셈이므로 부호는 그대로)\nx²의 항, x의 항, 상수항끼리 각각 모읍니다\n{answer}",
-        "en": "Remove the brackets (signs stay the same when adding)\nCombine the x² terms, the x terms and the constants\n{answer}"
+        "ja": "足し算なので、かっこを外しても符号はそのまま\nx² の係数: ({=co(A.slice(1,-1))[0]}) + ({=co(B.slice(1,-1))[0]}) = {=co(A.slice(1,-1))[0]+co(B.slice(1,-1))[0]}、x の係数: ({=co(A.slice(1,-1))[1]}) + ({=co(B.slice(1,-1))[1]}) = {=co(A.slice(1,-1))[1]+co(B.slice(1,-1))[1]}\n定数項: ({=co(A.slice(1,-1))[2]}) + ({=co(B.slice(1,-1))[2]}) = {=co(A.slice(1,-1))[2]+co(B.slice(1,-1))[2]}\nまとめて {answer}",
+        "ko": "덧셈이므로 괄호를 풀어도 부호는 그대로입니다\nx² 의 계수: ({=co(A.slice(1,-1))[0]}) + ({=co(B.slice(1,-1))[0]}) = {=co(A.slice(1,-1))[0]+co(B.slice(1,-1))[0]}, x 의 계수: ({=co(A.slice(1,-1))[1]}) + ({=co(B.slice(1,-1))[1]}) = {=co(A.slice(1,-1))[1]+co(B.slice(1,-1))[1]}\n상수항: ({=co(A.slice(1,-1))[2]}) + ({=co(B.slice(1,-1))[2]}) = {=co(A.slice(1,-1))[2]+co(B.slice(1,-1))[2]}\n모으면 {answer}",
+        "en": "It is an addition, so the signs stay the same when the brackets come off\nx² coefficient: ({=co(A.slice(1,-1))[0]}) + ({=co(B.slice(1,-1))[0]}) = {=co(A.slice(1,-1))[0]+co(B.slice(1,-1))[0]}; x coefficient: ({=co(A.slice(1,-1))[1]}) + ({=co(B.slice(1,-1))[1]}) = {=co(A.slice(1,-1))[1]+co(B.slice(1,-1))[1]}\nConstant: ({=co(A.slice(1,-1))[2]}) + ({=co(B.slice(1,-1))[2]}) = {=co(A.slice(1,-1))[2]+co(B.slice(1,-1))[2]}\nTogether: {answer}"
       }
     },
     {
@@ -486,9 +486,9 @@
         "en": "Calculate {A} − {B}."
       },
       "explain": {
-        "ja": "引く方のかっこをはずすとき、中の符号をすべて逆にする\nx² の項、x の項、定数項どうしをそれぞれまとめる\n{answer}",
-        "ko": "빼는 쪽 괄호를 풀 때 안의 부호를 모두 바꿉니다\nx²의 항, x의 항, 상수항끼리 각각 모읍니다\n{answer}",
-        "en": "When removing the subtracted bracket, flip every sign inside\nCombine the x² terms, the x terms and the constants\n{answer}"
+        "ja": "引く方のかっこを外すとき、中の符号をすべて変える\nx² の係数: ({=co(A.slice(1,-1))[0]}) − ({=co(B.slice(1,-1))[0]}) = {=co(A.slice(1,-1))[0]-co(B.slice(1,-1))[0]}、x の係数: ({=co(A.slice(1,-1))[1]}) − ({=co(B.slice(1,-1))[1]}) = {=co(A.slice(1,-1))[1]-co(B.slice(1,-1))[1]}\n定数項: ({=co(A.slice(1,-1))[2]}) − ({=co(B.slice(1,-1))[2]}) = {=co(A.slice(1,-1))[2]-co(B.slice(1,-1))[2]}\nまとめて {answer}",
+        "ko": "빼는 쪽 괄호를 풀 때 안의 부호를 모두 바꿉니다\nx² 의 계수: ({=co(A.slice(1,-1))[0]}) − ({=co(B.slice(1,-1))[0]}) = {=co(A.slice(1,-1))[0]-co(B.slice(1,-1))[0]}, x 의 계수: ({=co(A.slice(1,-1))[1]}) − ({=co(B.slice(1,-1))[1]}) = {=co(A.slice(1,-1))[1]-co(B.slice(1,-1))[1]}\n상수항: ({=co(A.slice(1,-1))[2]}) − ({=co(B.slice(1,-1))[2]}) = {=co(A.slice(1,-1))[2]-co(B.slice(1,-1))[2]}\n모으면 {answer}",
+        "en": "When removing the bracket being subtracted, change every sign inside\nx² coefficient: ({=co(A.slice(1,-1))[0]}) − ({=co(B.slice(1,-1))[0]}) = {=co(A.slice(1,-1))[0]-co(B.slice(1,-1))[0]}; x coefficient: ({=co(A.slice(1,-1))[1]}) − ({=co(B.slice(1,-1))[1]}) = {=co(A.slice(1,-1))[1]-co(B.slice(1,-1))[1]}\nConstant: ({=co(A.slice(1,-1))[2]}) − ({=co(B.slice(1,-1))[2]}) = {=co(A.slice(1,-1))[2]-co(B.slice(1,-1))[2]}\nTogether: {answer}"
       }
     },
     {
@@ -598,9 +598,9 @@
         "en": "Remove the nested root in {expr}."
       },
       "explain": {
-        "ja": "√(p ± 2√q) の形であることを確かめる\n足して p、掛けて q になる2つの数 a, b (a > b) を探す\n√a ± √b の形にして {answer}",
-        "ko": "√(p ± 2√q) 꼴인지 확인합니다\n더해서 p, 곱해서 q가 되는 두 수 a, b (a > b)를 찾습니다\n√a ± √b 꼴로 만들면 {answer}",
-        "en": "Check that it has the form √(p ± 2√q)\nFind a and b (a > b) with sum p and product q\nWrite it as √a ± √b: {answer}"
+        "ja": "√(p ± 2√q) の形になっている: p = {=nums(expr)[0]}, q = {=nums(expr)[2]}\n足して {=nums(expr)[0]}、掛けて {=nums(expr)[2]} になる 2 つの数を探す → {=pair(nums(expr)[0],nums(expr)[2])}\n√(大きい方) ± √(小さい方) の形にして {answer}(引き算のときは大きい方を前に)",
+        "ko": "√(p ± 2√q) 꼴입니다: p = {=nums(expr)[0]}, q = {=nums(expr)[2]}\n더해서 {=nums(expr)[0]}, 곱해서 {=nums(expr)[2]} 가 되는 두 수를 찾습니다 → {=pair(nums(expr)[0],nums(expr)[2])}\n√(큰 수) ± √(작은 수) 꼴로 만들면 {answer} (뺄셈일 때는 큰 수를 앞에)",
+        "en": "It has the form √(p ± 2√q) with p = {=nums(expr)[0]} and q = {=nums(expr)[2]}\nFind two numbers that add to {=nums(expr)[0]} and multiply to {=nums(expr)[2]} → {=pair(nums(expr)[0],nums(expr)[2])}\nWrite √(larger) ± √(smaller): {answer} (for a minus, the larger goes first)"
       }
     },
     {
@@ -649,9 +649,9 @@
         "en": "The universal set is U = {1, 2, 3, 4, 5, 6, 7, 8, 9}."
       },
       "explain": {
-        "ja": "まず A ∪ B(どちらかに入っている要素)を求める\n全体集合から、その要素をすべて取り除く\n{answer}",
-        "ko": "먼저 A ∪ B (어느 한쪽에 들어 있는 원소)를 구합니다\n전체집합에서 그 원소를 모두 뺍니다\n{answer}",
-        "en": "First find A ∪ B (in at least one of them)\nRemove those elements from the universal set\n{answer}"
+        "ja": "まず A ∪ B を求める: A = {A} と B = {B} のどちらかに入っている要素をすべて集める\n全体集合(1 から 9 までの整数)から、その要素をすべて取り除く\n残ったものが A ∪ B の補集合: {answer}",
+        "ko": "먼저 A ∪ B 를 구합니다: A = {A} 와 B = {B} 중 어느 한쪽에 들어 있는 원소를 모두 모읍니다\n전체집합(1 부터 9 까지의 정수)에서 그 원소를 모두 뺍니다\n남은 것이 A ∪ B 의 여집합: {answer}",
+        "en": "First find A ∪ B: collect every element in A = {A} or B = {B}\nRemove all of them from the universal set (the integers 1 to 9)\nWhat is left is the complement of A ∪ B: {answer}"
       }
     },
     {
@@ -679,9 +679,9 @@
         "en": "The universal set is U = {1, 2, 3, 4, 5, 6, 7, 8, 9}."
       },
       "explain": {
-        "ja": "補集合は、全体集合のうち A に入っていない要素の集合\n全体集合から A の要素を取り除く(B は関係ない)\n{answer}",
-        "ko": "여집합은 전체집합 중 A에 들어 있지 않은 원소의 집합\n전체집합에서 A의 원소를 뺍니다 (B는 관계없음)\n{answer}",
-        "en": "The complement holds what is in the universal set but not in A\nRemove the elements of A (B does not matter)\n{answer}"
+        "ja": "補集合は、全体集合のうち A に入っていない要素の集合\n全体集合(1 から 9 までの整数)から、A = {A} の要素を取り除く(B は関係ない)\n残ったものが {answer}",
+        "ko": "여집합은 전체집합 중 A 에 들어 있지 않은 원소의 집합\n전체집합(1 부터 9 까지의 정수)에서 A = {A} 의 원소를 뺍니다 (B 는 관계없습니다)\n남은 것이 {answer}",
+        "en": "The complement is the set of elements of the universal set that are not in A\nRemove the elements of A = {A} from the universal set (the integers 1 to 9); B does not matter\nWhat is left: {answer}"
       }
     },
     {
