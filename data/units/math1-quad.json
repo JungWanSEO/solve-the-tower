@@ -391,9 +391,9 @@
         "en": "For which values of k does {f} {cond}?"
       },
       "explain": {
-        "ja": "判別式 D を k を使って表す\n条件を D の符号に直す(異なる2つの実数解: D > 0、重解: D = 0、実数解なし: D < 0)\nその不等式を k について解くと {answer}",
-        "ko": "판별식 D를 k로 나타냅니다\n조건을 D의 부호로 바꿉니다 (서로 다른 두 실근: D > 0, 중근: D = 0, 실근 없음: D < 0)\n그 식을 k에 대해 풀면 {answer}",
-        "en": "Write the discriminant D in terms of k\nTurn the condition into a sign of D (two real roots: D > 0, double root: D = 0, no real root: D < 0)\nSolve for k: {answer}"
+        "ja": "判別式 D = b² − 4ac に a = 1, b = {=co(f.replace(' + k = 0',''))[1]}, c = k を入れる: D = {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]} − 4k\n条件を D の符号に直す(異なる 2 つの実数解: D > 0、実数解をもつ: D ≧ 0、実数解なし: D < 0)\n{=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]} − 4k と 0 の大小を k について解く。境目は k = {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]/4}\n{answer}",
+        "ko": "판별식 D = b² − 4ac 에 a = 1, b = {=co(f.replace(' + k = 0',''))[1]}, c = k 를 넣습니다: D = {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]} − 4k\n조건을 D 의 부호로 바꿉니다 (서로 다른 두 실근: D > 0, 실근을 가짐: D ≧ 0, 실근 없음: D < 0)\n{=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]} − 4k 와 0 의 대소를 k 에 대해 풉니다. 경계는 k = {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]/4}\n{answer}",
+        "en": "Put a = 1, b = {=co(f.replace(' + k = 0',''))[1]}, c = k into D = b² − 4ac: D = {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]} − 4k\nTurn the condition into the sign of D (two distinct real roots: D > 0; real roots: D ≧ 0; no real roots: D < 0)\nSolve the inequality between {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]} − 4k and 0 for k. The boundary is k = {=co(f.replace(' + k = 0',''))[1]*co(f.replace(' + k = 0',''))[1]/4}\n{answer}"
       }
     },
     {
@@ -407,9 +407,9 @@
         "en": "For which values of k is {f} > 0 for every real x?"
       },
       "explain": {
-        "ja": "x² の係数が正なので、グラフは下に凸\n常に正 ⇔ グラフが x 軸と交わらない ⇔ D < 0\nD = k² − 4 × (定数項) < 0 を解いて {answer}",
-        "ko": "x²의 계수가 양수이므로 그래프는 아래로 볼록\n항상 양수 ⇔ 그래프가 x축과 만나지 않음 ⇔ D < 0\nD = k² − 4 × (상수항) < 0 을 풀면 {answer}",
-        "en": "The x² coefficient is positive, so the graph opens upward\nAlways positive ⇔ the graph never meets the x-axis ⇔ D < 0\nSolve D = k² − 4 × (constant term) < 0: {answer}"
+        "ja": "x² の係数が正なので、グラフは下に凸\nつねに正 ⇔ グラフが x 軸と交わらない ⇔ 判別式 D < 0\nD = k² − 4 × {=nums(f)[0]} = k² − {=4*nums(f)[0]} < 0 → k² < {=4*nums(f)[0]}\n2 乗して {=4*nums(f)[0]} より小さい数は −{=sqrt(4*nums(f)[0])} と {=sqrt(4*nums(f)[0])} の間 → {answer}",
+        "ko": "x² 의 계수가 양수이므로 그래프는 아래로 볼록\n항상 양수 ⇔ 그래프가 x축과 만나지 않음 ⇔ 판별식 D < 0\nD = k² − 4 × {=nums(f)[0]} = k² − {=4*nums(f)[0]} < 0 → k² < {=4*nums(f)[0]}\n제곱해서 {=4*nums(f)[0]} 보다 작은 수는 −{=sqrt(4*nums(f)[0])} 와 {=sqrt(4*nums(f)[0])} 사이 → {answer}",
+        "en": "The x² coefficient is positive, so the graph opens upward\nAlways positive ⇔ the graph never meets the x-axis ⇔ discriminant D < 0\nD = k² − 4 × {=nums(f)[0]} = k² − {=4*nums(f)[0]} < 0 → k² < {=4*nums(f)[0]}\nNumbers whose square is below {=4*nums(f)[0]} lie between −{=sqrt(4*nums(f)[0])} and {=sqrt(4*nums(f)[0])} → {answer}"
       }
     },
     {

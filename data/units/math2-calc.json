@@ -251,9 +251,9 @@
         "en": "Find ∫({expr}) dx. (C is the constant of integration)"
       },
       "explain": {
-        "ja": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)(指数を 1 増やして、その数で割る)\n各項を別々に積分する。定数 c は cx になる\n最後に積分定数 C をつけて {answer}",
-        "ko": "xⁿ 의 적분은 xⁿ⁺¹ ÷ (n + 1) (지수를 1 늘리고 그 수로 나눕니다)\n각 항을 따로 적분합니다. 상수 c는 cx가 됩니다\n마지막에 적분상수 C를 붙여 {answer}",
-        "en": "The integral of xⁿ is xⁿ⁺¹ ÷ (n + 1)\nIntegrate each term; a constant c becomes cx\nAdd the constant C: {answer}"
+        "ja": "xⁿ の積分は xⁿ⁺¹ ÷ (n + 1)(指数を 1 増やし、その数で割る)。項ごとに積分する\n{=coefs[0]}x² → {=coefs[0]} × x³ ÷ 3 = {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x³')(coefs[0]/3)}、{=coefs[1]}x → {=coefs[1]} × x² ÷ 2 = {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x²')(coefs[1]/2)}、定数 {=coefs[2]} → {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x')(coefs[2])}\n最後に積分定数 C をつけて {answer}。微分して元の式に戻るか確かめる",
+        "ko": "xⁿ 의 적분은 xⁿ⁺¹ ÷ (n + 1) (지수를 1 늘리고 그 수로 나눕니다). 항마다 따로 적분합니다\n{=coefs[0]}x² → {=coefs[0]} × x³ ÷ 3 = {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x³')(coefs[0]/3)}, {=coefs[1]}x → {=coefs[1]} × x² ÷ 2 = {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x²')(coefs[1]/2)}, 상수 {=coefs[2]} → {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x')(coefs[2])}\n마지막에 적분상수 C 를 붙여 {answer}. 미분해서 원래 식이 되는지 확인합니다",
+        "en": "The integral of xⁿ is xⁿ⁺¹ ÷ (n + 1): raise the exponent by 1 and divide by it. Integrate term by term\n{=coefs[0]}x² → {=coefs[0]} × x³ ÷ 3 = {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x³')(coefs[0]/3)}; {=coefs[1]}x → {=coefs[1]} × x² ÷ 2 = {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x²')(coefs[1]/2)}; the constant {=coefs[2]} → {=((v) => (v === 1 ? '' : v === -1 ? '−' : String(v).replace('-', '−')) + 'x')(coefs[2])}\nAdd the constant of integration C: {answer}. Differentiate to check"
       }
     },
     {
