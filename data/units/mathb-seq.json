@@ -1,0 +1,450 @@
+{
+  "id": "mathb-seq",
+  "name": {
+    "ja": "数列",
+    "ko": "수열",
+    "en": "Sequences"
+  },
+  "types": {
+    "arith": {
+      "ja": "等差数列の一般項",
+      "ko": "등차수열의 일반항",
+      "en": "Arithmetic sequences"
+    },
+    "arithsum": {
+      "ja": "等差数列の和",
+      "ko": "등차수열의 합",
+      "en": "Sums of arithmetic sequences"
+    },
+    "geom": {
+      "ja": "等比数列の一般項",
+      "ko": "등비수열의 일반항",
+      "en": "Geometric sequences"
+    },
+    "geomsum": {
+      "ja": "等比数列の和",
+      "ko": "등비수열의 합",
+      "en": "Sums of geometric sequences"
+    },
+    "sigma": {
+      "ja": "Σ の計算",
+      "ko": "Σ의 계산",
+      "en": "Sigma notation"
+    },
+    "diffseq": {
+      "ja": "階差数列",
+      "ko": "계차수열",
+      "en": "Difference sequences"
+    },
+    "sumterm": {
+      "ja": "和から一般項",
+      "ko": "합에서 일반항 구하기",
+      "en": "General term from the sum"
+    },
+    "recur": {
+      "ja": "漸化式",
+      "ko": "점화식",
+      "en": "Recurrence relations"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "等差数列・等比数列",
+        "ko": "등차수열·등비수열",
+        "en": "Arithmetic and geometric sequences"
+      },
+      "types": [
+        "arith",
+        "arithsum",
+        "geom",
+        "geomsum"
+      ]
+    },
+    {
+      "name": {
+        "ja": "いろいろな数列",
+        "ko": "여러 가지 수열",
+        "en": "Other sequences"
+      },
+      "types": [
+        "sigma",
+        "diffseq",
+        "sumterm"
+      ]
+    },
+    {
+      "name": {
+        "ja": "漸化式",
+        "ko": "점화식",
+        "en": "Recurrence relations"
+      },
+      "types": [
+        "recur"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "arith",
+      "level": 1,
+      "type": "arith",
+      "gen": "arith",
+      "text": {
+        "ja": "初項 {a}、公差 {d} の等差数列の第 {n} 項は?",
+        "ko": "첫째항 {a}, 공차 {d}인 등차수열의 제{n}항은?",
+        "en": "An arithmetic sequence has first term {a} and common difference {d}. What is the {n}th term?"
+      },
+      "explain": {
+        "ja": "等差数列の一般項 aₙ = a + (n − 1)d を使う\n公差を足す回数は n − 1 = {=n-1} 回(n 回ではない)\n{a} + {=n-1} × ({d}) = {answer}",
+        "ko": "등차수열의 일반항 aₙ = a + (n − 1)d 를 씁니다\n공차를 더하는 횟수는 n − 1 = {=n-1}번 (n번이 아닙니다)\n{a} + {=n-1} × ({d}) = {answer}",
+        "en": "Use aₙ = a + (n − 1)d\nThe difference is added n − 1 = {=n-1} times (not n times)\n{a} + {=n-1} × ({d}) = {answer}"
+      }
+    },
+    {
+      "id": "arithgen",
+      "level": 2,
+      "type": "arith",
+      "gen": "arith",
+      "params": {
+        "ask": "general"
+      },
+      "text": {
+        "ja": "第 {p} 項が {ap}、第 {q} 項が {aq} の等差数列の一般項は?",
+        "ko": "제{p}항이 {ap}, 제{q}항이 {aq}인 등차수열의 일반항은?",
+        "en": "An arithmetic sequence has {p}th term {ap} and {q}th term {aq}. What is its general term?"
+      },
+      "explain": {
+        "ja": "項の番号の差は {q} − {p} = {=q-p}、値の差は {aq} − ({ap}) = {=aq-ap} → 公差 d = {=aq-ap} ÷ {=q-p} = {=(aq-ap)/(q-p)}\n初項 a = {ap} − ({p} − 1) × ({=(aq-ap)/(q-p)}) = {=ap-(p-1)*(aq-ap)/(q-p)}\naₙ = a + (n − 1)d を整理して {answer}",
+        "ko": "항 번호의 차는 {q} − {p} = {=q-p}, 값의 차는 {aq} − ({ap}) = {=aq-ap} → 공차 d = {=aq-ap} ÷ {=q-p} = {=(aq-ap)/(q-p)}\n첫째항 a = {ap} − ({p} − 1) × ({=(aq-ap)/(q-p)}) = {=ap-(p-1)*(aq-ap)/(q-p)}\naₙ = a + (n − 1)d 를 정리하면 {answer}",
+        "en": "The positions differ by {q} − {p} = {=q-p} and the values by {aq} − ({ap}) = {=aq-ap}, so d = {=aq-ap} ÷ {=q-p} = {=(aq-ap)/(q-p)}\nFirst term a = {ap} − ({p} − 1) × ({=(aq-ap)/(q-p)}) = {=ap-(p-1)*(aq-ap)/(q-p)}\nSimplify aₙ = a + (n − 1)d: {answer}"
+      }
+    },
+    {
+      "id": "arithsum",
+      "level": 2,
+      "type": "arithsum",
+      "gen": "arithsum",
+      "text": {
+        "ja": "初項 {a}、公差 {d} の等差数列の、初項から第 {n} 項までの和は?",
+        "ko": "첫째항 {a}, 공차 {d}인 등차수열의 첫째항부터 제{n}항까지의 합은?",
+        "en": "An arithmetic sequence has first term {a} and common difference {d}. What is the sum of its first {n} terms?"
+      },
+      "explain": {
+        "ja": "和の公式 Sₙ = n{2a + (n − 1)d} ÷ 2 を使う\n2a + (n − 1)d = 2 × ({a}) + {=n-1} × ({d}) = {=2*a+(n-1)*d}\n{n} × ({=2*a+(n-1)*d}) ÷ 2 = {answer}",
+        "ko": "합의 공식 Sₙ = n{2a + (n − 1)d} ÷ 2 를 씁니다\n2a + (n − 1)d = 2 × ({a}) + {=n-1} × ({d}) = {=2*a+(n-1)*d}\n{n} × ({=2*a+(n-1)*d}) ÷ 2 = {answer}",
+        "en": "Use Sₙ = n{2a + (n − 1)d} ÷ 2\n2a + (n − 1)d = 2 × ({a}) + {=n-1} × ({d}) = {=2*a+(n-1)*d}\n{n} × ({=2*a+(n-1)*d}) ÷ 2 = {answer}"
+      }
+    },
+    {
+      "id": "arithsumlast",
+      "level": 1,
+      "type": "arithsum",
+      "gen": "arithsum",
+      "params": {
+        "ask": "last"
+      },
+      "text": {
+        "ja": "初項 {a}、末項 {l}、項数 {n} の等差数列の和は?",
+        "ko": "첫째항 {a}, 끝항 {l}, 항의 수 {n}인 등차수열의 합은?",
+        "en": "An arithmetic sequence has first term {a}, last term {l} and {n} terms. What is its sum?"
+      },
+      "explain": {
+        "ja": "初項と末項がわかっているときは Sₙ = n(a + l) ÷ 2\n(初項 + 末項) = {a} + {l} = {=a+l}\n{n} × {=a+l} ÷ 2 = {answer}(2 で割るのを忘れない)",
+        "ko": "첫째항과 끝항을 알 때는 Sₙ = n(a + l) ÷ 2\n(첫째항 + 끝항) = {a} + {l} = {=a+l}\n{n} × {=a+l} ÷ 2 = {answer} (2로 나누는 것을 잊지 않습니다)",
+        "en": "When the first and last terms are known, Sₙ = n(a + l) ÷ 2\nFirst + last = {a} + {l} = {=a+l}\n{n} × {=a+l} ÷ 2 = {answer} (do not forget to halve)"
+      }
+    },
+    {
+      "id": "geom",
+      "level": 1,
+      "type": "geom",
+      "gen": "geom",
+      "text": {
+        "ja": "初項 {a}、公比 {r} の等比数列の第 {n} 項は?",
+        "ko": "첫째항 {a}, 공비 {r}인 등비수열의 제{n}항은?",
+        "en": "A geometric sequence has first term {a} and common ratio {r}. What is the {n}th term?"
+      },
+      "explain": {
+        "ja": "等比数列の一般項 aₙ = a × rⁿ⁻¹ を使う\n公比を掛ける回数は n − 1 = {=n-1} 回 → ({r}) の {=n-1} 乗 = {=r**(n-1)}\n{a} × ({=r**(n-1)}) = {answer}",
+        "ko": "등비수열의 일반항 aₙ = a × rⁿ⁻¹ 을 씁니다\n공비를 곱하는 횟수는 n − 1 = {=n-1}번 → ({r})의 {=n-1}제곱 = {=r**(n-1)}\n{a} × ({=r**(n-1)}) = {answer}",
+        "en": "Use aₙ = a × rⁿ⁻¹\nThe ratio is multiplied n − 1 = {=n-1} times → ({r}) to the power {=n-1} = {=r**(n-1)}\n{a} × ({=r**(n-1)}) = {answer}"
+      }
+    },
+    {
+      "id": "geomsum",
+      "level": 2,
+      "type": "geomsum",
+      "gen": "geomsum",
+      "text": {
+        "ja": "初項 {a}、公比 {r} の等比数列の、初項から第 {n} 項までの和は?",
+        "ko": "첫째항 {a}, 공비 {r}인 등비수열의 첫째항부터 제{n}항까지의 합은?",
+        "en": "A geometric sequence has first term {a} and common ratio {r}. What is the sum of its first {n} terms?"
+      },
+      "explain": {
+        "ja": "和の公式 Sₙ = a(rⁿ − 1) ÷ (r − 1) を使う(r ≠ 1)\nrⁿ − 1 = ({r}) の {n} 乗 − 1 = {=r**n-1}、r − 1 = {=r-1}\n{a} × ({=r**n-1}) ÷ ({=r-1}) = {answer}",
+        "ko": "합의 공식 Sₙ = a(rⁿ − 1) ÷ (r − 1) 을 씁니다 (r ≠ 1)\nrⁿ − 1 = ({r})의 {n}제곱 − 1 = {=r**n-1}, r − 1 = {=r-1}\n{a} × ({=r**n-1}) ÷ ({=r-1}) = {answer}",
+        "en": "Use Sₙ = a(rⁿ − 1) ÷ (r − 1) (r ≠ 1)\nrⁿ − 1 = ({r}) to the power {n}, minus 1 = {=r**n-1}; r − 1 = {=r-1}\n{a} × ({=r**n-1}) ÷ ({=r-1}) = {answer}"
+      }
+    },
+    {
+      "id": "sigma",
+      "level": 2,
+      "type": "sigma",
+      "gen": "sigma",
+      "text": {
+        "ja": "k = 1 から {n} までの和 Σ {expr} の値は?",
+        "ko": "k = 1 부터 {n} 까지의 합 Σ {expr} 의 값은?",
+        "en": "What is the sum Σ {expr} for k = 1 to {n}?"
+      },
+      "explain": {
+        "ja": "Σ は k の項と定数の項に分ける: {p} × Σk + Σ({q})\nΣk = n(n + 1) ÷ 2 = {n} × {=n+1} ÷ 2 = {=n*(n+1)/2}、定数 {q} は {n} 個あるので ({q}) × {n} = {=q*n}\n{p} × {=n*(n+1)/2} + ({=q*n}) = {answer}",
+        "ko": "Σ는 k의 항과 상수항으로 나눕니다: {p} × Σk + Σ({q})\nΣk = n(n + 1) ÷ 2 = {n} × {=n+1} ÷ 2 = {=n*(n+1)/2}, 상수 {q}는 {n}개 있으므로 ({q}) × {n} = {=q*n}\n{p} × {=n*(n+1)/2} + ({=q*n}) = {answer}",
+        "en": "Split the sum: {p} × Σk + Σ({q})\nΣk = n(n + 1) ÷ 2 = {n} × {=n+1} ÷ 2 = {=n*(n+1)/2}; the constant {q} appears {n} times: ({q}) × {n} = {=q*n}\n{p} × {=n*(n+1)/2} + ({=q*n}) = {answer}"
+      }
+    },
+    {
+      "id": "sigmasq",
+      "level": 3,
+      "type": "sigma",
+      "gen": "sigma",
+      "params": {
+        "ask": "sq"
+      },
+      "text": {
+        "ja": "k = 1 から {n} までの和 Σ {expr} の値は?",
+        "ko": "k = 1 부터 {n} 까지의 합 Σ {expr} 의 값은?",
+        "en": "What is the sum Σ {expr} for k = 1 to {n}?"
+      },
+      "explain": {
+        "ja": "Σk² = n(n + 1)(2n + 1) ÷ 6 = {n} × {=n+1} × {=2*n+1} ÷ 6 = {=n*(n+1)*(2*n+1)/6}\nΣk = n(n + 1) ÷ 2 = {=n*(n+1)/2}(k の項の係数は {p})\n{=n*(n+1)*(2*n+1)/6} + {p} × {=n*(n+1)/2} = {answer}",
+        "ko": "Σk² = n(n + 1)(2n + 1) ÷ 6 = {n} × {=n+1} × {=2*n+1} ÷ 6 = {=n*(n+1)*(2*n+1)/6}\nΣk = n(n + 1) ÷ 2 = {=n*(n+1)/2} (k의 항의 계수는 {p})\n{=n*(n+1)*(2*n+1)/6} + {p} × {=n*(n+1)/2} = {answer}",
+        "en": "Σk² = n(n + 1)(2n + 1) ÷ 6 = {n} × {=n+1} × {=2*n+1} ÷ 6 = {=n*(n+1)*(2*n+1)/6}\nΣk = n(n + 1) ÷ 2 = {=n*(n+1)/2} (the coefficient of k is {p})\n{=n*(n+1)*(2*n+1)/6} + {p} × {=n*(n+1)/2} = {answer}"
+      }
+    },
+    {
+      "id": "diffseq",
+      "level": 2,
+      "type": "diffseq",
+      "gen": "diffseq",
+      "text": {
+        "ja": "数列 {seq} の第 {n} 項は?",
+        "ko": "수열 {seq} 의 제{n}항은?",
+        "en": "What is the {n}th term of the sequence {seq}"
+      },
+      "explain": {
+        "ja": "となり合う項の差(階差)を並べる: {=nums(seq)[1]-nums(seq)[0]}, {=nums(seq)[2]-nums(seq)[1]}, {=nums(seq)[3]-nums(seq)[2]}, {=nums(seq)[4]-nums(seq)[3]}, … これは公差 {=nums(seq)[2]-2*nums(seq)[1]+nums(seq)[0]} の等差数列\n第 n 項 = 初項 + 階差の「第 1 項から第 n − 1 項まで」の和(n 項までではない)\n{=nums(seq)[0]} に階差を {=n-1} 個足して {answer}",
+        "ko": "이웃한 항의 차(계차)를 늘어놓습니다: {=nums(seq)[1]-nums(seq)[0]}, {=nums(seq)[2]-nums(seq)[1]}, {=nums(seq)[3]-nums(seq)[2]}, {=nums(seq)[4]-nums(seq)[3]}, … 이것은 공차 {=nums(seq)[2]-2*nums(seq)[1]+nums(seq)[0]}인 등차수열\n제n항 = 첫째항 + 계차의 \"제1항부터 제(n − 1)항까지\"의 합 (제n항까지가 아닙니다)\n{=nums(seq)[0]}에 계차를 {=n-1}개 더하면 {answer}",
+        "en": "List the differences between neighbours: {=nums(seq)[1]-nums(seq)[0]}, {=nums(seq)[2]-nums(seq)[1]}, {=nums(seq)[3]-nums(seq)[2]}, {=nums(seq)[4]-nums(seq)[3]}, … an arithmetic sequence with difference {=nums(seq)[2]-2*nums(seq)[1]+nums(seq)[0]}\nThe nth term = first term + the sum of the first n − 1 differences (not n of them)\nAdd {=n-1} differences to {=nums(seq)[0]}: {answer}"
+      }
+    },
+    {
+      "id": "diffgen",
+      "level": 3,
+      "type": "diffseq",
+      "gen": "diffseq",
+      "params": {
+        "ask": "general"
+      },
+      "text": {
+        "ja": "数列 {seq} の一般項は?",
+        "ko": "수열 {seq} 의 일반항은?",
+        "en": "What is the general term of the sequence {seq}"
+      },
+      "explain": {
+        "ja": "階差は {=nums(seq)[1]-nums(seq)[0]}, {=nums(seq)[2]-nums(seq)[1]}, {=nums(seq)[3]-nums(seq)[2]}, … → 階差数列の一般項は bₙ = {=nums(seq)[2]-2*nums(seq)[1]+nums(seq)[0]}n + ({=2*nums(seq)[1]-nums(seq)[0]-nums(seq)[2]+nums(seq)[1]-nums(seq)[0]})\naₙ = a₁ + (b₁ から bₙ₋₁ までの和)(n ≧ 2)\n計算して整理すると {answer}。n = 1, 2 を入れて {=nums(seq)[0]}, {=nums(seq)[1]} になることを確かめる",
+        "ko": "계차는 {=nums(seq)[1]-nums(seq)[0]}, {=nums(seq)[2]-nums(seq)[1]}, {=nums(seq)[3]-nums(seq)[2]}, … → 계차수열의 일반항은 bₙ = {=nums(seq)[2]-2*nums(seq)[1]+nums(seq)[0]}n + ({=2*nums(seq)[1]-nums(seq)[0]-nums(seq)[2]+nums(seq)[1]-nums(seq)[0]})\naₙ = a₁ + (b₁ 부터 bₙ₋₁ 까지의 합) (n ≧ 2)\n계산해서 정리하면 {answer}. n = 1, 2 를 넣어 {=nums(seq)[0]}, {=nums(seq)[1]} 이 되는지 확인합니다",
+        "en": "The differences are {=nums(seq)[1]-nums(seq)[0]}, {=nums(seq)[2]-nums(seq)[1]}, {=nums(seq)[3]-nums(seq)[2]}, … so bₙ = {=nums(seq)[2]-2*nums(seq)[1]+nums(seq)[0]}n + ({=2*nums(seq)[1]-nums(seq)[0]-nums(seq)[2]+nums(seq)[1]-nums(seq)[0]})\naₙ = a₁ + (the sum of b₁ to bₙ₋₁) for n ≧ 2\nSimplify: {answer}. Check that n = 1, 2 give {=nums(seq)[0]}, {=nums(seq)[1]}"
+      }
+    },
+    {
+      "id": "sumterm",
+      "level": 2,
+      "type": "sumterm",
+      "gen": "sumterm",
+      "text": {
+        "ja": "初項から第 n 項までの和が {sn} である数列の一般項は?",
+        "ko": "첫째항부터 제n항까지의 합이 {sn} 인 수열의 일반항은?",
+        "en": "The sum of the first n terms of a sequence is {sn}. What is its general term?"
+      },
+      "explain": {
+        "ja": "n ≧ 2 のとき aₙ = Sₙ − Sₙ₋₁(Sₙ₊₁ − Sₙ ではない)\nn² − (n − 1)² = 2n − 1、n − (n − 1) = 1 なので、Sₙ − Sₙ₋₁ = {p}(2n − 1) + ({q})\n整理して {answer}。n = 1 のとき a₁ = S₁ = {=p+q} で、この式に合う",
+        "ko": "n ≧ 2 일 때 aₙ = Sₙ − Sₙ₋₁ (Sₙ₊₁ − Sₙ 이 아닙니다)\nn² − (n − 1)² = 2n − 1, n − (n − 1) = 1 이므로 Sₙ − Sₙ₋₁ = {p}(2n − 1) + ({q})\n정리하면 {answer}. n = 1 일 때 a₁ = S₁ = {=p+q} 이고, 이 식과 맞습니다",
+        "en": "For n ≧ 2, aₙ = Sₙ − Sₙ₋₁ (not Sₙ₊₁ − Sₙ)\nn² − (n − 1)² = 2n − 1 and n − (n − 1) = 1, so Sₙ − Sₙ₋₁ = {p}(2n − 1) + ({q})\nSimplify: {answer}. For n = 1, a₁ = S₁ = {=p+q}, which fits the formula"
+      }
+    },
+    {
+      "id": "recur",
+      "level": 2,
+      "type": "recur",
+      "gen": "recur",
+      "text": {
+        "ja": "a₁ = {a1}, {rule} で定められる数列の第 {k} 項は?",
+        "ko": "a₁ = {a1}, {rule} 로 정해지는 수열의 제{k}항은?",
+        "en": "A sequence is defined by a₁ = {a1}, {rule}. What is the {k}th term?"
+      },
+      "explain": {
+        "ja": "漸化式は「前の項から次の項を作る規則」。a₁ から順に当てはめる\na₂ = {p} × ({a1}) + ({q}) = {=p*a1+q}、a₃ = {p} × ({=p*a1+q}) + ({q}) = {=p*(p*a1+q)+q}\n同じように続けて、第 {k} 項は {answer}",
+        "ko": "점화식은 \"앞의 항으로 다음 항을 만드는 규칙\"입니다. a₁ 부터 차례로 넣습니다\na₂ = {p} × ({a1}) + ({q}) = {=p*a1+q}, a₃ = {p} × ({=p*a1+q}) + ({q}) = {=p*(p*a1+q)+q}\n같은 방법으로 계속하면 제{k}항은 {answer}",
+        "en": "A recurrence builds each term from the one before. Apply it in order from a₁\na₂ = {p} × ({a1}) + ({q}) = {=p*a1+q}, a₃ = {p} × ({=p*a1+q}) + ({q}) = {=p*(p*a1+q)+q}\nContinue the same way: the {k}th term is {answer}"
+      }
+    },
+    {
+      "id": "recurgen",
+      "level": 3,
+      "type": "recur",
+      "gen": "recur",
+      "params": {
+        "ask": "general"
+      },
+      "text": {
+        "ja": "a₁ = {a1}, {rule} で定められる数列の一般項は?",
+        "ko": "a₁ = {a1}, {rule} 로 정해지는 수열의 일반항은?",
+        "en": "A sequence is defined by a₁ = {a1}, {rule}. What is its general term?"
+      },
+      "explain": {
+        "ja": "α = {p}α + ({q}) を解くと α = {=q/(1-p)}\n両辺から α を引くと aₙ₊₁ − ({=q/(1-p)}) = {p}(aₙ − ({=q/(1-p)})) → 数列 aₙ − α は初項 {a1} − ({=q/(1-p)}) = {=a1-q/(1-p)}、公比 {p} の等比数列\naₙ − ({=q/(1-p)}) = {=a1-q/(1-p)} × {p}ⁿ⁻¹ より {answer}",
+        "ko": "α = {p}α + ({q}) 를 풀면 α = {=q/(1-p)}\n양변에서 α 를 빼면 aₙ₊₁ − ({=q/(1-p)}) = {p}(aₙ − ({=q/(1-p)})) → 수열 aₙ − α 는 첫째항 {a1} − ({=q/(1-p)}) = {=a1-q/(1-p)}, 공비 {p}인 등비수열\naₙ − ({=q/(1-p)}) = {=a1-q/(1-p)} × {p}ⁿ⁻¹ 이므로 {answer}",
+        "en": "Solve α = {p}α + ({q}): α = {=q/(1-p)}\nSubtract α from both sides: aₙ₊₁ − ({=q/(1-p)}) = {p}(aₙ − ({=q/(1-p)})), so aₙ − α is geometric with first term {a1} − ({=q/(1-p)}) = {=a1-q/(1-p)} and ratio {p}\naₙ − ({=q/(1-p)}) = {=a1-q/(1-p)} × {p}ⁿ⁻¹, so {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-arithpair",
+      "gen": "arithpair",
+      "intro": {
+        "ja": "第 {p} 項が {ap}、第 {q} 項が {aq} である等差数列について答えよ。",
+        "ko": "제{p}항이 {ap}, 제{q}항이 {aq}인 등차수열에 대하여 답하시오.",
+        "en": "An arithmetic sequence has {p}th term {ap} and {q}th term {aq}. Answer the following."
+      },
+      "steps": [
+        {
+          "type": "arith",
+          "level": 1,
+          "sum": {
+            "ja": "公差",
+            "ko": "공차",
+            "en": "Difference"
+          },
+          "text": {
+            "ja": "公差は?",
+            "ko": "공차는?",
+            "en": "What is the common difference?"
+          },
+          "explain": {
+            "ja": "項の番号が {q} − {p} = {=q-p} 進む間に、値は {aq} − ({ap}) = {=aq-ap} 変わる\n1 つ進むごとの変化が公差: {=aq-ap} ÷ {=q-p} = {answer}",
+            "ko": "항 번호가 {q} − {p} = {=q-p} 나아가는 동안 값은 {aq} − ({ap}) = {=aq-ap} 변합니다\n하나 나아갈 때의 변화가 공차: {=aq-ap} ÷ {=q-p} = {answer}",
+            "en": "While the position moves {q} − {p} = {=q-p} steps, the value changes by {aq} − ({ap}) = {=aq-ap}\nThe change per step is the difference: {=aq-ap} ÷ {=q-p} = {answer}"
+          }
+        },
+        {
+          "type": "arith",
+          "level": 1,
+          "sum": {
+            "ja": "初項",
+            "ko": "첫째항",
+            "en": "First term"
+          },
+          "text": {
+            "ja": "初項は?",
+            "ko": "첫째항은?",
+            "en": "What is the first term?"
+          },
+          "explain": {
+            "ja": "第 {p} 項 = 初項 + ({p} − 1) × 公差\n初項 = {ap} − {=p-1} × ({a1}) = {answer}",
+            "ko": "제{p}항 = 첫째항 + ({p} − 1) × 공차\n첫째항 = {ap} − {=p-1} × ({a1}) = {answer}",
+            "en": "Term {p} = first term + ({p} − 1) × difference\nFirst term = {ap} − {=p-1} × ({a1}) = {answer}"
+          }
+        },
+        {
+          "type": "arithsum",
+          "level": 2,
+          "sum": {
+            "ja": "第 {n} 項までの和",
+            "ko": "제{n}항까지의 합",
+            "en": "Sum of {n} terms"
+          },
+          "text": {
+            "ja": "初項から第 {n} 項までの和は?",
+            "ko": "첫째항부터 제{n}항까지의 합은?",
+            "en": "What is the sum of the first {n} terms?"
+          },
+          "explain": {
+            "ja": "Sₙ = n{2a + (n − 1)d} ÷ 2 に a = {a2}, d = {a1}, n = {n} を入れる\n2 × ({a2}) + {=n-1} × ({a1}) = {=2*a2+(n-1)*a1}\n{n} × ({=2*a2+(n-1)*a1}) ÷ 2 = {answer}",
+            "ko": "Sₙ = n{2a + (n − 1)d} ÷ 2 에 a = {a2}, d = {a1}, n = {n} 을 넣습니다\n2 × ({a2}) + {=n-1} × ({a1}) = {=2*a2+(n-1)*a1}\n{n} × ({=2*a2+(n-1)*a1}) ÷ 2 = {answer}",
+            "en": "Put a = {a2}, d = {a1}, n = {n} into Sₙ = n{2a + (n − 1)d} ÷ 2\n2 × ({a2}) + {=n-1} × ({a1}) = {=2*a2+(n-1)*a1}\n{n} × ({=2*a2+(n-1)*a1}) ÷ 2 = {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-recur",
+      "gen": "recurstep",
+      "intro": {
+        "ja": "a₁ = {first}, {rule} で定められる数列について答えよ。",
+        "ko": "a₁ = {first}, {rule} 로 정해지는 수열에 대하여 답하시오.",
+        "en": "A sequence is defined by a₁ = {first}, {rule}. Answer the following."
+      },
+      "steps": [
+        {
+          "type": "recur",
+          "level": 2,
+          "sum": {
+            "ja": "α",
+            "ko": "α",
+            "en": "α"
+          },
+          "text": {
+            "ja": "{eq} を満たす α は?",
+            "ko": "{eq} 를 만족하는 α 는?",
+            "en": "Which α satisfies {eq}?"
+          },
+          "explain": {
+            "ja": "漸化式の aₙ₊₁ と aₙ を両方 α に置きかえた式を解く\n{eq} → α − {p}α = {q} → {=1-p}α = {q}\nα = {answer}",
+            "ko": "점화식의 aₙ₊₁ 과 aₙ 을 모두 α 로 바꾼 식을 풉니다\n{eq} → α − {p}α = {q} → {=1-p}α = {q}\nα = {answer}",
+            "en": "Replace both aₙ₊₁ and aₙ by α and solve\n{eq} → α − {p}α = {q} → {=1-p}α = {q}\nα = {answer}"
+          }
+        },
+        {
+          "type": "recur",
+          "level": 2,
+          "sum": {
+            "ja": "b₁",
+            "ko": "b₁",
+            "en": "b₁"
+          },
+          "text": {
+            "ja": "bₙ = aₙ − α とおくと、b₁ は?",
+            "ko": "bₙ = aₙ − α 로 놓으면 b₁ 은?",
+            "en": "Let bₙ = aₙ − α. What is b₁?"
+          },
+          "explain": {
+            "ja": "漸化式から α の式を引くと bₙ₊₁ = {p}bₙ(公比 {p} の等比数列になる)\nb₁ = a₁ − α = {first} − ({a1}) = {answer}",
+            "ko": "점화식에서 α 의 식을 빼면 bₙ₊₁ = {p}bₙ (공비 {p}인 등비수열이 됩니다)\nb₁ = a₁ − α = {first} − ({a1}) = {answer}",
+            "en": "Subtracting the α equation gives bₙ₊₁ = {p}bₙ (geometric with ratio {p})\nb₁ = a₁ − α = {first} − ({a1}) = {answer}"
+          }
+        },
+        {
+          "type": "recur",
+          "level": 3,
+          "sum": {
+            "ja": "第 {k} 項",
+            "ko": "제{k}항",
+            "en": "Term {k}"
+          },
+          "text": {
+            "ja": "第 {k} 項 a₅ は?",
+            "ko": "제{k}항 a₅ 는?",
+            "en": "What is the {k}th term a₅?"
+          },
+          "explain": {
+            "ja": "bₙ = b₁ × {p}ⁿ⁻¹ = {a2} × {p}ⁿ⁻¹ → b₅ = {a2} × {=p**4} = {=a2*p**4}\naₙ = bₙ + α なので a₅ = {=a2*p**4} + ({a1}) = {answer}",
+            "ko": "bₙ = b₁ × {p}ⁿ⁻¹ = {a2} × {p}ⁿ⁻¹ → b₅ = {a2} × {=p**4} = {=a2*p**4}\naₙ = bₙ + α 이므로 a₅ = {=a2*p**4} + ({a1}) = {answer}",
+            "en": "bₙ = b₁ × {p}ⁿ⁻¹ = {a2} × {p}ⁿ⁻¹ → b₅ = {a2} × {=p**4} = {=a2*p**4}\naₙ = bₙ + α, so a₅ = {=a2*p**4} + ({a1}) = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1016,8 +1016,49 @@ export function createStage(canvas) {
     circ(0, 18 + nod, 2, '#2a2350');
     if (wake < 0.3) glyph('z', 30, -52 + Math.sin(S.t * 2) * 3, 16, '#a7ddff');
   }
+  // 건너뛰는 토끼 (数学B 数列): 고유 동작은 한 칸을 건너뛰듯 높이 뛰기
+  function drawHopper(f) {
+    const hop = Math.sin(specOf(f) * Math.PI) * 26;
+    const tilt = Math.sin(S.t * 2.2) * 2;
+    ctx.save();
+    ctx.translate(0, -hop);
+    ell(-9 + tilt, -52, 6, 20, '#e9eef8'); // 귀
+    ell(9 + tilt, -52, 6, 20, '#e9eef8');
+    ell(-9 + tilt, -52, 2.5, 13, '#f2b6c4');
+    ell(9 + tilt, -52, 2.5, 13, '#f2b6c4');
+    ell(0, 20, 26, 24, '#e9eef8'); // 몸
+    circ(0, -18, 19, '#f6f8fd'); // 머리
+    eye(-7, -20, 3.4, false, '#1c2740', 0.7);
+    eye(7, -20, 3.4, false, '#1c2740', 0.7);
+    circ(0, -12, 2.4, '#f2b6c4');
+    ell(-16, 42, 12, 6, '#d5dcec'); // 발
+    ell(16, 42, 12, 6, '#d5dcec');
+    glyph('+d', 0, 24, 15, '#5b6b96');
+    ctx.restore();
+  }
+  // 곱절 버섯 (数学B 数列): 고유 동작은 갓이 두 배로 부풀기
+  function drawShroom(f) {
+    const puff = 1 + Math.sin(specOf(f) * Math.PI) * 0.45;
+    rrect(-13, 0, 26, 46, 9, '#f3e6cf'); // 기둥
+    eye(-6, 20, 3.2, false, '#1c2740', 0.2);
+    eye(6, 20, 3.2, false, '#1c2740', 0.2);
+    line(-4, 30, 4, 30, '#1c2740', 2);
+    ctx.save();
+    ctx.translate(0, 2);
+    ctx.scale(puff, puff);
+    ctx.fillStyle = C('#d9534f');
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 40, 34, 0, Math.PI, 0); // 갓 (위쪽 반원)
+    ctx.closePath();
+    ctx.fill();
+    circ(-18, -14, 6, '#ffe9e2');
+    circ(12, -20, 7, '#ffe9e2');
+    circ(24, -8, 4, '#ffe9e2');
+    glyph('×2', -2, -8, 13, '#7a1f1c');
+    ctx.restore();
+  }
   const FOE_DRAW = {
-    shadow: drawShadow, gate: drawGate,
+    shadow: drawShadow, gate: drawGate, hopper: drawHopper, shroom: drawShroom,
     ruler: drawRuler, target: drawTarget, pendulum: drawPendulum, wave: drawWave, sprout: drawSprout, logger: drawLogger,
     skater: drawSkater, bucket: drawBucket, sphinx: drawSphinx, hydra: drawHydra,
     imp: drawImp, mirror: drawMirror,

@@ -572,6 +572,40 @@
     "skillLevel": 3
   },
   {
+    "id": "hopper",
+    "name": {
+      "ja": "とびとびウサギ",
+      "ko": "건너뛰는 토끼",
+      "en": "Skipping Rabbit"
+    },
+    "mistake": {
+      "ja": "第 n 項を求めるとき、公差を n − 1 回ではなく n 回足す",
+      "ko": "제n항을 구할 때 공차를 (n − 1)번이 아니라 n번 더하기",
+      "en": "Adding the common difference n times instead of n − 1 times for the nth term"
+    },
+    "hp": 16,
+    "weak": "mathb-seq/arith",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "shroom",
+    "name": {
+      "ja": "倍々キノコ",
+      "ko": "곱절 버섯",
+      "en": "Doubling Mushroom"
+    },
+    "mistake": {
+      "ja": "等比数列の和で、r − 1 で割るのを忘れる",
+      "ko": "등비수열의 합에서 r − 1 로 나누는 것을 잊기",
+      "en": "Forgetting to divide by r − 1 in the sum of a geometric sequence"
+    },
+    "hp": 18,
+    "weak": "mathb-seq/geomsum",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
     "id": "gate",
     "gate": true,
     "name": {
