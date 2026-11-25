@@ -327,9 +327,9 @@
         "en": "The graph of {f} is reflected in {axis}. What is the new equation?"
       },
       "explain": {
-        "ja": "x 軸対称は y を −y に、y 軸対称は x を −x に、原点対称は両方おきかえる\nおきかえた式を y = … の形に整理する\n{answer}",
-        "ko": "x축 대칭은 y를 −y로, y축 대칭은 x를 −x로, 원점 대칭은 둘 다 바꿉니다\n바꾼 식을 y = … 꼴로 정리합니다\n{answer}",
-        "en": "x-axis: replace y with −y; y-axis: replace x with −x; origin: replace both\nRearrange into the form y = …\n{answer}"
+        "ja": "x 軸対称は y を −y に、y 軸対称は x を −x に、原点対称は両方を置きかえる\n{axis} に関する対称移動なので、式に代入すると {sub}\n(−x)² = x²、b(−x) = −bx に注意し、左辺が −y のときは両辺に −1 を掛けて {answer}",
+        "ko": "x축 대칭은 y 를 −y 로, y축 대칭은 x 를 −x 로, 원점 대칭은 둘 다 바꿉니다\n{axis} 에 대한 대칭이동이므로 식에 대입하면 {sub}\n(−x)² = x², b(−x) = −bx 임에 주의하고, 좌변이 −y 이면 양변에 −1 을 곱해 {answer}",
+        "en": "Reflecting in the x-axis replaces y by −y; in the y-axis, x by −x; in the origin, both\nFor a reflection in the {axis}, substituting gives {sub}\nNote (−x)² = x² and b(−x) = −bx; if the left side is −y, multiply both sides by −1: {answer}"
       }
     },
     {
@@ -474,9 +474,9 @@
             "en": "What is the completed-square form?"
           },
           "explain": {
-            "ja": "x の係数の半分を求め、その2乗を足して引く\n( )² の形にまとめて {answer}",
-            "ko": "x의 계수의 절반을 구하고, 그 제곱을 더하고 뺍니다\n( )² 꼴로 묶으면 {answer}",
-            "en": "Take half the x coefficient, then add and subtract its square\nGroup into ( )²: {answer}"
+            "ja": "x の係数 {=co(f)[1]} の半分は {=co(f)[1]/2}、その 2 乗は {=(co(f)[1]/2)**2}。これを足して引く\nx² + ({=co(f)[1]})x + {=(co(f)[1]/2)**2} が (x + ({=co(f)[1]/2}))² になり、残りは {=co(f)[2]} − {=(co(f)[1]/2)**2} = {=co(f)[2]-(co(f)[1]/2)**2}\n(  )² の形にまとめて {answer}",
+            "ko": "x 의 계수 {=co(f)[1]} 의 절반은 {=co(f)[1]/2}, 그 제곱은 {=(co(f)[1]/2)**2}. 이것을 더하고 뺍니다\nx² + ({=co(f)[1]})x + {=(co(f)[1]/2)**2} 이 (x + ({=co(f)[1]/2}))² 이 되고, 남는 것은 {=co(f)[2]} − {=(co(f)[1]/2)**2} = {=co(f)[2]-(co(f)[1]/2)**2}\n(  )² 꼴로 묶으면 {answer}",
+            "en": "Half the x coefficient {=co(f)[1]} is {=co(f)[1]/2}, and its square is {=(co(f)[1]/2)**2}. Add and subtract it\nx² + ({=co(f)[1]})x + {=(co(f)[1]/2)**2} becomes (x + ({=co(f)[1]/2}))², leaving {=co(f)[2]} − {=(co(f)[1]/2)**2} = {=co(f)[2]-(co(f)[1]/2)**2}\nIn completed-square form: {answer}"
           }
         },
         {

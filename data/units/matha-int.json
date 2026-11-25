@@ -263,9 +263,9 @@
         "en": "Which of these fractions is a terminating decimal?"
       },
       "explain": {
-        "ja": "それぞれの分数を既約分数にする\n分母を素因数分解する\n分母の素因数が 2 と 5 だけのものは {answer}",
-        "ko": "각 분수를 기약분수로 만듭니다\n분모를 소인수분해합니다\n분모의 소인수가 2와 5뿐인 것은 {answer}",
-        "en": "Reduce each fraction to lowest terms\nFactor each denominator into primes\nThe one whose denominator has only 2 and 5: {answer}"
+        "ja": "既約分数が有限小数になるのは、分母の素因数が 2 と 5 だけのとき(10 = 2 × 5 の累乗に直せるから)\n答えの分母: {gd} = {=pf(gd)} → 2 と 5 だけ\nほかの分母: {b1} = {=pf(b1)}、{b2} = {=pf(b2)}、{b3} = {=pf(b3)} には 2, 5 以外の素因数があるので循環小数になる → {answer}",
+        "ko": "기약분수가 유한소수가 되는 것은 분모의 소인수가 2 와 5 뿐일 때입니다 (10 = 2 × 5 의 거듭제곱으로 고칠 수 있으므로)\n답의 분모: {gd} = {=pf(gd)} → 2 와 5 뿐\n다른 분모: {b1} = {=pf(b1)}, {b2} = {=pf(b2)}, {b3} = {=pf(b3)} 에는 2, 5 이외의 소인수가 있어 순환소수가 됩니다 → {answer}",
+        "en": "A fraction in lowest terms is a finite decimal exactly when its denominator has only the prime factors 2 and 5 (it can then be turned into a power of 10)\nThe answer's denominator: {gd} = {=pf(gd)} → only 2 and 5\nThe others: {b1} = {=pf(b1)}, {b2} = {=pf(b2)}, {b3} = {=pf(b3)} contain other primes, so they repeat → {answer}"
       }
     },
     {

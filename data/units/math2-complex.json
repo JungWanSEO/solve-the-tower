@@ -455,9 +455,9 @@
             "en": "What is the smallest root of P(x) = 0?"
           },
           "explain": {
-            "ja": "定数項の約数を代入して P(k) = 0 となる k を1つ見つける\nx − k で割り、残りの2次式を因数分解する\n3つの解のうち最小のものは {answer}",
-            "ko": "상수항의 약수를 대입해서 P(k) = 0 이 되는 k를 하나 찾습니다\nx − k 로 나누고 남은 이차식을 인수분해합니다\n세 해 중 가장 작은 것은 {answer}",
-            "en": "Try divisors of the constant to find a k with P(k) = 0\nDivide by x − k and factor the quadratic\nThe smallest of the three roots is {answer}"
+            "ja": "定数項の約数を代入して、P(k) = 0 になる k を 1 つ見つける: P({=iroots(expr)[0]}) = 0\nx − ({=iroots(expr)[0]}) で割り、残った 2 次式を因数分解すると、3 つの解は x = {=iroots(expr)[0]}, {=iroots(expr)[1]}, {=iroots(expr)[2]}\nいちばん小さいのは {answer}",
+            "ko": "상수항의 약수를 대입해서 P(k) = 0 이 되는 k 를 하나 찾습니다: P({=iroots(expr)[0]}) = 0\nx − ({=iroots(expr)[0]}) 로 나누고 남은 이차식을 인수분해하면 세 해는 x = {=iroots(expr)[0]}, {=iroots(expr)[1]}, {=iroots(expr)[2]}\n가장 작은 것은 {answer}",
+            "en": "Substitute divisors of the constant term to find one k with P(k) = 0: P({=iroots(expr)[0]}) = 0\nDivide by x − ({=iroots(expr)[0]}) and factor the quadratic left over: the three roots are x = {=iroots(expr)[0]}, {=iroots(expr)[1]}, {=iroots(expr)[2]}\nThe smallest is {answer}"
           }
         },
         {
@@ -474,9 +474,9 @@
             "en": "What is the largest root of P(x) = 0?"
           },
           "explain": {
-            "ja": "前の問いで求めた3つの解を小さい順に並べる\n最大のものは {answer}",
-            "ko": "앞에서 구한 세 해를 작은 순서로 늘어놓습니다\n가장 큰 것은 {answer}",
-            "en": "List the three roots found above in order\nThe largest is {answer}"
+            "ja": "3 つの解を小さい順に並べると {=iroots(expr)[0]}, {=iroots(expr)[1]}, {=iroots(expr)[2]}\nいちばん大きいのは {answer}",
+            "ko": "세 해를 작은 순서로 늘어놓으면 {=iroots(expr)[0]}, {=iroots(expr)[1]}, {=iroots(expr)[2]}\n가장 큰 것은 {answer}",
+            "en": "In increasing order the roots are {=iroots(expr)[0]}, {=iroots(expr)[1]}, {=iroots(expr)[2]}\nThe largest is {answer}"
           }
         }
       ]

@@ -251,9 +251,9 @@
         "en": "What is the converse of \"{stmt}\"?"
       },
       "explain": {
-        "ja": "「p ⟹ q」の p が仮定、q が結論\n逆は仮定と結論を入れかえた「q ⟹ p」\n{answer}",
-        "ko": "\"p ⟹ q\"에서 p가 가정, q가 결론\n역은 가정과 결론을 바꾼 \"q ⟹ p\"\n{answer}",
-        "en": "In \"p ⟹ q\", p is the hypothesis and q the conclusion\nThe converse swaps them: \"q ⟹ p\"\n{answer}"
+        "ja": "この命題の仮定 p は「{P}」、結論 q は「{Q}」\n逆は、仮定と結論を入れかえた「q ⟹ p」(否定はしない)\n「{Q}」を前、「{P}」を後ろにして {answer}",
+        "ko": "이 명제의 가정 p 는 「{P}」, 결론 q 는 「{Q}」\n역은 가정과 결론을 바꾼 「q ⟹ p」 (부정은 하지 않습니다)\n「{Q}」를 앞에, 「{P}」를 뒤에 두면 {answer}",
+        "en": "Here the hypothesis p is \"{P}\" and the conclusion q is \"{Q}\"\nThe converse swaps them: \"q ⟹ p\" (nothing is negated)\nPut \"{Q}\" first and \"{P}\" second: {answer}"
       },
       "note": {
         "ja": "x は実数とする。",
@@ -275,9 +275,9 @@
         "en": "What is the inverse of \"{stmt}\"?"
       },
       "explain": {
-        "ja": "裏は、仮定と結論をそれぞれ否定する(順番はそのまま)\n否定: = ↔ ≠、> ↔ ≦、< ↔ ≧\n{answer}",
-        "ko": "이는 가정과 결론을 각각 부정합니다 (순서는 그대로)\n부정: = ↔ ≠, > ↔ ≦, < ↔ ≧\n{answer}",
-        "en": "The inverse negates both parts, keeping their order\nNegations: = ↔ ≠, > ↔ ≤, < ↔ ≥\n{answer}"
+        "ja": "仮定 p は「{P}」、結論 q は「{Q}」。裏は、順番はそのままで両方を否定する\n「{P}」の否定は「{nP}」、「{Q}」の否定は「{nQ}」(= ↔ ≠、> ↔ ≦、< ↔ ≧)\n順番を変えずに並べて {answer}",
+        "ko": "가정 p 는 「{P}」, 결론 q 는 「{Q}」. 이는 순서는 그대로 두고 둘 다 부정합니다\n「{P}」의 부정은 「{nP}」, 「{Q}」의 부정은 「{nQ}」 (= ↔ ≠, > ↔ ≦, < ↔ ≧)\n순서를 바꾸지 않고 늘어놓으면 {answer}",
+        "en": "The hypothesis p is \"{P}\" and the conclusion q is \"{Q}\". The inverse keeps the order and negates both\nNot \"{P}\" is \"{nP}\"; not \"{Q}\" is \"{nQ}\" (= ↔ ≠, > ↔ ≦, < ↔ ≧)\nKeeping the order: {answer}"
       },
       "note": {
         "ja": "x は実数とする。",
@@ -299,9 +299,9 @@
         "en": "What is the contrapositive of \"{stmt}\"?"
       },
       "explain": {
-        "ja": "対偶は、仮定と結論を入れかえて、さらにそれぞれ否定する\n否定: = ↔ ≠、> ↔ ≦、< ↔ ≧\n{answer}",
-        "ko": "대우는 가정과 결론을 바꾸고, 각각 부정합니다\n부정: = ↔ ≠, > ↔ ≦, < ↔ ≧\n{answer}",
-        "en": "The contrapositive swaps the parts and negates both\nNegations: = ↔ ≠, > ↔ ≤, < ↔ ≥\n{answer}"
+        "ja": "仮定 p は「{P}」、結論 q は「{Q}」。対偶は、両方を否定して、さらに入れかえる\n「{P}」の否定は「{nP}」、「{Q}」の否定は「{nQ}」\n結論の否定「{nQ}」を前、仮定の否定「{nP}」を後ろにして {answer}",
+        "ko": "가정 p 는 「{P}」, 결론 q 는 「{Q}」. 대우는 둘 다 부정하고, 자리도 바꿉니다\n「{P}」의 부정은 「{nP}」, 「{Q}」의 부정은 「{nQ}」\n결론의 부정 「{nQ}」를 앞에, 가정의 부정 「{nP}」를 뒤에 두면 {answer}",
+        "en": "The hypothesis p is \"{P}\" and the conclusion q is \"{Q}\". The contrapositive negates both and swaps them\nNot \"{P}\" is \"{nP}\"; not \"{Q}\" is \"{nQ}\"\nPut \"{nQ}\" first and \"{nP}\" second: {answer}"
       },
       "note": {
         "ja": "x は実数とする。",
@@ -448,9 +448,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "反例は「仮定は成り立つが、結論は成り立たない」値\nそれぞれの選択肢を仮定と結論に代入して確かめる\n{answer}",
-        "ko": "반례는 \"가정은 성립하지만 결론은 성립하지 않는\" 값\n각 보기를 가정과 결론에 대입해 확인합니다\n{answer}",
-        "en": "A counterexample makes the hypothesis true but the conclusion false\nTest each option in both parts\n{answer}"
+        "ja": "反例は「仮定は成り立つが、結論は成り立たない」値。仮定は「{hyp}」、結論は「{concl}」\nx = {ce} のとき、x² = {sq}、|x| = {abs}\nこれを入れると、仮定「{hyp}」は成り立つが、結論「{concl}」は成り立たない → {answer}",
+        "ko": "반례는 \"가정은 성립하지만 결론은 성립하지 않는\" 값입니다. 가정은 「{hyp}」, 결론은 「{concl}」\nx = {ce} 일 때 x² = {sq}, |x| = {abs}\n이것을 넣으면 가정 「{hyp}」는 성립하지만 결론 「{concl}」는 성립하지 않습니다 → {answer}",
+        "en": "A counterexample makes the hypothesis true but the conclusion false. Hypothesis: \"{hyp}\"; conclusion: \"{concl}\"\nFor x = {ce}: x² = {sq} and |x| = {abs}\nSo \"{hyp}\" holds but \"{concl}\" fails → {answer}"
       }
     },
     {
@@ -518,9 +518,9 @@
         "en": "Factor {expr}."
       },
       "explain": {
-        "ja": "項が2つで「2乗 − 2乗」なら a² − b² = (a + b)(a − b)\n項が3つで両端が2乗なら a² ± 2ab + b² = (a ± b)²\nあてはめて {answer}",
-        "ko": "항이 2개이고 \"제곱 − 제곱\"이면 a² − b² = (a + b)(a − b)\n항이 3개이고 양 끝이 제곱이면 a² ± 2ab + b² = (a ± b)²\n대입하면 {answer}",
-        "en": "Two terms, square minus square: a² − b² = (a + b)(a − b)\nThree terms with squares at both ends: a² ± 2ab + b² = (a ± b)²\nApply it: {answer}"
+        "ja": "両端が 2 乗の形か見る: x² の係数 {=co(expr)[0]} = ({=sqrt(co(expr)[0])})²、定数項の大きさ {=abs(co(expr)[2])} = ({=sqrt(abs(co(expr)[2]))})² → a = {=(sqrt(co(expr)[0]) === 1 ? '' : sqrt(co(expr)[0])) + 'x'}、b = {=sqrt(abs(co(expr)[2]))}\nx の係数は {=co(expr)[1]}。0(x の項がない)で「2 乗 − 2 乗」なら a² − b² = (a + b)(a − b)。2ab = 2 × {=sqrt(co(expr)[0])} × {=sqrt(abs(co(expr)[2]))} = {=2*sqrt(co(expr)[0])*sqrt(abs(co(expr)[2]))} と同じ大きさなら a² ± 2ab + b² = (a ± b)²(符号は x の係数に合わせる)\n当てはめて {answer}",
+        "ko": "양 끝이 제곱 꼴인지 봅니다: x² 의 계수 {=co(expr)[0]} = ({=sqrt(co(expr)[0])})², 상수항의 크기 {=abs(co(expr)[2])} = ({=sqrt(abs(co(expr)[2]))})² → a = {=(sqrt(co(expr)[0]) === 1 ? '' : sqrt(co(expr)[0])) + 'x'}, b = {=sqrt(abs(co(expr)[2]))}\nx 의 계수는 {=co(expr)[1]}. 0 (x 의 항이 없음)이고 \"제곱 − 제곱\"이면 a² − b² = (a + b)(a − b). 2ab = 2 × {=sqrt(co(expr)[0])} × {=sqrt(abs(co(expr)[2]))} = {=2*sqrt(co(expr)[0])*sqrt(abs(co(expr)[2]))} 와 크기가 같으면 a² ± 2ab + b² = (a ± b)² (부호는 x 의 계수를 따릅니다)\n맞춰 넣으면 {answer}",
+        "en": "Check that both ends are squares: the x² coefficient {=co(expr)[0]} = ({=sqrt(co(expr)[0])})² and the size of the constant {=abs(co(expr)[2])} = ({=sqrt(abs(co(expr)[2]))})² → a = {=(sqrt(co(expr)[0]) === 1 ? '' : sqrt(co(expr)[0])) + 'x'}, b = {=sqrt(abs(co(expr)[2]))}\nThe x coefficient is {=co(expr)[1]}. If it is 0 (no x term) and the form is \"square − square\", use a² − b² = (a + b)(a − b). If it matches 2ab = 2 × {=sqrt(co(expr)[0])} × {=sqrt(abs(co(expr)[2]))} = {=2*sqrt(co(expr)[0])*sqrt(abs(co(expr)[2]))} in size, use a² ± 2ab + b² = (a ± b)² (the sign follows the x coefficient)\nApplying it: {answer}"
       }
     },
     {
@@ -550,9 +550,9 @@
         "en": "What is the value of {expr}?"
       },
       "explain": {
-        "ja": "絶対値の中を先に計算する\n絶対値は 0 からの距離なので、符号を取って 0 以上の数にする\n残りの計算をして {answer}",
-        "ko": "절댓값 안을 먼저 계산합니다\n절댓값은 0에서의 거리이므로 부호를 떼어 0 이상의 수로 만듭니다\n나머지 계산을 하면 {answer}",
-        "en": "Work out the inside of each absolute value first\nAn absolute value is a distance from 0, so drop the sign\nFinish the arithmetic: {answer}"
+        "ja": "絶対値は 0 からの距離なので、符号を取って 0 以上の数にする: |{=nums(expr)[0]}| = {=abs(nums(expr)[0])}\n2 つ目は中を先に計算する: {=nums(expr)[1]} − {=-nums(expr)[2]} = {=nums(expr)[1]+nums(expr)[2]} → |{=nums(expr)[1]+nums(expr)[2]}| = {=abs(nums(expr)[1]+nums(expr)[2])}\n{=abs(nums(expr)[0])} + {=abs(nums(expr)[1]+nums(expr)[2])} = {answer}",
+        "ko": "절댓값은 0 에서의 거리이므로 부호를 떼어 0 이상의 수로 만듭니다: |{=nums(expr)[0]}| = {=abs(nums(expr)[0])}\n두 번째는 안을 먼저 계산합니다: {=nums(expr)[1]} − {=-nums(expr)[2]} = {=nums(expr)[1]+nums(expr)[2]} → |{=nums(expr)[1]+nums(expr)[2]}| = {=abs(nums(expr)[1]+nums(expr)[2])}\n{=abs(nums(expr)[0])} + {=abs(nums(expr)[1]+nums(expr)[2])} = {answer}",
+        "en": "An absolute value is a distance from 0, so drop the sign: |{=nums(expr)[0]}| = {=abs(nums(expr)[0])}\nFor the second, work out the inside first: {=nums(expr)[1]} − {=-nums(expr)[2]} = {=nums(expr)[1]+nums(expr)[2]} → |{=nums(expr)[1]+nums(expr)[2]}| = {=abs(nums(expr)[1]+nums(expr)[2])}\n{=abs(nums(expr)[0])} + {=abs(nums(expr)[1]+nums(expr)[2])} = {answer}"
       }
     },
     {
@@ -700,9 +700,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "それぞれの命題について、反例(仮定は成り立つが結論が成り立たない値)を探す\n負の数や 0 を入れると反例が見つかりやすい\n反例がないのは {answer}",
-        "ko": "각 명제마다 반례(가정은 성립하지만 결론이 성립하지 않는 값)를 찾습니다\n음수나 0을 넣으면 반례를 찾기 쉽습니다\n반례가 없는 것은 {answer}",
-        "en": "For each statement look for a counterexample\nNegative numbers and 0 often give one\nThe one with no counterexample is {answer}"
+        "ja": "命題ごとに、反例(仮定は成り立つが結論が成り立たない値)を探す。1 つでもあれば偽\n負の数が反例になりやすい: x = −{big} を入れてみる(x² = {=big*big}、|x| = {big})。境目のすぐ上の x = {big} も試す\nどちらを入れても反例にならないのは {answer}",
+        "ko": "명제마다 반례(가정은 성립하지만 결론이 성립하지 않는 값)를 찾습니다. 하나라도 있으면 거짓\n음수가 반례가 되기 쉽습니다: x = −{big} 을 넣어 봅니다 (x² = {=big*big}, |x| = {big}). 경계 바로 위의 x = {big} 도 넣어 봅니다\n어느 것을 넣어도 반례가 되지 않는 것은 {answer}",
+        "en": "For each statement look for a counterexample (hypothesis true, conclusion false). One is enough to make it false\nNegative numbers often work: try x = −{big} (x² = {=big*big}, |x| = {big}). Also try x = {big}, just above the boundary\nThe statement with no counterexample is {answer}"
       }
     },
     {
@@ -721,9 +721,9 @@
         "en": "x is a real number."
       },
       "explain": {
-        "ja": "「かつ」は「または」に、「または」は「かつ」に入れかえる\nそれぞれの条件を否定する(> ↔ ≦、< ↔ ≧、= ↔ ≠)\n{answer}",
-        "ko": "\"그리고\"는 \"또는\"으로, \"또는\"은 \"그리고\"로 바꿉니다\n각 조건을 부정합니다 (> ↔ ≦, < ↔ ≧, = ↔ ≠)\n{answer}",
-        "en": "Swap \"and\" with \"or\"\nNegate each condition (> ↔ ≤, < ↔ ≥, = ↔ ≠)\n{answer}"
+        "ja": "それぞれの条件を否定する: 「{p1}」の否定は「{n1}」、「{p2}」の否定は「{n2}」(境目の数は含むようになる)\nつなぐ言葉も入れかえる:「かつ」↔「または」(ド・モルガンの法則)\nあわせて {answer}",
+        "ko": "각 조건을 부정합니다: 「{p1}」의 부정은 「{n1}」, 「{p2}」의 부정은 「{n2}」 (경계의 수가 포함됩니다)\n잇는 말도 바꿉니다: \"그리고\" ↔ \"또는\" (드모르간의 법칙)\n합치면 {answer}",
+        "en": "Negate each part: not \"{p1}\" is \"{n1}\"; not \"{p2}\" is \"{n2}\" (the boundary is now included)\nSwap the connective too: \"and\" ↔ \"or\" (De Morgan's laws)\nTogether: {answer}"
       }
     }
   ],
