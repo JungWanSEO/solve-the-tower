@@ -97,9 +97,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "根号の左上の数を n とすると、「n 乗するとその数になる正の数」を探す\n中の数を素因数分解して、同じ数の n 個の積にする\n{answer}",
-        "ko": "근호 왼쪽 위의 수를 n이라 하면 \"n제곱하면 그 수가 되는 양수\"를 찾습니다\n안의 수를 소인수분해해서 같은 수 n개의 곱으로 만듭니다\n{answer}",
-        "en": "If the index of the root is n, find the positive number whose n-th power gives it\nFactor the number into n equal factors\n{answer}"
+        "ja": "根号の左上の数は {n}。「{n} 乗すると {val} になる正の数」を探す\n{val} を素因数分解すると {=pf(val)}\n同じ数 {n} 個の積にまとめると {b} を {n} 回掛けたもの → {answer}",
+        "ko": "근호 왼쪽 위의 수는 {n}. \"{n}제곱하면 {val} 이 되는 양수\"를 찾습니다\n{val} 을 소인수분해하면 {=pf(val)}\n같은 수 {n}개의 곱으로 묶으면 {b} 를 {n}번 곱한 것 → {answer}",
+        "en": "The index is {n}: find the positive number whose {n}th power is {val}\nThe prime factorization of {val} is {=pf(val)}\nGrouped into {n} equal factors it is {b} multiplied {n} times → {answer}"
       }
     },
     {
@@ -135,9 +135,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "右辺を、左辺と同じ底の累乗で表す\n底が同じなので、指数どうしが等しい\nその1次方程式を解いて {answer}",
-        "ko": "우변을 좌변과 같은 밑의 거듭제곱으로 나타냅니다\n밑이 같으므로 지수끼리 같습니다\n그 일차방정식을 풀면 {answer}",
-        "en": "Write the right side as a power of the same base\nEqual bases mean equal exponents\nSolve that linear equation: {answer}"
+        "ja": "右辺を左辺と同じ底 {a} の累乗で表す: {rhs} = {a} の {k} 乗\n底が同じなので、指数どうしが等しい: {expo} = {k}\nx = {k} − ({c}) = {=k-c} → {answer}",
+        "ko": "우변을 좌변과 같은 밑 {a} 의 거듭제곱으로 나타냅니다: {rhs} = {a} 의 {k}제곱\n밑이 같으므로 지수끼리 같습니다: {expo} = {k}\nx = {k} − ({c}) = {=k-c} → {answer}",
+        "en": "Write the right side as a power of the same base {a}: {rhs} = {a} to the power {k}\nThe bases match, so the exponents are equal: {expo} = {k}\nx = {k} − ({c}) = {=k-c} → {answer}"
       }
     },
     {
@@ -154,9 +154,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "右辺を、左辺と同じ底の累乗で表す\n底が 1 より大きければ不等号の向きはそのまま、1 より小さければ逆になる\n指数を比べて {answer}",
-        "ko": "우변을 좌변과 같은 밑의 거듭제곱으로 나타냅니다\n밑이 1보다 크면 부등호 방향은 그대로, 1보다 작으면 반대가 됩니다\n지수를 비교하면 {answer}",
-        "en": "Write the right side as a power of the same base\nBase above 1 keeps the inequality; base below 1 flips it\nCompare exponents: {answer}"
+        "ja": "右辺を左辺と同じ底 {base} の累乗で表す: {right} = ({base}) の {k} 乗\n指数を比べる。底が {dir}\nもとの不等号で書くと {exps}。底に合わせて向きを決めて {answer}",
+        "ko": "우변을 좌변과 같은 밑 {base} 의 거듭제곱으로 나타냅니다: {right} = ({base}) 의 {k}제곱\n지수를 비교합니다. 밑이 {dir}\n원래의 부등호로 쓰면 {exps}. 밑에 맞게 방향을 정하면 {answer}",
+        "en": "Write the right side as a power of the same base {base}: {right} = ({base}) to the power {k}\nCompare exponents. The base {dir}\nWith the original sign it reads {exps}; set the direction for this base: {answer}"
       }
     },
     {
@@ -170,9 +170,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "log の値は「底を何乗すると真数になるか」\n真数を底の累乗で表す(分数なら負の指数)\nその指数が答え: {answer}",
-        "ko": "로그의 값은 \"밑을 몇 제곱하면 진수가 되는가\"\n진수를 밑의 거듭제곱으로 나타냅니다 (분수이면 음의 지수)\n그 지수가 답: {answer}",
-        "en": "A log asks: what power of the base gives the number?\nWrite the number as a power of the base (a fraction means a negative power)\nThat exponent is the answer: {answer}"
+        "ja": "対数の値は「底 {a} を何乗すると真数 {arg} になるか」\n真数を底の累乗で表す: {arg} = {a} の {k} 乗(分数なら指数は負)\nその指数が答え: {answer}",
+        "ko": "로그의 값은 \"밑 {a} 를 몇 제곱하면 진수 {arg} 가 되는가\"\n진수를 밑의 거듭제곱으로 나타냅니다: {arg} = {a} 의 {k}제곱 (분수이면 지수는 음수)\n그 지수가 답: {answer}",
+        "en": "A logarithm asks: to what power must the base {a} be raised to give {arg}?\nWrite the argument as a power of the base: {arg} = {a} to the power {k} (a fraction means a negative exponent)\nThat exponent is the answer: {answer}"
       }
     },
     {
@@ -189,9 +189,9 @@
         "en": "What is {expr}?"
       },
       "explain": {
-        "ja": "底と真数を、同じ数の累乗で表す\n底の変換公式で、(真数の指数) ÷ (底の指数) になる\n{answer}",
-        "ko": "밑과 진수를 같은 수의 거듭제곱으로 나타냅니다\n밑의 변환 공식으로 (진수의 지수) ÷ (밑의 지수)가 됩니다\n{answer}",
-        "en": "Write the base and the number as powers of the same number\nChanging base gives (exponent of the number) ÷ (exponent of the base)\n{answer}"
+        "ja": "底と真数を同じ数 {a} の累乗で表す: 底 {base} = {a} の {p} 乗、真数 {arg} = {a} の {q} 乗\n底の変換公式より (真数の指数) ÷ (底の指数) = {q} ÷ {p}\n{answer}(確かめ: {base} の {answer} 乗が {arg} になる)",
+        "ko": "밑과 진수를 같은 수 {a} 의 거듭제곱으로 나타냅니다: 밑 {base} = {a} 의 {p}제곱, 진수 {arg} = {a} 의 {q}제곱\n밑의 변환 공식에 따라 (진수의 지수) ÷ (밑의 지수) = {q} ÷ {p}\n{answer} (확인: {base} 의 {answer}제곱이 {arg} 가 됩니다)",
+        "en": "Write base and argument as powers of the same number {a}: base {base} = {a} to the {p}, argument {arg} = {a} to the {q}\nBy the change of base formula the value is (exponent of the argument) ÷ (exponent of the base) = {q} ÷ {p}\n{answer} (check: {base} to the power {answer} is {arg})"
       }
     },
     {
@@ -246,9 +246,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "log の定義から、(真数) = (底) の (右辺) 乗\nその値を計算して、x の1次方程式にする\n解いて {answer}(真数が正になることも確かめる)",
-        "ko": "로그의 정의에서 (진수) = (밑)의 (우변)제곱\n그 값을 계산해서 x의 일차방정식으로 만듭니다\n풀면 {answer} (진수가 양수가 되는지도 확인)",
-        "en": "By definition, (argument) = (base) to the power (right side)\nEvaluate it to get a linear equation in x\nSolve: {answer} (and check the argument is positive)"
+        "ja": "対数の定義から (真数) = (底) の (右辺) 乗: {inner} = {a} の {k} 乗 = {N}\nx の一次方程式を解く: x = {N} + ({c}) = {=N+c}\n真数 {inner} が正になることを確かめる({=N+c} を入れると {N} > 0) → {answer}",
+        "ko": "로그의 정의에서 (진수) = (밑) 의 (우변)제곱: {inner} = {a} 의 {k}제곱 = {N}\nx 의 일차방정식을 풉니다: x = {N} + ({c}) = {=N+c}\n진수 {inner} 가 양수가 되는지 확인합니다 ({=N+c} 을 넣으면 {N} > 0) → {answer}",
+        "en": "By the definition, (argument) = (base) to the (right side): {inner} = {a} to the power {k} = {N}\nSolve for x: x = {N} + ({c}) = {=N+c}\nCheck that the argument {inner} is positive (with {=N+c} it is {N} > 0) → {answer}"
       }
     },
     {
@@ -265,9 +265,9 @@
         "en": "Solve {eq}."
       },
       "explain": {
-        "ja": "まず真数の条件: x > 0\n右辺を同じ底の対数で表して、真数どうしを比べる(底が 1 より大きいので向きはそのまま)\n真数の条件と合わせて {answer}",
-        "ko": "먼저 진수의 조건: x > 0\n우변을 같은 밑의 로그로 나타내고 진수끼리 비교합니다 (밑이 1보다 크므로 방향은 그대로)\n진수의 조건과 합치면 {answer}",
-        "en": "First the condition on the argument: x > 0\nWrite the right side as a log with the same base and compare arguments (base above 1 keeps the direction)\nTogether with x > 0: {answer}"
+        "ja": "まず真数の条件: x > 0\n右辺を同じ底の対数で表す: {k} = log {a} を底とする {N} の対数({a} の {k} 乗 = {N})。底 {a} は 1 より大きいので、真数どうしを同じ向きで比べる → x と {N} の大小\n真数の条件 x > 0 とあわせて {answer}",
+        "ko": "먼저 진수의 조건: x > 0\n우변을 같은 밑의 로그로 나타냅니다: {k} 는 밑이 {a} 이고 진수가 {N} 인 로그 ({a} 의 {k}제곱 = {N}). 밑 {a} 가 1 보다 크므로 진수끼리 같은 방향으로 비교합니다 → x 와 {N} 의 대소\n진수의 조건 x > 0 과 합치면 {answer}",
+        "en": "First the condition on the argument: x > 0\nWrite the right side as a log with the same base: {k} is the log of {N} to base {a} ({a} to the power {k} = {N}). The base {a} is greater than 1, so compare the arguments in the same direction → x against {N}\nCombine with x > 0: {answer}"
       }
     },
     {
@@ -379,9 +379,9 @@
             "en": "What is the smaller root of the quadratic in t?"
           },
           "explain": {
-            "ja": "4ˣ = t² なので t の2次方程式になる\n因数分解して、小さい方は {answer}",
-            "ko": "4ˣ = t² 이므로 t에 대한 이차방정식이 됩니다\n인수분해하면 작은 쪽은 {answer}",
-            "en": "Since 4ˣ = t² this is a quadratic in t; factoring, the smaller root is {answer}"
+            "ja": "2ˣ = t とおくと 4ˣ = (2ˣ)² = t² なので、t² − {=(-nums(eq)[1])}t + {=nums(eq)[3]} = 0\n足して {=(-nums(eq)[1])}、掛けて {=nums(eq)[3]} になる 2 数は {=pair((-nums(eq)[1]),nums(eq)[3])} → 因数分解できる\n小さい方は {answer}",
+            "ko": "2ˣ = t 로 놓으면 4ˣ = (2ˣ)² = t² 이므로 t² − {=(-nums(eq)[1])}t + {=nums(eq)[3]} = 0\n더해서 {=(-nums(eq)[1])}, 곱해서 {=nums(eq)[3]} 가 되는 두 수는 {=pair((-nums(eq)[1]),nums(eq)[3])} → 인수분해할 수 있습니다\n작은 쪽은 {answer}",
+            "en": "With 2ˣ = t we have 4ˣ = (2ˣ)² = t², so t² − {=(-nums(eq)[1])}t + {=nums(eq)[3]} = 0\nThe two numbers with sum {=(-nums(eq)[1])} and product {=nums(eq)[3]} are {=pair((-nums(eq)[1]),nums(eq)[3])}, so it factors\nThe smaller one is {answer}"
           }
         },
         {

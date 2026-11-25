@@ -209,9 +209,9 @@
         "en": "What is the period of {expr}?"
       },
       "explain": {
-        "ja": "y = sin x, y = cos x の周期は 2π\nx に掛かっている数を k とすると、周期は 2π ÷ k\n{answer}",
-        "ko": "y = sin x, y = cos x 의 주기는 2π\nx에 곱해진 수를 k라 하면 주기는 2π ÷ k\n{answer}",
-        "en": "y = sin x and y = cos x have period 2π\nIf x is multiplied by k, the period is 2π ÷ k\n{answer}"
+        "ja": "y = sin x、y = cos x の周期は 2π(前の係数は周期に関係しない)\nx に掛けてある数を k とすると周期は 2π ÷ k。ここでは k = {kc}\n2π ÷ {kc} = {answer}",
+        "ko": "y = sin x, y = cos x 의 주기는 2π (앞의 계수는 주기와 관계없습니다)\nx 에 곱해진 수를 k 라 하면 주기는 2π ÷ k. 여기서는 k = {kc}\n2π ÷ {kc} = {answer}",
+        "en": "y = sin x and y = cos x have period 2π (the coefficient in front does not affect it)\nIf x is multiplied by k, the period is 2π ÷ k. Here k = {kc}\n2π ÷ {kc} = {answer}"
       }
     },
     {
@@ -228,9 +228,9 @@
         "en": "What is the maximum of {expr}?"
       },
       "explain": {
-        "ja": "sin, cos の値は −1 から 1 まで動く\n前の係数を掛けると、その絶対値の分だけ上下に動く\nそれに定数を足して、最大値は {answer}",
-        "ko": "sin, cos 의 값은 −1 부터 1 까지 움직입니다\n앞의 계수를 곱하면 그 절댓값만큼 위아래로 움직입니다\n거기에 상수를 더해서 최댓값은 {answer}",
-        "en": "sin and cos range from −1 to 1\nThe coefficient stretches that range by its absolute value\nAdd the constant: the maximum is {answer}"
+        "ja": "sin、cos の値は −1 から 1 まで動く(x に掛けた数は最大値に関係しない)\n前の係数 {a} を掛けると −{amp} から {amp} まで動く(係数が負でも、最大は {amp})\nそこに {c} を足して、最大値は {amp} + ({c}) = {answer}",
+        "ko": "sin, cos 의 값은 −1 부터 1 까지 움직입니다 (x 에 곱한 수는 최댓값과 관계없습니다)\n앞의 계수 {a} 를 곱하면 −{amp} 부터 {amp} 까지 움직입니다 (계수가 음수여도 최대는 {amp})\n거기에 {c} 를 더해서 최댓값은 {amp} + ({c}) = {answer}",
+        "en": "sin and cos range from −1 to 1 (the number multiplying x does not affect the maximum)\nMultiplying by {a} makes the range −{amp} to {amp} (even with a negative coefficient the top is {amp})\nAdding {c}, the maximum is {amp} + ({c}) = {answer}"
       }
     },
     {
@@ -374,9 +374,9 @@
         "en": "What is the maximum of {expr}?"
       },
       "explain": {
-        "ja": "a sin θ + b cos θ = r sin(θ + α) の形にまとめる\nr = √(a² + b²)\nsin(θ + α) の最大値は 1 なので、最大値は r = {answer}",
-        "ko": "a sin θ + b cos θ = r sin(θ + α) 꼴로 합칩니다\nr = √(a² + b²)\nsin(θ + α) 의 최댓값은 1이므로 최댓값은 r = {answer}",
-        "en": "Combine a sin θ + b cos θ into r sin(θ + α)\nr = √(a² + b²)\nsin(θ + α) is at most 1, so the maximum is r = {answer}"
+        "ja": "a sin θ + b cos θ = r sin(θ + α) の形にまとめる(三角関数の合成)。ここでは a = {a}, b = {b}\nr = √(a² + b²) = √({a}² + ({b})²) = √{sq}\nsin(θ + α) の最大値は 1 なので、最大値は r = {answer}(a + b ではない)",
+        "ko": "a sin θ + b cos θ = r sin(θ + α) 꼴로 합칩니다 (삼각함수의 합성). 여기서는 a = {a}, b = {b}\nr = √(a² + b²) = √({a}² + ({b})²) = √{sq}\nsin(θ + α) 의 최댓값은 1 이므로 최댓값은 r = {answer} (a + b 가 아닙니다)",
+        "en": "Combine a sin θ + b cos θ into r sin(θ + α). Here a = {a} and b = {b}\nr = √(a² + b²) = √({a}² + ({b})²) = √{sq}\nsin(θ + α) is at most 1, so the maximum is r = {answer} (not a + b)"
       }
     }
   ],
@@ -492,9 +492,9 @@
             "en": "What is cos θ?"
           },
           "explain": {
-            "ja": "sin² θ + cos² θ = 1 で、θ は第2象限だから cos θ < 0\n{answer}",
-            "ko": "sin² θ + cos² θ = 1 이고 θ는 제2사분면이므로 cos θ < 0. {answer}",
-            "en": "sin² θ + cos² θ = 1 and θ is in the second quadrant, so cos θ < 0: {answer}"
+            "ja": "sin² θ + cos² θ = 1 より cos² θ = 1 − ({sin})² = {=1-sin*sin}\n平方根をとると cos θ = ±{=sqrt(1-sin*sin)}\nθ は第 2 象限(π/2 < θ < π)なので cos θ < 0 → {answer}",
+            "ko": "sin² θ + cos² θ = 1 이므로 cos² θ = 1 − ({sin})² = {=1-sin*sin}\n제곱근을 구하면 cos θ = ±{=sqrt(1-sin*sin)}\nθ 는 제2사분면(π/2 < θ < π)이므로 cos θ < 0 → {answer}",
+            "en": "From sin² θ + cos² θ = 1, cos² θ = 1 − ({sin})² = {=1-sin*sin}\nTaking the square root, cos θ = ±{=sqrt(1-sin*sin)}\nθ is in the second quadrant (π/2 < θ < π), so cos θ < 0 → {answer}"
           }
         },
         {

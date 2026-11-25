@@ -657,9 +657,9 @@
             "en": "What is the expected number of red balls drawn?"
           },
           "explain": {
-            "ja": "赤玉が 0 個、1 個、2 個である確率をそれぞれ求める\n(個数 × 確率) を足す\n{answer}",
-            "ko": "빨간 공이 0개, 1개, 2개일 확률을 각각 구합니다\n(개수 × 확률)을 더합니다\n{answer}",
-            "en": "Find the probabilities of 0, 1 and 2 red balls\nAdd (number × probability)\n{answer}"
+            "ja": "赤玉が 1 個の確率: {r} × {w} ÷ {a1} = {=r*w/a1}、2 個の確率: {=nCr(r,2)} ÷ {a1} = {=nCr(r,2)/a1}(0 個のときは 0 を掛けるので要らない)\n期待値は「個数 × 確率」の和: 1 × {=r*w/a1} + 2 × {=nCr(r,2)/a1}\n= {answer}",
+            "ko": "빨간 공이 1개일 확률: {r} × {w} ÷ {a1} = {=r*w/a1}, 2개일 확률: {=nCr(r,2)} ÷ {a1} = {=nCr(r,2)/a1} (0개일 때는 0 을 곱하므로 필요 없습니다)\n기댓값은 \"개수 × 확률\"의 합: 1 × {=r*w/a1} + 2 × {=nCr(r,2)/a1}\n= {answer}",
+            "en": "P(1 red) = {r} × {w} ÷ {a1} = {=r*w/a1}; P(2 red) = {=nCr(r,2)} ÷ {a1} = {=nCr(r,2)/a1} (0 red contributes nothing)\nThe expected value is the sum of (number × probability): 1 × {=r*w/a1} + 2 × {=nCr(r,2)/a1}\n= {answer}"
           }
         }
       ]

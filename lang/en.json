@@ -296,6 +296,8 @@
     "textEvent": "If you leave now, this space restarts from the beginning. The rest of your progress is saved."
   },
   "opt": {
+    "basekeep": "is greater than 1, so the inequality keeps its direction",
+    "baseflip": "is less than 1, so the inequality reverses",
     "necsuf": "necessary and sufficient",
     "suf": "sufficient but not necessary",
     "nec": "necessary but not sufficient",

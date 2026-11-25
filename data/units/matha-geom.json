@@ -427,9 +427,9 @@
         "en": "A convex polyhedron has {given}. What is its {ask}?"
       },
       "explain": {
-        "ja": "オイラーの多面体定理: (頂点の数) − (辺の数) + (面の数) = 2\nわかっている2つの数を代入する\n残りの1つについて解いて {answer}",
-        "ko": "오일러의 다면체 정리: (꼭짓점의 수) − (모서리의 수) + (면의 수) = 2\n알고 있는 두 수를 대입합니다\n나머지 하나에 대해 풀면 {answer}",
-        "en": "Euler's formula: vertices − edges + faces = 2\nPut in the two numbers you know\nSolve for the third: {answer}"
+        "ja": "オイラーの多面体定理: (頂点の数) − (辺の数) + (面の数) = 2\nわかっている数を入れると {eq}\n? について解くと {work} = {answer}",
+        "ko": "오일러의 다면체 정리: (꼭짓점의 수) − (모서리의 수) + (면의 수) = 2\n알고 있는 수를 넣으면 {eq}\n? 에 대해 풀면 {work} = {answer}",
+        "en": "Euler's polyhedron formula: (vertices) − (edges) + (faces) = 2\nPutting in the known numbers: {eq}\nSolving for ?: {work} = {answer}"
       }
     }
   ],
@@ -511,9 +511,9 @@
             "en": "What is the acute angle between the tangent at B and the chord BD?"
           },
           "explain": {
-            "ja": "接線と弦のつくる角は、その弦に対する円周角 ∠A に等しい(接弦定理)\n{answer}",
-            "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각 ∠A와 같습니다(접현 정리). {answer}",
-            "en": "The tangent–chord angle equals the inscribed angle ∠A on that chord: {answer}"
+            "ja": "接線と弦のつくる角は、その弦に対する円周角に等しい(接弦定理)\n弦 BD に対する円周角は ∠A = {A}°\nしたがって {answer}",
+            "ko": "접선과 현이 이루는 각은 그 현에 대한 원주각과 같습니다 (접현 정리)\n현 BD 에 대한 원주각은 ∠A = {A}°\n따라서 {answer}",
+            "en": "The angle between a tangent and a chord equals the inscribed angle on that chord (tangent–chord theorem)\nThe inscribed angle on chord BD is ∠A = {A}°\nSo it is {answer}"
           }
         }
       ]

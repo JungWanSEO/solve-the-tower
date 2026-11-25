@@ -554,7 +554,7 @@ Object.assign(GENERATORS, {
     };
     const order = [params.ask, ...['contra', 'converse', 'inverse', 'mixed', 'mixed2'].filter((k) => k !== params.ask)];
     const [answer, ...rest] = labelled(order.map((k) => all[k]));
-    return item({ stmt: imp(P, Q) }, answer, rest);
+    return item({ stmt: imp(P, Q), P, Q, nP: neg(P), nQ: neg(Q) }, answer, rest);
   },
 
   // 필요조건·충분조건: "p 는 q 이기 위한 ○○조건". 보기는 말이라서 "@이름" 으로 적습니다. (lang 파일의 opt)
@@ -895,7 +895,8 @@ Object.assign(GENERATORS, {
       [`|x| > ${a} ⟹ x > ${a}`, -(a + 1), [a + 1, 0, a, -a]],
     ];
     const [stmt, ce, others] = pickOne(forms);
-    return item({ stmt }, xEquals(ce), shuffled(others).map(xEquals));
+    const [hyp, concl] = stmt.split(' ⟹ ');
+    return item({ stmt, hyp, concl, ce: numStr(ce), sq: ce * ce, abs: Math.abs(ce) }, xEquals(ce), shuffled(others).map(xEquals));
   },
 
   // ---------- 二次関数 ----------
@@ -1372,7 +1373,7 @@ Object.assign(GENERATORS, {
     const trues = [`x = ${a} ⟹ x² = ${a * a}`, `x > ${a + 1} ⟹ x > ${a}`, `x² < ${a * a} ⟹ x < ${a}`, `|x| < ${a} ⟹ x < ${a}`, `x > ${a} ⟹ x² > ${a * a}`];
     const falses = [`x² = ${a * a} ⟹ x = ${a}`, `x > ${a} ⟹ x > ${a + 1}`, `x < ${a} ⟹ x² < ${a * a}`, `x² > ${a * a} ⟹ x > ${a}`, `x < ${a} ⟹ |x| < ${a}`];
     const [answer, ...rest] = labelled([pickOne(trues), ...shuffled(falses).slice(0, 3)]);
-    return item({}, answer, rest);
+    return item({ a, big: a + 1 }, answer, rest);
   },
 
   // "그리고", "또는" 이 든 조건의 부정 (드모르간의 법칙). @and, @or 는 lang 파일의 글로 바뀝니다.
@@ -1386,7 +1387,8 @@ Object.assign(GENERATORS, {
     const wrong = inner
       ? [`x ≦ ${A} @and x ≧ ${B}`, `x > ${A} @or x < ${B}`, `x < ${A} @or x > ${B}`]
       : [`x ≧ ${A} @or x ≦ ${B}`, `x < ${A} @and x > ${B}`, `x > ${A} @and x < ${B}`];
-    return { stmt, answer, wrong };
+    const parts = inner ? [`x > ${A}`, `x < ${B}`, `x ≦ ${A}`, `x ≧ ${B}`] : [`x < ${A}`, `x > ${B}`, `x ≧ ${A}`, `x ≦ ${B}`];
+    return { stmt, p1: parts[0], p2: parts[1], n1: parts[2], n2: parts[3], answer, wrong };
   },
 
   // ---------- 二次関数 ----------
@@ -1423,7 +1425,12 @@ Object.assign(GENERATORS, {
     const c = nonzero(-6, 6);
     const moved = { '@xaxis': funcOf(-a, -b, -c), '@yaxis': funcOf(a, -b, c), '@origin': funcOf(-a, b, -c) };
     const axis = pickOne(Object.keys(moved));
-    return item({ f: `y = ${polyStr(a, b, c)}`, axis }, moved[axis], Object.keys(moved).filter((k) => k !== axis).map((k) => moved[k]),
+    // 대입한 식 (정리하기 전): x 축 대칭은 y → −y, y 축 대칭은 x → −x, 원점 대칭은 둘 다
+    const A = a === 1 ? '' : a === -1 ? MINUS : numStr(a);
+    const tail = `${c < 0 ? MINUS : '+'} ${Math.abs(c)}`;
+    const flipX = `${A}(${MINUS}x)² ${b < 0 ? MINUS : '+'} ${Math.abs(b) === 1 ? '' : Math.abs(b)}(${MINUS}x) ${tail}`;
+    const sub = { '@xaxis': `${MINUS}y = ${polyStr(a, b, c)}`, '@yaxis': `y = ${flipX}`, '@origin': `${MINUS}y = ${flipX}` }[axis];
+    return item({ f: `y = ${polyStr(a, b, c)}`, axis, sub }, moved[axis], Object.keys(moved).filter((k) => k !== axis).map((k) => moved[k]),
       [funcOf(-a, -b, c), funcOf(a, b, -c), funcOf(-a, b, c)]);
   },
 
@@ -1747,7 +1754,8 @@ Object.assign(GENERATORS, {
     const answer = { '@vertices': v, '@edges': e, '@faces': f }[ask];
     const given = { '@vertices': `@edges ${e}, @faces ${f}`, '@edges': `@vertices ${v}, @faces ${f}`, '@faces': `@vertices ${v}, @edges ${e}` }[ask];
     const sum = ask === '@edges' ? v + f : ask === '@vertices' ? e + f : v + e;
-    return item({ given, ask }, int(answer), [int(answer + 2), int(answer - 2), int(sum), int(answer + 4)], [int(answer + 1), int(answer - 1)]);
+    const slot = (name, value) => (ask === name ? '?' : value);
+    return item({ given, ask, eq: `${slot('@vertices', v)} ${MINUS} ${slot('@edges', e)} + ${slot('@faces', f)} = 2`, rest: ask === '@edges' ? v + f - 2 : ask === '@vertices' ? 2 + e - f : 2 - v + e, work: ask === '@edges' ? `${v} + ${f} ${MINUS} 2` : ask === '@vertices' ? `2 + ${e} ${MINUS} ${f}` : `2 ${MINUS} ${v} + ${e}` }, int(answer), [int(answer + 2), int(answer - 2), int(sum), int(answer + 4)], [int(answer + 1), int(answer - 1)]);
   },
 
   // 소인수분해
@@ -1787,7 +1795,7 @@ Object.assign(GENERATORS, {
     const good = pickOne([[3, 8], [7, 20], [9, 25], [3, 40], [11, 16], [7, 50], [13, 80], [9, 125], [1, 32], [3, 16]]);
     const bad = shuffled([[5, 12], [4, 15], [7, 30], [2, 9], [5, 14], [8, 21], [5, 18], [7, 24], [4, 35], [1, 6], [5, 22], [7, 45]]).slice(0, 3);
     const show = ([n, d]) => ({ s: `${n}/${d}`, v: n / d });
-    return item({}, show(good), bad.map(show));
+    return item({ gd: good[1], b1: bad[0][1], b2: bad[1][1], b3: bad[2][1] }, show(good), bad.map(show));
   },
 
   // 공간의 좌표. params.ask 는 'dist' (원점까지의 거리) 또는 'mirror' (좌표평면에 대한 대칭점)
@@ -2648,11 +2656,11 @@ Object.assign(GENERATORS, {
     const arg = d === 1 ? ` ${n}x` : `(${n === 1 ? '' : n}x/${d})`;
     const head = `${a === 1 ? '' : a === -1 ? MINUS : numStr(a)}${fn}${arg}`;
     if (params.ask === 'period') {
-      return item({ expr: `y = ${head}` }, piFrac(2 * d, n), [piFrac(d, n), piFrac(2 * n, d), piFrac(n, d)], [piFrac(2, 1), piFrac(4 * d, n), piFrac(1, 1), piFrac(d, 2 * n)]);
+      return item({ expr: `y = ${head}`, kc: d === 1 ? `${n}` : `(${n}/${d})` }, piFrac(2 * d, n), [piFrac(d, n), piFrac(2 * n, d), piFrac(n, d)], [piFrac(2, 1), piFrac(4 * d, n), piFrac(1, 1), piFrac(d, 2 * n)]);
     }
     const c = nonzero(-4, 4);
     const max = Math.abs(a) + c;
-    return item({ expr: `y = ${head} ${c < 0 ? MINUS : '+'} ${Math.abs(c)}` }, int(max), [int(a + c), int(Math.abs(a)), int(c - Math.abs(a))],
+    return item({ expr: `y = ${head} ${c < 0 ? MINUS : '+'} ${Math.abs(c)}`, a: numStr(a), amp: Math.abs(a), c: numStr(c) }, int(max), [int(a + c), int(Math.abs(a)), int(c - Math.abs(a))],
       [int(max + 1), int(max - 1), int(Math.abs(a) * n + c), int(c), int(max + 2)]);
   },
 
@@ -2685,7 +2693,7 @@ Object.assign(GENERATORS, {
   compose() {
     const [a, b] = [1 + rand(5), nonzero(-5, 5)];
     const sq = a * a + b * b;
-    return item({ expr: `${a === 1 ? '' : a}sin θ ${b < 0 ? MINUS : '+'} ${Math.abs(b) === 1 ? '' : Math.abs(b)}cos θ` }, surd(1, sq),
+    return item({ expr: `${a === 1 ? '' : a}sin θ ${b < 0 ? MINUS : '+'} ${Math.abs(b) === 1 ? '' : Math.abs(b)}cos θ`, a, b: numStr(b), sq }, surd(1, sq),
       [int(a + Math.abs(b)), int(sq), int(Math.max(a, Math.abs(b)))], [surd(1, sq + 1), surd(1, Math.abs(a * a - b * b) || 3), int(a + b), surd(1, sq + 2)]);
   },
 
@@ -2771,7 +2779,7 @@ Object.assign(GENERATORS, {
     }
     const [n, sign] = pickOne([[3, '∛'], [3, '∛'], [4, '∜'], [5, '⁵√']]);
     const b = pickOne(n === 3 ? [2, 3, 4, 5, 6] : n === 4 ? [2, 3] : [2, 3]);
-    return item({ expr: `${sign}${b ** n}` }, int(b), [int(b ** (n - 1)), int(Math.round(b ** n / n)), int(n)], [int(b + 1), int(b - 1), int(b * 2), int(b + 2)]);
+    return item({ expr: `${sign}${b ** n}`, n, val: b ** n, b }, int(b), [int(b ** (n - 1)), int(Math.round(b ** n / n)), int(n)], [int(b + 1), int(b - 1), int(b * 2), int(b + 2)]);
   },
 
   // 지수방정식과 부등식. params.ask 는 'eq' 또는 'ineq'
@@ -2780,7 +2788,7 @@ Object.assign(GENERATORS, {
     const k = 2 + rand(a === 2 ? 5 : a === 3 ? 3 : 2);
     if (params.ask === 'eq') {
       const c = nonzero(-3, 3);
-      return item({ eq: `${a}${sup(`x${c < 0 ? '-' : '+'}${Math.abs(c)}`)} = ${a ** k}` }, xEq(k - c), [xEq(k + c), xEq(k), xEq(a ** k - c)],
+      return item({ eq: `${a}${sup(`x${c < 0 ? '-' : '+'}${Math.abs(c)}`)} = ${a ** k}`, a, k, rhs: a ** k, expo: `x ${c < 0 ? MINUS : '+'} ${Math.abs(c)}`, c: numStr(c) }, xEq(k - c), [xEq(k + c), xEq(k), xEq(a ** k - c)],
         [xEq(k - c + 1), xEq(k - c - 1), xEq(-k), xEq(k * c)]);
     }
     const small = Math.random() < 0.5; // 밑이 1 보다 작으면 부등호의 방향이 바뀝니다
@@ -2788,7 +2796,7 @@ Object.assign(GENERATORS, {
     const left = small ? `(1/${a})${sup('x')}` : `${a}${sup('x')}`;
     const right = small ? `1/${a ** k}` : `${a ** k}`;
     const ans = small ? flipOp(op) : op;
-    return item({ eq: `${left} ${op} ${right}` }, half(ans, k), [half(flipOp(ans), k), half(ans, -k), half(flipOp(ans), -k)],
+    return item({ eq: `${left} ${op} ${right}`, base: small ? `1/${a}` : `${a}`, k, right, dir: small ? '@baseflip' : '@basekeep', exps: `x ${op} ${k}` }, half(ans, k), [half(flipOp(ans), k), half(ans, -k), half(flipOp(ans), -k)],
       [half(ans, a ** k), half(ans, k + 1), half(ans, k - 1)]);
   },
 
@@ -2798,11 +2806,11 @@ Object.assign(GENERATORS, {
     if (params.hard) {
       const p = pickOne([2, 3]);
       const q = pickOne(range(1, 5).filter((x) => x !== p && a ** x <= 243 && a ** p <= 27));
-      return item({ expr: logStr(a ** p, a ** q) }, frac(q, p), [frac(p, q), int(q - p), frac(a ** q, a ** p), int(q)], [frac(q + 1, p), frac(q, p + 1), int(p)]);
+      return item({ expr: logStr(a ** p, a ** q), a, p, q, base: a ** p, arg: a ** q }, frac(q, p), [frac(p, q), int(q - p), frac(a ** q, a ** p), int(q)], [frac(q + 1, p), frac(q, p + 1), int(p)]);
     }
     const k = pickOne(a === 2 ? [-3, -2, -1, 2, 3, 4, 5, 6] : [-2, -1, 2, 3, 4]);
     const arg = k >= 0 ? `${a ** k}` : `(1/${a ** -k})`;
-    return item({ expr: logStr(a, arg) }, int(k), [int(-k), powOpt(a, k), frac(a ** Math.abs(k), a)], [int(k + 1), int(k - 1), int(2 * k), int(a)]);
+    return item({ expr: logStr(a, arg), a, k: numStr(k), arg }, int(k), [int(-k), powOpt(a, k), frac(a ** Math.abs(k), a)], [int(k + 1), int(k - 1), int(2 * k), int(a)]);
   },
 
   // 로그의 성질: 합과 차. params.ask 는 'sum' 또는 'diff'
@@ -2828,7 +2836,7 @@ Object.assign(GENERATORS, {
     const N = a ** k;
     if (params.ask === 'eq') {
       const c = nonzero(-5, 5);
-      return item({ eq: `${logStr(a, `(x ${c > 0 ? MINUS : '+'} ${Math.abs(c)})`)} = ${k}` }, xEq(N + c), [xEq(N - c), xEq(a * k + c), xEq(k ** a + c), xEq(N)],
+      return item({ eq: `${logStr(a, `(x ${c > 0 ? MINUS : '+'} ${Math.abs(c)})`)} = ${k}`, a, k, N, inner: `x ${c > 0 ? MINUS : '+'} ${Math.abs(c)}`, c: numStr(c) }, xEq(N + c), [xEq(N - c), xEq(a * k + c), xEq(k ** a + c), xEq(N)],
         [xEq(N + c + 1), xEq(N + c - 1), xEq(k + c)]);
     }
     const op = pickOne(['<', '>']);
@@ -2836,8 +2844,8 @@ Object.assign(GENERATORS, {
     const above = (lo) => textOpt(`x > ${lo}`, 80000 + lo);
     const below = (hi) => textOpt(`x < ${hi}`, 90000 + hi);
     return op === '<'
-      ? item({ eq: `${logStr(a, 'x')} < ${k}` }, between(N), [below(N), above(N), between(a * k)], [below(a * k), between(N + a), between(k)])
-      : item({ eq: `${logStr(a, 'x')} > ${k}` }, above(N), [between(N), below(N), above(a * k)], [above(k), above(N + a), between(a * k)]);
+      ? item({ eq: `${logStr(a, 'x')} < ${k}`, a, k, N }, between(N), [below(N), above(N), between(a * k)], [below(a * k), between(N + a), between(k)])
+      : item({ eq: `${logStr(a, 'x')} > ${k}`, a, k, N }, above(N), [between(N), below(N), above(a * k)], [above(k), above(N + a), between(a * k)]);
   },
 
   // 상용로그와 자릿수: 2ⁿ 또는 3ⁿ 은 몇 자리 수인가
