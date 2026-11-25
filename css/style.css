@@ -982,3 +982,7 @@ html[lang="ko"] .news-list li { word-break: keep-all; overflow-wrap: anywhere; }
   #screenBattle canvas, .answering canvas { max-height: none; }
   #screenBattle.answering .intent { display: flex; }
 }
+
+/* 진보스를 이긴 사람의 처음 화면: 제목이 금빛 */
+body.crowned .title h1 { background: linear-gradient(180deg, #fff3c4 10%, #ffc857 55%, #c98a1b 100%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.45)) drop-shadow(0 0 18px rgba(255, 200, 87, 0.45)); }
+body.crowned .title h1 span { -webkit-text-fill-color: var(--teal); }

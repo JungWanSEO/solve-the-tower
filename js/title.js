@@ -28,6 +28,9 @@ export function createTitle({ getRun, getRecord = () => null, onContinue, onNew,
     const rec = getRecord();
     $('titleRecord').hidden = !rec || !rec.wins;
     if (rec && rec.wins) $('titleRecord').textContent = t('title.record', { wins: rec.wins, clears: rec.clears }) + (rec.ascendMax ? ` · ${t('ascend.best', { n: rec.ascendMax })}` : '');
+    // 진보스를 이긴 사람: 기록 줄에 횟수가 붙고, 제목 글자가 금빛이 됩니다 (이긴 보람)
+    if (rec && rec.wins && rec.trueClears) $('titleRecord').textContent += ` · ★ ${t('key.record', { n: rec.trueClears })}`;
+    document.body.classList.toggle('crowned', Boolean(rec && rec.trueClears));
 
     const cont = $('titleContinue');
     cont.hidden = !going;

@@ -472,7 +472,7 @@ async function boot() {
   fillIcons(); // 버튼의 작은 그림
   const title = createTitle({
     getRun,
-    getRecord: () => ({ wins: data.wins, clears: data.clears, ascendMax: data.ascendMax || 0 }),
+    getRecord: () => ({ wins: data.wins, clears: data.clears, ascendMax: data.ascendMax || 0, trueClears: data.trueClears || 0 }),
     onContinue: goMap,
     onNew: goScope,
     onCodex: openCodex,
@@ -562,7 +562,7 @@ async function boot() {
       }
       // 유물: 돼지 저금통은 골드를, 간식 주머니와 무거운 가방은 승리 회복을 바꿉니다.
       const gold = Math.round(CONFIG.gold[kind] * (run.goldMul || 1) * (has(run, 'piggy') ? 1 + CONFIG.relic.piggy : 1));
-      const heal = ((run.ascend || 0) >= 4 ? CONFIG.ascend.heal : CONFIG.player.healOnWin)
+      const heal = ((run.ascend || 0) >= 6 ? CONFIG.ascend.heal6 : (run.ascend || 0) >= 4 ? CONFIG.ascend.heal : CONFIG.player.healOnWin)
         + (has(run, 'snack') ? CONFIG.relic.snack : 0) - (has(run, 'bag') ? CONFIG.relic.bag.heal : 0);
       data.wins += 1;
       run.gold += gold;
