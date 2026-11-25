@@ -122,6 +122,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     const level = getRun().ascend || 0;
     if (level >= 3 && B.intent !== 'big') dmg += CONFIG.ascend.attackAdd;
     if (level >= 5 && B.intent === 'big') dmg += CONFIG.ascend.bigAdd;
+    if (level >= 6 && B.intent !== 'big') dmg += CONFIG.ascend.attackAdd6;
     // 격려: 단계만큼 받는 피해가 줄어듭니다. (1 아래로는 내려가지 않습니다)
     const cheer = getRun().cheer || 0;
     if (cheer) dmg = Math.max(1, Math.round(dmg * (1 - CONFIG.cheer.guard * cheer)));
@@ -698,7 +699,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     const run = getRun();
     const level = run.ascend || 0;
     // 도전 단계: 1단계부터 모든 적, 5단계에서는 중간 보스와 보스의 체력이 더 늘어납니다.
-    const tough = 1 + (level >= 1 ? CONFIG.ascend.foeHp : 0) + (level >= 5 && (kind === 'midboss' || kind === 'boss') ? CONFIG.ascend.bossHp : 0);
+    const tough = 1 + (level >= 1 ? CONFIG.ascend.foeHp : 0) + (level >= 2 && kind === 'elite' ? CONFIG.ascend.eliteHp : 0) + (level >= 5 && (kind === 'midboss' || kind === 'boss') ? CONFIG.ascend.bossHp : 0);
     const warmup = kind === 'battle' && floor < CONFIG.early.floors ? CONFIG.early.hpMul : 1;
     const later = 1 + CONFIG.act.hpAdd * (run.act || 0); // 긴 탑: 뒤의 막일수록 적이 조금 단단합니다
     B.foeMax = Math.round(monster.hp * (kind === 'elite' ? CONFIG.elite.hpMul : 1) * tough * warmup * later);

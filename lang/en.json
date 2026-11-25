@@ -402,11 +402,11 @@
     "opened": "Challenge level {n} is unlocked. You can change it on the range screen.",
     "l0": "Normal difficulty.",
     "l1": "Level 1: all enemies have +15% HP",
-    "l2": "Level 2: more elite spaces",
+    "l2": "Level 2: more elite spaces, and elites have +25% HP",
     "l3": "Level 3: normal enemy attacks deal +1",
     "l4": "Level 4: start with no hints, half healing after a win",
-    "l5": "Level 5: mid-boss and boss have +25% HP, heavy attacks deal +2",
-    "l6": "Level 6: in the boss fight you fill in the digits yourself instead of choosing (numeric answers only)"
+    "l5": "Level 5: mid-boss and boss have +15% HP, heavy attacks deal +2",
+    "l6": "Level 6: normal attacks deal a further +1 and wins no longer heal. In the boss fight you fill in the digits yourself instead of choosing (numeric answers only)"
   },
   "cheer": {
     "short": "Cheer {n}",
