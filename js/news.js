@@ -57,6 +57,8 @@ export function createNews({ data, persist }) {
           persist();
           return;
         }
+        // 소식을 받아 오는 사이에 이미 게임으로 들어갔으면 띄우지 않습니다 (전투나 상점 위에 창이 덮이지 않게). 다음에 열 때 뜹니다.
+        if ($('screenTitle').hidden) return;
         open();
       });
     },
