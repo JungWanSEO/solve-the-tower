@@ -391,7 +391,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 .top { min-height: 61px; }
 .unit[hidden] + * { margin-left: auto; }
 .top .lang { margin-left: auto; }
-.quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.quick { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .quick button { min-height: 44px; font-size: 13px; font-weight: 600; }
 .scope-list { display: flex; flex-direction: column; gap: 6px; }
 .scope-list h3 { margin: 12px 0 0; font-size: 15px; color: var(--ink); display: flex; align-items: center; justify-content: space-between; gap: 8px; }

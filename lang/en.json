@@ -329,6 +329,7 @@
     "title": "Choose your range",
     "text": "Pick the question types for this run. Focus on the ones you find hard, or choose widely so you never know what is coming. The tower has 3 acts (30 floors) and splits your range in the order it is taught.",
     "all": "All",
+    "none": "Clear all",
     "weak": "Not mastered",
     "same": "Same as last time",
     "record": "Accuracy {rate}% · {status}",

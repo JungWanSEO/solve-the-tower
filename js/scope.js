@@ -117,10 +117,16 @@ export function createScope({ data, onStart, onBack }) {
     $('ascendUp').disabled = level >= top;
     $('ascendDesc').textContent = level === 0 ? t('ascend.l0') : `${t(`ascend.l${level}`)}${level > 1 ? ` ${t('ascend.stack')}` : ''}`;
     $('scopeSame').disabled = !(data.lastScope && data.lastScope.some(hasType));
+    $('scopeNone').disabled = count === 0; // 고른 것이 없으면 지울 것도 없습니다
   }
 
   $('scopeAll').addEventListener('click', () => {
     chosen = new Set(allTypeKeys());
+    render();
+  });
+  // 모두 해제: 고른 것을 다 지웁니다. 몇 개만 골라서 하고 싶을 때, 하나하나 끄지 않아도 됩니다. (하나도 없으면 출발 버튼은 눌리지 않습니다)
+  $('scopeNone').addEventListener('click', () => {
+    chosen = new Set();
     render();
   });
   // 정복하지 못한 유형만. 모두 정복했다면 전체를 고릅니다.
