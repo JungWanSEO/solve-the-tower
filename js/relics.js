@@ -67,6 +67,26 @@ export function gainRelic(run, id) {
   return true;
 }
 
+// 잃는 순간 한 번 일어나는 일 (얻을 때 바뀐 최대 체력을 되돌립니다)
+const ON_LOSE = {
+  ruler(run) {
+    run.maxHp += CONFIG.relic.ruler.hp;
+  },
+  bag(run) {
+    run.maxHp = Math.max(1, run.maxHp - CONFIG.relic.bag.hp);
+    run.hp = Math.max(1, Math.min(run.hp, run.maxHp));
+  },
+};
+// 유물을 내놓습니다 (? 칸 "잊힌 사물함"). 갖고 있지 않으면 아무 일도 없습니다.
+export function loseRelic(run, id) {
+  if (!has(run, id)) return false;
+  run.relics.splice(run.relics.indexOf(id), 1);
+  if (ON_LOSE[id]) ON_LOSE[id](run);
+  return true;
+}
+// 아직 갖지 않은, 등급이 같은 유물들 (? 칸의 "떠돌이 상인"과 "잊힌 사물함")
+export const sameRarityLeft = (run, rarity, skip = []) => (CONFIG.relic.drops ? RELIC_IDS.filter((id) => RELICS[id].rarity === rarity && !has(run, id) && !skip.includes(id)) : []);
+
 const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
 
 // 아직 갖지 않은 유물 중에서 count 개를 겹치지 않게 뽑습니다. 남은 것이 모자라면 있는 만큼만 돌려줍니다.

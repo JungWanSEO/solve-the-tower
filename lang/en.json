@@ -13,6 +13,7 @@
     "ultReady": "Ultimate is ready",
     "ultCharge": "Ultimate {n} / {need}",
     "weak": "Weak to: {type}",
+    "weakSure": "(note {n})",
     "intentNormal": "Next turn: attack ({d} damage if you miss)",
     "intentBig": "Heavy attack incoming! Only Defend blocks it ({d} damage)",
     "level": "Level {n} · {type}",
@@ -244,6 +245,58 @@
       "title": "Ambush",
       "text": "A monster jumps out of the bushes!",
       "go": "Fight"
+    },
+    "done": "Nothing more happens here.",
+    "skip": "Walk past",
+    "weaknote": {
+      "title": "Weak-point note",
+      "text": "You pick up a note describing the enemy's weak point. In the next battle, your first {n} attack questions are the enemy's weak type."
+    },
+    "board": {
+      "title": "Old blackboard",
+      "text": "An old blackboard stands by the road with one question on it. Answer right for {n} hints. A wrong answer costs nothing.",
+      "try": "Try it",
+      "trySub": "Hard question · right answer gives {n} hints",
+      "quiz": "The question on the blackboard.",
+      "ok": "A note drops from behind the board. You gain {n} hints.",
+      "fail": "Too bad, but you lose nothing. {explain}"
+    },
+    "bet": {
+      "title": "Gambler",
+      "text": "A gambler offers a bet on a question. Stake {n}G: answer right and you get the stake back plus {win}G. Answer wrong and the stake is gone.",
+      "try": "Stake {n}G",
+      "trySub": "Hard question · right +{win}G · wrong -{n}G",
+      "quiz": "The gambler's question.",
+      "ok": "You win the bet. You get your {n}G back and {win}G more.",
+      "fail": "You lose the bet and your {n}G. {explain}"
+    },
+    "dojo": {
+      "title": "Training hall",
+      "text": "An old training hall. Spend {n} HP on a workout to gain one upgrade. You can pick only one.",
+      "cost": "-{n} HP",
+      "ok": "You train and spend {n} HP. You got {name}. ({desc})"
+    },
+    "peddler": {
+      "title": "Wandering merchant",
+      "text": "A wandering merchant unpacks. One relic is for sale at {n}G. (You have {gold}G)",
+      "empty": "A wandering merchant unpacks, but has nothing to sell.",
+      "ok": "You pay {n}G for the relic."
+    },
+    "locker": {
+      "title": "Forgotten locker",
+      "text": "A forgotten locker. Put in one of your relics and a different relic of the same rarity comes out. You cannot tell which. Choose a relic to put in.",
+      "empty": "A forgotten locker. You have no relic you can put in.",
+      "ok": "You put in {old} and a different relic comes out."
+    },
+    "bench": {
+      "title": "Resting bench",
+      "text": "A bench under a street lamp. Choose how to rest.",
+      "heal": "Take a nap",
+      "healSub": "+{n} HP",
+      "max": "Stretch",
+      "maxSub": "+{n} max HP",
+      "healOk": "You take a short nap and recover {n} HP.",
+      "maxOk": "You stretch slowly. Max HP goes up by {n}."
     }
   },
   "title": {
