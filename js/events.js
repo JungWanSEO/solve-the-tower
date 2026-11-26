@@ -116,7 +116,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     card.querySelector('b').textContent = locked ? t('codex.unseen') : t(`hero.${id}.name`);
     card.querySelector('em').textContent = locked ? '' : t('hero.hp', vars);
     card.querySelector('em').hidden = locked;
-    card.querySelector('.hero-role').textContent = locked ? t('hero.locked', vars) : t(`hero.${id}.role`);
+    card.querySelector('.hero-role').textContent = locked ? t(CONFIG.hero[id].trueClears ? 'hero.lockedTrue' : 'hero.locked', vars) : t(`hero.${id}.role`);
     card.querySelector('.hero-ability').textContent = locked ? '' : t(`hero.${id}.ability`, vars);
     card.querySelector('.hero-ult').textContent = locked ? '' : t('hero.ultLine', { name: t(`hero.${id}.ult`), desc: t(`hero.${id}.ultSub`, ultVars(id)) });
     card.querySelector('.hero-start').textContent = locked ? '' : t('hero.start', { name: `${relicName(CONFIG.hero[id].relic)} (${relicText(CONFIG.hero[id].relic).split('\n')[0]})` });

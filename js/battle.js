@@ -81,6 +81,12 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
       onRelic('grid', { n: RC.grid });
     }
     // 모습 "끈기 대장": 방어에 성공한 뒤의 첫 정답
+    // 체크 리스트(오답 탐정 전용): 전투마다 첫 약점 정답
+    if (R('checklist') && B.rel.checklist && B.cur && B.cur.type === B.weak) {
+      B.rel.checklist = false;
+      add += RC.checklist;
+      onRelic('checklist', { n: RC.checklist });
+    }
     // 스톱워치(암산 번개 전용): 필살기를 쓴 뒤의 첫 정답
     if (B.rel.afterUlt) {
       B.rel.afterUlt = false;
@@ -105,6 +111,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     if (R('ribbon') && B.rel.streak % RC.ribbon === 0) {
       B.rel.shield = (B.rel.shield || 0) + 1;
       onRelic('ribbon', { ready: true });
+    }
+    // 돋보기(오답 탐정 전용): 약점 유형을 맞히면 골드
+    if (R('magnifier') && B.cur.action !== 'defend' && B.cur.type === B.weak) {
+      getRun().gold += RC.magnifier;
+      onRelic('magnifier', { n: RC.magnifier });
     }
     if (R('library') && fresh) {
       getRun().gold += RC.library;
@@ -462,6 +473,10 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
         B.rel.block = (B.rel.block || 0) + mine.shield;
         n = mine.shield;
       }
+      if (mine.sure) { // 급소 찌르기: 다음 공격 문제는 반드시 약점 유형
+        B.sure = (B.sure || 0) + mine.sure;
+        n = mine.sure;
+      }
       say(`hero.${heroOf(run)}.ultMsg`, { d: dmg, n });
       play('ult');
       render();
@@ -490,7 +505,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     if (action === 'skill') level = B.foe.skillLevel || 2;
     const sure = action !== 'defend' && B.sure > 0; // 약점 쪽지: 처음 몇 번의 공격 문제는 반드시 약점 유형
     if (sure) B.sure -= 1;
-    B.cur = next(level, action === 'defend' ? '' : B.weak, sure); // 공격 문제는 약점 유형이 더 자주 나옵니다 (방어는 약점 보너스가 없어 그대로)
+    B.cur = next(level, action === 'defend' ? '' : B.weak, sure, CONFIG.hero[heroOf(getRun())].weakRate || CONFIG.weakRate); // 공격 문제는 약점 유형이 더 자주 나옵니다 (방어는 약점 보너스가 없어 그대로)
     B.cur.action = action;
     B.cur.removed = -1;
     B.cur.fill = fillOn() ? makeFill(B.cur) : null;
@@ -765,7 +780,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     B.chain = null;
     B.chainUsed = false;
     B.chainLeft = R('chainbelt') ? RC.chainbelt.uses : 1;
-    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0, guardUp: false, dogear: RC.dogear, ultUp: 0, afterUlt: false, block: 0 };
+    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0, guardUp: false, dogear: RC.dogear, checklist: true, ultUp: 0, afterUlt: false, block: 0 };
     B.owed = 0;
     B.shownHp = null;
     B.shownFoeHp = null;

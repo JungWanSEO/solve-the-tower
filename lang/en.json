@@ -13,7 +13,7 @@
     "ultReady": "Ultimate is ready",
     "ultCharge": "Ultimate {n} / {need}",
     "weak": "Weak to: {type}",
-    "weakSure": "(note {n})",
+    "weakSure": "(sure {n})",
     "intentNormal": "Next turn: attack ({d} damage if you miss)",
     "intentBig": "Heavy attack incoming! Only Defend blocks it ({d} damage)",
     "level": "Level {n} · {type}",
@@ -546,6 +546,14 @@
       "name": "Lightning memo",
       "text": "With a streak of {need} or more, basic attacks deal +{n} damage (Lightning Abacus only)"
     },
+    "magnifier": {
+      "name": "Magnifying glass",
+      "text": "+{n} gold when you answer a weak-type question right (Mistake Detective only)"
+    },
+    "checklist": {
+      "name": "Checklist",
+      "text": "Once per battle, your first right answer on the weak type deals +{n} damage (Mistake Detective only)"
+    },
     "fx": {
       "add": "Damage +{n}",
       "gold": "+{n}G",
@@ -671,6 +679,16 @@
       "ultSub": "two hits, {d} damage",
       "ultMsg": "Lightning flurry! Two hits for {d} damage."
     },
+    "sleuth": {
+      "name": "Mistake Detective",
+      "role": "Goes for the weak point",
+      "ability": "The enemy's weak type comes up first {n}% of the time (normally {was}%)",
+      "story": "Having beaten the shadow in the deepest place, the kid now enjoys tracking down mistakes.",
+      "ult": "Pinpoint strike",
+      "ultSub": "{d} damage · next is the weak type",
+      "ultMsg": "Pinpoint strike! {d} damage. Your next attack question is the enemy's weak type."
+    },
+    "lockedTrue": "Beat the true boss {clears} time(s) to unlock",
     "fx": "{name} · Damage +{n}",
     "ultLine": "Special · {name}: {desc}",
     "fxBlock": "{name} · blocked the hit"

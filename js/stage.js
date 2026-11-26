@@ -173,11 +173,11 @@ export function createStage(canvas) {
   const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
 
   // ---- 캐릭터 ----
-  // 주인공은 모습(js/heroes.js)마다 다르게 그립니다. S.look: 'starter' 다시 시작한 아이 · 'grit' 끈기 대장 · 'flash' 암산 번개
+  // 주인공은 모습(js/heroes.js)마다 다르게 그립니다. S.look: 'starter' 다시 시작한 아이 · 'grit' 끈기 대장 · 'flash' 암산 번개 · 'sleuth' 오답 탐정
   function drawHero() {
     const look = S.look || 'starter';
-    const robe = { starter: '#2bb8a3', grit: '#3b5bbd', flash: '#8a63d2' }[look];
-    const shoe = { starter: '#1e8f80', grit: '#2a4390', flash: '#6243a8' }[look];
+    const robe = { starter: '#2bb8a3', grit: '#3b5bbd', flash: '#8a63d2', sleuth: '#b07a45' }[look] || '#2bb8a3';
+    const shoe = { starter: '#1e8f80', grit: '#2a4390', flash: '#6243a8', sleuth: '#54391f' }[look] || '#1e8f80';
     // 지팡이 (끈기 대장과 암산 번개는 들지 않습니다)
     if (look === 'starter') {
       line(-36, -34, -36, 44, '#ffd24a', 3);
@@ -199,6 +199,17 @@ export function createStage(canvas) {
       ctx.fill();
       ctx.stroke();
       line(50, 22, 62, 8, '#e5484d', 1.5);
+    } else if (look === 'sleuth') {
+      // 돋보기 (오답 탐정)
+      line(34, 20, 44, 6, '#6b4a2a', 4);
+      ctx.fillStyle = C('rgba(191, 233, 255, 0.5)');
+      ctx.strokeStyle = C('#ffd24a');
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(52, -8, 15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      line(45, -14, 50, -19, '#ffffff', 2);
     } else if (look === 'grit') {
       // 삼각자 모양 방패
       poly([32, -8, 32, 40, 66, 40], '#ffe9b0');
@@ -228,6 +239,15 @@ export function createStage(canvas) {
     if (look === 'starter') {
       poly([-20, -36, 20, -36, 6, -62], '#f2a13b');
       rrect(-24, -38, 48, 5, 2, '#d9822b');
+    } else if (look === 'sleuth') {
+      // 챙 달린 모자 (붉은 띠)
+      ctx.fillStyle = C('#6b4a2a');
+      ctx.beginPath();
+      ctx.arc(0, -34, 15, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+      rrect(-15, -41, 30, 4, 1, '#e5484d');
+      rrect(-24, -37, 48, 6, 3, '#54391f');
     } else if (look === 'grit') {
       // 짧은 머리와 붉은 머리띠 (매듭이 뒤로 날림)
       ctx.fillStyle = C('#3a2a1c');

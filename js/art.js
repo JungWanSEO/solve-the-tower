@@ -44,6 +44,8 @@ const ICON = {
   'r-sneakers': '<path d="M3 17v-6l4 1 3-4 4 5 5 1.500a2.500 2.500 0 012 2.500v1H3z"/><path d="M3 15h18M10.500 9.500l1.500 1M12.500 12l1.500 1"/>',
   'r-stopwatch': '<circle cx="12" cy="14" r="7"/><path d="M12 14V10M10 3h4M12 3v4M18 8l1.500-1.500"/>',
   'r-flashmemo': '<path d="M5 3h14v18H5z"/><path d="M13 7l-3 5h4l-3 5"/>',
+  'r-magnifier': '<circle cx="10.500" cy="10.500" r="6"/><path d="M15 15l5.500 5.500M8 10.500h5"/>',
+  'r-checklist': '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 9l1.500 1.500L12 8M8 15l1.500 1.500L12 14M14 9.500h2.500M14 15.500h2.500"/>',
   'r-ribbon': '<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5"/>',
   'r-redpen': '<path d="M9 3h6v11l-3 5-3-5z"/><path d="M9 7h6M12 19v2.5"/>',
   'r-wrongnote': '<path d="M6 3h12a1 1 0 011 1v16a1 1 0 01-1 1H6z"/><path d="M4 7h3M4 12h3M4 17h3M10.5 9.5l5 5M15.5 9.5l-5 5"/>',
@@ -74,6 +76,7 @@ const STARS = [[22, 18], [64, 34], [108, 12], [150, 30], [196, 16], [238, 38], [
 const stars = (dim = 1) => STARS.map(([x, y], i) => `<rect class="tw tw${i % 3}" x="${x}" y="${y}" width="${i % 2 ? 2 : 1.5}" height="${i % 2 ? 2 : 1.5}" fill="#a7ddff" opacity="${0.7 * dim}"/>`).join('');
 
 // 주인공 (발 밑이 x, y). 모습(js/heroes.js)마다 다르게 그립니다.
+//   sleuth 오답 탐정: 갈색 외투, 챙 달린 모자, 돋보기
 //   starter 다시 시작한 아이: 초록 옷, 주황 모자, 지팡이 · grit 끈기 대장: 남색 옷, 붉은 머리띠, 삼각자 방패 · flash 암산 번개: 보라 옷, 노란 목도리, 번개 분필
 let heroLook = 'starter';
 export function setHeroLook(look) {
@@ -81,13 +84,17 @@ export function setHeroLook(look) {
 }
 export const currentHeroLook = () => heroLook;
 function heroBody(look, { down = false, cheer = false } = {}) {
-  const robe = { starter: '#2bbf9f', grit: '#3b5bbd', flash: '#8a63d2' }[look] || '#2bbf9f';
-  const head = look === 'grit'
+  const robe = { starter: '#2bbf9f', grit: '#3b5bbd', flash: '#8a63d2', sleuth: '#b07a45' }[look] || '#2bbf9f';
+  const head = look === 'sleuth'
+    ? `<path d="M-9-43a9 8 0 0118 0z" fill="#6b4a2a"/><rect x="-14" y="-45" width="28" height="3.500" rx="1.700" fill="#54391f"/><rect x="-9" y="-48" width="18" height="2.500" fill="#e5484d"/>`
+    : look === 'grit'
     ? `<path d="M-9.5-41a9.5 9.5 0 0119 0z" fill="#3a2a1c"/><rect x="-10" y="-46" width="20" height="4" rx="1.5" fill="#e5484d"/><path d="M-9-45l-9-4 2 7z" fill="#e5484d"/>`
     : look === 'flash'
       ? `<path d="M-10-41l-4-10 8 4 1-8 6 6 4-8 3 9 6-3-3 10z" fill="#5a3fa0"/>`
       : `<path d="M-14-45L0-64 14-45z" fill="#f2a03d"/><rect x="-16" y="-46" width="32" height="4" rx="2" fill="#f2a03d"/>`;
-  const held = look === 'grit'
+  const held = look === 'sleuth'
+    ? `<path d="M14-20l6-${cheer ? 30 : 8}" stroke="#6b4a2a" stroke-width="3" stroke-linecap="round"/><circle cx="${cheer ? 21 : 22}" cy="-${cheer ? 56 : 34}" r="7" fill="#bfe9ff" fill-opacity="0.55" stroke="${AMBER}" stroke-width="2.500"/>`
+    : look === 'grit'
     ? `<path d="M15-26V0h19z" fill="#ffe9b0" stroke="#f2a13b" stroke-width="1.5" stroke-linejoin="round"/>`
     : look === 'flash'
       ? `<path d="M24-${cheer ? 62 : 34}l-8 15h6l-5 14 13-18h-7l5-11z" fill="#ffe27a" stroke="#f2a13b" stroke-width="1" stroke-linejoin="round"/>`

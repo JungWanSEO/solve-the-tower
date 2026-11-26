@@ -4,23 +4,25 @@
 //   - 숫자는 js/config.js 의 CONFIG.hero, 이름과 설명은 lang/ 의 hero.<id>, 그림은 js/stage.js(전투)와 js/art.js(장면·초상)
 import { CONFIG } from './config.js';
 
-export const HERO_IDS = ['starter', 'grit', 'flash']; // 다시 시작한 아이 · 끈기 대장 · 암산 번개
+export const HERO_IDS = ['starter', 'grit', 'flash', 'sleuth']; // 다시 시작한 아이 · 끈기 대장 · 암산 번개 · 오답 탐정
 export const heroOf = (run) => (run && HERO_IDS.includes(run.hero) ? run.hero : 'starter');
 export const isHero = (run, id) => heroOf(run) === id;
 
 // 지금까지 얻은 모습 (얻는 순서대로)
-export const unlockedHeroes = (data) => HERO_IDS.filter((id) => (data.clears || 0) >= CONFIG.hero[id].clears);
+// 얻는 조건: 탑을 깬 횟수(clears)와, 적혀 있으면 진보스를 이긴 횟수(trueClears)
+export const unlockedHeroes = (data) => HERO_IDS.filter((id) => (data.clears || 0) >= CONFIG.hero[id].clears && (data.trueClears || 0) >= (CONFIG.hero[id].trueClears || 0));
 // 얻었지만 아직 "새 모습을 얻었습니다" 창을 보지 않은 모습
 export const newHeroes = (data) => unlockedHeroes(data).filter((id) => id !== 'starter' && !(data.heroSeen && data.heroSeen[id]));
 
 // 설명 글에 넣을 숫자
 export function heroVars(id) {
   const h = CONFIG.hero[id];
+  if (id === 'sleuth') return { hp: h.hp, n: Math.round(h.weakRate * 100), was: Math.round(CONFIG.weakRate * 100), clears: h.trueClears };
   return { hp: h.hp, n: id === 'grit' ? h.guardBonus : id === 'flash' ? h.ultNeed : 0, was: CONFIG.ultNeed, clears: h.clears };
 }
 // 그 모습의 필살기 (CONFIG.hero.<id>.ult) 와, 설명 글에 넣을 숫자. add: 유물 등으로 더해지는 피해
 export const ultOf = (id) => (CONFIG.hero[id] && CONFIG.hero[id].ult) || { dmg: CONFIG.damage.ult };
 export function ultVars(id, add = 0) {
   const u = ultOf(id);
-  return { d: u.dmg * (u.hits || 1) + add, n: u.heal || u.shield || u.hits || 0 };
+  return { d: u.dmg * (u.hits || 1) + add, n: u.heal || u.shield || u.hits || u.sure || 0 };
 }
