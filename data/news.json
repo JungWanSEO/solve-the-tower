@@ -1,5 +1,35 @@
 [
   {
+    "version": "0.5.0",
+    "date": "2026-11-26",
+    "items": {
+      "ja": [
+        "塔はいつも3幕30階になりました。選んだ範囲を習う順に3つに分けてのぼります(短い塔はなくなりました)",
+        "?マスのできごとが7つ増えました。古い黒板、賭け好きの旅人、修練場、旅の商人、忘れられたロッカー、ひと休みのベンチ、弱点のメモ",
+        "必殺技がすがたごとに変わりました。「もう一回」「ふんばりの一撃」「いなずま連打」",
+        "すがた専用の遺物が8つ増えました。そのすがたでのぼるときだけ出てきます",
+        "4つ目のすがた「誤答の探偵」が登場! 真のボスに勝つと手に入ります",
+        "マップが広くなり、道の選び方が増えました"
+      ],
+      "ko": [
+        "탑은 늘 3막 30층이 되었습니다. 고른 범위를 배우는 순서대로 셋으로 나누어 오릅니다 (짧은 탑은 없어졌습니다)",
+        "? 칸의 사건이 7가지 늘었습니다. 낡은 칠판, 내기꾼, 수련장, 떠돌이 상인, 잊힌 사물함, 쉬어 가는 벤치, 약점 쪽지",
+        "필살기가 모습마다 달라졌습니다. \"다시 한 번\", \"버티고 한 방\", \"번개 연타\"",
+        "모습 전용 유물이 8개 늘었습니다. 그 모습으로 오를 때만 나옵니다",
+        "4번째 모습 \"오답 탐정\" 등장! 진보스를 이기면 얻습니다",
+        "지도가 넓어져서 고를 수 있는 길이 늘었습니다"
+      ],
+      "en": [
+        "The tower is now always 3 acts and 30 floors, splitting your chosen range in the order it is taught (the short tower is gone)",
+        "Seven new ? events: Old blackboard, Gambler, Training hall, Wandering merchant, Forgotten locker, Resting bench, Weak-point note",
+        "Each form now has its own special: One more time, Stand and strike, Lightning flurry",
+        "Eight new form-only relics. They only show up when you climb as that form",
+        "A fourth form, the Mistake Detective! Beat the true boss to unlock it",
+        "The map is wider, with more paths to choose from"
+      ]
+    }
+  },
+  {
     "version": "0.4.0",
     "date": "2026-11-26",
     "items": {

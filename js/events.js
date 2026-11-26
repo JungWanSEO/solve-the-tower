@@ -803,7 +803,8 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     // 게임 오버: 지도 한 장을 처음부터 다시 시작합니다.
     gameover(info, done) {
       open(() => {
-        base('ev.overTitle', t('ev.overText', { n: info.floor, total: info.total }));
+        // 3막의 탑에서는 몇 막 몇 층이었는지와, 탑 전체에서 몇 층째였는지를 함께 알려 줍니다
+        base('ev.overTitle', info.acts > 1 ? t('ev.overTextAct', { a: info.act, acts: info.acts, n: info.floor, at: info.climbed, all: info.all }) : t('ev.overText', { n: info.floor, total: info.total }));
         leave('ev.restart', done);
       });
     },
