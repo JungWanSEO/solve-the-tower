@@ -233,12 +233,16 @@
 
   <!-- 상점, 휴식, 보물, 보상, 결과가 함께 쓰는 화면 -->
   <section class="screen" id="screenEvent" hidden>
+    <!-- 넓은 화면(가로 820px 이상)에서는 ev-side 둘이 좌우 두 칸이 됩니다: 왼쪽에 그림과 글, 오른쪽에 문제·고를 것·나가기 -->
     <div class="event">
+      <div class="ev-side">
       <div class="scene" id="evArt" hidden></div>
       <h2 id="evTitle"></h2>
       <p id="evText"></p>
       <!-- 처음 온 칸에만 나오는 한 줄 안내 -->
       <p class="ev-tip" id="evTip" hidden><b data-i18n="tip.label"></b><span id="evTipText"></span></p>
+      </div>
+      <div class="ev-side">
       <div id="evQuiz" hidden>
         <div class="question">
           <span class="meta" id="evQMeta"></span>
@@ -251,6 +255,7 @@
       </div>
       <div class="options" id="evOptions"></div>
       <button type="button" class="primary" id="evLeave" hidden></button>
+      </div>
     </div>
   </section>
 

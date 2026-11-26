@@ -304,7 +304,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
 /* shop, rest, treasure, reward, result */
 .event { display: flex; flex-direction: column; gap: 12px; padding: 18px 16px max(20px, env(safe-area-inset-bottom)); }
-.event > p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.event > p, .ev-side > p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+/* 사건 화면의 두 묶음 (그림·글 / 문제·고를 것). 좁은 화면에서는 위아래로 이어집니다 */
+.ev-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 #evQuiz { display: flex; flex-direction: column; gap: 10px; }
 .options { display: flex; flex-direction: column; gap: 8px; }
 .options button {
@@ -559,7 +561,7 @@ body:not(.ready) .title .options, body:not(.ready) .title .settings, body:not(.r
 .update-bar button { min-height: 40px; padding: 0 14px; font-size: 13px; font-weight: 700; color: var(--ink); background: var(--ground); border-color: var(--ground); }
 
 /* Korean: break lines between words, not inside them */
-html[lang="ko"] .question p, html[lang="ko"] .answers button, html[lang="ko"] .notice, html[lang="ko"] .q-note, html[lang="ko"] .event > p, html[lang="ko"] .menu-box p { word-break: keep-all; overflow-wrap: anywhere; }
+html[lang="ko"] .question p, html[lang="ko"] .answers button, html[lang="ko"] .notice, html[lang="ko"] .q-note, html[lang="ko"] .event > p, html[lang="ko"] .ev-side > p, html[lang="ko"] .menu-box p { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* chain (linked questions): the fourth action and its question header */
 .special { display: flex; gap: 8px; }
@@ -972,7 +974,14 @@ html[lang="ko"] .news-list li { word-break: keep-all; overflow-wrap: anywhere; }
 /* ---- 넓은 화면의 전투 (가로로 놓은 태블릿, PC) ----
    세로로 긴 스마트폰에 맞춘 한 줄 배치를 그대로 쓰면, 화면은 넓은데 높이가 낮아서 싸우는 그림이 가는 띠가 됩니다.
    폭이 820px 이상이고 가로로 놓였을 때는 왼쪽에 싸우는 그림, 오른쪽에 문제와 답을 나란히 놓습니다. */
-@media (min-width: 820px) and (orientation: landscape) {
+/* ---- 넓은 화면: 태블릿, 펼친 접는 폰, PC ---- */
+/* 가로 700px 이상: 가운데 기둥을 480 → 600 으로 넓힙니다 (세로로 세운 태블릿) */
+@media (min-width: 700px) {
+  #app { max-width: 600px; }
+}
+/* 가로 820px 이상: 좌우 두 칸. 화면을 눕혔는지는 보지 않습니다 (펼친 접는 폰은 세로가 조금 더 길어도 충분히 넓습니다) */
+@media (min-width: 820px) {
+  /* 전투: 왼쪽에 싸우는 그림, 오른쪽에 문제와 행동 */
   body[data-screen="screenBattle"] #app { max-width: 980px; }
   #screenBattle:not([hidden]) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; }
   #screenBattle .foe { grid-column: 1; grid-row: 1; }
@@ -981,6 +990,15 @@ html[lang="ko"] .news-list li { word-break: keep-all; overflow-wrap: anywhere; }
   #screenBattle.answering .foe { grid-row: 1 / span 2; align-self: stretch; }
   #screenBattle canvas, .answering canvas { max-height: none; }
   #screenBattle.answering .intent { display: flex; }
+  /* 상점·보상·휴식·보물·? 칸·모습 고르기: 왼쪽에 그림과 글, 오른쪽에 문제와 고를 것 */
+  body[data-screen="screenEvent"] #app { max-width: 940px; }
+  #screenEvent .event { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 24px; align-items: start; padding-top: 20px; }
+  #screenEvent .scene { margin: 0; height: clamp(120px, 24vh, 200px); border: 1px solid var(--line); border-radius: 14px; }
+  #screenEvent .event h2 { font-size: 24px; }
+  #screenEvent .ev-side > p { font-size: 15px; }
+  /* 지도와 범위 고르기: 기둥만 넓힙니다 */
+  body[data-screen="screenMap"] #app { max-width: 760px; }
+  body[data-screen="screenScope"] #app { max-width: 760px; }
 }
 
 /* 진보스를 이긴 사람의 처음 화면: 제목이 금빛 */
