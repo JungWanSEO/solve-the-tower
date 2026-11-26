@@ -3,27 +3,78 @@
     "version": "0.4.0",
     "date": "",
     "items": {
-      "ja": ["すがたが3つに! 塔をクリアするたびに新しいすがたが手に入ります", "カギを3つ集めると、真のボス「あきらめの影」にいどめます", "ゲームの中で「アップデートのお知らせ」が見られるようになりました"],
-      "ko": ["모습이 3가지로! 탑을 깰 때마다 새 모습을 얻습니다", "열쇠 셋을 모으면 진보스 \"포기의 그림자\"에게 도전할 수 있습니다", "게임 안에서 \"업데이트 소식\"을 볼 수 있게 되었습니다"],
-      "en": ["Three forms! Clear the tower to unlock a new one", "Collect three keys to challenge the true boss, the Shadow of Giving Up", "You can now read update news inside the game"]
+      "ja": [
+        "数学B(数列・統計的な推測)と数学C(ベクトル・平面上の曲線と複素数平面)の4単元が増えました",
+        "すがたが3つに! 塔をクリアするたびに新しいすがたが手に入ります",
+        "カギを3つ集めると「影の階段」が開きます。門番をこえて、真のボス「あきらめの影」にいどみましょう",
+        "長い塔は、いつも3幕30階になりました。選んだ範囲を習う順に3つに分けてのぼります",
+        "弱点の問題が出やすくなり、解説にはその問題の数字を使った計算がのるようになりました",
+        "答えを選ぶと、大きな画面でこうげきの様子が見られます",
+        "ゲームの中で「アップデートのお知らせ」が見られるようになりました"
+      ],
+      "ko": [
+        "수학B(수열·통계적 추정)와 수학C(벡터·평면 위의 곡선과 복소평면) 4개 단원이 늘었습니다",
+        "모습이 3가지로! 탑을 깰 때마다 새 모습을 얻습니다",
+        "열쇠 셋을 모으면 \"그림자의 계단\"이 열립니다. 문지기를 넘어 진보스 \"포기의 그림자\"에게 도전해 보세요",
+        "긴 탑은 늘 3막 30층이 되었습니다. 고른 범위를 배우는 순서대로 셋으로 나누어 오릅니다",
+        "약점 문제가 더 자주 나오고, 풀이에는 그 문제의 숫자로 계산한 과정이 나옵니다",
+        "답을 고르면 큰 화면에서 공격하는 모습을 볼 수 있습니다",
+        "게임 안에서 \"업데이트 소식\"을 볼 수 있게 되었습니다"
+      ],
+      "en": [
+        "Four new units: Math B (sequences, statistical inference) and Math C (vectors, plane curves and the complex plane)",
+        "Three forms! Clear the tower to unlock a new one",
+        "Collect three keys to open the Shadow Stairs: get past the gatekeeper and challenge the true boss, the Shadow of Giving Up",
+        "The Long Tower is now always 3 acts and 30 floors, splitting your chosen range in the order it is taught",
+        "Weak-point problems appear more often, and solutions now show the working with that problem's own numbers",
+        "After you answer, the attack plays on a full-size stage",
+        "You can now read update news inside the game"
+      ]
     }
   },
   {
     "version": "0.3.0",
     "date": "2026-11-23",
     "items": {
-      "ja": ["数学IIの6単元が増えました", "科目ごとに1幕ずつのぼる「長い塔」ができました", "遺物20種: 手に入れると、その挑戦のあいだずっと力になります", "正解しても解説が見られます。解き方をステップごとに確かめましょう", "新しいモンスターと音楽が増えました"],
-      "ko": ["수학II 6개 단원이 늘었습니다", "과목마다 한 막씩 오르는 \"긴 탑\"이 생겼습니다", "유물 20종: 얻으면 그 판 내내 힘이 됩니다", "맞혀도 풀이가 나옵니다. 푸는 과정을 단계별로 확인해 보세요", "새 몬스터와 음악이 늘었습니다"],
-      "en": ["Six Math II units added", "The Long Tower: climb one act per subject", "20 relics that help you for the whole run", "Solutions now appear even when you are right, step by step", "New monsters and music"]
+      "ja": [
+        "数学IIの6単元が増えました",
+        "科目ごとに1幕ずつのぼる「長い塔」ができました",
+        "遺物20種: 手に入れると、その挑戦のあいだずっと力になります",
+        "正解しても解説が見られます。解き方をステップごとに確かめましょう",
+        "新しいモンスターと音楽が増えました"
+      ],
+      "ko": [
+        "수학II 6개 단원이 늘었습니다",
+        "과목마다 한 막씩 오르는 \"긴 탑\"이 생겼습니다",
+        "유물 20종: 얻으면 그 판 내내 힘이 됩니다",
+        "맞혀도 풀이가 나옵니다. 푸는 과정을 단계별로 확인해 보세요",
+        "새 몬스터와 음악이 늘었습니다"
+      ],
+      "en": [
+        "Six Math II units added",
+        "The Long Tower: climb one act per subject",
+        "20 relics that help you for the whole run",
+        "Solutions now appear even when you are right, step by step",
+        "New monsters and music"
+      ]
     }
   },
   {
     "version": "0.1.0",
     "date": "2026-11-22",
     "items": {
-      "ja": ["Solve the Tower の最初の公開版です", "数学I・数学Aの問題で塔にのぼれます"],
-      "ko": ["Solve the Tower의 첫 공개판입니다", "수학I·수학A 문제로 탑을 오를 수 있습니다"],
-      "en": ["The first public version of Solve the Tower", "Climb the tower with Math I and Math A questions"]
+      "ja": [
+        "Solve the Tower の最初の公開版です",
+        "数学I・数学Aの問題で塔にのぼれます"
+      ],
+      "ko": [
+        "Solve the Tower의 첫 공개판입니다",
+        "수학I·수학A 문제로 탑을 오를 수 있습니다"
+      ],
+      "en": [
+        "The first public version of Solve the Tower",
+        "Climb the tower with Math I and Math A questions"
+      ]
     }
   }
 ]

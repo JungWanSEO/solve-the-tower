@@ -65,7 +65,18 @@ for (const m of read('data/monsters.json')) {
   add(`monster:${m.id}:name`, 'モンスター', 'モンスターの名前', m.name);
   add(`monster:${m.id}:mistake`, 'モンスター', 'モンスターが表すミス', m.mistake);
 }
+// 4) アップデートのお知らせ (data/news.json)
+for (const entry of read('data/news.json')) {
+  (entry.items.ja || []).forEach((line, n) => rows.push({ key: `news:${entry.version}:${n}`, area: '画面 / お知らせ', kind: `お知らせ ${entry.version}`, ko: (entry.items.ko || [])[n] || '', ja: line, sample: '' }));
+}
+// 지난번에 내보낸 목록과 비교해서, 새로 생긴 줄과 일본어가 바뀐 줄에 표시를 붙입니다. (검수하는 사람이 그 줄만 골라 볼 수 있게)
+// 비교 기준: script/ja-script.base.json (마지막으로 검수를 마친 시점의 목록). 없으면 지금의 ja-script.json 을 기준으로 삼습니다.
+const basePath = fs.existsSync(ROOT + 'script/ja-script.base.json') ? 'script/ja-script.base.json' : 'script/ja-script.json';
+const before = new Map((fs.existsSync(ROOT + basePath) ? read(basePath) : []).map((r) => [r.key, r.ja]));
+for (const r of rows) r.state = !before.size ? '' : !before.has(r.key) ? '新規' : before.get(r.key) !== r.ja ? '変更' : '';
+if (!fs.existsSync(ROOT + 'script/ja-script.base.json') && before.size) fs.copyFileSync(ROOT + 'script/ja-script.json', ROOT + 'script/ja-script.base.json');
 fs.mkdirSync(ROOT + 'script', { recursive: true });
 fs.writeFileSync(ROOT + 'script/ja-script.json', JSON.stringify(rows, null, 1));
 const count = {}; for (const r of rows) count[r.kind.replace(/ \d問目/, '')] = (count[r.kind.replace(/ \d問目/, '')] || 0) + 1;
 console.log('rows', rows.length, JSON.stringify(count));
+console.log('新規', rows.filter((r) => r.state === '新規').length, '| 変更', rows.filter((r) => r.state === '変更').length, '| 기준:', basePath);

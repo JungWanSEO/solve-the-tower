@@ -16,6 +16,7 @@ function locate(key) {
   if (p[0] === 'ui') { const path = p[1].split('.'); const d = load('lang/ja.json'); let o = d; for (const k of path.slice(0, -1)) o = o?.[k]; const last = path.at(-1); return o && last in o ? { get: () => o[last], set: (v) => { o[last] = v; } } : null; }
   const at = (obj) => (obj && obj.ja !== undefined ? { get: () => obj.ja, set: (v) => { obj.ja = v; } } : null);
   if (p[0] === 'subject') return at(load('data/catalog.json').subjects.find((s) => s.id === p[1])?.name);
+  if (p[0] === 'news') { const entry = load('data/news.json').find((e) => e.version === p[1]); const n = Number(p[2]); return entry && entry.items.ja[n] !== undefined ? { get: () => entry.items.ja[n], set: (v) => { entry.items.ja[n] = v; } } : null; }
   if (p[0] === 'monster') return at(load('data/monsters.json').find((m) => m.id === p[1])?.[p[2]]);
   if (p[0] === 'unit') {
     const u = load(`data/units/${p[1]}.json`);

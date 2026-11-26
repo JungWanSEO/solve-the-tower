@@ -11,8 +11,8 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-HEAD = ['キー', '場所', '種類', '韓国語(参考)', '日本語(いま)', '表示の例', '直した日本語', 'メモ']
-WIDTH = [16, 26, 16, 34, 46, 46, 46, 24]
+HEAD = ['キー', '場所', '種類', '前回から', '韓国語(参考)', '日本語(いま)', '表示の例', '直した日本語', 'メモ']
+WIDTH = [16, 26, 16, 9, 34, 46, 46, 46, 24]
 FIX_COL = HEAD.index('直した日本語') + 1
 FONT = 'Arial'
 
@@ -21,7 +21,7 @@ def tab_of(row):
     if area.startswith('画面'): return '画面の文'
     if area.startswith('モンスター'): return 'モンスター'
     if area.startswith('科目'): return '画面の文'
-    return area.split(' / ')[0]  # 数学I, 数学A, 数学II
+    return area.split(' / ')[0]  # 数学I, 数学A, 数学II, 数学B, 数学C
 
 def make():
     rows = json.load(open(os.path.join(ROOT, 'script/ja-script.json'), encoding='utf8'))
@@ -30,6 +30,8 @@ def make():
     guide.title = 'はじめに'
     yellow = PatternFill('solid', fgColor='FFF2A8')
     grey = PatternFill('solid', fgColor='EDEDED')
+    green = PatternFill('solid', fgColor='C6E9C0')
+    orange = PatternFill('solid', fgColor='FFD9A8')
     head_fill = PatternFill('solid', fgColor='1F3864')
     thin = Side(style='thin', color='BFBFBF')
     box = Border(left=thin, right=thin, top=thin, bottom=thin)
@@ -43,10 +45,11 @@ def make():
         ('ゲームに出てくる日本語の文をすべて集めた表です。不自然な日本語、教科書とちがう用語、まちがいを直してください。', ''),
         ('', ''),
         ('直し方', 'h'),
-        ('1. 下のタブ(画面の文・数学I・数学A・数学II・モンスター)を開きます。', ''),
+        ('1. 下のタブ(画面の文・数学I・数学A・数学II・数学B・数学C・モンスター)を開きます。', ''),
         ('2. 「日本語(いま)」を読み、直したい行だけ、黄色い「直した日本語」の列に正しい文を書きます。', ''),
         ('3. 直さない行は空のままにします。全部を書き写す必要はありません。', ''),
         ('4. 気になることは「メモ」の列に書きます(例: この用語は学校では習わない)。', ''),
+        ('5. 「前回から」の列に「新規」(緑)・「変更」(オレンジ)とある行が、前回のチェック表のあとに増えた文・変わった文です。この列でしぼりこむと、そこだけ見られます。', ''),
         ('', ''),
         ('気をつけること', 'h'),
         ('・{a} や {answer} のような { } の記号は、ゲームが数字や式を入れる場所です。消さずにそのまま残してください。', ''),
@@ -73,6 +76,10 @@ def make():
         guide.cell(row=ex + 4 + n, column=2, value=counts[t]).font = Font(name=FONT)
     guide.cell(row=ex + 4 + len(tabs), column=1, value='合計').font = Font(name=FONT, bold=True)
     guide.cell(row=ex + 4 + len(tabs), column=2, value=f'=SUM(B{ex + 4}:B{ex + 3 + len(tabs)})').font = Font(name=FONT, bold=True)
+    guide.cell(row=ex + 6 + len(tabs), column=1, value='前回から増えた文(新規)').font = Font(name=FONT)
+    guide.cell(row=ex + 6 + len(tabs), column=2, value=sum(1 for r in rows if r.get('state') == '新規')).font = Font(name=FONT)
+    guide.cell(row=ex + 7 + len(tabs), column=1, value='前回から変わった文(変更)').font = Font(name=FONT)
+    guide.cell(row=ex + 7 + len(tabs), column=2, value=sum(1 for r in rows if r.get('state') == '変更')).font = Font(name=FONT)
     for col, w in zip('ABCD', [70, 34, 40, 34]): guide.column_dimensions[col].width = w
     for t in tabs:
         ws = wb.create_sheet(t[:31])
@@ -85,15 +92,17 @@ def make():
         for r in rows:
             if tab_of(r) != t: continue
             n += 1
-            values = [r['key'], r['area'], r['kind'], r['ko'], r['ja'], r.get('sample', ''), '', '']
+            state = r.get('state', '')
+            values = [r['key'], r['area'], r['kind'], state, r['ko'], r['ja'], r.get('sample', ''), '', '']
             for col, v in enumerate(values, 1):
                 c = ws.cell(row=n, column=col, value=v)
                 c.font = Font(name=FONT, size=10, color='808080' if col == 1 else '000000')
                 c.alignment = Alignment(wrap_text=True, vertical='top')
                 c.border = box
                 if col == FIX_COL: c.fill = yellow
-                elif col <= 3: c.fill = grey
-        ws.freeze_panes = 'E2'
+                elif col == 4 and state: c.fill = green if state == '新規' else orange
+                elif col <= 4: c.fill = grey
+        ws.freeze_panes = 'F2'
         ws.auto_filter.ref = f'A1:{get_column_letter(len(HEAD))}{n}'
         ws.row_dimensions[1].height = 22
     out = os.path.join(ROOT, 'script/ja-script.xlsx')
