@@ -10,6 +10,7 @@ import { icon } from './art.js';
 import { play } from './sound.js';
 import { fitBattle, showReview } from './fit.js';
 import { has } from './relics.js';
+import { isHero } from './heroes.js';
 
 // mastered(type): 그 유형을 이미 정복했는지 (도서관 카드 유물이 봅니다)
 // onRelic(id, vars): 유물의 효과가 났을 때 화면에 알립니다.
@@ -45,7 +46,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   // ---- 유물 (js/relics.js) ----
   const R = (id) => has(getRun(), id);
   const RC = CONFIG.relic;
-  const ultNeed = () => (R('workbook') ? RC.workbook.need : CONFIG.ultNeed);
+  // 필살기에 필요한 연속 정답: 모습 "암산 번개"는 적게, 유물 "두꺼운 문제집"은 하나 더
+  const ultNeed = () => (isHero(getRun(), 'flash') ? CONFIG.hero.flash.ultNeed : CONFIG.ultNeed) + (R('workbook') ? RC.workbook.need : 0);
   const flat = () => (R('ruler') ? RC.ruler.dmg : 0); // 금이 간 자: 모든 피해에 더합니다
   const basicDmg = () => CONFIG.damage.basic + getRun().up.basic + flat();
   const skillDmg = () => CONFIG.damage.skill + getRun().up.skill + flat() + (R('highlighter') ? RC.highlighter : 0);
@@ -64,6 +66,12 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     if (R('grid') && !$('qFigure').hidden) {
       add += RC.grid;
       onRelic('grid', { n: RC.grid });
+    }
+    // 모습 "끈기 대장": 방어에 성공한 뒤의 첫 정답
+    if (B.rel.guardUp) {
+      B.rel.guardUp = false;
+      add += CONFIG.hero.grit.guardBonus;
+      onRelic('hero-grit', { n: CONFIG.hero.grit.guardBonus });
     }
     if (R('wrongnote') && B.rel.note) {
       B.rel.note = false;
@@ -114,6 +122,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     const level = getRun().ascend || 0;
     if (level >= 3 && B.intent !== 'big') dmg += CONFIG.ascend.attackAdd;
     if (level >= 5 && B.intent === 'big') dmg += CONFIG.ascend.bigAdd;
+    if (level >= 6 && B.intent !== 'big') dmg += CONFIG.ascend.attackAdd6;
     // 격려: 단계만큼 받는 피해가 줄어듭니다. (1 아래로는 내려가지 않습니다)
     const cheer = getRun().cheer || 0;
     if (cheer) dmg = Math.max(1, Math.round(dmg * (1 - CONFIG.cheer.guard * cheer)));
@@ -136,7 +145,9 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
 
   // ---- 화면 갱신 ----
   function renderQuestion() {
-    const showing = B.cur && (B.phase === 'answer' || B.picked >= 0);
+    // 문제와 답은 "푸는 중"과 "풀이를 읽는 중"에만 보입니다. 답을 고른 뒤 공격·반격 연출이 나오는 동안에는 접어서,
+    // 싸우는 그림이 원래 크기로 돌아온 상태에서 연출이 보이게 합니다. (작은 화면에서는 문제를 푸는 동안 그림이 작게 줄어 있습니다)
+    const showing = B.cur && (B.phase === 'answer' || B.phase === 'review');
     $('question').hidden = !showing;
     $('answers').hidden = !showing;
     // 문제를 푸는 동안에는 행동 버튼을 접어 문제와 답이 한 화면에 보이게 합니다.
@@ -378,6 +389,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     onChange();
     // 문제를 푸는 동안에는 위쪽 줄들을 줄여 문제에 자리를 내 줍니다. 그다음 화면 높이에 맞춥니다.
     document.body.classList.toggle('is-answering', $('screenBattle').classList.contains('answering'));
+    // 연출이 나오는 동안(문제가 접혀 있고 누를 것이 없을 때)에는 싸우는 그림을 줄이지 않습니다 (fit.js).
+    $('screenBattle').classList.toggle('finale', B.phase === 'busy' && !$('screenBattle').classList.contains('answering'));
     // 풀이를 보느라 내려 둔 화면은 다음 문제로 넘어갈 때 맨 위로 되돌립니다.
     if (wasReview && B.phase !== 'review') window.scrollTo(0, 0);
     wasReview = B.phase === 'review';
@@ -441,7 +454,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     let level = CONFIG.guardLevel;
     if (action === 'basic') level = B.foe.basicLevel || 1;
     if (action === 'skill') level = B.foe.skillLevel || 2;
-    B.cur = next(level);
+    B.cur = next(level, action === 'defend' ? '' : B.weak); // 공격 문제는 약점 유형이 더 자주 나옵니다 (방어는 약점 보너스가 없어 그대로)
     B.cur.action = action;
     B.cur.removed = -1;
     B.cur.fill = fillOn() ? makeFill(B.cur) : null;
@@ -525,6 +538,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
       if (ok) {
         // 완벽 방어: 피해 0, 반격, 연속 정답 +1
         B.combo = Math.min(ultNeed(), B.combo + 1);
+        if (isHero(run, 'grit')) B.rel.guardUp = true; // 끈기 대장: 다음 정답이 세집니다
         say('msg.guardOk');
         render();
         foeTurn(0, counter);
@@ -653,6 +667,13 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
 
   function win() {
     const big = B.kind === 'midboss' || B.kind === 'boss';
+    // 문제와 답을 접어 싸우는 그림을 원래 크기로 되돌린 뒤에 쓰러지는 연출을 보여 줍니다.
+    // (문제를 푸는 동안에는 그림이 작게 줄어 있어서, 그대로 두면 쓰러지는 모습과 터지는 효과가 잘립니다)
+    B.phase = 'busy';
+    B.chain = null;
+    B.cur = null;
+    B.picked = -1;
+    render();
     pulse($('screenBattle'), 'koflash');
     stage.foeDefeat(live(() => finish('win')), t('ui.defeated'), big);
   }
@@ -670,6 +691,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   // floor: 지도에서 몇 번째 층인지 (0 부터). 처음 몇 층의 보통 전투는 적의 체력이 낮습니다.
   function start({ monster, kind, weak, safe, floor = 99 }, onEnd) {
     B.gen += 1;
+    $('screenBattle').classList.remove('finale');
     B.foe = monster;
     B.weak = weak;
     B.kind = kind;
@@ -677,7 +699,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     const run = getRun();
     const level = run.ascend || 0;
     // 도전 단계: 1단계부터 모든 적, 5단계에서는 중간 보스와 보스의 체력이 더 늘어납니다.
-    const tough = 1 + (level >= 1 ? CONFIG.ascend.foeHp : 0) + (level >= 5 && (kind === 'midboss' || kind === 'boss') ? CONFIG.ascend.bossHp : 0);
+    const tough = 1 + (level >= 1 ? CONFIG.ascend.foeHp : 0) + (level >= 2 && kind === 'elite' ? CONFIG.ascend.eliteHp : 0) + (level >= 5 && (kind === 'midboss' || kind === 'boss') ? CONFIG.ascend.bossHp : 0);
     const warmup = kind === 'battle' && floor < CONFIG.early.floors ? CONFIG.early.hpMul : 1;
     const later = 1 + CONFIG.act.hpAdd * (run.act || 0); // 긴 탑: 뒤의 막일수록 적이 조금 단단합니다
     B.foeMax = Math.round(monster.hp * (kind === 'elite' ? CONFIG.elite.hpMul : 1) * tough * warmup * later);
@@ -691,10 +713,11 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     B.chain = null;
     B.chainUsed = false;
     B.chainLeft = R('chainbelt') ? RC.chainbelt.uses : 1;
-    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0 };
+    B.rel = { pencil: true, eraser: true, note: false, streak: 0, shield: 0, guardUp: false };
     B.owed = 0;
     B.shownHp = null;
     B.shownFoeHp = null;
+    stage.setHero(run.hero || 'starter');
     stage.heroUp();
     stage.setFoe(monster.id);
     say('msg.choose');
@@ -708,6 +731,9 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   $('hintBtn').addEventListener('click', useHint);
   $('nextBtn').addEventListener('click', () => {
     if (B.phase !== 'review') return;
+    // 풀이를 읽느라 화면이 아래로 내려가 있습니다. 이어지는 연출(적이 쓰러지는 모습, 다음 물음)이 보이도록 먼저 맨 위로 올립니다.
+    window.scrollTo(0, 0);
+    wasReview = false;
     const go = B.after; // 맞힌 문제의 풀이를 읽고 넘어갈 때 이어서 할 일
     B.after = null;
     if (go) go();

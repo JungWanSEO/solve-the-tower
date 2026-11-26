@@ -131,7 +131,9 @@
     "restUsed": "You have already used this rest stop.",
     "treasureUsed": "You already tried this chest. Its lock is now shut tight.",
     "treasureOkRelic": "The chest opens. You get {gold}G and a relic.",
-    "rewardTextRelic": "You get {gold}G and a relic. Choose one upgrade."
+    "rewardPick": "Now choose one upgrade",
+    "rewardTextRelic": "You get {gold}G and a relic. Choose one upgrade.",
+    "treasureOkGold": "The chest opens. You get {gold}G."
   },
   "up": {
     "maxhp": {
@@ -265,7 +267,9 @@
     "iosHintSub": "Safari clears them after about a week away. See how to keep them →",
     "record": "Battles won {wins} · Towers cleared {clears}",
     "tutorialShort": "Tutorial",
-    "setSub": "Volume, language, display, data"
+    "setSub": "Volume, language, display, data",
+    "newsShort": "News",
+    "newsSub": "See what changed"
   },
   "scope": {
     "title": "Choose your range",
@@ -292,6 +296,8 @@
     "textEvent": "If you leave now, this space restarts from the beginning. The rest of your progress is saved."
   },
   "opt": {
+    "basekeep": "is greater than 1, so the inequality keeps its direction",
+    "baseflip": "is less than 1, so the inequality reverses",
     "necsuf": "necessary and sufficient",
     "suf": "sufficient but not necessary",
     "nec": "necessary but not sufficient",
@@ -396,11 +402,11 @@
     "opened": "Challenge level {n} is unlocked. You can change it on the range screen.",
     "l0": "Normal difficulty.",
     "l1": "Level 1: all enemies have +15% HP",
-    "l2": "Level 2: more elite spaces",
+    "l2": "Level 2: more elite spaces, and elites have +25% HP",
     "l3": "Level 3: normal enemy attacks deal +1",
     "l4": "Level 4: start with no hints, half healing after a win",
-    "l5": "Level 5: mid-boss and boss have +25% HP, heavy attacks deal +2",
-    "l6": "Level 6: in the boss fight you fill in the digits yourself instead of choosing (numeric answers only)"
+    "l5": "Level 5: mid-boss and boss have +15% HP, heavy attacks deal +2",
+    "l6": "Level 6: normal attacks deal a further +1 and wins no longer heal. In the boss fight you fill in the digits yourself instead of choosing (numeric answers only)"
   },
   "cheer": {
     "short": "Cheer {n}",
@@ -433,7 +439,7 @@
   },
   "act": {
     "askTitle": "Tower length",
-    "askText": "You picked {n} subjects. The long tower climbs one act per subject, in the order {list} ({floors} floors in all). The short tower has 10 floors with the problems mixed.",
+    "askText": "The long tower has 3 acts and 30 floors. Your chosen range is split into three in the order it is taught: {list}. The short tower has 10 floors with mixed problems.",
     "long": "Long tower ({n} acts)",
     "short": "Short tower (10 floors)",
     "nextTitle": "Act {n}: {name}",
@@ -550,7 +556,83 @@
     },
     "workbook": {
       "name": "Thick Workbook",
-      "text": "Ultimate deals +{n} damage\n▼ Ultimate needs a streak of {need} (was {was})"
+      "text": "Ultimate deals +{n} damage\n▼ Ultimate needs {need} more correct answer in a row"
     }
+  },
+  "hero": {
+    "pickTitle": "Choose a form",
+    "pickText": "Which form will climb the tower? You gain a new form each time you clear it.",
+    "locked": "Clear the tower {clears} time(s) to unlock",
+    "hp": "HP {hp}",
+    "start": "Starting relic: {name}",
+    "gainedTitle": "New form unlocked",
+    "gainedText": "You can choose this form from your next run.",
+    "now": "Current form",
+    "starter": {
+      "name": "The Restarter",
+      "role": "A balanced form",
+      "ability": "No special ability. The basic rules",
+      "story": "The kid who gave up on math picked up the pencil again."
+    },
+    "grit": {
+      "name": "Captain Grit",
+      "role": "Holds on through mistakes",
+      "ability": "After a successful guard, your next correct answer deals +{n} damage",
+      "story": "The kid who kept retrying became Captain Grit."
+    },
+    "flash": {
+      "name": "Lightning Abacus",
+      "role": "Strong when answers chain",
+      "ability": "Ultimate needs a streak of {n} (was {was})",
+      "story": "After two towers, the kid calculates as fast as lightning."
+    },
+    "fx": "{name} · Damage +{n}"
+  },
+  "key": {
+    "name": "Keys",
+    "chip": "Keys {n}/3",
+    "title": "Keys to the true boss",
+    "text": "Collect all three keys and, after the final boss, the true boss waits at the deepest part of the tower. You get a key by giving up a reward.",
+    "have": "Owned",
+    "none": "Not yet",
+    "rest": {
+      "name": "Key of Rest",
+      "where": "At a rest room, instead of resting",
+      "take": "Take the Key of Rest",
+      "sub": "Get the key without resting or reviewing",
+      "got": "You took the Key of Rest instead of resting."
+    },
+    "relic": {
+      "name": "Key of Treasure",
+      "where": "From an elite or a chest, instead of a relic",
+      "take": "Take the Key of Treasure",
+      "sub": "Get the key instead of the relic"
+    },
+    "win": {
+      "name": "Key of Victory",
+      "where": "After the mid-boss, instead of a relic",
+      "take": "Take the Key of Victory",
+      "sub": "Get the key instead of choosing a relic"
+    },
+    "orTitle": "Relic or key",
+    "orText": "You can take only one.",
+    "gotOne": "You got the {name}.",
+    "doorTitle": "The three keys glow",
+    "doorText": "You cleared the tower. But the three keys point to a deeper door. Beyond it are the Shadow Stairs: after a rest stop and a shop, the {gate} blocks the way, and behind it waits the {name}. Even if you lose, your clear still counts.",
+    "gateTitle": "{name} defeated!",
+    "gateText": "The door opens. You catch your breath and heal {hp} HP. Now for the {name}.",
+    "gateGo": "Enter",
+    "doorGo": "Open the door",
+    "doorSkip": "Go back",
+    "won": "And you defeated the {name}. (True boss defeated {n} time(s))",
+    "lost": "You lost to the {name}, but your clear still counts.",
+    "record": "True boss defeated {n} time(s)",
+    "final": "True Boss {name}"
+  },
+  "news": {
+    "title": "Update news",
+    "version": "Version {v}",
+    "latest": "New",
+    "none": "Could not load the news."
   }
 }

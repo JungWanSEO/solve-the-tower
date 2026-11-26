@@ -231,9 +231,9 @@
         "en": "Write {n} as a product of primes."
       },
       "explain": {
-        "ja": "いちばん小さい素数 2 で割れるだけ割る\n次に 3、5、7…と小さい素数から順に割っていく\n同じ素数は指数でまとめて {answer}",
-        "ko": "가장 작은 소수 2로 나눌 수 있는 만큼 나눕니다\n다음으로 3, 5, 7… 작은 소수부터 차례로 나눕니다\n같은 소수는 지수로 모아서 {answer}",
-        "en": "Divide by 2 as many times as possible\nThen by 3, 5, 7, … in order\nCollect equal primes as powers: {answer}"
+        "ja": "いちばん小さい素数 2 から順に、割り切れるだけ割っていく\n{=pfsteps(n)}\n割った素数を集め、同じ素数は指数でまとめて {answer}",
+        "ko": "가장 작은 소수 2 부터 차례로, 나누어떨어지는 만큼 나눕니다\n{=pfsteps(n)}\n나눈 소수를 모으고, 같은 소수는 지수로 묶어 {answer}",
+        "en": "Divide by the smallest prime, 2, as often as possible, then by the next primes\n{=pfsteps(n)}\nCollect the primes used, writing repeats as powers: {answer}"
       }
     },
     {
@@ -263,9 +263,9 @@
         "en": "Which of these fractions is a terminating decimal?"
       },
       "explain": {
-        "ja": "それぞれの分数を既約分数にする\n分母を素因数分解する\n分母の素因数が 2 と 5 だけのものは {answer}",
-        "ko": "각 분수를 기약분수로 만듭니다\n분모를 소인수분해합니다\n분모의 소인수가 2와 5뿐인 것은 {answer}",
-        "en": "Reduce each fraction to lowest terms\nFactor each denominator into primes\nThe one whose denominator has only 2 and 5: {answer}"
+        "ja": "既約分数が有限小数になるのは、分母の素因数が 2 と 5 だけのとき(10 = 2 × 5 の累乗に直せるから)\n答えの分母: {gd} = {=pf(gd)} → 2 と 5 だけ\nほかの分母: {b1} = {=pf(b1)}、{b2} = {=pf(b2)}、{b3} = {=pf(b3)} には 2, 5 以外の素因数があるので循環小数になる → {answer}",
+        "ko": "기약분수가 유한소수가 되는 것은 분모의 소인수가 2 와 5 뿐일 때입니다 (10 = 2 × 5 의 거듭제곱으로 고칠 수 있으므로)\n답의 분모: {gd} = {=pf(gd)} → 2 와 5 뿐\n다른 분모: {b1} = {=pf(b1)}, {b2} = {=pf(b2)}, {b3} = {=pf(b3)} 에는 2, 5 이외의 소인수가 있어 순환소수가 됩니다 → {answer}",
+        "en": "A fraction in lowest terms is a finite decimal exactly when its denominator has only the prime factors 2 and 5 (it can then be turned into a power of 10)\nThe answer's denominator: {gd} = {=pf(gd)} → only 2 and 5\nThe others: {b1} = {=pf(b1)}, {b2} = {=pf(b2)}, {b3} = {=pf(b3)} contain other primes, so they repeat → {answer}"
       }
     },
     {

@@ -75,9 +75,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ にあてはめる(引き算のときは b を負の数と考える)\n3a²b と 3ab² の係数の 3 を忘れない\n{answer}",
-        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 대입합니다 (뺄셈일 때는 b를 음수로 생각)\n3a²b 와 3ab² 의 계수 3을 잊지 않습니다\n{answer}",
-        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a minus, treat b as negative)\nDo not forget the 3 in 3a²b and 3ab²\n{answer}"
+        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ に a = {=lin(expr.slice(1,-2))[0]}x, b = {=lin(expr.slice(1,-2))[1]} を入れる(引き算は b を負の数と考える)\na³ = {=lin(expr.slice(1,-2))[0]**3}x³、3a²b = 3 × {=lin(expr.slice(1,-2))[0]**2}x² × ({=lin(expr.slice(1,-2))[1]}) = {=3*lin(expr.slice(1,-2))[0]**2*lin(expr.slice(1,-2))[1]}x²\n3ab² = 3 × {=lin(expr.slice(1,-2))[0]}x × {=lin(expr.slice(1,-2))[1]**2} = {=3*lin(expr.slice(1,-2))[0]*lin(expr.slice(1,-2))[1]**2}x、b³ = {=lin(expr.slice(1,-2))[1]**3}\nまとめて {answer}(係数の 3 を忘れない)",
+        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 a = {=lin(expr.slice(1,-2))[0]}x, b = {=lin(expr.slice(1,-2))[1]} 을 넣습니다 (뺄셈은 b 를 음수로 생각)\na³ = {=lin(expr.slice(1,-2))[0]**3}x³, 3a²b = 3 × {=lin(expr.slice(1,-2))[0]**2}x² × ({=lin(expr.slice(1,-2))[1]}) = {=3*lin(expr.slice(1,-2))[0]**2*lin(expr.slice(1,-2))[1]}x²\n3ab² = 3 × {=lin(expr.slice(1,-2))[0]}x × {=lin(expr.slice(1,-2))[1]**2} = {=3*lin(expr.slice(1,-2))[0]*lin(expr.slice(1,-2))[1]**2}x, b³ = {=lin(expr.slice(1,-2))[1]**3}\n모으면 {answer} (계수 3 을 잊지 않습니다)",
+        "en": "Put a = {=lin(expr.slice(1,-2))[0]}x and b = {=lin(expr.slice(1,-2))[1]} into (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a subtraction, b is negative)\na³ = {=lin(expr.slice(1,-2))[0]**3}x³; 3a²b = 3 × {=lin(expr.slice(1,-2))[0]**2}x² × ({=lin(expr.slice(1,-2))[1]}) = {=3*lin(expr.slice(1,-2))[0]**2*lin(expr.slice(1,-2))[1]}x²\n3ab² = 3 × {=lin(expr.slice(1,-2))[0]}x × {=lin(expr.slice(1,-2))[1]**2} = {=3*lin(expr.slice(1,-2))[0]*lin(expr.slice(1,-2))[1]**2}x; b³ = {=lin(expr.slice(1,-2))[1]**3}\nTogether: {answer} (do not forget the 3s)"
       }
     },
     {
@@ -94,9 +94,9 @@
         "en": "Expand {expr}."
       },
       "explain": {
-        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ にあてはめる(引き算のときは b を負の数と考える)\n3a²b と 3ab² の係数の 3 を忘れない\n{answer}",
-        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 대입합니다 (뺄셈일 때는 b를 음수로 생각)\n3a²b 와 3ab² 의 계수 3을 잊지 않습니다\n{answer}",
-        "en": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a minus, treat b as negative)\nDo not forget the 3 in 3a²b and 3ab²\n{answer}"
+        "ja": "(a + b)³ = a³ + 3a²b + 3ab² + b³ に a = {=lin(expr.slice(1,-2))[0]}x, b = {=lin(expr.slice(1,-2))[1]} を入れる(引き算は b を負の数と考える)\na³ = {=lin(expr.slice(1,-2))[0]**3}x³、3a²b = 3 × {=lin(expr.slice(1,-2))[0]**2}x² × ({=lin(expr.slice(1,-2))[1]}) = {=3*lin(expr.slice(1,-2))[0]**2*lin(expr.slice(1,-2))[1]}x²\n3ab² = 3 × {=lin(expr.slice(1,-2))[0]}x × {=lin(expr.slice(1,-2))[1]**2} = {=3*lin(expr.slice(1,-2))[0]*lin(expr.slice(1,-2))[1]**2}x、b³ = {=lin(expr.slice(1,-2))[1]**3}\nまとめて {answer}(係数の 3 を忘れない)",
+        "ko": "(a + b)³ = a³ + 3a²b + 3ab² + b³ 에 a = {=lin(expr.slice(1,-2))[0]}x, b = {=lin(expr.slice(1,-2))[1]} 을 넣습니다 (뺄셈은 b 를 음수로 생각)\na³ = {=lin(expr.slice(1,-2))[0]**3}x³, 3a²b = 3 × {=lin(expr.slice(1,-2))[0]**2}x² × ({=lin(expr.slice(1,-2))[1]}) = {=3*lin(expr.slice(1,-2))[0]**2*lin(expr.slice(1,-2))[1]}x²\n3ab² = 3 × {=lin(expr.slice(1,-2))[0]}x × {=lin(expr.slice(1,-2))[1]**2} = {=3*lin(expr.slice(1,-2))[0]*lin(expr.slice(1,-2))[1]**2}x, b³ = {=lin(expr.slice(1,-2))[1]**3}\n모으면 {answer} (계수 3 을 잊지 않습니다)",
+        "en": "Put a = {=lin(expr.slice(1,-2))[0]}x and b = {=lin(expr.slice(1,-2))[1]} into (a + b)³ = a³ + 3a²b + 3ab² + b³ (for a subtraction, b is negative)\na³ = {=lin(expr.slice(1,-2))[0]**3}x³; 3a²b = 3 × {=lin(expr.slice(1,-2))[0]**2}x² × ({=lin(expr.slice(1,-2))[1]}) = {=3*lin(expr.slice(1,-2))[0]**2*lin(expr.slice(1,-2))[1]}x²\n3ab² = 3 × {=lin(expr.slice(1,-2))[0]}x × {=lin(expr.slice(1,-2))[1]**2} = {=3*lin(expr.slice(1,-2))[0]*lin(expr.slice(1,-2))[1]**2}x; b³ = {=lin(expr.slice(1,-2))[1]**3}\nTogether: {answer} (do not forget the 3s)"
       }
     },
     {

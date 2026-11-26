@@ -9,7 +9,7 @@
   --teal: #2fd9b9;
   --amber: #ffc857;
   --rose: #ff7d8f;
-  color-scheme: dark;
+  color-scheme: only dark; /* 이미 어두운 화면입니다. 브라우저가 색을 한 번 더 어둡게 바꾸지 않게 합니다 */
 }
 
 * { box-sizing: border-box; }
@@ -373,7 +373,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 /* while answering: make room for the question by folding the rest of the battle screen */
 .answering .me, .answering #actions, .answering #specialRow, .answering .intent { display: none; }
 /* 문제를 푸는 동안에도 싸우는 그림은 화면이 허락하는 만큼 크게 둡니다. 줄이는 일은 js/fit.js 가 합니다. */
-.answering canvas { max-height: 230px; object-fit: cover; object-position: 50% 62%; }
+.answering canvas { max-height: 180px; object-fit: cover; object-position: 50% 62%; }
 
 /* title screen */
 .title { display: flex; flex-direction: column; gap: 14px; padding: 48px 20px 24px; }
@@ -914,7 +914,12 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 .relic-card { padding: 10px 12px; border-radius: 14px; border: 1px solid var(--rare); background: var(--panel); }
 .relic-row .ico, .relic-card .ico { grid-row: 1 / span 3; align-self: start; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--rare); background: var(--deep); border: 1px solid var(--rare); }
 .relic-row .ico svg, .relic-card .ico svg { width: 22px; height: 22px; }
-.relic-card .relic-got { grid-column: 2 / span 2; font-size: 11px; font-weight: 700; color: var(--teal); }
+/* 방금 얻은 유물의 카드는 "누르는 선택지"가 아니라 "알림"입니다. 선택 버튼과 헷갈리지 않게 모양을 다르게 합니다: 점선 테두리, 옅은 초록 바탕, 맨 위에 "✓ 얻었습니다" 줄 */
+.relic-card { border-style: dashed; border-color: var(--teal); background: rgba(47, 217, 185, 0.08); pointer-events: none; }
+.relic-card .relic-got { grid-column: 1 / -1; grid-row: 1; font-size: 13px; font-weight: 800; color: var(--teal); padding-bottom: 6px; margin-bottom: 4px; border-bottom: 1px dashed rgba(47, 217, 185, 0.4); }
+.relic-card .relic-got::before { content: "✓ "; }
+.relic-card .ico { grid-row: 2 / span 2; }
+.options .pick-label { margin: 6px 2px 0; font-size: 13px; font-weight: 700; color: var(--amber); }
 .relic-row b, .relic-card b { grid-column: 2; font-size: 15px; }
 .relic-row em, .relic-card em, .options button.relic-pick em { grid-column: 3; font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #0b1430; background: var(--rare); }
 .relic-row small, .relic-card small, .options button.relic-pick small { grid-column: 2 / span 2; font-size: 13px; line-height: 1.5; color: var(--muted); white-space: pre-line; }
@@ -924,3 +929,60 @@ body.calm *, body.calm *::before, body.calm *::after { animation-duration: 0.01m
 html[lang="ko"] .relic-row small, html[lang="ko"] .relic-card small { word-break: keep-all; overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) { .relic-strip i.pop { animation: none; } }
 .relic-down { color: var(--rose); }
+
+/* ---- 모습(직업) ---- */
+.options .hero-card { display: grid; grid-template-columns: 64px 1fr auto; column-gap: 12px; row-gap: 2px; align-items: center; text-align: left; padding: 10px 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.hero-card .hero-face { grid-row: 1 / span 4; align-self: center; width: 64px; height: 74px; border-radius: 12px; display: grid; place-items: center; background: var(--deep); border: 1px solid var(--line); }
+.hero-card .hero-face svg { width: 56px; height: 64px; }
+.hero-card b { grid-column: 2; font-size: 16px; }
+.hero-card em { grid-column: 3; font-style: normal; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #0b1430; background: var(--rose); }
+.hero-card small { grid-column: 2 / span 2; font-size: 13px; line-height: 1.45; color: var(--muted); }
+.hero-card .hero-role { color: var(--teal); font-weight: 700; }
+.hero-card.current { border-color: var(--teal); }
+.hero-card.gained { border-color: var(--amber); }
+.hero-card.locked { opacity: 0.75; }
+.hero-card.locked .hero-role { color: var(--muted); font-weight: 400; }
+.options button.hero-card { width: 100%; font: inherit; cursor: pointer; flex-direction: unset; }
+.hero-row .hero-face { overflow: hidden; }
+.hero-row .hero-face svg { width: 34px; height: 38px; }
+.hero-row em { background: var(--teal) !important; }
+html[lang="ko"] .hero-card small { word-break: keep-all; overflow-wrap: anywhere; }
+.stat.keys svg { color: #c9a0ff; }
+#dialogText { white-space: pre-line; }
+/* 아주 좁은 화면(320px): 칩 사이를 좁혀 열쇠·유물 줄까지 한 줄에 들어가게 합니다. */
+@media (max-width: 340px) { .statusbar { gap: 3px; padding-left: 10px; padding-right: 10px; } .stat { padding: 2px 6px 2px 4px; gap: 2px; } .relic-strip { gap: 2px; padding-right: 3px; } }
+
+/* ---- 업데이트 소식 ---- */
+.news-list h3 { margin: 10px 0 4px; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.news-list h3:first-child { margin-top: 0; }
+.news-list h3 em { font-style: normal; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; color: #0b1430; background: var(--amber); }
+.news-list ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.news-list li { font-size: 14px; line-height: 1.5; color: var(--muted); }
+html[lang="ko"] .news-list li { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* 화면이 아주 모자랄 때(fit.js 의 tightest): 연속기의 "이미 푼 물음"은 접고(위의 점 표시로 몇 번째인지는 보입니다), 지문과 여백을 더 줄입니다. */
+.tightest .chain-done { display: none; }
+.tightest .chain-box { gap: 2px; padding-bottom: 4px; }
+.tightest .chain-intro { font-size: 12px; line-height: 1.35; }
+.tightest .q-head { min-height: 0; }
+.tightest .question { padding: 6px 10px; gap: 3px; }
+.tightest .answers button { min-height: 44px; }
+.tightest .foe { padding-top: 6px; padding-bottom: 4px; gap: 4px; }
+
+/* ---- 넓은 화면의 전투 (가로로 놓은 태블릿, PC) ----
+   세로로 긴 스마트폰에 맞춘 한 줄 배치를 그대로 쓰면, 화면은 넓은데 높이가 낮아서 싸우는 그림이 가는 띠가 됩니다.
+   폭이 820px 이상이고 가로로 놓였을 때는 왼쪽에 싸우는 그림, 오른쪽에 문제와 답을 나란히 놓습니다. */
+@media (min-width: 820px) and (orientation: landscape) {
+  body[data-screen="screenBattle"] #app { max-width: 980px; }
+  #screenBattle:not([hidden]) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; }
+  #screenBattle .foe { grid-column: 1; grid-row: 1; }
+  #screenBattle .me { grid-column: 1; grid-row: 2; }
+  #screenBattle .panel { grid-column: 2; grid-row: 1 / span 2; }
+  #screenBattle.answering .foe { grid-row: 1 / span 2; align-self: stretch; }
+  #screenBattle canvas, .answering canvas { max-height: none; }
+  #screenBattle.answering .intent { display: flex; }
+}
+
+/* 진보스를 이긴 사람의 처음 화면: 제목이 금빛 */
+body.crowned .title h1 { background: linear-gradient(180deg, #fff3c4 10%, #ffc857 55%, #c98a1b 100%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.45)) drop-shadow(0 0 18px rgba(255, 200, 87, 0.45)); }
+body.crowned .title h1 span { -webkit-text-fill-color: var(--teal); }

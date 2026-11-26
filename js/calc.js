@@ -44,6 +44,8 @@ const TOOLS = {
   expand10: (digits, base) => [...String(digits)].map((d, k, all) => `${d}×${base ** (all.length - 1 - k)}`).join(' + '),
   // divs(73, 5) → "73 ÷ 5 = 14 … 3, 14 ÷ 5 = 2 … 4, 2 ÷ 5 = 0 … 2"
   divs: (n, base) => { const out = []; let m = n; while (m > 0) { out.push(`${m} ÷ ${base} = ${Math.floor(m / base)} … ${m % base}`); m = Math.floor(m / base); } return out.join(', '); },
+  // pfsteps(60) → "60 ÷ 2 = 30, 30 ÷ 2 = 15, 15 ÷ 3 = 5, 5 ÷ 5 = 1" (작은 소수부터 나누어 가는 과정)
+  pfsteps: (n) => { const out = []; let m = n; for (let q = 2; m > 1; q++) while (m % q === 0) { out.push(`${m} ÷ ${q} = ${m / q}`); m /= q; } return out.join(', '); },
   digsum: (text) => [...String(text)].reduce((sum, ch) => sum + (/\d/.test(ch) ? Number(ch) : 0), 0),
   // euclidS(340, 187) → "340 = 187 × 1 + 153, 187 = 153 × 1 + 34, …" (호제법의 계산 과정)
   euclidS: (a, b) => { const out = []; let [x, y] = [Math.max(a, b), Math.min(a, b)]; while (y > 0) { out.push(`${x} = ${y} × ${Math.floor(x / y)} + ${x % y}`); [x, y] = [y, x % y]; } return out.join(', '); },

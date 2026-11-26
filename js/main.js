@@ -2,11 +2,13 @@
 // 처음 화면 → 범위 고르기 → 지도 → (칸을 고름) → 전투 / ? / 상점 / 휴식 / 보물 → 지도 → … → 보스
 // 전투에서 쓰러지면 게임 오버이고, 범위를 다시 골라 새 지도로 처음부터 시작합니다.
 import { CONFIG } from './config.js';
-import { loadLang, applyStatic, t } from './i18n.js';
+import { loadLang, applyStatic, t, pick } from './i18n.js';
 import { load, store } from './save.js';
-import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, subjectName } from './questions.js';
+import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, actLabel, starterKeys } from './questions.js';
 import { newRun, nextAct, isLastAct } from './run.js';
 import { RELICS, has, relicVars } from './relics.js';
+import { heroOf, unlockedHeroes, newHeroes, heroVars } from './heroes.js';
+import { createNews } from './news.js';
 import { createStage } from './stage.js';
 import { createBattle } from './battle.js';
 import { createMap } from './map.js';
@@ -21,7 +23,7 @@ import { createSettings, optionsOf } from './settings.js';
 import { fitBattle, watchFit } from './fit.js';
 import { showGuide, hideGuide } from './guide.js';
 import { createData, inIosSafariTab, ask } from './data.js';
-import { fillIcons, icon, setSceneArt } from './art.js';
+import { fillIcons, icon, setSceneArt, setHeroLook, heroPortrait } from './art.js';
 
 const FIGHTS = ['battle', 'elite', 'midboss', 'boss'];
 
@@ -56,7 +58,8 @@ async function boot() {
     }
   }
   // 저장된 지도가 없거나 예전 형식이면 새로 만듭니다. 범위가 없던 지도는 전체 범위로 봅니다.
-  if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(allTypeKeys());
+  if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(starterKeys()); // 처음 판(튜토리얼)은 첫 과목의 문제만
+  setHeroLook(heroOf(data.run)); // 장면 그림 속 주인공을 이어서 할 판의 모습으로
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
   data.run.scope = data.run.scope.filter(hasType); // 꺼진 단원의 유형이 예전 기록에 남아 있으면 뺍니다
   if (data.run.acts) { // 긴 탑: 막마다 같은 정리를 합니다. 모양이 맞지 않으면 지금 막 하나로 끝나는 탑이 됩니다.
@@ -156,6 +159,13 @@ async function boot() {
       chips.push(['tag cheer', '', t('cheer.short', { n: run.cheer })]);
       info.cheer = [t('cheer.name'), t('cheer.text', { n: run.cheer, hp: CONFIG.cheer.hp * run.cheer, pct: Math.round(CONFIG.cheer.guard * run.cheer * 100) })];
     }
+    // 진보스의 열쇠: 탑을 한 번 깬 뒤부터 보입니다. 누르면 어느 열쇠를 어디서 얻는지 나옵니다.
+    if (CONFIG.trueBoss.on && (data.clears || 0) >= CONFIG.trueBoss.clears && data.tut === 'done') {
+      const keys = run.keys || {};
+      const kinds = ['rest', 'relic', 'win'];
+      chips.push(['keys', 'key', `${kinds.filter((k) => keys[k]).length}/3`]); // 좁은 화면에서도 한 줄에 들어가도록 그림과 숫자만
+      info.keys = [t('key.title'), `${t('key.text')}\n\n${kinds.map((k) => `${keys[k] ? '●' : '○'} ${t(`key.${k}.name`)}: ${t(`key.${k}.where`)} (${t(keys[k] ? 'key.have' : 'key.none')})`).join('\n')}`];
+    }
     if (run.frail > 0) {
       chips.push(['tag frail', '', t('bless.frailLeft', { n: run.frail })]);
       info.frail = [t('bless.frail'), t('bless.frailSub', CONFIG.bless)];
@@ -169,7 +179,7 @@ async function boot() {
       bar.setAttribute('aria-label', label);
       bar.innerHTML = '';
       for (const [cls, ico, text] of chips) {
-        const kind = cls.split(' ')[1];
+        const kind = cls.split(' ')[1] || cls;
         const chip = document.createElement(info[kind] ? 'button' : 'span');
         chip.className = `stat ${cls}`;
         if (info[kind]) {
@@ -234,6 +244,17 @@ async function boot() {
     $('bagClose').textContent = t('relic.close');
     const list = $('bagList');
     list.innerHTML = '';
+    // 맨 위에는 지금 모습과 그 고유 능력
+    {
+      const id = heroOf(run);
+      const row = document.createElement('div');
+      row.className = 'relic-row hero-row';
+      row.innerHTML = `<i class="ico hero-face">${heroPortrait(id)}</i><b></b><em></em><small></small>`;
+      row.querySelector('b').textContent = t(`hero.${id}.name`);
+      row.querySelector('em').textContent = t('hero.now');
+      row.querySelector('small').textContent = t(`hero.${id}.ability`, heroVars(id));
+      list.appendChild(row);
+    }
     for (const id of relics) {
       if (!RELICS[id]) continue;
       const row = document.createElement('div');
@@ -256,6 +277,10 @@ async function boot() {
 
   // 유물의 효과가 났을 때: 무슨 유물이 무엇을 했는지 잠깐 알리고, 상태 줄의 그 아이콘을 한 번 키웁니다.
   function onRelic(id, vars = {}) {
+    if (id === 'hero-grit') { // 모습의 고유 능력이 났을 때
+      toast(t('hero.fx', { name: t('hero.grit.name'), n: vars.n }), icon('counter'));
+      return;
+    }
     const what = id === 'library' ? t('relic.fx.gold', vars)
       : id === 'eraser' ? t('relic.fx.half', vars)
         : id === 'bandage' ? t('relic.fx.endure', vars)
@@ -278,6 +303,7 @@ async function boot() {
 
   function go(name) {
     screen = name;
+    document.body.dataset.screen = name; // 화면마다 다른 배치를 CSS 가 고를 수 있게 (넓은 화면의 전투 등)
     show(name);
     if (name !== 'screenBattle') music('calm'); // 전투가 아니면 잔잔한 곡
     window.scrollTo(0, 0); // 긴 화면에서 넘어와도 맨 위부터 보이게
@@ -381,29 +407,40 @@ async function boot() {
   const scope = createScope({
     data,
     onStart(keys) {
-      // 과목을 둘 이상 골랐으면 탑의 길이를 묻습니다. (튜토리얼 중에는 묻지 않고 짧은 탑)
+      // 탑의 길이를 묻습니다: 긴 탑(3막 30층, 범위를 셋으로 나눠 차례로) 또는 짧은 탑(10층, 섞어서). 튜토리얼 중이거나 유형이 너무 적으면 짧은 탑.
       const acts = actsFor(keys);
       if (acts.length > 1 && !tutorial.active()) {
         ask({
           title: t('act.askTitle'),
-          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => subjectName(a.id)).join(' → ') }),
+          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => actLabel(a.keys)).join(' → ') }),
           buttons: [
-            { label: t('act.long', { n: acts.length }), kind: 'primary', run: () => begin(keys, acts) },
-            { label: t('act.short'), run: () => begin(keys, null) },
+            { label: t('act.short'), kind: 'primary', run: () => chooseHero(keys, null) },
+            { label: t('act.long', { n: acts.length }), run: () => chooseHero(keys, acts) },
           ],
         });
         return;
       }
-      begin(keys, null);
+      chooseHero(keys, null);
     },
     onBack: () => goTitle(),
   });
-  function begin(keys, acts) {
+  // 모습 고르기: 얻은 모습이 둘 이상일 때만 묻습니다. (튜토리얼은 첫 모습으로만)
+  function chooseHero(keys, acts) {
+    const mine = unlockedHeroes(data);
+    if (CONFIG.hero.force) return begin(keys, acts, CONFIG.hero.force);
+    if (mine.length < 2 || tutorial.active()) return begin(keys, acts, 'starter');
+    go('screenEvent');
+    events.heroChoice((id) => begin(keys, acts, id));
+  }
+  function begin(keys, acts, hero = 'starter') {
     {
+      data.hero = hero;
+      setHeroLook(hero);
+      data.relics = { ...(data.relics || {}), [CONFIG.hero[hero].relic]: true }; // 시작 유물도 도감에 기록합니다
       data.lastScope = keys;
       const level = Math.min(data.ascend || 0, data.ascendMax || 0);
       // 격려는 보통 난이도에서만 붙습니다. (도전 단계는 스스로 고른 어려움이므로)
-      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0), acts); // 설정에서 격려를 꺼 두면 붙지 않습니다
+      data.run = newRun(keys, level, level || !optionsOf(data).cheer ? 0 : Math.min(CONFIG.cheer.max, data.falls || 0), acts, hero); // 설정에서 격려를 꺼 두면 붙지 않습니다
       setScope(data.run.scope);
       // 재도전 선물: 한 판이라도 끝낸 적이 있으면, 지난 판의 성적에 맞는 선물을 고르고 출발합니다.
       if (CONFIG.bless.on && data.last && !tutorial.active()) {
@@ -416,6 +453,16 @@ async function boot() {
     }
   }
   function goScope() {
+    // 탑을 깨서 새 모습을 얻었으면, 범위를 고르기 전에 한 번 알려 줍니다. (이미 깬 기록이 있는 학생은 업데이트 뒤 처음 시작할 때)
+    const fresh = tutorial.active() ? [] : newHeroes(data);
+    if (fresh.length) {
+      data.heroSeen = { ...(data.heroSeen || {}), [fresh[0]]: true };
+      persist();
+      go('screenEvent');
+      play('clear');
+      events.heroGained(fresh[0], goScope);
+      return;
+    }
     persist();
     go('screenScope');
     scope.open();
@@ -425,7 +472,7 @@ async function boot() {
   fillIcons(); // 버튼의 작은 그림
   const title = createTitle({
     getRun,
-    getRecord: () => ({ wins: data.wins, clears: data.clears, ascendMax: data.ascendMax || 0 }),
+    getRecord: () => ({ wins: data.wins, clears: data.clears, ascendMax: data.ascendMax || 0, trueClears: data.trueClears || 0 }),
     onContinue: goMap,
     onNew: goScope,
     onCodex: openCodex,
@@ -465,7 +512,7 @@ async function boot() {
     const any = (list) => list[Math.floor(Math.random() * list.length)];
     if (kind === 'boss') return any(fit(monsters.filter((m) => m.boss)));
     if (kind === 'midboss') return any(fit(monsters.filter((m) => m.midboss)));
-    const normal = monsters.filter((m) => !m.boss && !m.midboss);
+    const normal = monsters.filter((m) => !m.boss && !m.midboss && !m.final && !m.gate); // 진보스는 열쇠를 모았을 때만 나옵니다
     if (tutorial.active()) return normal[0];
     const base = fit(normal);
     const fresh = base.filter((m) => m.id !== run.lastFoe);
@@ -515,7 +562,7 @@ async function boot() {
       }
       // 유물: 돼지 저금통은 골드를, 간식 주머니와 무거운 가방은 승리 회복을 바꿉니다.
       const gold = Math.round(CONFIG.gold[kind] * (run.goldMul || 1) * (has(run, 'piggy') ? 1 + CONFIG.relic.piggy : 1));
-      const heal = ((run.ascend || 0) >= 4 ? CONFIG.ascend.heal : CONFIG.player.healOnWin)
+      const heal = ((run.ascend || 0) >= 6 ? CONFIG.ascend.heal6 : (run.ascend || 0) >= 4 ? CONFIG.ascend.heal : CONFIG.player.healOnWin)
         + (has(run, 'snack') ? CONFIG.relic.snack : 0) - (has(run, 'bag') ? CONFIG.relic.bag.heal : 0);
       data.wins += 1;
       run.gold += gold;
@@ -533,34 +580,95 @@ async function boot() {
           persist();
           goMap();
           ask({
-            title: t('act.nextTitle', { n: run.act + 1, name: subjectName(run.acts[run.act].id) }),
+            title: t('act.nextTitle', { n: run.act + 1, name: actLabel(run.acts[run.act].keys) }),
             text: t(isLastAct(run) ? 'act.lastText' : 'act.nextText', { gold, hp: healed, left: run.acts.length - run.act }),
             buttons: [{ label: t('ui.ok'), kind: 'primary' }],
           });
         });
       } else if (kind === 'boss') {
         play('clear');
-        data.clears += 1;
-        data.last = { floor: run.floors, clear: true };
-        data.falls = 0;
-        // 지금 열려 있는 가장 높은 도전 단계로 깼으면 다음 단계가 열립니다.
-        const level = run.ascend || 0;
-        const opened = level === (data.ascendMax || 0) && level < CONFIG.ascend.max;
-        if (opened) {
-          data.ascendMax = level + 1;
-          data.ascend = level + 1;
+        // 탑 클리어를 기록하고 축하 화면을 띄웁니다. extra: 진보스와 싸운 결과를 덧붙이는 글
+        const finishClear = (extra = '') => {
+          data.clears += 1;
+          data.last = { floor: run.floors, clear: true };
+          data.falls = 0;
+          // 지금 열려 있는 가장 높은 도전 단계로 깼으면 다음 단계가 열립니다.
+          const level = run.ascend || 0;
+          const opened = level === (data.ascendMax || 0) && level < CONFIG.ascend.max;
+          if (opened) {
+            data.ascendMax = level + 1;
+            data.ascend = level + 1;
+          }
+          data.run = newRun(run.full || run.scope);
+          persist();
+          go('screenEvent');
+          events.clear(gold, goScope, opened ? level + 1 : 0, extra);
+          celebrate();
+        };
+        // 열쇠 셋을 모았으면 진보스에게 도전할 수 있습니다. 져도 탑을 깬 기록은 그대로입니다.
+        const final = monsters.find((m) => m.final);
+        const keys = run.keys || {};
+        if (final && CONFIG.trueBoss.on && keys.rest && keys.relic && keys.win) {
+          const name = pick(final.name);
+          persist();
+          ask({
+            title: t('key.doorTitle'),
+            text: t('key.doorText', { name, gate: pick((monsters.find((m) => m.gate) || final).name) }),
+            buttons: [
+              { label: t('key.doorGo'), kind: 'primary', run: () => {
+                // 그림자의 계단: 휴식 → 상점 → 문지기 → 진보스. 지도 없이 외길로 이어집니다.
+                if (run.full) { // 긴 탑: 여기서부터의 문제는 고른 범위 전체에서 나옵니다
+                  run.scope = [...run.full];
+                  setScope(run.scope);
+                }
+                const gate = monsters.find((m) => m.gate);
+                const toShadow = () => {
+                  data.seen[final.id] = true;
+                  battleMusic('boss', '', final.id);
+                  go('screenBattle');
+                  battle.start({ monster: final, kind: 'boss', weak: chooseWeak(final), safe: false, floor: node.floor }, (end) => {
+                    if (end === 'win') data.trueClears = (data.trueClears || 0) + 1;
+                    finishClear(end === 'win' ? t('key.won', { name, n: data.trueClears }) : t('key.lost', { name }));
+                  });
+                };
+                const toGate = () => {
+                  if (!gate) { toShadow(); return; }
+                  data.seen[gate.id] = true;
+                  battleMusic('elite', '', gate.id);
+                  go('screenBattle');
+                  battle.start({ monster: gate, kind: 'elite', weak: chooseWeak(gate), safe: false, floor: node.floor }, (end) => {
+                    if (end !== 'win') { finishClear(t('key.lost', { name: pick(gate.name) })); return; }
+                    data.wins += 1;
+                    const before = run.hp;
+                    run.hp = Math.min(run.maxHp, run.hp + CONFIG.trueBoss.heal);
+                    persist();
+                    go('screenEvent');
+                    ask({
+                      title: t('key.gateTitle', { name: pick(gate.name) }),
+                      text: t('key.gateText', { name, hp: run.hp - before }),
+                      buttons: [{ label: t('key.gateGo'), kind: 'primary', run: toShadow }],
+                    });
+                  });
+                };
+                go('screenEvent');
+                events.rest(() => {
+                  go('screenEvent');
+                  events.shop(toGate, {});
+                }, {});
+              } },
+              { label: t('key.doorSkip'), run: () => finishClear() },
+            ],
+          });
+          return;
         }
-        data.run = newRun(run.full || run.scope);
-        persist();
-        events.clear(gold, goScope, opened ? level + 1 : 0);
-        celebrate();
+        finishClear();
       } else {
         persist();
         // 강적은 유물 1개를 바로 주고, 중간 보스는 강화를 고른 뒤 유물 3개 중 1개를 고릅니다. (튜토리얼 중에는 유물이 나오지 않습니다)
         const guided = tutorial.active();
         events.reward(gold, () => {
           tutorial.emit('rewarded');
-          if (kind === 'midboss' && !guided) events.relicChoice(() => complete(node));
+          if (kind === 'midboss' && !guided) events.relicChoice(() => complete(node), true); // true: 유물 대신 "승리의 열쇠"도 고를 수 있습니다
           else complete(node);
         }, kind === 'elite' && !guided);
       }
@@ -618,11 +726,14 @@ async function boot() {
       goData();
     },
   });
+  const news = createNews({ data, persist });
+  $('titleNews').addEventListener('click', news.open);
   $('titleSettings').addEventListener('click', settings.open);
   $('menuSettings').addEventListener('click', settings.open);
 
   watchFit();
   goTitle();
+  news.showIfNew(); // 새 버전을 처음 열었으면 업데이트 소식을 한 번 보여 줍니다
   document.body.classList.add('ready'); // 불러오기 끝: 진행 막대를 치우고 버튼을 보여 줍니다.
   clearTimeout(window.sttSlow);
   watchUpdate();

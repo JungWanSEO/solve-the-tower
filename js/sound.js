@@ -175,5 +175,6 @@ export function battleMusic(kind, weak = '', id = '') {
   if (kind === 'boss') return music('boss', ([...id].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % 5) - 2);
   if (kind === 'midboss') return music('midboss');
   if (kind === 'elite') return music('elite');
-  return music(weak.startsWith('math2-') ? 'battle2' : weak.startsWith('matha-') ? 'battleA' : 'battle');
+  // 数学B 는 数学A 의 곡, 数学C 는 数学II 의 곡을 함께 씁니다 (과목마다 따로 만든 곡은 아직 셋뿐입니다)
+  return music(/^(math2|mathc)-/.test(weak) ? 'battle2' : /^(matha|mathb)-/.test(weak) ? 'battleA' : 'battle');
 }

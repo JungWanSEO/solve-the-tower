@@ -173,26 +173,75 @@ export function createStage(canvas) {
   const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
 
   // ---- 캐릭터 ----
+  // 주인공은 모습(js/heroes.js)마다 다르게 그립니다. S.look: 'starter' 다시 시작한 아이 · 'grit' 끈기 대장 · 'flash' 암산 번개
   function drawHero() {
-    line(-36, -34, -36, 44, '#ffd24a', 3);
-    circ(-36, -38, 5, '#f2a13b');
-    ell(-10, 46, 9, 4, '#1e8f80');
-    ell(10, 46, 9, 4, '#1e8f80');
-    poly([0, -18, -30, 44, 30, 44], '#2bb8a3');
-    poly([0, -4, -8, 14, 8, 14], '#e9fbf7');
+    const look = S.look || 'starter';
+    const robe = { starter: '#2bb8a3', grit: '#3b5bbd', flash: '#8a63d2' }[look];
+    const shoe = { starter: '#1e8f80', grit: '#2a4390', flash: '#6243a8' }[look];
+    // 지팡이 (끈기 대장과 암산 번개는 들지 않습니다)
+    if (look === 'starter') {
+      line(-36, -34, -36, 44, '#ffd24a', 3);
+      circ(-36, -38, 5, '#f2a13b');
+    }
+    ell(-10, 46, 9, 4, shoe);
+    ell(10, 46, 9, 4, shoe);
+    poly([0, -18, -30, 44, 30, 44], robe);
+    poly([0, -4, -8, 14, 8, 14], look === 'flash' ? '#ffe27a' : '#e9fbf7');
     line(20, 16, 34, 20, '#ffd9a8', 5);
-    ctx.fillStyle = C('#fff2c2');
-    ctx.strokeStyle = C('#f2a13b');
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(50, 22, 20, Math.PI, 0);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    line(50, 22, 62, 8, '#e5484d', 1.5);
+    if (look === 'starter') {
+      // 각도기
+      ctx.fillStyle = C('#fff2c2');
+      ctx.strokeStyle = C('#f2a13b');
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(50, 22, 20, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      line(50, 22, 62, 8, '#e5484d', 1.5);
+    } else if (look === 'grit') {
+      // 삼각자 모양 방패
+      poly([32, -8, 32, 40, 66, 40], '#ffe9b0');
+      poly([40, 12, 40, 32, 54, 32], robe);
+      ctx.strokeStyle = C('#f2a13b');
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(32, -8);
+      ctx.lineTo(32, 40);
+      ctx.lineTo(66, 40);
+      ctx.closePath();
+      ctx.stroke();
+    } else {
+      // 번개 모양 분필
+      poly([52, -14, 38, 12, 48, 12, 40, 36, 62, 4, 51, 4, 58, -14], '#ffe27a');
+      ctx.strokeStyle = C('#f2a13b');
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      [[52, -14], [38, 12], [48, 12], [40, 36], [62, 4], [51, 4], [58, -14]].forEach(([x, y], k) => (k ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      ctx.closePath();
+      ctx.stroke();
+      // 노란 목도리 (바람에 날림)
+      rrect(-14, -14, 28, 7, 3, '#ffd24a');
+      poly([-12, -10, -34, -4, -30, 6, -10, -6], '#ffd24a');
+    }
     circ(0, -26, 16, '#ffd9a8');
-    poly([-20, -36, 20, -36, 6, -62], '#f2a13b');
-    rrect(-24, -38, 48, 5, 2, '#d9822b');
+    if (look === 'starter') {
+      poly([-20, -36, 20, -36, 6, -62], '#f2a13b');
+      rrect(-24, -38, 48, 5, 2, '#d9822b');
+    } else if (look === 'grit') {
+      // 짧은 머리와 붉은 머리띠 (매듭이 뒤로 날림)
+      ctx.fillStyle = C('#3a2a1c');
+      ctx.beginPath();
+      ctx.arc(0, -29, 16.5, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+      rrect(-17, -36, 34, 6, 2, '#e5484d');
+      poly([-16, -34, -30, -40, -28, -30], '#e5484d');
+      poly([-16, -32, -32, -28, -27, -22], '#c93a40');
+    } else {
+      // 바람에 날리는 머리
+      poly([-17, -30, -24, -46, -10, -40, -8, -52, 2, -42, 8, -54, 13, -40, 22, -44, 17, -28], '#5a3fa0');
+    }
     eye(-6, -25, 2, false, '#1c2740', 0);
     eye(6, -25, 2, false, '#1c2740', 0);
     ctx.strokeStyle = C('#1c2740');
@@ -922,7 +971,248 @@ export function createStage(canvas) {
     });
     glyph('0', 0, 32, 16, '#d9ffef');
   }
+  // 진보스 "포기의 그림자": 주인공과 같은 모양의 검은 그림자. 눈만 빛나고, 강한 공격 때 크게 부풉니다.
+  function drawShadow(f) {
+    const sp = specOf(f);
+    const grow = 1 + Math.sin(sp * Math.PI) * 0.18;
+    const sway = Math.sin(S.t * 1.6) * 3;
+    ctx.save();
+    ctx.scale(grow, grow);
+    for (let k = 0; k < 3; k++) { // 뒤로 흩어지는 그림자
+      ctx.globalAlpha = 0.16;
+      poly([sway * (k + 1), -30 - k * 6, -44 - k * 8, 46, 44 + k * 8, 46], '#6b5bd6');
+    }
+    ctx.globalAlpha = 1;
+    poly([0, -22, -36, 46, 36, 46], '#141033');
+    circ(0, -30, 19, '#141033');
+    poly([-24, -40, 24, -40, 8 + sway, -76], '#141033'); // 구겨진 모자
+    rrect(-28, -43, 56, 6, 3, '#241a52');
+    circ(-7, -30, 3.4, '#ff7d8f');
+    circ(7, -30, 3.4, '#ff7d8f');
+    line(-9, -18, 9, -18, '#ff7d8f', 2); // 굳게 다문 입
+    glyph('×', 0, 22, 22, '#6b5bd6');
+    ctx.restore();
+  }
+  // 미루기의 문지기: 진보스의 방 앞을 막는 문. 시계 얼굴에 눈을 반쯤 감고 있다가, 강한 공격을 예고할 때 눈을 번쩍 뜹니다.
+  function drawGate(f) {
+    const sp = specOf(f);
+    const wake = Math.sin(sp * Math.PI);
+    const nod = Math.sin(S.t * 1.2) * 1.5 * (1 - wake);
+    rrect(-34, -52 + nod, 68, 98, 10, '#2a2350'); // 문짝
+    rrect(-28, -46 + nod, 56, 86, 7, '#3a3170');
+    line(0, -46 + nod, 0, 40 + nod, '#2a2350', 3);
+    circ(0, -14 + nod, 21, '#f6e7c1'); // 시계 얼굴
+    circ(0, -14 + nod, 21 - 3, '#fff6dd');
+    const hand = S.t * 0.25;
+    line(0, -14 + nod, Math.sin(hand) * 12, -14 + nod - Math.cos(hand) * 12, '#2a2350', 2.5);
+    line(0, -14 + nod, 8, -14 + nod, '#2a2350', 2.5);
+    const lid = 2.6 * (1 - wake); // 감긴 정도
+    for (const x of [-8, 8]) {
+      circ(x, -19 + nod, 3.4, wake > 0.3 ? '#ff7d8f' : '#2a2350');
+      rrect(x - 4.5, -23.5 + nod, 9, lid + 1.5, 1, '#fff6dd'); // 눈꺼풀
+      line(x - 4.5, -22 + nod + lid, x + 4.5, -22 + nod + lid, '#2a2350', 1.6);
+    }
+    rrect(-5, 12 + nod, 10, 14, 3, '#ffc857'); // 자물쇠
+    circ(0, 18 + nod, 2, '#2a2350');
+    if (wake < 0.3) glyph('z', 30, -52 + Math.sin(S.t * 2) * 3, 16, '#a7ddff');
+  }
+  // 건너뛰는 토끼 (数学B 数列): 고유 동작은 한 칸을 건너뛰듯 높이 뛰기
+  function drawHopper(f) {
+    const hop = Math.sin(specOf(f) * Math.PI) * 26;
+    const tilt = Math.sin(S.t * 2.2) * 2;
+    ctx.save();
+    ctx.translate(0, -hop);
+    ell(-9 + tilt, -52, 6, 20, '#e9eef8'); // 귀
+    ell(9 + tilt, -52, 6, 20, '#e9eef8');
+    ell(-9 + tilt, -52, 2.5, 13, '#f2b6c4');
+    ell(9 + tilt, -52, 2.5, 13, '#f2b6c4');
+    ell(0, 20, 26, 24, '#e9eef8'); // 몸
+    circ(0, -18, 19, '#f6f8fd'); // 머리
+    eye(-7, -20, 3.4, false, '#1c2740', 0.7);
+    eye(7, -20, 3.4, false, '#1c2740', 0.7);
+    circ(0, -12, 2.4, '#f2b6c4');
+    ell(-16, 42, 12, 6, '#d5dcec'); // 발
+    ell(16, 42, 12, 6, '#d5dcec');
+    glyph('+d', 0, 24, 15, '#5b6b96');
+    ctx.restore();
+  }
+  // 곱절 버섯 (数学B 数列): 고유 동작은 갓이 두 배로 부풀기
+  function drawShroom(f) {
+    const puff = 1 + Math.sin(specOf(f) * Math.PI) * 0.45;
+    rrect(-13, 0, 26, 46, 9, '#f3e6cf'); // 기둥
+    eye(-6, 20, 3.2, false, '#1c2740', 0.2);
+    eye(6, 20, 3.2, false, '#1c2740', 0.2);
+    line(-4, 30, 4, 30, '#1c2740', 2);
+    ctx.save();
+    ctx.translate(0, 2);
+    ctx.scale(puff, puff);
+    ctx.fillStyle = C('#d9534f');
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 40, 34, 0, Math.PI, 0); // 갓 (위쪽 반원)
+    ctx.closePath();
+    ctx.fill();
+    circ(-18, -14, 6, '#ffe9e2');
+    circ(12, -20, 7, '#ffe9e2');
+    circ(24, -8, 4, '#ffe9e2');
+    glyph('×2', -2, -8, 13, '#7a1f1c');
+    ctx.restore();
+  }
+  // 화살표 까마귀 (数学C ベクトル): 고유 동작은 화살표를 반대로 뒤집기
+  function drawCrow(f) {
+    const sp = specOf(f);
+    const flip = Math.cos(sp * Math.PI * 2) < 0 ? -1 : 1;
+    const flap = Math.sin(S.t * 6) * 8;
+    poly([-20, 0, -58, -22 - flap, -40, 12], '#2b2f4a'); // 날개
+    poly([20, 0, 58, -22 - flap, 40, 12], '#2b2f4a');
+    ell(0, 6, 24, 28, '#3a4066');
+    circ(0, -26, 16, '#3a4066');
+    poly([-5, -22, 5, -22, 0, -10], '#ffc857'); // 부리
+    eye(-6, -29, 3.2, false, '#1c2740', 0.3);
+    eye(6, -29, 3.2, false, '#1c2740', 0.3);
+    line(-14 * flip, 14, 14 * flip, 14, '#ffc857', 3); // 화살표
+    poly([14 * flip, 8, 14 * flip, 20, 24 * flip, 14], '#ffc857');
+  }
+  // 직각 사마귀 (数学C ベクトル): 고유 동작은 낫 두 개를 직각으로 치켜들기
+  function drawMantis(f) {
+    const up = Math.sin(specOf(f) * Math.PI) * 18;
+    rrect(-8, -10, 16, 56, 7, '#5fbf6a'); // 몸
+    poly([-16, -30, 16, -30, 0, -8], '#7ad685'); // 세모 머리
+    eye(-8, -26, 3, false, '#1c2740', 0.5);
+    eye(8, -26, 3, false, '#1c2740', 0.5);
+    for (const dir of [-1, 1]) {
+      line(dir * 8, 0, dir * 30, -6 - up, '#5fbf6a', 5);
+      line(dir * 30, -6 - up, dir * 30, -36 - up, '#7ad685', 5); // 직각으로 꺾인 낫
+      line(dir * 6, 40, dir * 22, 48, '#5fbf6a', 3);
+    }
+    ctx.strokeStyle = C('#d7ffd9');
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(30 - 8, -6 - up - 8, 8, 8); // 직각 표시
+  }
+  // 빙글 팽이 (数学C 複素数平面): 늘 돌고 있고, 고유 동작은 한 바퀴 크게 돌기
+  function drawSpintop(f) {
+    const turn = S.t * 5 + specOf(f) * Math.PI * 2;
+    const wide = 30 * (0.75 + 0.25 * Math.abs(Math.cos(turn)));
+    line(0, -44, 0, -24, '#c9d3ee', 4); // 꼭지
+    poly([-wide, -24, wide, -24, 0, 44], '#7a6cf0');
+    poly([-wide, -24, wide, -24, wide * 0.6, -6, -wide * 0.6, -6], '#9d92ff');
+    line(-wide * 0.5 * Math.cos(turn), 6, wide * 0.5 * Math.cos(turn), 6, '#ffc857', 3);
+    eye(-8, -15, 3, false, '#1c2740', 0.9);
+    eye(8, -15, 3, false, '#1c2740', 0.9);
+    glyph('×i', 0, 22, 12, '#eef0ff');
+  }
+  // 타원 알 (数学C 2次曲線): 고유 동작은 옆으로 길게 눌렸다 돌아오기
+  function drawEgg(f) {
+    const sq = Math.sin(specOf(f) * Math.PI) * 0.35;
+    ctx.save();
+    ctx.translate(0, 6);
+    ctx.scale(1 + sq, 1 - sq);
+    ell(0, 0, 30, 40, '#f6ecd4');
+    ell(-8, -14, 9, 12, '#fffaf0');
+    circ(-12, 6, 2.6, '#c9a26b'); // 두 초점
+    circ(12, 6, 2.6, '#c9a26b');
+    line(-12, 6, 12, 6, '#c9a26b', 1);
+    eye(-9, -6, 3.4, false, '#1c2740', 0.1);
+    eye(9, -6, 3.4, false, '#1c2740', 0.1);
+    ctx.restore();
+  }
+  // 들쭉날쭉 고슴도치 (数学B 統計): 고유 동작은 가시를 길게 세우기
+  function drawHedgehog(f) {
+    const up = 1 + Math.sin(specOf(f) * Math.PI) * 0.6;
+    for (let k = 0; k < 9; k++) {
+      const a = Math.PI * (1.05 + (k / 8) * 0.9);
+      const len = (30 + ((k * 7) % 5) * 4) * up; // 길이가 제각각인 가시
+      line(Math.cos(a) * 20, 14 + Math.sin(a) * 16, Math.cos(a) * len * 1.2, 14 + Math.sin(a) * len, '#8a6a4a', 4);
+    }
+    ell(0, 20, 34, 24, '#b08a5e');
+    ell(22, 26, 18, 14, '#e8cfa8'); // 얼굴
+    circ(38, 26, 3.4, '#1c2740');
+    eye(22, 20, 3, false, '#1c2740', 0.6);
+    ell(-14, 42, 9, 4, '#8a6a4a');
+    ell(12, 42, 9, 4, '#8a6a4a');
+  }
+  // 종 모양 해파리 (数学B 統計): 정규분포 곡선 모양의 갓. 고유 동작은 갓을 넓게 펴기
+  function drawJelly(f) {
+    const wide = 1 + Math.sin(specOf(f) * Math.PI) * 0.35;
+    const bob = Math.sin(S.t * 2) * 4;
+    ctx.fillStyle = C('#7fd6f0');
+    ctx.beginPath();
+    ctx.moveTo(-46 * wide, 6 + bob);
+    ctx.bezierCurveTo(-20 * wide, 6 + bob, -16 * wide, -44 + bob, 0, -44 + bob); // 종 모양 곡선
+    ctx.bezierCurveTo(16 * wide, -44 + bob, 20 * wide, 6 + bob, 46 * wide, 6 + bob);
+    ctx.closePath();
+    ctx.fill();
+    for (let k = -2; k <= 2; k++) line(k * 9, 8 + bob, k * 9 + Math.sin(S.t * 3 + k) * 4, 40 + bob, '#a8e6f7', 3);
+    eye(-8, -14 + bob, 3.2, false, '#1c2740', 0.4);
+    eye(8, -14 + bob, 3.2, false, '#1c2740', 0.4);
+    line(0, -44 + bob, 0, 6 + bob, '#e9fbff', 1);
+  }
+  // 계차 지네 (중간 보스, 数学B): 마디 사이가 점점 벌어집니다. 고유 동작은 몸을 길게 늘이기
+  function drawCentipede(f) {
+    const stretch = 1 + Math.sin(specOf(f) * Math.PI) * 0.5;
+    let x = 24;
+    for (let k = 5; k >= 1; k--) {
+      const y = 28 + Math.sin(S.t * 3 + k) * 3;
+      circ(x, y, 13 - k, '#c2603a');
+      line(x, y + 8, x - 4, y + 20, '#7a3a22', 2);
+      line(x, y + 8, x + 4, y + 20, '#7a3a22', 2);
+      x += (4 + k * 2) * stretch; // 간격(계차)이 일정하게 늘어납니다
+    }
+    circ(-2, 14, 22, '#d9744a'); // 머리
+    line(-12, -4, -22, -22, '#7a3a22', 3);
+    line(6, -6, 12, -24, '#7a3a22', 3);
+    eye(-10, 10, 4, true, '#1c2740', 0.2);
+    eye(6, 10, 4, true, '#1c2740', 0.2);
+    glyph('Σ', -2, 26, 13, '#ffe9d9');
+  }
+  // 표본 올빼미 (보스, 数学B): 고유 동작은 두 눈을 크게 뜨기
+  function drawOwl(f) {
+    const big = 1 + Math.sin(specOf(f) * Math.PI) * 0.5;
+    poly([-46, -6, -70, 26, -40, 34], '#5a4a7a'); // 날개
+    poly([46, -6, 70, 26, 40, 34], '#5a4a7a');
+    ell(0, 10, 44, 46, '#6f5d96');
+    ell(0, 22, 28, 30, '#d9cfee');
+    poly([-34, -30, -22, -54, -10, -32], '#6f5d96'); // 귀깃
+    poly([34, -30, 22, -54, 10, -32], '#6f5d96');
+    for (const dir of [-1, 1]) {
+      circ(dir * 16, -12, 13 * big, '#fff6dd');
+      circ(dir * 16, -12, 6 * big, '#1c2740');
+    }
+    poly([-6, -2, 6, -2, 0, 10], '#ffc857');
+    glyph('n', 0, 30, 16, '#5a4a7a');
+  }
+  // 내적 기사 (중간 보스, 数学C): 방패에 내적의 점. 고유 동작은 창을 직각으로 세우기
+  function drawKnight(f) {
+    const lift = Math.sin(specOf(f) * Math.PI);
+    rrect(-20, -8, 40, 52, 8, '#8f9bb8'); // 갑옷
+    circ(0, -26, 18, '#aab5d0'); // 투구
+    rrect(-12, -30, 24, 6, 2, '#1c2740'); // 눈구멍
+    poly([-4, -44, 4, -44, 0, -60], '#d9534f'); // 깃
+    ctx.save();
+    ctx.translate(26, 10);
+    ctx.rotate(-lift * Math.PI / 2 + 0.5);
+    line(0, 30, 0, -50, '#c9d3ee', 4);
+    poly([-6, -50, 6, -50, 0, -66], '#ffc857');
+    ctx.restore();
+    poly([-44, -6, -12, -6, -12, 22, -28, 38, -44, 22], '#3a4a80'); // 방패
+    circ(-28, 12, 5, '#ffc857');
+  }
+  // 복소수 회오리 (보스, 数学C): 소용돌이치는 바람. 고유 동작은 크게 부풀며 돌기
+  function drawWhirl(f) {
+    const grow = 1 + Math.sin(specOf(f) * Math.PI) * 0.3;
+    for (let k = 0; k < 6; k++) {
+      const y = -52 + k * 19;
+      const w = (46 - k * 6) * grow;
+      const shift = Math.sin(S.t * 4 + k * 0.9) * 8;
+      ell(shift, y, w, 10, k % 2 ? '#7a8cf0' : '#9fb0ff');
+    }
+    eye(-12, -34, 5, true, '#1c2740', 0.3);
+    eye(12, -34, 5, true, '#1c2740', 0.3);
+    glyph('zⁿ', 0, -8, 16, '#eef0ff');
+  }
   const FOE_DRAW = {
+    shadow: drawShadow, gate: drawGate, hopper: drawHopper, shroom: drawShroom,
+    crow: drawCrow, mantis: drawMantis, spintop: drawSpintop, egg: drawEgg, hedgehog: drawHedgehog, jelly: drawJelly,
+    centipede: drawCentipede, owl: drawOwl, knight: drawKnight, whirl: drawWhirl,
     ruler: drawRuler, target: drawTarget, pendulum: drawPendulum, wave: drawWave, sprout: drawSprout, logger: drawLogger,
     skater: drawSkater, bucket: drawBucket, sphinx: drawSphinx, hydra: drawHydra,
     imp: drawImp, mirror: drawMirror,
@@ -997,9 +1287,12 @@ export function createStage(canvas) {
     // 캐릭터의 모자나 키 큰 적의 머리가 잘리지 않도록, 보이는 띠 안에 다 들어가게 장면을 줄여서 그립니다.
     const boxW = canvas.clientWidth;
     const boxH = canvas.clientHeight;
+    let roof = 0; // 보이는 범위의 위쪽 끝 (그림 좌표). 떠오르는 숫자와 글이 이 위로 잘려 나가지 않게 합니다.
     if (boxW > 0 && boxH > 0) {
       const seen = boxH / (boxW / W); // 보이는 높이 (그림 좌표)
       const need = BAND[1] - BAND[0];
+      if (seen < need) roof = BAND[0];
+      else if (seen < H) roof = (H - seen) * 0.62;
       if (seen < need) {
         const top = (H - seen) * 0.62; // style.css 의 object-position: 50% 62% 와 같은 값
         const zoom = seen / need;
@@ -1121,9 +1414,10 @@ export function createStage(canvas) {
       ctx.globalAlpha = Math.min(1, n.life * 3);
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#0b1430';
-      ctx.strokeText(n.text, n.x, n.y);
+      const y = Math.max(n.y, roof + n.size * pop * 0.62);
+      ctx.strokeText(n.text, n.x, y);
       ctx.fillStyle = n.color;
-      ctx.fillText(n.text, n.x, n.y);
+      ctx.fillText(n.text, n.x, y);
     }
     ctx.globalAlpha = 1;
     ctx.restore();
@@ -1150,6 +1444,10 @@ export function createStage(canvas) {
     setFoe(kind) {
       S.kind = kind;
       Object.assign(S.foe, { lunge: 0, hit: 0, dead: 0, gone: false, spawn: 1, spec: 0, flag: false });
+    },
+    // 주인공의 모습을 바꿉니다 (js/heroes.js 의 id)
+    setHero(look) {
+      S.look = look;
     },
     heroUp() {
       S.hero.down = false;

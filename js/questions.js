@@ -8,6 +8,7 @@
 // 유형의 이름은 "단원/유형" 입니다. (예: math1-trig/sinerule)
 // 플레이어가 고른 범위(유형 목록) 안에서만 문제를 냅니다.
 import { calcFill } from './calc.js';
+import { CONFIG } from './config.js';
 import { fill, pick, t } from './i18n.js';
 import { GENERATORS, CHAINS } from './generators.js';
 
@@ -93,15 +94,40 @@ export function scopeTree() {
 }
 
 // 유형 목록에 걸친 과목 이름들 (화면 위쪽에 보여줍니다)
-// 고른 유형을 과목별로 나눕니다 (목록의 과목 순서대로). 긴 탑에서 과목 하나가 한 막이 됩니다.
+// 긴 탑: 고른 유형을 막 3개로 나눕니다. 막의 수는 과목 수와 상관없이 늘 3 입니다 (CONFIG.act.count).
+// 배우는 순서(목록의 단원 순서)대로 이어 붙인 뒤, 세 막의 유형 수가 비슷해지도록 단원의 경계에서 자릅니다.
+//   과목 하나(단원 셋)만 골랐다면 단원마다 한 막, 과목을 여럿 골랐다면 한 막에 여러 단원·과목이 들어갑니다.
+//   단원이 셋보다 적으면 유형 단위로 자릅니다. 유형이 너무 적으면(막마다 2개 미만) 긴 탑을 만들지 않습니다 → []
 export function actsFor(keys) {
-  const acts = [];
-  for (const subject of catalog.subjects) {
-    const mine = keys.filter((key) => types.get(key)?.unit.subject === subject);
-    if (mine.length) acts.push({ id: subject.id, keys: mine });
+  const count = CONFIG.act.count;
+  const mine = keys.filter((key) => types.has(key));
+  if (mine.length < count * 2) return [];
+  let blocks = units.map((unit) => mine.filter((key) => types.get(key).unit === unit)).filter((list) => list.length);
+  if (blocks.length < count) blocks = blocks.flat().map((key) => [key]);
+  // 자르는 자리 두 곳을 모두 해 보고, 가장 큰 막이 가장 작아지는 것을 고릅니다
+  const size = (from, to) => blocks.slice(from, to).reduce((sum, list) => sum + list.length, 0);
+  let best = null;
+  for (let i = 1; i < blocks.length - 1; i++) {
+    for (let j = i + 1; j < blocks.length; j++) {
+      const parts = [size(0, i), size(i, j), size(j, blocks.length)];
+      const score = Math.max(...parts) * 1000 - Math.min(...parts);
+      if (!best || score < best.score) best = { score, cuts: [0, i, j, blocks.length] };
+    }
   }
-  return acts;
+  return [0, 1, 2].map((n) => {
+    const part = blocks.slice(best.cuts[n], best.cuts[n + 1]).flat();
+    return { id: types.get(part[0]).unit.subject.id, keys: part };
+  });
 }
+// 막의 이름: 단원 하나뿐이면 그 단원 이름, 아니면 들어 있는 과목 이름들
+export function actLabel(keys) {
+  const list = keys.map((key) => types.get(key)).filter(Boolean);
+  const inUnits = [...new Set(list.map((type) => type.unit))];
+  if (inUnits.length === 1) return pick(inUnits[0].name);
+  return [...new Set(list.map((type) => pick(type.unit.subject.name)))].join(' · ');
+}
+// 처음 하는 사람에게 골라 두는 범위: 목록의 첫 과목(数学I)만. 아직 배우지 않은 과목의 문제가 섞여 나오지 않게 합니다.
+export const starterKeys = () => { const first = catalog.subjects[0]; const keys = allTypeKeys().filter((key) => types.get(key)?.unit.subject === first); return keys.length ? keys : allTypeKeys(); };
 export const subjectName = (id) => { const subject = catalog.subjects.find((s) => s.id === id); return subject ? pick(subject.name) : ''; };
 
 export function subjectNames(keys) {
@@ -176,21 +202,48 @@ function build(entry) {
 }
 
 // 유형을 먼저 고르고, 그 유형의 틀 중 하나를 고릅니다. (유형마다 고르게 나오도록)
+// 방금 낸 유형들. 같은 유형이 금방 다시 나오면 지루하므로, 다른 유형이 남아 있는 동안에는 이 유형들을 피합니다.
+const recentTypes = [];
+function remember(list, value, keep) {
+  const at = list.indexOf(value);
+  if (at >= 0) list.splice(at, 1);
+  list.push(value);
+  while (list.length > keep) list.shift();
+}
 function pickEntry(candidates) {
   const byType = new Map();
   for (const entry of candidates) {
     if (!byType.has(entry.type)) byType.set(entry.type, []);
     byType.get(entry.type).push(entry);
   }
-  const groups = [...byType.values()];
-  const group = groups[rand(groups.length)];
-  return group[rand(group.length)];
+  // 고를 수 있는 유형의 절반까지(많아도 CONFIG.variety.types 개) 최근 것을 뺍니다.
+  const keep = Math.min(CONFIG.variety.types, Math.floor(byType.size / 2));
+  const stale = new Set(recentTypes.slice(recentTypes.length - keep));
+  const fresh = keep > 0 ? [...byType.keys()].filter((type) => !stale.has(type)) : [];
+  const types = fresh.length ? fresh : [...byType.keys()];
+  const group = byType.get(types[rand(types.length)]);
+  const entry = group[rand(group.length)];
+  remember(recentTypes, entry.type, CONFIG.variety.types);
+  return entry;
 }
 
 // 단계에 맞는 문제를 하나 냅니다.
 // 범위 안에 그 단계의 문제가 없으면 가장 가까운 단계의 문제를 냅니다.
-export function next(level) {
+// favor: 적의 약점 유형. 주면 CONFIG.weakRate 의 확률로 그 유형을 먼저 냅니다. (그 유형에 이 단계의 문제가 없으면 가장 가까운 단계)
+//   범위가 넓어질수록 약점 유형이 우연히 나올 확률은 줄어듭니다 (유형 수 분의 1). 이렇게 따로 올려 두어야 약점이 의미를 가집니다.
+export function next(level, favor = '') {
   const pool = templates.filter(inScope);
+  if (favor && Math.random() < CONFIG.weakRate) {
+    const mine = pool.filter((entry) => entry.type === favor);
+    const reach = mine.length ? Math.min(...mine.map((entry) => Math.abs(entry.level - level))) : 9;
+    if (reach <= 1) { // 두 단계 넘게 차이 나는 문제는 내지 않습니다 (쉬운 문제를 고른 사람에게 가장 어려운 문제가 나오지 않게)
+      const near = Math.min(...mine.map((entry) => Math.abs(entry.level - level)));
+      const pickFrom = mine.filter((entry) => Math.abs(entry.level - level) === near);
+      const entry = pickFrom[rand(pickFrom.length)];
+      remember(recentTypes, entry.type, CONFIG.variety.types);
+      return build(entry);
+    }
+  }
   for (const distance of [0, 1, 2]) {
     const candidates = pool.filter((entry) => Math.abs(entry.level - level) === distance);
     if (candidates.length) {
@@ -269,10 +322,17 @@ export const chainTotal = () => chains.filter((entry) => entry.gen && !entry.dra
 // 연속기 하나를 만듭니다. 돌려주는 것: { intro(), steps: [물음, …] }
 // 물음 하나는 보통 문제와 같은 모양이라, 화면과 도감이 그대로 다룰 수 있습니다.
 // 물음에 figure 를 적으면 묶음의 그림에 그 이름표만 덮어씁니다. (구할 것은 "?", 구한 뒤에는 "{a1}")
+const recentChains = [];
 export function nextChain(boss = false) {
   const pool = chainPool(boss);
   if (!pool.length) return null;
-  const entry = pool[rand(pool.length)];
+  // 방금 나온 묶음은 피합니다: 고를 수 있는 묶음의 절반까지(많아도 CONFIG.variety.chains 개).
+  const keep = Math.min(CONFIG.variety.chains, Math.floor(pool.length / 2));
+  const stale = new Set(recentChains.slice(recentChains.length - keep));
+  const fresh = keep > 0 ? pool.filter((item) => !stale.has(item.id)) : [];
+  const from = fresh.length ? fresh : pool;
+  const entry = from[rand(from.length)];
+  remember(recentChains, entry.id, CONFIG.variety.chains);
   const data = entry.gen();
   const { steps: made, ...fields } = data;
   const answers = {};

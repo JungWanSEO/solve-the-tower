@@ -254,7 +254,7 @@
       "ko": "그림을 그리지 않고 풀려는 것",
       "en": "Solving without drawing the figure"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "math1-trig/twopoint",
     "basicLevel": 2,
     "skillLevel": 3
@@ -272,7 +272,7 @@
       "ko": "해가 있는지(D의 부호)를 확인하지 않고 풀기",
       "en": "Solving without checking whether solutions exist (the sign of D)"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "math1-quad/discriminant",
     "basicLevel": 2,
     "skillLevel": 3
@@ -290,7 +290,7 @@
       "ko": "정리를 쓸 수 있는 조건(원에 내접하는지 등)을 확인하지 않기",
       "en": "Using a theorem without checking that its conditions hold"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "matha-geom/power",
     "basicLevel": 2,
     "skillLevel": 3
@@ -326,7 +326,7 @@
       "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
       "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "matha-int/euclid",
     "basicLevel": 2,
     "skillLevel": 3
@@ -566,8 +566,252 @@
       "ko": "f′(x) = 0 인 점을 증감을 확인하지 않고 모두 극값이라고 단정하기",
       "en": "Calling every point with f′(x) = 0 an extremum without checking the sign change"
     },
-    "hp": 32,
+    "hp": 44,
     "weak": "math2-calc/extrema",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "hopper",
+    "name": {
+      "ja": "とびとびウサギ",
+      "ko": "건너뛰는 토끼",
+      "en": "Skipping Rabbit"
+    },
+    "mistake": {
+      "ja": "第 n 項を求めるとき、公差を n − 1 回ではなく n 回足す",
+      "ko": "제n항을 구할 때 공차를 (n − 1)번이 아니라 n번 더하기",
+      "en": "Adding the common difference n times instead of n − 1 times for the nth term"
+    },
+    "hp": 16,
+    "weak": "mathb-seq/arith",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "shroom",
+    "name": {
+      "ja": "倍々キノコ",
+      "ko": "곱절 버섯",
+      "en": "Doubling Mushroom"
+    },
+    "mistake": {
+      "ja": "等比数列の和で、r − 1 で割るのを忘れる",
+      "ko": "등비수열의 합에서 r − 1 로 나누는 것을 잊기",
+      "en": "Forgetting to divide by r − 1 in the sum of a geometric sequence"
+    },
+    "hp": 18,
+    "weak": "mathb-seq/geomsum",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "crow",
+    "name": {
+      "ja": "やじるしガラス",
+      "ko": "화살표 까마귀",
+      "en": "Arrow Crow"
+    },
+    "mistake": {
+      "ja": "AB を b − a ではなく a − b と書いて、向きを逆にする",
+      "ko": "AB 를 b − a 가 아니라 a − b 로 써서 방향을 거꾸로 하기",
+      "en": "Writing AB as a − b instead of b − a, reversing the direction"
+    },
+    "hp": 16,
+    "weak": "mathc-vector/vcomp",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "mantis",
+    "name": {
+      "ja": "直角カマキリ",
+      "ko": "직각 사마귀",
+      "en": "Right-angle Mantis"
+    },
+    "mistake": {
+      "ja": "垂直の条件(内積 = 0)と平行の条件(b = ka)を取り違える",
+      "ko": "수직 조건(내적 = 0)과 평행 조건(b = ka)을 바꿔 쓰기",
+      "en": "Mixing up the conditions for perpendicular (dot product 0) and parallel (b = ka)"
+    },
+    "hp": 18,
+    "weak": "mathc-vector/vperp",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "spintop",
+    "name": {
+      "ja": "ぐるぐるコマ",
+      "ko": "빙글 팽이",
+      "en": "Spinning Top"
+    },
+    "mistake": {
+      "ja": "i を掛けると 90° 回転するのに、大きさも変わると思いこむ",
+      "ko": "i 를 곱하면 90° 회전할 뿐인데 크기도 변한다고 생각하기",
+      "en": "Thinking that multiplying by i changes the size, when it only rotates by 90°"
+    },
+    "hp": 16,
+    "weak": "mathc-curve/crot",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "egg",
+    "name": {
+      "ja": "だえんのたまご",
+      "ko": "타원 알",
+      "en": "Ellipse Egg"
+    },
+    "mistake": {
+      "ja": "楕円の焦点を c² = a² + b² で求める(引くのが正しい)",
+      "ko": "타원의 초점을 c² = a² + b² 으로 구하기 (빼야 맞습니다)",
+      "en": "Finding the foci of an ellipse with c² = a² + b² (it should be a² − b²)"
+    },
+    "hp": 18,
+    "weak": "mathc-curve/ellipse",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "hedgehog",
+    "name": {
+      "ja": "ばらつきハリネズミ",
+      "ko": "들쭉날쭉 고슴도치",
+      "en": "Scatter Hedgehog"
+    },
+    "mistake": {
+      "ja": "V(aX + b) で a を 2 乗せず、b まで足してしまう",
+      "ko": "V(aX + b) 에서 a 를 제곱하지 않고 b 까지 더하기",
+      "en": "Not squaring a, and adding b, in V(aX + b)"
+    },
+    "hp": 16,
+    "weak": "mathb-stat/lintrans",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "jelly",
+    "name": {
+      "ja": "つりがねクラゲ",
+      "ko": "종 모양 해파리",
+      "en": "Bell Jellyfish"
+    },
+    "mistake": {
+      "ja": "標準化で、標準偏差ではなく分散で割る",
+      "ko": "표준화할 때 표준편차가 아니라 분산으로 나누기",
+      "en": "Dividing by the variance instead of the standard deviation when standardizing"
+    },
+    "hp": 18,
+    "weak": "mathb-stat/normal",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "centipede",
+    "midboss": true,
+    "name": {
+      "ja": "階差のムカデ",
+      "ko": "계차 지네",
+      "en": "Difference Centipede"
+    },
+    "mistake": {
+      "ja": "階差数列の和を、n − 1 項までではなく n 項まで足す",
+      "ko": "계차수열의 합을 (n − 1)항까지가 아니라 n항까지 더하기",
+      "en": "Summing n differences instead of n − 1"
+    },
+    "hp": 24,
+    "weak": "mathb-seq/diffseq",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "owl",
+    "boss": true,
+    "name": {
+      "ja": "標本のフクロウ",
+      "ko": "표본 올빼미",
+      "en": "Sampling Owl"
+    },
+    "mistake": {
+      "ja": "標本平均の標準偏差を σ ÷ √n ではなく σ ÷ n で求める",
+      "ko": "표본평균의 표준편차를 σ ÷ √n 이 아니라 σ ÷ n 으로 구하기",
+      "en": "Using σ ÷ n instead of σ ÷ √n for the standard deviation of the sample mean"
+    },
+    "hp": 44,
+    "weak": "mathb-stat/samplemean",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "knight",
+    "midboss": true,
+    "name": {
+      "ja": "内積の騎士",
+      "ko": "내적 기사",
+      "en": "Dot-product Knight"
+    },
+    "mistake": {
+      "ja": "内積を数ではなく、成分を並べたベクトルで答える",
+      "ko": "내적을 수가 아니라 성분을 늘어놓은 벡터로 답하기",
+      "en": "Answering a dot product with a vector instead of a number"
+    },
+    "hp": 24,
+    "weak": "mathc-vector/vdot",
+    "basicLevel": 1,
+    "skillLevel": 2
+  },
+  {
+    "id": "whirl",
+    "boss": true,
+    "name": {
+      "ja": "複素数のたつまき",
+      "ko": "복소수 회오리",
+      "en": "Complex Whirlwind"
+    },
+    "mistake": {
+      "ja": "ド・モアブルの定理で、偏角だけ n 倍して絶対値を n 乗し忘れる",
+      "ko": "드 무아브르의 정리에서 편각만 n배 하고 절댓값을 n제곱하지 않기",
+      "en": "Multiplying the argument by n but forgetting to raise the modulus to the power n in De Moivre's theorem"
+    },
+    "hp": 44,
+    "weak": "mathc-curve/demoivre",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "gate",
+    "gate": true,
+    "name": {
+      "ja": "あとまわしの門番",
+      "ko": "미루기의 문지기",
+      "en": "Gatekeeper of Later"
+    },
+    "mistake": {
+      "ja": "「あとでやる」と言って、わからない問題をそのままにする",
+      "ko": "\"나중에 하지\"라며 모르는 문제를 그대로 두기",
+      "en": "Saying \"I'll do it later\" and leaving the problems you don't understand"
+    },
+    "hp": 30,
+    "weak": "math1-quad/vertex",
+    "basicLevel": 2,
+    "skillLevel": 3
+  },
+  {
+    "id": "shadow",
+    "final": true,
+    "name": {
+      "ja": "あきらめの影",
+      "ko": "포기의 그림자",
+      "en": "Shadow of Giving Up"
+    },
+    "mistake": {
+      "ja": "「どうせできない」と決めて、解く前に鉛筆を置く",
+      "ko": "\"어차피 못 해\"라고 정하고, 풀기도 전에 연필을 내려놓기",
+      "en": "Deciding \"I can't do it anyway\" and putting the pencil down before trying"
+    },
+    "hp": 56,
+    "weak": "math1-expr/factor",
     "basicLevel": 2,
     "skillLevel": 3
   }

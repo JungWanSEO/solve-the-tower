@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f1a3a">
+<meta name="color-scheme" content="only dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,6 +18,8 @@
 <!-- 코드 파일을 차례로 기다리지 않고 한꺼번에 받게 합니다. js 파일을 추가하면 여기에도 한 줄 추가합니다. -->
 <link rel="modulepreload" href="./js/battle.js">
 <link rel="modulepreload" href="./js/relics.js">
+<link rel="modulepreload" href="./js/heroes.js">
+<link rel="modulepreload" href="./js/news.js">
 <link rel="modulepreload" href="./js/codex.js">
 <link rel="modulepreload" href="./js/art.js">
 <link rel="modulepreload" href="./js/calc.js">
@@ -102,6 +105,7 @@
         <!-- 작은 버튼 줄: 그림과 이름만 보입니다. (설명은 화면 낭독기용으로 남겨 둡니다) -->
         <button type="button" class="tile" id="titleCodex"><i data-ico="book"></i><b data-i18n="ui.codex"></b><small class="sr" data-i18n="title.codexSub"></small></button>
         <button type="button" class="tile" id="titleTutorial" hidden><i data-ico="replay"></i><b data-i18n="title.tutorialShort"></b><small class="sr" data-i18n="title.tutorialSub"></small></button>
+        <button type="button" class="tile" id="titleNews"><i data-ico="news"></i><b data-i18n="title.newsShort"></b><small class="sr" data-i18n="title.newsSub"></small></button>
         <button type="button" class="tile" id="titleSettings"><i data-ico="gear"></i><b data-i18n="set.title"></b><small class="sr" data-i18n="title.setSub"></small></button>
         <button type="button" id="titleData" hidden></button>
       </div>
@@ -367,6 +371,15 @@
       <h2 id="dialogTitle"></h2>
       <p id="dialogText"></p>
       <div class="dialog-buttons" id="dialogButtons"></div>
+    </div>
+  </div>
+
+  <!-- 업데이트 소식: 버전마다 바뀐 것 (data/news.json). 처음 화면의 "소식" 버튼으로 열고, 새 버전을 처음 열면 한 번 저절로 뜹니다 -->
+  <div class="menu-overlay" id="news" role="dialog" aria-modal="true" aria-labelledby="newsTitle" hidden>
+    <div class="menu-box news-box">
+      <h2 id="newsTitle"></h2>
+      <div class="news-list" id="newsList"></div>
+      <button type="button" class="primary" id="newsClose"></button>
     </div>
   </div>
 

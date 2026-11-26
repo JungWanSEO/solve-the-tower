@@ -110,7 +110,8 @@ export function makeMap(ascend = 0) {
 // scope: 이번 판에 나올 문제 유형의 목록 ("단원/유형")
 // ascend: 이번 판의 도전 단계 (0 이면 보통), cheer: 격려 단계 (연달아 쓰러진 횟수에서 나옵니다)
 // acts: 긴 탑일 때 막의 목록 [{ id: 과목, keys: 그 막의 유형 }]. 없거나 하나뿐이면 지금까지처럼 지도 한 장으로 끝납니다.
-export function newRun(scope, ascend = 0, cheer = 0, acts = null) {
+// hero: 이번 판의 모습 (js/heroes.js). 체력과 시작 유물이 모습마다 다릅니다.
+export function newRun(scope, ascend = 0, cheer = 0, acts = null, hero = 'starter') {
   const { bonusPerType, bonusMax } = CONFIG.scope;
   const long = Array.isArray(acts) && acts.length > 1;
   const run = {
@@ -125,16 +126,19 @@ export function newRun(scope, ascend = 0, cheer = 0, acts = null) {
     at: null,        // 마지막으로 끝낸 칸 (아직 출발 전이면 null)
     pending: null,   // 들어갔지만 아직 끝내지 못한 칸
     visited: [],     // 지나온 칸
-    hp: CONFIG.player.hp + CONFIG.cheer.hp * cheer,
-    maxHp: CONFIG.player.hp + CONFIG.cheer.hp * cheer,
+    hero,
+    hp: (CONFIG.hero[hero] || CONFIG.hero.starter).hp + CONFIG.cheer.hp * cheer,
+    maxHp: (CONFIG.hero[hero] || CONFIG.hero.starter).hp + CONFIG.cheer.hp * cheer,
     gold: 0,
     hints: ascend >= 4 ? CONFIG.ascend.hints : CONFIG.player.hints,
     up: { basic: 0, skill: 0, counter: 0, weak: 0 }, // 강화로 더해진 값
+    keys: {},        // 진보스의 열쇠 { rest, relic, win: true } (js/config.js 의 trueBoss)
     relics: [],      // 이번 판에 얻은 유물의 id (얻은 순서대로. js/relics.js)
     spent: {},       // 한 판에 한 번만 쓰는 유물을 이미 썼는지 { bandage: true }
     lastFoe: null,
   };
-  for (const id of CONFIG.relic.start) gainRelic(run, id); // 시작 유물 (보통은 없습니다)
+  gainRelic(run, (CONFIG.hero[hero] || CONFIG.hero.starter).relic); // 모습의 시작 유물
+  for (const id of CONFIG.relic.start) gainRelic(run, id); // 밸런스를 잴 때 더 넣는 유물 (보통은 없습니다)
   return run;
 }
 

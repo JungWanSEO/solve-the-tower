@@ -46,6 +46,30 @@
         "math2-explog",
         "math2-calc"
       ]
+    },
+    {
+      "id": "mathb",
+      "name": {
+        "ja": "数学B",
+        "ko": "수학B",
+        "en": "Math B"
+      },
+      "units": [
+        "mathb-seq",
+        "mathb-stat"
+      ]
+    },
+    {
+      "id": "mathc",
+      "name": {
+        "ja": "数学C",
+        "ko": "수학C",
+        "en": "Math C"
+      },
+      "units": [
+        "mathc-vector",
+        "mathc-curve"
+      ]
     }
   ]
 }

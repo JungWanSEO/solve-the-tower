@@ -385,9 +385,9 @@
             "en": "What is the radius of the circle?"
           },
           "explain": {
-            "ja": "右辺は r²\n半径は {answer}",
-            "ko": "우변은 r². 반지름은 {answer}",
-            "en": "The right side is r²; the radius is {answer}"
+            "ja": "(x − a)² + (y − b)² = r² の右辺は r²(半径そのものではない)\nr² = {=nums(circle)[nums(circle).length-1]} より r = √{=nums(circle)[nums(circle).length-1]} = {answer}",
+            "ko": "(x − a)² + (y − b)² = r² 의 우변은 r² (반지름 그 자체가 아닙니다)\nr² = {=nums(circle)[nums(circle).length-1]} 이므로 r = √{=nums(circle)[nums(circle).length-1]} = {answer}",
+            "en": "The right side of (x − a)² + (y − b)² = r² is r², not the radius itself\nr² = {=nums(circle)[nums(circle).length-1]}, so r = √{=nums(circle)[nums(circle).length-1]} = {answer}"
           }
         },
         {

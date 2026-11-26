@@ -1,0 +1,400 @@
+{
+  "id": "mathc-curve",
+  "name": {
+    "ja": "平面上の曲線と複素数平面",
+    "ko": "평면 위의 곡선과 복소평면",
+    "en": "Plane curves and the complex plane"
+  },
+  "types": {
+    "cabs": {
+      "ja": "複素数の絶対値と 2 点間の距離",
+      "ko": "복소수의 절댓값과 두 점 사이의 거리",
+      "en": "Modulus and distance in the complex plane"
+    },
+    "carg": {
+      "ja": "偏角",
+      "ko": "편각",
+      "en": "Argument of a complex number"
+    },
+    "demoivre": {
+      "ja": "ド・モアブルの定理",
+      "ko": "드 무아브르의 정리",
+      "en": "De Moivre's theorem"
+    },
+    "crot": {
+      "ja": "複素数と回転",
+      "ko": "복소수와 회전",
+      "en": "Rotation with complex numbers"
+    },
+    "parab": {
+      "ja": "放物線の焦点と準線",
+      "ko": "포물선의 초점과 준선",
+      "en": "Focus and directrix of a parabola"
+    },
+    "ellipse": {
+      "ja": "楕円",
+      "ko": "타원",
+      "en": "Ellipses"
+    },
+    "hyper": {
+      "ja": "双曲線",
+      "ko": "쌍곡선",
+      "en": "Hyperbolas"
+    }
+  },
+  "groups": [
+    {
+      "name": {
+        "ja": "複素数平面",
+        "ko": "복소평면",
+        "en": "The complex plane"
+      },
+      "types": [
+        "cabs",
+        "carg",
+        "demoivre",
+        "crot"
+      ]
+    },
+    {
+      "name": {
+        "ja": "2 次曲線",
+        "ko": "이차곡선",
+        "en": "Conic sections"
+      },
+      "types": [
+        "parab",
+        "ellipse",
+        "hyper"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "cabs",
+      "level": 1,
+      "type": "cabs",
+      "gen": "cabs",
+      "text": {
+        "ja": "複素数 z = {z} の絶対値 |z| は?",
+        "ko": "복소수 z = {z} 의 절댓값 |z| 는?",
+        "en": "What is the modulus |z| of z = {z}?"
+      },
+      "explain": {
+        "ja": "z = a + bi の絶対値は、複素数平面で原点から点 z までの距離: |z| = √(a² + b²)\n実部 {a}、虚部 {b}(i は入れない) → ({a})² + ({b})² = {=a*a+b*b}\n|z| = √{=a*a+b*b} = {answer}",
+        "ko": "z = a + bi 의 절댓값은 복소평면에서 원점부터 점 z 까지의 거리: |z| = √(a² + b²)\n실수부분 {a}, 허수부분 {b} (i 는 넣지 않습니다) → ({a})² + ({b})² = {=a*a+b*b}\n|z| = √{=a*a+b*b} = {answer}",
+        "en": "The modulus of z = a + bi is its distance from the origin: |z| = √(a² + b²)\nReal part {a}, imaginary part {b} (without the i) → ({a})² + ({b})² = {=a*a+b*b}\n|z| = √{=a*a+b*b} = {answer}"
+      }
+    },
+    {
+      "id": "cdist",
+      "level": 2,
+      "type": "cabs",
+      "gen": "cabs",
+      "params": {
+        "ask": "dist"
+      },
+      "text": {
+        "ja": "複素数平面上の 2 点 A({z1}), B({z2}) の間の距離は?",
+        "ko": "복소평면 위의 두 점 A({z1}), B({z2}) 사이의 거리는?",
+        "en": "What is the distance between the points A({z1}) and B({z2}) in the complex plane?"
+      },
+      "explain": {
+        "ja": "2 点間の距離は、差の絶対値 |z₁ − z₂|\nz₁ − z₂ = {diff}(実部どうし、虚部どうしを引く)\n|{diff}| = √(({p})² + ({q})²) = √{=p*p+q*q} = {answer}",
+        "ko": "두 점 사이의 거리는 차의 절댓값 |z₁ − z₂|\nz₁ − z₂ = {diff} (실수부분끼리, 허수부분끼리 뺍니다)\n|{diff}| = √(({p})² + ({q})²) = √{=p*p+q*q} = {answer}",
+        "en": "The distance is the modulus of the difference, |z₁ − z₂|\nz₁ − z₂ = {diff} (subtract real parts and imaginary parts separately)\n|{diff}| = √(({p})² + ({q})²) = √{=p*p+q*q} = {answer}"
+      }
+    },
+    {
+      "id": "carg",
+      "level": 2,
+      "type": "carg",
+      "gen": "carg",
+      "text": {
+        "ja": "複素数 z = {z} の偏角 θ は?(0 ≦ θ < 2π)",
+        "ko": "복소수 z = {z} 의 편각 θ 는? (0 ≦ θ < 2π)",
+        "en": "What is the argument θ of z = {z}? (0 ≦ θ < 2π)"
+      },
+      "explain": {
+        "ja": "点 z を複素数平面にとると、第 {quad} 象限にある(実部と虚部の符号で決まる)\n実軸とのなす鋭角は、横 {re}・縦 {im} の直角三角形から {ref}\n第 {quad} 象限なので、実軸の正の向きから測って θ = {answer}",
+        "ko": "점 z 를 복소평면에 찍으면 제{quad}사분면에 있습니다 (실수부분과 허수부분의 부호로 정해집니다)\n실수축과 이루는 예각은 가로 {re}, 세로 {im} 인 직각삼각형에서 {ref}\n제{quad}사분면이므로 실수축의 양의 방향부터 재면 θ = {answer}",
+        "en": "Plot z: it lies in quadrant {quad} (decided by the signs of the real and imaginary parts)\nThe acute angle with the real axis, from a right triangle with legs {re} and {im}, is {ref}\nIn quadrant {quad}, measured from the positive real axis, θ = {answer}"
+      }
+    },
+    {
+      "id": "demoivre",
+      "level": 3,
+      "type": "demoivre",
+      "gen": "demoivre",
+      "text": {
+        "ja": "z = {z} のとき、z の {n} 乗は?",
+        "ko": "z = {z} 일 때, z 의 {n}제곱은?",
+        "en": "If z = {z}, what is z to the power {n}?"
+      },
+      "explain": {
+        "ja": "極形式に直す: |z| = {r}、偏角は {arg}\nド・モアブルの定理より、絶対値は {n} 乗、偏角は {n} 倍 → 絶対値 {rn}、偏角 {argn}\n{rn}(cos {argn} + i sin {argn}) = {answer}",
+        "ko": "극형식으로 고칩니다: |z| = {r}, 편각은 {arg}\n드 무아브르의 정리에 따라 절댓값은 {n}제곱, 편각은 {n}배 → 절댓값 {rn}, 편각 {argn}\n{rn}(cos {argn} + i sin {argn}) = {answer}",
+        "en": "Write z in polar form: |z| = {r}, argument {arg}\nBy De Moivre, the modulus is raised to the power {n} and the argument is multiplied by {n} → modulus {rn}, argument {argn}\n{rn}(cos {argn} + i sin {argn}) = {answer}"
+      }
+    },
+    {
+      "id": "crot",
+      "level": 2,
+      "type": "crot",
+      "gen": "crot",
+      "text": {
+        "ja": "点 z = {z} を原点のまわりに {ang} だけ回転した点を表す複素数は?",
+        "ko": "점 z = {z} 를 원점을 중심으로 {ang} 만큼 회전한 점을 나타내는 복소수는?",
+        "en": "Which complex number is the point z = {z} rotated about the origin by {ang}?"
+      },
+      "explain": {
+        "ja": "原点のまわりの回転は「cos θ + i sin θ を掛ける」。大きさは変わらない\nθ = {ang} のとき cos θ + i sin θ = {mul}\n({z}) × ({mul}) = {answer}(i² = −1 に注意)",
+        "ko": "원점을 중심으로 한 회전은 \"cos θ + i sin θ 를 곱하기\"입니다. 크기는 변하지 않습니다\nθ = {ang} 일 때 cos θ + i sin θ = {mul}\n({z}) × ({mul}) = {answer} (i² = −1 에 주의)",
+        "en": "Rotating about the origin means multiplying by cos θ + i sin θ. The modulus does not change\nFor θ = {ang}, cos θ + i sin θ = {mul}\n({z}) × ({mul}) = {answer} (remember i² = −1)"
+      }
+    },
+    {
+      "id": "parab",
+      "level": 1,
+      "type": "parab",
+      "gen": "parab",
+      "text": {
+        "ja": "放物線 {eq} の焦点の座標は?",
+        "ko": "포물선 {eq} 의 초점의 좌표는?",
+        "en": "What is the focus of the parabola {eq}?"
+      },
+      "explain": {
+        "ja": "{form} の形と比べる: 4p = {k} より p = {p}\n{form} の焦点は、軸の上で頂点(原点)から p だけ進んだ点\n焦点は {answer}(4p の値 {k} をそのまま使わない)",
+        "ko": "{form} 꼴과 비교합니다: 4p = {k} 이므로 p = {p}\n{form} 의 초점은 축 위에서 꼭짓점(원점)으로부터 p 만큼 나아간 점\n초점은 {answer} (4p 의 값 {k} 를 그대로 쓰지 않습니다)",
+        "en": "Compare with {form}: 4p = {k}, so p = {p}\nThe focus of {form} lies on the axis, p away from the vertex (the origin)\nThe focus is {answer} (do not use 4p = {k} as it is)"
+      }
+    },
+    {
+      "id": "parabdir",
+      "level": 2,
+      "type": "parab",
+      "gen": "parab",
+      "params": {
+        "ask": "dir"
+      },
+      "text": {
+        "ja": "放物線 {eq} の準線の方程式は?",
+        "ko": "포물선 {eq} 의 준선의 방정식은?",
+        "en": "What is the directrix of the parabola {eq}?"
+      },
+      "explain": {
+        "ja": "{form} の形と比べる: 4p = {k} より p = {p}\n準線は、頂点をはさんで焦点と反対側にあり、頂点からの距離は同じ |p|\nしたがって準線は {answer}(焦点と符号が逆)",
+        "ko": "{form} 꼴과 비교합니다: 4p = {k} 이므로 p = {p}\n준선은 꼭짓점을 사이에 두고 초점의 반대쪽에 있고, 꼭짓점으로부터의 거리는 같은 |p|\n따라서 준선은 {answer} (초점과 부호가 반대)",
+        "en": "Compare with {form}: 4p = {k}, so p = {p}\nThe directrix is on the opposite side of the vertex from the focus, at the same distance |p|\nSo the directrix is {answer} (opposite sign to the focus)"
+      }
+    },
+    {
+      "id": "ellipse",
+      "level": 2,
+      "type": "ellipse",
+      "gen": "ellipse",
+      "text": {
+        "ja": "楕円 {eq} の焦点の座標は?",
+        "ko": "타원 {eq} 의 초점의 좌표는?",
+        "en": "What are the foci of the ellipse {eq}?"
+      },
+      "explain": {
+        "ja": "分母の大きい方が長軸: {big} が {axis}² の下にあるので、焦点は {axis} 軸上\n楕円では c² = (大きい分母) − (小さい分母) = {big} − {small} = {=big-small}(足すのは双曲線)\nc = √{=big-small} より {answer}",
+        "ko": "분모가 큰 쪽이 긴지름: {big} 이 {axis}² 아래에 있으므로 초점은 {axis}축 위\n타원에서는 c² = (큰 분모) − (작은 분모) = {big} − {small} = {=big-small} (더하는 것은 쌍곡선)\nc = √{=big-small} 이므로 {answer}",
+        "en": "The larger denominator gives the major axis: {big} is under {axis}², so the foci are on the {axis}-axis\nFor an ellipse c² = (larger) − (smaller) = {big} − {small} = {=big-small} (adding is for a hyperbola)\nc = √{=big-small}, so {answer}"
+      }
+    },
+    {
+      "id": "ellipseaxis",
+      "level": 1,
+      "type": "ellipse",
+      "gen": "ellipse",
+      "params": {
+        "ask": "axis"
+      },
+      "text": {
+        "ja": "楕円 {eq} の長軸の長さは?",
+        "ko": "타원 {eq} 의 긴지름의 길이는?",
+        "en": "What is the length of the major axis of the ellipse {eq}?"
+      },
+      "explain": {
+        "ja": "分母の大きい方 {big} が a² → a = {a}\n楕円は中心から両側に a ずつ伸びるので、長軸の長さは 2a\n2 × {a} = {answer}",
+        "ko": "분모가 큰 쪽 {big} 이 a² → a = {a}\n타원은 중심에서 양쪽으로 a 씩 뻗으므로 긴지름의 길이는 2a\n2 × {a} = {answer}",
+        "en": "The larger denominator {big} is a², so a = {a}\nThe ellipse reaches a on each side of the centre, so the major axis is 2a\n2 × {a} = {answer}"
+      }
+    },
+    {
+      "id": "hyper",
+      "level": 2,
+      "type": "hyper",
+      "gen": "hyper",
+      "text": {
+        "ja": "双曲線 {eq} の焦点の座標は?",
+        "ko": "쌍곡선 {eq} 의 초점의 좌표는?",
+        "en": "What are the foci of the hyperbola {eq}?"
+      },
+      "explain": {
+        "ja": "x² の項が正なので、焦点は x 軸上にある\n双曲線では c² = a² + b² = {a2} + {b2} = {=a2+b2}(引くのは楕円)\nc = √{=a2+b2} より {answer}",
+        "ko": "x² 의 항이 양수이므로 초점은 x축 위에 있습니다\n쌍곡선에서는 c² = a² + b² = {a2} + {b2} = {=a2+b2} (빼는 것은 타원)\nc = √{=a2+b2} 이므로 {answer}",
+        "en": "The x² term is positive, so the foci are on the x-axis\nFor a hyperbola c² = a² + b² = {a2} + {b2} = {=a2+b2} (subtracting is for an ellipse)\nc = √{=a2+b2}, so {answer}"
+      }
+    },
+    {
+      "id": "hyperasym",
+      "level": 2,
+      "type": "hyper",
+      "gen": "hyper",
+      "params": {
+        "ask": "asym"
+      },
+      "text": {
+        "ja": "双曲線 {eq} の漸近線の方程式は?",
+        "ko": "쌍곡선 {eq} 의 점근선의 방정식은?",
+        "en": "What are the asymptotes of the hyperbola {eq}?"
+      },
+      "explain": {
+        "ja": "x²/a² − y²/b² = 1 の漸近線は y = ±(b/a)x\na² = {a2} より a = {a}、b² = {b2} より b = {b}(2 乗のままにしない)\n傾きは ±b/a = ±{b}/{a} → {answer}",
+        "ko": "x²/a² − y²/b² = 1 의 점근선은 y = ±(b/a)x\na² = {a2} 이므로 a = {a}, b² = {b2} 이므로 b = {b} (제곱인 채로 두지 않습니다)\n기울기는 ±b/a = ±{b}/{a} → {answer}",
+        "en": "The asymptotes of x²/a² − y²/b² = 1 are y = ±(b/a)x\na² = {a2} gives a = {a}; b² = {b2} gives b = {b} (do not leave them squared)\nThe slopes are ±b/a = ±{b}/{a} → {answer}"
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-ellipse",
+      "gen": "ellipse3",
+      "intro": {
+        "ja": "楕円 {eq} について答えよ。",
+        "ko": "타원 {eq} 에 대하여 답하시오.",
+        "en": "Answer about the ellipse {eq}."
+      },
+      "steps": [
+        {
+          "type": "ellipse",
+          "level": 1,
+          "sum": {
+            "ja": "長軸の長さ",
+            "ko": "긴지름의 길이",
+            "en": "Major axis"
+          },
+          "text": {
+            "ja": "長軸の長さは?",
+            "ko": "긴지름의 길이는?",
+            "en": "What is the length of the major axis?"
+          },
+          "explain": {
+            "ja": "a² = {big} より a = {=sqrt(big)}\n長軸の長さは 2a = {answer}",
+            "ko": "a² = {big} 이므로 a = {=sqrt(big)}\n긴지름의 길이는 2a = {answer}",
+            "en": "a² = {big}, so a = {=sqrt(big)}\nThe major axis is 2a = {answer}"
+          }
+        },
+        {
+          "type": "ellipse",
+          "level": 1,
+          "sum": {
+            "ja": "短軸の長さ",
+            "ko": "짧은지름의 길이",
+            "en": "Minor axis"
+          },
+          "text": {
+            "ja": "短軸の長さは?",
+            "ko": "짧은지름의 길이는?",
+            "en": "What is the length of the minor axis?"
+          },
+          "explain": {
+            "ja": "b² = {small} より b = {=sqrt(small)}\n短軸の長さは 2b = {answer}",
+            "ko": "b² = {small} 이므로 b = {=sqrt(small)}\n짧은지름의 길이는 2b = {answer}",
+            "en": "b² = {small}, so b = {=sqrt(small)}\nThe minor axis is 2b = {answer}"
+          }
+        },
+        {
+          "type": "ellipse",
+          "level": 2,
+          "sum": {
+            "ja": "焦点 (c, 0) の c",
+            "ko": "초점 (c, 0) 의 c",
+            "en": "c of the focus (c, 0)"
+          },
+          "text": {
+            "ja": "焦点を (±c, 0) とするとき、c の値は?(c > 0)",
+            "ko": "초점을 (±c, 0) 이라 할 때, c 의 값은? (c > 0)",
+            "en": "If the foci are (±c, 0), what is c? (c > 0)"
+          },
+          "explain": {
+            "ja": "楕円では c² = a² − b² = {big} − {small} = {=big-small}(足さない)\nc = √{=big-small} = {answer}",
+            "ko": "타원에서는 c² = a² − b² = {big} − {small} = {=big-small} (더하지 않습니다)\nc = √{=big-small} = {answer}",
+            "en": "For an ellipse c² = a² − b² = {big} − {small} = {=big-small} (do not add)\nc = √{=big-small} = {answer}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-polar",
+      "gen": "polar3",
+      "intro": {
+        "ja": "複素数 z = {z} について答えよ。",
+        "ko": "복소수 z = {z} 에 대하여 답하시오.",
+        "en": "Answer about the complex number z = {z}."
+      },
+      "steps": [
+        {
+          "type": "cabs",
+          "level": 1,
+          "sum": {
+            "ja": "|z|",
+            "ko": "|z|",
+            "en": "|z|"
+          },
+          "text": {
+            "ja": "絶対値 |z| は?",
+            "ko": "절댓값 |z| 는?",
+            "en": "What is |z|?"
+          },
+          "explain": {
+            "ja": "|z| = √((実部)² + (虚部)²)(虚部に i は入れない)\n({re})² + ({im})² = {q}\n|z| = √{q} = {answer}",
+            "ko": "|z| = √((실수부분)² + (허수부분)²) (허수부분에 i 는 넣지 않습니다)\n({re})² + ({im})² = {q}\n|z| = √{q} = {answer}",
+            "en": "|z| = √((real part)² + (imaginary part)²), without the i\n({re})² + ({im})² = {q}\n|z| = √{q} = {answer}"
+          }
+        },
+        {
+          "type": "carg",
+          "level": 2,
+          "sum": {
+            "ja": "偏角",
+            "ko": "편각",
+            "en": "Argument"
+          },
+          "text": {
+            "ja": "偏角 θ は?(0 ≦ θ < 2π)",
+            "ko": "편각 θ 는? (0 ≦ θ < 2π)",
+            "en": "What is the argument θ? (0 ≦ θ < 2π)"
+          },
+          "explain": {
+            "ja": "実部と虚部の符号から、点 z は第 {quad} 象限にある\n実軸とのなす鋭角は、横 {re}・縦 {im} の直角三角形から {ref}\n第 {quad} 象限に合わせて θ = {answer}",
+            "ko": "실수부분과 허수부분의 부호로 보면 점 z 는 제{quad}사분면에 있습니다\n실수축과 이루는 예각은 가로 {re}, 세로 {im} 인 직각삼각형에서 {ref}\n제{quad}사분면에 맞추면 θ = {answer}",
+            "en": "From the signs of the real and imaginary parts, z is in quadrant {quad}\nThe acute angle with the real axis, from a right triangle with legs {re} and {im}, is {ref}\nPlaced in quadrant {quad}: θ = {answer}"
+          }
+        },
+        {
+          "type": "demoivre",
+          "level": 3,
+          "sum": {
+            "ja": "z の {n} 乗",
+            "ko": "z 의 {n}제곱",
+            "en": "z to the power {n}"
+          },
+          "text": {
+            "ja": "z の {n} 乗は?",
+            "ko": "z 의 {n}제곱은?",
+            "en": "What is z to the power {n}?"
+          },
+          "explain": {
+            "ja": "ド・モアブルの定理: 絶対値は {n} 乗、偏角は {n} 倍\n絶対値 ({a1}) の {n} 乗 = {rn}、偏角 {a2} × {n} = {argn}\n{rn}(cos {argn} + i sin {argn}) = {answer}",
+            "ko": "드 무아브르의 정리: 절댓값은 {n}제곱, 편각은 {n}배\n절댓값 ({a1}) 의 {n}제곱 = {rn}, 편각 {a2} × {n} = {argn}\n{rn}(cos {argn} + i sin {argn}) = {answer}",
+            "en": "De Moivre: the modulus is raised to the power {n}, the argument is multiplied by {n}\nModulus ({a1}) to the power {n} = {rn}; argument {a2} × {n} = {argn}\n{rn}(cos {argn} + i sin {argn}) = {answer}"
+          }
+        }
+      ]
+    }
+  ]
+}
