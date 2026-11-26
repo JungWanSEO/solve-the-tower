@@ -18,3 +18,9 @@ export function heroVars(id) {
   const h = CONFIG.hero[id];
   return { hp: h.hp, n: id === 'grit' ? h.guardBonus : id === 'flash' ? h.ultNeed : 0, was: CONFIG.ultNeed, clears: h.clears };
 }
+// 그 모습의 필살기 (CONFIG.hero.<id>.ult) 와, 설명 글에 넣을 숫자. add: 유물 등으로 더해지는 피해
+export const ultOf = (id) => (CONFIG.hero[id] && CONFIG.hero[id].ult) || { dmg: CONFIG.damage.ult };
+export function ultVars(id, add = 0) {
+  const u = ultOf(id);
+  return { d: u.dmg * (u.hits || 1) + add, n: u.heal || u.shield || u.hits || 0 };
+}
