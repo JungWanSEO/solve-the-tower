@@ -439,9 +439,9 @@
   },
   "act": {
     "askTitle": "Tower length",
-    "askText": "The long tower has 3 acts and 30 floors. Your chosen range is split into three in the order it is taught: {list}. The short tower has 10 floors with mixed problems.",
+    "askText": "The long tower has {n} acts and {floors} floors. Your chosen range is split into three in the order it is taught: {list}. The short tower has {short} floors with mixed problems.",
     "long": "Long tower ({n} acts)",
-    "short": "Short tower (10 floors)",
+    "short": "Short tower ({n} floors)",
     "nextTitle": "Act {n}: {name}",
     "nextText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. {left} acts remain, counting this one. Your gold and upgrades carry over.",
     "lastText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. This is the final act. Your gold and upgrades carry over."

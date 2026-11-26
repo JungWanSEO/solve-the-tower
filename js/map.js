@@ -48,7 +48,7 @@ export function createMap({ getRun, onPick, getWins = () => 0 }) {
     const run = getRun();
     const height = run.floors * ROW + GATE;
     const big = (n) => BIG.includes(n.type);
-    const x = (n) => (big(n) ? 50 : 14 + ((n.col + 0.5) / CONFIG.map.width) * 72 + wobble(n.id, 7) * 2.6); // 가로 위치(%)
+    const x = (n) => (big(n) ? 50 : 10 + ((n.col + 0.5) / CONFIG.map.width) * 82 + wobble(n.id, 7) * 2); // 가로 위치(%)
     const y = (n) => (run.floors - 1 - n.floor) * ROW + ROW / 2 + (big(n) ? 0 : wobble(n.id, 13) * 6);   // 세로 위치(px)
     const gate = { x: 50, y: height - GATE / 2 + 4 };
     const open = new Set(available(run));
