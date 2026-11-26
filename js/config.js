@@ -115,7 +115,7 @@ export const CONFIG = {
     eliteWeight: 2,  // 2단계: 강적 칸이 나올 무게에 곱하는 값
     eliteHp: 0.25,   // 2단계: 강적의 체력 증가 비율 (1단계에 더해집니다). 강적은 유물을 주므로 칸만 늘려서는 어려워지지 않았습니다
     attackAdd: 1,    // 3단계: 적의 보통 공격에 더하는 값
-    heal: 2,         // 4단계: 전투 승리 회복 (보통은 player.healOnWin)
+    heal: 3,         // 4단계: 전투 승리 회복 (보통은 player.healOnWin = 4). 탑이 30층이 되어 2 는 너무 가혹했습니다 (정답률 70%의 클리어율이 3단계 50% → 4단계 17%)
     hints: 0,        // 4단계: 시작할 때 가진 힌트 수
     bossHp: 0.15,    // 5단계: 중간 보스와 보스의 체력 증가 비율 (1단계에 더해집니다)
     bigAdd: 2,       // 5단계: 적의 강한 공격에 더하는 값
@@ -136,7 +136,7 @@ export const CONFIG = {
   // 모습(직업). 탑을 깬 횟수가 clears 이상이면 얻습니다. 어떤 모습인지는 js/heroes.js, 이름과 설명은 lang/ 의 hero.<id>. 임시 값입니다.
   hero: {
     // ult: 그 모습의 필살기. dmg 피해, hits 몇 번 치는지(없으면 1), heal 회복하는 체력, shield 다음에 받을 피해를 막는 횟수
-    starter: { clears: 0, hp: 30, relic: 'pencil', ult: { dmg: 8, heal: 3 } },                    // 다시 시작한 아이: 균형. 고유 능력 없음
+    starter: { clears: 0, hp: 34, relic: 'pencil', ult: { dmg: 8, heal: 4 } },                    // 다시 시작한 아이: 균형. 고유 능력 없음
     grit: { clears: 1, hp: 30, relic: 'setsquare', guardBonus: 1, ult: { dmg: 8, shield: 1 } },     // 끈기 대장: 방어에 성공하면 다음 정답의 피해 +guardBonus
     flash: { clears: 2, hp: 24, relic: 'bookmark', ultNeed: 2, ult: { dmg: 5, hits: 2 } },        // 암산 번개: 필살기에 필요한 연속 정답이 ultNeed 개
     // 오답 탐정: 진보스를 trueClears 번 이기면 얻습니다. 약점 유형이 먼저 나올 확률이 weakRate (보통은 위의 weakRate)

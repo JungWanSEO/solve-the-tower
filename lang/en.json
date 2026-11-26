@@ -128,6 +128,7 @@
     "newRun": "Choose range",
     "overTitle": "Game over",
     "overText": "You fell on floor {n} of {total}. Your gold and upgrades are gone, but your codex record stays. Pick your range again and start on a new map.",
+    "overTextAct": "You fell on floor {n} of Act {a} (floor {at} of {all} overall). Your gold and upgrades are gone, but your codex record stays. Pick your range again and start from Act 1.",
     "restart": "Choose range",
     "restUsed": "You have already used this rest stop.",
     "treasureUsed": "You already tried this chest. Its lock is now shut tight.",
@@ -326,7 +327,7 @@
   },
   "scope": {
     "title": "Choose your range",
-    "text": "Pick the question types for this run. Focus on the ones you find hard, or choose widely so you never know what is coming.",
+    "text": "Pick the question types for this run. Focus on the ones you find hard, or choose widely so you never know what is coming. The tower has 3 acts (30 floors) and splits your range in the order it is taught.",
     "all": "All",
     "weak": "Not mastered",
     "same": "Same as last time",
@@ -457,7 +458,7 @@
     "l1": "Level 1: all enemies have +15% HP",
     "l2": "Level 2: more elite spaces, and elites have +25% HP",
     "l3": "Level 3: normal enemy attacks deal +1",
-    "l4": "Level 4: start with no hints, half healing after a win",
+    "l4": "Level 4: start with no hints, 1 less healing after a win",
     "l5": "Level 5: mid-boss and boss have +15% HP, heavy attacks deal +2",
     "l6": "Level 6: normal attacks deal a further +1 and wins no longer heal. In the boss fight you fill in the digits yourself instead of choosing (numeric answers only)"
   },
@@ -496,6 +497,7 @@
     "lastText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. This is the final act. Your gold and upgrades carry over."
   },
   "relic": {
+    "bagTitle": "Bag",
     "bag": {
       "name": "Heavy Bag",
       "text": "Max HP +{hp}\n▼ Heal {n} less after battles"

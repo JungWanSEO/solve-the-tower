@@ -254,7 +254,7 @@
       "ko": "그림을 그리지 않고 풀려는 것",
       "en": "Solving without drawing the figure"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "math1-trig/twopoint",
     "basicLevel": 2,
     "skillLevel": 3
@@ -272,7 +272,7 @@
       "ko": "해가 있는지(D의 부호)를 확인하지 않고 풀기",
       "en": "Solving without checking whether solutions exist (the sign of D)"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "math1-quad/discriminant",
     "basicLevel": 2,
     "skillLevel": 3
@@ -290,7 +290,7 @@
       "ko": "정리를 쓸 수 있는 조건(원에 내접하는지 등)을 확인하지 않기",
       "en": "Using a theorem without checking that its conditions hold"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "matha-geom/power",
     "basicLevel": 2,
     "skillLevel": 3
@@ -326,7 +326,7 @@
       "ko": "호제법을 나머지가 0이 되기 전에 중간에서 멈추기",
       "en": "Stopping the Euclidean algorithm before the remainder reaches 0"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "matha-int/euclid",
     "basicLevel": 2,
     "skillLevel": 3
@@ -566,7 +566,7 @@
       "ko": "f′(x) = 0 인 점을 증감을 확인하지 않고 모두 극값이라고 단정하기",
       "en": "Calling every point with f′(x) = 0 an extremum without checking the sign change"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "math2-calc/extrema",
     "basicLevel": 2,
     "skillLevel": 3
@@ -738,7 +738,7 @@
       "ko": "표본평균의 표준편차를 σ ÷ √n 이 아니라 σ ÷ n 으로 구하기",
       "en": "Using σ ÷ n instead of σ ÷ √n for the standard deviation of the sample mean"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "mathb-stat/samplemean",
     "basicLevel": 2,
     "skillLevel": 3
@@ -774,7 +774,7 @@
       "ko": "드 무아브르의 정리에서 편각만 n배 하고 절댓값을 n제곱하지 않기",
       "en": "Multiplying the argument by n but forgetting to raise the modulus to the power n in De Moivre's theorem"
     },
-    "hp": 44,
+    "hp": 50,
     "weak": "mathc-curve/demoivre",
     "basicLevel": 2,
     "skillLevel": 3

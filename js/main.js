@@ -242,7 +242,7 @@ async function boot() {
       if (id === 'chainbelt') return t('relic.state.left', { n: Math.max(0, state.chainLeft) });
       return '';
     };
-    $('bagTitle').textContent = `${t('relic.bag')} · ${t('relic.count', { n: relics.length })}`;
+    $('bagTitle').textContent = `${t('relic.bagTitle')} · ${t('relic.count', { n: relics.length })}`;
     $('bagClose').textContent = t('relic.close');
     const list = $('bagList');
     list.innerHTML = '';
@@ -550,12 +550,14 @@ async function boot() {
       if (result === 'lose') {
         // 게임 오버: 지도 한 장의 진행은 사라지고, 도감 기록은 남습니다.
         data.deaths = (data.deaths || 0) + 1;
-        data.last = { floor: node.floor + 1, clear: false }; // 다음 판의 재도전 선물이 이것을 봅니다
+        const acts = run.acts ? run.acts.length : 1;
+        const climbed = (run.act || 0) * run.floors + node.floor + 1; // 탑 전체에서 몇 번째 층인지 (2막 3층 = 13층)
+        data.last = { floor: climbed, clear: false }; // 다음 판의 재도전 선물이 이것을 봅니다
         if (!run.ascend) data.falls = (data.falls || 0) + 1; // 연달아 쓰러진 횟수 (격려 단계가 됩니다)
         data.run = newRun(run.full || run.scope, 0, 0, threeActs(run.full || run.scope));
         persist();
         go('screenEvent');
-        events.gameover({ floor: node.floor + 1, total: run.floors }, goScope);
+        events.gameover({ floor: node.floor + 1, total: run.floors, act: (run.act || 0) + 1, acts, climbed, all: acts * run.floors }, goScope);
         return;
       }
       // 유물: 돼지 저금통은 골드를, 간식 주머니와 무거운 가방은 승리 회복을 바꿉니다.
