@@ -288,7 +288,7 @@ async function boot() {
       toast(t('hero.fxBlock', { name: t(`hero.${vars.hero}.ult`) }), icon('counter'));
       return;
     }
-    const what = id === 'library' ? t('relic.fx.gold', vars)
+    const what = id === 'library' || id === 'magnifier' ? t('relic.fx.gold', vars)
       : id === 'eraser' ? t('relic.fx.half', vars)
         : id === 'bandage' ? t('relic.fx.endure', vars)
           : id === 'note' ? t('relic.fx.hint')

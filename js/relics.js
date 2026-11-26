@@ -35,6 +35,8 @@ export const RELICS = {
   sneakers: { rarity: 'uncommon', hero: 'grit' },     // 낡은 운동화: 강한 공격을 막아 내면 다음 필살기 피해 +4
   stopwatch: { rarity: 'uncommon', hero: 'flash' },   // 스톱워치: 필살기를 쓴 뒤 다음 정답의 피해 +2
   flashmemo: { rarity: 'uncommon', hero: 'flash' },   // 번개 메모: 연속 정답이 1개 이상이면 기본 공격 피해 +1
+  magnifier: { rarity: 'uncommon', hero: 'sleuth' },  // 돋보기: 약점 문제를 맞히면 골드 +3
+  checklist: { rarity: 'uncommon', hero: 'sleuth' },  // 체크 리스트: 전투마다 첫 약점 정답의 피해 +3
 };
 // 이 판의 모습이 얻을 수 있는 유물인지 (전용 유물은 그 모습일 때만)
 export const fitsHero = (run, id) => !RELICS[id].hero || RELICS[id].hero === heroOf(run);

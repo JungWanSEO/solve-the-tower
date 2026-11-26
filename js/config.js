@@ -139,6 +139,8 @@ export const CONFIG = {
     starter: { clears: 0, hp: 30, relic: 'pencil', ult: { dmg: 8, heal: 3 } },                    // 다시 시작한 아이: 균형. 고유 능력 없음
     grit: { clears: 1, hp: 30, relic: 'setsquare', guardBonus: 1, ult: { dmg: 8, shield: 1 } },     // 끈기 대장: 방어에 성공하면 다음 정답의 피해 +guardBonus
     flash: { clears: 2, hp: 24, relic: 'bookmark', ultNeed: 2, ult: { dmg: 5, hits: 2 } },        // 암산 번개: 필살기에 필요한 연속 정답이 ultNeed 개
+    // 오답 탐정: 진보스를 trueClears 번 이기면 얻습니다. 약점 유형이 먼저 나올 확률이 weakRate (보통은 위의 weakRate)
+    sleuth: { clears: 0, trueClears: 1, hp: 26, relic: 'redpen', weakRate: 0.5, ult: { dmg: 6, sure: 1 } }, // ult.sure: 필살기 뒤에 반드시 약점 유형으로 나오는 공격 문제의 수
     force: '',                                                          // 밸런스를 잴 때: 이 모습으로 고정하고 고르는 화면을 건너뜁니다
   },
 
@@ -171,6 +173,8 @@ export const CONFIG = {
     sneakers: 4,     // 낡은 운동화 (끈기 대장): 강한 공격을 막아 낸 뒤 다음 필살기에 더하는 피해
     stopwatch: 2,    // 스톱워치 (암산 번개): 필살기를 쓴 뒤 다음 정답에 더하는 피해
     flashmemo: { need: 1, dmg: 1 }, // 번개 메모 (암산 번개): 연속 정답이 need 개 이상일 때 기본 공격에 더하는 피해
+    magnifier: 3,    // 돋보기 (오답 탐정): 약점 유형의 문제를 맞혔을 때의 골드
+    checklist: 3,    // 체크 리스트 (오답 탐정): 전투마다 첫 약점 정답에 더하는 피해
     commonWeight: 2,                // 보통 보상에서 흔함 : 드묾 = 2 : 1
     price: { common: 80, uncommon: 120 }, // 상점 가격
     emptyGold: 40,                  // 줄 유물이 남아 있지 않을 때 대신 주는 골드
