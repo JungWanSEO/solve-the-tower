@@ -5,7 +5,7 @@ import { t } from './i18n.js';
 import { next, nextByType, explainText, explainBrief, typeLabel, optionText } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { UPGRADES, SHOP, rollUpgrades } from './run.js';
-import { RELICS, has, gainRelic, rollRelics, relicVars, relicPrice } from './relics.js';
+import { RELICS, has, gainRelic, loseRelic, sameRarityLeft, rollRelics, relicVars, relicPrice } from './relics.js';
 import { $, twoLineButton, toast, fillRelicText } from './ui.js';
 import { play } from './sound.js';
 import { scene, hasScene, icon, heroPortrait, currentHeroLook } from './art.js';
@@ -221,6 +221,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         record(state.q.type, ok);
         play(ok ? 'right' : 'wrong');
         state.result = onResult(ok, state.q);
+        persist(); // 결과 화면에서 앱을 닫아도 얻은 것이 남게 바로 저장합니다
         redraw();
       });
       if (state.picked >= 0 && after) after();
@@ -502,18 +503,35 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       });
     },
 
-    // ? 칸: 무슨 일이 생길지 모릅니다. 좋은 일, 나쁜 일, 선택, 기습 중 하나가 나옵니다.
-    // ambush 는 기습일 때 전투를 시작하는 함수입니다.
-    // 한 번 정해진 사건은 칸(node)에 적어 둡니다. 나갔다가 다시 들어와도 같은 사건이 나옵니다.
+    // ? 칸: 무슨 일이 생길지 모릅니다. 좋은 일, 나쁜 일, 선택, 기습 중 하나가 나옵니다. (12종 + 기습)
+    //   바로 일어나는 일: spring 샘물 · fog 안개 · purse 지갑 · thief 소매치기 · note 쪽지 · weaknote 약점 쪽지
+    //   문제를 푸는 일  : statue 석상 · board 낡은 칠판 · bet 내기꾼
+    //   골라서 얻는 일  : dojo 수련장 · peddler 떠돌이 상인 · locker 잊힌 사물함 · bench 벤치
+    //   ambush 기습     : 전투가 시작됩니다. ambush 는 그 전투를 시작하는 함수입니다.
+    // 숫자와 나오는 비중은 CONFIG.mystery 에, 글은 lang 파일의 mystery.<사건> 에 있습니다.
+    // 한 번 정해진 사건은 칸(node)에 적어 둡니다. 나갔다가 다시 들어와도 같은 사건이 나오고, 이미 고른 일은 다시 고를 수 없습니다.
     mystery(node, done, ambush) {
       const run = getRun();
       const M = CONFIG.mystery;
-      const kinds = ['spring', 'fog', 'purse', 'thief', 'note', 'statue', 'ambush'];
+      const mine = Array.isArray(run.relics) ? run.relics : [];
+      // 내놓을 수 있는 유물: 같은 등급의 다른 유물이 아직 남아 있는 것
+      const swappable = () => mine.filter((id) => RELICS[id] && sameRarityLeft(run, RELICS[id].rarity).length);
+      // 지금 낼 수 있는 사건만 고릅니다 (골드나 체력이 모자라 아무것도 못 하는 사건은 나오지 않습니다)
+      const can = {
+        bet: () => run.gold >= M.bet,
+        dojo: () => run.hp > M.dojoCost,
+        peddler: () => run.gold >= M.peddler && sameRarityLeft(run, 'common').length > 0,
+        locker: () => swappable().length > 0,
+      };
+      const kinds = ['spring', 'fog', 'purse', 'thief', 'note', 'statue', 'ambush', 'board', 'bet', 'dojo', 'peddler', 'locker', 'bench', 'weaknote'];
       if (!kinds.includes(node.mystery)) {
-        node.mystery = kinds[Math.floor(Math.random() * kinds.length)];
+        const pool = kinds.filter((id) => !can[id] || can[id]());
+        let roll = Math.random() * pool.reduce((sum, id) => sum + (M.weights[id] || 1), 0);
+        node.mystery = pool.find((id) => (roll -= M.weights[id] || 1) < 0) || pool[0];
         persist();
       }
       const kind = node.mystery;
+      const title = `mystery.${kind}.title`;
       tip('event');
 
       if (kind === 'ambush') {
@@ -554,6 +572,168 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         return;
       }
 
+      // ---- 골라서 하는 사건들 ----
+      // menu(): 고를 것을 그립니다. 고른 뒤에는 settle(결과 글, 얻은 유물)로 결과 화면이 됩니다.
+      let after = null;
+      const settle = (text, relic = '') => {
+        node.used = true;
+        after = { text, relic };
+        persist();
+        redraw();
+      };
+      const choose = (menu) => open(() => {
+        if (after || node.used) {
+          base(title, after ? after.text() : t('mystery.done'));
+          if (after && after.relic) relicCard(after.relic);
+          leave('ev.continue', done);
+          return;
+        }
+        menu();
+        showTip('event');
+      });
+
+      if (kind === 'board') {
+        // 낡은 칠판: 문제를 맞히면 힌트를 얻습니다. 틀려도 잃는 것은 없습니다.
+        choose(() => {
+          base(title, t('mystery.board.text', { n: M.boardHints }));
+          option(t('mystery.board.try'), t('mystery.board.trySub', { n: M.boardHints }), false, () => {
+            node.used = true;
+            persist();
+            quizScreen({
+              titleKey: title,
+              intro: () => t('mystery.board.quiz'),
+              question: next(2),
+              onResult(ok, q) {
+                if (ok) {
+                  run.hints += M.boardHints;
+                  return () => t('mystery.board.ok', { n: M.boardHints });
+                }
+                return () => t('mystery.board.fail', { explain: explainBrief(q.raw) });
+              },
+              done,
+            });
+          }, 'hint');
+          leave('mystery.skip', done);
+        });
+        return;
+      }
+
+      if (kind === 'bet') {
+        // 내기꾼: 골드를 걸고 문제를 풉니다. 건 골드는 문제를 보기 전에 냅니다 (문제를 보고 나가서 물리는 것을 막습니다).
+        choose(() => {
+          base(title, t('mystery.bet.text', { n: M.bet, win: M.betWin }));
+          option(t('mystery.bet.try', { n: M.bet }), t('mystery.bet.trySub', { n: M.bet, win: M.betWin }), run.gold < M.bet, () => {
+            if (run.gold < M.bet) return;
+            run.gold -= M.bet;
+            node.used = true;
+            persist();
+            quizScreen({
+              titleKey: title,
+              intro: () => t('mystery.bet.quiz'),
+              question: next(2),
+              onResult(ok, q) {
+                if (ok) {
+                  run.gold += M.bet + M.betWin;
+                  return () => t('mystery.bet.ok', { n: M.bet, win: M.betWin });
+                }
+                return () => t('mystery.bet.fail', { n: M.bet, explain: explainBrief(q.raw) });
+              },
+              done,
+            });
+          }, 'coin');
+          leave('mystery.skip', done);
+        });
+        return;
+      }
+
+      if (kind === 'dojo') {
+        // 수련장: 체력을 내고 강화 셋 중 하나를 고릅니다.
+        if (!Array.isArray(node.picks)) {
+          node.picks = rollUpgrades(3);
+          persist();
+        }
+        choose(() => {
+          base(title, t('mystery.dojo.text', { n: M.dojoCost }));
+          node.picks.filter((id) => UPGRADES[id]).forEach((id) => {
+            option(t(`up.${id}.name`), t(`up.${id}.desc`), run.hp <= M.dojoCost, () => {
+              if (run.hp <= M.dojoCost) return;
+              run.hp -= M.dojoCost;
+              UPGRADES[id](run);
+              play('right');
+              settle(() => t('mystery.dojo.ok', { n: M.dojoCost, name: t(`up.${id}.name`), desc: t(`up.${id}.desc`) }));
+            }, id, t('mystery.dojo.cost', { n: M.dojoCost }));
+          });
+          leave('mystery.skip', done);
+        });
+        return;
+      }
+
+      if (kind === 'peddler') {
+        // 떠돌이 상인: 흔한 유물 하나를 상점보다 싸게 팝니다.
+        if (node.relic === undefined) {
+          const left = sameRarityLeft(run, 'common');
+          node.relic = left.length ? left[Math.floor(Math.random() * left.length)] : '';
+          persist();
+        }
+        choose(() => {
+          const id = node.relic;
+          base(title, t(id && !has(run, id) ? 'mystery.peddler.text' : 'mystery.peddler.empty', { n: M.peddler, gold: run.gold }));
+          if (id && !has(run, id)) {
+            option(relicName(id), relicText(id), run.gold < M.peddler, () => {
+              if (run.gold < M.peddler) return;
+              run.gold -= M.peddler;
+              takeRelic(id);
+              play('right');
+              settle(() => t('mystery.peddler.ok', { n: M.peddler }), id);
+            }, `r-${id}`, `${M.peddler}G`);
+            markPick(id);
+          }
+          leave('mystery.skip', done);
+        });
+        return;
+      }
+
+      if (kind === 'locker') {
+        // 잊힌 사물함: 가진 유물 하나를 넣으면 같은 등급의 다른 유물이 나옵니다. 무엇이 나올지는 모릅니다.
+        choose(() => {
+          const list = swappable();
+          base(title, t(list.length ? 'mystery.locker.text' : 'mystery.locker.empty'));
+          list.forEach((id) => {
+            option(relicName(id), relicText(id), false, () => {
+              const left = sameRarityLeft(run, RELICS[id].rarity, [id]);
+              if (!left.length) return;
+              const got = left[Math.floor(Math.random() * left.length)];
+              loseRelic(run, id);
+              takeRelic(got);
+              play('right');
+              settle(() => t('mystery.locker.ok', { old: relicName(id) }), got);
+            }, `r-${id}`, t(`relic.rarity.${RELICS[id].rarity}`));
+            markPick(id);
+          });
+          leave('mystery.skip', done);
+        });
+        return;
+      }
+
+      if (kind === 'bench') {
+        // 쉬어 가는 벤치: 지금 회복할지, 최대 체력을 늘릴지 고릅니다.
+        choose(() => {
+          base(title, t('mystery.bench.text'));
+          option(t('mystery.bench.heal'), t('mystery.bench.healSub', { n: M.benchHeal }), false, () => {
+            const before = run.hp;
+            run.hp = Math.min(run.maxHp, run.hp + M.benchHeal);
+            const n = run.hp - before;
+            settle(() => t('mystery.bench.healOk', { n }));
+          }, 'heal');
+          option(t('mystery.bench.max'), t('mystery.bench.maxSub', { n: M.benchMax }), false, () => {
+            run.maxHp += M.benchMax;
+            run.hp += M.benchMax;
+            settle(() => t('mystery.bench.maxOk', { n: M.benchMax }));
+          }, 'maxhp');
+        });
+        return;
+      }
+
       // 바로 일어나는 일: 효과를 한 번만 적용하고 결과를 보여줍니다.
       let n = 1;
       if (typeof node.mysteryN === 'number') {
@@ -574,11 +754,14 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
         run.gold -= n;
       } else if (kind === 'note') {
         run.hints += 1;
+      } else if (kind === 'weaknote') {
+        run.weakNote = M.weakNote; // 다음 전투에서 씁니다 (js/battle.js)
+        n = M.weakNote;
       }
       node.mysteryN = n;
       persist();
       open(() => {
-        base(`mystery.${kind}.title`, t(`mystery.${kind}.text`, { n }));
+        base(title, t(`mystery.${kind}.text`, { n }));
         showTip('event');
         leave('ev.continue', done);
       });

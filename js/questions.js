@@ -231,12 +231,13 @@ function pickEntry(candidates) {
 // 범위 안에 그 단계의 문제가 없으면 가장 가까운 단계의 문제를 냅니다.
 // favor: 적의 약점 유형. 주면 CONFIG.weakRate 의 확률로 그 유형을 먼저 냅니다. (그 유형에 이 단계의 문제가 없으면 가장 가까운 단계)
 //   범위가 넓어질수록 약점 유형이 우연히 나올 확률은 줄어듭니다 (유형 수 분의 1). 이렇게 따로 올려 두어야 약점이 의미를 가집니다.
-export function next(level, favor = '') {
+// sure: favor 유형을 확률 없이 반드시 냅니다 (? 칸 "약점 쪽지"). 그 유형의 문제가 있기만 하면 단계 차이는 따지지 않습니다.
+export function next(level, favor = '', sure = false) {
   const pool = templates.filter(inScope);
-  if (favor && Math.random() < CONFIG.weakRate) {
+  if (favor && (sure || Math.random() < CONFIG.weakRate)) {
     const mine = pool.filter((entry) => entry.type === favor);
     const reach = mine.length ? Math.min(...mine.map((entry) => Math.abs(entry.level - level))) : 9;
-    if (reach <= 1) { // 두 단계 넘게 차이 나는 문제는 내지 않습니다 (쉬운 문제를 고른 사람에게 가장 어려운 문제가 나오지 않게)
+    if (reach <= (sure ? 8 : 1)) { // 두 단계 넘게 차이 나는 문제는 내지 않습니다 (쉬운 문제를 고른 사람에게 가장 어려운 문제가 나오지 않게)
       const near = Math.min(...mine.map((entry) => Math.abs(entry.level - level)));
       const pickFrom = mine.filter((entry) => Math.abs(entry.level - level) === near);
       const entry = pickFrom[rand(pickFrom.length)];

@@ -316,7 +316,7 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     if (B.kind === 'midboss') name = t('ui.midboss', { name });
     if (B.kind === 'boss') name = t('ui.boss', { name });
     $('foeName').textContent = name;
-    $('foeWeak').textContent = t('ui.weak', { type: typeName(B.weak) });
+    $('foeWeak').textContent = t('ui.weak', { type: typeName(B.weak) }) + (B.sure > 0 ? ` ${t('ui.weakSure', { n: B.sure })}` : ''); // 약점 쪽지가 남아 있으면 남은 횟수
     $('foeHpBar').style.width = `${Math.max(0, (B.foeHp / B.foeMax) * 100)}%`;
     $('foeHpGhost').style.width = $('foeHpBar').style.width; // 흰 줄이 조금 늦게 따라 줄어, 방금 깎인 만큼이 보입니다.
     $('foeHpText').textContent = `${Math.max(0, B.foeHp)} / ${B.foeMax}`;
@@ -454,7 +454,9 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     let level = CONFIG.guardLevel;
     if (action === 'basic') level = B.foe.basicLevel || 1;
     if (action === 'skill') level = B.foe.skillLevel || 2;
-    B.cur = next(level, action === 'defend' ? '' : B.weak); // 공격 문제는 약점 유형이 더 자주 나옵니다 (방어는 약점 보너스가 없어 그대로)
+    const sure = action !== 'defend' && B.sure > 0; // 약점 쪽지: 처음 몇 번의 공격 문제는 반드시 약점 유형
+    if (sure) B.sure -= 1;
+    B.cur = next(level, action === 'defend' ? '' : B.weak, sure); // 공격 문제는 약점 유형이 더 자주 나옵니다 (방어는 약점 보너스가 없어 그대로)
     B.cur.action = action;
     B.cur.removed = -1;
     B.cur.fill = fillOn() ? makeFill(B.cur) : null;
@@ -706,6 +708,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
     // 재도전 선물 "약해진 적": 남은 횟수 동안 전투·강적의 체력이 1 입니다. (횟수는 이겼을 때 js/main.js 가 줄입니다)
     if (run.frail > 0 && (kind === 'battle' || kind === 'elite')) B.foeMax = 1;
     B.foeHp = B.foeMax;
+    B.sure = run.weakNote || 0; // ? 칸 "약점 쪽지"를 읽었으면 이 전투에서 씁니다
+    run.weakNote = 0;
     B.turn = 0;
     B.combo = R('bookmark') ? Math.min(ultNeed(), RC.bookmark) : 0; // 책갈피: 연속 정답 1 에서 시작
     B.lastAction = null;

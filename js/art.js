@@ -230,6 +230,71 @@ const SCENES = {
     `<rect x="150" y="36" width="14" height="30" rx="5" fill="${AMBER}"/><circle cx="157" cy="76" r="6" fill="${AMBER}"/>` +
     hero(104, 108),
   ),
+  // 낡은 칠판: 다리 달린 칠판과 분필 글씨
+  board: () => frame(
+    stars() + hills + ground() + glow(238, 66, 44, '#9fe3c8', 0.08) +
+    `<path d="M206 108l8-18M270 108l-8-18" stroke="#6b4a2a" stroke-width="4" stroke-linecap="round"/>` +
+    `<rect x="194" y="38" width="88" height="56" rx="3" fill="#7a5632"/><rect x="199" y="43" width="78" height="46" rx="2" fill="#1f4a3f"/>` +
+    `<path d="M208 56h22M208 66h34M208 76h16" stroke="#e8f3ee" stroke-width="2" stroke-linecap="round" opacity="0.8"/>` +
+    `<path class="tw tw0" d="M250 60q8-8 14 0t-6 12M258 80h.5" stroke="${AMBER}" stroke-width="2.5" fill="none" stroke-linecap="round"/>` +
+    `<rect x="228" y="92" width="20" height="4" rx="1" fill="#96703f"/><rect x="232" y="89" width="9" height="3" rx="1" fill="#eef6ff"/>` +
+    hero(112, 108),
+  ),
+  // 내기꾼: 작은 탁자에 주사위와 동전을 올려 둔 두건 쓴 사람
+  bet: () => frame(
+    stars() + hills + ground() + glow(226, 88, 30, AMBER, 0.12) +
+    `<ellipse cx="270" cy="110" rx="18" ry="3.5" fill="#0b1430"/><path d="M256 108l14-36 14 36z" fill="#5a3d7a"/><circle cx="270" cy="66" r="10" fill="#f0c9a0"/>` +
+    `<path d="M258 66a12 13 0 0124 0l-4-3h-16z" fill="#3f2a58"/><circle cx="266" cy="67" r="1.4" fill="#12162e"/><circle cx="273" cy="67" r="1.4" fill="#12162e"/><path d="M266 72q4 3 8 0" stroke="#12162e" stroke-width="1.3" fill="none" stroke-linecap="round"/>` +
+    `<rect x="200" y="86" width="52" height="5" rx="2" fill="#96703f"/><path d="M208 91v17M244 91v17" stroke="#6b4a2a" stroke-width="4" stroke-linecap="round"/>` +
+    `<rect class="tw tw1" x="208" y="74" width="12" height="12" rx="2.5" fill="#eef6ff"/><circle cx="211.500" cy="77.500" r="1.3" fill="#12162e"/><circle cx="216.500" cy="82.500" r="1.3" fill="#12162e"/>` +
+    coin(234, 81, 5) + coin(243, 82, 4) +
+    hero(112, 108),
+  ),
+  // 수련장: 과녁이 달린 허수아비 기둥
+  dojo: () => frame(
+    stars() + hills + ground() + glow(236, 70, 40, ROSE, 0.08) +
+    `<rect x="232" y="50" width="8" height="58" rx="2" fill="#6b4a2a"/><rect x="206" y="62" width="60" height="7" rx="3" fill="#7a5632"/>` +
+    `<rect x="222" y="60" width="28" height="32" rx="8" fill="#c9a660"/><path d="M226 68h20M226 76h20M226 84h20" stroke="#a88a4a" stroke-width="1.5"/>` +
+    `<circle cx="236" cy="46" r="11" fill="#d9bb7a"/><circle cx="236" cy="76" r="8" fill="#eef6ff"/><circle cx="236" cy="76" r="5" fill="${ROSE}"/><circle class="tw tw0" cx="236" cy="76" r="2" fill="#eef6ff"/>` +
+    `<path d="M286 108V70M286 70l10-6M286 82l-9-5" stroke="#4d6ab0" stroke-width="3" stroke-linecap="round" opacity="0.6"/>` +
+    hero(120, 108),
+  ),
+  // 떠돌이 상인: 커다란 짐을 멘 사람과 등불
+  peddler: () => frame(
+    stars() + hills + ground() + glow(206, 80, 30, AMBER, 0.16) +
+    `<ellipse cx="250" cy="110" rx="24" ry="3.5" fill="#0b1430"/>` +
+    `<rect x="252" y="50" width="30" height="48" rx="8" fill="#7a5632"/><rect x="254" y="44" width="26" height="12" rx="5" fill="#f3e3b5"/><path d="M256 68h22M256 80h22" stroke="#96703f" stroke-width="2"/>` +
+    `<path d="M232 108l14-38 14 38z" fill="#2f6f73"/><circle cx="246" cy="64" r="10" fill="#f0c9a0"/><path d="M233 60h26l-5-10h-16z" fill="#c9a660"/>` +
+    `<circle cx="242" cy="65" r="1.4" fill="#12162e"/><circle cx="249" cy="65" r="1.4" fill="#12162e"/>` +
+    `<path d="M236 84l-26-12" stroke="#6b4a2a" stroke-width="3" stroke-linecap="round"/><path d="M210 72v6" stroke="#6b4a2a" stroke-width="2"/><rect class="tw tw0" x="204" y="78" width="12" height="15" rx="4" fill="${AMBER}"/>` +
+    hero(112, 108),
+  ),
+  // 잊힌 사물함: 한 칸만 문이 열려 빛이 새는 사물함
+  locker: () => frame(
+    stars() + hills + ground() + glow(238, 78, 34, '#6fd6ff', 0.1) +
+    `<rect x="196" y="44" width="86" height="64" rx="3" fill="#4d5a80"/>` +
+    [0, 1, 2].map((i) => `<rect x="${200 + i * 27}" y="48" width="24" height="56" rx="2" fill="${i === 1 ? '#0f1a3a' : '#5f6d96'}"/><path d="M${205 + i * 27} 55h14M${205 + i * 27} 60h14" stroke="#3b4667" stroke-width="1.5"/>`).join('') +
+    `<rect class="tw tw0" x="231" y="70" width="16" height="16" rx="3" fill="#6fd6ff" opacity="0.85"/>` +
+    `<path d="M251 48l14 6v52l-14-2z" fill="#7482ab"/><circle cx="262" cy="80" r="1.8" fill="#3b4667"/>` +
+    hero(112, 108),
+  ),
+  // 쉬어 가는 벤치: 가로등 아래의 벤치
+  bench: () => frame(
+    stars() + `<circle cx="306" cy="30" r="12" fill="#eef6ff"/><circle cx="312" cy="26" r="11" fill="${SKY}"/>` + hills + ground() +
+    `<path d="M282 108V46" stroke="#4d5a80" stroke-width="4" stroke-linecap="round"/><path d="M282 48h-14" stroke="#4d5a80" stroke-width="3" stroke-linecap="round"/>` +
+    glow(266, 58, 30, AMBER, 0.22) + `<rect class="tw tw0" x="260" y="48" width="12" height="14" rx="4" fill="${AMBER}"/>` +
+    `<rect x="196" y="84" width="66" height="6" rx="2" fill="#96703f"/><rect x="196" y="66" width="66" height="5" rx="2" fill="#96703f"/><rect x="196" y="74" width="66" height="5" rx="2" fill="#7a5632"/>` +
+    `<path d="M202 66v42M256 66v42" stroke="#6b4a2a" stroke-width="4" stroke-linecap="round"/>` +
+    hero(120, 108),
+  ),
+  // 약점 쪽지: 과녁 표시가 그려진 쪽지
+  weaknote: () => frame(
+    stars() + hills + ground() + glow(232, 74, 40, ROSE, 0.1) +
+    `<g transform="rotate(6 232 74)"><rect x="202" y="46" width="60" height="56" rx="4" fill="#f3e3b5"/><path d="M210 58h20M210 92h28" stroke="#a88a4a" stroke-width="2.5" stroke-linecap="round"/>` +
+    `<circle cx="238" cy="74" r="12" fill="none" stroke="${ROSE}" stroke-width="2.5"/><circle class="tw tw0" cx="238" cy="74" r="4" fill="${ROSE}"/><path d="M238 58v8M238 82v8M222 74h8M246 74h8" stroke="${ROSE}" stroke-width="2.5" stroke-linecap="round"/></g>` +
+    `<path d="M232 42l-3 8h6z" fill="#c95a6c"/><circle cx="232" cy="40" r="4" fill="${ROSE}"/>` +
+    hero(112, 108),
+  ),
   // 처음 화면: 구름 위로 솟은 탑 (360 × 170)
   title: () =>
     `<svg viewBox="0 0 360 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" aria-hidden="true">` +
