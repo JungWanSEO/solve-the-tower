@@ -97,11 +97,12 @@ export function scopeTree() {
 // 긴 탑: 고른 유형을 막 3개로 나눕니다. 막의 수는 과목 수와 상관없이 늘 3 입니다 (CONFIG.act.count).
 // 배우는 순서(목록의 단원 순서)대로 이어 붙인 뒤, 세 막의 유형 수가 비슷해지도록 단원의 경계에서 자릅니다.
 //   과목 하나(단원 셋)만 골랐다면 단원마다 한 막, 과목을 여럿 골랐다면 한 막에 여러 단원·과목이 들어갑니다.
-//   단원이 셋보다 적으면 유형 단위로 자릅니다. 유형이 너무 적으면(막마다 2개 미만) 긴 탑을 만들지 않습니다 → []
+//   단원이 셋보다 적으면 유형 단위로 자릅니다. 유형이 너무 적으면(막마다 2개 미만) 나누지 않고, 세 막 모두 고른 범위 전체에서 냅니다.
 export function actsFor(keys) {
   const count = CONFIG.act.count;
   const mine = keys.filter((key) => types.has(key));
-  if (mine.length < count * 2) return [];
+  if (!mine.length) return [];
+  if (mine.length < count * 2) return Array.from({ length: count }, () => ({ id: types.get(mine[0]).unit.subject.id, keys: [...mine] }));
   let blocks = units.map((unit) => mine.filter((key) => types.get(key).unit === unit)).filter((list) => list.length);
   if (blocks.length < count) blocks = blocks.flat().map((key) => [key]);
   // 자르는 자리 두 곳을 모두 해 보고, 가장 큰 막이 가장 작아지는 것을 고릅니다

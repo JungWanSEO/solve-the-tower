@@ -1,12 +1,12 @@
 // "지도 한 장"의 상태와 지도 만들기.
 // 체력, 골드, 힌트, 강화는 지도 한 장 동안 유지되고, 쓰러지면 모두 사라집니다.
 //
-// 지도 모양 (짧은 탑: CONFIG.map.half = 6 → 14층. 긴 탑의 한 막: actHalf = 4 → 10층)
-//   14층  보스
-//   13층  휴식 (보스 직전 준비)
-// 8~12층  갈라지는 길
-//    7층  중간 보스
-//  1~6층  갈라지는 길  ← 맨 아래에서 출발할 칸을 고릅니다. 4층은 모든 칸이 보물입니다
+// 지도 모양 (한 막 = 지도 한 장. CONFIG.map.half = 4 → 10층. 탑은 3막이라 30층)
+//   10층  보스
+//    9층  휴식 (보스 직전 준비)
+//  6~8층  갈라지는 길
+//    5층  중간 보스
+//  1~4층  갈라지는 길  ← 맨 아래에서 출발할 칸을 고릅니다
 import { CONFIG } from './config.js';
 import { gainRelic } from './relics.js';
 
@@ -64,8 +64,8 @@ function buildHalf(base, tag, half) {
   };
 }
 
-// half: 중간 보스 앞뒤의 층수, short: 짧은 탑인지 (보물 층은 짧은 탑에만 둡니다)
-function assignTypes(nodes, boost, half, short) {
+// half: 중간 보스 앞뒤의 층수
+function assignTypes(nodes, boost, half) {
   const parents = {};
   for (const n of nodes) {
     for (const id of n.next) {
@@ -79,7 +79,6 @@ function assignTypes(nodes, boost, half, short) {
     if (n.floor === 0) { n.type = 'battle'; continue; }      // 출발은 항상 전투
     if (n.floor === 2 * half) { n.type = 'rest'; continue; } // 보스 직전은 항상 휴식
     let pool = Object.keys(WEIGHTS);
-    if (short && n.floor === CONFIG.map.treasureRow) { n.type = 'treasure'; continue; } // 보물 층: 어느 길로 와도 상자를 하나 엽니다
     if (n.floor < 2) pool = pool.filter((type) => type !== 'rest' && type !== 'shop');
     if (n.floor < CONFIG.map.eliteFrom) pool = pool.filter((type) => type !== 'elite');
     if (n.floor === half + 1) pool = pool.filter((type) => type !== 'elite'); // 중간 보스 바로 다음
@@ -95,7 +94,7 @@ function assignTypes(nodes, boost, half, short) {
 }
 
 // ascend: 도전 단계 (2 이상이면 강적 칸이 늘어납니다)
-// half: 중간 보스 앞뒤의 층수 (짧은 탑은 CONFIG.map.half, 긴 탑의 한 막은 CONFIG.map.actHalf)
+// half: 중간 보스 앞뒤의 층수 (CONFIG.map.half. 예전 판을 이어 할 때는 그 판에 적힌 값)
 export function makeMap(ascend = 0, half = CONFIG.map.half) {
   const { width } = CONFIG.map;
   const lower = buildHalf(0, 'a', half);
@@ -106,18 +105,18 @@ export function makeMap(ascend = 0, half = CONFIG.map.half) {
   lower.last.forEach((n) => { n.next = ['mid']; });
   upper.last.forEach((n) => { n.next = ['boss']; });
   const nodes = [...lower.list, mid, ...upper.list, boss];
-  assignTypes(nodes, ascend >= 2 ? { elite: CONFIG.ascend.eliteWeight } : {}, half, half === CONFIG.map.half);
+  assignTypes(nodes, ascend >= 2 ? { elite: CONFIG.ascend.eliteWeight } : {}, half);
   return nodes;
 }
 
 // scope: 이번 판에 나올 문제 유형의 목록 ("단원/유형")
 // ascend: 이번 판의 도전 단계 (0 이면 보통), cheer: 격려 단계 (연달아 쓰러진 횟수에서 나옵니다)
-// acts: 긴 탑일 때 막의 목록 [{ id: 과목, keys: 그 막의 유형 }]. 없거나 하나뿐이면 지금까지처럼 지도 한 장으로 끝납니다.
+// acts: 막의 목록 [{ id: 과목, keys: 그 막의 유형 }]. 탑은 항상 3막입니다 (js/questions.js 의 actsFor). 없으면 지도 한 장으로 끝납니다 (튜토리얼 판, 범위를 고르기 전의 빈 판).
 // hero: 이번 판의 모습 (js/heroes.js). 체력과 시작 유물이 모습마다 다릅니다.
 export function newRun(scope, ascend = 0, cheer = 0, acts = null, hero = 'starter') {
   const { bonusPerType, bonusMax } = CONFIG.scope;
   const long = Array.isArray(acts) && acts.length > 1;
-  const half = long ? CONFIG.map.actHalf : CONFIG.map.half;
+  const half = CONFIG.map.half;
   const run = {
     scope: long ? [...acts[0].keys] : [...scope], // 지금 막에서 나오는 유형
     ...(long ? { full: [...scope], acts: acts.map((a) => ({ id: a.id, keys: [...a.keys] })), act: 0 } : {}),

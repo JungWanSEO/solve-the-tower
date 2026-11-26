@@ -491,10 +491,6 @@
     "relic": "A relic works on its own until this run ends. Tap the relic row at the top to see your bag."
   },
   "act": {
-    "askTitle": "Tower length",
-    "askText": "The long tower has {n} acts and {floors} floors. Your chosen range is split into three in the order it is taught: {list}. The short tower has {short} floors with mixed problems.",
-    "long": "Long tower ({n} acts)",
-    "short": "Short tower ({n} floors)",
     "nextTitle": "Act {n}: {name}",
     "nextText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. {left} acts remain, counting this one. Your gold and upgrades carry over.",
     "lastText": "Boss defeated. You gained {gold} gold and recovered {hp} HP. This is the final act. Your gold and upgrades carry over."
@@ -526,6 +522,30 @@
       "left": "This battle: {n} left",
       "armed": "Next correct answer +{n} ready"
     },
+    "notebook": {
+      "name": "New notebook",
+      "text": "Start each battle with +{n} streak (The Restarter only)"
+    },
+    "dogear": {
+      "name": "Dog-eared textbook",
+      "text": "Once per battle, a wrong answer does not break your streak (The Restarter only)"
+    },
+    "kneepad": {
+      "name": "Knee pads",
+      "text": "+{n} HP when a guard succeeds (Captain Grit only)"
+    },
+    "sneakers": {
+      "name": "Worn sneakers",
+      "text": "Block a heavy attack and your next special deals +{n} damage (Captain Grit only)"
+    },
+    "stopwatch": {
+      "name": "Stopwatch",
+      "text": "After a special, your next right answer deals +{n} damage (Lightning Abacus only)"
+    },
+    "flashmemo": {
+      "name": "Lightning memo",
+      "text": "With a streak of {need} or more, basic attacks deal +{n} damage (Lightning Abacus only)"
+    },
     "fx": {
       "add": "Damage +{n}",
       "gold": "+{n}G",
@@ -533,7 +553,10 @@
       "shieldReady": "1 block ready",
       "shieldUsed": "Damage blocked",
       "endure": "Survived with {n} HP",
-      "hint": "Hint +1"
+      "hint": "Hint +1",
+      "heal": "+{n} HP",
+      "ultUp": "next special +{n} damage",
+      "keep": "streak kept"
     },
     "pencil": {
       "name": "Worn Pencil",
@@ -625,21 +648,32 @@
       "name": "The Restarter",
       "role": "A balanced form",
       "ability": "No special ability. The basic rules",
-      "story": "The kid who gave up on math picked up the pencil again."
+      "story": "The kid who gave up on math picked up the pencil again.",
+      "ult": "One more time",
+      "ultSub": "{d} damage · +{n} HP",
+      "ultMsg": "One more time! {d} damage, and you recover {n} HP."
     },
     "grit": {
       "name": "Captain Grit",
       "role": "Holds on through mistakes",
       "ability": "After a successful guard, your next correct answer deals +{n} damage",
-      "story": "The kid who kept retrying became Captain Grit."
+      "story": "The kid who kept retrying became Captain Grit.",
+      "ult": "Stand and strike",
+      "ultSub": "{d} damage · block the next hit",
+      "ultMsg": "Stand and strike! {d} damage. The next hit on you is blocked."
     },
     "flash": {
       "name": "Lightning Abacus",
       "role": "Strong when answers chain",
       "ability": "Ultimate needs a streak of {n} (was {was})",
-      "story": "After two towers, the kid calculates as fast as lightning."
+      "story": "After two towers, the kid calculates as fast as lightning.",
+      "ult": "Lightning flurry",
+      "ultSub": "two hits, {d} damage",
+      "ultMsg": "Lightning flurry! Two hits for {d} damage."
     },
-    "fx": "{name} · Damage +{n}"
+    "fx": "{name} · Damage +{n}",
+    "ultLine": "Special · {name}: {desc}",
+    "fxBlock": "{name} · blocked the hit"
   },
   "key": {
     "name": "Keys",

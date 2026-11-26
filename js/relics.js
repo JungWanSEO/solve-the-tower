@@ -4,6 +4,7 @@
 //   - 숫자는 모두 js/config.js 의 CONFIG.relic 에 있습니다. 이름과 설명은 lang/ 의 relic.<id> 에 있습니다.
 //   - 효과가 실제로 걸리는 곳: 전투는 js/battle.js, 보상·회복·골드는 js/main.js, 상점·휴식·보물은 js/events.js
 import { CONFIG } from './config.js';
+import { heroOf } from './heroes.js';
 
 // 등급: common(흔함) · uncommon(드묾) · boss(보스. 불이익이 함께 있는 것도 있습니다)
 export const RELICS = {
@@ -27,7 +28,16 @@ export const RELICS = {
   ruler: { rarity: 'boss' },         // 금이 간 자: 모든 피해 +1, 최대 체력 −5
   workbook: { rarity: 'boss' },      // 두꺼운 문제집: 필살기 피해 +4, 필살기에 연속 정답 4개 필요
   bag: { rarity: 'boss' },           // 무거운 가방: 최대 체력 +10, 전투 승리 회복 −2
+  // 모습 전용 유물: hero 에 적힌 모습일 때만 보상·상점·? 칸에 나옵니다.
+  notebook: { rarity: 'uncommon', hero: 'starter' },  // 새 공책: 전투를 시작할 때 연속 정답 +1
+  dogear: { rarity: 'uncommon', hero: 'starter' },    // 모서리 접은 교과서: 전투마다 한 번, 틀려도 연속 정답이 끊기지 않음
+  kneepad: { rarity: 'uncommon', hero: 'grit' },      // 무릎 보호대: 방어에 성공하면 체력 +1
+  sneakers: { rarity: 'uncommon', hero: 'grit' },     // 낡은 운동화: 강한 공격을 막아 내면 다음 필살기 피해 +4
+  stopwatch: { rarity: 'uncommon', hero: 'flash' },   // 스톱워치: 필살기를 쓴 뒤 다음 정답의 피해 +2
+  flashmemo: { rarity: 'uncommon', hero: 'flash' },   // 번개 메모: 연속 정답이 1개 이상이면 기본 공격 피해 +1
 };
+// 이 판의 모습이 얻을 수 있는 유물인지 (전용 유물은 그 모습일 때만)
+export const fitsHero = (run, id) => !RELICS[id].hero || RELICS[id].hero === heroOf(run);
 export const RELIC_IDS = Object.keys(RELICS);
 
 export const has = (run, id) => Boolean(run && Array.isArray(run.relics) && run.relics.includes(id));
@@ -41,6 +51,7 @@ export function relicVars(id) {
   if (id === 'workbook') return { n: v.ult, need: v.need };
   if (id === 'bag') return { hp: v.hp, n: v.heal };
   if (id === 'chainbelt') return { n: v.uses, dmg: v.dmg };
+  if (id === 'flashmemo') return { n: v.dmg, need: v.need };
   if (id === 'alarm') return { n: v, was: CONFIG.foeAttack.bigEvery };
   if (id === 'redpen') return { n: CONFIG.damage.weakBonus + v, was: CONFIG.damage.weakBonus };
   return { n: v };
@@ -85,7 +96,7 @@ export function loseRelic(run, id) {
   return true;
 }
 // 아직 갖지 않은, 등급이 같은 유물들 (? 칸의 "떠돌이 상인"과 "잊힌 사물함")
-export const sameRarityLeft = (run, rarity, skip = []) => (CONFIG.relic.drops ? RELIC_IDS.filter((id) => RELICS[id].rarity === rarity && !has(run, id) && !skip.includes(id)) : []);
+export const sameRarityLeft = (run, rarity, skip = []) => (CONFIG.relic.drops ? RELIC_IDS.filter((id) => RELICS[id].rarity === rarity && fitsHero(run, id) && !has(run, id) && !skip.includes(id)) : []);
 
 const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
 
@@ -94,7 +105,7 @@ const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
 //   pool 'big'   : 드묾과 보스 등급 (중간 보스, 막을 넘어갈 때)
 export function rollRelics(run, count = 1, pool = 'normal', skip = []) {
   if (!CONFIG.relic.drops) return [];
-  const left = RELIC_IDS.filter((id) => !has(run, id) && !skip.includes(id));
+  const left = RELIC_IDS.filter((id) => fitsHero(run, id) && !has(run, id) && !skip.includes(id));
   const of = (rarity) => left.filter((id) => RELICS[id].rarity === rarity);
   const out = [];
   const take = (id) => {

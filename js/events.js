@@ -9,7 +9,7 @@ import { RELICS, has, gainRelic, loseRelic, sameRarityLeft, rollRelics, relicVar
 import { $, twoLineButton, toast, fillRelicText } from './ui.js';
 import { play } from './sound.js';
 import { scene, hasScene, icon, heroPortrait, currentHeroLook } from './art.js';
-import { HERO_IDS, unlockedHeroes, heroVars } from './heroes.js';
+import { HERO_IDS, unlockedHeroes, heroVars, ultVars } from './heroes.js';
 
 // 화면 제목으로 위쪽 장면 그림을 고릅니다. (? 칸은 mystery.<사건>.title 의 사건 이름이 곧 그림 이름)
 const ART = { 'bless.title': 'bless', 'ev.rewardTitle': 'reward', 'ev.shopTitle': 'shop', 'ev.restTitle': 'rest', 'ev.treasureTitle': 'treasure', 'relic.chooseTitle': 'treasure', 'hero.gainedTitle': 'clear', 'ev.overTitle': 'over', 'ev.clearTitle': 'clear' };
@@ -112,12 +112,13 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
     const card = document.createElement(onPick ? 'button' : 'div');
     if (onPick) card.type = 'button';
     card.className = `hero-card hero-${id}${locked ? ' locked' : ''}${current ? ' current' : ''}`;
-    card.innerHTML = `<i class="hero-face">${heroPortrait(id, locked)}</i><b></b><em></em><small class="hero-role"></small><small class="hero-ability"></small><small class="hero-start"></small>`;
+    card.innerHTML = `<i class="hero-face">${heroPortrait(id, locked)}</i><b></b><em></em><small class="hero-role"></small><small class="hero-ability"></small><small class="hero-ult"></small><small class="hero-start"></small>`;
     card.querySelector('b').textContent = locked ? t('codex.unseen') : t(`hero.${id}.name`);
     card.querySelector('em').textContent = locked ? '' : t('hero.hp', vars);
     card.querySelector('em').hidden = locked;
     card.querySelector('.hero-role').textContent = locked ? t('hero.locked', vars) : t(`hero.${id}.role`);
     card.querySelector('.hero-ability').textContent = locked ? '' : t(`hero.${id}.ability`, vars);
+    card.querySelector('.hero-ult').textContent = locked ? '' : t('hero.ultLine', { name: t(`hero.${id}.ult`), desc: t(`hero.${id}.ultSub`, ultVars(id)) });
     card.querySelector('.hero-start').textContent = locked ? '' : t('hero.start', { name: `${relicName(CONFIG.hero[id].relic)} (${relicText(CONFIG.hero[id].relic).split('\n')[0]})` });
     if (onPick) {
       card.disabled = locked;
