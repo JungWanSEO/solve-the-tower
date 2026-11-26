@@ -357,7 +357,9 @@ export function nextChain(boss = false) {
   return { id: entry.id, intro: () => fill(pick(entry.tpl.intro), shown(fields)), steps };
 }
 // 풀어 낸 물음을 한 줄로 요약합니다. 예: "(1) 꼭짓점: (2, −1)"
-export const stepSummary = (q, index) => `(${index + 1}) ${pick(q.sum)}: ${optionText(q.raw.item.answer)}`;
+// 이름이 기호뿐이면(α, b₁, |z|, cos θ …) 쌍점 대신 등호로 잇습니다: "(1) α = −2". 작은 글씨에서 "α:" 가 붙어 다른 글자처럼 보였습니다.
+const symbolOnly = (name) => /^[A-Za-zα-ωΑ-Ω₀-₉0-9|∠θ√÷・·′'\s]+$/.test(name) && !/[A-Za-z]{4,}/.test(name);
+export const stepSummary = (q, index) => { const name = pick(q.sum); return `(${index + 1}) ${name}${symbolOnly(name) ? ' = ' : ': '}${optionText(q.raw.item.answer)}`; };
 // 검사 도구용: 지금 푸는 물음을 "방금 낸 문제"로 알려 줍니다.
 export function setDebugLast(q) {
   last = q;

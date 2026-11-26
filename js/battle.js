@@ -59,6 +59,8 @@ export function createBattle({ stage, getRun, record, tutorial, onChange, master
   const ultDmg = () => myUlt().dmg * (myUlt().hits || 1) + ultAdd();
   // 틀렸을 때 연속 정답을 끊습니다. 모서리 접은 교과서(다시 시작한 아이 전용)가 있으면 전투마다 정해진 횟수는 지켜 줍니다.
   function breakCombo() {
+    // 다 찬 필살기는 쓸 때까지 남습니다. 틀려도 비우지 않습니다. (덜 찬 게이지만 "연속 정답"이라 틀리면 비워집니다)
+    if (B.combo >= ultNeed()) return;
     if (R('dogear') && B.rel.dogear > 0 && B.combo > 0) {
       B.rel.dogear -= 1;
       onRelic('dogear');
