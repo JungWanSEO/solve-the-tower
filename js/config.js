@@ -43,10 +43,12 @@ export const CONFIG = {
   boss: { attackAdd: 0 },              // 보스: 공격 추가 (체력은 monsters.json). 보스는 체력과 문제 단계로 어렵게 하고, 공격은 중간 보스와 같습니다
 
   map: {
-    half: 4,         // 중간 보스 앞뒤로 갈라지는 길이 몇 층씩인지 (전체 층수 = half × 2 + 2)
-    width: 4,        // 가로로 놓이는 칸의 최대 수
-    paths: 4,        // 길을 몇 가닥 긋는지 (많을수록 칸과 갈림길이 늘어납니다)
+    half: 4,         // 한 막(지도 한 장)에서 중간 보스 앞뒤로 갈라지는 길이 몇 층씩인지 (한 막의 층수 = half × 2 + 2 → 10층. 탑은 3막이라 30층)
+    width: 5,        // 가로로 놓이는 칸의 최대 수
+    paths: 5,        // 길을 몇 가닥 긋는지 (많을수록 칸과 갈림길이 늘어납니다)
+    eliteFrom: 3,    // 강적이 나오기 시작하는 층 (0 부터 셉니다. 3 = 4층부터)
   },
+
 
   mystery: {
     spring: 6,       // ? 칸 "샘물": 회복하는 체력
@@ -54,6 +56,16 @@ export const CONFIG = {
     purse: 25,       // ? 칸 "떨어진 지갑": 얻는 골드
     thief: 15,       // ? 칸 "소매치기": 잃는 골드
     statueLoss: 4,   // ? 칸 "수상한 석상": 문제를 틀렸을 때 잃는 체력
+    boardHints: 2,   // ? 칸 "낡은 칠판": 문제를 맞혔을 때 얻는 힌트 (틀려도 잃는 것은 없음)
+    bet: 20,         // ? 칸 "내기꾼": 거는 골드 (틀리면 잃음)
+    betWin: 40,      // ? 칸 "내기꾼": 맞혔을 때 얻는 골드
+    dojoCost: 5,     // ? 칸 "수련장": 강화 하나를 고르는 값으로 내는 체력
+    peddler: 40,     // ? 칸 "떠돌이 상인": 흔한 유물 하나의 값 (상점에서는 80G)
+    benchHeal: 4,    // ? 칸 "쉬어 가는 벤치": 회복하는 체력
+    benchMax: 2,     // ? 칸 "쉬어 가는 벤치": 늘어나는 최대 체력
+    weakNote: 3,     // ? 칸 "약점 쪽지": 다음 전투에서 약점 유형이 나오는 공격 문제의 수
+    // 사건이 나오는 비중. 적지 않은 사건은 1 입니다. 나쁜 일(안개, 소매치기, 기습)은 사건이 늘어도 예전만큼 나오도록 2 로 둡니다.
+    weights: { fog: 2, thief: 2, ambush: 2 },
   },
 
   gold: {
@@ -70,8 +82,8 @@ export const CONFIG = {
     reviewHeal: 3,   // 복습 문제를 맞혔을 때 회복하는 체력
   },
 
-  // 긴 탑: 과목 하나가 한 막(지도 한 장)이 됩니다. 막을 넘어갈 때 체력을 회복하고, 뒤의 막일수록 적이 조금 단단합니다.
-  act: { heal: 12, hpAdd: 0.1, count: 3 }, // count: 긴 탑의 막 수 (과목 수와 상관없이 고정. 고른 범위를 이 수로 나눕니다)
+  // 탑은 3막입니다: 고른 범위를 셋으로 나눈 것이 한 막(지도 한 장)씩 됩니다. 막을 넘어갈 때 체력을 회복하고, 뒤의 막일수록 적이 조금 단단합니다.
+  act: { heal: 12, hpAdd: 0.1, count: 3 }, // count: 탑의 막 수 (과목 수와 상관없이 고정. 고른 범위를 이 수로 나눕니다)
   scope: {
     bonusPerType: 0.05, // 범위에 유형을 하나 더 넣을 때마다 늘어나는 골드 비율
     bonusMax: 0.5,      // 골드 보너스의 최대
@@ -103,7 +115,7 @@ export const CONFIG = {
     eliteWeight: 2,  // 2단계: 강적 칸이 나올 무게에 곱하는 값
     eliteHp: 0.25,   // 2단계: 강적의 체력 증가 비율 (1단계에 더해집니다). 강적은 유물을 주므로 칸만 늘려서는 어려워지지 않았습니다
     attackAdd: 1,    // 3단계: 적의 보통 공격에 더하는 값
-    heal: 2,         // 4단계: 전투 승리 회복 (보통은 player.healOnWin)
+    heal: 3,         // 4단계: 전투 승리 회복 (보통은 player.healOnWin = 4). 탑이 30층이 되어 2 는 너무 가혹했습니다 (정답률 70%의 클리어율이 3단계 50% → 4단계 17%)
     hints: 0,        // 4단계: 시작할 때 가진 힌트 수
     bossHp: 0.15,    // 5단계: 중간 보스와 보스의 체력 증가 비율 (1단계에 더해집니다)
     bigAdd: 2,       // 5단계: 적의 강한 공격에 더하는 값
@@ -123,9 +135,12 @@ export const CONFIG = {
 
   // 모습(직업). 탑을 깬 횟수가 clears 이상이면 얻습니다. 어떤 모습인지는 js/heroes.js, 이름과 설명은 lang/ 의 hero.<id>. 임시 값입니다.
   hero: {
-    starter: { clears: 0, hp: 30, relic: 'pencil' },                    // 다시 시작한 아이: 균형. 고유 능력 없음
-    grit: { clears: 1, hp: 30, relic: 'setsquare', guardBonus: 1 },     // 끈기 대장: 방어에 성공하면 다음 정답의 피해 +guardBonus
-    flash: { clears: 2, hp: 24, relic: 'bookmark', ultNeed: 2 },        // 암산 번개: 필살기에 필요한 연속 정답이 ultNeed 개
+    // ult: 그 모습의 필살기. dmg 피해, hits 몇 번 치는지(없으면 1), heal 회복하는 체력, shield 다음에 받을 피해를 막는 횟수
+    starter: { clears: 0, hp: 34, relic: 'pencil', ult: { dmg: 8, heal: 4 } },                    // 다시 시작한 아이: 균형. 고유 능력 없음
+    grit: { clears: 1, hp: 30, relic: 'setsquare', guardBonus: 1, ult: { dmg: 8, shield: 1 } },     // 끈기 대장: 방어에 성공하면 다음 정답의 피해 +guardBonus
+    flash: { clears: 2, hp: 24, relic: 'bookmark', ultNeed: 2, ult: { dmg: 5, hits: 2 } },        // 암산 번개: 필살기에 필요한 연속 정답이 ultNeed 개
+    // 오답 탐정: 진보스를 trueClears 번 이기면 얻습니다. 약점 유형이 먼저 나올 확률이 weakRate (보통은 위의 weakRate)
+    sleuth: { clears: 0, trueClears: 1, hp: 26, relic: 'redpen', weakRate: 0.5, ult: { dmg: 6, sure: 1 } }, // ult.sure: 필살기 뒤에 반드시 약점 유형으로 나오는 공격 문제의 수
     force: '',                                                          // 밸런스를 잴 때: 이 모습으로 고정하고 고르는 화면을 건너뜁니다
   },
 
@@ -151,6 +166,15 @@ export const CONFIG = {
     ruler: { dmg: 2, hp: 6 },       // 금이 간 자: 모든 피해에 더하는 값, 줄어드는 최대 체력
     workbook: { ult: 8, need: 1 },  // 두꺼운 문제집: 필살기에 더하는 피해, 필살기에 필요한 연속 정답에 더하는 수
     bag: { hp: 12, heal: 1 },       // 무거운 가방: 늘어나는 최대 체력, 줄어드는 전투 승리 회복
+    // 모습 전용 유물 (그 모습일 때만 보상·상점에 나옵니다)
+    notebook: 1,     // 새 공책 (다시 시작한 아이): 전투를 시작할 때의 연속 정답에 더하는 수
+    dogear: 1,       // 모서리 접은 교과서 (다시 시작한 아이): 전투마다 틀려도 연속 정답이 끊기지 않는 횟수
+    kneepad: 1,      // 무릎 보호대 (끈기 대장): 방어에 성공했을 때 회복하는 체력
+    sneakers: 4,     // 낡은 운동화 (끈기 대장): 강한 공격을 막아 낸 뒤 다음 필살기에 더하는 피해
+    stopwatch: 2,    // 스톱워치 (암산 번개): 필살기를 쓴 뒤 다음 정답에 더하는 피해
+    flashmemo: { need: 1, dmg: 1 }, // 번개 메모 (암산 번개): 연속 정답이 need 개 이상일 때 기본 공격에 더하는 피해
+    magnifier: 3,    // 돋보기 (오답 탐정): 약점 유형의 문제를 맞혔을 때의 골드
+    checklist: 3,    // 체크 리스트 (오답 탐정): 전투마다 첫 약점 정답에 더하는 피해
     commonWeight: 2,                // 보통 보상에서 흔함 : 드묾 = 2 : 1
     price: { common: 80, uncommon: 120 }, // 상점 가격
     emptyGold: 40,                  // 줄 유물이 남아 있지 않을 때 대신 주는 골드

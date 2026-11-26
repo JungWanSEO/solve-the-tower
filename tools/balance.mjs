@@ -24,7 +24,7 @@ function one(acc, runs) {
 }
 
 console.log(`runs per accuracy: ${RUNS}`);
-console.log('accuracy | clear rate | deaths by floor (1F … 10F)');
+console.log('accuracy | clear rate | deaths by floor (1F …)');
 for (const acc of ACCS) {
   const jobs = [];
   for (let left = RUNS; left > 0; left -= PER) jobs.push(one(acc, Math.min(PER, left)));
@@ -37,6 +37,7 @@ for (const acc of ACCS) {
     for (const [f, n] of Object.entries(part.deathFloors || {})) total.floors[f] = (total.floors[f] || 0) + n;
   }
   const all = total.clears + total.deaths;
-  const floors = Array.from({ length: 10 }, (_, i) => String(total.floors[i + 1] || 0).padStart(2)).join(' ');
+  const last = Math.max(10, ...Object.keys(total.floors).map(Number));
+  const floors = Array.from({ length: last }, (_, i) => String(total.floors[i + 1] || 0).padStart(2)).join(' ');
   console.log(`   ${Math.round(acc * 100)}%   |   ${String(Math.round((total.clears / Math.max(1, all)) * 100)).padStart(3)}% (${total.clears}/${all}) | ${floors}${total.errors ? `  errors ${total.errors}` : ''}`);
 }

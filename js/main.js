@@ -7,7 +7,7 @@ import { load, store } from './save.js';
 import { loadAll, setScope, allTypeKeys, hasType, hasUnit, subjectNames, actsFor, actLabel, starterKeys } from './questions.js';
 import { newRun, nextAct, isLastAct } from './run.js';
 import { RELICS, has, relicVars } from './relics.js';
-import { heroOf, unlockedHeroes, newHeroes, heroVars } from './heroes.js';
+import { heroOf, unlockedHeroes, newHeroes, heroVars, ultVars } from './heroes.js';
 import { createNews } from './news.js';
 import { createStage } from './stage.js';
 import { createBattle } from './battle.js';
@@ -57,8 +57,10 @@ async function boot() {
       delete data.codex[key];
     }
   }
+  // 탑은 항상 3막입니다: 고른 범위를 셋으로 나눕니다 (js/questions.js 의 actsFor). 나눌 유형이 없으면 null.
+  const threeActs = (keys) => { const acts = actsFor(keys); return acts.length > 1 ? acts : null; };
   // 저장된 지도가 없거나 예전 형식이면 새로 만듭니다. 범위가 없던 지도는 전체 범위로 봅니다.
-  if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(starterKeys()); // 처음 판(튜토리얼)은 첫 과목의 문제만
+  if (!data.run || !Array.isArray(data.run.nodes)) data.run = newRun(starterKeys(), 0, 0, data.tut === 'done' ? threeActs(starterKeys()) : null); // 처음 판(튜토리얼)은 첫 과목의 문제만, 지도 한 장(10층)
   setHeroLook(heroOf(data.run)); // 장면 그림 속 주인공을 이어서 할 판의 모습으로
   if (!Array.isArray(data.run.scope) || !data.run.scope.some(hasType)) data.run.scope = allTypeKeys();
   data.run.scope = data.run.scope.filter(hasType); // 꺼진 단원의 유형이 예전 기록에 남아 있으면 뺍니다
@@ -240,7 +242,7 @@ async function boot() {
       if (id === 'chainbelt') return t('relic.state.left', { n: Math.max(0, state.chainLeft) });
       return '';
     };
-    $('bagTitle').textContent = `${t('relic.bag')} · ${t('relic.count', { n: relics.length })}`;
+    $('bagTitle').textContent = `${t('relic.bagTitle')} · ${t('relic.count', { n: relics.length })}`;
     $('bagClose').textContent = t('relic.close');
     const list = $('bagList');
     list.innerHTML = '';
@@ -252,7 +254,8 @@ async function boot() {
       row.innerHTML = `<i class="ico hero-face">${heroPortrait(id)}</i><b></b><em></em><small></small>`;
       row.querySelector('b').textContent = t(`hero.${id}.name`);
       row.querySelector('em').textContent = t('hero.now');
-      row.querySelector('small').textContent = t(`hero.${id}.ability`, heroVars(id));
+      row.querySelector('small').textContent = `${t(`hero.${id}.ability`, heroVars(id))}\n${t('hero.ultLine', { name: t(`hero.${id}.ult`), desc: t(`hero.${id}.ultSub`, ultVars(id)) })}`;
+      row.querySelector('small').style.whiteSpace = 'pre-line';
       list.appendChild(row);
     }
     for (const id of relics) {
@@ -281,10 +284,17 @@ async function boot() {
       toast(t('hero.fx', { name: t('hero.grit.name'), n: vars.n }), icon('counter'));
       return;
     }
-    const what = id === 'library' ? t('relic.fx.gold', vars)
+    if (id === 'hero-block') { // 필살기 "버티고 한 방"으로 피해를 막았을 때
+      toast(t('hero.fxBlock', { name: t(`hero.${vars.hero}.ult`) }), icon('counter'));
+      return;
+    }
+    const what = id === 'library' || id === 'magnifier' ? t('relic.fx.gold', vars)
       : id === 'eraser' ? t('relic.fx.half', vars)
         : id === 'bandage' ? t('relic.fx.endure', vars)
           : id === 'note' ? t('relic.fx.hint')
+            : id === 'kneepad' ? t('relic.fx.heal', vars)
+            : id === 'sneakers' ? t('relic.fx.ultUp', vars)
+            : id === 'dogear' ? t('relic.fx.keep')
             : id === 'ribbon' ? t(vars.used ? 'relic.fx.shieldUsed' : 'relic.fx.shieldReady')
               : t('relic.fx.add', vars);
     toast(`${t(`relic.${id}.name`)} · ${what}`, icon(`r-${id}`));
@@ -407,20 +417,8 @@ async function boot() {
   const scope = createScope({
     data,
     onStart(keys) {
-      // 탑의 길이를 묻습니다: 긴 탑(3막 30층, 범위를 셋으로 나눠 차례로) 또는 짧은 탑(10층, 섞어서). 튜토리얼 중이거나 유형이 너무 적으면 짧은 탑.
-      const acts = actsFor(keys);
-      if (acts.length > 1 && !tutorial.active()) {
-        ask({
-          title: t('act.askTitle'),
-          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => actLabel(a.keys)).join(' → ') }),
-          buttons: [
-            { label: t('act.short'), kind: 'primary', run: () => chooseHero(keys, null) },
-            { label: t('act.long', { n: acts.length }), run: () => chooseHero(keys, acts) },
-          ],
-        });
-        return;
-      }
-      chooseHero(keys, null);
+      // 탑은 항상 3막(30층)입니다: 고른 범위를 셋으로 나눠 차례로 오릅니다. 튜토리얼 판만 지도 한 장(10층)입니다.
+      chooseHero(keys, tutorial.active() ? null : threeActs(keys));
     },
     onBack: () => goTitle(),
   });
@@ -552,12 +550,14 @@ async function boot() {
       if (result === 'lose') {
         // 게임 오버: 지도 한 장의 진행은 사라지고, 도감 기록은 남습니다.
         data.deaths = (data.deaths || 0) + 1;
-        data.last = { floor: node.floor + 1, clear: false }; // 다음 판의 재도전 선물이 이것을 봅니다
+        const acts = run.acts ? run.acts.length : 1;
+        const climbed = (run.act || 0) * run.floors + node.floor + 1; // 탑 전체에서 몇 번째 층인지 (2막 3층 = 13층)
+        data.last = { floor: climbed, clear: false }; // 다음 판의 재도전 선물이 이것을 봅니다
         if (!run.ascend) data.falls = (data.falls || 0) + 1; // 연달아 쓰러진 횟수 (격려 단계가 됩니다)
-        data.run = newRun(run.full || run.scope);
+        data.run = newRun(run.full || run.scope, 0, 0, threeActs(run.full || run.scope));
         persist();
         go('screenEvent');
-        events.gameover({ floor: node.floor + 1, total: run.floors }, goScope);
+        events.gameover({ floor: node.floor + 1, total: run.floors, act: (run.act || 0) + 1, acts, climbed, all: acts * run.floors }, goScope);
         return;
       }
       // 유물: 돼지 저금통은 골드를, 간식 주머니와 무거운 가방은 승리 회복을 바꿉니다.
@@ -599,7 +599,7 @@ async function boot() {
             data.ascendMax = level + 1;
             data.ascend = level + 1;
           }
-          data.run = newRun(run.full || run.scope);
+          data.run = newRun(run.full || run.scope, 0, 0, threeActs(run.full || run.scope));
           persist();
           go('screenEvent');
           events.clear(gold, goScope, opened ? level + 1 : 0, extra);

@@ -97,11 +97,12 @@ export function scopeTree() {
 // 긴 탑: 고른 유형을 막 3개로 나눕니다. 막의 수는 과목 수와 상관없이 늘 3 입니다 (CONFIG.act.count).
 // 배우는 순서(목록의 단원 순서)대로 이어 붙인 뒤, 세 막의 유형 수가 비슷해지도록 단원의 경계에서 자릅니다.
 //   과목 하나(단원 셋)만 골랐다면 단원마다 한 막, 과목을 여럿 골랐다면 한 막에 여러 단원·과목이 들어갑니다.
-//   단원이 셋보다 적으면 유형 단위로 자릅니다. 유형이 너무 적으면(막마다 2개 미만) 긴 탑을 만들지 않습니다 → []
+//   단원이 셋보다 적으면 유형 단위로 자릅니다. 유형이 너무 적으면(막마다 2개 미만) 나누지 않고, 세 막 모두 고른 범위 전체에서 냅니다.
 export function actsFor(keys) {
   const count = CONFIG.act.count;
   const mine = keys.filter((key) => types.has(key));
-  if (mine.length < count * 2) return [];
+  if (!mine.length) return [];
+  if (mine.length < count * 2) return Array.from({ length: count }, () => ({ id: types.get(mine[0]).unit.subject.id, keys: [...mine] }));
   let blocks = units.map((unit) => mine.filter((key) => types.get(key).unit === unit)).filter((list) => list.length);
   if (blocks.length < count) blocks = blocks.flat().map((key) => [key]);
   // 자르는 자리 두 곳을 모두 해 보고, 가장 큰 막이 가장 작아지는 것을 고릅니다
@@ -231,12 +232,14 @@ function pickEntry(candidates) {
 // 범위 안에 그 단계의 문제가 없으면 가장 가까운 단계의 문제를 냅니다.
 // favor: 적의 약점 유형. 주면 CONFIG.weakRate 의 확률로 그 유형을 먼저 냅니다. (그 유형에 이 단계의 문제가 없으면 가장 가까운 단계)
 //   범위가 넓어질수록 약점 유형이 우연히 나올 확률은 줄어듭니다 (유형 수 분의 1). 이렇게 따로 올려 두어야 약점이 의미를 가집니다.
-export function next(level, favor = '') {
+// sure: favor 유형을 확률 없이 반드시 냅니다 (? 칸 "약점 쪽지"). 그 유형의 문제가 있기만 하면 단계 차이는 따지지 않습니다.
+// rate: favor 유형이 먼저 나올 확률 (모습 "오답 탐정"은 더 높습니다)
+export function next(level, favor = '', sure = false, rate = CONFIG.weakRate) {
   const pool = templates.filter(inScope);
-  if (favor && Math.random() < CONFIG.weakRate) {
+  if (favor && (sure || Math.random() < rate)) {
     const mine = pool.filter((entry) => entry.type === favor);
     const reach = mine.length ? Math.min(...mine.map((entry) => Math.abs(entry.level - level))) : 9;
-    if (reach <= 1) { // 두 단계 넘게 차이 나는 문제는 내지 않습니다 (쉬운 문제를 고른 사람에게 가장 어려운 문제가 나오지 않게)
+    if (reach <= (sure ? 8 : 1)) { // 두 단계 넘게 차이 나는 문제는 내지 않습니다 (쉬운 문제를 고른 사람에게 가장 어려운 문제가 나오지 않게)
       const near = Math.min(...mine.map((entry) => Math.abs(entry.level - level)));
       const pickFrom = mine.filter((entry) => Math.abs(entry.level - level) === near);
       const entry = pickFrom[rand(pickFrom.length)];
