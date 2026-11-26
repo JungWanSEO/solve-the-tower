@@ -1,12 +1,12 @@
 // "지도 한 장"의 상태와 지도 만들기.
 // 체력, 골드, 힌트, 강화는 지도 한 장 동안 유지되고, 쓰러지면 모두 사라집니다.
 //
-// 지도 모양 (CONFIG.map 의 half = 4 일 때)
-//   10층  보스
-//    9층  휴식 (보스 직전 준비)
-//  6~8층  갈라지는 길
-//    5층  중간 보스
-//  1~4층  갈라지는 길  ← 맨 아래에서 출발할 칸을 고릅니다
+// 지도 모양 (짧은 탑: CONFIG.map.half = 6 → 14층. 긴 탑의 한 막: actHalf = 4 → 10층)
+//   14층  보스
+//   13층  휴식 (보스 직전 준비)
+// 8~12층  갈라지는 길
+//    7층  중간 보스
+//  1~6층  갈라지는 길  ← 맨 아래에서 출발할 칸을 고릅니다. 4층은 모든 칸이 보물입니다
 import { CONFIG } from './config.js';
 import { gainRelic } from './relics.js';
 
@@ -28,8 +28,8 @@ function weightedPick(types, boost = {}) {
 }
 
 // 지도의 절반을 만듭니다. 아래에서 위로 올라가는 길을 여러 개 그어, 길이 지나간 자리에 칸이 생깁니다.
-function buildHalf(base, tag) {
-  const { half, width, paths } = CONFIG.map;
+function buildHalf(base, tag, half) {
+  const { width, paths } = CONFIG.map;
   const cells = new Map(); // "층,열" → 칸
   const edges = new Set(); // "층,열>다음 열"
   const cell = (f, c) => {
@@ -64,8 +64,8 @@ function buildHalf(base, tag) {
   };
 }
 
-function assignTypes(nodes, boost) {
-  const { half } = CONFIG.map;
+// half: 중간 보스 앞뒤의 층수, short: 짧은 탑인지 (보물 층은 짧은 탑에만 둡니다)
+function assignTypes(nodes, boost, half, short) {
   const parents = {};
   for (const n of nodes) {
     for (const id of n.next) {
@@ -79,7 +79,9 @@ function assignTypes(nodes, boost) {
     if (n.floor === 0) { n.type = 'battle'; continue; }      // 출발은 항상 전투
     if (n.floor === 2 * half) { n.type = 'rest'; continue; } // 보스 직전은 항상 휴식
     let pool = Object.keys(WEIGHTS);
-    if (n.floor < 2) pool = pool.filter((type) => type !== 'elite' && type !== 'rest' && type !== 'shop');
+    if (short && n.floor === CONFIG.map.treasureRow) { n.type = 'treasure'; continue; } // 보물 층: 어느 길로 와도 상자를 하나 엽니다
+    if (n.floor < 2) pool = pool.filter((type) => type !== 'rest' && type !== 'shop');
+    if (n.floor < CONFIG.map.eliteFrom) pool = pool.filter((type) => type !== 'elite');
     if (n.floor === half + 1) pool = pool.filter((type) => type !== 'elite'); // 중간 보스 바로 다음
     let type = weightedPick(pool, boost);
     // 휴식·상점·강적이 연달아 나오지 않게 합니다.
@@ -93,17 +95,18 @@ function assignTypes(nodes, boost) {
 }
 
 // ascend: 도전 단계 (2 이상이면 강적 칸이 늘어납니다)
-export function makeMap(ascend = 0) {
-  const { half, width } = CONFIG.map;
-  const lower = buildHalf(0, 'a');
-  const upper = buildHalf(half + 1, 'b');
+// half: 중간 보스 앞뒤의 층수 (짧은 탑은 CONFIG.map.half, 긴 탑의 한 막은 CONFIG.map.actHalf)
+export function makeMap(ascend = 0, half = CONFIG.map.half) {
+  const { width } = CONFIG.map;
+  const lower = buildHalf(0, 'a', half);
+  const upper = buildHalf(half + 1, 'b', half);
   const center = (width - 1) / 2;
   const mid = { id: 'mid', floor: half, col: center, type: 'midboss', next: upper.first.map((n) => n.id) };
   const boss = { id: 'boss', floor: 2 * half + 1, col: center, type: 'boss', next: [] };
   lower.last.forEach((n) => { n.next = ['mid']; });
   upper.last.forEach((n) => { n.next = ['boss']; });
   const nodes = [...lower.list, mid, ...upper.list, boss];
-  assignTypes(nodes, ascend >= 2 ? { elite: CONFIG.ascend.eliteWeight } : {});
+  assignTypes(nodes, ascend >= 2 ? { elite: CONFIG.ascend.eliteWeight } : {}, half, half === CONFIG.map.half);
   return nodes;
 }
 
@@ -114,15 +117,17 @@ export function makeMap(ascend = 0) {
 export function newRun(scope, ascend = 0, cheer = 0, acts = null, hero = 'starter') {
   const { bonusPerType, bonusMax } = CONFIG.scope;
   const long = Array.isArray(acts) && acts.length > 1;
+  const half = long ? CONFIG.map.actHalf : CONFIG.map.half;
   const run = {
     scope: long ? [...acts[0].keys] : [...scope], // 지금 막에서 나오는 유형
     ...(long ? { full: [...scope], acts: acts.map((a) => ({ id: a.id, keys: [...a.keys] })), act: 0 } : {}),
     goldMul: 1 + Math.min(bonusMax, bonusPerType * Math.max(0, scope.length - 1)), // 범위가 넓을수록 골드를 더 받습니다
-    nodes: makeMap(ascend),
+    nodes: makeMap(ascend, half),
+    half,            // 이 지도의 중간 보스 앞뒤 층수
     ascend,          // 도전 단계
     cheer,           // 격려 단계 (받는 피해가 줄어듭니다)
     frail: 0,        // 재도전 선물: 적 체력이 1 이 되는 전투가 몇 번 남았는지
-    floors: 2 * CONFIG.map.half + 2,
+    floors: 2 * half + 2,
     at: null,        // 마지막으로 끝낸 칸 (아직 출발 전이면 null)
     pending: null,   // 들어갔지만 아직 끝내지 못한 칸
     visited: [],     // 지나온 칸
@@ -147,7 +152,7 @@ export const isLastAct = (run) => !run.acts || run.act >= run.acts.length - 1;
 export function nextAct(run) {
   run.act += 1;
   run.scope = [...run.acts[run.act].keys];
-  run.nodes = makeMap(run.ascend || 0);
+  run.nodes = makeMap(run.ascend || 0, run.half || (run.floors - 2) / 2);
   run.at = null;
   run.pending = null;
   run.visited = [];

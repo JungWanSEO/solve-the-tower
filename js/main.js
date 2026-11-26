@@ -412,9 +412,9 @@ async function boot() {
       if (acts.length > 1 && !tutorial.active()) {
         ask({
           title: t('act.askTitle'),
-          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.half + 2), list: acts.map((a) => actLabel(a.keys)).join(' → ') }),
+          text: t('act.askText', { n: acts.length, floors: acts.length * (2 * CONFIG.map.actHalf + 2), short: 2 * CONFIG.map.half + 2, list: acts.map((a) => actLabel(a.keys)).join(' → ') }),
           buttons: [
-            { label: t('act.short'), kind: 'primary', run: () => chooseHero(keys, null) },
+            { label: t('act.short', { n: 2 * CONFIG.map.half + 2 }), kind: 'primary', run: () => chooseHero(keys, null) },
             { label: t('act.long', { n: acts.length }), run: () => chooseHero(keys, acts) },
           ],
         });
