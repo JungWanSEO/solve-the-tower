@@ -2,7 +2,7 @@
 // 모두 같은 화면(#screenEvent)을 씁니다. 제목, 설명, 고를 것 목록, 나가기 버튼으로 이루어집니다.
 import { CONFIG } from './config.js';
 import { t } from './i18n.js';
-import { next, nextByType, explainText, explainBrief, typeLabel, optionText } from './questions.js';
+import { next, nextByType, explainSteps, typeLabel, optionText } from './questions.js';
 import { fillQuestion } from './qview.js';
 import { UPGRADES, SHOP, rollUpgrades } from './run.js';
 import { RELICS, has, gainRelic, loseRelic, sameRarityLeft, rollRelics, relicVars, relicPrice } from './relics.js';
@@ -205,6 +205,23 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
       btn.addEventListener('click', () => onPick(i));
       box.appendChild(btn);
     });
+    // 답을 고른 뒤: 정답과 풀이를 답 아래에 보여 줍니다. 전투와 똑같이, 맞혔을 때도 보여 줍니다 (찍어서 맞힌 문제도 풀이를 보게).
+    const done = state.picked >= 0;
+    const ok = state.picked === state.q.correct;
+    $('evReview').hidden = !done;
+    $('evReview').classList.toggle('right', done && ok);
+    if (!done) return;
+    $('evReviewAnswer').textContent = t(ok ? 'ui.reviewRight' : 'ui.reviewAnswer', { answer: optionText(state.q.options[state.q.correct]) });
+    const steps = explainSteps(state.q.raw);
+    const text = $('evReviewText');
+    text.textContent = '';
+    if (steps.length <= 1) text.textContent = steps[0] || '';
+    else {
+      const list = document.createElement('ol');
+      list.className = 'steps';
+      for (const line of steps) { const li = document.createElement('li'); li.textContent = line; list.appendChild(li); }
+      text.appendChild(list);
+    }
   }
 
   // 문제 하나를 풀고 결과를 보여주는 화면.
@@ -213,7 +230,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
   function quizScreen({ titleKey, intro, question, onResult, done, tipKind = '', after = null }) {
     const state = { q: question, picked: -1, result: null };
     open(() => {
-      base(titleKey, state.picked < 0 ? intro() : state.result());
+      base(titleKey, state.picked < 0 ? intro() : state.result().trim()); // 풀이는 아래의 풀이 카드에 따로 나옵니다
       if (tipKind && state.picked < 0) showTip(tipKind);
       drawQuiz(state, (i) => {
         if (state.picked >= 0) return;
@@ -439,7 +456,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                 run.hp = Math.min(run.maxHp, run.hp + CONFIG.rest.reviewHeal);
                 return () => t('ev.reviewOk', { n: CONFIG.rest.reviewHeal });
               }
-              return () => t('ev.reviewFail', { explain: explainBrief(q.raw) });
+              return () => t('ev.reviewFail', { explain: '' });
             },
             done,
           });
@@ -497,7 +514,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
           }
           run.gold += CONFIG.gold.treasureLose;
           if (CONFIG.relic.treasureOnWrong) openChest(); // 틀려도 유물을 줄지는 설정으로 정합니다 (밸런스 비교용)
-          return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: explainBrief(q.raw) });
+          return () => t('ev.treasureFail', { gold: CONFIG.gold.treasureLose, explain: '' });
         },
         after: () => { if (got) relicCard(got); },
         done: () => (choose ? relicOrKey(done) : done()),
@@ -563,7 +580,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                   return () => t('mystery.statue.ok', { name: t(`up.${id}.name`), desc: t(`up.${id}.desc`) });
                 }
                 run.hp = Math.max(1, run.hp - M.statueLoss);
-                return () => t('mystery.statue.fail', { n: M.statueLoss, explain: explainBrief(q.raw) });
+                return () => t('mystery.statue.fail', { n: M.statueLoss, explain: '' });
               },
               done,
             });
@@ -609,7 +626,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                   run.hints += M.boardHints;
                   return () => t('mystery.board.ok', { n: M.boardHints });
                 }
-                return () => t('mystery.board.fail', { explain: explainBrief(q.raw) });
+                return () => t('mystery.board.fail', { explain: '' });
               },
               done,
             });
@@ -637,7 +654,7 @@ export function createEvents({ getRun, data, record, onChange, persist = () => {
                   run.gold += M.bet + M.betWin;
                   return () => t('mystery.bet.ok', { n: M.bet, win: M.betWin });
                 }
-                return () => t('mystery.bet.fail', { n: M.bet, explain: explainBrief(q.raw) });
+                return () => t('mystery.bet.fail', { n: M.bet, explain: '' });
               },
               done,
             });

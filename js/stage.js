@@ -2,7 +2,11 @@
 // 이미지 파일을 쓰지 않습니다. 새 몬스터는 draw 함수 하나를 추가하면 됩니다.
 const W = 360;
 const H = 230;
-const BAND = [40, 198]; // 캐릭터와 적이 서 있는 세로 범위. 칸이 낮아져도 이 범위는 잘리지 않게 그립니다.
+// 캐릭터와 적이 서 있는 세로 범위. 칸이 낮아져도 이 범위는 잘리지 않게 그립니다.
+//   아래쪽 206: 발밑의 그림자와 땅이 조금 보이는 데까지 (198 이었을 때는 그림자가 잘려, 캐릭터가 바닥 모서리에 걸친 것처럼 보였습니다)
+//   위쪽 36: 보통 몬스터의 머리 위까지. 이보다 키가 큰 몬스터는 TALL 에 맨 위의 높이를 적습니다.
+const BAND = [36, 206];
+const TALL = { magician: 20, shadow: 30, tower: 32, hopper: 32 };
 
 export function createStage(canvas) {
   const ctx = canvas.getContext('2d');
@@ -1310,16 +1314,17 @@ export function createStage(canvas) {
     let roof = 0; // 보이는 범위의 위쪽 끝 (그림 좌표). 떠오르는 숫자와 글이 이 위로 잘려 나가지 않게 합니다.
     if (boxW > 0 && boxH > 0) {
       const seen = boxH / (boxW / W); // 보이는 높이 (그림 좌표)
-      const need = BAND[1] - BAND[0];
-      if (seen < need) roof = BAND[0];
-      else if (seen < H) roof = (H - seen) * 0.62;
-      if (seen < need) {
-        const top = (H - seen) * 0.62; // style.css 의 object-position: 50% 62% 와 같은 값
-        const zoom = seen / need;
+      const bandTop = Math.min(BAND[0], TALL[S.kind] || BAND[0]); // 키 큰 몬스터는 머리 위까지
+      const need = BAND[1] - bandTop;
+      const top = (H - seen) * 0.62; // 보이는 범위의 위쪽 끝. style.css 의 object-position: 50% 62% 와 같은 값
+      // 줄어든 칸에 범위가 다 들어오지 않으면(높이가 모자라거나, 잘리는 위쪽에 머리가 걸리면) 범위가 칸에 꼭 맞게 옮기고 줄여서 그립니다.
+      if (seen < H && (seen < need || top > bandTop)) {
+        const zoom = Math.min(1, seen / need);
+        roof = bandTop;
         ctx.translate(W / 2, top);
         ctx.scale(zoom, zoom);
-        ctx.translate(-W / 2, -BAND[0]);
-      }
+        ctx.translate(-W / 2, -bandTop);
+      } else if (seen < H) roof = top;
     }
     for (let i = 0; i < stars.length; i++) {
       const st = stars[i];
